@@ -1,0 +1,39 @@
+name: PR
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  hugo-build:
+    name: Hugo Build
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: npm
+
+      - run: make deps
+
+      - run: make build
+
+      - name: Archive site
+        uses: actions/upload-artifact@v2
+        with:
+          name: site
+          path: public/
+          retention-days: 1

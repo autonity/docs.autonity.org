@@ -1,0 +1,33 @@
+baseURL = 'https://docs.autonity.org/'
+enableGitInfo = true
+languageCode = 'en-gb'
+theme = "docsy"
+title = 'docs.autonity.org'
+
+# Move the default contentDir one level down to facilitate a "docs only" site
+# without having to change the directory structure, which will be useful if we
+# decide to make use of landing page or other non-doc pages in future.
+contentDir = "content/docs"
+
+# Required to make Prism.js highlighting work
+# https://github.com/autonity/docs-autonity/issues/100
+pygmentsCodeFences = false
+
+[params]
+github_repo = "https://github.com/autonity/docs.autonity.org"
+github_project_repo = "https://github.com/autonity/docs.autonity.org"
+github_branch = "master"
+prism_syntax_highlighting = true
+
+# Enable local search with Lunr (does not require site to be public)
+offlineSearch = true
+
+[params.ui]
+sidebar_menu_compact = true
+ul_show = 2
+
+# Hide the duplicate search box in the sidebar (it still appears in top nav)
+sidebar_search_disable = true
+
+# Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top navbar
+navbar_logo = true

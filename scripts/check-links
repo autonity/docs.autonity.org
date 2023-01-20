@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Find all links [text](/path/to/page)
+
+errs=0
+for l in `git grep -ho -e '](/[^)]\+)' -- content/docs/ | grep -v '.png'` ; do
+    # Remove ]( and )
+    l=${l#](}
+    l=${l%)}
+
+    # Remove any anchor `#anchor`
+    link=`echo $l | sed -e 's/#.*//g'`
+
+    if ! [ -d "content/docs"$link ] ; then
+        echo INVALID LINK: $link
+        errs=1
+    fi
+done
+
+exit $errs

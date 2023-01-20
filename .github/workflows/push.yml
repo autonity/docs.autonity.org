@@ -1,0 +1,15 @@
+name: Push
+
+on:
+  push:
+
+jobs:
+  check-links:
+    name: Check Links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - run: ./scripts/check-links
