@@ -53,3 +53,18 @@ System participants of an Autonity network are:
  - validators: nodes with bonded stake and candidates for selection to the consensus committee. The consensus committee is responsible for proposing and deciding on new blocks.
 - stake holder: a holder of _Newton_ stake token that delegates stake to one or more validators in order to secure the network.  Validators may also "self-bond", or delegate stake to their own validator node.  Stake holders receive _Liquid Newton_ for bonded stake.
 - account holder: externally owned accounts of human users of the system.
+
+## Key concepts
+
+In addition to Ethereum concepts such as `address`, `gas`, and `node`, the distinction between participant and validator nodes is key in the Autonity context:
+
+| **Concept** | **Meaning** |
+| --------- | --------- |
+| [Auton (_XTN_)](/autonity/protocol-assets/auton/) | Autonity's native account coin (intrinsic balance of an account, like "Ether" in Ethereum). |
+| [Newton (_NTN_)](/autonity/protocol-assets/newton/) | Native staking instrument used to secure the Proof-of-Stake consensus mechanism. |
+| [Participant ](/autonity/system-model/#participants) node | A node running Autonity Go Client software and connected to other nodes in an Autonity network. A participant node maintains a copy of system state and may become a _validator_. |
+| [Validator](/autonity/validator/) node | A participant node that has registered as a validator on an Autonity network. A validator node may be selected to the _Consensus Committee_ if it has sufficient stake _bonded_ to it by a stake delegator. |
+| [Liquid Staking](/autonity/staking/) | Participants in the network can stake Newton to a specific validator to earn a fraction of the rewards granted for securing the network.  In return for staking, a validator issues _Liquid Newton_ tokens to the staker, where these tokens represent a claim on the staked Newton.  Liquid Newton tokens can be freely transferred between participants. |
+| [Consensus Committee](/autonity/consensus/committee/) | The subset of _validator_ nodes that participate in the consensus protocol. The Consensus Committee is updated periodically (every epoch), according to an algorithm prescribed by protocol. |
+
+For all Autonity terminology and concepts see the [Glossary](/glossary/).
