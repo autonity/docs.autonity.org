@@ -37,13 +37,13 @@ The Autonity client extends the underlying Ethereum protocol at application, blo
 
 For explanations of core concepts refer to:
 
-- [Architecture](/autonity/architecture/) for an Autonity system's technical architecture and protocol primitives.
-- [System model](/autonity/system-model/) for the functions of participant nodes and blockchain primitives comprising the structure of an Autonity system's peer-to-peer network and distributed ledger.
-- [Client](/autonity/client/) for an overview of AGC features.
-- [Consensus](/autonity/consensus/) for the protocol's implementation of the Tendermint BFT consensus algorithm, committee selection, and validators.
-- [Validator](/autonity/validator) for the role of validators and the functions they perform.
-- [Staking](/autonity/staking/) for protocol mechanisms and model for liquid staking.
-- [Tokenomics](/autonity/client/) for the protocol's native coin and tokens - _Auton_ settlement coin, _Newton_ stake token, and _Liquid Newton_ stake token.
+- [Architecture](/architecture/architecture/) for an Autonity system's technical architecture and protocol primitives.
+- [System model](/architecture/system-model/) for the functions of participant nodes and blockchain primitives comprising the structure of an Autonity system's peer-to-peer network and distributed ledger.
+- [Client](/architecture/client/) for an overview of AGC features.
+- [Consensus](/architecture/consensus/) for the protocol's implementation of the Tendermint BFT consensus algorithm, committee selection, and validators.
+- [Validator](/architecture/validator) for the role of validators and the functions they perform.
+- [Staking](/architecture/staking/) for protocol mechanisms and model for liquid staking.
+- [Tokenomics](/architecture/client/) for the protocol's native coin and tokens - _Auton_ settlement coin, _Newton_ stake token, and _Liquid Newton_ stake token.
 - The [Glossary](/glossary/#participant) for definitions of terms and concepts used in the documentation.
 
 ## System participants

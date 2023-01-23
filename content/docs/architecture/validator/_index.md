@@ -23,16 +23,16 @@ It has responsibilities to:
 - Provide bonded stake to the Proof of Stake consensus mechanism, providing locked stake for network security economics.
 
 
-As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour by [slashing](/autonity/staking/#slashing) mechanisms implemented in the consensus protocol. Consensus committee members are incentivised by [staking rewards](/autonity/staking/#staking-rewards), receiving a share of the transaction fee revenue earned for each block of transactions committed to system state, _pro rata_ to their share of bonded stake securing the system in that block. Byzantine behaviour is disincentivised by penalties for accountability and omission faults whilst a validator.
+As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour by [slashing](/architecture/staking/#slashing) mechanisms implemented in the consensus protocol. Consensus committee members are incentivised by [staking rewards](/architecture/staking/#staking-rewards), receiving a share of the transaction fee revenue earned for each block of transactions committed to system state, _pro rata_ to their share of bonded stake securing the system in that block. Byzantine behaviour is disincentivised by penalties for accountability and omission faults whilst a validator.
 
 ### Validator prerequisites   
 
 Prerequisites for becoming a validator node operator are:
 
-- A [validator enode URL](/autonity/validator/#validator-enode-url). A node joined to the network.
-- A [treasury account](/autonity/validator/#treasury-account). An EOA account that is the validator node operator's online identity and which:
-  - Is the `msg.sender()` account used by the operator to submit state affecting transactions that govern the [validator lifecycle](/autonity/validator/#validator-lifecycle).
-  - Will receive the validator's share of [staking rewards](/autonity/staking/#staking-rewards).
+- A [validator enode URL](/architecture/validator/#validator-enode-url). A node joined to the network.
+- A [treasury account](/architecture/validator/#treasury-account). An EOA account that is the validator node operator's online identity and which:
+  - Is the `msg.sender()` account used by the operator to submit state affecting transactions that govern the [validator lifecycle](/architecture/validator/#validator-lifecycle).
+  - Will receive the validator's share of [staking rewards](/architecture/staking/#staking-rewards).
 
 
 ## Validator identity, accounts and keypairs
@@ -113,9 +113,9 @@ Eligible validators are included in the committee selection algorithm. The algor
 
 ## Stake bonding and delegation
 
-Validators are staked with Autonity's [Newton](/autonity/protocol-assets/newton/) stake token. A genesis validator must bond stake at genesis. After genesis, a validator can bond their own Newton and have Newton staked to them by delegation from other Newton token holders at any time.
+Validators are staked with Autonity's [Newton](/architecture/protocol-assets/newton/) stake token. A genesis validator must bond stake at genesis. After genesis, a validator can bond their own Newton and have Newton staked to them by delegation from other Newton token holders at any time.
 
-Autonity implements a [liquid staking](/autonity/staking/#liquid-staking) model, minting [Liquid Newton](/autonity/protocol-assets/liquid-newton/) to the staker in proportion to the amount of Newton staked to a validator. It is important to note that staking rewards accrue to all holders of liquid newton. Upon receipt of liquid newton the holder becomes a delegator to the associated validator, and has a claim to some staked newton. Stake can be redeemed by a delegator at any time subject to the unbonding period set for the chain.
+Autonity implements a [liquid staking](/architecture/staking/#liquid-staking) model, minting [Liquid Newton](/architecture/protocol-assets/liquid-newton/) to the staker in proportion to the amount of Newton staked to a validator. It is important to note that staking rewards accrue to all holders of liquid newton. Upon receipt of liquid newton the holder becomes a delegator to the associated validator, and has a claim to some staked newton. Stake can be redeemed by a delegator at any time subject to the unbonding period set for the chain.
 
 Account addresses owning liquid newton and receiving staking reward revenue are:
 
@@ -191,7 +191,7 @@ Note that genesis registration requires the validator [self-bond](/glossary/#sel
 
 After genesis the process is:
 
-- Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the `registerValidator()` function to submit the Validator registration parameters  `enode` url and a `proof` of enode ownership generated from the private key of the validator node's [P2P node key](/autonity/validator/#p2p-node-key). The transaction `msgSender()` address is used for the validator's `treasury` parameter value. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
+- Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the `registerValidator()` function to submit the Validator registration parameters  `enode` url and a `proof` of enode ownership generated from the private key of the validator node's [P2P node key](/architecture/validator/#p2p-node-key). The transaction `msgSender()` address is used for the validator's `treasury` parameter value. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
 - A `RegisteredValidator` event is emitted by the Autonity Protocol Contract.
 - To bond stake to the validator, the staker submits a bonding request transaction to the Autonity Protocol Public APIs, calling the `bond()` function with its validator address (`enode`) and the bonded stake amount. This is recorded in a `Staking` state variable data structure ready to be applied at epoch end
 

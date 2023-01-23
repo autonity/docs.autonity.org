@@ -13,15 +13,15 @@ AGC is the reference implementation of the Autonity Protocol and the main client
 
 ### Core logic
 
-- _Autonity Protocol Contract_, the protocol contract logic deployed to the ledger providing operations for: protocol governance, staking, validator registration, consensus committee selection, and staking rewards distribution. See [Autonity Protocol Contract](/autonity/architecture/#autonity-protocol-contract).
+- _Autonity Protocol Contract_, the protocol contract logic deployed to the ledger providing operations for: protocol governance, staking, validator registration, consensus committee selection, and staking rewards distribution. See [Autonity Protocol Contract](/architecture/architecture/#autonity-protocol-contract).
 - _EVM_, the deterministic virtual machine providing the state transition function for computing global state,
-- _Consensus_, the Tendermint BFT consensus protocol managing state replication and block production with dynamic committee selection. See [Blockchain Consensus](/autonity/architecture/#blockchain-consensus).
-- _P2P Networking_, transport and wire protocols providing reliable broadcast for blockchain and consensus state synchronisation between participants. See [Communication Layer](/autonity/architecture/#communication-layer)
+- _Consensus_, the Tendermint BFT consensus protocol managing state replication and block production with dynamic committee selection. See [Blockchain Consensus](/architecture/architecture/#blockchain-consensus).
+- _P2P Networking_, transport and wire protocols providing reliable broadcast for blockchain and consensus state synchronisation between participants. See [Communication Layer](/architecture/architecture/#communication-layer)
 - _Core_, the core Autonity Go Client codebase managing interactions with the blockchain ledger and EVM.
 
 
 ### State storage
-Each participant maintains a local state database synchronised to world state, using a LevelDB k-v store. See also [System model](/autonity/system-model/) and the [Ledger object](/autonity/system-model/#the-ledger-object). 
+Each participant maintains a local state database synchronised to world state, using a LevelDB k-v store. See also [System model](/architecture/system-model/) and the [Ledger object](/architecture/system-model/#the-ledger-object). 
 
 ### APIs
 The client provides APIs for:

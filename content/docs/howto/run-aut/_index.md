@@ -112,7 +112,7 @@ Now you can [install the `aut` cli tool](/howto/setup-autcli) on your _local_ ma
 
 <!-- ## Node keys -->
 
-<!-- When you start Autonity, it generates a private key for the node in the shared `autonity-chaindata` folder. This is the private key that the node will use for signing p2p messages when broadcasting transactions (See [P2P node key](/autonity/validator/#p2p-node-key)). You can view the key with the following command: -->
+<!-- When you start Autonity, it generates a private key for the node in the shared `autonity-chaindata` folder. This is the private key that the node will use for signing p2p messages when broadcasting transactions (See [P2P node key](/architecture/validator/#p2p-node-key)). You can view the key with the following command: -->
 
 <!-- ```bash -->
 <!-- sudo cat autonity-chaindata/autonity/nodekey -->

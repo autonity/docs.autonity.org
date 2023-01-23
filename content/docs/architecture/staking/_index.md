@@ -12,7 +12,7 @@ description: >
 
 Autonity implements the Tendermint Proof of Stake consensus protocol, enhanced by a liquid staking model. PoS consensus secures the network by an economic incentivisation scheme that rewards honest behaviour with revenue from transaction fees and punishes dishonest behaviour by slashing penalties that may confiscate a portion of bonded stake or otherwise impact the staking rewards a [validator](/glossary/#validator) would earn while participating in consensus.
 
-Stake in an Autonity network is represented as the [Newton](/autonity/protocol-assets/newton/) stake token. Any network participant holding Newton becomes a [stakeholder](/glossary/#stakeholder) and is able to participate in securing the network and earn a share of [staking rewards](/glossary/#staking-rewards) proportionate to their stake in return. As default, Newton is in an unbonded and unlocked state and can be transferred to other stakeholders. On bonding, Newton is locked and no longer transferrable; Liquid Newton is minted to the stakeholder in equal proportion to the stake locked. In this liquid staking model the Liquid Newton receives the staking reward entitlements due to the bonded stake it represents, and Liquid Newton is transferrable. To redeem stake, the converse to bonding occurs. Liquid Newton is burned (so it is no longer tradable) and after the expiry of a [locking (unbonding) period](/autonity/staking/#unbondingperiod) the bonded Newton is redeemed.
+Stake in an Autonity network is represented as the [Newton](/architecture/protocol-assets/newton/) stake token. Any network participant holding Newton becomes a [stakeholder](/glossary/#stakeholder) and is able to participate in securing the network and earn a share of [staking rewards](/glossary/#staking-rewards) proportionate to their stake in return. As default, Newton is in an unbonded and unlocked state and can be transferred to other stakeholders. On bonding, Newton is locked and no longer transferrable; Liquid Newton is minted to the stakeholder in equal proportion to the stake locked. In this liquid staking model the Liquid Newton receives the staking reward entitlements due to the bonded stake it represents, and Liquid Newton is transferrable. To redeem stake, the converse to bonding occurs. Liquid Newton is burned (so it is no longer tradable) and after the expiry of a [locking (unbonding) period](/architecture/staking/#unbondingperiod) the bonded Newton is redeemed.
 
 Staking is open - any network participant is able to purchase stake token and [delegate](/glossary/#delegate) stake to validators. 
 
@@ -72,7 +72,7 @@ Staking rewards are a distribution of fee revenue entitlement to stakeholders de
 
 Staking rewards are collected by protocol and accumulate in a protocol account as blocks are processed throughout a block epoch. The fees are out of circulation until epoch end, at which point the protocol distributes them _pro rata_ to their share of the stake bonding the committee to the validator committee members. After this distribution, the rewards become _claimable_ by stake delegators. Delegators then claim fees in a "pull" model, at the frequency they choose. 
 
-For more detail on EIP 1559 and the distinction between _base fee_ and _priority fee_, see [Transaction fees](/autonity/system-model/#transaction-fees) in the System model.
+For more detail on EIP 1559 and the distinction between _base fee_ and _priority fee_, see [Transaction fees](/architecture/system-model/#transaction-fees) in the System model.
 
 ### Reward distribution
 
@@ -150,7 +150,7 @@ At each epoch rollover there is an evaluation of the bonded stake. As the last b
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is applied at epoch end.  
 
-{{< alert title="Note" >}}Consensus [committee member selection](/autonity/consensus/committee/#committee-member-selection) takes place at epoch end for computation and transactional efficiency.
+{{< alert title="Note" >}}Consensus [committee member selection](/architecture/consensus/committee/#committee-member-selection) takes place at epoch end for computation and transactional efficiency.
 
 Further, in an interoperability scenario where state is shared across chains, rather than submit a state proof of a new validator set every block, we only need to send a checkpoint of the validator set every epoch.{{< /alert >}}
 
@@ -166,7 +166,7 @@ For example, an unbonding scenario with an epoch period of 30 blocks, an unbondi
 
 ## Staking transitions
 
-Staking transitions are the application of changes to stake bonded to validators. Newton stake token can be in [three states](/autonity/protocol-assets/newton/):
+Staking transitions are the application of changes to stake bonded to validators. Newton stake token can be in [three states](/architecture/protocol-assets/newton/):
  - The default state of `unbonded`.
  - The locked state of `bonded`.
  - An intermediate state of `unbonding` when it is locked pending redemption.
@@ -186,7 +186,7 @@ Example: Alice sends `bond()` tx at time `T`, a block in an epoch. Newton is loc
 
 Staking rewards are earned when a nominated validator is a consensus committee member. Bonding across more than one validator is allowed. The committee size is limited and staking rewards are limited to the number of validators in the current committee for the epoch.
 
-{{< alert title="Note" >}}Stake can only be bonded to a registered validator in an `active` state. A bonding request to a validator in a `paused` state will revert. See [Validator pausing](/autonity/validator/#validator-pausing) and [Validator lifecycle](/autonity/validator/#validator-lifecycle).{{< /alert >}}
+{{< alert title="Note" >}}Stake can only be bonded to a registered validator in an `active` state. A bonding request to a validator in a `paused` state will revert. See [Validator pausing](/architecture/validator/#validator-pausing) and [Validator lifecycle](/architecture/validator/#validator-lifecycle).{{< /alert >}}
 
 ### Delegation
 
@@ -194,7 +194,7 @@ See Bonding above.
 
 ### Unbonding
 
-Stake is unbonded from a validator through an unbonding operation. Unbonding is subject to an [unbonding period](/autonity/staking/#unbondingperiod) during which it remains locked. The unbonding period applies irrespective of whether the nominated validator is a member of the consensus committee or not. 
+Stake is unbonded from a validator through an unbonding operation. Unbonding is subject to an [unbonding period](/architecture/staking/#unbondingperiod) during which it remains locked. The unbonding period applies irrespective of whether the nominated validator is a member of the consensus committee or not. 
 
 Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalised. On processing the transaction the bonded stake token moves from `bonded` to the intermediate state of `unbonding`. The stake is still locked during the unbonding period. The unbonding request is captured and tracked in memory and the staking transition is applied at the end of the epoch in which the unbonding period expires: unbonding is applied, reducing the validator’s bonded stake amount and so applying the voting power change to the validator.
 
@@ -219,7 +219,7 @@ Economic penalties vary in severity and are applied according to the type of fau
 
 Bonding stake to a validator enters the staker in to a risk mutualisation model shared with the validator, i.e. if the validator is penalised then the staker may lose stake as consequence. This risk is realised when unbonding. 
 
-As described in [Liquid Newton](/autonity/staking/#liquid-newton), a conversion rate between Liquid Newton and Newton is maintained by the protocol's tokenomics to ensure that a validator's Liquid Newton tokens remain 1:1 fungible. As consequence, a staker can redeem staked Newton in full _unless_ there has been a slashing event. In this circumstance, the stake redemption will be affected. 
+As described in [Liquid Newton](/architecture/staking/#liquid-newton), a conversion rate between Liquid Newton and Newton is maintained by the protocol's tokenomics to ensure that a validator's Liquid Newton tokens remain 1:1 fungible. As consequence, a staker can redeem staked Newton in full _unless_ there has been a slashing event. In this circumstance, the stake redemption will be affected. 
 
 For example:
 

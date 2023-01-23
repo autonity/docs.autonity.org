@@ -29,7 +29,7 @@ To claim fees using the Autonity NodeJS Console you need:
 
     - `Account`: your _staking Wallet_ account address
     - `(index)`: the validator index, i.e. if the 1st or nth validator registered in the network
-    - `validator`: the unique [validator identifier](/autonity/validator/#validator-identifier)
+    - `validator`: the unique [validator identifier](/architecture/validator/#validator-identifier)
     - `lntn`: the amount of Liquid Newton the staker owns for that validator
     - `claimableRewards`: the amount of rewards the staker can claim from the stake delegation, denominated in [attoton](/glossary/#attoton), Auton's wei equivalent.
 

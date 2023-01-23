@@ -63,7 +63,7 @@ The network bootnode addresses are:
 
 ## Faucet
 
-- Faucet for [auton](/autonity/protocol-assets/auton) test funds: [https://faucet.autonity.org/](https://faucet.autonity.org/)
+- Faucet for [auton](/architecture/protocol-assets/auton) test funds: [https://faucet.autonity.org/](https://faucet.autonity.org/)
 
 ## Public endpoints:
 

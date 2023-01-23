@@ -534,7 +534,7 @@ Displays an index-sorted list of all the stake delegations from the specified (i
 Then, a table showing stake delegations sorted by validator index:
 
 - `(index)`: the validator index, i.e. if the 1st or nth validator registered in the network.
-- `validator`: the unique [validator identifier](/autonity/validator/#validator-identifier).
+- `validator`: the unique [validator identifier](/architecture/validator/#validator-identifier).
 - `lntn`: the amount of Liquid Newton the staker owns for that validator.
 - `claimableRewards`: the amount of rewards the staker can claim from the stake delegation, denominated in [attoton](/glossary/#attoton), auton's wei equivalent.
 
@@ -578,7 +578,7 @@ Calls the `claimRewards()` function for the specified validator. The sender's ac
 | Field | Datatype | Description |
 | --| --| --|
 | `account` | `address` | the account address of the sender. This is the sender's _Staking Wallet_ account: the staker address that owns the liquid newton being sent |
-| `validator` | `address` | the unique [validator identifier](/autonity/validator/#validator-identifier) of the validator stake delegation from which liquid newton is being sent |
+| `validator` | `address` | the unique [validator identifier](/architecture/validator/#validator-identifier) of the validator stake delegation from which liquid newton is being sent |
 
 
 ### Response
@@ -672,7 +672,7 @@ Calls the `transfer()` function for the specified validator. The sender's accoun
 
 | Field | Datatype | Description |
 | --| --| --|
-| `val` | `address` | the unique [validator identifier](/autonity/validator/#validator-identifier) of the validator stake delegation from which liquid newton is being sent |
+| `val` | `address` | the unique [validator identifier](/architecture/validator/#validator-identifier) of the validator stake delegation from which liquid newton is being sent |
 | `from` | `address` | the account address of the sender. This is the sender's _Staking Wallet_ account: the staker address that owns the liquid newton being sent |
 | `to` | `address` | the account address of the recipient. |
 | `value` | `uint256 ` | the amount of liquid newton being sent |

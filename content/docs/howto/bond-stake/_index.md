@@ -6,7 +6,7 @@ description: >
   How to bond and unbond stake to validators in an Autonity network
 ---
 
-See the [staking section](/autonity/staking/) to understand the concepts behind bonding and unbonding.
+See the [staking section](/architecture/staking/) to understand the concepts behind bonding and unbonding.
 
 ## Prerequisites
 
@@ -64,7 +64,7 @@ to your `.autrc` file.
 {{< /alert >}}
 
 {{% pageinfo %}}
-As described in [Committee member selection](/autonity/consensus/committee/#committee-member-selection) the set of validators in the consensus committee is changed at every block epoch. [Voting power changes](/autonity/consensus/committee/#voting-power-changes) caused by bonding and unbonding stake to a validator are applied at the end of an epoch before the committee selection algorithm for the next epoch's committee is run.
+As described in [Committee member selection](/architecture/consensus/committee/#committee-member-selection) the set of validators in the consensus committee is changed at every block epoch. [Voting power changes](/architecture/consensus/committee/#voting-power-changes) caused by bonding and unbonding stake to a validator are applied at the end of an epoch before the committee selection algorithm for the next epoch's committee is run.
 
 To get the validators in the current consensus committee use the `protocol` command `get-committee` to call:
 
@@ -97,5 +97,5 @@ aut validator unbond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut t
 ```
 
 {{< alert name="Note" >}}
-Like bonding requests, unbonding does not complete immediately.  After an unbonding period, the Newton will be returned to the caller.  See the [staking section](/autonity/staking/) for further details.
+Like bonding requests, unbonding does not complete immediately.  After an unbonding period, the Newton will be returned to the caller.  See the [staking section](/architecture/staking/) for further details.
 {{< /alert >}}

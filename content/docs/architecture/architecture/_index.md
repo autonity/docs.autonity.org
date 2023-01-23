@@ -66,7 +66,7 @@ The Autonity contract manages liquid staking - maintaining the ledger of _newton
 - provide stake holders standard ERC20 token operations for accessing the _newton_ stake token ledger and metadata
 - manage staking transitions, tracking bond and unbond requests until staking transitions are applied at epoch end
 
-To learn more about the concept see [Staking](/autonity/staking/).
+To learn more about the concept see [Staking](/architecture/staking/).
 
 ### Validators
 The Autonity contract implements logic to manage validator registration on the system:
@@ -74,14 +74,14 @@ The Autonity contract implements logic to manage validator registration on the s
 - provides public APIs to register new validators and query existing registered validators
 - trigger the deployment of validator-specific _liquid newton_ ERC20 contracts as validators are registered on the system.
 
-To learn more about the concept see [Validators](/autonity/validator/).
+To learn more about the concept see [Validators](/architecture/validator/).
 
 ### Committee selection
 Computing the committee is a protocol only function. As the last block of each epoch is finalized, this function is executed to determine the committee for the following epoch.
 
 The committee is selected from the registered validators maintained in system state by the Autonity contract. Validators are ranked by bonded stake, those with the highest stake being selected to the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members that voted to approve the block.
 
-To learn more about the concept see [Consensus](/autonity/consensus/) and  [Committee](/autonity/consensus/committee/).
+To learn more about the concept see [Consensus](/architecture/consensus/) and  [Committee](/architecture/consensus/committee/).
 
 ### Reward distribution
 
@@ -101,7 +101,7 @@ When distribution occurs:
 - a percentage determined by the validator `delegationRate` parameter is deducted and transferred to the validator treasury account as a commission fee. The initial delegation rate is set globally for all validators in the network, specified by the `delegationRate` protocol parameter in the genesis configuration file.  It can be modified by individual validators after registration.
 - rewards are distributed to stake delegator accounts _pro rata_ according to their share of the stake bonded to the validator
 
-To learn more about the concept see [Staking rewards and distribution](/autonity/staking/#staking-rewards-and-distribution) and [Staking accounts](/autonity/staking/#staking-accounts).
+To learn more about the concept see [Staking rewards and distribution](/architecture/staking/#staking-rewards-and-distribution) and [Staking accounts](/architecture/staking/#staking-accounts).
 
 ## Blockchain Consensus
 
@@ -116,7 +116,7 @@ The consensus prototocol makes use of:
 - the communication layer for consensus round messaging and consensus state synchronisation
 - the Autonity Protocol Contract for committee selection logic.
 
-To learn more about the concept, see [consensus](/autonity/consensus/) and the [protocol parameters](/reference/protocol/) reference.
+To learn more about the concept, see [consensus](/architecture/consensus/) and the [protocol parameters](/reference/protocol/) reference.
 
 ## Communication Layer
 Autonity uses a [fully connected network topology](/glossary/#mesh-network) with peer-to-peer communication based on Ethereum [devp2p](https://github.com/ethereum/devp2p) network protocols RLPx and wire protocol. The devp2p Node Discovery Protocol is not used. Bootnodes are provided as a static file provided at node initialisation.
@@ -124,11 +124,11 @@ Autonity uses a [fully connected network topology](/glossary/#mesh-network) with
 Each participant maintains a current record of peers in the network, updated as new participants join or leave the system. Participants establish an authenticated connection with one another over TCP by the RLPx transport protocol. At the application-level, Autonity extends the Ethereum wire protocol for message broadcast to:
 
 - add message types for consensus and state synchronisation exchanged by committee members during Tendermint consensus rounds for block proposal, prevote, and precommit.
-- generate crptographically signed 'seals' for validator messages sent during consensus rounds. Seals are included in the [block header](/autonity/system-model/#block-header) as a cryptographic proof of the validator quorum that agreed the block. There are two types of seal:
+- generate crptographically signed 'seals' for validator messages sent during consensus rounds. Seals are included in the [block header](/architecture/system-model/#block-header) as a cryptographic proof of the validator quorum that agreed the block. There are two types of seal:
     - proposer seal, seal of the committee member proposing the block
     - committed seal, aggregated seal of the committee members that voted and agreed on the block
-- provide reliable broadcast logic and duplicate message send prevention under an [eventually synchronous model](/autonity/system-model/#networking) to guarantee the liveness property of consensus messaging in the wire protocol.
+- provide reliable broadcast logic and duplicate message send prevention under an [eventually synchronous model](/architecture/system-model/#networking) to guarantee the liveness property of consensus messaging in the wire protocol.
 
-To learn more about the concept, see [Networking](/autonity/system-model/#networking) in the System model.
+To learn more about the concept, see [Networking](/architecture/system-model/#networking) in the System model.
 
 For how bootnode provision works, see the How to [Run Autonity](/howto/run-aut/).
