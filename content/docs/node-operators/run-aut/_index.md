@@ -105,29 +105,8 @@ To shutdown the node, press `CTRL-C` and wait for it to exit.
 <!-- TODO: Add a link once section exists -->
 
 {{% pageinfo %}}
-Now you can [install the `aut` cli tool](/howto/setup-autcli) on your _local_ machine and connect to your node.
+Now you can now [connect to your node using the `aut` cli tool](/node-operators/connect/) from your _local_ machine.
 {{% /pageinfo %}}
-
-<!-- TODO: where does this belong? -->
-
-<!-- ## Node keys -->
-
-<!-- When you start Autonity, it generates a private key for the node in the shared `autonity-chaindata` folder. This is the private key that the node will use for signing p2p messages when broadcasting transactions (See [P2P node key](/architecture/validator/#p2p-node-key)). You can view the key with the following command: -->
-
-<!-- ```bash -->
-<!-- sudo cat autonity-chaindata/autonity/nodekey -->
-<!-- ``` -->
-
-<!-- To use a different private key, kill the container and then replace the old private key in the `autonity-chaindata/autonity` folder with a new one with the following command: -->
-
-<!-- ```bash -->
-<!-- sudo nano autonity-chaindata/autonity/nodekey -->
-<!-- ``` -->
-<!-- Because the `autonity-chaindata` folder is mounted as a shared volume, the blockchain and nodekey data is persistent with node restarts. -->
-
-<!-- ## Metrics -->
-
-<!-- For local metrics, the following address is available: http://127.0.0.1:6060/debug/metrics -->
 
 ------------------------------------------------
 

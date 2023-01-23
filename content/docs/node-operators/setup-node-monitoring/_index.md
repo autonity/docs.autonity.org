@@ -1,7 +1,7 @@
 ---
 title: "Set up node monitoring"
 linkTitle: "Setup node monitoring"
-weight: 4
+weight: 40
 description: >
    How to setup node monitoring infrastructure for an Autonity Go Client node using Telegraf, InfluxDB v2.x and Grafana run in Docker containers
 ---
@@ -31,7 +31,7 @@ Familiarity with monitoring and the basics of the third-party products used in t
 - [InfluxDB V2](https://www.influxdata.com/products/influxdb-overview/) time-series data platform.
 - [Grafana](https://grafana.com/docs/grafana/latest/) observability dashboarding for monitoring and analysing metrics, log data, and application trace data.
 
-## Install Influxdb v2 and Grafana 
+## Install Influxdb v2 and Grafana
 
 - Make persistent container volumes:
 
@@ -137,7 +137,7 @@ To configure Autonity for exporting metrics set [command line options](/referenc
 - enabling metrics collection and reporting: `--metrics`.
 - enabling the pprof HTTP server: `--pprof`.
 
-The [Piccadilly Testnet](https://docs.autonity.org/networks/testnet-piccadilly/) is connected to in the example configuration here. For a minimal command line start configuration see the how to [Run Autonity](/howto/run-aut/). 
+The [Piccadilly Testnet](https://docs.autonity.org/networks/testnet-piccadilly/) is connected to in the example configuration here. For a minimal command line start configuration see the how to [Run Autonity](/howto/run-aut/).
 
 Autonity will serve an http feed that provides metrics at `http://localhost:6060/debug/metrics/prometheus`, which you can view in a browser. Notice this is the input specified in `telegraf.conf` above. If you are using Docker, make sure you run the container as host, as shown below:
 
