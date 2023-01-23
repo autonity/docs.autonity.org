@@ -12,7 +12,8 @@ for l in `git grep -ho -e '](/[^)]\+)' -- content/docs/ | grep -v '.png'` ; do
     link=`echo $l | sed -e 's/#.*//g'`
 
     if ! [ -d "content/docs"$link ] ; then
-        echo INVALID LINK: $link
+        filename=$(grep -ril "($link)")
+        echo "FILES: $filename INVALID LINK: $link"
         errs=1
     fi
 done
