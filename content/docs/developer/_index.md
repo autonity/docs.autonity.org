@@ -1,11 +1,13 @@
 
 ---
-title: "How to's"
-linkTitle: "How to's"
+title: "Development with Autonity"
+linkTitle: "Development"
 weight: 60
 description: >
-  How to index and system prerequisites to install and run Autonity
+draft: true
 ---
+
+<!-- TODO: following content needs editing before exposing this page. -->
 
 ## Prerequisites
 
