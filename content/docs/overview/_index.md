@@ -52,7 +52,7 @@ The actors of an Autonity network are:
 
 - [Account Holders](/account-holders/): externally owned accounts of human users of the system. Account holders are the users interacting with an Autonity network: operating node and validation infrastructure, deploying and using decentralised applications, building and contributing to the community and ecosystem.
 
-- [Node operators](/node-operatorss/): network peer nodes running the AGC client software, forming the backbone of the networks p2p infrastructure and shared system ledger. Nodes store an up-to-date copy of the system state and may be run as public rpc endpoints providing open access to an Autonity network.
+- [Node operators](/node-operators/): network peer nodes running the AGC client software, forming the backbone of the networks p2p infrastructure and shared system ledger. Nodes store an up-to-date copy of the system state and may be run as public rpc endpoints providing open access to an Autonity network.
 
 - [Validators](/validators/): nodes with bonded stake forming the validation infrastructure proposing and maintaining system state. Active validator nodes are candidates for selection to the network's consensus committee. The consensus committee is responsible for proposing and deciding on new blocks.
 
