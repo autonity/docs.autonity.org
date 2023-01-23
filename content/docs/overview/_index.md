@@ -54,9 +54,9 @@ The actors of an Autonity network are:
 
 - [Node operators](/node-operators/): network peer nodes running the AGC client software, forming the backbone of the networks p2p infrastructure and shared system ledger. Nodes store an up-to-date copy of the system state and may be run as public rpc endpoints providing open access to an Autonity network.
 
-- [Validators](/validators/): nodes with bonded stake forming the validation infrastructure proposing and maintaining system state. Active validator nodes are candidates for selection to the network's consensus committee. The consensus committee is responsible for proposing and deciding on new blocks.
+- [Validator operators](/validators/): nodes with bonded stake forming the validation infrastructure proposing and maintaining system state. Active validator nodes are candidates for selection to the network's consensus committee. The consensus committee is responsible for proposing and deciding on new blocks.
 
-- [Stakers](/concepts/staking/): stake delegators hold  _Newton_ stake token and delegate stake to one or more validators in order to secure the network. Stake holders receive _Liquid Newton_ for bonded stake.
+- [Stake delegators](/concepts/staking/): account holders that have a _Newton_ stake token balance and delegate stake to one or more validators in order to secure the network. Stake holders receive _Liquid Newton_ for bonded stake.
 
 
 ## Key concepts
