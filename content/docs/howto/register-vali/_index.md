@@ -12,11 +12,11 @@ To register a validator you need:
 
 - A running instance of the Autonity Go Client running on your host machine.  This will be the nod to be registered as a validator.
 - A configured instance of [`autcli`](/howto/setup-autcli).
-- An [account](/howto/create-acct) that has been [funded](/howto/fund-acct) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/autonity/validator/#treasury-account) - the account used to manage the validator, that that will also receive the validator's share of staking rewards.
+- An [account](/howto/create-acct) that has been [funded](/howto/fund-acct) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/architecture/validator/#treasury-account) - the account used to manage the validator, that that will also receive the validator's share of staking rewards.
 
 This guide also assumes that the command-line JSON processor `jq` is available - see [additional helpers](/howto/#additional-helpers).
 
-{{< alert title="Note" >}}See the [Validator](/autonity/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/autonity/validator/#validator-lifecycle), and a description of the [post-genesis registration](/autonity/validator/#post-genesis-registration) process.{{< /alert >}}
+{{< alert title="Note" >}}See the [Validator](/architecture/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/architecture/validator/#validator-lifecycle), and a description of the [post-genesis registration](/architecture/validator/#post-genesis-registration) process.{{< /alert >}}
 
 ## Register as a validator
 
@@ -81,12 +81,12 @@ where
    - `<ENODE_URL>`: the enode url returned in Step 1.
    - `<PROOF>`: the proof of enode ownership generated in Step 2.
 
-Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/autonity/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.
+Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/architecture/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.
 
 ### Step 4. Identify the validator ID
 
 Requery the list of validators to determine the validator ID.
-The [validator identifier](/autonity/validator/#validator-identifier) is created in the form of an account address derived from the validator [P2P node key](/autonity/validator/#p2p-node-key)'s public key. The newly registered validator's identifier should appear at the end of the validator list
+The [validator identifier](/architecture/validator/#validator-identifier) is created in the form of an account address derived from the validator [P2P node key](/architecture/validator/#p2p-node-key)'s public key. The newly registered validator's identifier should appear at the end of the validator list
 
 ```bash
 aut validator list

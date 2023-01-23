@@ -29,7 +29,7 @@ A 64 character hex string providing the unique identifier of an [account](/gloss
 The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 attoton (10^18). Attoton is effectively Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [nanoton](/glossary/#nanoton).
 
 ## Auton
-A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/autonity/protocol-assets/auton/).
+A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/architecture/protocol-assets/auton/).
 
 ## Autonity Go Client (AGC)
 Autonity Go Client is main client software for accessing and participating in an Autonity network. AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
@@ -132,10 +132,10 @@ A cryptoeconomic mechanism where economic penalties are applied for incorrect ac
 A pair of public and private cryptography keys used for signing and encryption. The private key is used to produce signatures that are publicly verifiable using the public key. The public key may also be used to encrypt messages intended for the private key holder who can decrypt them using the private key.
 
 ## Liquid Newton
-The liquid token representing [Newton](/glossary/#newton) stake token  bonded (i.e. [delegated](/glossary/#delegate)) to a validator in an Autonity Network. Unlike bonded Newton, Liquid Newton is transferrable and the holder receives due staking rewards. See also  [Protocol assets, Liquid Newton](/autonity/protocol-assets/liquid-newton/).
+The liquid token representing [Newton](/glossary/#newton) stake token  bonded (i.e. [delegated](/glossary/#delegate)) to a validator in an Autonity Network. Unlike bonded Newton, Liquid Newton is transferrable and the holder receives due staking rewards. See also  [Protocol assets, Liquid Newton](/architecture/protocol-assets/liquid-newton/).
 
 ## liquid staking
-A staking model in which funds staked to a Proof of Stake network have a liquid representation of staked assets in the form of a token. For Autonity's liquid staking model see [Staking, Liquid staking](/autonity/staking/#liquid-staking).
+A staking model in which funds staked to a Proof of Stake network have a liquid representation of staked assets in the form of a token. For Autonity's liquid staking model see [Staking, Liquid staking](/architecture/staking/#liquid-staking).
 
 ## mesh network
 A network topology where each node is connected to one or more other network nodes. All nodes in the  mesh relay data and co-operate in the distribution of data across the network. A mesh topology can be _full_ or _partial_.
@@ -151,7 +151,7 @@ A cryptocurrency that is inherent to a decentralised computer network.
 Autonity tokenomics have the native coin [Auton](/glossary/#auton) and ERC20 tokens [Newton](/glossary/#newton) and [Liquid Newton](/glossary/#liquid-newton).
 
 ## Newton
-The stake token used to stake an [Autonity network](/glossary/#autonity-network). Once staked Newton is staked it is locked and only redeemable by [unbonding](/glossary/#unbond) after an [unbonding period](/glossary/#unbonding-period). Newton can be in three states (bonded, unbonded, unbonding) as described in [Protocol assets, Newton](/autonity/protocol-assets/newton/).
+The stake token used to stake an [Autonity network](/glossary/#autonity-network). Once staked Newton is staked it is locked and only redeemable by [unbonding](/glossary/#unbond) after an [unbonding period](/glossary/#unbonding-period). Newton can be in three states (bonded, unbonded, unbonding) as described in [Protocol assets, Newton](/architecture/protocol-assets/newton/).
 
 ## node
 A participant running the Autonity Go Client software and able to connect to an Autonity network. See [peer](/glossary/#peer) [mesh network](/glossary/#mesh-network), [peer-to-peer network](/glossary/#peer-to-peer-network-p2p).
