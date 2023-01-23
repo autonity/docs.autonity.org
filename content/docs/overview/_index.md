@@ -56,7 +56,7 @@ The actors of an Autonity network are:
 
 - [Validators](/validators/): nodes with bonded stake forming the validation infrastructure proposing and maintaining system state. Active validator nodes are candidates for selection to the network's consensus committee. The consensus committee is responsible for proposing and deciding on new blocks.
 
-- [Staking](/staking/): stake delegators hold  _Newton_ stake token and delegate stake to one or more validators in order to secure the network. Stake holders receive _Liquid Newton_ for bonded stake.
+- [Stakers](/staking/): stake delegators hold  _Newton_ stake token and delegate stake to one or more validators in order to secure the network. Stake holders receive _Liquid Newton_ for bonded stake.
 
 
 ## Key concepts
