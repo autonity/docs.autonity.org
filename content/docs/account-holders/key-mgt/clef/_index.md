@@ -9,8 +9,8 @@ description: >
 ## Prerequisites
 
 - An installation of Autonity built with `make all` as described in the How to [Install Autonity](howto/install-aut/#build-from-source-code).
-- A funded account on the network with the keystore file save to the keystore directory that Clef will be specified in Clef's configuration. (See [Use Clef with the Autonity client](/howto/key-mgt/clef/#use-clef-with-the-autonity-client) beneath.
-- an [installed NodeJS Console](/howto/install-aut/) configured as described in the [Submit a transaction using NodeJS Console](/howto/submit-trans-nodejsconsole/)
+- A funded account on the network with the keystore file save to the keystore directory that Clef will be specified in Clef's configuration. (See [Use Clef with the Autonity client](/account-holders/key-mgt//clef/#use-clef-with-the-autonity-client) beneath.
+- an [installed NodeJS Console](/node-operators/install-aut/) configured as described in the [Submit a transaction using NodeJS Console](/account-holders/submit-trans-nodejsconsole/)
 
 
 ## Overview
@@ -78,7 +78,7 @@ The following are the steps to successfully demonstrate clef working with Autoni
 
 1. Start the Clef binary, specifying:
 
-	- (optional) the `<PATH>` to the keystore directory holding the accounts you will use. If not specified, the default location will be used as described in the how to [Create an account using Clef](/howto/create-acct/#create-account-using-clef)
+	- (optional) the `<PATH>` to the keystore directory holding the accounts you will use. If not specified, the default location will be used as described in the how to [Create an account using Clef](/account-holders/create-acct/#create-account-using-clef)
 	- the `<CHAINID>` for the Autonity network to which your Autonity Go Client node is connected:
 
 

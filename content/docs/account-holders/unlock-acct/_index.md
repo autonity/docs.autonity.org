@@ -33,14 +33,14 @@ To unlock an account for signing transactions, Autonity currently allows users t
 
 For how to sign and submit transactions with the Python CLI `autcli` see:
 
-- [Create an account](/howto/create-acct/) for how to create a new account or import an existing account's private key into `autcli`.
-- [Submit a transaction from Autonity autcli](/howto/submit-trans-autcli/) for how to configure the keystore and accounts in `.autrc` to sign transactions.
+- [Create an account](/account-holders/create-acct/) for how to create a new account or import an existing account's private key into `autcli`.
+- [Submit a transaction from Autonity autcli](/account-holders/submit-trans-autcli/) for how to configure the keystore and accounts in `.autrc` to sign transactions.
 
 ## Sign using `clef` signer with Autonity NodeJS Console
 
 For how to use Clef to sign and submit transactions with the JavaScript CLI NodeJS Console see:
 
-- [Managing keys and accounts](/howto/key-mgt/) and [Connect Clef secure wallet](/howto/key-mgt/clef).
+- [Managing keys and accounts](/account-holders/key-mgt//) and [Connect Clef secure wallet](/account-holders/key-mgt//clef).
 
 ## Sign by unlocking an account on a node
 
@@ -120,5 +120,5 @@ web3.eth.getBlock(await web3.eth.getBlockNumber())
 }
 ```
 
-If you need to decrypt the private key from an Ethereum keystore file, see the how to [Create an account, Decrypting the private key](/howto/create-acct/#decrypting-the-private-key).
+If you need to decrypt the private key from an Ethereum keystore file, see the how to [Create an account, Decrypting the private key](/account-holders/create-acct/#decrypting-the-private-key).
 {{% /pageinfo %}}

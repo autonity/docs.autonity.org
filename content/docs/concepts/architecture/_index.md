@@ -132,4 +132,4 @@ Each participant maintains a current record of peers in the network, updated as 
 
 To learn more about the concept, see [Networking](/concepts/system-model/#networking) in the System model.
 
-For how bootnode provision works, see the How to [Run Autonity](/howto/run-aut/).
+For how bootnode provision works, see the How to [Run Autonity](/node-operators/run-aut/).

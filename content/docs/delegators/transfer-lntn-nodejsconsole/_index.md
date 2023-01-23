@@ -11,7 +11,7 @@ draft: true
 
 To send Liquid Newton (LNTN) to another account using the Autonity NodeJS Console you need:
 
-- a running instance of the Autonity NodeJS Console configured for submitting transactions from your _Staking Wallet_ account, as described in [Claim Staking Rewards](/howto/claim-rewards/).
+- a running instance of the Autonity NodeJS Console configured for submitting transactions from your _Staking Wallet_ account, as described in [Claim Staking Rewards](/delegators/claim-rewards/).
 
 ## View your Liquid Newton holdings
 
@@ -27,7 +27,7 @@ To send Liquid Newton (LNTN) to another account using the Autonity NodeJS Consol
     
     - `Account`: your _Staking Wallet_ account address.
     - `(index)`: the validator index, i.e. if the 1st or nth validator registered in the network.
-    - `validator`: the unique [validator identifier](/architecture/validator/#validator-identifier).
+    - `validator`: the unique [validator identifier](/concepts/validator/#validator-identifier).
     - `lntn`: the amount of Liquid Newton the staker owns for that validator.
     - `claimableRewards`: the amount of rewards the staker can claim from the stake delegation, denominated in [attoton](/glossary/#attoton), Auton's wei equivalent.
     

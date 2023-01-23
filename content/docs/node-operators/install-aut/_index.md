@@ -78,7 +78,7 @@ The description here covers only the basic network setup. Especially in a produc
     ```
 
 {{% pageinfo %}}
-You can now [configure and launch Autonity](/howto/run-aut/#run-binary).
+You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary).
 {{% /pageinfo %}}
 
 ## Installing the Docker image {#install-docker}
@@ -122,7 +122,7 @@ sudo systemctl restart docker
 
     <!-- Required once the repo is public?? -->
 
-1. Create a GitHub personal access token to pull the Autonity Go Client Docker image from GitHub Container Registry. See [Login Credentials to GitHub Container Registry](/howto/#login-credentials-to-github-container-registry)
+1. Create a GitHub personal access token to pull the Autonity Go Client Docker image from GitHub Container Registry. See [Login Credentials to GitHub Container Registry](/developer/#login-credentials-to-github-container-registry)
 
 1. Login to the Container Registry service, where:
 
@@ -149,7 +149,7 @@ sudo systemctl restart docker
    {{< /alert >}}
 
 {{% pageinfo %}}
-You can now [configure and launch Autonity](/howto/run-aut/#run-docker).
+You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker).
 {{% /pageinfo %}}
 
 ## Build from source code {#install-source}
@@ -233,7 +233,7 @@ The output above will vary depending on the version of the Autonity Go Client yo
 ## Next steps {#next}
 
 {{% pageinfo %}}
-You can now [configure and launch Autonity](/howto/run-aut/#run-binary).
+You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary).
 {{% /pageinfo %}}
 
 

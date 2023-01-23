@@ -15,7 +15,7 @@ Interface for interacting with Autonity Contract functions using:
 Datatypes are [Solidity v0.8.3 Types](https://docs.soliditylang.org/en/v0.8.3/types.html#).
 
 {{% pageinfo %}}
-Examples for calling functions from the Autonity `autcli` command-line tool  use the setup described in the How to [Submit a transaction from Autonity autcli](/howto/submit-trans-autcli/).
+Examples for calling functions from the Autonity `autcli` command-line tool  use the setup described in the How to [Submit a transaction from Autonity autcli](/account-holders/submit-trans-autcli/).
 {{% /pageinfo %}}
 
 ## activateValidator
@@ -343,7 +343,7 @@ Constraint checks:
 
 | Field | Datatype | Description |
 | --| --| --|
-| `validator`  | `address` | the [validator identifier](/architecture/validator/#validator-identifier) address |
+| `validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address |
 | `amount` | `uint256` | the amount of Newton bonded to the validator |
 
 ### Response
@@ -1999,7 +1999,7 @@ Enter passphrase (or CTRL-d to exit):
 
 Registers a validator on an Autonity Network.
 
-The `registerValidator` method provides as argument the [enode](/glossary/#enode) URL of the validator node and a proof of node ownership generated from the private key of the validator node's [P2P node key](/architecture/validator/#p2p-node-key) pair.
+The `registerValidator` method provides as argument the [enode](/glossary/#enode) URL of the validator node and a proof of node ownership generated from the private key of the validator node's [P2P node key](/concepts/validator/#p2p-node-key) pair.
 
 On method execution a `Validator` object data structure is constructed in memory, populated with method arguments and default values ready for validator registration processing:
 
@@ -2617,7 +2617,7 @@ Constraint checks:
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_validator`  | `address` | the [validator identifier](/architecture/validator/#validator-identifier) address |
+| `_validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address |
 | `amount` | `uint256` | the amount of Liquid Newton to be unbonded from the validator |
 
 ### Response

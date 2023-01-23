@@ -9,9 +9,9 @@ draft: true
 
 ## Prerequisites
 
-- physical access to a running local instance of an Autonity Go Client [connected to an Autonity network](/howto/run-aut/)
+- physical access to a running local instance of an Autonity Go Client [connected to an Autonity network](/node-operators/run-aut/)
 - a running instance of the Autonity NodeJS Console attached to your node, configured for your account as described in [Submit a transaction from Autonity NodeJS Console
-](/howto/submit-trans-autcli/)
+](/account-holders/submit-trans-autcli/)
 - a running Linux [pcsc daemon](https://linux.die.net/man/8/pcscd) service (if you need to install `sudo apt install pcscd`)
 - a Status Keycard hardware wallet
 - an ISO 7816 compliant USB smart card reader
@@ -165,7 +165,7 @@ EDIT
    ```
    You will be prompted by keycard-cli to confirm the transaction.
 
-To transfer value, you will need to specify transaction fee values, configuring the NodeJS Console with a `gas` constant as described in the How to [Submit a transaction from Autonity NodeJS Console](/howto/submit-trans-autcli/). For example, to transfer an amount of _newton_ stake token to another address by calling the Autonity Protocol Contract using Trezor:
+To transfer value, you will need to specify transaction fee values, configuring the NodeJS Console with a `gas` constant as described in the How to [Submit a transaction from Autonity NodeJS Console](/account-holders/submit-trans-autcli/). For example, to transfer an amount of _newton_ stake token to another address by calling the Autonity Protocol Contract using Trezor:
 
 ```bash
 const gas = 10000000;

@@ -65,7 +65,7 @@ The output above may vary depending on the version of the Autonity Go Client you
 {{< /alert >}}
 
 {{% pageinfo %}}
-Now that you have a working `aut` CLI installation, you can  [create](/howto/create-acct/) and [fund](/howto/fund-acct) and account on the network, and then [create and submit a transaction](/howto/submit-trans-autcli/).
+Now that you have a working `aut` CLI installation, you can  [create](/account-holders/create-acct/) and [fund](/account-holders/fund-acct/) and account on the network, and then [create and submit a transaction](/account-holders/submit-trans-autcli/).
 {{% /pageinfo %}}
 
 ------------------------------------------------

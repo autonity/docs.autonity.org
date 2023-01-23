@@ -63,7 +63,7 @@ Liquid Newton has fundamental operations for:
 
 For details on how to transfer Liquid Newton from a stake delegation to another account, see:
 
-- How to [Transfer Liquid Newton](/delegator/transfer-lntn/).
+- How to [Transfer Liquid Newton](/delegators/transfer-lntn/).
 
 ## Staking rewards
 
@@ -93,7 +93,7 @@ Fees accumulate until claimed by delegators in a pull-based model. Staking rewar
 
 For details on how to claim and the functionality for claiming staking rewards, see:
 
-- How to [Claim Staking Rewards](/delegator/claim-rewards/).
+- How to [Claim Staking Rewards](/delegators/claim-rewards/).
 
 
 ## Staking accounts
@@ -148,7 +148,7 @@ At each epoch rollover there is an evaluation of the bonded stake. As the last b
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is applied at epoch end.  
 
-{{< alert title="Note" >}}Consensus [committee member selection](/architecture/consensus/committee/#committee-member-selection) takes place at epoch end for computation and transactional efficiency.
+{{< alert title="Note" >}}Consensus [committee member selection](/concepts/consensus/committee/#committee-member-selection) takes place at epoch end for computation and transactional efficiency.
 
 Further, in an interoperability scenario where state is shared across chains, rather than submit a state proof of a new validator set every block, we only need to send a checkpoint of the validator set every epoch.{{< /alert >}}
 

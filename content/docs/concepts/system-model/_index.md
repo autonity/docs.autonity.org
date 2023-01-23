@@ -182,7 +182,7 @@ The block content structure is unmodified per standard Ethereum:
 
 Transactions are standard Ethereum transaction structures. Autonity supports both legacy (type 0) and EIP 1559 (type 2) transaction types. Use of the EIP 1559 type 2 transaction to take advantage of the economic benefits provided by the EIP 1559 fee market mechanism is recommended.
 
-{{% alert title="Note" %}}For an explanation of how specifying gas in transactions differs between legacy and EIP 1559 transaction types, see the Ethereum developer docs explanation of Gas and Fees - https://ethereum.org/en/developers/docs/gas/.{{% /alert %}}
+{{% alert title="Note" %}}For an explanation of how specifying gas in transactions differs between legacy and EIP 1559 transaction types, see the Ethereum developer docs explanation of Gas and Fees - https://ethereum.org/en/developer/docs/gas/.{{% /alert %}}
 
 Generated and signed by accounts on the network, transactions are submitted to the system via participant node client API's. The client performs standard Ethereum pre-flight checks to the transaction before broadcasting it to the network.
 
@@ -198,7 +198,7 @@ User interactions with contracts originate in the external environment and are a
 
 #### Transactions and calls
 
-The on-chain operation resulting from a [request](/architecture/system-model/#request) message may be a [transaction](/concepts/system-model/#transaction-1) or a [call](/concepts/system-model/#call-1):
+The on-chain operation resulting from a [request](/concepts/system-model/#request) message may be a [transaction](/concepts/system-model/#transaction-1) or a [call](/concepts/system-model/#call-1):
 
 - a write operation executed by a *transaction* passing in parameters. This executes and records transaction outcome in state. It is made by a Web3  'sendTransaction' to a contract function that results in a change to contract state. As such, a *transaction* represents a valid arc between two states (See Ethereum Yellow Paper, [2. The Blockchain Paradigm](https://ethereum.github.io/yellowpaper/paper.pdf)). A processed transaction is recorded in a block in the distributed ledger
 - a read-only operation executed by a *call* passing in parameters. This simulates an outcome without recording it in state and may be by a Web3 'call' to a contract function that returns a result according to parameters passed in, or by a call to a read-only contract function
@@ -296,7 +296,7 @@ An _account_ is the unique identifier for referring to an external system user, 
 
 - External users require an Ethereum account based on public-key cryptography to access and call functionality of the Autonity Protocol contracts and other decentralised application contracts deployed on the system.
 - Participant and validator nodes and their operators have unique accounts as described in [Participants](/concepts/system-model/#participants) and [Validator identity, accounts and keypairs](/concepts/validator/#validator-identity-accounts-and-keypairs)
-- Smart contracts deployed on the system ledger are uniquely identified by their contract account addresses and have a state. Smart contracts native to Autonity and forming part of an Autonity system are described in [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract). 
+- Smart contracts deployed on the system ledger are uniquely identified by their contract account addresses and have a state. Smart contracts native to Autonity and forming part of an Autonity system are described in [Autonity Protocol Contract](/concepts/#autonity-protocol-contract). 
 
 
 As an Ethereum-based blockchain system, Autonity account addresses are in Ethereum format - a 42 character hexadecimal string derived from last 20 bytes of the account's public key and prepended by `0x`. Keccak-256 and the Elliptic Curve Digital Signature Algorithm (ECDSA) are used for generating (and verifying) cryptographic signatures over the `secp256k1` Elliptic Curve (EC). The use of public-key cryptography based on elliptic curves allows the system to efficiently secure user's data via asymmetric encryption and provides pseudonymity to the user's identity via the public key. The private key gives the owner control over transfer and ownership of the Autonity system's native protocol coins (_Auton_, _Newton_, _Liquid Newton_) to another account. In the wider Ethereum ecosystem this private key may be referred to as a user's 'Ethereum private key'. The private key is used to sign all [transactions and calls](/concepts/system-model/#transactions-and-calls) submitted to an Autonity system by users from the external environment via an EOA.
@@ -319,7 +319,7 @@ EOA's: represent accounts belonging to external users with a private key, are fu
 
 Contract Account's: deployed smart contracts are also account objects. However, while these accounts have a balance, they are initialised with code and do not have an associated private key. As opposed to EOA's, interactions with a contract account are governed by its EVM code. Such code is either triggered by transactions from EOA's or message calls from other contract accounts. A contract account can call other contracts by [message calls](/concepts/system-model/#message-call), but such message calls are not signed by a private key.
 
-Contract accounts native to an Autonity system are described in [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract).
+Contract accounts native to an Autonity system are described in [Autonity Protocol Contract](/concepts/#autonity-protocol-contract).
 
   
 #### References

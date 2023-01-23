@@ -59,7 +59,7 @@ The public key is used:
 ### Validator enode URL
 The `enode` URL is the network address of the peer node operated by the validator. It provides the network location of the node client for p2p networking.
 
-The enode URL format is described in the [ethereum Wiki](https://ethereum.org/en/developers/docs/networking-layer/network-addresses/#enode).
+The enode URL format is described in the [ethereum Wiki](https://ethereum.org/en/developer/docs/networking-layer/network-addresses/#enode).
 
 It takes the form:
 

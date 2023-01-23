@@ -2,6 +2,9 @@
 
 # Find all links [text](/path/to/page)
 
+# set -e
+# set -x
+
 errs=0
 for l in `git grep -ho -e '](/[^)]\+)' -- content/docs/ | grep -v '.png'` ; do
     # Remove ]( and )
@@ -12,8 +15,11 @@ for l in `git grep -ho -e '](/[^)]\+)' -- content/docs/ | grep -v '.png'` ; do
     link=`echo $l | sed -e 's/#.*//g'`
 
     if ! [ -d "content/docs"$link ] ; then
-        filename=$(grep -ril "($link)")
-        echo "FILES: $filename INVALID LINK: $link"
+        echo "INVALID LINK: $link"
+        for f in "$(git grep -ril "($link)")" ; do
+            echo "FILE: $filename INVALID LINK: $link"
+        done
+
         errs=1
     fi
 done

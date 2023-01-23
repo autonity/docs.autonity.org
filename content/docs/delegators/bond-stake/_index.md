@@ -6,12 +6,12 @@ description: >
   How to bond and unbond stake to validators in an Autonity network
 ---
 
-See the [staking section](/architecture/staking/) to understand the concepts behind bonding and unbonding.
+See the [staking section](/concepts/staking/) to understand the concepts behind bonding and unbonding.
 
 ## Prerequisites
 
-- A running instance of the [`aut` CLI tool](https://github.com/autonity/autcli) configured to [submit a transaction from your account](/howto/submit-trans-autcli/).
-- An [account](/howto/create-acct/) that has been [funded](/howto/fund-acct/) with auton to pay for transaction gas costs.
+- A running instance of the [`aut` CLI tool](https://github.com/autonity/autcli) configured to [submit a transaction from your account](/account-holders/submit-trans-autcli/).
+- An [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
 - A Newton stake token balance >= to the amount being bonded.
 
 ## Discover registered validators
@@ -64,7 +64,7 @@ to your `.autrc` file.
 {{< /alert >}}
 
 {{% pageinfo %}}
-As described in [Committee member selection](/architecture/consensus/committee/#committee-member-selection) the set of validators in the consensus committee is changed at every block epoch. [Voting power changes](/architecture/consensus/committee/#voting-power-changes) caused by bonding and unbonding stake to a validator are applied at the end of an epoch before the committee selection algorithm for the next epoch's committee is run.
+As described in [Committee member selection](/concepts/consensus/committee/#committee-member-selection) the set of validators in the consensus committee is changed at every block epoch. [Voting power changes](/concepts/consensus/committee/#voting-power-changes) caused by bonding and unbonding stake to a validator are applied at the end of an epoch before the committee selection algorithm for the next epoch's committee is run.
 
 To get the validators in the current consensus committee use the `protocol` command `get-committee` to call:
 
@@ -83,7 +83,7 @@ aut validator bond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx 
 ```
 
 {{< alert name="Note" >}}
-Bonding requests are not processed until the end of the current epoch.  The newton to be bonded will be deducted from your balance, but your [liquid newton balance](/howto/transfer-lntn) will not be affected until the epoch
+Bonding requests are not processed until the end of the current epoch.  The newton to be bonded will be deducted from your balance, but your [liquid newton balance](/delegators/transfer-lntn) will not be affected until the epoch
 
 (Pending and historical bonding requests can be queried using the [getBondingReq](/reference/api/) api call or the `aut protocol get-bonding-req` command)
 {{< /alert >}}
@@ -97,5 +97,5 @@ aut validator unbond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut t
 ```
 
 {{< alert name="Note" >}}
-Like bonding requests, unbonding does not complete immediately.  After an unbonding period, the Newton will be returned to the caller.  See the [staking section](/architecture/staking/) for further details.
+Like bonding requests, unbonding does not complete immediately.  After an unbonding period, the Newton will be returned to the caller.  See the [staking section](/concepts/staking/) for further details.
 {{< /alert >}}

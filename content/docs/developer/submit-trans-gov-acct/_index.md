@@ -15,7 +15,7 @@ Governance functions are only callable from the governance operator account of a
 
 To submit transactions restricted to the governance account from the Autonity NodeJS Console you need:
 
-- an [installed NodeJS Console](/howto/install-aut/)
+- an [installed NodeJS Console](/node-operators/install-aut/)
 - the governance account is funded with auton to pay for transaction gas costs
 - configuration details for the local Autonity network you are connecting your console to
 - to provide the following constants:

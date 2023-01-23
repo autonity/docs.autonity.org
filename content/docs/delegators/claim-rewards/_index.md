@@ -10,9 +10,9 @@ description: >
 
 To claim staking rewards you need:
 
-- A running instance of `autcli` for submitting transactions from your account configured as described in [Submit a transaction from `autcli`](/howto/submit-trans-autcli/)
-- An [account](/howto/create-acct) [funded](/howto/fund-acct) with auton to pay for transaction gas costs, and a Newton stake token balance >= to the amount being bonded.
-- You have already [bonded stake](/howto/bond-stake) to a validator and have a Liquid Newton token balance that may have accrued claimable rewards.
+- A running instance of `autcli` for submitting transactions from your account configured as described in [Submit a transaction from `autcli`](/account-holders/submit-trans-autcli/)
+- An [account](/account-holders//create-acct/) [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs, and a Newton stake token balance >= to the amount being bonded.
+- You have already [bonded stake](/delegators/bond-stake/) to a validator and have a Liquid Newton token balance that may have accrued claimable rewards.
 
 
 ## Get claimable reward balance {#get-reward-balance}
@@ -61,4 +61,4 @@ Note that claiming rewards is a state-affecting transaction that incurs gas cost
 
 
 {{% pageinfo %}}
-See also the How to [Transfer Liquid Newton](/howto/transfer-lntn/).{{% /pageinfo %}}
+See also the How to [Transfer Liquid Newton](/delegators/transfer-lntn/).{{% /pageinfo %}}

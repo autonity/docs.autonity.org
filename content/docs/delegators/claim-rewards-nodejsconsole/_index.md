@@ -13,7 +13,7 @@ To claim fees using the Autonity NodeJS Console you need:
 
 - an account on an Autonity network funded with auton to pay for transaction gas costs
 - this account has been used to bond stake to a validator: this account is your _Staking Wallet_ account
-- a running instance of the Autonity NodeJS Console as described in [Submit a transaction from Autonity NodeJS Console](/howto/submit-trans-nodejsconsole/). The console has been configured for submitting transactions from your _Staking Wallet_ account
+- a running instance of the Autonity NodeJS Console as described in [Submit a transaction from Autonity NodeJS Console](/account-holders/submit-trans-nodejsconsole/). The console has been configured for submitting transactions from your _Staking Wallet_ account
 
 ## Get claimable reward balance
 
@@ -29,7 +29,7 @@ To claim fees using the Autonity NodeJS Console you need:
 
     - `Account`: your _staking Wallet_ account address
     - `(index)`: the validator index, i.e. if the 1st or nth validator registered in the network
-    - `validator`: the unique [validator identifier](/architecture/validator/#validator-identifier)
+    - `validator`: the unique [validator identifier](/concepts/validator/#validator-identifier)
     - `lntn`: the amount of Liquid Newton the staker owns for that validator
     - `claimableRewards`: the amount of rewards the staker can claim from the stake delegation, denominated in [attoton](/glossary/#attoton), Auton's wei equivalent.
 
@@ -166,6 +166,6 @@ Note that claiming rewards is a state-affecting transaction that incurs gas cost
 {{% pageinfo %}}
 See the Reference Node JS Console Staking management functions reference
 
-and the How to [Transfer Liquid Newton](/howto/transfer-lntn/)
+and the How to [Transfer Liquid Newton](/delegators/transfer-lntn/)
 
 {{% /pageinfo %}}

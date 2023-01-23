@@ -10,9 +10,9 @@ description: >
 
 To submit transactions to a client node from the Autonity `autcli` you need:
 
-- An installation [of `aut`](https://github.com/autonity/autcli) - see the [howto](/howto/setup-autcli) for further help.
+- An installation [of `aut`](https://github.com/autonity/autcli) - see the [howto](/account-holders/setup-autcli/) for further help.
 
-- An [account](/howto/create-acct) that has been [funded](/howto/fund-acct) with auton, to pay for transaction gas costs.
+- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs.
 
 - The `aut` CLI tool should be configured to connect to the appropriate node or Autonity network (see the [list of networks including public RPC endpoints](/networks/).
 
