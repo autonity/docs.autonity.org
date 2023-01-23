@@ -35,6 +35,8 @@ As detailed in the [`aut` CLI repository](https://github.com/autonity/autcli), s
 rpc_endpoint=https://NETWORK_NAME.autonity.org
 ```
 
+See the [list of available networks](/networks/) to determine the correct endpoint to use.
+
 ## Usage {#usage}
 
 The tool is intended to be self documenting via `aut --help`, `aut <command> --help` etc.  Some example commands can be found in the [`aut` CLI repository](https://github.com/autonity/autcli).
