@@ -36,7 +36,7 @@ For launching a local Autonity network, genesis configuration and bootnodes need
 |-----------|-------------|-------|
 | `config` | Configuration variables for the Autonity Network blockchain | See [`config` object](#config-object) |
 | `nonce` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. | Set to `0` (`0x0` in hexadecimal) |
-| `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to: `0` the node will start mining on deployment. If a future timepoint is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP)](https://www.nwtime.org/documentationandlinks/) | Set to: `0` (`0x0`) to start node mining on connection to the Autonity network |
+| `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0` the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP)](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
 | `difficulty` | Derived from Ethereum where it sets the difficulty for Ethereum's Ethash Proof of Work consensus. For Autonity's implementation of Tendermint BFT Proof of Stake consensus this must be assigned `0`. | Set to `0` (`0x0`) |
 | `gasLimit` | The limit on how much gas can be expended on computations in a block | See [gasLimit](#gaslimit) |
 | `coinbase` | Maintained for backward compatibility reasons in the EVM. Unused by the Autonity Protocol. Ethereum format address. | Set to `0x0000000000000000000000000000000000000000` |
@@ -60,7 +60,7 @@ Genesis configuration file JSON objects:
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | Arbitrary positive integer. Use a random number if you wish to deploy several networks with the same config to avoid replay attacks |
+| `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
 
 
@@ -68,7 +68,7 @@ Genesis configuration file JSON objects:
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. Denominated in `attoton`. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `10000000000` |
+| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. Denominated in `attoton`. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `30000000` |
 
 
 #### config.autonity object
@@ -79,14 +79,14 @@ Genesis configuration file JSON objects:
 |---------|-----------|-----|
 | `abi` | The abi of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Leave empty for default contract deployment |
 |`bytecode`| The EVM bytecode of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Leave empty for default contract deployment |
-| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivises validators at genesis when transaction volumes are low | Set to: `10000000000 ` |
+| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivises validators at genesis when transaction volumes are low | Set to: `500000000` |
 | `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Commonly known as 'block time' or 'block interval' | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
-| `unbondingPeriod` | The number of blocks bonded stake must wait before Liquid Newton can be redeemed for Newton after processing a stake redeem transaction. The `unbondingPeriod` must be longer than an `epochPeriod` | Value is specific to network configuration. For a production environment a number of blocks to span 1 week to 1 month would be typical to enable Byzantine behaviour detection. For a local devnet supporting rapid testing a value of 120 could be appropriate|
-| `epochPeriod` | The number of blocks in an epoch. The `epochPeriod` must be shorter than the `unbonding` period | Value is specific to network configuration. For a local devnet supporting rapid testing a value of 30 could be appropriate |
+| `unbondingPeriod` | The number of blocks bonded stake must wait before Liquid Newton can be redeemed for Newton after processing a stake redeem transaction. The `unbondingPeriod` must be longer than an `epochPeriod` | Value is specific to network configuration. For a production environment a number of blocks to span 1 week to 1 month would be typical to enable Byzantine behaviour detection. For a local devnet supporting rapid testing a value of `120` could be appropriate|
+| `epochPeriod` | The number of blocks in an epoch. The `epochPeriod` must be shorter than the `unbonding` period | Value is specific to network configuration. For a local devnet supporting rapid testing a value of `30` could be appropriate |
 | `treasury` | The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. Ethereum format address. | Value is specific to network configuration |
-| `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Value is specific to network configuration. For example, a setting of `150000000` = 15% |
+| `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Value is specific to network configuration. For example, a setting of `10000000000000000` = 1% |
 | `delegationRate` | The percentage fee of staking rewards that is deducted by validators as a commission from delegated stake. The fee is sent to the validator entity's account at epoch end on reward distribution. The rate can be specified to the precision of 1 basis point. Specified as an integer value representing up to 3 decimal places of precision. | Value is specific to network configuration. For example, a setting of `1000` = 10% |
-| `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Value is specific to network configuration. For a local devnet supporting rapid testing a value of 6 could be appropriate |
+| `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `21` could be appropriate |
 | `operator` | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) | EOA account address |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
@@ -123,28 +123,25 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 ```javascript
 {
   "alloc": {
-    "0x0c7dC2aB00c7b5934EDA097a8585f56367A94dA4": {
+    "0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9": {
       "balance": "10000000000000000000000"
     },
-    "0x1ae9B1B3207195430a36D82Fc0bDA1f857D0AA72": {
+    "0x31e1dE659A26F7638FAaFEfD94D47258FE361823": {
       "balance": "10000000000000000000000"
     },
     "0x293039dDC627B1dF9562380c0E5377848F94325A": {
       "balance": "1000000000000000000000000000000000000000000000000000000000000000"
     },
-    "0x33BF54630991f0a1A23B9f102873b3B54C4b94B3": {
+    "0xB5C49d50470743D8dE43bB6822AC4505E64648Da": {
       "balance": "10000000000000000000000"
     },
-    "0x4b7275d5F5292C3027a16E0eb891D75a0Ef39cc7": {
+    "0xf1859D9feD50514F9D805BeC7a30623d061f40B7": {
       "balance": "10000000000000000000000"
     },
-    "0x5e08564Ee99E96e690E9b25591191aE0c78351a3": {
+    "0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013": {
       "balance": "10000000000000000000000"
     },
-    "0xe8Af231A9d2e4C7Dc1479b372b937A8dB738D956": {
-      "balance": "1000000000000000000000000000000000000"
-    },
-    "0xf5A48b1Df2a3a616AdB92E57d6ce36E17c3C2a0b": {
+    "0x1B441084736B80f273e498E646b0bEA86B4eC6AB": {
       "balance": "10000000000000000000000"
     }
   },
@@ -154,41 +151,41 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     "autonity": {
       "blockPeriod": 1,
       "epochPeriod": 30,
-      "minBaseFee": 10000000000,
+      "minBaseFee": 500000000,
       "operator": "0x293039dDC627B1dF9562380c0E5377848F94325A",
       "treasury": "0x7f1B212dcDc119a395Ec2B245ce86e9eE551043E",
-      "treasuryFee": 150000000,
+      "treasuryFee": 10000000000000000,
       "unbondingPeriod": 120,
       "delegationRate" : 1000,
       "maxCommitteeSize" : 7,
       "validators": [
         {
-          "bondedStake": 10000,
+          "bondedStake": 10000000000000000000000,
           "enode": "enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303",
           "treasury": "0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013"
         },
         {
-          "bondedStake": 10000,
+          "bondedStake": 10000000000000000000000,
           "enode": "enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303",
           "treasury": "0xf1859D9feD50514F9D805BeC7a30623d061f40B7"
         },
         {
-          "bondedStake": 10000,
+          "bondedStake": 10000000000000000000000,
           "enode": "enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303",
 			"treasury": "0x1B441084736B80f273e498E646b0bEA86B4eC6AB"
         },
         {
-          "bondedStake": 10000,
+          "bondedStake": 10000000000000000000000,
           "enode": "enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308",
           "treasury": "0xB5C49d50470743D8dE43bB6822AC4505E64648Da"
         },
         {
-          "bondedStake": 10000,
+          "bondedStake": 10000000000000000000000,
           "enode": "enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309",
           "treasury": "0x31e1dE659A26F7638FAaFEfD94D47258FE361823"
         },
         {
-          "bondedStake": 10000,
+          "bondedStake": 10000000000000000000000,
           "enode": "enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310",
           "treasury": "0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9"
         }
@@ -196,7 +193,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     }
   },
   "difficulty": "0x0",
-  "gasLimit": "10000000000",
+  "gasLimit": "30000000",
   "gasUsed": "0x0",
   "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
   "nonce": "0x0",
@@ -206,7 +203,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 }
 ```
 
-## Static nodes file
+### Static nodes file
 
 | Parameter | Description | Value |
 |-----------|-------------|-------|
