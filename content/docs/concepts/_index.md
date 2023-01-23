@@ -3,5 +3,6 @@ title: "Concepts"
 linkTitle: "Concepts"
 weight: 80
 description: >
-  Description of the various components and concepts of the Autonity network.
+  Core concepts of Autonity Protocol
 ---
+This section describes core concepts of the Autonity Protocol and blockchain architecture.

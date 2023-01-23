@@ -12,26 +12,26 @@ An Autonity network is a distributed blockchain system comprised of peer nodes r
 ## Participants
 A participant is a network node connected to an Autonity distributed system and forming part of the system's distributed virtual machine. Participants run the Autonity Go Client software, communicate with one another over networking protocols in Autonity's communication layer, execute state transitions in the Ethereum runtime environment, and have read and write access to the system ledger. Each participant maintains an up-to-date copy of system state in a ledger object.
  
-Participants are secured and uniquely identified by public key cryptography. Each participant has a public and private keypair ([node key](/architecture/validator/#p2p-node-key)) for signing the messages it broadcasts at the communication layer. This message signature allows cryptographic verification of message sender identity by recipient participants. 
+Participants are secured and uniquely identified by public key cryptography. Each participant has a public and private keypair ([node key](/concepts/validator/#p2p-node-key)) for signing the messages it broadcasts at the communication layer. This message signature allows cryptographic verification of message sender identity by recipient participants. 
 
 Each participant node has:
 
-- a keypair - the [node key](/architecture/validator/#p2p-node-key). The private key is used to sign messages in the communication layer. The public key is used to uniquely identifiy the participant:
-	- public keys are accessible to other participants and a participant can identify other participants by their public key
-	- it is used to derive participant identifier and network address
-- a unique network address (the [enode URL](/architecture/validator/#validator-enode-url)).
-- if a participant is registered as a validator, then it also has a unique identifier derived determinstically from the node key public key (the [validator identifier](/architecture/validator/#validator-identifier))
+- A keypair - the [node key](/concepts/validator/#p2p-node-key). The private key is used to sign messages in the communication layer. The public key is used to uniquely identify the participant:
+	- Public keys are accessible to other participants and a participant can identify other participants by their public key.
+	- It is used to derive participant identifier and network address.
+- A unique network address (the [enode URL](/concepts/validator/#validator-enode-url)).
+- If a participant is registered as a validator, then an address derived determinstically from the node key public key is used as the [validator identifier](/concepts/validator/#validator-identifier) address.
 
-Participants can register as validators and have stake bonded to them as described in the [Validator](/architecture/validator/) section. Consequently the set of participants can be subdivided into divisions or subclassed as:
+Participants can register as validators and have stake bonded to them as described in the [Validator](/concepts/validator/) section. Consequently the set of participants can be subdivided into divisions or subclassed as:
 
-- the set of possible validator participants, and, for those validators selected to the consensus committee
-- the set of committee members.
+- The set of possible validator participants, and, for those validators selected to the consensus committee.
+- The set of committee members.
 
-The committee is dynamically maintained and selection is a deterministic function of the protocol - see [Committee member selection](/architecture/consensus/committee/#committee-member-selection).
+The committee is dynamically maintained and selection is a deterministic function of the protocol - see [Committee member selection](/concepts/consensus/committee/#committee-member-selection).
 
-A committee member participates in Tendermint Consensus instances, voting for and deciding on proposed blocks. Blocks endorsed by two-thirds or more of the committee's voting power are appended to the blockchain. The validator votes for a block are recorded in the [block header](/architecture/system-model/#the-blockchain-object) `committedSeals` field.
+A committee member participates in Tendermint Consensus instances, voting for and deciding on proposed blocks. Blocks endorsed by two-thirds or more of the committee's voting power are appended to the blockchain. The validator votes for a block are recorded in the [block header](/concepts/system-model/#the-blockchain-object) `committedSeals` field.
 
-[System participants](/autonity/#system-participants) submit calls and state affecting transactions to the system by RPC to method [APIs](/reference/api/) provided by participants. 
+[System participants](/overview/#system-participants) submit calls and state affecting transactions to the system by RPC to [Autonity Interfaces](/reference/api/) provided by Autonity Go Client nodes. 
 
 ## Networking
 
@@ -43,9 +43,9 @@ _Eventual synchrony_ is a model described by a Global Stabilisation Time (GST) a
 
 The principal message primitives of the networking communication layer are:
 
-- transaction: valid transaction messages submitted to clients from the external environment, broadcast for processing
-- block announcement: notification of a new block sent by consensus committee members
-- consensus, Tendermint consensus messages sent by and forwarded between committee members during consensus rounds
+- Transaction: valid transaction messages submitted to clients from the external environment, broadcast for processing.
+- Block announcement: notification of a new block sent by consensus committee members.
+- Consensus, Tendermint consensus messages sent by and forwarded between committee members during consensus rounds.
 
 {{% alert title="Note" %}}Transaction calls execute against local state and are not broadcast to the network, per standard Ethereum.{{% /alert %}}
 
@@ -190,15 +190,15 @@ Transactions are used to transfer value between individual account state, invoke
 
 #### Requests, transactions and calls
 
-Transactions are submitted as [requests](/architecture/system-model/#request) over the JSON-RPC remote procedure call (RPC) protocol to read and write to system state. Requests to protocol contract functions are made as Ethereum [transactions and calls](/architecture/system-model/#transactions-and-calls) executed in the Ethereum runtime. The on-chain operation executed by smart contract logic may be a [transaction](/architecture/system-model/#transaction-1) that is a write operation resulting in a change to system state or a read-only [call](/architecture/system-model/#call-1) that queries system state. Execution of a contract function may result in one contract invoking another contract, resulting in a [message call](/architecture/system-model/#message-call) between contracts. For example, a bonding request submitted to the Autonity Protocol contract results in a state change to the validator's liquid newton contract ledger when staking transitions are applied at epoch end.
+Transactions are submitted as [requests](/concepts/system-model/#request) over the JSON-RPC remote procedure call (RPC) protocol to read and write to system state. Requests to protocol contract functions are made as Ethereum [transactions and calls](/concepts/system-model/#transactions-and-calls) executed in the Ethereum runtime. The on-chain operation executed by smart contract logic may be a [transaction](/concepts/system-model/#transaction-1) that is a write operation resulting in a change to system state or a read-only [call](/concepts/system-model/#call-1) that queries system state. Execution of a contract function may result in one contract invoking another contract, resulting in a [message call](/concepts/system-model/#message-call) between contracts. For example, a bonding request submitted to the Autonity Protocol contract results in a state change to the validator's liquid newton contract ledger when staking transitions are applied at epoch end.
 
 #### Request
 
-User interactions with contracts originate in the external environment and are always initiated by an external user - i.e. an EOA. They are received at the Autonity System boundary as an RPC to an Autonity Go Client. Requests adhere to the REST constraints for Web service design and are stateless and self-contained, the JSON-RPC request object containing all necessary parameters. Requests use the [JSON-RPC 2.0 Specification](https://www.jsonrpc.org/specification) protocol. On-chain contract interactions between smart contracts are by contract logic invoking [message calls](/architecture/system-model/#message-call).
+User interactions with contracts originate in the external environment and are always initiated by an external user - i.e. an EOA. They are received at the Autonity System boundary as an RPC to an Autonity Go Client. Requests adhere to the REST constraints for Web service design and are stateless and self-contained, the JSON-RPC request object containing all necessary parameters. Requests use the [JSON-RPC 2.0 Specification](https://www.jsonrpc.org/specification) protocol. On-chain contract interactions between smart contracts are by contract logic invoking [message calls](/concepts/system-model/#message-call).
 
 #### Transactions and calls
 
-The on-chain operation resulting from a [request](/architecture/system-model/#request) message may be a [transaction](/architecture/system-model/#transaction-1) or a [call](/architecture/system-model/#call-1):
+The on-chain operation resulting from a [request](/architecture/system-model/#request) message may be a [transaction](/concepts/system-model/#transaction-1) or a [call](/concepts/system-model/#call-1):
 
 - a write operation executed by a *transaction* passing in parameters. This executes and records transaction outcome in state. It is made by a Web3  'sendTransaction' to a contract function that results in a change to contract state. As such, a *transaction* represents a valid arc between two states (See Ethereum Yellow Paper, [2. The Blockchain Paradigm](https://ethereum.github.io/yellowpaper/paper.pdf)). A processed transaction is recorded in a block in the distributed ledger
 - a read-only operation executed by a *call* passing in parameters. This simulates an outcome without recording it in state and may be by a Web3 'call' to a contract function that returns a result according to parameters passed in, or by a call to a read-only contract function
@@ -214,7 +214,7 @@ While both are signed by the EOA and execute contract functions there are import
 ##### Transaction
 | Computation cost | Execution scope | State-affecting | Synchronicity | Execution guarantee |
 |------------------|-----------------|-----------------|---------------|---------------------|
-| Gas spent per transaction. Legacy type 0 transactions use the `gasPrice` parameter - see [Transactions](/architecture/system-model/#transactions). EIP1559 type 2 transactions use the base fee model - see [Autonity EIP 1559 configuration](/architecture/system-model/#autonity-eip-1559-configuration). See also Ethereum Yellow Paper, [4.2. The Transaction; 5. Gas and Payment](https://ethereum.github.io/yellowpaper/paper.pdf)) | Propagated and executed across all nodes in the peer-to-peer network | Yes: causes global state transition | Asynchronous: state transition applied on commit to block and dependent upon factors such as `gasPrice` / base fee, the time for which it remains in the pending pool, Autonity System's block mining interval | State transition applied subject to transaction validity being verified by consensus computation. The transaction hash is returned. A subsequent call is required to return the transaction data or, if emitted by the state-affecting function, event data |
+| Gas spent per transaction. Legacy type 0 transactions use the `gasPrice` parameter - see [Transactions](/concepts/system-model/#transactions). EIP1559 type 2 transactions use the base fee model - see [Autonity EIP 1559 configuration](/concepts/system-model/#autonity-eip-1559-configuration). See also Ethereum Yellow Paper, [4.2. The Transaction; 5. Gas and Payment](https://ethereum.github.io/yellowpaper/paper.pdf)) | Propagated and executed across all nodes in the peer-to-peer network | Yes: causes global state transition | Asynchronous: state transition applied on commit to block and dependent upon factors such as `gasPrice` / base fee, the time for which it remains in the pending pool, Autonity System's block mining interval | State transition applied subject to transaction validity being verified by consensus computation. The transaction hash is returned. A subsequent call is required to return the transaction data or, if emitted by the state-affecting function, event data |
 
 For the Ethereum Web3 modules supported by Autonity, see Reference [Autonity Interfaces](/reference/api/web3/). For official Web3 docs, see [https://readthedocs.org/projects/web3js/](https://readthedocs.org/projects/web3js/).
 
@@ -295,11 +295,11 @@ Autonity modifies EIP 1559 by:
 An _account_ is the unique identifier for referring to an external system user, a participant node, or a smart contract deployed on the system:
 
 - External users require an Ethereum account based on public-key cryptography to access and call functionality of the Autonity Protocol contracts and other decentralised application contracts deployed on the system.
-- Participant and validator nodes and their operators have unique accounts as described in [Participants](/architecture/system-model/#participants) and [Validator identity, accounts and keypairs](/architecture/validator/#validator-identity-accounts-and-keypairs)
-- Smart contracts deployed on the system ledger are uniquely identified by their contract account addresses and have a state. Smart contracts native to Autonity and forming part of an Autonity system are described in [Autonity Protocol Contract](/architecture/architecture/#autonity-protocol-contract). 
+- Participant and validator nodes and their operators have unique accounts as described in [Participants](/concepts/system-model/#participants) and [Validator identity, accounts and keypairs](/concepts/validator/#validator-identity-accounts-and-keypairs)
+- Smart contracts deployed on the system ledger are uniquely identified by their contract account addresses and have a state. Smart contracts native to Autonity and forming part of an Autonity system are described in [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract). 
 
 
-As an Ethereum-based blockchain system, Autonity account addresses are in Ethereum format - a 42 character hexadecimal string derived from last 20 bytes of the account's public key and prepended by `0x`. Keccak-256 and the Elliptic Curve Digital Signature Algorithm (ECDSA) are used for generating (and verifying) cryptographic signatures over the `secp256k1` Elliptic Curve (EC). The use of public-key cryptography based on elliptic curves allows the system to efficiently secure user's data via asymmetric encryption and provides pseudonymity to the user's identity via the public key. The private key gives the owner control over transfer and ownership of the Autonity system's native protocol coins (_Auton_, _Newton_, _Liquid Newton_) to another account. In the wider Ethereum ecosystem this private key may be referred to as a user's 'Ethereum private key'. The private key is used to sign all [transactions and calls](/architecture/system-model/#transactions-and-calls) submitted to an Autonity system by users from the external environment via an EOA.
+As an Ethereum-based blockchain system, Autonity account addresses are in Ethereum format - a 42 character hexadecimal string derived from last 20 bytes of the account's public key and prepended by `0x`. Keccak-256 and the Elliptic Curve Digital Signature Algorithm (ECDSA) are used for generating (and verifying) cryptographic signatures over the `secp256k1` Elliptic Curve (EC). The use of public-key cryptography based on elliptic curves allows the system to efficiently secure user's data via asymmetric encryption and provides pseudonymity to the user's identity via the public key. The private key gives the owner control over transfer and ownership of the Autonity system's native protocol coins (_Auton_, _Newton_, _Liquid Newton_) to another account. In the wider Ethereum ecosystem this private key may be referred to as a user's 'Ethereum private key'. The private key is used to sign all [transactions and calls](/concepts/system-model/#transactions-and-calls) submitted to an Autonity system by users from the external environment via an EOA.
 
 The key elements of an Ethereum account are:
 
@@ -307,19 +307,19 @@ The key elements of an Ethereum account are:
 - **Address:** The address is the unique identifier for a user's account on the ledger. It is derived from the account's public key
 - **Ethereum keystore file:** The Ethereum keystore is the file format for storing and working with encrypted private keys. For a definition of the keystore file format see the Ethereum wiki page [Web3 Secret Storage Definition](https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition)
 
-The steps for creating an account are described in the How To [Create an account](/howto/create-acct/).
+The steps for creating an account are described in the How To [Create an account](/account-holders/create-acct/).
 
 There are two types of Account object maintained in the Autonity system state, _Externally Owned Accounts (EOA)_ and _Contract Accounts_.
 
 #### Externally Owned Account (EOA)
 
-EOA's: represent accounts belonging to external users with a private key, are funded with gas to pay for transaction costs, and do not have smart contract code. All [transactions and calls](/architecture/system-model/#transactions-and-calls) submitted _from the external environment_ to smart contracts in an Autonity system are submitted by externally owned accounts and signed using the submitting user's private key.
+EOA's: represent accounts belonging to external users with a private key, are funded with gas to pay for transaction costs, and do not have smart contract code. All [transactions and calls](/concepts/system-model/#transactions-and-calls) submitted _from the external environment_ to smart contracts in an Autonity system are submitted by externally owned accounts and signed using the submitting user's private key.
 
 #### Contract Account
 
-Contract Account's: deployed smart contracts are also account objects. However, while these accounts have a balance, they are initialised with code and do not have an associated private key. As opposed to EOA's, interactions with a contract account are governed by its EVM code. Such code is either triggered by transactions from EOA's or message calls from other contract accounts. A contract account can call other contracts by [message calls](/architecture/system-model/#message-call), but such message calls are not signed by a private key.
+Contract Account's: deployed smart contracts are also account objects. However, while these accounts have a balance, they are initialised with code and do not have an associated private key. As opposed to EOA's, interactions with a contract account are governed by its EVM code. Such code is either triggered by transactions from EOA's or message calls from other contract accounts. A contract account can call other contracts by [message calls](/concepts/system-model/#message-call), but such message calls are not signed by a private key.
 
-Contract accounts native to an Autonity system are described in [Autonity Protocol Contract](/architecture/architecture/#autonity-protocol-contract).
+Contract accounts native to an Autonity system are described in [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract).
 
   
 #### References
