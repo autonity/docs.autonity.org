@@ -2,9 +2,9 @@
 ---
 title: "How to's"
 linkTitle: "How to's"
-weight: 4
+weight: 60
 description: >
-  How to index and system prerequisites to install and run Autonity 
+  How to index and system prerequisites to install and run Autonity
 ---
 
 ## Prerequisites
@@ -13,9 +13,9 @@ You need the following software components to carry out the steps in the How to 
 
 ### Necessary
 
-The Autonity Go Client can be installed and run as a binary or Docker image. 
+The Autonity Go Client can be installed and run as a binary or Docker image.
 
-Whether configuring and launching as binary or Docker you will need _Git_. If installing and running the Docker image, you will also need _Docker_ and _login credentials to the GitHub Container Registry (GHCR)_ to pull and run the Autonity Docker image. 
+Whether configuring and launching as binary or Docker you will need _Git_. If installing and running the Docker image, you will also need _Docker_ and _login credentials to the GitHub Container Registry (GHCR)_ to pull and run the Autonity Docker image.
 
 To connect to your node and interact with an Autonity network, you will need to install the _aut CLI_ tool on your local machine.
 

@@ -2,7 +2,7 @@
 ---
 title: "Known issues "
 linkTitle: "Known issues"
-weight: 7
+weight: 110
 description: >
   Known issues in the Autonity codebase
 ---
