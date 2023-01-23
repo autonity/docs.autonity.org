@@ -1,7 +1,7 @@
 ---
 title: "Node Operators"
 linkTitle: "Node Operators"
-weight: 3
+weight: 40
 description: >
   How to setup and operate an Autonity Go Client node on an Autonity testnet
 ---
