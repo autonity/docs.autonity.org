@@ -1,6 +1,6 @@
 ---
-title: "Account Holders"
-linkTitle: "Account Holders"
+title: "Accounts"
+linkTitle: "Accounts"
 weight: 20
 description: >
     Start interacting with the Autonity network, create an account and fund it to issue simple transactions.
