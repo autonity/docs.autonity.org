@@ -8,7 +8,7 @@ description: >
 
 ## Prerequisites
 
-- An account address - see the how to [Create an account](/howto/create-acct/).
+- An account address - see the how to [Create an account](/account-holders/create-acct/).
 
 
 ## Fund account from Faucet

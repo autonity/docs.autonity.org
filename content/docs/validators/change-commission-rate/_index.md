@@ -8,11 +8,11 @@ description: >
 
 ## Prerequisites
 
-- An Autonity Go Client registered as a validator (the validator can be in a paused or an active state - see [validator lifecycle](/architecture/validator/#validator-lifecycle)).
-- A running instance of `autcli` for submitting transactions from your account configured as described in [Submit a transaction from `autcli`](/howto/submit-trans-autcli/).
-- Your validator's validator's [`treasury account`](/architecture/validator/#treasury-account) is [funded](/howto/fund-acct) with auton to pay for transaction gas costs.
+- An Autonity Go Client registered as a validator (the validator can be in a paused or an active state - see [validator lifecycle](/concepts/validator/#validator-lifecycle)).
+- A running instance of `autcli` for submitting transactions from your account configured as described in [Submit a transaction from `autcli`](/account-holders/submit-trans-autcli/).
+- Your validator's validator's [`treasury account`](/concepts/validator/#treasury-account) is [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
 
-{{< alert title="Note" >}}See the [Validator economics](/architecture/validator/#validator-economics) section for more information on commission rate and its default setting on an Autonity Network.{{< /alert >}}
+{{< alert title="Note" >}}See the [Validator economics](/concepts/validator/#validator-economics) section for more information on commission rate and its default setting on an Autonity Network.{{< /alert >}}
 
 
 ## Change validator commission rate

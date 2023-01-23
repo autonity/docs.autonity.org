@@ -37,12 +37,12 @@ The Autonity client extends the underlying Ethereum protocol at application, blo
 
 For explanations of core concepts refer to:
 
-- [Architecture](/concepts/architecture/) for an Autonity system's technical architecture and protocol primitives.
+- [Architecture](/concepts/) for an Autonity system's technical architecture and protocol primitives.
 - [System model](/concepts/system-model/) for the functions of participant nodes and blockchain primitives comprising the structure of an Autonity system's peer-to-peer network and distributed ledger.
 - [Client](/concepts/client/) for an overview of Autonity Go Client features.
-- [Consensus](/architecture/consensus/) for the protocol's implementation of the Tendermint BFT consensus algorithm and consensus committee selection.
-- [Validator](/architecture/validator) for the role of validators and the functions they perform in securing an Autonity network.
-- [Staking](/architecture/staking/) for protocol staking mechanisms and Autonity's model for liquid staking.
+- [Consensus](/concepts/consensus/) for the protocol's implementation of the Tendermint BFT consensus algorithm and consensus committee selection.
+- [Validator](/concepts/validator) for the role of validators and the functions they perform in securing an Autonity network.
+- [Staking](/concepts/staking/) for protocol staking mechanisms and Autonity's model for liquid staking.
 - [Protocol assets](/concepts/protocol-assets/) for the protocol's native coins and tokens:  _Auton_ utility coin, _Newton_ stake token, and _Liquid Newton_ liquid stake token.
 - The [Glossary](/glossary/#participant) for definitions of terms and concepts used in the documentation.
 
@@ -56,7 +56,7 @@ The actors of an Autonity network are:
 
 - [Validators](/validators/): nodes with bonded stake forming the validation infrastructure proposing and maintaining system state. Active validator nodes are candidates for selection to the network's consensus committee. The consensus committee is responsible for proposing and deciding on new blocks.
 
-- [Stakers](/staking/): stake delegators hold  _Newton_ stake token and delegate stake to one or more validators in order to secure the network. Stake holders receive _Liquid Newton_ for bonded stake.
+- [Stakers](/concepts/staking/): stake delegators hold  _Newton_ stake token and delegate stake to one or more validators in order to secure the network. Stake holders receive _Liquid Newton_ for bonded stake.
 
 
 ## Key concepts

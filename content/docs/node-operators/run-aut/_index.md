@@ -7,12 +7,12 @@ description: >
 ---
 
 {{< alert title="Prerequisites" >}}
-- Ensure that the host machine meets the [minimum requirements](/howto/install-aut/#requirements)
+- Ensure that the host machine meets the [minimum requirements](/node-operators/install-aut/#requirements)
 {{< /alert >}}
 
 ## Run Autonity (binary or source code install) {#run-binary}
 
-- Ensure that the Autonity Go Client has been installed from a [pre-compiled binary](/howto/install-aut#install-binary) or from [source code](/howto/install-aut#install-source)
+- Ensure that the Autonity Go Client has been installed from a [pre-compiled binary](/node-operators/install-aut#install-binary) or from [source code](/node-operators/install-aut#install-source)
 
 To connect to a network and sync, get the genesis and bootnode files if needed, and run Autonity. Autonity will initialise, connect to the network, and then sync ledger state.
 
@@ -49,7 +49,7 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 
 ## Run Autonity as Docker image {#run-docker}
 
-- Ensure that the Autonity Go Client [Docker image](/howto/install-aut#install-docker) has been installed.
+- Ensure that the Autonity Go Client [Docker image](/node-operators/install-aut#install-docker) has been installed.
 
 1. Create and enter a working directory for autonity.
 

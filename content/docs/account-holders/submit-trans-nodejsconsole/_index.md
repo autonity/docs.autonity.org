@@ -12,7 +12,7 @@ draft: true
 To submit transactions to a client node from the Autonity NodeJS Console you need:
 
 - An [installed NodeJS Console](/reference/utility-tools/#installation-1).
-- An [unlocked account](/howto/unlock-acct) on an Autonity network funded with auton to pay for transaction gas costs.
+- An [unlocked account](/account-holders/unlock-acct) on an Autonity network funded with auton to pay for transaction gas costs.
 - Configuration details for the Autonity network you are deploying to, i.e. a public or your own node on a public [Autonity network](/networks/).
 
 Navigate to your Autonity NodeJS Console install directory  and initialise a console session, specifying the IP address of the node you will connect to. The connection is made over WebSockets to port 8546:
@@ -24,7 +24,7 @@ Navigate to your Autonity NodeJS Console install directory  and initialise a con
 
 ## Examples
 
-Here are some examples of using `web3` and `autonity` namespaces to transfer value between accounts and call Autonity Protocol Contract ERC20 functionality from the console. In the following examples we will specify the gas parameter, but it can be superfluous depending on how you [unlocked your account](/howto/unlock-acct).
+Here are some examples of using `web3` and `autonity` namespaces to transfer value between accounts and call Autonity Protocol Contract ERC20 functionality from the console. In the following examples we will specify the gas parameter, but it can be superfluous depending on how you [unlocked your account](/account-holders/unlock-acct).
 
 {{% pageinfo %}}
 The current block base fee can be obtained by querying the latest block header:

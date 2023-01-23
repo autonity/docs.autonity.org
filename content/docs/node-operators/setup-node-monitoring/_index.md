@@ -21,7 +21,7 @@ The steps covered are:
 
 ## Prerequisites
 
-- An [installation](/howto/install-aut/) of Autonity Go Client (AGC), with the `--metrics` and `--pprof` flags enabled.
+- An [installation](/node-operators/install-aut/) of Autonity Go Client (AGC), with the `--metrics` and `--pprof` flags enabled.
 - An installation of [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) server agent, which will provide the backend service for metrics collection.
 - An installation of Docker. See [Get setup, Install Docker](https://docs.autonity.org/node-operators/get-setup/#install-docker) if Docker is not already installed onto the host machine.
 
@@ -137,7 +137,7 @@ To configure Autonity for exporting metrics set [command line options](/referenc
 - enabling metrics collection and reporting: `--metrics`.
 - enabling the pprof HTTP server: `--pprof`.
 
-The [Piccadilly Testnet](https://docs.autonity.org/networks/testnet-piccadilly/) is connected to in the example configuration here. For a minimal command line start configuration see the how to [Run Autonity](/howto/run-aut/).
+The [Piccadilly Testnet](https://docs.autonity.org/networks/testnet-piccadilly/) is connected to in the example configuration here. For a minimal command line start configuration see the how to [Run Autonity](/node-operators/run-aut/).
 
 Autonity will serve an http feed that provides metrics at `http://localhost:6060/debug/metrics/prometheus`, which you can view in a browser. Notice this is the input specified in `telegraf.conf` above. If you are using Docker, make sure you run the container as host, as shown below:
 

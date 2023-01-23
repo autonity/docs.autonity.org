@@ -144,8 +144,8 @@ The Autonity NodeJS Console is provided as part of the Autonity Go Client binary
 
 To install, see the How to _Install Autonity_ and:
 
-- [Build from source code](/howto/install-aut/#build-from-source-code) to build and install from binary, and,
-- [Autonity Node JS Console](/howto/install-aut/#autonity-nodejs-console) to install from the download package.
+- [Build from source code](/node-operators/install-aut/#build-from-source-code) to build and install from binary, and,
+- [Autonity Node JS Console](/node-operators/install-aut/#autonity-nodejs-console) to install from the download package.
 
 CD to the Node JS Console directory. This will be `./nodejsconsole` if you have built from source, or if you are using the separate download then the directory location where you unzipped the _tar_ file to.
 
@@ -174,7 +174,7 @@ An interactive session is now open with the connected node.
 
 Note that the NodeJS Console:
 
-- Provides `aut` (Autonity), `eth`, `net`, `rpc`, `tendermint` modules by default. Web3 method calls can be prefixed by `web3.`but this is not required. Additional Web3 modules may be available if the node you are connecting to has provided them in its `--ws.api` flag when starting Autonity (See How to [Run Autonity](/howto/run-aut/)).
+- Provides `aut` (Autonity), `eth`, `net`, `rpc`, `tendermint` modules by default. Web3 method calls can be prefixed by `web3.`but this is not required. Additional Web3 modules may be available if the node you are connecting to has provided them in its `--ws.api` flag when starting Autonity (See How to [Run Autonity](/node-operators/run-aut/)).
 - Will not timeout if idle. The console implements an automatic reconnect mechanism and will reconnect if left idle after 1000 ms.
 
 {{< alert title="Warning" color="warning">}}Public access to the `tendermint` namespace module is deprecated and will be removed in a future release. See [Known Issues](/issues/), [Tendermint Namespace Interface is accessible but not meant for use by external clients](/issues/#tendermint-namespace-interface-is-accessible-but-not-meant-for-use-by-external-clients).{{< /alert >}}
@@ -202,7 +202,7 @@ Use `.send()` for `Autonity `and `web3` calls to submit state affecting transact
 > autonity.transfer('<_recipient>', <_amount>).send({from: myAddress, gas: gas})
 ```
 
-Console configuration for use of `.send()` is described in the How to [Submit a transaction from Autonity NodeJS Console](/howto/submit-trans-autcli/).
+Console configuration for use of `.send()` is described in the How to [Submit a transaction from Autonity NodeJS Console](/account-holders/submit-trans-autcli/).
 
 #### JavaScript Object Prototype functions
 
@@ -430,9 +430,9 @@ Datatypes are [Solidity v0.8.3 Types](https://docs.soliditylang.org/en/v0.8.3/ty
 {{% pageinfo %}}
 Examples use the setup described in the How to's:
 
-- [Submit a transaction from Autonity NodeJS Console](/howto/submit-trans-nodejsconsole/)
-- [Claim Staking Rewards](/howto/claim-rewards/)
-- [Transfer Liquid Newton](/howto/transfer-lntn/).
+- [Submit a transaction from Autonity NodeJS Console](/account-holders/submit-trans-nodejsconsole/)
+- [Claim Staking Rewards](/delegators/claim-rewards/)
+- [Transfer Liquid Newton](/delegators/transfer-lntn/).
 {{% /pageinfo %}}
 
 {{% pageinfo %}}
@@ -534,7 +534,7 @@ Displays an index-sorted list of all the stake delegations from the specified (i
 Then, a table showing stake delegations sorted by validator index:
 
 - `(index)`: the validator index, i.e. if the 1st or nth validator registered in the network.
-- `validator`: the unique [validator identifier](/architecture/validator/#validator-identifier).
+- `validator`: the unique [validator identifier](/concepts/validator/#validator-identifier).
 - `lntn`: the amount of Liquid Newton the staker owns for that validator.
 - `claimableRewards`: the amount of rewards the staker can claim from the stake delegation, denominated in [attoton](/glossary/#attoton), auton's wei equivalent.
 
@@ -578,7 +578,7 @@ Calls the `claimRewards()` function for the specified validator. The sender's ac
 | Field | Datatype | Description |
 | --| --| --|
 | `account` | `address` | the account address of the sender. This is the sender's _Staking Wallet_ account: the staker address that owns the liquid newton being sent |
-| `validator` | `address` | the unique [validator identifier](/architecture/validator/#validator-identifier) of the validator stake delegation from which liquid newton is being sent |
+| `validator` | `address` | the unique [validator identifier](/concepts/validator/#validator-identifier) of the validator stake delegation from which liquid newton is being sent |
 
 
 ### Response
@@ -672,7 +672,7 @@ Calls the `transfer()` function for the specified validator. The sender's accoun
 
 | Field | Datatype | Description |
 | --| --| --|
-| `val` | `address` | the unique [validator identifier](/architecture/validator/#validator-identifier) of the validator stake delegation from which liquid newton is being sent |
+| `val` | `address` | the unique [validator identifier](/concepts/validator/#validator-identifier) of the validator stake delegation from which liquid newton is being sent |
 | `from` | `address` | the account address of the sender. This is the sender's _Staking Wallet_ account: the staker address that owns the liquid newton being sent |
 | `to` | `address` | the account address of the recipient. |
 | `value` | `uint256 ` | the amount of liquid newton being sent |

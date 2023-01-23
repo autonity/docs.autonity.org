@@ -55,11 +55,11 @@ To install and run the Autonity NodeJS Console you will need to [install nodejs]
 
 #### aut CLI tool
 
-To install and configure follow the instructions in the How to [Setup aut CLI](/howto/setup-autcli/). A working Python install with the `pip` tool is required to run the tool.
+To install and configure follow the instructions in the How to [Setup aut CLI](/account-holders/setup-autcli/). A working Python install with the `pip` tool is required to run the tool.
 
 #### Funded accounts
 
-You will need a funded account on the Autonity network. The accounts must be funded with sufficient Auton to pay for gas costs. The process for account creation and funding is described in the how-to's [Create an account](/howto/create-acct/) and [Fund an account](/howto/fund-acct/).
+You will need a funded account on the Autonity network. The accounts must be funded with sufficient Auton to pay for gas costs. The process for account creation and funding is described in the how-to's [Create an account](/account-holders/create-acct/) and [Fund an account](/account-holders/fund-acct/).
 
 
 ### Additional Helpers

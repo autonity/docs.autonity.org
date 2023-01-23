@@ -18,7 +18,7 @@ Ensure that your `keystore` file is stored securely according to your security p
 
 ## Create account using `autcli`
 
-The following command will generate a keyfile with a default generated name, in the keystore (which can be specified with the `--keyfile` flag, or by adding a `keyfile = <path>` entry to the [`.autrc` file](/howto/setup-autcli/#configure)).
+The following command will generate a keyfile with a default generated name, in the keystore (which can be specified with the `--keyfile` flag, or by adding a `keyfile = <path>` entry to the [`.autrc` file](/account-holders/setup-autcli/#configure)).
 
 ```bash
 aut account new
@@ -97,7 +97,7 @@ The file contents should contain something similar to:
 ## Create account using Clef
 
 {{< alert title="Note" >}}
-- An installed instance of the Autonity and the Clef account management tool binaries. See the how to [Install Autonity in your environment, Build from source code](/howto/install-aut/#build-from-source-code).
+- An installed instance of the Autonity and the Clef account management tool binaries. See the how to [Install Autonity in your environment, Build from source code](/node-operators/install-aut/#build-from-source-code).
 {{< /alert >}}
 
 To generate a new account using the Clef account management utility, navigate to your Autonity installation `build/bin/` directory and run the Clef binary with this command. To specify a custom keystore directory include the `--keystore` flag and a `<PATH>` to the directory where you will store the keystore file:
@@ -178,7 +178,7 @@ An account can be created from an existing private key using client command line
  autonity account import ./alice.key --keystore <PATH>
  ```
 
- As described in [Create account using client binary](/howto/create-acct/#create-account-using-client-binary) above, you will be prompted for a password and the keystore file containing your encrypted private key will be generated in the keystore directory.
+ As described in [Create account using client binary](/account-holders/create-acct/#create-account-using-client-binary) above, you will be prompted for a password and the keystore file containing your encrypted private key will be generated in the keystore directory.
 
 
 ## Decrypting the private key

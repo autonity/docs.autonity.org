@@ -10,9 +10,9 @@ description: >
 
 To send Liquid Newton (LNTN) to another account you need:
 
-- A running instance of `autcli` for submitting transactions from your account configured as described in [Submit a transaction from `autcli`](/howto/submit-trans-autcli/).
-- An [account](/howto/create-acct) [funded](/howto/fund-acct) with auton to pay for transaction gas costs, and a Liquid Newton stake token balance >= to the amount being transferred.
-- You have already [bonded stake](/howto/bond-stake) to one or more validators and so have Liquid Newton token balance(s).
+- A running instance of `autcli` for submitting transactions from your account configured as described in [Submit a transaction from `autcli`](/account-holders/submit-trans-autcli/).
+- An [account](/account-holders//create-acct/) [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs, and a Liquid Newton stake token balance >= to the amount being transferred.
+- You have already [bonded stake](/delegators/bond-stake/) to one or more validators and so have Liquid Newton token balance(s).
 
 
 ## Get Liquid Newton holdings

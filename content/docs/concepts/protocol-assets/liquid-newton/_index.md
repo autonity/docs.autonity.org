@@ -7,7 +7,7 @@ description: >
   Liquid Newton - liquid staking asset
 ---
 
-Liquid Newton is the [liquid staking](/architecture/staking/#liquid-staking) token of Autonity. Liquid Newton is minted and burned as stake holders bond and redeem [Newton](/architecture/protocol-assets/newton/) stake token to validators in an Autonity system. Liquid Newton is validator-specific and represents the holder's share of the total stake bonded to a [validator](/glossary/#validator). Liquid Newton has the [staking rewards](/glossary/#staking-rewards) entitlement rights due to bonded stake when the staked validator is participating in the [consensus committee](/glossary/#consensus-committee). The Liquid Newton of a validator has its own market price and is not fungible across validators. Liquid Newton is divisible up to 18 decimal places (the smallest unit is 10^-18 or 0.000000000000000001).
+Liquid Newton is the [liquid staking](/concepts/staking/#liquid-staking) token of Autonity. Liquid Newton is minted and burned as stake holders bond and redeem [Newton](/concepts/protocol-assets/newton/) stake token to validators in an Autonity system. Liquid Newton is validator-specific and represents the holder's share of the total stake bonded to a [validator](/glossary/#validator). Liquid Newton has the [staking rewards](/glossary/#staking-rewards) entitlement rights due to bonded stake when the staked validator is participating in the [consensus committee](/glossary/#consensus-committee). The Liquid Newton of a validator has its own market price and is not fungible across validators. Liquid Newton is divisible up to 18 decimal places (the smallest unit is 10^-18 or 0.000000000000000001).
 
 A Liquid Newton token can be in one of two states:
 
