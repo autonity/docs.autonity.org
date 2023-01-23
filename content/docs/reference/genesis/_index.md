@@ -60,7 +60,7 @@ Genesis configuration file JSON objects:
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
+| `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
 
 
