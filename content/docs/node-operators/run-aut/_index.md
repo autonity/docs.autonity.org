@@ -31,7 +31,9 @@ To connect to a network and sync, get the genesis and bootnode files if needed, 
         --datadir ./autonity-chaindata  \
         --piccadilly  \
         --http  \
+        --http.addr 0.0.0.0 \
         --http.api aut,eth,net,txpool,web3,admin  \
+        --http.vhosts \* \
         --ws  \
         --ws.addr 0.0.0.0 \
         --ws.api aut,eth,net,txpool,web3,admin  \
@@ -75,12 +77,14 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
            --datadir ./autonity-chaindata  \
            --piccadilly \
            --http  \
+           --http.addr 0.0.0.0 \
            --http.api aut,eth,net,txpool,web3,admin  \
+           --http.vhosts \* \
            --ws  \
            --ws.addr 0.0.0.0 \
            --ws.api aut,eth,net,txpool,web3,admin  \
            --nat extip:<IP_ADDRESS>
-    ```
+   ```
 
    where:
    - `<IP_ADDRESS>` is the node's host IP Address, which can be determined with `curl ifconfig.me`.
