@@ -8,7 +8,7 @@ description: >
 
 The recommended way of interacting with the Autonity network if via the [`aut` CLI tool](https://github.com/autonity/autcli), which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.  In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
 
-For full details and for trouble-shooting, see the [`aut` CLI repository](https://github.com/autonity/autcli).
+For full details and to report any issues, see the [`aut` CLI repository](https://github.com/autonity/autcli).
 
 ## Installation {#install}
 
@@ -19,7 +19,7 @@ A working Python install with the `pip` tool is required.
 In general, the tool can be installed using [pipx](https://github.com/pypa/pipx).
 
 ```bash
-pipx install https://github.com/autonity/autcli
+pipx install git+https://github.com/autonity/autcli
 ```
 
 {{< alert title="Note" >}}
