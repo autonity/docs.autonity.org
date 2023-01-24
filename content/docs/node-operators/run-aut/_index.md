@@ -34,7 +34,7 @@ To connect to a network and sync, get the genesis and bootnode files if needed, 
         --http.api aut,eth,net,txpool,web3,admin  \
         --ws  \
         --ws.addr 0.0.0.0 \
-        --ws.api aut,eth,net,personal,txpool,web3,admin  \
+        --ws.api aut,eth,net,txpool,web3,admin  \
         --nat extip:<IP_ADDRESS>
     ```
 
@@ -78,7 +78,7 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
            --http.api aut,eth,net,txpool,web3,admin  \
            --ws  \
            --ws.addr 0.0.0.0 \
-           --ws.api aut,eth,net,personal,txpool,web3,admin  \
+           --ws.api aut,eth,net,txpool,web3,admin  \
            --nat extip:<IP_ADDRESS>
     ```
 
