@@ -1,113 +1,128 @@
 ---
 title: "Deploy smart contracts to an Autonity network with Truffle"
-linkTitle: "Deploy smart contracts with Truffle"
+linkTitle: "Deploy smart contracts with the Truffle development environment"
 weight: 180
 description: >
   How to deploy smart contracts to an Autonity network using Truffle, with an ERC20 token contract as an example
 draft: false
 ---
 
-Truffle is a JS framework that can be used to compile and deploy smart contracts to an EVM network. This guide demonstrates step by step how to use Truffle to deploy an ERC20 contract to an Autonity network.
+This guide uses the Truffle development environment and JavaScript framework to compile and deploy smart contracts. It deploys as example an ERC20 token contract from the OpenZeppelin open source library of smart contracts.
 
 ## Prerequisites
 
-- An account on an Autonity network funded with auton to pay for transaction gas costs
-- Configuration details for the Autonity network you are deploying to, i.e. a public or your own node on a public Autonity network
-- To provide the following constants:
-  - The private key of the account you are using (to unlock the account in the JavaScript environment)
-  - Gas (the maximum amount of gas units you are willing to provide for the transaction).
+- An up-to-date installation of [Truffle](https://trufflesuite.com/docs/truffle/) and `npm`. See the Truffle docs for [Installation](https://trufflesuite.com/docs/truffle/how-to/install/) is on npm Docs.
+
+- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs. You will need the  private key of the account to unlock the account in the JavaScript environment.
+
+- Configuration details for the Autonity network you are deploying to: a [public Autonity network](/networks/) or a [custom network](/developer/custom-networks/) if you are deploying to a local testnet.
 
 
-### Setup
+### Setup your working environment
 
-Install truffle globally, so you can use it for future projects without installing in multiple places:
+1. Install truffle globally, so you can use it for future projects without installing in multiple places:
 
-```bash
-npm i -g truffle
-```
+	```bash
+	npm i -g truffle
+	```
 
-Create a new directory and initialise the project with npm and truffle:
+2. Create a working directory and initialise the project with `npm`:
 
-```bash
-mkdir ERC20token && cd ERC20token
-npm init -y
-truffle init
-```
+	```bash
+	mkdir ERC20token && cd ERC20token
+	npm init -y
+	```
 
-Next install OpenZeppelin Contracts, and a module we need to add a private key. OpenZeppelin is an open source library of smart contracts.
+3. Install OpenZeppelin Contracts and Truffle `hd-wallet-provider` modules:
 
-```bash
-npm i --save-dev @openzeppelin/contracts
-npm i @truffle/hdwallet-provider
-```
+	```bash
+	npm i --save-dev @openzeppelin/contracts
+		npm i @truffle/hdwallet-provider
+	```
+	
+	The `hdwallet-provider` module is used to add a private key. OpenZeppelin is an open source library of smart contracts.
 
 ### Write the contract
 
-From the 'ERC20token' directory, enter the following commands to start writing the contract:
+4. In your working directory (`ERC20token`), create the ERC20 contract. Create a Solidity file for your token contract:
 
-```bash
-nano contracts/mytoken.sol
-```
+	```bash
+	nano contracts/myToken.sol
+	```
+	
+	Solidity allows you to build your contract on top of another contract, through inheritance. This guide uses OpenZeppelin's `ERC20PresetFixedSupply` contract, which is an ERC20 contract with a preset token supply that allows the owner to mint and burn tokens. You can view the code for the preset contract code in the OpenZeppelin GitHub [here](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol).
+	
+	For this contract, import the preset then describe the new contract, inheriting from the preset:
 
-Solidity allows you to build your contract on top of another contract, through inheritance. For this tutorial, we will be using the preset contract `ERC20PresetFixedSupply` which is an ERC20 that is preset so it can be minted and burned. See the code for the contract [here](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol).
-
-For this contract, import the preset then describe the new contract, inheriting from the preset:
-
-```javascript
-pragma solidity ^0.8.13;
-
-import "@openzeppelin/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol";
-
-contract mytoken is ERC20PresetFixedSupply {
-
-    constructor(
-        string memory name,
-        string memory symbol,
-        uint256 initialSupply
-    ) ERC20PresetFixedSupply(name, symbol, initialSupply, msg.sender){}
-
-    // Enter additional code here to build on top of the smart contract
-
-}
-```
+	```javascript
+	pragma solidity ^0.8.13;
+	
+	import "@openzeppelin/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol";
+	
+	contract myToken is ERC20PresetFixedSupply {
+	
+    	constructor(
+        	string memory name,
+        	string memory symbol,
+        	uint256 initialSupply
+    	) ERC20PresetFixedSupply(name, symbol, initialSupply, msg.sender){}
+	
+    	// Enter additional code here to build on top of the smart contract
+	
+	}
+	```
 
 ### Compile and deploy the contract
 
-Compile the contract with truffle:
+5. Compile the contract with truffle:
 
-```bash
-truffle compile
-```
+	```bash
+	truffle compile
+	```
 
-Edit the `truffle-config.js` file to enter a private key to deploy the contract and rpc node url:
+6. Edit the `truffle-config.js` file to enter account private key and rpc node endpoint, where:
+	- `<NODE_URL>` is the rpc endpoint of the node you are connecting to.
+	- `<PRIVATE_KEY>` is the private key of the account you are using to submit the transaction.
 
-```javascript
-var PrivateKeyProvider = require("@truffle/hdwallet-provider");
-
-module.exports = {
-  networks: {
-
-    devnet: {
-       skipDryRun: true,
-       provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "NODE_URL"),
-       network_id: "*", // Match any network id,
-       gasPrice: 10000000000
-    }
-  },
-
-  compilers: {
+	```javascript
+	var PrivateKeyProvider = require("@truffle/hdwallet-provider");
+	
+	module.exports = {
+  		networks: {
+		
+    		localtestnet: {
+       		skipDryRun: true,
+       		provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "NODE_URL"),
+       		network_id: "*", // Match any network id,
+       		gasPrice: 10000000000
+       	},
+    		bakerloo: {
+       		skipDryRun: true,
+       		provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "NODE_URL"),
+       		network_id: "65010000", // Match any network id,
+       		gasPrice: 10000000000
+    		},
+    		piccadilly: {
+       		skipDryRun: true,
+       		provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "NODE_URL"),
+       		network_id: "65100000", // Match any network id,
+       		gasPrice: 10000000000
+    		}
+  		},
+	
+  		compilers: {
           solc: {
             version: "0.8.13",
-            optimizer: {
-              enabled: false, // test coverage won't work otherwise
-              runs: 200
-            },
-          },
-          },
-        plugins: ["solidity-coverage"]
-};
+            	optimizer: {
+              	enabled: false, // test coverage won't work otherwise
+              	runs: 200
+				},
+			},
+		},
+		plugins: ["solidity-coverage"]
+	};
 
-```
+	```
 
 Add the following deployment script in migrations:
 
@@ -122,11 +137,13 @@ module.exports = function(deployer) {
 };
 ```
 
-Finally deploy the contract to the block chain:
+Deploy the contract to the block chain, specifying the name of the target `<NETWORK>` from a network configured in `truffle-config.js` in Step 6:
 
 ```bash
-truffle deploy --network devnet
+truffle deploy --network <NETWORK>
 ```
+
+For example, to deploy to Piccadilly Testnet, `truffle deploy --network piccadilly`.
 
 You should receive an output resembling the following:
 
