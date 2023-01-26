@@ -3,7 +3,7 @@ title: "Bakerloo Testnet"
 linkTitle: "Bakerloo Testnet"
 weight: 1
 description: >
-  An open testnet for node operators and developers
+  An open testnet for node operators, validators and developers
 ---
 
 A public testnet for participants interested in:
@@ -64,6 +64,7 @@ The network bootnode addresses are:
 ## Faucet
 
 - Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/](https://faucet.autonity.org/)
+- There is currently no faucet for [newton](/concepts/protocol-assets/newton), as newton tokens will be made available to network participants in later phases of the testnet.
 
 ## Public endpoints:
 
