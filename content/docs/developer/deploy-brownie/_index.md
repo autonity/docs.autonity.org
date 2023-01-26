@@ -18,7 +18,7 @@ Add the testnet you would like to deploy the contract to:
 ```bash
 brownie networks add Ethereum piccadilly host=http://localhost:8545/ chainid=65100000
 ```
-Here we have used the [Piccadilly testnet](/networks/piccadilly/) as an example.  See [here](/networks/) for other possible networks.
+Here we have used the [Piccadilly testnet](/networks/testnet-piccadilly/) as an example.  See [here](/networks/) for other possible networks.
 
 Install the OpenZeppelin package, which contains a base ERC20 token implementation:
 ```bash
@@ -75,7 +75,7 @@ brownie compile
 
 ## Deploy the Token contract
 
-[Create](/account-holder/create-acct/) or nominate an account <OWNER>
+[Create](/account-holders/create-acct/) or nominate an account <OWNER>
 under your control to act as the owner of the token (the initial
 holder of the total supply).
 
