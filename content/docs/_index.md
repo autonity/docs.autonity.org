@@ -18,7 +18,7 @@ resources:
 - src: "**logo-autonity*.{png,svg}"
 ---
 
-![logo-autonity](/logo-autonity.png)
+![logo-autonity](/logo-autonity.svg)
 
 Welcome to the documentation site for the Autonity Go Client (AGC). AGC is the main client software run by peer nodes in an Autonity network. 
 
