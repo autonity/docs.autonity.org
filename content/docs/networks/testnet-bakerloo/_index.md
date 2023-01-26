@@ -3,7 +3,7 @@ title: "Bakerloo Testnet"
 linkTitle: "Bakerloo Testnet"
 weight: 1
 description: >
-  An open testnet for node operators and developers
+  An open testnet for node operators, validators and developers
 ---
 
 A public testnet for participants interested in:

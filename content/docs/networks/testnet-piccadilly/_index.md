@@ -3,7 +3,7 @@ title: "Piccadilly Testnet"
 linkTitle: "Piccadilly Testnet"
 weight: 1
 description: >
-  An open testnet for the Piccadilly Circus Game Competition
+  An open testnet for node operators, validators and developers
 ---
 
 A public testnet for participants interested in:
@@ -13,8 +13,6 @@ A public testnet for participants interested in:
 - Operating as a validator.
 - Stake delegation.
 - Developing and deploying dApp use cases.
-
-For the goals of the Piccadilly Circus Competition Game and how to participate, see the game competition website at [https://game.autonity.org/](https://game.autonity.org/).
 
 ## Piccadilly Testnet details
 
