@@ -4,7 +4,7 @@ linkTitle: "Deploy smart contracts with Truffle"
 weight: 180
 description: >
   How to deploy smart contracts to an Autonity network using Truffle, with an ERC20 token contract as an example
-draft: true
+draft: false
 ---
 
 Truffle is a JS framework that can be used to compile and deploy smart contracts to an EVM network. This guide demonstrates step by step how to use Truffle to deploy an ERC20 contract to an Autonity network.

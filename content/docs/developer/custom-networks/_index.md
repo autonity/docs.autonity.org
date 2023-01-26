@@ -4,7 +4,7 @@ linkTitle: "Custom Network"
 weight: 200
 description: >
   Custom Autonity networks
-draft: true
+draft: false
 ---
 
 - To connect your node to an existing Autonity network other than `bakerloo` or `piccadilly`, you will need the network's:

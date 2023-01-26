@@ -4,7 +4,7 @@ linkTitle: "Deploy smart contracts with NodeJS"
 weight: 170
 description: >
   How to deploy smart contracts to an Autonity network using NodeJS scripts, with an ERC20 token contract as an example
-draft: true
+draft: false
 ---
 
 Instead of using a deployment framework like Truffle, you can use NodeJS to write scripts to deploy precompiled contracts. This method is preferable if you want to deploy several contracts at once, or sequentially.
