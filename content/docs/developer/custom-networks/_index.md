@@ -7,19 +7,49 @@ description: >
 draft: false
 ---
 
-- To connect your node to an existing Autonity network other than `bakerloo` or `piccadilly`, you will need the network's:
-  - bootnode file `static-nodes.json`
-  - genesis file `genesis.json`
+To connect your node to a custom Autonity network, you will need the network's:
+  - bootnodes, typically given in a  `static-nodes.json` file or specified when running the node with the `--bootnodes` command-line option.
+  - genesis configuration file,  `genesis.json`.
 
-  See the [Networks](/networks/) section for file download links.
+  See [Local Autonity Network configuration](/reference/genesis/#local-autonity-network-configuration) in the [Genesis](/reference/genesis/) reference for how to create these files.
 
-{{% alert title="Note" %}}Note that the client provides command-line flag options for connecting to the various Autonity testnets. If you specify the testnet flag, then neither genesis nor bootnode files are required: the client will use the flag to set genesis and bootstrap configuration. {{% /alert %}}
+{{% alert title="Note" %}}Note that the client provides command-line flag options for connecting to the various Autonity testnets: `--bakerloo` and `--piccadilly`. If you specify the testnet flag, then neither genesis nor bootnode files are required: the client will use the flag to set genesis and bootstrap configuration. {{% /alert %}}
 
-2. To connect your node to an existing Autonity network other than `bakerloo` or `piccadilly`, copy the bootnode file into the `autonity-chaindata` directory:
+1. Install Autonity in a working directory and create an `autonity-chaindata` sub-directory as described in [Running a node, Install Autonity](/node-operators/install-aut/).
+
+2. Create and copy the bootnode file into the `autonity-chaindata` sub directory:
 
 	```bash
 	cp ./<PATH>/static-nodes.json ./autonity-chaindata/
     ```
 
-    - `--genesis` is used to provide a genesis file, if connecting to a network other than `bakerloo` or `piccadilly`
-	- `<NETWORK_ID` - is the Autonity network identifier, if connecting to a network other than `bakerloo` or `piccadilly`
+3. Create and copy the genesis file into the working directory:
+
+	```bash
+	cp ./<PATH>/genesis.json ./
+    ```
+4. Run the node as described in [Running a node, Run Autonity](/node-operators/run-aut/). Start Autonity, specifying command-line options:
+	- `--genesis`: to provide the genesis file.
+	- `--networkid`: to provide the network identifier. This is typically the same value as the `chainId` file in the genesis configuration file, but may be different.
+
+	An example run command for a local development network on localhost could be:
+	
+	```bash
+	autonity \
+	    --datadir ./autonity-chaindata  \
+	    --piccadilly  \
+	    --http  \
+	    --http.addr 0.0.0.0 \
+	    --http.api aut,eth,net,txpool,web3,admin  \
+	    --http.vhosts \* \
+	    --ws  \
+	    --ws.addr 0.0.0.0 \
+	    --ws.api aut,eth,net,txpool,web3,admin  \
+	    --nat extip:<IP_ADDRESS> \
+	    --datadir ./autonity-chaindata  \
+	    --genesis ./genesis.json  \
+	    --networkid 65110000 
+	    ;
+	```
+
+

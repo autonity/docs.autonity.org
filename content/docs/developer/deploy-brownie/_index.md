@@ -3,9 +3,11 @@ title: "Deploy smart contracts to an Autonity network with Brownie"
 linkTitle: "Deploy smart contracts with Brownie"
 weight: 170
 description: >
-  How to deploy smart contracts to an Autonity network using NodeJS scripts, with an ERC20 token contract as an example
-_draft: true
+  How to deploy smart contracts to an Autonity network using using Brownie, with an ERC20 token contract as an example
+draft: false
 ---
+
+This guide uses Brownie and Python to deploy precompiled ERC20 token contracts using the OpenZeppelin open source library of smart contracts.
 
 ## Setup `brownie`
 
