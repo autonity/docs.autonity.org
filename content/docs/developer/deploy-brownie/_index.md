@@ -3,7 +3,7 @@ title: "Deploy smart contracts to an Autonity network with Brownie"
 linkTitle: "Deploy smart contracts with Brownie"
 weight: 170
 description: >
-  How to deploy smart contracts to an Autonity network using using Brownie, with an ERC20 token contract as an example
+  How to deploy smart contracts to an Autonity network using Brownie, with an ERC20 token contract as an example
 draft: false
 ---
 
