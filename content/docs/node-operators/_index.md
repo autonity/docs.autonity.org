@@ -10,7 +10,7 @@ All nodes on the Autonity network exchange blocks and transactions with other no
 
 This guide describes the steps to install, configure and run an instance of the Autonity Go Client (AGC) on an Autonity testnet, and describes how to use the [`aut` CLI tool](/account-holders/setup-autcli/) to connect to the node and perform some basic operations.
 
-It is assumed that you the reader has setup the `aut` CLI tool, has an [account](/account-holders/create-acct/) with [fund](/account-holders/fund-acct/) and is able to submit transactions to the network.  See the [Account Holder Guide](/account-holders/) for details.
+It is assumed that you have setup the `aut` CLI tool, has an [account](/account-holders/create-acct/) with [fund](/account-holders/fund-acct/) and is able to submit transactions to the network.  See the [Account Holder Guide](/account-holders/) for details.
 
 The approach taken in this guide is to run the Autonity Go Client on a dedicated _host_ machine (a VPS or other host that is _always-on_ and persistently available).  Transactions and queries are expected to be created (and signed) on a distinct _local_ machine, and then sent to the Autonity Go Client running on the _host_ via the RPC endpoint.  This setup may be adjusted to suit each specific deployment.
 
