@@ -46,7 +46,7 @@ The `web3` module is used to add a private key. OpenZeppelin is an open source l
 	- `<TOKEN_SYMBOL>` is the text symbol acronym for your token.
 	
 	{{< alert title="Warning" color="warning" >}}
-	Including the private key as clear text is done in this example only because this is a testnet setting without real value. Putting a private key in the clear text is **not** recommended.
+Including the private key as clear text is done in this example only because this is a testnet setting without real value. Putting a private key in the clear text is **not** recommended.
 {{< /alert >}}
 
 	```javascript
