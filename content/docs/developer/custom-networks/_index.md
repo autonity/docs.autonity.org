@@ -19,35 +19,36 @@ To connect your node to a custom Autonity network, you will need the network's:
 
 2. Create and copy the bootnode file into the `autonity-chaindata` sub directory:
 
-	```bash
-	cp ./<PATH>/static-nodes.json ./autonity-chaindata/
-    ```
+```bash
+cp ./<PATH>/static-nodes.json ./autonity-chaindata/
+```
 
 3. Create and copy the genesis file into the working directory:
 
-	```bash
-	cp ./<PATH>/genesis.json ./
-    ```
+```bash
+cp ./<PATH>/genesis.json ./
+```
+
 4. Run the node as described in [Running a node, Run Autonity](/node-operators/run-aut/), replacing the network specifier flag (e.g. `--piccadilly`) with the options:
 	- `--genesis`: to provide the genesis file.
 	- `--networkid`: to provide the network identifier. This is typically the same value as the `chainId` file in the genesis configuration file, but may be different.
 
 	An example run command for a local development network on localhost could be:
 	
-	```bash
-	autonity \
-	    --datadir ./autonity-chaindata  \
-	    --genesis ./genesis.json  \
-	    --networkid 65110000 \
-	    --http  \
-	    --http.addr 0.0.0.0 \
-	    --http.api aut,eth,net,txpool,web3,admin  \
-	    --http.vhosts \* \
-	    --ws  \
-	    --ws.addr 0.0.0.0 \
-	    --ws.api aut,eth,net,txpool,web3,admin  \
-	    --nat extip:<IP_ADDRESS>  
-	    ;
-	```
+```bash
+autonity \
+		--datadir ./autonity-chaindata  \
+		--genesis ./genesis.json  \
+		--networkid 65110000 \
+		--http  \
+		--http.addr 0.0.0.0 \
+		--http.api aut,eth,net,txpool,web3,admin  \
+		--http.vhosts \* \
+		--ws  \
+		--ws.addr 0.0.0.0 \
+		--ws.api aut,eth,net,txpool,web3,admin  \
+		--nat extip:<IP_ADDRESS>  
+		;
+```
 
 
