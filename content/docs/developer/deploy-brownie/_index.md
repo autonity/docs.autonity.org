@@ -100,4 +100,5 @@ brownie accounts generate deployer
 
 Run the deploy script on the testnet:
 ```bash
-brownie run --network
+brownie run --network piccadilly deploy <OWNER>
+```
