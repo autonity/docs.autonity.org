@@ -11,7 +11,7 @@ This guide uses Brownie and Python to deploy precompiled ERC20 token contracts u
 
 ## Setup `brownie`
 
-Install brownie:
+Using [pipx](https://github.com/pypa/pipx) or any other python package manager, install brownie:
 ```bash
 pipx install eth-brownie
 ```
