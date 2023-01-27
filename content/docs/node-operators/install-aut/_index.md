@@ -195,15 +195,13 @@ $ ./autonity version
 ```
 ```bash
 Autonity
-Version: 0.10.0
-Git Commit: 1183a1130f192c70cab78831c76aed16f5715eca
-Git Commit Date: 20230118
+Version: 0.10.1
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.18.1
+Go Version: go1.18.2
 Operating System: linux
 GOPATH=
-GOROOT=go
+GOROOT=/usr/local/go
 ```
 
 <!-- TODO: Check this works -->
