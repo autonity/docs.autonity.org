@@ -28,7 +28,7 @@ To connect your node to a custom Autonity network, you will need the network's:
 	```bash
 	cp ./<PATH>/genesis.json ./
     ```
-4. Run the node as described in [Running a node, Run Autonity](/node-operators/run-aut/). Start Autonity, specifying command-line options:
+4. Run the node as described in [Running a node, Run Autonity](/node-operators/run-aut/), replacing the network specifier flag (e.g. `--piccadilly`) with the options:
 	- `--genesis`: to provide the genesis file.
 	- `--networkid`: to provide the network identifier. This is typically the same value as the `chainId` file in the genesis configuration file, but may be different.
 
