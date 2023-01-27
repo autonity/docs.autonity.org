@@ -23,19 +23,19 @@ This method will allow you to deploy several contracts at once or sequentially.
 
 1. Create a working directory and initialise the project with `npm`:
 
-```bash
-mkdir ERC20token && cd ERC20token
-npm init -y
-```
+	```bash
+	mkdir ERC20token && cd ERC20token
+	npm init -y
+	```
 
 2. Install OpenZeppelin Contracts and `web3` modules:
 
-```bash
-npm i --save-dev @openzeppelin/contracts
-npm i web3
-```
+	```bash
+	npm i --save-dev @openzeppelin/contracts
+	npm i web3
+	```
 
-The `web3` module is used to add a private key. OpenZeppelin is an open source library of smart contracts.
+	The `web3` module is used to add a private key. OpenZeppelin is an open source library of smart contracts.
 
 ## Write the deploy script
 
@@ -45,7 +45,7 @@ The `web3` module is used to add a private key. OpenZeppelin is an open source l
 	- `<TOKEN_NAME>` is the text label name for your token.
 	- `<TOKEN_SYMBOL>` is the text symbol acronym for your token.
 	
-{{< alert title="Warning" color="warning" >}}
+	{{< alert title="Warning" color="warning" >}}
 Including the private key as clear text is done in this example only because this is a testnet setting without real value. Putting a private key in the clear text is **not** recommended.
 {{< /alert >}}
 

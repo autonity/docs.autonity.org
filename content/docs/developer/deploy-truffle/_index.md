@@ -120,7 +120,7 @@ This guide uses the Truffle development environment and JavaScript framework to 
 Including the private key as clear text is done in this example only because this is a testnet setting without real value. Putting a private key in the clear text is **not** recommended.
 {{< /alert >}}
 	
-	In this example, there are 3 networks specified: a development network running on localhost and the public Autonity Testnets Bakerloo and Piccadilly. The `gasPrice` has been explicitly set to Truffle's default of `20000000000` (GWei):
+	In this example, there are 3 networks specified: a development network running on localhost and the public Autonity Testnets Bakerloo and Piccadilly. The `gasPrice` is explicitly set to Truffle's default of `20000000000` (GWei):
 	
 	```javascript
 	var PrivateKeyProvider = require("@truffle/hdwallet-provider");

@@ -37,7 +37,8 @@ To connect your node to a custom Autonity network, you will need the network's:
 	```bash
 	autonity \
 	    --datadir ./autonity-chaindata  \
-	    --piccadilly  \
+	    --genesis ./genesis.json  \
+	    --networkid 65110000 \
 	    --http  \
 	    --http.addr 0.0.0.0 \
 	    --http.api aut,eth,net,txpool,web3,admin  \
@@ -45,10 +46,7 @@ To connect your node to a custom Autonity network, you will need the network's:
 	    --ws  \
 	    --ws.addr 0.0.0.0 \
 	    --ws.api aut,eth,net,txpool,web3,admin  \
-	    --nat extip:<IP_ADDRESS> \
-	    --datadir ./autonity-chaindata  \
-	    --genesis ./genesis.json  \
-	    --networkid 65110000 
+	    --nat extip:<IP_ADDRESS>  
 	    ;
 	```
 
