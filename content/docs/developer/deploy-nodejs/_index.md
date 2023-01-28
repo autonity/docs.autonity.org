@@ -4,7 +4,7 @@ linkTitle: "Deploy smart contracts with node.js"
 weight: 170
 description: >
   How to deploy smart contracts to an Autonity network using `node.js` and JavaScript, with an ERC20 token contract as an example
-draft: false
+draft: true
 ---
 
 This guide uses node.js and JavaScript to deploy precompiled ERC20 token contracts using the OpenZeppelin open source library of smart contracts.

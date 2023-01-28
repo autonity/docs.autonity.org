@@ -4,7 +4,7 @@ linkTitle: "Deploy smart contracts with Truffle"
 weight: 180
 description: >
   How to deploy smart contracts to an Autonity network using Truffle, with an ERC20 token contract as an example
-draft: false
+draft: true
 ---
 
 This guide uses the Truffle development environment and JavaScript framework to compile and deploy smart contracts. It deploys as example an ERC20 token contract from the OpenZeppelin open source library of smart contracts.
@@ -13,7 +13,7 @@ This guide uses the Truffle development environment and JavaScript framework to 
 
 - An up-to-date installation of [Truffle](https://trufflesuite.com/docs/truffle/) and `npm`. See the Truffle Suite docs for the [Installation](https://trufflesuite.com/docs/truffle/how-to/install/) how to.
 
-- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs. You will need the  private key of the account to unlock the account in the JavaScript environment.
+- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs. The guide will use the encrypted ethereum keyfile of the account.
 
 - Configuration details for the Autonity network you are deploying to: a [public Autonity network](/networks/) or a [custom network](/developer/custom-networks/) if you are deploying to a local testnet.
 
@@ -32,7 +32,7 @@ npm i truffle
 
 ```bash
 mkdir ERC20Token && cd ERC20Token
-mkdir contracts && mkdir migrations
+mkdir contracts && mkdir migrations && mkdir keystore
 touch truffle-config.js && touch migrations/2_deploy_contracts.js
 npm init -y
 ```
@@ -41,14 +41,22 @@ npm init -y
 
 ```bash
 npm i --save-dev @openzeppelin/contracts
-npm i @truffle/hdwallet-provider
+npm install --save truffle-keystore-provider
 ```
 	
-The `hdwallet-provider` module is used to add a private key. OpenZeppelin is an open source library of smart contracts.
+The `truffle-keystore-provider` module is used to unlock the encrypted ethereum keystore file and sign the contract deployment  transaction. You will be prompted to enter the key's password to unlock the account when compiling and deploying the contract.
+
+In this guide the `truffle-keystore-provider` dependency is installed locally into a sub-directory: `node_modules/truffle-keystore-provider`.
+
+4. Add your encrypted ethereum keystore file into the `keystore` directory:
+
+```bash
+cp <PATH>/<KEYFILE_NAME> ./keystore/<KEYFILE_NAME>
+```
 
 ### Write the contract
 
-4. In your working directory (`ERC20token`), create a Solidity file for your ERC20 token contract:
+5. In your working directory (`ERC20token`), create a Solidity file for your ERC20 token contract:
 
 ```bash
 nano contracts/myToken.sol
@@ -59,7 +67,8 @@ Solidity allows you to build your contract on top of another contract, through i
 For this contract, the guide imports and inherits from the OpenZeppelin preset. If you want to define new contract methods and build on top of the inherited contract you can do so:
 
 ```javascript
-pragma solidity ^0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol";
 
@@ -78,92 +87,113 @@ contract myToken is ERC20PresetFixedSupply {
 
 ### Configure Truffle
 
-5. Edit the `truffle-config.js` file to specify the deployment network information and your account information. Specify in `networks` a configuration for each of the network(s) you may deploy to, where:
+6. Edit the `truffle-config.js` file to specify the deployment network information and your account information. Specify in `networks` a configuration for each of the network(s) you may deploy to, where:
 	- `<NETWORK_NAME>` is the name identifier used by Truffle to identify the required network configuration.
-	- `<NODE_URL>` is the rpc endpoint of the network node you are connecting to.
+	- `<ACCOUNT>` is the name of your encrypted ethereum keystore file. This is the private key of the account you are using to submit the transaction.
+	- `<DATA_DIR>` is the path to the data directory location of your keystore file.
+	- `<PROVIDER_URL>` is the rpc endpoint URL of the network node you are connecting to.
 	- `<NETWORK_ID>` is the network identifier of the network you are connecting to.
-	- `<PRIVATE_KEY>` is the private key of the account you are using to submit the transaction.
-	- `<GAS_PRICE>` is the gas price used for contract deploys. Truffle's default is 20000000000 (20 Gwei).
-	
+	- `<GAS_PRICE>` is the gas price used for contract deploys.
+
+
 ```bash
 nano truffle-config.js
 ```
 ```javascript
-var PrivateKeyProvider = require("@truffle/hdwallet-provider");
+const KeystoreProvider = require("truffle-keystore-provider")
+
+const memoizeKeystoreProviderCreator = () => {
+	let providers = {}
+
+	return (account, dataDir, providerUrl) => {
+		if (providerUrl in providers) {
+            return providers[providerUrl]
+        } else {
+            const provider = new KeystoreProvider(account, dataDir, providerUrl)
+            providers[providerUrl] = provider
+            return provider
+        }
+    }
+}
+
+const createKeystoreProvider = memoizeKeystoreProviderCreator()
 
 module.exports = {
-		networks: {
-	
-			<NETWORK_NAME>: {
-				skipDryRun: true,
-				provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "NODE_URL"),
-				network_id: "<NETWORK_ID>",
-				gasPrice: <GAS_PRICE>
-			}
-		},
 
-		compilers: {
-				solc: {
-					version: "0.8.0",
-						optimizer: {
-							enabled: false, // test coverage won't work otherwise
-							runs: 200
-			},
-		},
-	},
-	plugins: ["solidity-coverage"]
+                networks: {
+                        NETWORK_NAME: {
+                                provider: createKeystoreProvider(ACCOUNT,DATA_DIR,PROVIDER_URL),
+                                network_id: NETWORK_ID,
+                                gasPrice: GAS_PRICE
+                        }
+                },
+
+                compilers: {
+                                solc: {
+                                        version: "0.8.0",
+                                                optimizer: {
+                                                        enabled: false, // test coverage won't work otherwise
+                                                        runs: 200
+                        },
+                },
+        },
+        plugins: ["solidity-coverage"]
 };
-
 ```
 
-{{< alert title="Warning" color="warning" >}}
-Including the private key as clear text is done in this example only because this is a testnet setting without real value. Putting a private key in the clear text is **not** recommended.
-{{< /alert >}}
-	
-In this example, there are 3 networks specified: a development network running on localhost and the public Autonity Testnets Bakerloo and Piccadilly. The `gasPrice` is explicitly set to Truffle's default of `20000000000` (GWei):
+In the example beneath, values for deploying to the Piccadilly Testnet are set, `<GAS_PRICE>` is explicitly set to Truffle's default of  20000000000 (20 Gwei), and `ACCOUNT` is set to `alice.key`. Note that the `DATA_DIR` is set to `../../` only: the `truffle-keystore-provider` will look by default for keystore files in `/node_modules/truffle-keystore-provider/keystore`. Setting `DATA_DIR` to `../../keystore` results in the module looking for the key in `/keystore/keystore`.
 
 ```javascript
-var PrivateKeyProvider = require("@truffle/hdwallet-provider");
+const KeystoreProvider = require("truffle-keystore-provider")
+
+var ACCOUNT = 'alice.key';
+var DATA_DIR = '../../';
+var PROVIDER_URL = 'https://rpc1.piccadilly.autonity.org';
+var NETWORK_ID = 65100000 ;
+var GAS_PRICE = 20000000000 ;
+
+const memoizeKeystoreProviderCreator = () => {
+    let providers = {}
+
+    return (account, dataDir, providerUrl) => {
+        if (providerUrl in providers) {
+            return providers[providerUrl]
+        } else {
+            const provider = new KeystoreProvider(account, dataDir, providerUrl)
+            providers[providerUrl] = provider
+            return provider
+        }
+    }
+}
+
+const createKeystoreProvider = memoizeKeystoreProviderCreator()
 
 module.exports = {
-		networks: {
-	
-			development: {
-				skipDryRun: true,
-				provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "http://localhost:8545"),
-				network_id: "*", // Match any network id,
-				gasPrice: 20000000000
-			},
-			bakerloo: {
-				skipDryRun: true,
-				provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "https://rpc1.bakerloo.autonity.org/"),
-				network_id: "65010000",
-				gasPrice: 20000000000
-			},
-			piccadilly: {
-				skipDryRun: true,
-				provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "https://rpc1.piccadilly.autonity.org/"),
-				network_id: "65100000",
-				gasPrice: 20000000000
-			}
-		},
 
-		compilers: {
-				solc: {
-					version: "0.8.13",
-						optimizer: {
-							enabled: false, // test coverage won't work otherwise
-							runs: 200
-			},
-		},
-	},
-	plugins: ["solidity-coverage"]
+                networks: {
+                        piccadilly: {
+                                provider: createKeystoreProvider(ACCOUNT,DATA_DIR,PROVIDER_URL),
+                                network_id: NETWORK_ID,
+                                gasPrice: GAS_PRICE
+                        }
+                },
+
+                compilers: {
+                                solc: {
+                                        version: "0.8.0",
+                                                optimizer: {
+                                                        enabled: false, // test coverage won't work otherwise
+                                                        runs: 200
+                        },
+                },
+        },
+        plugins: ["solidity-coverage"]
 };
 ```
 
-### Write deploy script and compile the contract
+### Write deploy script
 
-6. Add the following script `2_deploy_contracts.js` to the `migrations/` directory, where:
+7. Add the following script `2_deploy_contracts.js` to the `migrations/` directory, where:
 	- `<TOKEN_NAME>` is the text label name for your token.
 	- `<TOKEN_SYMBOL>` is the text symbol acronym for your token.
 	- `<TOKEN_SUPPLY>` is the amount of token to premint on deployment. For example, `9999999999999999999`
@@ -179,13 +209,15 @@ module.exports = function(deployer) {
 };
 ```
 
-7. Compile the contract with truffle:
+### Compile the contract
+
+8. Compile the contract with truffle:
 
 ```bash
 truffle compile
 ```
 
-After compilation you should see something like this:
+You will be prompted for the password to unlock your account. After compilation you should see something like this:
 
 ```bash
 Compiling your contracts...
@@ -197,20 +229,13 @@ Compiling your contracts...
 > Compiling @openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol
 > Compiling @openzeppelin/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol
 > Compiling @openzeppelin/contracts/utils/Context.sol
-> Compilation warnings encountered:
-
-		Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
---> project:/contracts/myToken.sol
-
-
 > Artifacts written to /home/ubuntu/TEST/contract-deploy/truffle/ERC20Token/build/contracts
 > Compiled successfully using:
-	- solc: 0.8.13+commit.abaa5c0e.Emscripten.clang
+   - solc: 0.8.0+commit.c7dfd78e.Emscripten.clang
 ```
-
 ### Deploy the contract
 
-8. Deploy the contract to the block chain, specifying the name of the target `<NETWORK>` from a network configured in `truffle-config.js` in Step 5 of [Configure Truffle](/developer/deploy-truffle/#configure-truffle) above:
+9. Deploy the contract to the block chain, specifying the name of the target `<NETWORK>` from a network configured in `truffle-config.js` in Step 5 of [Configure Truffle](/developer/deploy-truffle/#configure-truffle) above:
 
 ```bash
 truffle deploy --network <NETWORK>
