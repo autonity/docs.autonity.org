@@ -41,7 +41,7 @@ Signature hex: 0x4563c91c4a1c0371ff3633f1e8c23f211e4ac6b50852689dbaa17f6b74711f2
 
 This signature hex will be required for the registration.
 
-### Step 2. Determine the validator enode
+### Step 2. Determine the validator enode and address
 
 <!-- Seems like it should be possible to do this from the host machine with an `autonity ...` cmd. -->
 
@@ -71,6 +71,17 @@ $ aut node info
 
 The url is returned in the `admin_enode` field.
 
+The [validator address](/concepts/validator/#validator-identifier) or [validator identifier](/concepts/validator/#validator-identifier) is derived from the validator [P2P node key](/concepts/validator/#p2p-node-key)'s public key.  It can be computed from the enode string before registration:
+
+```bash
+aut validator compute-address enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb8a6b8ad408a18bf66266b9d03dd9aa26c902a4ac02eb465d205c0c58b6f5063963fc752806f2681287a915@51.89.151.55:30303
+```
+```bash
+0x49454f01a8F1Fbab21785a57114Ed955212006be
+```
+
+Make a note of this identifier.
+
 ### Step 3. Submit the registration transaction.
 
 {{< alert title="Important Note" >}}
@@ -99,11 +110,9 @@ indicate a mismatch between treasury address and either:
 
 Check your configuration as described in the "Important Note" at the start of this section.
 
-### Step 4. Identify the validator ID
+### Step 4. Confirm registration
 
-Requery the list of validators to determine the validator ID.
-The [validator identifier](/concepts/validator/#validator-identifier) is created in the form of an account address derived from the validator [P2P node key](/concepts/validator/#p2p-node-key)'s public key. The newly registered validator's identifier should appear at the end of the validator list
-
+Confirm that the validator has been registered by checking that its identifier appears in the validator list:
 ```bash
 aut validator list
 ```
