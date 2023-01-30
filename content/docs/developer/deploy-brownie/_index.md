@@ -1,13 +1,13 @@
----
+n---
 title: "Deploy smart contracts to an Autonity network with Brownie"
 linkTitle: "Deploy smart contracts with Brownie"
 weight: 170
 description: >
-  How to deploy smart contracts to an Autonity network using Brownie, with an ERC20 token contract as an example
+  Deploying smart contracts to an Autonity network using Brownie, using an ERC20 token contract as an example
 draft: false
 ---
 
-This guide uses Brownie and Python to deploy precompiled ERC20 token contracts using the OpenZeppelin open source library of smart contracts.
+This guide uses Brownie and Python to deploy an ERC20 token contract based on the OpenZeppelin open source library.
 
 ## Setup `brownie`
 
@@ -94,7 +94,7 @@ Generate a `deployer` account (and password) in brownie.
 ```bash
 brownie accounts generate deployer
 ```
-(Enter a suitable password when prompted).
+(Enter a suitable password when prompted).  Alternatively, an existing account can be imported into brownie - see `brownie accounts --help`.
 
 [Fund the account](/account-holders/fund-acct/) in order to pay gas fees.
 
@@ -103,4 +103,4 @@ Run the deploy script on the testnet:
 brownie run --network piccadilly deploy main <OWNER>
 ```
 
-Take note of the deployed address.  This can be used as the address passed to the `--token` option of the `aut token` commands in order to interact with the deployed token.
+Take note of the address of the deployed contract.  This can be used with the `--token` option of the `aut token` commands in order to interact with the deployed token.
