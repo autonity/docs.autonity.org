@@ -100,7 +100,7 @@ brownie accounts generate deployer
 
 Run the deploy script on the testnet:
 ```bash
-brownie run --network piccadilly deploy <OWNER>
+brownie run --network piccadilly deploy main <OWNER>
 ```
 
 Take note of the deployed address.  This can be used as the address passed to the `--token` option of the `aut token` commands in order to interact with the deployed token.
