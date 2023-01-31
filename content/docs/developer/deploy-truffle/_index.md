@@ -7,128 +7,247 @@ description: >
 draft: true
 ---
 
-Truffle is a JS framework that can be used to compile and deploy smart contracts to an EVM network. This guide demonstrates step by step how to use Truffle to deploy an ERC20 contract to an Autonity network.
+This guide uses the Truffle development environment and JavaScript framework to compile and deploy smart contracts. It deploys as example an ERC20 token contract from the OpenZeppelin open source library of smart contracts.
 
 ## Prerequisites
 
-- An account on an Autonity network funded with auton to pay for transaction gas costs
-- Configuration details for the Autonity network you are deploying to, i.e. a public or your own node on a public Autonity network
-- To provide the following constants:
-  - The private key of the account you are using (to unlock the account in the JavaScript environment)
-  - Gas (the maximum amount of gas units you are willing to provide for the transaction).
+- An up-to-date installation of [Truffle](https://trufflesuite.com/docs/truffle/) and `npm`. See the Truffle Suite docs for the [Installation](https://trufflesuite.com/docs/truffle/how-to/install/) how to.
+
+- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs. The guide will use the encrypted ethereum keyfile of the account.
+
+- Configuration details for the Autonity network you are deploying to: a [public Autonity network](/networks/) or a [custom network](/developer/custom-networks/) if you are deploying to a local testnet.
 
 
-### Setup
+### Setup your working environment
 
-Install truffle globally, so you can use it for future projects without installing in multiple places:
+1. Install truffle:
 
 ```bash
-npm i -g truffle
+npm i truffle
 ```
 
-Create a new directory and initialise the project with npm and truffle:
+{{< alert title="Info" >}}Specifying the `-g ` flag to install Truffle globally will let you use it for future projects without installing in multiple places.{{< /alert >}}
+
+2. Create a working directory and initialise the project with `npm`:
 
 ```bash
-mkdir ERC20token && cd ERC20token
+mkdir ERC20Token && cd ERC20Token
+mkdir contracts && mkdir migrations && mkdir keystore
+touch truffle-config.js && touch migrations/2_deploy_contracts.js
 npm init -y
-truffle init
 ```
 
-Next install OpenZeppelin Contracts, and a module we need to add a private key. OpenZeppelin is an open source library of smart contracts.
+3. Install OpenZeppelin Contracts and Truffle `hd-wallet-provider` modules:
 
 ```bash
 npm i --save-dev @openzeppelin/contracts
-npm i @truffle/hdwallet-provider
+npm install --save truffle-keystore-provider
+```
+	
+The `truffle-keystore-provider` module is used to unlock the encrypted ethereum keystore file and sign the contract deployment  transaction. You will be prompted to enter the key's password to unlock the account when compiling and deploying the contract.
+
+In this guide the `truffle-keystore-provider` dependency is installed locally into a sub-directory: `node_modules/truffle-keystore-provider`.
+
+4. Add your encrypted ethereum keystore file into the `keystore` directory:
+
+```bash
+cp <PATH>/<KEYFILE_NAME> ./keystore/<KEYFILE_NAME>
 ```
 
 ### Write the contract
 
-From the 'ERC20token' directory, enter the following commands to start writing the contract:
+5. In your working directory (`ERC20token`), create a Solidity file for your ERC20 token contract:
 
 ```bash
-nano contracts/mytoken.sol
+nano contracts/myToken.sol
 ```
 
-Solidity allows you to build your contract on top of another contract, through inheritance. For this tutorial, we will be using the preset contract `ERC20PresetFixedSupply` which is an ERC20 that is preset so it can be minted and burned. See the code for the contract [here](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol).
+Solidity allows you to build your contract on top of another contract, through inheritance. This guide uses OpenZeppelin's `ERC20PresetFixedSupply` contract, which is an ERC20 contract with a preset token supply that allows the owner to mint and burn tokens. You can view the code for the preset contract code in the OpenZeppelin GitHub [here](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol).
 
-For this contract, import the preset then describe the new contract, inheriting from the preset:
+For this contract, the guide imports and inherits from the OpenZeppelin preset. If you want to define new contract methods and build on top of the inherited contract you can do so:
 
 ```javascript
-pragma solidity ^0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol";
 
-contract mytoken is ERC20PresetFixedSupply {
+contract myToken is ERC20PresetFixedSupply {
 
-    constructor(
-        string memory name,
-        string memory symbol,
-        uint256 initialSupply
-    ) ERC20PresetFixedSupply(name, symbol, initialSupply, msg.sender){}
+		constructor(
+				string memory name,
+				string memory symbol,
+				uint256 initialSupply
+		) ERC20PresetFixedSupply(name, symbol, initialSupply, msg.sender){}
 
-    // Enter additional code here to build on top of the smart contract
+		// Enter additional code here to build on top of the smart contract
 
 }
 ```
 
-### Compile and deploy the contract
+### Configure Truffle
 
-Compile the contract with truffle:
+6. Edit the `truffle-config.js` file to specify the deployment network information and your account information. Specify in `networks` a configuration for each of the network(s) you may deploy to, where:
+	- `<NETWORK_NAME>` is the name identifier used by Truffle to identify the required network configuration.
+	- `<ACCOUNT>` is the name of your encrypted ethereum keystore file. This is the private key of the account you are using to submit the transaction.
+	- `<DATA_DIR>` is the path to the data directory location of your keystore file.
+	- `<PROVIDER_URL>` is the rpc endpoint URL of the network node you are connecting to.
+	- `<NETWORK_ID>` is the network identifier of the network you are connecting to.
+	- `<GAS_PRICE>` is the gas price used for contract deploys.
+
 
 ```bash
-truffle compile
+nano truffle-config.js
 ```
-
-Edit the `truffle-config.js` file to enter a private key to deploy the contract and rpc node url:
-
 ```javascript
-var PrivateKeyProvider = require("@truffle/hdwallet-provider");
+const KeystoreProvider = require("truffle-keystore-provider")
+
+const memoizeKeystoreProviderCreator = () => {
+	let providers = {}
+
+	return (account, dataDir, providerUrl) => {
+		if (providerUrl in providers) {
+            return providers[providerUrl]
+        } else {
+            const provider = new KeystoreProvider(account, dataDir, providerUrl)
+            providers[providerUrl] = provider
+            return provider
+        }
+    }
+}
+
+const createKeystoreProvider = memoizeKeystoreProviderCreator()
 
 module.exports = {
-  networks: {
 
-    devnet: {
-       skipDryRun: true,
-       provider: () => new PrivateKeyProvider("<PRIVATE_KEY>", "NODE_URL"),
-       network_id: "*", // Match any network id,
-       gasPrice: 10000000000
-    }
-  },
+                networks: {
+                        NETWORK_NAME: {
+                                provider: createKeystoreProvider(ACCOUNT,DATA_DIR,PROVIDER_URL),
+                                network_id: NETWORK_ID,
+                                gasPrice: GAS_PRICE
+                        }
+                },
 
-  compilers: {
-          solc: {
-            version: "0.8.13",
-            optimizer: {
-              enabled: false, // test coverage won't work otherwise
-              runs: 200
-            },
-          },
-          },
+                compilers: {
+                                solc: {
+                                        version: "0.8.0",
+                                                optimizer: {
+                                                        enabled: false, // test coverage won't work otherwise
+                                                        runs: 200
+                        },
+                },
+        },
         plugins: ["solidity-coverage"]
 };
-
 ```
 
-Add the following deployment script in migrations:
+In the example beneath, values for deploying to the Piccadilly Testnet are set, `<GAS_PRICE>` is explicitly set to Truffle's default of  20000000000 (20 Gwei), and `ACCOUNT` is set to `alice.key`. Note that the `DATA_DIR` is set to `../../` only: the `truffle-keystore-provider` will look by default for keystore files in `/node_modules/truffle-keystore-provider/keystore`. Setting `DATA_DIR` to `../../keystore` results in the module looking for the key in `/keystore/keystore`.
 
+```javascript
+const KeystoreProvider = require("truffle-keystore-provider")
+
+var ACCOUNT = 'alice.key';
+var DATA_DIR = '../../';
+var PROVIDER_URL = 'https://rpc1.piccadilly.autonity.org';
+var NETWORK_ID = 65100000 ;
+var GAS_PRICE = 20000000000 ;
+
+const memoizeKeystoreProviderCreator = () => {
+    let providers = {}
+
+    return (account, dataDir, providerUrl) => {
+        if (providerUrl in providers) {
+            return providers[providerUrl]
+        } else {
+            const provider = new KeystoreProvider(account, dataDir, providerUrl)
+            providers[providerUrl] = provider
+            return provider
+        }
+    }
+}
+
+const createKeystoreProvider = memoizeKeystoreProviderCreator()
+
+module.exports = {
+
+                networks: {
+                        piccadilly: {
+                                provider: createKeystoreProvider(ACCOUNT,DATA_DIR,PROVIDER_URL),
+                                network_id: NETWORK_ID,
+                                gasPrice: GAS_PRICE
+                        }
+                },
+
+                compilers: {
+                                solc: {
+                                        version: "0.8.0",
+                                                optimizer: {
+                                                        enabled: false, // test coverage won't work otherwise
+                                                        runs: 200
+                        },
+                },
+        },
+        plugins: ["solidity-coverage"]
+};
+```
+
+### Write deploy script
+
+7. Add the following script `2_deploy_contracts.js` to the `migrations/` directory, where:
+	- `<TOKEN_NAME>` is the text label name for your token.
+	- `<TOKEN_SYMBOL>` is the text symbol acronym for your token.
+	- `<TOKEN_SUPPLY>` is the amount of token to premint on deployment. For example, `9999999999999999999`
+	
 ```bash
 nano migrations/2_deploy_contracts.js
 ```
 
 ```javascript
 module.exports = function(deployer) {
-    deployer.deploy(artifacts.require("mytoken.sol"), 'mytoken', 'TKN', "9999999999999999999");
-    // Additional contracts can be deployed here
+			deployer.deploy(artifacts.require("myToken.sol"), '<TOKEN_NAME>', '<TOKEN_SYMBOL>', "<TOKEN_SUPPLY>");
+		// Additional contracts can be deployed here
 };
 ```
 
-Finally deploy the contract to the block chain:
+### Compile the contract
+
+8. Compile the contract with truffle:
 
 ```bash
-truffle deploy --network devnet
+truffle compile
 ```
 
-You should receive an output resembling the following:
+You will be prompted for the password to unlock your account. After compilation you should see something like this:
+
+```bash
+Compiling your contracts...
+===========================
+> Compiling ./contracts/myToken.sol
+> Compiling @openzeppelin/contracts/token/ERC20/ERC20.sol
+> Compiling @openzeppelin/contracts/token/ERC20/IERC20.sol
+> Compiling @openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol
+> Compiling @openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol
+> Compiling @openzeppelin/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol
+> Compiling @openzeppelin/contracts/utils/Context.sol
+> Artifacts written to /home/ubuntu/TEST/contract-deploy/truffle/ERC20Token/build/contracts
+> Compiled successfully using:
+   - solc: 0.8.0+commit.c7dfd78e.Emscripten.clang
+```
+### Deploy the contract
+
+9. Deploy the contract to the block chain, specifying the name of the target `<NETWORK>` from a network configured in `truffle-config.js` in Step 5 of [Configure Truffle](/developer/deploy-truffle/#configure-truffle) above:
+
+```bash
+truffle deploy --network <NETWORK>
+```
+
+For example, to deploy to Piccadilly Testnet:
+
+```bash
+truffle deploy --network piccadilly
+```
+
+After migration you should see something like this:
 
 ```bash
 Compiling your contracts...
@@ -138,36 +257,34 @@ Compiling your contracts...
 
 Starting migrations...
 ======================
-> Network name:    'devnet'
-> Network id:      444800
-> Block gas limit: 8000000 (0x7a1200)
+> Network name:    'piccadilly'
+> Network id:      65100000
+> Block gas limit: 30000000 (0x1c9c380)
 
 
 2_deploy_contracts.js
 =====================
 
-   Deploying 'mytoken'
-   -------------------
-   > transaction hash:    0x45c1d5b319b9030abd333a78677176763f6ade652d298a73c1a79ae59be02fd2
-   > Blocks: 0            Seconds: 0
-   > contract address:    0x2c949C5911C1AA38CD342d5C46245591c17FAD6D
-   > block number:        776573
-   > block timestamp:     1649256853
-   > account:             0xe4D6b31c12725D7c3ec3B274D8299b884eF0814b
-   > balance:             999.97542232
-   > gas used:            1449327 (0x161d6f)
-   > gas price:           10 gwei
-   > value sent:          0 ETH
-   > total cost:          0.01449327 ETH
+	 Deploying 'myToken'
+	 -------------------
+	 > transaction hash:    0x529c74d4f5f84726415430638ab9050c53069d8bf6c7cb5f2e3b71403aeebaf7
+	 > Blocks: 0            Seconds: 0
+	 > contract address:    0xDfe20520f6402bDA7e4b6d718a13bCeBd62383Bc
+	 > block number:        262243
+	 > block timestamp:     1674757194
+	 > account:             0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
+	 > balance:             97.714750017
+	 > gas used:            1384235 (0x151f2b)
+	 > gas price:           20 gwei
+	 > value sent:          0 ETH
+	 > total cost:          0.0276847 ETH
 
-   > Saving migration to chain.
-   > Saving artifacts
-   -------------------------------------
-   > Total cost:          0.01449327 ETH
+	 > Saving artifacts
+	 -------------------------------------
+	 > Total cost:           0.0276847 ETH
 
 Summary
 =======
 > Total deployments:   1
-> Final cost:          0.01449327 ETH
-
+> Final cost:          0.0276847 ETH
 ```
