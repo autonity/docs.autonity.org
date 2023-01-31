@@ -43,7 +43,7 @@ This signature hex will be required for the registration.
 
 ### Step 2. Determine the validator enode
 
-<!-- Seems like it should be possible to do this frmo the host machine with an `autonity ...` cmd. -->
+<!-- Seems like it should be possible to do this from the host machine with an `autonity ...` cmd. -->
 
 Ensure that the `aut` CLI tool connects to the node that will become a validator.  Query the enode using the `aut node info` command:
 
@@ -73,15 +73,31 @@ The url is returned in the `admin_enode` field.
 
 ### Step 3. Submit the registration transaction.
 
+{{< alert title="Important Note" >}}
+The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator regster` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
+{{< /alert >}}
+
 ```bash
 aut validator register <ENODE_URL> <PROOF> | aut tx sign - | aut tx send -
 ```
-where
 
-   - `<ENODE_URL>`: the enode url returned in Step 1.
-   - `<PROOF>`: the proof of enode ownership generated in Step 2.
+where:
+- `<ENODE_URL>`: the enode url returned in Step 1.
+- `<PROOF>`: the proof of enode ownership generated in Step 2.
 
 Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/concepts/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.
+
+#### Troubleshooting
+
+Errors of the form
+```bash
+Error: execution reverted: Invalid proof provided for registration
+```
+indicate a mismatch between treasury address and either:
+- the `from` address of the transaction generated in the `aut validator register` command, AND/OR
+- the key used in the `aut tx sign` command
+
+Check your configuration as described in the "Important Note" at the start of this section.
 
 ### Step 4. Identify the validator ID
 
