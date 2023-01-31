@@ -1,4 +1,4 @@
-n---
+---
 title: "Deploy smart contracts to an Autonity network with Brownie"
 linkTitle: "Deploy smart contracts with Brownie"
 weight: 170
