@@ -22,7 +22,7 @@ It is assumed that you have:
 		
 		- Fund your dev account(s) in the [genesis configuration file](/reference/genesis/#genesis-configuration-file)'s [`alloc`](/reference/genesis/#alloc-object) data structure.
 		
-		- If your are running the client in dev mode, there is a pre-funded developer account. See [Command line options](/reference/cli/#command-line-options) `--dev`, `--dev.gaslimit`, `--dev.etherbase`.
+		- If you are running the client in dev mode, there is a pre-funded developer account. See [Command line options](/reference/cli/#command-line-options) `--dev`, `--dev.gaslimit`, `--dev.etherbase`.
 
 - An installation of the Autonity Go Client. See the [Running a node](/node-operators) guide for details of how to [install Autonity in your environment](/node-operators/install-aut/) and [run](/node-operators/run-aut/) it.
 
