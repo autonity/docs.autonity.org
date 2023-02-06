@@ -36,13 +36,15 @@ This documentation describes key concepts and functionality of the protocol and 
 
 - See the user-oriented guides for how to use the system:
 
-  - [Account Holders](/account-holders/) for how to set up an account on the network: set up the aut CLI command-line tool, create and fund accounts, submit transactions.
+  - [Account Holders](/account-holders/) for how to set up an account on the network: set up the `aut` CLI command-line tool, create and fund accounts, submit transactions.
   
   - [Staking](/delegators/) for how to delegate stake in Autonity's liquid staking model: bond and unbond stake to validators, claim staking rewards, and transfer Liquid Newton.
 
   - [Node Operators](/node-operators/) for how to install and run the Autonity Go Client, connect to an Autonity Network, and setup node monitoring.
 
-  - [Validators](/validators/) for how to operate your node as a validator node: registering, pausing and reactivating valdiator operations, and setting your validator commission rate.
+  - [Validators](/validators/) for how to operate your node as a validator node: registering, pausing and reactivating validator operations, and setting your validator commission rate.
+
+  - [Development](/developer/) for how to set up a custom network for development and deploy contracts to your local or a public Autonity network.
 
 - See [Networks](/networks/) for publicly accessible Autonity Networks you can connect your node to.
 
