@@ -104,7 +104,7 @@ The unique identifier of a node in the form of a URI. It provides the network ad
 The enode URL is formed according the Ethereum enode url format which is described in the [Ethereum Developers Docs, Networking layer](https://ethereum.org/en/developer/docs/networking-layer/network-addresses/#enode).
 
 ## epoch
-A period of time measured as a number of blocks in which there is no change in consensus committee membership.
+A fixed number (i.e. [epochPeriod](/glossary/#epoch-period)) of consecutive blocks where the validator committee - as recorded in the state of the autonity contract - cannot change.
 
 ## epoch period
 The period of time for which a consensus committee is elected, defined as a number of blocks.  The epoch period can be any integer number > 0, but _must_ be shorter than the unbonding period. Without this constraint unbonding could take place before slashing penalties and staking transitions are applied.
