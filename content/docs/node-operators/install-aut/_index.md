@@ -176,7 +176,7 @@ You should now be able to execute the `autonity` command.  Verify your installat
 ```bash
 $ ./autonity version
 ```
-```bash
+```
 Autonity
 Version: 0.10.1
 Architecture: amd64
@@ -194,7 +194,7 @@ If using Docker, the setup of the image can be verified with:
 ```bash
 $ docker run --rm ghcr.io/autonity/autonity:latest version
 ```
-```bash
+```
 Autonity
 Version: 0.10.1
 Architecture: amd64
