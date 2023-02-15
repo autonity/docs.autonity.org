@@ -112,34 +112,9 @@ sudo systemctl restart docker
 ```
 {{< /alert >}}
 
-1. Verify the authenticity of the Autonity Docker images against the official [image digests](https://github.com/autonity/autonity/pkgs/container/autonity%2Fautonity):
-
+1. Pull the Autonity Go Client image from the Github Container Registry:
     ```bash
-    docker images --digests ghcr.io/autonity/autonity/autonity
-    REPOSITORY                               TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
-    ghcr.io/autonity/autonity/autonity   latest    sha256:f374ac6575051037b03992854f1fb794b8b81eec3e7934849970ed192b08848c   a91c690c2bd0   5 months ago   51.6MB
-    ```
-
-    <!-- Required once the repo is public?? -->
-
-1. Create a GitHub personal access token to pull the Autonity Go Client Docker image from GitHub Container Registry. See [Login Credentials to GitHub Container Registry](/developer/#login-credentials-to-github-container-registry)
-
-1. Login to the Container Registry service, where:
-
-    - `<PAT_TOKEN>` is your GitHub PAT token
-    - `<GH_USERNAME>` is your GitHub username
-    - `password.txt` is your Docker login password
-
-	```bash
-	export GHCR_PAT="<PAT_TOKEN>"
-	export GH_USER="<GITHUB_USERNAME>"
-	echo $GHCR_PAT | docker login https://ghcr.io --username $GH_USER --password-stdin
-	```
-
-1. Pull the Autonity Docker image:
-
-    ```bash
-    docker pull ghcr.io/autonity/autonity/autonity:latest
+    docker pull ghcr.io/autonity/autonity:latest
     ```
 
    (where `latest` can be replaced with another version)
@@ -147,6 +122,14 @@ sudo systemctl restart docker
    {{< alert title="Note" >}}
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
    {{< /alert >}}
+
+1. Verify the authenticity of the Autonity Docker images against the official [image digests](https://github.com/autonity/autonity/pkgs/container/autonity/versions):
+
+    ```bash
+    docker images --digests ghcr.io/autonity/autonity
+    REPOSITORY                               TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
+    ghcr.io/autonity/autonity                latest    sha256:0eb561ce19ed3617038b022db89586f40abb9580cb0c4cd5f28a7ce74728a3d4   3375da450343   3 weeks ago    51.7MB
+    ```
 
 {{% pageinfo %}}
 You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker).
@@ -209,19 +192,17 @@ GOROOT=/usr/local/go
 If using Docker, the setup of the image can be verified with:
 
 ```bash
-$ docker run --rm ghcr.io/autonity/autonity/autonity:latest version
+$ docker run --rm ghcr.io/autonity/autonity:latest version
 ```
 ```bash
 Autonity
-Version: 0.10.0
-Git Commit: 1183a1130f192c70cab78831c76aed16f5715eca
-Git Commit Date: 20230118
+Version: 0.10.1
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.18.1
+Go Version: go1.17.10
 Operating System: linux
 GOPATH=
-GOROOT=go
+GOROOT=/usr/local/go
 ```
 
 {{< alert title="Note" >}}
