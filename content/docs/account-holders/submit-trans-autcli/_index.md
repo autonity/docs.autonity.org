@@ -10,17 +10,17 @@ description: >
 
 To submit transactions to a client node from the Autonity `autcli` you need:
 
-- An installation [of `aut`](https://github.com/autonity/autcli) - see the [howto](/account-holders/setup-autcli/) for further help.
+- An installation [of `autcli`](https://github.com/autonity/autcli) - see the [howto](/account-holders/setup-autcli/) for further help.
 
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs.
 
-- The `aut` CLI tool should be configured to connect to the appropriate node or Autonity network (see the [list of networks including public RPC endpoints](/networks/).
+- The `autcli` tool should be configured to connect to the appropriate node or Autonity network (see the [list of networks including public RPC endpoints](/networks/).
 
 {{< alert title="Note" >}}
 This guide assumes that the following have been set in your `.autrc` file, or will be added to the commands below using the appropriate flags:
 - `rpc_endpoint`: the endpoint URI of the node you will connect to.
 - `keyfile`: the path to the encrypted private key file for your default testnet account.
-- (optional) `keytore`: the default directory containing keyfiles
+- (optional) `keystore`: the default directory containing keyfiles.
 {{< /alert >}}
 
 ## Examples

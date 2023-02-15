@@ -12,7 +12,7 @@ The steps in this section describe how to set up a local testnet for development
 
 It is assumed that you have:
 
-- [Setup the `aut` CLI](/account-holders/setup-autcli/) tool and have an [account](/account-holders/create-acct/).
+- [Setup the `autcli`](/account-holders/setup-autcli/) tool and have an [account](/account-holders/create-acct/).
 
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs:
 	

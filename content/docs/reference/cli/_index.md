@@ -12,11 +12,11 @@ description: >
 
 Command-line tools for interacting with an Autonity Go Client are provided by:
 
-- Autonity `aut` CLI tool. A Python command-line RPC client for Autonity. The tool provides access to Autonity Contract and ERC20 token contract interfaces.
+- Autonity `autcli` tool. A Python command-line RPC client for Autonity. The tool provides access to Autonity Contract and ERC20 token contract interfaces.
 
 <!-- - Autonity NodeJS Console. A Node.JS JavaScript runtime environment for executing RPC calls. Autonity NodeJS console provides access to Ethereum Web3 Namespace and Autonity Contract interfaces. -->
 
-For `aut` CLI installation, usage, and command-line options see Reference [Setup aut CLI](/account-holders/setup-autcli/).
+For `autcli` installation, usage, and command-line options see Reference [Setup Autonity CLI](/account-holders/setup-autcli/).
 
 ## Command-line options
 
@@ -29,7 +29,7 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `init` | The command is deprecated and has been replaced by a `--genesis` command option to give the path to the genesis configuration file `genesis.json`. For example: `--genesis ./genesis.json` |
 | `clique` | The Clique Proof of Authority consensus functionality has been removed |
 | `wallet` | The command for managing Ethereum presale wallets has been removed |
-| `attach` and `console` | The Geth JavaScript console is deprecated in favour of the Autonity `aut` CLI tool |
+| `attach` and `console` | The Geth JavaScript console is deprecated in favour of the Autonity `autcli` tool |
 | `makecache` and `makedag`| The commands are removed. They are specific to ethash Proof of Work consensus and not required by Autonity's Tendermint consensus |
 | ETHEREUM OPTIONS: ||
 | `piccadilly` and `bakerloo` | Options for connecting to the Autonity test networks 'Piccadilly' and `Bakerloo` are added (Options for connecting to the Ethereum test networks are removed) |

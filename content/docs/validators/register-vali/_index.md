@@ -45,7 +45,7 @@ This signature hex will be required for the registration.
 
 <!-- Seems like it should be possible to do this from the host machine with an `autonity ...` cmd. -->
 
-Ensure that the `aut` CLI tool connects to the node that will become a validator.  Query the enode using the `aut node info` command:
+Ensure that the `autcli` tool connects to the node that will become a validator.  Query the enode using the `aut node info` command:
 
 ```bash
 aut node info

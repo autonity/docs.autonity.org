@@ -36,7 +36,7 @@ This documentation describes key concepts and functionality of the protocol and 
 
 - See the user-oriented guides for how to use the system:
 
-  - [Account Holders](/account-holders/) for how to set up an account on the network: set up the `aut` CLI command-line tool, create and fund accounts, submit transactions.
+  - [Account Holders](/account-holders/) for how to set up an account on the network: set up the Autonity CLI command-line tool, create and fund accounts, submit transactions.
   
   - [Staking](/delegators/) for how to delegate stake in Autonity's liquid staking model: bond and unbond stake to validators, claim staking rewards, and transfer Liquid Newton.
 
