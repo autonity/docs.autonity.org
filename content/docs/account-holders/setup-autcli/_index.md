@@ -6,7 +6,7 @@ description: >
   How to install and configure the `autcli` tool on your local machine.
 ---
 
-The recommended way of interacting with the Autonity network if via the [Autonity CLI tool](https://github.com/autonity/autcli), which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.  In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
+The recommended way of interacting with the Autonity network if via the [Autonity CLI tool](https://github.com/autonity/autcli) `autcli`, which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.  In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
 
 For full details and to report any issues, see the [`autcli` repository](https://github.com/autonity/autcli).
 
