@@ -28,7 +28,7 @@ This must be performed on the host machine running the Autonity Go Client, using
 autonity genEnodeProof --nodekey <NODE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
 ```
 
-... or, if you are running the Autonity Go Client in a docker container with the `autonity-chaindata` directory mapped to a direcory of the same name outside the container, you can temporarily create a separate container mapping the same directory for proof generation:
+If you are running the Autonity Go Client in a docker container, setup as described in the [Run Autonity section](../../node-operators/run-aut#run-docker) (i.e. with the `autonity-chaindata` directory mapped to a host directory of the same name), the proof can be generated as follows:
 
 ```bash
 docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name autonity-proof --rm ghcr.io/autonity/autonity:latest genEnodeProof --nodekey ./autonity-chaindata/autonity/nodekey <TREASURY_ACCOUNT_ADDRESS>
