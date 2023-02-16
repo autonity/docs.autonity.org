@@ -32,7 +32,7 @@ As detailed in the [`aut` CLI repository](https://github.com/autonity/autcli), s
 
 ```
 [aut]
-rpc_endpoint=https://NETWORK_NAME.autonity.org
+rpc_endpoint=https://rpc1.<NETWORK_NAME>.autonity.org
 ```
 
 See the [list of available networks](/networks/) to determine the correct endpoint to use.

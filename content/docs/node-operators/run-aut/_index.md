@@ -73,7 +73,7 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
        --publish 6060:6060 \
        --name autonity \
        --rm \
-       ghcr.io/autonity/autonity/autonity:latest \
+       ghcr.io/autonity/autonity:latest \
            --datadir ./autonity-chaindata  \
            --piccadilly \
            --http  \
