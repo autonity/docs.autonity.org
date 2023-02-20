@@ -20,7 +20,7 @@ A public testnet for participants interested in:
 |Network Name|`Autonity Bakerloo Testnet`|
 |New RPC URL|`https://rpc1.bakerloo.autonity.org`|
 |ChainID |`65010000`|
-|Symbol|`XTN`|
+|Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://bakerloo.autonity.org/`|
 
 (The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))

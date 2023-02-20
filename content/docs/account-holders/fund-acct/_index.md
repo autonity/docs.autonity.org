@@ -3,7 +3,7 @@ title: "Fund an account "
 linkTitle: "Fund an account"
 weight: 40
 description: >
-  How to fund an account with testnet Auton (XTN)
+  How to fund an account with testnet Auton (ATN)
 ---
 
 ## Prerequisites
@@ -13,7 +13,7 @@ description: >
 
 ## Fund account from Faucet
 
-To fund an account with testnet funds go to the Autonity Faucet. This provides a simple interface to acquire Auton (XTN), the native coin of an Autonity account.
+To fund an account with testnet funds go to the Autonity Faucet. This provides a simple interface to acquire Auton (ATN), the native coin of an Autonity account.
 
 1. Navigate to the Autonity [Faucet](https://faucet.autonity.org/). 
 

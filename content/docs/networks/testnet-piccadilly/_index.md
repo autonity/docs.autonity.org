@@ -21,7 +21,7 @@ A public testnet for participants interested in:
 |Network Name|`Autonity Piccadilly Testnet`|
 |New RPC URL|`https://rpc1.piccadilly.autonity.org/`|
 |ChainID |`65100000`|
-|Symbol|`XTN`|
+|Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
 
 (The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
