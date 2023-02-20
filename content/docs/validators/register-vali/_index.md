@@ -28,6 +28,12 @@ This must be performed on the host machine running the Autonity Go Client, using
 autonity genEnodeProof --nodekey <NODE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
 ```
 
+If you are running the Autonity Go Client in a docker container, setup as described in the [Run Autonity section](../../node-operators/run-aut#run-docker) (i.e. with the `autonity-chaindata` directory mapped to a host directory of the same name), the proof can be generated as follows:
+
+```bash
+docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name autonity-proof --rm ghcr.io/autonity/autonity:latest genEnodeProof --nodekey ./autonity-chaindata/autonity/nodekey <TREASURY_ACCOUNT_ADDRESS>
+```
+
 where
     - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node`. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
     - `<TREASURY_ACCOUNT_ADDRESS>`: is treasury account address (i.e. the address you are using to submit the registration transaction from the local machine).
