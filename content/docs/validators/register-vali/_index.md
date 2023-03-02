@@ -99,8 +99,8 @@ aut validator register <ENODE_URL> <PROOF> | aut tx sign - | aut tx send -
 ```
 
 where:
-- `<ENODE_URL>`: the enode url returned in Step 1.
-- `<PROOF>`: the proof of enode ownership generated in Step 2.
+- `<ENODE_URL>`: the enode url returned in Step 2.
+- `<PROOF>`: the proof of enode ownership generated in Step 1.
 
 Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/concepts/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.
 
