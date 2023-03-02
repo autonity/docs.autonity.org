@@ -35,7 +35,7 @@ docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name a
 ```
 
 where
-    - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node`. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
+    - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
     - `<TREASURY_ACCOUNT_ADDRESS>`: is treasury account address (i.e. the address you are using to submit the registration transaction from the local machine).
 
 You should see something like this:
