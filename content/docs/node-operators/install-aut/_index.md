@@ -30,7 +30,7 @@ To run an Autonity Go Client node, we recommend using a host machine (physical o
 |-------------|----------|------------|
 | OS | Ubuntu 20.04	LTS | Ubuntu 20.04 LTS |
 | CPU | 3.10 GHz with 8 CPU's | 3.10 GHz with 16 CPU's |
-| RAM | 8GB | 8GB |
+| RAM | 8GB | 16GB |
 | Storage | 1024GB free storage for full nodes and Validators | 1024 GB free storage for full nodes and validators |
 | Network interface	| 200 Mbit/s | 200 Mbit/s |
 
