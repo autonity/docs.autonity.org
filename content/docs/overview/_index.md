@@ -65,7 +65,7 @@ In addition to Ethereum concepts such as `address`, `gas`, and `node`, the disti
 
 | **Concept** | **Meaning** |
 | --------- | --------- |
-| [Auton (_XTN_)](/concepts/protocol-assets/auton/) | Autonity's native account coin (intrinsic balance of an account, like "Ether" in Ethereum). |
+| [Auton (_ATN_)](/concepts/protocol-assets/auton/) | Autonity's native account coin (intrinsic balance of an account, like "Ether" in Ethereum). |
 | [Newton (_NTN_)](/concepts/protocol-assets/newton/) | Native staking instrument used to secure the Proof-of-Stake consensus mechanism. |
 | [Participant ](/concepts/system-model/#participants) node | A node running Autonity Go Client software and connected to other nodes in an Autonity network. A participant node maintains a copy of system state and may become a _validator_. |
 | [Validator](/concepts/validator/) node | A participant node that has registered as a validator on an Autonity network. A validator node may be selected to the _Consensus Committee_ if it has sufficient stake _bonded_ to it by a stake delegator. |

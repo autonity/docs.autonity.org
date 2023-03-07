@@ -21,7 +21,7 @@ A public testnet for participants interested in:
 |Network Name|`Autonity Piccadilly Testnet`|
 |New RPC URL|`https://rpc1.piccadilly.autonity.org/`|
 |ChainID |`65100000`|
-|Symbol|`XTN`|
+|Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
 
 (The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
@@ -58,9 +58,9 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.9.0](https://github.com/autonity/autonity/releases/tag/v0.9.0)
+- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.10.1](https://github.com/autonity/autonity/releases/tag/v0.10.1)
 
-- The nodes are running this docker image release: `ghcr.io/autonity/autonity/autonity:latest`
+- The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
 ## Faucet
 

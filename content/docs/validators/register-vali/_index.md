@@ -28,8 +28,14 @@ This must be performed on the host machine running the Autonity Go Client, using
 autonity genEnodeProof --nodekey <NODE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
 ```
 
+If you are running the Autonity Go Client in a docker container, setup as described in the [Run Autonity section](../../node-operators/run-aut#run-docker) (i.e. with the `autonity-chaindata` directory mapped to a host directory of the same name), the proof can be generated as follows:
+
+```bash
+docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name autonity-proof --rm ghcr.io/autonity/autonity:latest genEnodeProof --nodekey ./autonity-chaindata/autonity/nodekey <TREASURY_ACCOUNT_ADDRESS>
+```
+
 where
-    - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node`. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
+    - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
     - `<TREASURY_ACCOUNT_ADDRESS>`: is treasury account address (i.e. the address you are using to submit the registration transaction from the local machine).
 
 You should see something like this:
@@ -93,8 +99,8 @@ aut validator register <ENODE_URL> <PROOF> | aut tx sign - | aut tx send -
 ```
 
 where:
-- `<ENODE_URL>`: the enode url returned in Step 1.
-- `<PROOF>`: the proof of enode ownership generated in Step 2.
+- `<ENODE_URL>`: the enode url returned in Step 2.
+- `<PROOF>`: the proof of enode ownership generated in Step 1.
 
 Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/concepts/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.
 
