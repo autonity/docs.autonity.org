@@ -3,14 +3,14 @@ title: "Connecting to your Node"
 linkTitle: "Connecting to your node"
 weight: 30
 description: >
-   Configure the `autcli` tool to connect to your node and perform some simple queries.
+   Configure the Autonity Utility Tool `aut` to connect to your node and perform some simple queries.
 ---
 
-This guide assumes that queries and transactions are created and submitted from a _local_ machine, on which the [`autcli` tool](/account-holders/setup-autcli/) has been installed.
+This guide assumes that queries and transactions are created and submitted from a _local_ machine, on which [`aut`](/account-holders/setup-autcli/) has been installed.
 
-## Configure the `autcli` tool (local machine)
+## Configure `aut` (local machine)
 
-As a convenience, we configure the `autcli` tool to connect to your node without having to specify this on the command line. Edit the `rpc_endpoint` entry in your `.autrc` file:
+As a convenience, we configure `aut` to connect to your node without having to specify this on the command line. Edit the `rpc_endpoint` entry in your `.autrc` file:
 
 ```
 rpc_endpoint=http://XX.XX.XX.XX:8545/
@@ -49,7 +49,7 @@ The `admin_enode` entry should display the external IP of your host machine at t
 
 ## Example queries
 
-The following are examples of simple queries to help familiarise yourself with the `autcli` tool and the Autonity network.
+The following are examples of simple queries to help familiarise yourself with  `aut` and the Autonity network.
 
 ### Get the block number:
 

@@ -1,12 +1,12 @@
 ---
-title: "Setup the Autonity CLI tool"
-linkTitle: "Setup Autonity CLI"
+title: "Setup the Autonity Utility Tool (aut)"
+linkTitle: "Setup the Autonity Utility Tool (aut)"
 weight: 30
 description: >
-  How to install and configure the `autcli` tool on your local machine.
+  How to install and configure the `aut` command-line tool on your local machine.
 ---
 
-The recommended way of interacting with the Autonity network if via the [Autonity CLI tool](https://github.com/autonity/autcli) `autcli`, which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.  In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
+The recommended way of interacting with the Autonity network is via the [Autonity Utility Tool](https://github.com/autonity/autcli) `aut`, which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.  In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
 
 For full details and to report any issues, see the [`autcli` repository](https://github.com/autonity/autcli).
 
@@ -67,7 +67,7 @@ The output above may vary depending on the version of the Autonity Go Client you
 {{< /alert >}}
 
 {{% pageinfo %}}
-Now that you have a working Autonity CLI installation, you can  [create](/account-holders/create-acct/) and [fund](/account-holders/fund-acct/) and account on the network, and then [create and submit a transaction](/account-holders/submit-trans-autcli/).
+Now that you have a working `aut` installation, you can  [create](/account-holders/create-acct/) and [fund](/account-holders/fund-acct/) and account on the network, and then [create and submit a transaction](/account-holders/submit-trans-autcli/).
 {{% /pageinfo %}}
 
 ------------------------------------------------

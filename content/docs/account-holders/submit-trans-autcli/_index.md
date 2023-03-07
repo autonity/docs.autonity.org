@@ -1,20 +1,20 @@
 ---
-title: "Submit a transaction from Autonity autcli"
-linkTitle: "Submit a transaction from Autonity autcli"
+title: "Submit a transaction from the Autonity Utility tool (aut) "
+linkTitle: "Submit a transaction from Autonity Utility Tool (aut)"
 weight: 60
 description: >
-  How to submit transactions to an Autonity network using the Python3 interface to the RPC API's
+  How to submit transactions to an Autonity network using `aut`, the Python3 interface to the RPC API's
 ---
 
 ## Prerequisites
 
-To submit transactions to a client node from the Autonity `autcli` you need:
+To submit transactions to a client node from `aut` you need:
 
-- An installation [of `autcli`](https://github.com/autonity/autcli) - see the [howto](/account-holders/setup-autcli/) for further help.
+- An installation of [`aut`](https://github.com/autonity/autcli) - see the [howto](/account-holders/setup-autcli/) for further help.
 
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs.
 
-- The `autcli` tool should be configured to connect to the appropriate node or Autonity network (see the [list of networks including public RPC endpoints](/networks/).
+- `aut` should be configured to connect to the appropriate node or Autonity network (see the [list of networks including public RPC endpoints](/networks/).
 
 {{< alert title="Note" >}}
 This guide assumes that the following have been set in your `.autrc` file, or will be added to the commands below using the appropriate flags:
@@ -38,7 +38,7 @@ aut tx make --to <RECIPIENT_ADDRESS>  --value 1 | aut tx sign - | aut tx send -
 
 #### A note about signing and submitting
 
-The output of each command above is being piped to the next in this example.  Alternatively, the output can be written to files, for example to be signed using a hardware waller or other key management systems).
+The output of each command above is being piped to the next in this example.  Alternatively, the output can be written to files, for example to be signed using a hardware wallet or other key management systems).
 
 This use of piping will appear in many example commands, for convenience.  For reference:
 - `aut tx make ...` outputs a transaction in JSON format

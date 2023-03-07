@@ -36,7 +36,7 @@ On a successful call the function emits a `BurnedStake` event, logging: `_addr`,
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol burn [OPTIONS] AMOUNT ACCOUNT
 {{< /tab >}}
 {{< /tabpane >}}
@@ -53,7 +53,7 @@ autonity.burn(_addr, _amount).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -124,7 +124,7 @@ On a successful call the function emits a `MintedStake` event, logging: `_addr`,
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol mint [OPTIONS] AMOUNT RECIPIENT
 {{< /tab >}}
 {{< /tabpane >}}
@@ -141,7 +141,7 @@ autonity.mint(_addr, _amount).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -206,7 +206,7 @@ The updated parameter can be retrieved from state by calling the [`getMaxCommitt
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol set-committee-size [OPTIONS] COMMITTEE_SIZE
 {{< /tab >}}
 {{< /tabpane >}}
@@ -222,7 +222,7 @@ autonity.setCommitteeSize(_size).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol set-committee-size 50 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -273,7 +273,7 @@ The updated parameter can be retrieved from state by a call to the [`epochPeriod
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol set-epoch-period [OPTIONS] EPOCH_PERIOD
 {{< /tab >}}
 {{< /tabpane >}}
@@ -290,7 +290,7 @@ autonity.setEpochPeriod(_period).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol set-epoch-period 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -342,7 +342,7 @@ On a successful call the function emits a `MinimumBaseFeeUpdated` event, logging
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol set-minimum-base-fee [OPTIONS] base-fee
 {{< /tab >}}
 {{< /tabpane >}}
@@ -359,7 +359,7 @@ autonity.setMinimumBaseFee(_price).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol set-minimum-base-fee 50000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -422,7 +422,7 @@ The updated parameter can be retrieved from state by a call to the [`operatorAcc
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
@@ -439,7 +439,7 @@ autonity.setOperatorAccount(_account).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -472,7 +472,7 @@ The updated parameter can be retrieved from state by a call to the [`treasuryAcc
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol set-treasury-account [OPTIONS] treasury-address
 {{< /tab >}}
 {{< /tabpane >}}
@@ -489,7 +489,7 @@ autonity.setTreasuryAccount(_account).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol set-treasury-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -523,7 +523,7 @@ The updated parameter can be retrieved from state by a call to the [`treasuryFee
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol set-treasury-fee [OPTIONS] TREASURY-FEE
 {{< /tab >}}
 {{< /tabpane >}}
@@ -540,7 +540,7 @@ autonity.setTreasuryFee(_treasuryFee).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol set-treasury-fee 100000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -575,7 +575,7 @@ The updated parameter can be retrieved from state by a call to read the [`unbond
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol set-unbonding-period [OPTIONS] UNBONDING_PERIOD
 {{< /tab >}}
 {{< /tabpane >}}
@@ -592,7 +592,7 @@ autonity.setUnbondingPeriod(_period)).send()
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol set-unbonding-period 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 

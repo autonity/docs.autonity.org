@@ -9,13 +9,13 @@ description: >
 Interface for interacting with Autonity Contract functions using:
 
 <!-- - Wrapper functions implemented by the NodeJS Console to submit calls to inspect state and state-affecting transactions. -->
-- The `autcli` command-line RPC client to submit calls to inspect state and state-affecting transactions.
+- The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 - JSON-RPC methods to submit calls to inspect state.
 
 Datatypes are [Solidity v0.8.3 Types](https://docs.soliditylang.org/en/v0.8.3/types.html#).
 
 {{% pageinfo %}}
-Examples for calling functions from the Autonity `autcli` command-line tool  use the setup described in the How to [Submit a transaction from Autonity autcli](/account-holders/submit-trans-autcli/).
+Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-autcli/).
 {{% /pageinfo %}}
 
 ## activateValidator
@@ -50,7 +50,7 @@ The updated state can be viewed by calling the [`getValidator`](/reference/api/a
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator activate --validator _address
 {{< /tab >}}
 {{< /tabpane >}}
@@ -64,7 +64,7 @@ autonity.activateValidator(_address).send()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator activate --validator 0x49454f01a8F1Fbab21785a57114Ed955212006be | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -98,7 +98,7 @@ Enter passphrase (or CTRL-d to exit):
 
 Returns the amount of stake token that remains available for a spender to withdraw from a Newton stake token owner's account.
 
-Using `autcli` you can return the allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
+Using `aut` you can return the allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
 
 ### Parameters
 
@@ -116,7 +116,7 @@ Using `autcli` you can return the allowance for an ERC20 token contract account,
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token allowance [OPTIONS] OWNER
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -135,7 +135,7 @@ autonity.allowance('owner', 'spender').call()
 To return a spender's allowance for a Newton stake token account specify the `--ntn` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token allowance --ntn 0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
 100.000000000000000000
 {{< /tab >}}
@@ -155,7 +155,7 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 To return a spender's allowance for an ERC20 contract token (e.g. Liquid Newton) account specify the `--token` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token allowance --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37  0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
 1000.000000000000000000
 {{< /tab >}}
@@ -170,7 +170,7 @@ Constraint checks:
 - The `owner` cannot be the zero address
 - The `spender` cannot be the zero address
 
-Using `autcli` you can approve a `spender` account allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
+Using `aut` you can approve a `spender` account allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
 
 ### Parameters
 
@@ -190,7 +190,7 @@ On a successful call the function emits an `Approval` event, logging: `owner`, `
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token approve [OPTIONS] SPENDER AMOUNT
 {{< /tab >}}
 {{< /tabpane >}}
@@ -205,7 +205,7 @@ autonity.approve('spender', amount).send()
 To approve a spender for a Newton stake token account specify the `--ntn` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token approve --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 100 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -251,7 +251,7 @@ Enter passphrase (or CTRL-d to exit):
 To approve a spender for an ERC20 contract token (e.g. Liquid Newton) account specify the `--token` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token approve --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -263,7 +263,7 @@ Enter passphrase (or CTRL-d to exit):
 
 Returns the amount of unbonded Newton stake token held by an account.
 
-Using `autcli` you can return the account balance for an ERC20 token contract account, e.g. a Liquid Newton account.
+Using `aut` you can return the account balance for an ERC20 token contract account, e.g. a Liquid Newton account.
 
 ### Parameters
 
@@ -281,7 +281,7 @@ Using `autcli` you can return the account balance for an ERC20 token contract ac
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token balance-of [OPTIONS] ACCOUNT
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -299,7 +299,7 @@ autonity.balanceOf('_addr').call()
 
 To return the Newton stake token balance for an account specify the `--ntn` option:
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token balance-of --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
 1000.000000000000000000
 {{< /tab >}}
@@ -319,13 +319,13 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 To return an ERC20 contract token (e.g. Liquid Newton) balance for an account specify the `--token` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a87b260dd85ff7189d848fd44b28cc8505fa9c
 999.000000000000000000
 {{< /tab >}}
 {{< /tabpane >}}
 
-{{< alert title="Info" >}}All Liquid Newton balances for an account can be returned in one call using the `autcli` command `aut account lntn-balances [OPTIONS] ACCOUNT`.{{< /alert >}}
+{{< alert title="Info" >}}All Liquid Newton balances for an account can be returned in one call using the `aut` command `aut account lntn-balances [OPTIONS] ACCOUNT`.{{< /alert >}}
 
 
 ## bond
@@ -358,7 +358,7 @@ The pending voting power change is tracked in memory until applied and can be re
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator bond [OPTIONS] AMOUNT
 {{< /tab >}}
 {{< /tabpane >}}
@@ -372,7 +372,7 @@ autonity.bond('validator', amount).send()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut validator bond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -439,7 +439,7 @@ On a successful call the function emits a `CommissionRateChange` event, logging:
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator change-commission-rate [OPTIONS] RATE
 {{< /tab >}}
 {{< /tabpane >}}
@@ -453,7 +453,7 @@ autonity.changeCommissionRate('_validator', _rate).send()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut validator change-commission-rate --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 900 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -527,7 +527,7 @@ Returns a `Config` object consisting of:
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol config [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -544,7 +544,7 @@ autonity.config().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol config -r https://rpc1.piccadilly.autonity.org
 {
   "operator_account": "0xd32C0812Fa1296F082671D5Be4CbB6bEeedC2397",
@@ -610,7 +610,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol deployer [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -626,7 +626,7 @@ autonity.deployer().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol deployer --rpc-endpoint https://rpc1.piccadilly.autonity.org
 0x0000000000000000000000000000000000000000
 {{< /tab >}}
@@ -660,7 +660,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol epoch-id [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -676,7 +676,7 @@ autonity.epochID().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol epoch-id --rpc-endpoint https://rpc1.bakerloo.autonity.org
 7371
 {{< /tab >}}
@@ -710,7 +710,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol epoch-reward [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -726,7 +726,7 @@ autonity.epochReward().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol epoch-reward --rpc-endpoint https://rpc1.piccadilly.autonity.org
 121166000000000
 {{< /tab >}}
@@ -760,7 +760,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol epoch-total-bonded-stake [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -777,7 +777,7 @@ autonity.epochTotalBondedStake().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol epoch-total-bonded-stake --rpc-endpoint https://rpc1.piccadilly.autonity.org
 61338
 {{< /tab >}}
@@ -824,7 +824,7 @@ Returns a `_results` array of `Staking` objects, each object consisting of:
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-unbonding-req [OPTIONS] START END
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -840,7 +840,7 @@ autonity.getBondingReq(startId, lastId).call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-unbonding-req -r https://rpc1.piccadilly.autonity.org 0 2
 [
   {
@@ -905,7 +905,7 @@ Returns a `committee` array of `CommitteeMember` objects, each object consisting
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-committee [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -922,7 +922,7 @@ autonity.getCommittee().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-committee -r https://rpc1.bakerloo.autonity.org
 [
   {
@@ -1038,7 +1038,7 @@ Returns a `committeeNodes` list of committee member enode URL addresses consisti
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-committee-enodes [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1055,7 +1055,7 @@ autonity.getCommitteeEnodes().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-committee-enodes -r https://rpc1.bakerloo.autonity.org
 ['enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303', 'enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303', 'enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303', 'enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308', 'enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309', 'enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310', 'enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303', 'enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303', 'enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303']
 {{< /tab >}}
@@ -1097,7 +1097,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-max-committee-size [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1114,7 +1114,7 @@ autonity.getMaxCommitteeSize().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-max-committee-size --rpc-endpoint https://rpc1.bakerloo.autonity.org/
 50
 {{< /tab >}}
@@ -1156,7 +1156,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-minimum-base-fee [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1172,7 +1172,7 @@ autonity.getMinimumBaseFee().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-minimum-base-fee --rpc-endpoint https://rpc1.bakerloo.autonity.org/
 500000000
 {{< /tab >}}
@@ -1269,7 +1269,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-operator [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1285,7 +1285,7 @@ autonity.getOperator().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-operator -r https://rpc1.bakerloo.autonity.org/
 0x293039dDC627B1dF9562380c0E5377848F94325A
 {{< /tab >}}
@@ -1324,7 +1324,7 @@ The proposer is selected from the committee via weighted random sampling, with s
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-proposer [OPTIONS] HEIGHT ROUND
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1340,7 +1340,7 @@ autonity.getProposer(height, round).call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-proposer -r https://rpc1.bakerloo.autonity.org/ 4576868 0
 0x0c7dC2aB00c7b5934EDA097a8585f56367A94dA4
 {{< /tab >}}
@@ -1394,7 +1394,7 @@ Returns a `_results` array of `Staking` objects, each object consisting of:
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-unbonding-req [OPTIONS] START END
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1411,7 +1411,7 @@ autonity.getUnbondingReq(startId, lastId).call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-unbonding-req --rpc-endpoint https://rpc1.piccadilly.autonity.org 0 1
 [
   {
@@ -1478,7 +1478,7 @@ Returns a `Validator` object consisting of:
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator info [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1495,7 +1495,7 @@ autonity.getValidator(_addr).call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1
 {
   "treasury": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
@@ -1562,7 +1562,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator list [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1578,7 +1578,7 @@ autonity.getValidators().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut validator list --rpc-endpoint https://rpc1.piccadilly.autonity.org
 0x32F3493Ef14c28419a98Ff20dE8A033cf9e6aB97
 0x31870f96212787D181B3B2771F58AF2BeD0019Aa
@@ -1649,7 +1649,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-version [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1666,7 +1666,7 @@ autonity.getVersion().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-version -r https://rpc1.piccadilly.autonity.org/8545/
 1
 {{< /tab >}}
@@ -1702,7 +1702,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol head-bonding-id [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1718,7 +1718,7 @@ autonity.headBondingID().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol head-bonding-id -r https://rpc1.piccadilly.autonity.org/
 139
 {{< /tab >}}
@@ -1753,7 +1753,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol head-unbonding-id [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1770,7 +1770,7 @@ autonity.headUnbondingID().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol head-unbonding-id -r https://rpc1.piccadilly.autonity.org/
 48
 {{< /tab >}}
@@ -1804,7 +1804,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol get-last-epoch-block [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1821,7 +1821,7 @@ autonity.lastEpochBlock().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol get-last-epoch-block -r https://rpc1.piccadilly.autonity.org
 12981684
 {{< /tab >}}
@@ -1842,7 +1842,7 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 
 Returns the name of the Newton stake token as a human-readable string. Set as contract metadata to the value of `Newton`.
 
-Using `autcli` you can return the name for an ERC20 token contract account, e.g. a Liquid Newton contract.
+Using `aut` you can return the name for an ERC20 token contract account, e.g. a Liquid Newton contract.
 
 ### Parameters
 
@@ -1857,7 +1857,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token name [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1874,7 +1874,7 @@ autonity.name().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token name --ntn -r https://rpc1.piccadilly.autonity.org
 Newton
 {{< /tab >}}
@@ -1894,7 +1894,7 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 To return the `name` for an ERC20 (e.g. a Liquid Newton token) token contract specify the `--token` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token name -r https://rpc1.piccadilly.autonity.org --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
 LNTN-4
 {{< /tab >}}
@@ -1936,7 +1936,7 @@ On a successful call the function emits a `PausedValidator ` event, logging: `va
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator pause [OPTIONS]
 {{< /tab >}}
 {{< /tabpane >}}
@@ -1950,7 +1950,7 @@ autonity.pauseValidator(_address).send()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator pause --validator 0x49454f01a8F1Fbab21785a57114Ed955212006be | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -2048,7 +2048,7 @@ On a successful call the function emits a `RegisteredValidator ` event, logging:
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator register [OPTIONS] ENODE PROOF
 {{< /tab >}}
 {{< /tabpane >}}
@@ -2062,7 +2062,7 @@ autonity.registerValidator('`_enode`','`proof`').send()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator register --rpc-endpoint https://rpc1.piccadilly.autonity.org enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb8a6b8ad408a18bf66266b9d03dd9aa26c902a4ac02eb465d205c0c58b6f5063963fc752806f2681287a915@51.89.151.55:30303 0x4563c91c4a1c0371ff3633f1e8c23f211e4ac6b50852689dbaa17f6b74711f2869e41d847862d5ad2a08a15d57b4d5a3b4315eb10dd22f69aa27c3ce229539c700 | aut tx sign - | aut tx send -
 {{< /tab >}}
 {{< /tabpane >}}
@@ -2106,7 +2106,7 @@ aut validator register --rpc-endpoint https://rpc1.piccadilly.autonity.org enode
 
 Returns the three-letter symbol of the Newton stake token as a string. Set as contract metadata to the value of `NTN`.
 
-Using `autcli` you can return the symbol for an ERC20 token contract account, e.g. a Liquid Newton contract.
+Using `aut` you can return the symbol for an ERC20 token contract account, e.g. a Liquid Newton contract.
 
 ### Parameters
 
@@ -2121,7 +2121,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token symbol [OPTIONS]
 {{< /tab >}}
 {{< /tabpane >}}
@@ -2138,7 +2138,7 @@ autonity.symbol().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token symbol --ntn -r https://rpc1.piccadilly.autonity.org
 NTN
 {{< /tab >}}
@@ -2159,7 +2159,7 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 To return the `symbol` for an ERC20 (e.g. a Liquid Newton token) token contract specify the `--token` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token symbol --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37
 LNTN-0
 {{< /tab >}}
@@ -2182,7 +2182,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol tail-bonding-id [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -2198,7 +2198,7 @@ autonity.tailBondingID().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol tail-bonding-id --rpc-endpoint https://rpc1.piccadilly.autonity.org
 139
 {{< /tab >}}
@@ -2231,7 +2231,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol tail-unbonding-id [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -2247,7 +2247,7 @@ autonity.tailUnbondingID().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol tail-unbonding-id --rpc-endpoint https://rpc1.piccadilly.autonity.org
 48
 {{< /tab >}}
@@ -2280,7 +2280,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut protocol total-redistributed [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -2297,7 +2297,7 @@ autonity.totalRedistributed().call()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut protocol total-redistributed -r https://rpc1.piccadilly.autonity.org
 47981813599875371606
 {{< /tab >}}
@@ -2318,7 +2318,7 @@ autonity.totalRedistributed().call()
 
 Returns the total supply of Newton stake token in circulation.
 
-Using `autcli` you can return the allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
+Using `aut` you can return the allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
 
 ### Parameters
 
@@ -2333,7 +2333,7 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token total-supply [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -2352,7 +2352,7 @@ autonity.totalSupply().call()
 To return total supply for the Newton stake token specify the `--ntn` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token total-supply --ntn -r https://rpc1.piccadilly.autonity.org
 63402
 {{< /tab >}}
@@ -2372,7 +2372,7 @@ autonity.totalSupply().call()
 To return the total supply for an ERC20 contract token (e.g. Liquid Newton) specify the `--token` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token total-supply --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37   -r https://rpc1.piccadilly.autonity.org
 10087
 {{< /tab >}}
@@ -2388,7 +2388,7 @@ Constraint checks:
 - the `amount` value is `>= 0`
 - the caller's account balance is `>= amount`
 
-Using `autcli` you can transfer from an ERC20 token contract account, e.g. a Liquid Newton account.
+Using `aut` you can transfer from an ERC20 token contract account, e.g. a Liquid Newton account.
 
 
 ### Parameters
@@ -2409,7 +2409,7 @@ On a successful call the function emits a `Transfer` event, logging: `msg.sender
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token transfer [OPTIONS] RECIPIENT AMOUNT
 {{< /tab >}}
 {{< /tabpane >}}
@@ -2425,7 +2425,7 @@ autonity.transfer(_recipient, _amount).send()
 To transfer an amount of Newton stake token to a recipient specify the `--ntn` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token transfer --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 1| aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -2471,7 +2471,7 @@ Enter passphrase (or CTRL-d to exit):
 To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the `--token` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token transfer --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 10 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -2493,7 +2493,7 @@ Constraint checks:
 - the `msg.sender` has been approved by the `sender` to withdraw tokens from their account
 - the `msg.sender`'s remaining allowance to withdraw `sender`'s tokens is `>= amount`
 
-Using `autcli` you can call `transferFrom` on an ERC20 token contract (e.g. Liquid Newton) account.
+Using `aut` you can call `transferFrom` on an ERC20 token contract (e.g. Liquid Newton) account.
 
 ### Parameters
 
@@ -2517,7 +2517,7 @@ On a successful call the function emits:
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut token transfer-from [OPTIONS] SPENDER RECIPIENT AMOUNT
 {{< /tab >}}
 {{< /tabpane >}}
@@ -2533,7 +2533,7 @@ autonity.transferFrom('sender', 'recipient', amount).send()
 To transfer an amount of Newton stake token to a recipient specify the `--ntn` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token transfer-from --ntn --from 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 0x11a87b260dd85ff7189d848fd44b28cc8505fa9c 0xbf2f718f948de541123f3e0a06a9100ee1df128c 1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -2593,7 +2593,7 @@ Enter passphrase (or CTRL-d to exit):
 To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the `--token` option:
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut token transfer-from --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37  --from 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 0x11a87b260dd85ff7189d848fd44b28cc8505fa9c 0xbf2f718f948de541123f3e0a06a9100ee1df128c 1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
@@ -2632,7 +2632,7 @@ The pending voting power change is tracked in memory until applied and can be re
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 aut validator unbond [OPTIONS] AMOUNT
 {{< /tab >}}
 {{< /tabpane >}}
@@ -2646,7 +2646,7 @@ autonity.unbond('_validator', amount).send()
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="autcli" >}}
+{{< tab header="aut" >}}
 $ aut validator unbond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9  1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 

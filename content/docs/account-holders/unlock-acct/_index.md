@@ -14,8 +14,8 @@ To unlock an account for signing transactions, Autonity currently allows users t
 
 - Sign without explicit account unlocking. Transactions can be signed without explicitly unlocking the account using tools that prompt the user for the keystore password and handle internally the account unlocking and re-locking (after the transaction is signed and sent). In this way, the complexity of the account unlocking is abstracted away from the user:
 
-  - Sign by using `autcli`:
-    - Uses `autcli` to sign and send, using an encrypted private key file configured in the CLI or passed in as a command-line option.
+  - Sign by using `aut`:
+    - Uses `aut` to sign and send, using an encrypted private key file configured in the CLI or passed in as a command-line option.
   - Sign by using `clef` with Autonity NodeJS Console.
     - Uses `clef` to sign. User creates transaction in Node JS Console, approves transaction signing in `clef`, and transaction is then sent from NodeJS Console.
 
@@ -29,12 +29,12 @@ To unlock an account for signing transactions, Autonity currently allows users t
   {{% alert title="Note" %}}Both of these unlock approaches have pros and cons, which are outlined in following sections.{{% /alert %}}
 
 
-## Sign using `autcli`
+## Sign using `aut`
 
-For how to sign and submit transactions with the Python CLI `autcli` see:
+For how to sign and submit transactions with the Python CLI `aut` see:
 
-- [Create an account](/account-holders/create-acct/) for how to create a new account or import an existing account's private key into `autcli`.
-- [Submit a transaction from Autonity autcli](/account-holders/submit-trans-autcli/) for how to configure the keystore and accounts in `.autrc` to sign transactions.
+- [Create an account](/account-holders/create-acct/) for how to create a new account or import an existing account's private key into `aut`.
+- [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-autcli/) for how to configure the keystore and accounts in `.autrc` to sign transactions.
 
 ## Sign using `clef` signer with Autonity NodeJS Console
 
