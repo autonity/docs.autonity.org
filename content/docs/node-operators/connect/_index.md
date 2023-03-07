@@ -6,7 +6,7 @@ description: >
    Configure the Autonity Utility Tool `aut` to connect to your node and perform some simple queries.
 ---
 
-This guide assumes that queries and transactions are created and submitted from a _local_ machine, on which [`aut`](/account-holders/setup-autcli/) has been installed.
+This guide assumes that queries and transactions are created and submitted from a _local_ machine, on which [`aut`](/account-holders/setup-aut/) has been installed.
 
 ## Configure `aut` (local machine)
 

@@ -6,9 +6,9 @@ description: >
   How to install and configure the `aut` command-line tool on your local machine.
 ---
 
-The recommended way of interacting with the Autonity network is via the [Autonity Utility Tool](https://github.com/autonity/autcli) `aut`, which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.  In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
+The recommended way of interacting with the Autonity network is via the [Autonity Utility Tool](https://github.com/autonity/aut) `aut`, which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.  In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
 
-For full details and to report any issues, see the [`autcli` repository](https://github.com/autonity/autcli).
+For full details and to report any issues, see the [`aut` repository](https://github.com/autonity/aut).
 
 ## Installation {#install}
 
@@ -19,16 +19,16 @@ A working Python install with the `pip` tool is required.
 In general, the tool can be installed using [pipx](https://github.com/pypa/pipx).
 
 ```bash
-pipx install git+https://github.com/autonity/autcli
+pipx install git+https://github.com/autonity/aut
 ```
 
 {{< alert title="Note" >}}
-It is highly recommended to also follow the [instructions in the repository](https://github.com/autonity/autcli) to set up command-line completion.
+It is highly recommended to also follow the [instructions in the repository](https://github.com/autonity/aut) to set up command-line completion.
 {{< /alert >}}
 
 ## Configuration using the `.autrc` file {#configure}
 
-As detailed in the [`autcli` repository](https://github.com/autonity/autcli), some configuration parameters can be set in a `.autrc` file in the working directory or any parent directory.  As a minimal configuration, it is recommended to create an `.autrc` containing the end-point to use for RPC operations:
+As detailed in the [`aut` repository](https://github.com/autonity/aut), some configuration parameters can be set in a `.autrc` file in the working directory or any parent directory.  As a minimal configuration, it is recommended to create an `.autrc` containing the end-point to use for RPC operations:
 
 ```
 [aut]
@@ -39,7 +39,7 @@ See the [list of available networks](/networks/) to determine the correct endpoi
 
 ## Usage {#usage}
 
-The tool is intended to be self documenting via `aut --help`, `aut <command> --help` etc.  Some example commands can be found in the [`autcli` repository](https://github.com/autonity/autcli).
+The tool is intended to be self documenting via `aut --help`, `aut <command> --help` etc.  Some example commands can be found in the [`aut` repository](https://github.com/autonity/aut).
 
 We suggest trying the following command (which retrieves some basic information about the connected node and network) to confirm that the install and configuration have been successful:
 
@@ -67,7 +67,7 @@ The output above may vary depending on the version of the Autonity Go Client you
 {{< /alert >}}
 
 {{% pageinfo %}}
-Now that you have a working `aut` installation, you can  [create](/account-holders/create-acct/) and [fund](/account-holders/fund-acct/) and account on the network, and then [create and submit a transaction](/account-holders/submit-trans-autcli/).
+Now that you have a working `aut` installation, you can  [create](/account-holders/create-acct/) and [fund](/account-holders/fund-acct/) and account on the network, and then [create and submit a transaction](/account-holders/submit-trans-aut/).
 {{% /pageinfo %}}
 
 ------------------------------------------------

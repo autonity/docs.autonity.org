@@ -34,7 +34,7 @@ To unlock an account for signing transactions, Autonity currently allows users t
 For how to sign and submit transactions with the Python CLI `aut` see:
 
 - [Create an account](/account-holders/create-acct/) for how to create a new account or import an existing account's private key into `aut`.
-- [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-autcli/) for how to configure the keystore and accounts in `.autrc` to sign transactions.
+- [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/) for how to configure the keystore and accounts in `.autrc` to sign transactions.
 
 ## Sign using `clef` signer with Autonity NodeJS Console
 

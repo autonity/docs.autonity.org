@@ -10,7 +10,7 @@ description: >
 
 To send Liquid Newton (LNTN) to another account you need:
 
-- A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-autcli/).
+- A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
 - An [account](/account-holders//create-acct/) [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs, and a Liquid Newton stake token balance >= to the amount being transferred.
 - You have already [bonded stake](/delegators/bond-stake/) to one or more validators and so have Liquid Newton token balance(s).
 

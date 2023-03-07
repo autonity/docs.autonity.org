@@ -16,7 +16,7 @@ Governance functions are only callable from the governance operator account of a
 
 To submit transactions restricted to the governance `operator` account from `aut` you need:
 
-- An installation of [`aut`](https://github.com/autonity/autcli) - see the [howto](/account-holders/setup-autcli/) for further help.
+- An installation of [`aut`](https://github.com/autonity/aut) - see the [howto](/account-holders/setup-aut/) for further help.
 
 - To have setup the governance `operator` account in `aut`. Import the private key of the governance account as described in [Import account using `aut`](/account-holders/create-acct/#import-account-using-aut).
 

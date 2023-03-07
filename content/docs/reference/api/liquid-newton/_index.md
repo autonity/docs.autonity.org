@@ -20,7 +20,7 @@ Autonity implements a 'pull-based' model for staking rewards where delegators mu
 
 Queries the contract and returns the total rewards owed to the a given account.
 
-This function is used by the `aut validator unclaimed-rewards` command of [`aut`](/account-holders/setup-autcli/).  Further details are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#get-reward-balance) section.
+This function is used by the `aut validator unclaimed-rewards` command of [`aut`](/account-holders/setup-aut/).  Further details are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#get-reward-balance) section.
 
 ## claimRewards
 

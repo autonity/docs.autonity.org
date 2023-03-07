@@ -18,7 +18,7 @@ Ensure that your `keystore` file is stored securely according to your security p
 
 ## Create account using `aut`
 
-The following command will generate a keyfile with a default generated name, in the keystore (which can be specified with the `--keyfile` flag, or by adding a `keyfile = <path>` entry to the [`.autrc` file](/account-holders/setup-autcli/#configure)).
+The following command will generate a keyfile with a default generated name, in the keystore (which can be specified with the `--keyfile` flag, or by adding a `keyfile = <path>` entry to the [`.autrc` file](/account-holders/setup-aut/#configure)).
 
 ```bash
 aut account new
