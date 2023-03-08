@@ -3,12 +3,12 @@ title: "Create an account"
 linkTitle: "Create an account"
 weight: 35
 description: >
-  How to create and import accounts using autcli
+  How to create and import accounts using `aut`
 ---
 
 ## Overview
 
-This how to covers the import and generation of new accounts using the `autcli` tool. Accounts are created as Ethereum keystore files using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/), an encrypted file format that provides secure storage for an account's private key.
+This how to covers the import and generation of new accounts using `aut`. Accounts are created as Ethereum keystore files using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/), an encrypted file format that provides secure storage for an account's private key.
 
 {{< alert title="Warning" color="warning" >}}
 The use of hardware wallets or other key-management tools may be more secure than encrypted files.  Operators may choose to make use of such tools with Autonity, and explicit support for these will be added in the future.  For the purposes of the testnets this guide will assume the use of password-protected  keyfiles.
@@ -16,9 +16,9 @@ The use of hardware wallets or other key-management tools may be more secure tha
 Ensure that your `keystore` file is stored securely according to your security policy at all times and remember the password phrase you used to create it! If you do not remember the password, you will not be able to decrypt this private key file and may lose any funds associated with this account.
 {{< /alert >}}
 
-## Create account using `autcli`
+## Create account using `aut`
 
-The following command will generate a keyfile with a default generated name, in the keystore (which can be specified with the `--keyfile` flag, or by adding a `keyfile = <path>` entry to the [`.autrc` file](/account-holders/setup-autcli/#configure)).
+The following command will generate a keyfile with a default generated name, in the keystore (which can be specified with the `--keyfile` flag, or by adding a `keyfile = <path>` entry to the [`.autrc` file](/account-holders/setup-aut/#configure)).
 
 ```bash
 aut account new
@@ -143,9 +143,9 @@ Enter 'ok' and when prompted a password. Note that unlike the client which will 
 ```
 -->
 
-## Import account using `autcli`
+## Import account using `aut`
 
-An account can be created from an existing private key using the `autcli` command line tool:
+An account can be created from an existing private key using `aut`:
 
 1. Create a plain text file that contains the private key in hexadecimal format.  For example, copy your private key into a file named `alice.priv`
 

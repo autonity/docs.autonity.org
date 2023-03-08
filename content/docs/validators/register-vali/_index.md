@@ -11,7 +11,7 @@ description: >
 To register a validator you need:
 
 - A running instance of the Autonity Go Client running on your host machine.  This will be the nod to be registered as a validator.
-- A configured instance of [`autcli`](/account-holders/setup-autcli/).
+- A configured instance of [`aut`](/account-holders/setup-aut/).
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that that will also receive the validator's share of staking rewards.
 
 This guide also assumes that the command-line JSON processor `jq` is available - see [additional helpers](/developer/#additional-helpers).
@@ -51,7 +51,7 @@ This signature hex will be required for the registration.
 
 <!-- Seems like it should be possible to do this from the host machine with an `autonity ...` cmd. -->
 
-Ensure that the `aut` CLI tool connects to the node that will become a validator.  Query the enode using the `aut node info` command:
+Ensure that `aut` connects to the node that will become a validator.  Query the enode using the `aut node info` command:
 
 ```bash
 aut node info

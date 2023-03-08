@@ -9,15 +9,15 @@ description: >
 ## Prerequisites
 
 - An Autonity Go Client registered as a validator (the validator can be in a paused or an active state - see [validator lifecycle](/concepts/validator/#validator-lifecycle)).
-- A running instance of `autcli` for submitting transactions from your account configured as described in [Submit a transaction from `autcli`](/account-holders/submit-trans-autcli/).
-- Your validator's validator's [`treasury account`](/concepts/validator/#treasury-account) is [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
+- A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
+- Your validator's [`treasury account`](/concepts/validator/#treasury-account) is [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
 
 {{< alert title="Note" >}}See the [Validator economics](/concepts/validator/#validator-economics) section for more information on commission rate and its default setting on an Autonity Network.{{< /alert >}}
 
 
 ## Change validator commission rate
 
-1. To specify a new commission rate for a validator, submit a change transaction, use the `validator` command `change-commission-rate`. Specify:
+1. To specify a new commission rate for a validator, use the `validator` command `change-commission-rate`. Specify:
 
 	- `--validator`: `<VALIDATOR_IDENTIFIER_ADDRESS>` of the validator node you are pausing.
 	- `<RATE>`: the new commission rate value. The commission rate precision is expressed in basis points as an integer value in the range `0-10000` (`10000` = 100%). Specify a decimal value between `0-1` For example, `0.078` would set a commission rate of 780 bps or 7.8%.

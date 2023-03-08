@@ -9,8 +9,7 @@ description: >
 ## Prerequisites
 
 - physical access to a running local instance of an Autonity Go Client [connected to an Autonity network](/node-operators/run-aut/)
-- a running instance of the Autonity NodeJS Console attached to your node, configured for your account as described in [Submit a transaction from Autonity NodeJS Console
-](/account-holders/submit-trans-autcli/)
+- a running instance of the Autonity NodeJS Console attached to your node, configured for your account as described in Submit a transaction from Autonity NodeJS Console
 - one of the supported hardware wallets holding your account keys:
   - USB wallets: Ledger, Trezor
 - `udev` rules for the chosen hardware wallet have been configured on the host Linux machine if a USB wallet:
@@ -71,7 +70,7 @@ Autonity maintains go-ethereum's out-the-box support for external hardware secur
    ```
    You will be prompted on the Trezor hardware wallet to confirm the transaction.
 
-To transfer value, you will need to specify transaction fee values, configuring the NodeJS Console with `gas` constants as described in the How to [Submit a transaction from Autonity NodeJS Console](/account-holders/submit-trans-autcli/). For example, to transfer an amount of _newton_ stake token to another address by calling the Autonity Protocol Contract using Trezor:
+To transfer value, you will need to specify transaction fee values, configuring the NodeJS Console with `gas` constants as described in the How to Submit a transaction from Autonity NodeJS Console. For example, to transfer an amount of _newton_ stake token to another address by calling the Autonity Protocol Contract using Trezor:
 
 ```bash
 const gas = 10000000;
@@ -106,7 +105,7 @@ You will be prompted on the Trezor wallet to confirm the transaction.
 To transfer value, you will need to:
 
 - enable blind signing in the settings of the Ethereum application on the Ledger
-- specify transaction fee values, configuring the NodeJS Console with a `gas` constant as described in the How to [Submit a transaction from Autonity NodeJS Console](/account-holders/submit-trans-autcli/).
+- specify transaction fee values, configuring the NodeJS Console with a `gas` constant as described in the How to Submit a transaction from Autonity NodeJS Console.
 
 For example, to transfer an amount of _newton_ stake token to another address:
 

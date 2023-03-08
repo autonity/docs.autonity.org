@@ -202,7 +202,7 @@ Use `.send()` for `Autonity `and `web3` calls to submit state affecting transact
 > autonity.transfer('<_recipient>', <_amount>).send({from: myAddress, gas: gas})
 ```
 
-Console configuration for use of `.send()` is described in the How to [Submit a transaction from Autonity NodeJS Console](/account-holders/submit-trans-autcli/).
+Console configuration for use of `.send()` is described in the How to Submit a transaction from Autonity NodeJS Console.
 
 #### JavaScript Object Prototype functions
 

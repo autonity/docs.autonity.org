@@ -13,14 +13,14 @@ Reference and command line options for tooling and utilities provided for submit
 Details on:
 
 - Installation and connecting to a node on an Autonity network, usage, and RPC calls available.
--
-## Python CLI: `autcli`
+
+## Python CLI: `aut`
 
 The Autonity CLI is a command-line RPC client for Autonity written in Python.
 
 ### Installation
 
-For how to install, configure, and connect `autcli` to a node on an Autonity network see the instructions in the GitHub `autonity/autcli`repo [README.md](https://github.com/autonity/autcli#readme).
+For how to install, configure, and connect `aut` to a node on an Autonity network see the instructions in the GitHub `autonity/aut` repo [README.md](https://github.com/autonity/aut#readme).
 
 ### Usage
 
@@ -45,7 +45,7 @@ Commands:
   tx         Commands for transaction creation and processing.
   validator  Commands related to the validators.
 ```
-For how to execute RPC calls using `autcli` commands, see the instructions in the GitHub `autonity/autcli`repo [README.md](https://github.com/autonity/autcli#readme).
+For how to execute RPC calls using `aut` commands, see the instructions in the GitHub `autonity/aut`repo [README.md](https://github.com/autonity/aut#readme).
 
 
 ### RPC Calls

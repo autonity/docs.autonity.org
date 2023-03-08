@@ -3,14 +3,14 @@ title: "Claim Staking Rewards"
 linkTitle: "Claim Staking Rewards"
 weight: 100
 description: >
-  How to view and claim available staking rewards using `autcli`
+  How to view and claim available staking rewards using `aut`
 ---
 
 ## Prerequisites
 
 To claim staking rewards you need:
 
-- A running instance of `autcli` for submitting transactions from your account configured as described in [Submit a transaction from `autcli`](/account-holders/submit-trans-autcli/)
+- A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/)
 - An [account](/account-holders//create-acct/) [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs, and a Newton stake token balance >= to the amount being bonded.
 - You have already [bonded stake](/delegators/bond-stake/) to a validator and have a Liquid Newton token balance that may have accrued claimable rewards.
 
