@@ -93,7 +93,7 @@ Bonding requests are not processed until the end of the current epoch.  The newt
 The `aut validator unbond` command creates a transaction that unbonds the caller's newton from a specific validator.
 
 ```bash
-aut validator unbond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx sign - | aut txsend -
+aut validator unbond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx sign - | aut tx send -
 ```
 
 {{< alert name="Note" >}}
