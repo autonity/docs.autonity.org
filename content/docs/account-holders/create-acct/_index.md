@@ -32,7 +32,7 @@ Confirm account password:
 A custom keyfile can be specified using the `--keyfile` flag:
 ```bash
 mkdir keystore
-aut account new --key-file ./keystore/alice.key
+aut account new --keyfile ./keystore/alice.key
 ```
 ```bash
 Password for new account:
