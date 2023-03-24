@@ -8,11 +8,12 @@ description: >
 
 Autonity supports the following Geth Web3 APIs. Click on the links to go to the relevant Geth documentation: 
 
-- [admin namespace](https://geth.ethereum.org/docs/rpc/ns-admin)
-- [debug namespace](https://geth.ethereum.org/docs/rpc/ns-debug)
-- [eth namespace](https://geth.ethereum.org/docs/rpc/ns-eth)
-- [personal namespace](https://geth.ethereum.org/docs/rpc/ns-personal)
-- [txpool namespace](https://geth.ethereum.org/docs/rpc/ns-txpool)
+- [admin namespace](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-admin)
+- [debug namespace](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-debug)
+- [eth namespace](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth)
+- [net namespace](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-net)
+- [personal namespace](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-personal)
+- [txpool namespace](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-txpool)
 
 Autonity does not support the Geth Web3 APIs:
 
