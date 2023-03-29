@@ -15,7 +15,7 @@ description: >
 
 To fund an account with testnet funds go to the Autonity Faucet. This provides a simple interface to acquire Auton (ATN), the native coin of an Autonity account.
 
-1. Navigate to the Autonity [Faucet](https://faucet.autonity.org/). 
+1. Navigate to the Autonity [Faucet <i class='fas fa-external-link-alt'></i>](https://faucet.autonity.org/). 
 
 2. Input your account address.
 

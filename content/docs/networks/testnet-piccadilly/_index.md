@@ -24,7 +24,7 @@ A public testnet for participants interested in:
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
 
-(The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
+(The above information can be used to connect an existing client such as [MetaMask <i class='fas fa-external-link-alt'></i>](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
 
 ## Genesis configuration
 
@@ -63,13 +63,13 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.10.1](https://github.com/autonity/autonity/releases/tag/v0.10.1)
+- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.10.1 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.10.1)
 
 - The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
 ## Faucet
 
-- Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/](https://faucet.autonity.org/)
+- Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://faucet.autonity.org/)
 - There is currently no faucet for [newton](/concepts/protocol-assets/newton), as newton tokens will be made available to network participants in later phases of the testnet.
 
 ## Public endpoints:
@@ -79,4 +79,4 @@ The network bootnode addresses are:
 
 ## Block explorer
 
-- BlockScout explorer for searching and viewing ledger data: [https://piccadilly.autonity.org/](https://piccadilly.autonity.org/)
+- BlockScout explorer for searching and viewing ledger data: [https://piccadilly.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://piccadilly.autonity.org/)

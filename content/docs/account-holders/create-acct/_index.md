@@ -8,7 +8,7 @@ description: >
 
 ## Overview
 
-This how to covers the import and generation of new accounts using `aut`. Accounts are created as Ethereum keystore files using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/), an encrypted file format that provides secure storage for an account's private key.
+This how to covers the import and generation of new accounts using `aut`. Accounts are created as Ethereum keystore files using the [Web3 Secret Storage Definition <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/), an encrypted file format that provides secure storage for an account's private key.
 
 {{< alert title="Warning" color="warning" >}}
 The use of hardware wallets or other key-management tools may be more secure than encrypted files.  Operators may choose to make use of such tools with Autonity, and explicit support for these will be added in the future.  For the purposes of the testnets this guide will assume the use of password-protected  keyfiles.

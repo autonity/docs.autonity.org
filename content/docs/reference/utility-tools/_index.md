@@ -20,7 +20,7 @@ The Autonity CLI is a command-line RPC client for Autonity written in Python.
 
 ### Installation
 
-For how to install, configure, and connect `aut` to a node on an Autonity network see the instructions in the GitHub `autonity/aut` repo [README.md](https://github.com/autonity/aut#readme).
+For how to install, configure, and connect `aut` to a node on an Autonity network see the instructions in the GitHub `autonity/aut` repo [README.md <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut#readme).
 
 ### Usage
 
@@ -45,7 +45,7 @@ Commands:
   tx         Commands for transaction creation and processing.
   validator  Commands related to the validators.
 ```
-For how to execute RPC calls using `aut` commands, see the instructions in the GitHub `autonity/aut`repo [README.md](https://github.com/autonity/aut#readme).
+For how to execute RPC calls using `aut` commands, see the instructions in the GitHub `autonity/aut`repo [README.md <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut#readme).
 
 
 ### RPC Calls
@@ -222,8 +222,8 @@ You can interact with the Autonity Network using the explorer utility https://pi
 
 BlockScout provides query API's:
 
-- RPC API. This API is provided for developers transitioning their applications from Etherscan to BlockScout. It supports GET and POST requests. [Documentation](https://piccadilly.autonity.org//api-docs).
+- RPC API. This API is provided for developers transitioning their applications from Etherscan to BlockScout. It supports GET and POST requests. [Documentation <i class='fas fa-external-link-alt'></i>](https://piccadilly.autonity.org//api-docs).
 
-- Eth RPC API. This API is provided to support some rpc methods in the exact format specified for ethereum nodes. This is useful to allow sending requests to BlockScout without having to change anything about the request. However, in general, the custom RPC is recommended. [Documentation](https://piccadilly.autonity.org/eth-rpc-api-docs).
+- Eth RPC API. This API is provided to support some rpc methods in the exact format specified for ethereum nodes. This is useful to allow sending requests to BlockScout without having to change anything about the request. However, in general, the custom RPC is recommended. [Documentation <i class='fas fa-external-link-alt'></i>](https://piccadilly.autonity.org/eth-rpc-api-docs).
 
-- GraphQL API. This API is provided for developers to write custom GraphQL queries using a [graphiql](https://piccadilly.autonity.org/graphiql) interface. For usage see the BlockScout docs API page [GraphQL in BlockScout](https://docs.blockscout.com/for-users/api/graphql).
+- GraphQL API. This API is provided for developers to write custom GraphQL queries using a [graphiql <i class='fas fa-external-link-alt'></i>](https://piccadilly.autonity.org/graphiql) interface. For usage see the BlockScout docs API page [GraphQL in BlockScout <i class='fas fa-external-link-alt'></i>](https://docs.blockscout.com/for-users/api/graphql).
