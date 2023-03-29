@@ -10,8 +10,8 @@ description: >
 {{< card header="**Helper libraries**" title="Useful helpers for working with RPC" >}}
 Interface usage and examples are shown using the Autonity Utility Tool ([aut](/account-holders/setup-aut/)). RPC is also used for calls reading state.
 
-RPC examples make use of [`curl`](https://curl.haxx.se/download.html). You may already have `curl` installed on your system as it comes with many OS distributions.
+RPC examples make use of [`curl` <i class='fas fa-external-link-alt'></i>](https://curl.haxx.se/download.html). You may already have `curl` installed on your system as it comes with many OS distributions.
 
-A good helper for working with JSON response objects returned by RPC is [`jq`](https://stedolan.github.io/jq/download/).
+A good helper for working with JSON response objects returned by RPC is [`jq` <i class='fas fa-external-link-alt'></i>](https://stedolan.github.io/jq/download/).
 
 {{< /card >}}
