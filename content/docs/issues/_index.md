@@ -9,7 +9,7 @@ description: >
 
 ## Snap syncing is not supported for new networks
 
-There is a known issue in the go-ethereum codebase where the default `snap` syncmode is not yet supported for new networks  - see https://github.com/autonity/autonity/blob/master/eth/handler.go#L196-L200.
+There is a known issue in the go-ethereum codebase where the default `snap` syncmode is not yet supported for new networks  - see [https://github.com/autonity/autonity/blob/master/eth/handler.go#L196-L200 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/blob/master/eth/handler.go#L196-L200).
 
 To resolve, for new networks:
 
@@ -20,7 +20,7 @@ To resolve, for new networks:
 
 The proposer election algorithm for height `h` and round `r` actually returns the result for height `h-1` and round `r`.
 
-The Autonity Protocol Contract Interface function [`getProposer()`](https://docs.autonity.org/reference/api/aut/#getproposer) takes parameters of block `height` and consensus `round`. To get the elected proposer for height = `h` and round = `r` pass the following parameters to it:
+The Autonity Protocol Contract Interface function [`getProposer()`](/reference/api/aut/#getproposer) takes parameters of block `height` and consensus `round`. To get the elected proposer for height = `h` and round = `r` pass the following parameters to it:
 - height = `h - 1`.
 - round = `r`.
 
@@ -32,7 +32,7 @@ This error message may be seen in between chain import messages when viewing ter
 ERROR[03-15|20:15:10.133] Snapshot extension registration failed   peer=c0f7fb75 err="peer connected on snap without compatible eth support"
 ```
 
-This is caused by a [non-Autonity network node trying to connect to the Autonity network](https://github.com/autonity/autonity/issues/791#top). The eth wire level protocol handshake  fails, causing the snap sub-protocol to reject the connection. This is expected behaviour.
+This is caused by a [non-Autonity network node trying to connect to the Autonity network <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/issues/791#top). The eth wire level protocol handshake  fails, causing the snap sub-protocol to reject the connection. This is expected behaviour.
 
 This does not adversely affect node sync time: sync speed on block segments depends mainly on the number of transactions to be processed. The issue will be corrected in the next protocol upgrade.
 

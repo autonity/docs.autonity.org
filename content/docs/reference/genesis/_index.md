@@ -36,7 +36,7 @@ For launching a local Autonity network, genesis configuration and bootnodes need
 |-----------|-------------|-------|
 | `config` | Configuration variables for the Autonity Network blockchain | See [`config` object](#config-object) |
 | `nonce` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. | Set to `0` (`0x0` in hexadecimal) |
-| `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0` the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP)](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
+| `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0` the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP) <i class='fas fa-external-link-alt'></i>](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
 | `difficulty` | Derived from Ethereum where it sets the difficulty for Ethereum's Ethash Proof of Work consensus. For Autonity's implementation of Tendermint BFT Proof of Stake consensus this must be assigned `0`. | Set to `0` (`0x0`) |
 | `gasLimit` | The limit on how much gas can be expended on computations in a block | See [gasLimit](#gaslimit) |
 | `coinbase` | Maintained for backward compatibility reasons in the EVM. Unused by the Autonity Protocol. Ethereum format address. | Set to `0x0000000000000000000000000000000000000000` |
@@ -60,7 +60,7 @@ Genesis configuration file JSON objects:
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
+| `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
 
 
@@ -96,7 +96,7 @@ Genesis configuration file JSON objects:
 |Parameter|Description|Value|
 |---------|-----------|-----|
 | `treasury` | The validator’s treasury account for receiving staking rewards. Ethereum format address. | The validator's EOA account address |
-| `enode` |The [enode url](https://eth.wiki/fundamentals/enode-url-format) address for the validator node on the network after genesis | The validator node enode URL |
+| `enode` |The [enode url](/glossary/#enode) address for the validator node on the network after genesis | The validator node enode URL |
 | `bondedStake` | The amount of stake bonded to the validator node at genesis. Denominated in Newton. Positive integer for stake amount | Value is specific to validator's stake at genesis |
 
 
@@ -207,7 +207,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 
 | Parameter | Description | Value |
 |-----------|-------------|-------|
-| `enode` | An array of [enode url](https://eth.wiki/fundamentals/enode-url-format) addresses for the network bootnodes | The node's enode URL |
+| `enode` | An array of [enode url](/glossary/#enode) addresses for the network bootnodes | The node's enode URL |
 
 
 ### Example `static-nodes.json`

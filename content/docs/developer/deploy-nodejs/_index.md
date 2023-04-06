@@ -13,7 +13,7 @@ This method will allow you to deploy several contracts at once or sequentially.
 
 ## Prerequisites
 
-- An up-to-date installation of [node.js](https://nodejs.org/en/download/) and `npm`. A guide [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) is on npm Docs.
+- An up-to-date installation of [node.js <i class='fas fa-external-link-alt'></i>](https://nodejs.org/en/download/) and `npm`. A guide [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) is on npm Docs.
 
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs. You will need the  private key of the account to unlock the account in the JavaScript environment.
 

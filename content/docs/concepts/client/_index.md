@@ -30,4 +30,4 @@ The client provides interfaces for:
 <!-- - RPC calls from a JavaScript runtime environment - see [Autonity NodeJS Console](/reference/cli/#autonity-nodejs-console) Reference -->
 - RPC calls from the Autonity Utility Tool `aut`. `aut` provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.
 - Command line options for client configuration and interaction - see [Command-line options](/reference/cli/#command-line-options) Reference
-- Metrics and logging, see [Command-line options](/reference/cli/#command-line-options). For `go-metrics`, see the Autonity GitHub [/metrics/README](https://github.com/autonity/autonity/blob/master/metrics/README.md).
+- Metrics and logging, see [Command-line options](/reference/cli/#command-line-options). For `go-metrics`, see the Autonity GitHub [/metrics/README <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/blob/master/metrics/README.md).
