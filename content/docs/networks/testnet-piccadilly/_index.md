@@ -24,7 +24,7 @@ A public testnet for participants interested in:
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
 
-(The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
+(The above information can be used to connect an existing client such as [MetaMask <i class='fas fa-external-link-alt'></i>](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
 
 ## Genesis configuration
 
@@ -39,9 +39,14 @@ A public testnet for participants interested in:
 | `config.autonity.delegationRate`   | `1000` (10%)                  |
 | `config.autonity.treasuryFee`      | `10000000000000000` (1%)      |
 | `config.autonity.minBaseFee`       | `500000000` (0.5 GWei)        |
-| `config.autonity.operator`         |  |  |
-| `config.autonity.treasury`         |  |  |
-| `config.autonity.validators`       |  |  |
+| `config.autonity.operator`         | `0xd32C0812Fa1296F082671D5Be4CbB6bEeedC2397` |
+| `config.autonity.treasury`         | `0xF74c34Fed10cD9518293634C6f7C12638a808Ad5` |
+| `config.autonity.validators`       | `enode://d4dc137f987e17155a69b31e566494c16edafd228912483cc519a48ce85864781faccc38141cc0eb1df8cdb28b9b3ccd10e1c298bac78ac43bbe5804021c1152@34.142.71.5:30303` |
+|  | `enode://74a4f767ad2f3f607a2db06732b44e6c61a68cae1959b331c18aea6256aae16bded31ba40dd85dcc4d719baaeb29f918726d19fa51b5d8174b27da0d7593e19b@34.142.33.89:30303` |
+|  | `enode://0ddc30943837f9416f563063ed5d409aca37780b8b8f939ef9f4b7901b9eb94c09d7ba2af27f70b33d76e74403d00021c13ebc4943ad46bc1e5051689cd862b8@35.234.131.29:30303` |
+|  | `enode://9435658d26e5daf30261648504560f6375b24cdf0e4403613d44ebc4020489cc67ac82ababe7928d63d9f113c67b946845d18db935abe3d241e665114fc75e94@35.177.73.222:30303` |
+|  | `enode://fe2c621f2b660725a3d529b3eefd780e90bb86e9eb4b7136c0b00a7365260a478b9b8941f1a65c6d4d77bff1b2e22eb6d781f5cc86401d60b373c6d4155c189a@3.10.195.56:30304` |
+|  | `enode://6ab1e6bbf5897e1a24ccf8d8718615ec972ffd54d99c3e46f4517d5602e8bf7110e2e5e2c2e584795e45e2e842172de044b4df165a7082133c6697b632da8282@18.168.88.205:30305` |
 
 Note:
 
@@ -58,13 +63,13 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.10.1](https://github.com/autonity/autonity/releases/tag/v0.10.1)
+- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.10.1 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.10.1)
 
 - The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
 ## Faucet
 
-- Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/](https://faucet.autonity.org/)
+- Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://faucet.autonity.org/)
 - There is currently no faucet for [newton](/concepts/protocol-assets/newton), as newton tokens will be made available to network participants in later phases of the testnet.
 
 ## Public endpoints:
@@ -74,4 +79,4 @@ The network bootnode addresses are:
 
 ## Block explorer
 
-- BlockScout explorer for searching and viewing ledger data: [https://piccadilly.autonity.org/](https://piccadilly.autonity.org/)
+- BlockScout explorer for searching and viewing ledger data: [https://piccadilly.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://piccadilly.autonity.org/)

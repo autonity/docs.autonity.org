@@ -106,10 +106,8 @@ Naturally, the above command line can be tailored to suit a specific deployment.
 
 To shutdown the node, press `CTRL-C` and wait for it to exit.
 
-<!-- TODO: Add a link once section exists -->
-
 {{% pageinfo %}}
-Now you can now [connect to your node using the `aut` cli tool](/node-operators/connect/) from your _local_ machine.
+Now you can now [connect to your node using `aut`](/node-operators/connect/) from your _local_ machine.
 {{% /pageinfo %}}
 
 ------------------------------------------------

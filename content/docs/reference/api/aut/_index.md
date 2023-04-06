@@ -12,7 +12,7 @@ Interface for interacting with Autonity Contract functions using:
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 - JSON-RPC methods to submit calls to inspect state.
 
-Datatypes are [Solidity v0.8.3 Types](https://docs.soliditylang.org/en/v0.8.3/types.html#).
+Datatypes are [Solidity v0.8.3 Types <i class='fas fa-external-link-alt'></i>](https://docs.soliditylang.org/en/v0.8.3/types.html#).
 
 {{% pageinfo %}}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).

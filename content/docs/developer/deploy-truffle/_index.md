@@ -11,7 +11,7 @@ This guide uses the Truffle development environment and JavaScript framework to 
 
 ## Prerequisites
 
-- An up-to-date installation of [Truffle](https://trufflesuite.com/docs/truffle/) and `npm`. See the Truffle Suite docs for the [Installation](https://trufflesuite.com/docs/truffle/how-to/install/) how to.
+- An up-to-date installation of [Truffle <i class="fas fa-external-link-alt"></i>](https://trufflesuite.com/docs/truffle/) and `npm`. See the Truffle Suite docs for the [Installation](https://trufflesuite.com/docs/truffle/how-to/install/) how to.
 
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs. The guide will use the encrypted ethereum keyfile of the account.
 
@@ -62,7 +62,7 @@ cp <PATH>/<KEYFILE_NAME> ./keystore/<KEYFILE_NAME>
 nano contracts/myToken.sol
 ```
 
-Solidity allows you to build your contract on top of another contract, through inheritance. This guide uses OpenZeppelin's `ERC20PresetFixedSupply` contract, which is an ERC20 contract with a preset token supply that allows the owner to mint and burn tokens. You can view the code for the preset contract code in the OpenZeppelin GitHub [here](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol).
+Solidity allows you to build your contract on top of another contract, through inheritance. This guide uses OpenZeppelin's `ERC20PresetFixedSupply` contract, which is an ERC20 contract with a preset token supply that allows the owner to mint and burn tokens. You can view the code for the preset contract code in the OpenZeppelin GitHub [here <i class="fas fa-external-link-alt"></i>](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol).
 
 For this contract, the guide imports and inherits from the OpenZeppelin preset. If you want to define new contract methods and build on top of the inherited contract you can do so:
 

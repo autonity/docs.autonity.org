@@ -17,7 +17,7 @@ The Autonity Go Client can be installed in several ways:
 We assume that the Autonity Go Client will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _local_ machine will be used for creating transactions and queries which are then sent to the Autonity Go Client on the _host_ via the RPC endpoint.
 
 {{< alert title="Note" >}}
-Client source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity](https://github.com/autonity/autonity/).
+Client source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/).
 {{< /alert >}}
 
 ## Requirements
@@ -56,7 +56,7 @@ The description here covers only the basic network setup. Especially in a produc
   A Linux OS running on AMD64 architecture is required to run the pre-compiled executable.
 {{< /alert >}}
 
-1. Navigate to the Autonity [Releases](https://github.com/autonity/autonity/releases) Archive and download the latest stable release version of the client `autonity-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
+1. Navigate to the Autonity [Releases <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases) Archive and download the latest stable release version of the client `autonity-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
 
 2. Create a working directory for installing Autonity. For example:
 
@@ -84,11 +84,11 @@ You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary)
 ## Installing the Docker image {#install-docker}
 
 {{< alert title="Note" >}}
-Follow the official Docker documentation to [install Docker](https://docs.docker.com/engine/install/) onto the host machine and [follow the post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) to customise for your environment.
+Follow the official Docker documentation to [install Docker <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/) onto the host machine and [follow the post-installation steps <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/) to customise for your environment.
 
-By default Docker needs to be run with `sudo`. To avoid using root privileges in the terminal (and error messages if you forget to use `sudo`), consider following the step to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
+By default Docker needs to be run with `sudo`. To avoid using root privileges in the terminal (and error messages if you forget to use `sudo`), consider following the step to [Manage Docker as a non-root user <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 
-Consider also [configuring Docker to start on boot](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot).
+Consider also [configuring Docker to start on boot <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot).
 {{< /alert >}}
 
 {{< alert title="Optional but recommended" >}}
@@ -120,10 +120,10 @@ sudo systemctl restart docker
    (where `latest` can be replaced with another version)
 
    {{< alert title="Note" >}}
-   For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+   For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry <i class='fas fa-external-link-alt'></i>](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
    {{< /alert >}}
 
-1. Verify the authenticity of the Autonity Docker images against the official [image digests](https://github.com/autonity/autonity/pkgs/container/autonity/versions):
+1. Verify the authenticity of the Autonity Docker images against the official [image digests <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/pkgs/container/autonity/versions):
 
     ```bash
     docker images --digests ghcr.io/autonity/autonity
@@ -139,10 +139,10 @@ You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker)
 
 {{< alert title="Prerequisites" >}}
 The following should be installed in order to build the Autonity Go Client.:
-- **Git** Follow the official GitHub documentation to [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
-- **Golang** (version 1.15 or later) - [https://golang.org/dl](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
+- **Git** Follow the official GitHub documentation to [install git <i class='fas fa-external-link-alt'></i>](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
+- **Golang** (version 1.15 or later) - [https://golang.org/dl <i class='fas fa-external-link-alt'></i>](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
 - **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
-- [**GNU Make**](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
+- [**GNU Make** <i class='fas fa-external-link-alt'></i>](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
 {{< /alert >}}
 
 

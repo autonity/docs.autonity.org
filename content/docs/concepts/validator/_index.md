@@ -43,7 +43,7 @@ The private/public key pair of the validator node.
 
 The private key is used:
 
-- By a node for negotiating an authenticated and encrypted connection between other network nodes at the devp2p layer in the [RLPx Transport Protocol](https://github.com/ethereum/devp2p/blob/master/rlpx.md).
+- By a node for negotiating an authenticated and encrypted connection between other network nodes at the devp2p layer in the [RLPx Transport Protocol <i class='fas fa-external-link-alt'></i>](https://github.com/ethereum/devp2p/blob/master/rlpx.md).
 - To generate the `proof` of enode ownership required for validator registration. The `proof` is generated using the [`genEnodeProof`](/reference/cli/#command-line-options) command-line option of the Autonity Go Client. 
 
 The public key is used:
@@ -53,13 +53,13 @@ The public key is used:
 - To verify the signature of consensus level network messages.
 - To derive an ethereum account that is then used to identify the validator node. See [validator identifier](#validator-identifier).
 
-{{< alert title="Note" >}}The private key can be used by Autonity’s `bootnode` utility to derive the hex string used in the `enode` URL. (See Networking Options  `nodekey` and `nodekeyhex` in [Autonity command-line options](/reference/cli/#usage) and, for reference,  the ethereum stack exchange article [how to produce enode from node key](https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key).){{< /alert >}}
+{{< alert title="Note" >}}The private key can be used by Autonity’s `bootnode` utility to derive the hex string used in the `enode` URL. (See Networking Options  `nodekey` and `nodekeyhex` in [Autonity command-line options](/reference/cli/#usage) and, for reference,  the ethereum stack exchange article [how to produce enode from node key <i class='fas fa-external-link-alt'></i>](https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key).){{< /alert >}}
 
 
 ### Validator enode URL
 The `enode` URL is the network address of the peer node operated by the validator. It provides the network location of the node client for p2p networking.
 
-The enode URL format is described in the [ethereum Wiki](https://ethereum.org/en/developer/docs/networking-layer/network-addresses/#enode).
+The enode URL format is described in the [ethereum Developers docs <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/networking-layer/network-addresses/#enode).
 
 It takes the form:
 
