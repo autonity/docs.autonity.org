@@ -14,8 +14,6 @@ To register a validator you need:
 - A configured instance of [`aut`](/account-holders/setup-aut/).
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that that will also receive the validator's share of staking rewards.
 
-This guide also assumes that the command-line JSON processor `jq` is available - see [additional helpers](/developer/#additional-helpers).
-
 {{< alert title="Note" >}}See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.{{< /alert >}}
 
 ## Register as a validator
