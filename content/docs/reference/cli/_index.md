@@ -33,7 +33,7 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `makecache` and `makedag`| The commands are removed. They are specific to ethash Proof of Work consensus and not required by Autonity's Tendermint consensus |
 | ETHEREUM OPTIONS: ||
 | `piccadilly` and `bakerloo` | Options for connecting to the Autonity test networks 'Piccadilly' and `Bakerloo` are added (Options for connecting to the Ethereum test networks are removed) |
-| `genEnodeProof` | An option to generate an enode proof required for validator registration is added |
+| `genOwnershipProof` | An option to generate an enode proof required for validator registration is added |
 | `genNodeKey` | An option to generate a node key is added |
 | NETWORKING OPTIONS: ||
 | `--netrestrict` | Netrestrict functionality is modified in the client to allow for dynamic trusted peers. Netrestrict now supports a dynamic validator set and sentry node architecture: trusted but netrestricted nodes can connect, enabling a sentry node architecture for trusted consensus committee validator enode urls |
@@ -47,8 +47,10 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | LOGGING AND DEBUGGING OPTIONS: ||
 | `fakepow` | The option is removed.  Autonity doesn't support Proof of Work consensus |
 | ALIASED (deprecated) OPTIONS: ||
-| `--whitelist` | The option is removed. The deprecation of `--whitelist` in favour of `--eth.requiredblocks` is complete |
+| `--miner.gastarget` and `--nousb`| The options are deprecated and will be removed in the future |
 | MISC OPTIONS: ||
+| `--oraclekey` |  Autonity Oracle Server account key file. Validator nodes on an Autonity network must run the oracle binary to participate in the oracle network. |
+| `--oraclekeyhex` |  Autonity Oracle Server account key as hex (for testing) |
 | `--writeaddress` | An option to write out the node's public key on stdout is added |
 | `--dev` | A developer mode option to create an ephemeral proof-of-stake network with a pre-funded developer account, mining enabled |
 | `--dev.gaslimit` | An option to set the initial block gas limit (default: 30000000) for the developer mode network |
@@ -72,10 +74,10 @@ NAME:
 
 USAGE:
    autonity [options] [command] [command options] [arguments...]
-
+   
 VERSION:
-   0.10.1-a7ccfc1c-20230120
-
+   0.11.0-internal-8f09bec1-20230502
+   
 COMMANDS:
    account                            Manage accounts
    attach                             Start an interactive JavaScript environment (connect to node)
@@ -85,8 +87,8 @@ COMMANDS:
    dumpconfig                         Show configuration values
    export                             Export blockchain into file
    export-preimages                   Export the preimage database into an RLP stream
-   genEnodeProof                      Generate enode proof
    genNodeKey                         Generate node key
+   genOwnershipProof                  Generate enode proof
    import                             Import a blockchain file
    import-preimages                   Import the preimage database from an RLP stream
    js                                 Execute the specified JavaScript files
@@ -96,7 +98,7 @@ COMMANDS:
    snapshot                           A set of commands based on the snapshot
    version                            Print version numbers
    help, h                            Shows a list of commands or help for one command
-
+   
 ETHEREUM OPTIONS:
   --config value                      TOML configuration file
   --genesis value                     Path to the genesis json file, the genesis file contains
@@ -117,7 +119,7 @@ ETHEREUM OPTIONS:
   --keystore value                    Directory for the keystore (default = inside the datadir)
   --usb                               Enable monitoring and management of USB hardware wallets
   --pcscdpath value                   Path to the smartcard daemon (pcscd) socket file (default: "/run/pcscd/pcscd.comm")
-  --networkid value                   Explicitly set network id (integer)(For testnets: use --piccadilly instead) (default: 1)
+  --networkid value                   Explicitly set network id (integer)(For testnets: use --piccadilly instead) (default: 65000000)
   --syncmode value                    Blockchain sync mode ("snap", "full" or "light") (default: snap)
   --exitwhensynced                    Exits after block synchronisation completes
   --gcmode value                      Blockchain garbage collection mode ("full", "archive") (default: "full")
@@ -128,7 +130,7 @@ ETHEREUM OPTIONS:
   --identity value                    Custom node name
   --lightkdf                          Reduce key-derivation RAM & CPU usage at some expense of KDF strength
   --eth.requiredblocks value          Comma separated block number-to-hash mappings to enforce (<number>=<hash>)
-
+  
 TRANSACTION POOL OPTIONS:
   --txpool.locals value               Comma separated accounts to treat as locals (no flush, priority inclusion)
   --txpool.nolocals                   Disables price exemptions for locally submitted transactions
@@ -141,7 +143,7 @@ TRANSACTION POOL OPTIONS:
   --txpool.accountqueue value         Maximum number of non-executable transaction slots permitted per account (default: 64)
   --txpool.globalqueue value          Maximum number of non-executable transaction slots for all accounts (default: 1024)
   --txpool.lifetime value             Maximum amount of time non-executable transaction are queued (default: 3h0m0s)
-
+  
 PERFORMANCE TUNING OPTIONS:
   --cache value                       Megabytes of memory allocated to internal caching (default = 4096 mainnet full node, 128 light mode) (default: 1024)
   --cache.database value              Percentage of cache memory allowance to use for database io (default: 50)
@@ -152,13 +154,13 @@ PERFORMANCE TUNING OPTIONS:
   --cache.snapshot value              Percentage of cache memory allowance to use for snapshot caching (default = 10% full mode, 20% archive mode) (default: 10)
   --cache.noprefetch                  Disable heuristic state prefetch during block import (less CPU and disk IO, more time waiting for data)
   --cache.preimages                   Enable recording the SHA3/keccak preimages of trie keys
-
+  
 ACCOUNT OPTIONS:
   --unlock value                      Comma separated list of accounts to unlock
   --password value                    Password file to use for non-interactive password input
   --signer value                      External signer (url or path to ipc file)
   --allow-insecure-unlock             Allow insecure account unlocking when account-related RPCs are exposed by http
-
+  
 API AND CONSOLE OPTIONS:
   --ipcdisable                        Disable the IPC-RPC server
   --ipcpath value                     Filename for IPC socket/pipe within the datadir (explicit paths escape it)
@@ -185,7 +187,7 @@ API AND CONSOLE OPTIONS:
   --jspath loadScript                 JavaScript root path for loadScript (default: ".")
   --exec value                        Execute JavaScript statement
   --preload value                     Comma separated list of JavaScript files to preload into the console
-
+  
 NETWORKING OPTIONS:
   --bootnodes value                   Comma separated enode URLs for P2P discovery bootstrap
   --discovery.dns value               Sets DNS discovery entry points (use "" to disable DNS)
@@ -198,7 +200,7 @@ NETWORKING OPTIONS:
   --netrestrict value                 Restricts network communication to the given IP networks (CIDR masks)
   --nodekey value                     P2P node key file
   --nodekeyhex value                  P2P node key as hex (for testing)
-
+  
 MINER OPTIONS:
   --mine                              Enable mining
   --miner.threads value               Number of CPU threads to use for mining (default: 0)
@@ -209,16 +211,16 @@ MINER OPTIONS:
   --miner.extradata value             Block extra data set by the miner (default = client version)
   --miner.recommit value              Time interval to recreate the block being mined (default: 3s)
   --miner.noverify                    Disable remote sealing verification
-
+  
 GAS PRICE ORACLE OPTIONS:
   --gpo.blocks value                  Number of recent blocks to check for gas prices (default: 20)
   --gpo.percentile value              Suggested gas price is the given percentile of a set of recent transaction gas prices (default: 60)
   --gpo.maxprice value                Maximum transaction priority fee (or gasprice before London fork) to be recommended by gpo (default: 500000000000)
   --gpo.ignoreprice value             Gas price below which gpo will ignore transactions (default: 2)
-
+  
 VIRTUAL MACHINE OPTIONS:
   --vmdebug                           Record information useful for VM and contract debugging
-
+  
 LOGGING AND DEBUGGING OPTIONS:
   --nocompaction                      Disables db compaction after import
   --verbosity value                   Logging verbosity: 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=detail (default: 3)
@@ -233,7 +235,7 @@ LOGGING AND DEBUGGING OPTIONS:
   --pprof.blockprofilerate value      Turn on block profiling with the given rate (default: 0)
   --pprof.cpuprofile value            Write CPU profile to the given file
   --trace value                       Write execution trace to the given file
-
+  
 METRICS AND STATS OPTIONS:
   --metrics                              Enable metrics collection and reporting
   --metrics.expensive                    Enable expensive metrics collection and reporting
@@ -249,18 +251,21 @@ METRICS AND STATS OPTIONS:
   --metrics.influxdb.token value         Token to authorize access to the database (v2 only) (default: "test")
   --metrics.influxdb.bucket value        InfluxDB bucket name to push reported metrics to (v2 only) (default: "autonity")
   --metrics.influxdb.organization value  InfluxDB organization name (v2 only) (default: "autonity")
-
+  
 ALIASED (deprecated) OPTIONS:
   --nousb                             Disables monitoring for and managing USB hardware wallets (deprecated)
-
+  
 MISC OPTIONS:
   --snapshot                          Enables snapshot-database mode (default = enable)
   --bloomfilter.size value            Megabytes of memory allocated to bloom-filter for pruning (default: 2048)
   --help, -h                          show help
+  --oraclekey value                   oracle account key file
+  --oraclekeyhex value                oracle account key as hex (for testing)
   --writeaddress                      writes out the node's public key on stdout
   --dev                               Ephemeral proof-of-stake network with a pre-funded developer account, mining enabled
   --dev.gaslimit value                Initial block gas limit (default: 30000000)
   --dev.etherbase value               Public address of external account to be used for developer mode (default: "0")
+  
 
 COPYRIGHT:
    Copyright 2013-2022 The go-ethereum Authors
