@@ -70,6 +70,17 @@ Genesis configuration file JSON objects:
 | `mixHash` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. Used for: (a) compatibility with 3rd party Ethereum tools that expect the field, (b) an internal code check by the Autonity Protocol before a block is accepted during consensus; blocks without this hash are rejected. | A 256-bit hash as a Hex encoded string, set to: `0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365` |
 | `alloc` | An array of accounts to be assigned `Auton` on chain initialisation. Contract accounts for deployment at genesis can also be specified. | See [`alloc` object](#alloc-object) definition |
 
+
+### JSON data structures
+Genesis configuration file JSON objects:
+
+- [config](#config-object)
+- [config.autonity](#configautonity-object)
+- [config.autonity.validators object](#configautonityvalidators-object)
+- [config.oracle object](#configoracle-object)
+- [alloc object](#alloc-object)
+- [alloc.account object](#allocaccount-object)
+
 #### config object
 
 |Parameter|Description|Value|
@@ -78,7 +89,8 @@ Genesis configuration file JSON objects:
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
 | `accountability` | Autonity Accountability and Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
 | `asm` | Auton Stability Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
-| `oracle` | Auton Stability Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
+| `oracle` | Auton Stability Mechanism configuration parameters | See [`config.oracle` object](#configoracle-object) |
+
 
 #### config.autonity object
 
@@ -99,7 +111,7 @@ Genesis configuration file JSON objects:
 | `operator` | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) | EOA account address |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
-#### config.autonity.validators object
+##### config.autonity.validators object
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
@@ -240,7 +252,6 @@ Object structure for the oracle network at genesis.
 | `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs retrieved by the oracle for (a) FX price data, and (b) ATN and NTN price data. Set to `["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","SEK/USD","ATN/USD","NTN/USD"]` |
 | `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. Set to `30` for initiating a new oracle voting round at 30-block intervals |
-
 
 #### alloc object
 
