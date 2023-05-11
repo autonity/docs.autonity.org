@@ -1171,7 +1171,8 @@ Returns a `Validator` object consisting of:
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
 | `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height) |
 | `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
-| `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
+| `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
+
 
 ### Usage
 
@@ -1190,10 +1191,10 @@ aut validator info [OPTIONS]
 {{< tab header="aut" >}}
 $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
 {
-  "treasury": "0x61EE7d3244642E5f6D654416a098DEabFBF5306e",
-  "node_address": "0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C",
-  "oracle_address": "0x9b844631B7279576330B9B822bE79266696fF8C2",
-  "enode": "enode://b2748268c31ebab8603058335bb4bed062e05b9ceaa3562f69868a01d1038a84136fc587fb913e1cb8ce821f1eb0bf9879e3249f18adcd39f1211a104ceb57a9@35.197.223.249:30303",
+  "treasury": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
+  "node_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
+  "oracle_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
+  "enode": "enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303",
   "commission_rate": 1000,
   "bonded_stake": 10000000000000000000000,
   "unbonding_stake": 0,
