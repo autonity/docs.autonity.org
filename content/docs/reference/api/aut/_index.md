@@ -1361,7 +1361,7 @@ $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --valid
 {
   "treasury": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
   "node_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "oracle_address": "0x400d5cd23a6cd7d660aeaf313e9ee15e635f3eaa",
+  "oracle_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
   "enode": "enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303",
   "commission_rate": 1000,
   "bonded_stake": 52,
@@ -1374,7 +1374,7 @@ $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --valid
 {{< /tab >}}
 {{< tab header="RPC" >}}
 $ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1"], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":{"treasury":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","nodeAddress":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","oracleAddress":"0x400d5cd23a6cd7d660aeaf313e9ee15e635f3eaa","enode":"enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@34.22.252.187:30303","commissionRate":1000,"bondedStake":0,"totalSlashed":0,"liquidContract":"0xf39e7f3b0bde2a349c13b49c082e20c93038429d","liquidSupply":0,"registrationBlock":649760,"state":0}}
+{"jsonrpc":"2.0","id":1,"result":{"treasury":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","nodeAddress":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","oracleAddress":"0x300d7ce23a6cd8d660aeaf595e9ee15e635f4taa","enode":"enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303","commissionRate":1000,"bondedStake":52,"totalSlashed":0,"liquidContract":"0xf8060d5d9fbbaf99ff63e37c2118343001558a60","liquidSupply":52,"registrationBlock":6734993,"state":0}}
 {{< /tab >}}
 {{< /tabpane >}}
 
