@@ -32,7 +32,7 @@ Constraint checks are applied:
 - the `msg.sender` address of the transaction is equal to the validator's `treasury` address
 - the validator state must be `paused`
 
-Validator re-activation is executed on transaction commit. New stake delegations to the validator are accepted and the validator is included in the consensus commmittee selection algorithm at epoch end.
+Validator re-activation is executed on transaction commit. New stake delegations to the validator are accepted and the validator is included in the consensus committee selection algorithm at epoch end.
 
 ### Parameters
 
@@ -1465,9 +1465,10 @@ Returns a `Validator` object consisting of:
 | Field | Datatype | Description |
 | --| --| --|
 | `treasury` | `address payable` | the address that will receive staking rewards the validator earns |
-| `addr` | `address` | the validator identifier account address |
+| `nodeAddress` | `address` | the validator identifier account address |
+| `oracleAddress` | `address` | the identifier account address of the validator's oracle server |
 | `enode` | `string` | the enode url of the validator node |
-| `delegationRate` | `uint256` | the percentage commission that the validator will charge on staking rewards from delegated stake |
+| `commissionRate` | `uint256` | the percentage commission that the validator will charge on staking rewards from delegated stake |
 | `bondedStake` | `uint256` | the total amount of delegated and self-bonded stake that has been bonded to the validator |
 | `totalSlashed` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
 | `liquidContract` | `Liquid` | the address of the validator's Liquid Newton contract |
@@ -1499,7 +1500,8 @@ autonity.getValidator(_addr).call()
 $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1
 {
   "treasury": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "addr": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
+  "node_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
+  "oracle_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
   "enode": "enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303",
   "commission_rate": 1000,
   "bonded_stake": 52,
@@ -1512,7 +1514,7 @@ $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --valid
 {{< /tab >}}
 {{< tab header="RPC" >}}
 $ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1"], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":{"treasury":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","addr":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","enode":"enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303","commissionRate":1000,"bondedStake":52,"totalSlashed":0,"liquidContract":"0xf8060d5d9fbbaf99ff63e37c2118343001558a60","liquidSupply":52,"registrationBlock":6734993,"state":0}}
+{"jsonrpc":"2.0","id":1,"result":{"treasury":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","nodeAddress":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","oracleAddress":"0x300d7ce23a6cd8d660aeaf595e9ee15e635f4taa","enode":"enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303","commissionRate":1000,"bondedStake":52,"totalSlashed":0,"liquidContract":"0xf8060d5d9fbbaf99ff63e37c2118343001558a60","liquidSupply":52,"registrationBlock":6734993,"state":0}}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1999,16 +2001,17 @@ Enter passphrase (or CTRL-d to exit):
 
 Registers a validator on an Autonity Network.
 
-The `registerValidator` method provides as argument the [enode](/glossary/#enode) URL of the validator node and a proof of node ownership generated from the private key of the validator node's [P2P node key](/concepts/validator/#p2p-node-key) pair.
+The `registerValidator` method provides as argument the [enode](/glossary/#enode) URL of the validator node, the validator's oracle server address, and a proof of node ownership generated using the private key of the validator node's [P2P node key](/concepts/validator/#p2p-node-key) and the validator's [oracle server key](http://localhost:1313/concepts/oracle/#oracle-server-key).
 
 On method execution a `Validator` object data structure is constructed in memory, populated with method arguments and default values ready for validator registration processing:
 
 | Field | Datatype | Description |
 | --| --| --|
 | `treasury` | `address payable` | Set to the `msg.sender` address submitting the `registerValidator` method call transaction |
-| `addr` | `address` | Set to temporary value of `0` before assignment |
+| `address` | `address` | Set to temporary value of `0` before assignment |
+| `_oracleAddress`| `string` | Assigned the value of the `_oracleAddress` argument to the method call |
 | `enode`| `string` | Assigned the value of the `_enode` argument to the method call |
-| `delegationRate` | | Assigned the value of the `commissionRate` parameter in the genesis configuration file |
+| `commissionRate` | | Assigned the value of the `delegationRate` parameter in the genesis configuration file |
 | `bondedStake` | `uint256` | Set to the value of `0`. There is no stake bonded to the newly registered validator at this point. |
 | `totalSlashed` | `uint256` | Set to the value of `0`. The counter recording the number of times the validator has been penalised for accountability and omission faults is set to `0`. |
 | `liquidContract` | `address`| address of the newly registered validator's Liquid Newton Contract |
@@ -2019,10 +2022,10 @@ On method execution a `Validator` object data structure is constructed in memory
 Constraint checks are applied:
 
 - the `enode` URL is not empty and is correctly formed
-- the `addr` of the validator is not already registered
-- the `proof` of node ownership is valid: a cryptographic proof containing the validator's treasury account and signed by the validator's private P2P node key. The address recovered from the proof using the validator's public P2P node key is the validator's `treasury` account address.
+- the `address` of the validator is not already registered
+- the `proof` of node ownership is valid: a cryptographic proof containing the string of the validator's `treasury` account address signed by (a) the validator's private P2P node key and (2) the validator's oracle server private key. The two signatures are concatenated together to create the ownership proof. The validator's `treasury` account address is recovered from the proof using the public key of (1) the validator's P2P node key and (2) the oracle server key.
 
-Validator registration is then executed, the temporary address assignments updated, and the new validator object is then added to the indexed validator list recorded in system state. I.E. the most recently registered validator will always have the highest index identifier value and will always be the last item in the validator list returned by a call to get a network's registered validators (see [`getValidators`](/reference/api/aut/#getvalidators)).
+Validator registration is then executed, the temporary address assignments updated, and the new validator object appended to the indexed validator list recorded in system state. I.E. the most recently registered validator will always have the highest index identifier value and will always be the last item in the validator list returned by a call to get a network's registered validators (see [`getValidators`](/reference/api/aut/#getvalidators)).
 
 A validator-specific Liquid Newton contract is deployed; the contract's `name` and `symbol` properties are both set to `LNTN-<ID>` where `<ID>` is the validator's registration index identifier.
 
@@ -2032,7 +2035,8 @@ A validator-specific Liquid Newton contract is deployed; the contract's `name` a
 | Field | Datatype | Description |
 | --| --| --|
 | `_enode` | `string` | the enode url for the validator node  |
-| `_proof` | `bytes` | the proof of enode ownership  |
+| `_oracleAddress` | `address` | the oracle server identifier account address |
+| `_multisig` | `bytes` | the proof of node ownership. A combination of two signatures of the validator `treasury` account address string, appended sequentially, generated using (a) the validator P2P node key private key, (2) the Oracle server private key. |
 
 ### Response
 
@@ -2042,7 +2046,7 @@ The validator registration entry can be retrieved from state by calling the [`ge
 
 ### Event
 
-On a successful call the function emits a `RegisteredValidator ` event, logging: `msg.sender`, `_val.addr`, `_enode`, `address(_val.liquidContract)`.
+On a successful call the function emits a `RegisteredValidator` event, logging: `msg.sender`, `_val.nodeAddress`, `_oracleAddress`, `_enode`, `address(_val.liquidContract)`.
 
 
 ### Usage
@@ -2063,7 +2067,7 @@ autonity.registerValidator('`_enode`','`proof`').send()
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut validator register --rpc-endpoint https://rpc1.piccadilly.autonity.org enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb8a6b8ad408a18bf66266b9d03dd9aa26c902a4ac02eb465d205c0c58b6f5063963fc752806f2681287a915@51.89.151.55:30303 0x4563c91c4a1c0371ff3633f1e8c23f211e4ac6b50852689dbaa17f6b74711f2869e41d847862d5ad2a08a15d57b4d5a3b4315eb10dd22f69aa27c3ce229539c700 | aut tx sign - | aut tx send -
+aut validator register --rpc-endpoint https://rpc1.piccadilly.autonity.org enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb8a6b8ad408a18bf66266b9d03dd9aa26c902a4ac02eb465d205c0c58b6f5063963fc752806f2681287a915@51.89.151.55:30303 0xc68fcac6ba8e9f565ab3c1be1a08571f1f0740d6fe1093741276a8327e8c096e4abda696773050e14b94385cb9c0f175a422efed9c24bc1d88803bcd508c50ce0170591627ab24883e9be5465bc1fa8c3514e095389edbc44846bf6bfab6b8d6be07a534c2fbaa07f5d96ced57eb0296b592dc73fad3b8df5d8072b5d213a4a0e401 | aut tx sign - | aut tx send -
 {{< /tab >}}
 {{< /tabpane >}}
 
