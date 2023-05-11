@@ -1896,6 +1896,7 @@ On method execution a `Validator` object data structure is constructed in memory
 | `provableFaultCount` | `uint256` | Set to `0`. (Counter recording the number of times the validator has been penalised for accountability and omission faults.) |
 | `ValidatorState` | `state` | Set to `active`. |
 
+
 Constraint checks are applied:
 
 - the `enode` URL is not empty and is correctly formed
