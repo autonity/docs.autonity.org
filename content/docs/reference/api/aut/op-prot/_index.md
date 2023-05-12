@@ -405,7 +405,7 @@ Enter passphrase (or CTRL-d to exit):
 -->
 ###  setOperatorAccount
 
-Sets a new governance account address as the value of the `operatorAccount` protocol parameter. 
+Sets a new governance account address as the value of the `operatorAccount` protocol parameter for the Autonity Protocol Contract and Autonity Oracle Contract.
 
 #### Parameters
    
@@ -692,7 +692,7 @@ Returns the amount of stake token bonded to the new consensus committee members 
 
 ###  finalize
 
-The block finalization function, invoked each block after processing every transaction within it. The function:
+The block finalisation function, invoked each block after processing every transaction within it. The function:
 
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
 - adds the `amount` parameter value to the `epochReward` protocol parameter
@@ -702,7 +702,10 @@ The block finalization function, invoked each block after processing every trans
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
     - selects the consensus committee for the following epoch, invoking the [`computeCommittee`](/reference/api/aut/op-prot/#computecommittee) function
-    - assigns the `lastEpochBlock` state variable the value of the current block number.
+    - sets oracle voters for the following epoch, invoking the Oracle Contract [`setVoters`](/reference/api/api/op-prot/#setvoters) function
+    - assigns the `lastEpochBlock` state variable the value of the current block number
+    - increments the `epochID` by `1`
+    - invokes the Oracle Contract [`finalize`](/reference/api/api/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
 
 #### Parameters
 
@@ -722,3 +725,27 @@ The block finalization function, invoked each block after processing every trans
 #### Event
 
 On successful reward distribution the function emits a `Rewarded` event for each staking reward distribution, logging: recipient address `addr` and reward amount `amount`.
+
+
+###  finalize (oracle contract)
+
+The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/api/op-prot/#finalize). The function:
+
+- checks that the block number is `>= lastRoundBlock + votePeriod` (i.e. the oracle contract's configured voting period for price voting and aggregation), if so executing the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points submitted to the oracle, invoking the Oracle Contract [`aggregateSymbol`](/reference/api/api/oracle-contract/#aggregatesymbol) function
+- sets the voter set for the following oracle voting round, ensuring the oracle set is updated to reflect any oracle voter changes
+- reset the `lastRoundBlock` to the current `block.number`
+- incrment the `round` counter by `1` new oracles if required.
+- sets the symbol set for the following oracle voting round, ensuring the oracle symbol set is updated to reflect any oracle symbol changes.
+
+#### Parameters
+
+None.
+
+#### Response
+
+None.
+
+#### Event
+
+On success the function emits a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.number`, `block.timestamp` and vote period duration `votePeriod`.
+
