@@ -975,7 +975,6 @@ How it works:
   - adds the reporting validators' to the array of reward beneficiaries that will receive rewards for offence reporting,
 - rewards are then distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator self-bonded and delegated stakeholders receive a share of the rewards _pro rata_ to their bonded stake amount. If the rewards transfer to the validator `treasury` account fails, then the rewards are sent to the Autonity Protocol's community `treasury` account.
 
-
 How it works to apply slashing for each fault in the slashing queue. The function:
 
 - adds the validator reporting the offence to the list of beneficiaries that will receive rewards for offence reporting
