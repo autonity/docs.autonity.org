@@ -32,7 +32,6 @@ For example, the symbol price for a currency pair is submitted with the value `1
 
 {{< /card >}}
 
-
 ### Parameters
 
 None.
@@ -117,7 +116,6 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
 {{< /alert >}}
 
-
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -156,7 +154,6 @@ None.
 | Field | Datatype | Description |
 | --| --| --|
 | `symbols` | `string` array | a comma-separated list of the currency pair symbols for which price reports are generated |
-
 
 ### Usage
 
@@ -226,7 +223,6 @@ None.
 | --| --| --|
 | `address` | `address` array | a comma-separated list of the oracle addresses for the current Oracle Voter set |
 
-
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -273,7 +269,6 @@ This can easily be converted to a human-readable form, for example:
 
 - programmatically, using the Python `datetime` library `fromtimestamp()` function
 - on the web, using online converters like https://www.unixtimestamp.com/index.php <i class='fas fa-external-link-alt'></i>.
-
 {{< /card >}}
 
 ### Usage
