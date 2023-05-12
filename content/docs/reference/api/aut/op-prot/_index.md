@@ -578,7 +578,7 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
 - [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
-       
+
 
 #### Parameters
    

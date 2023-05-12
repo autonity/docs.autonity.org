@@ -2,7 +2,6 @@
 title: "Oracle Contract Interface"
 linkTitle: "Oracle Contract Interface"
 weight: 30
-
 description: >
   Autonity Oracle Contract functions
 ---
@@ -94,7 +93,6 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
 {{< /tab >}}
 {{< /tabpane >}}
 
->>>>>>> 349a2f3 (Edit API Reference for Oracle Contract setSymbols)
 
 ## getRoundData
 
