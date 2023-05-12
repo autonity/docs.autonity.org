@@ -32,7 +32,6 @@ The precision is the multiplier applied to price data points before aggregation 
 For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the L2 aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
 {{< /card >}}
 
-
 ### Parameters
 
 None.
@@ -117,7 +116,6 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
 {{< /alert >}}
 
-
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -156,7 +154,6 @@ None.
 | Field | Datatype | Description |
 | --| --| --|
 | `symbols` | `string` array | a comma-separated list of the currency pair symbols for which price reports are generated |
-
 
 ### Usage
 
@@ -225,7 +222,6 @@ None.
 | Field | Datatype | Description |
 | --| --| --|
 | `address` | `address` array | a comma-separated list of the oracle addresses for the current Oracle Voter set |
-
 
 ### Usage
 
