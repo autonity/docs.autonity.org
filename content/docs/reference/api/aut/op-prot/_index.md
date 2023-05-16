@@ -729,13 +729,13 @@ On successful reward distribution the function emits a `Rewarded` event for each
 
 ###  finalize (oracle contract)
 
-The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/api/op-prot/#finalize). The function:
+The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/api/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
-- checks that the block number is `>= lastRoundBlock + votePeriod` (i.e. the oracle contract's configured voting period for price voting and aggregation), if so executing the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points submitted to the oracle, invoking the Oracle Contract [`aggregateSymbol`](/reference/api/api/oracle-contract/#aggregatesymbol) function
-- sets the voter set for the following oracle voting round, ensuring the oracle set is updated to reflect any oracle voter changes
-- reset the `lastRoundBlock` to the current `block.number`
-- incrment the `round` counter by `1` new oracles if required.
-- sets the symbol set for the following oracle voting round, ensuring the oracle symbol set is updated to reflect any oracle symbol changes.
+- executes the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract [`aggregateSymbol`](/reference/api/api/oracle-contract/#aggregatesymbol) function
+- checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
+- resets the `lastRoundBlock` to the current `block.number`
+- increments the `round` counter by `1`
+- checks if there have been any oracle symbol changes, if so then updates the oracle symbol set for the following oracle voting round.
 
 #### Parameters
 
