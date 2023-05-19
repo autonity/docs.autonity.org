@@ -611,6 +611,7 @@ None.
 #### Event
 
 On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective `round+1`.
+
         
 #### Usage
 
@@ -619,6 +620,7 @@ On a successful call the function emits a `NewSymbols` event, logging: a string 
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 #### Example
 

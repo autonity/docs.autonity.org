@@ -30,9 +30,10 @@ The precision is set as a constant to the integer value `10000000`.
 
 The precision is the multiplier applied to price data points before aggregation and calculation of a median price for a symbol by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
 
-For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the on-chain aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
+For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the L2 aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
 
 {{< /card >}}
+
 
 ### Parameters
 
@@ -93,6 +94,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
 {{< /tab >}}
 {{< /tabpane >}}
 
+>>>>>>> 349a2f3 (Edit API Reference for Oracle Contract setSymbols)
 
 ## getRoundData
 
@@ -117,6 +119,7 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 {{< alert title="Note" >}}
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
 {{< /alert >}}
+
 
 ### Usage
 
@@ -156,6 +159,7 @@ None.
 | Field | Datatype | Description |
 | --| --| --|
 | `symbols` | `string` array | a comma-separated list of the currency pair symbols for which price reports are generated |
+
 
 ### Usage
 
@@ -271,7 +275,6 @@ This can easily be converted to a human-readable form, for example:
 
 - programmatically, using the Python `datetime` library `fromtimestamp()` function
 - on the web, using online converters like https://www.unixtimestamp.com/index.php <i class='fas fa-external-link-alt'></i>.
-
 {{< /card >}}
 
 ### Usage
