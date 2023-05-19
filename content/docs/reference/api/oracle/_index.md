@@ -28,8 +28,7 @@ The precision is set as a constant to the integer value `10000000`.
 The precision is the multiplier applied to price data points before aggregation and calculation of a median price for symbols by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
 
 {{< card header="Example" title="Conversion to decimal places" subtitle="" footer="" >}}
-
-For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the L2 aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
+For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the on-chain aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
 {{< /card >}}
 
 ### Parameters
@@ -201,6 +200,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePe
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
+
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
 30
 {{< /tab >}}
@@ -270,6 +270,7 @@ This can easily be converted to a human-readable form, for example:
 
 - programmatically, using the Python `datetime` library `fromtimestamp()` function
 - on the web, using online converters like https://www.unixtimestamp.com/index.php <i class='fas fa-external-link-alt'></i>.
+
 {{< /card >}}
 
 ### Usage

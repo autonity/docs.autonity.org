@@ -669,7 +669,7 @@ None.
 
 ### setSymbols (Oracle Contract)
 
-Sets a new value set for the [currency pair](/glossary/#currency-pair) symbols for which the Oracle Contract computes median price.
+Sets a new value set for the [currency pair](/glossary/#currency-pair) symbols for which the oracle protocol computes median price.
 
 Note that the function overwrites the existing symbols; and does not update; the complete set of symbols for which oracles shall provide price reports must be provided.
 
@@ -692,7 +692,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective  `round+1`.
+On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective `round+1`.
         
 #### Usage
 
@@ -701,7 +701,6 @@ On a successful call the function emits a `NewSymbols` event, logging: a string 
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 #### Example
 
