@@ -13,7 +13,7 @@ Interface for interacting with Autonity Oracle Contract functions using:
 {{% pageinfo %}}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
 
-Usage and Examples illustrate using the Oracle Contract's generated ABI and the `aut` tool's `contract` command to call the Oracle Contract address `0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D`. See `aut contract call --help`.
+Usage and Examples illustrate using the Oracle Contract's generated ABI and the `aut` tool's `contract` command to call the Oracle Contract address `0x5a443704dd4B594B382c22a083e2BD3090A6feF3`. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Oracle.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/Oracle.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 {{% /pageinfo %}}
@@ -21,16 +21,15 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 
 ## getPrecision
 
-Returns the precision to be used with price reports
+Returns the precision to be used with price reports.
 
 The precision is set as a constant to the integer value `10000000`.
 
-{{< card header="Info" title="Precision" subtitle="" footer="" >}}
+The precision is the multiplier applied to price data points before aggregation and calculation of a median price for symbols by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
 
-The precision is the multiplier applied to price data points before aggregation and calculation of a median price for a symbol by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
+{{< card header="Example" title="Conversion to decimal places" subtitle="" footer="" >}}
 
-For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the on-chain aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
-
+For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the L2 aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
 {{< /card >}}
 
 
@@ -88,7 +87,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound   
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
 1809
 {{< /tab >}}
 {{< /tabpane >}}
@@ -227,6 +226,7 @@ None.
 | --| --| --|
 | `address` | `address` array | a comma-separated list of the oracle addresses for the current Oracle Voter set |
 
+
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -243,6 +243,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
 ["0xf8D8c4818Fd21B4be57a0ACD619fdD88ec7A858c", "0xd4d2874450a21f1Bf5E1C12260773d8716b526B8", "0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03"]
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 ## latestRoundData
 
