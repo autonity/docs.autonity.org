@@ -9,333 +9,286 @@ description: >
 Interface for interacting with Autonity Oracle Contract functions using:
 
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
-- JSON-RPC methods to submit calls to inspect state.
 
 {{% pageinfo %}}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
+
+Usage and Examples illustrate using the Oracle Contract's generated ABI and the `aut` tool's `contract` command to call the Oracle Contract address `0x5a443704dd4B594B382c22a083e2BD3090A6feF3`. See `aut contract call --help`.
+
+Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Oracle.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/Oracle.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 {{% /pageinfo %}}
 
 ## getPrecision
 
-/**
-    * @notice Precision to be used with price reports
-    */
-    function getPrecision() external pure returns (uint256) {
-        return PRECISION;
-    }
-## getVotePeriod
-    /**
-    * @notice vote period to be used for price voting and aggregation
-    */
-    function getVotePeriod() external view returns (uint) {
-        return votePeriod;
-    }
+Returns the oracle contract setting for the  multiplier applied to submitted data price reports before calculation of an aggregated median price for a symbol.
+
+The precision is set as a constant to the integer value `10000000`.
+
+The precision is the multiplier applied to price data points before aggregation and calculation of a median price by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
+
+{{< card header="Example" title="Conversion to decimal places" subtitle="" footer="" >}}
+
+For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the L2 aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
+
+{{< /card >}}
 
 
-## vote
+### Parameters
 
-modifier:     modifier onlyVoters {
-        require(votingInfo[msg.sender].isVoter, "restricted to only voters");
-        _;
-    }
+None.
 
-/**
-    * @notice Vote for the current period. In order to save gas,
-    * if (reports[i] == INVALID_PRICE)g the symbols.
-    * if the validator leave consensus committee then his vote is discarded.
-    * if a validator joins the consensus committee then his first vote is not
-    * taken into account.
-    * Only allowed to vote once per round.
-    * @param _commit hash of the new reports
-    *        _reports reveal of the reports for the previous cycle.
-    *        _salt  slat value which was used to generate last round commitment
-    */
-    function vote(uint256 _commit, int256[] calldata _reports, uint256 _salt) onlyVoters external {
-        //revert if already voted for this round
-        // voters should not be allowed to vote multiple times in a round
-        // because we are refunding the tx fee and this opens up the possibility
-        // to spam the node
-        require(votingInfo[msg.sender].round != round, "already voted");
+### Response
 
-        uint256 _pastCommit = votingInfo[msg.sender].commit;
-        // Store the new commit before checking against reveal to ensure an updated commit is
-        // available for the next round in case of failures.
-        votingInfo[msg.sender].commit = _commit;
-        uint256 _lastVotedRound  = votingInfo[msg.sender].round;
-        // considered to be voted whether vote is valid or not
-        votingInfo[msg.sender].round = round;
-        // new voter/first round
-        if (_lastVotedRound == 0 ) {
-            return;
-        }
+| Field | Datatype | Description |
+| --| --| --|
+| `precision` | `uint256` | the decimal precision multiplier applied to currency pair symbol price reports before aggregation. Set as a constant to `10000000` |
 
-        // if data is not supplied and voter is not a new voter
-        // report must contain the correct price
-        if(_reports.length != symbols.length)  {
-            return;
-        }
+### Usage
 
-        if ( _lastVotedRound != round -1 ||
-            _pastCommit != uint256(keccak256(abi.encodePacked(_reports, _salt, msg.sender)))) {
-            // If missed a round OR reveal does not matches past commit
-            // fill invalid_price in the reports for these voters
-            for (uint256 i = 0; i < symbols.length; i++) {
-                reports[symbols[i]][msg.sender] = INVALID_PRICE;
-            }
-            // we return the tx fee in all cases, because in both cases voter is slashed during aggregation
-            // phase, because the reports contain invalid prices
-            return;
-        }
-        // Voter has to vote on all the symbols
-        // uint256 MAX_INT = uint256(-1) is a special value
-        for (uint256 i = 0; i < _reports.length; i++) {
-             reports[symbols[i]][msg.sender] = _reports[i];
-        }
-    }
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getPrecision
+{{< /tab >}}
+{{< /tabpane >}}
 
-## finalize
- /**
-     * @notice Called once per VotePeriod part of the state finalisation function.
-     *
-     */
-    function finalize() onlyAutonity public {
-        if (block.number >= lastRoundBlock + votePeriod){
-            for(uint i = 0; i < symbols.length; i += 1 ) {
-                aggregateSymbol(i);
-            }
+### Example
 
-            // this votingInfo is updated with the newVoter set just so that the new voters
-            // are able to send their first vote, but they will not be used for aggregation
-            // in this round
-            if (lastVoterUpdateRound == int256(round)) {
-                for(uint i = 0; i < newVoters.length; i++) {
-                    votingInfo[newVoters[i]].isVoter = true;
-                }
-            }
-            //votingInfo update happens a round later then setting of new voters,
-            // because we still want to aggregate vote for lastVoterSet in the voterupdateround+1
-            if (lastVoterUpdateRound+1 == int256(round)) {
-                _updateVotingInfo();
-            }
-            lastRoundBlock = block.number;
-            round += 1;
-            // symbol update should happen in the symbolUpdatedRound+2 since we expect
-            // oracles to send commit for newSymbols in symbolUpdatedRound+1 and reports
-            // for the new symbols in symbolUpdatedRound+2
-            if (int256(round) == symbolUpdatedRound+2) {
-                symbols = newSymbols;
-            }
-            emit NewRound(round, block.number, block.timestamp, votePeriod);
-        }
-    }
-## aggregateSymbol
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getPrecision
+10000000
+{{< /tab >}}
+{{< /tabpane >}}
 
-/**
-     * @notice Level 2 aggregation routine. The final price
-     * is the median of all price collected.
-     * @dev This method is responsible for detecting and calling the appropriate
-     * accountability functions in case of missing or malicious votes.
-     */
-    function aggregateSymbol(uint _sindex) internal {
-        string memory _symbol = symbols[_sindex];
-        // Final aggregation doesn't depend on price.
-        int256[] memory _totalReports = new int256[](voters.length);
-        uint256 _count;
-        for(uint i = 0; i < voters.length; i++) {
-            address  _voter = voters[i];
-            // if voter has missed this round OR INVALID price reveal was submitted
-            if(votingInfo[_voter].round != round || reports[_symbol][_voter] == INVALID_PRICE) {
-                // TODO: Implement Slashing
-                //autonity.oracleVoteMissing(voters[i]);
-                continue;
-            }
-            _totalReports[_count++] = reports[_symbol][_voter];
-        }
-        int256 _priceMedian = prices[round-1][_symbol].price;
-        PriceStatus pStatus = PriceStatus.FAILURE;
-        if (_count > 0) {
-            _priceMedian = _getMedian(_totalReports, _count);
-            pStatus = PriceStatus.SUCCESS;
-        }
-        prices.push();
-        prices[round][_symbol] = Price(
-            _priceMedian,
-            block.timestamp,
-            pStatus);
 
-    }
+## getRound
 
-## latestRoundData
+Returns the index number of the current oracle contract voting round.
 
-/**
-     * @notice Return latest available price data.
-     * @param _symbol, the symbol from which the current price should be returned.
-     */
-    function latestRoundData(string memory _symbol) public view returns (RoundData memory data) {
-        //return last aggregated round
-        Price memory _p = prices[round-1][_symbol];
-        RoundData memory _d = RoundData(round-1, _p.price, _p.timestamp, uint(_p.status));
-        return _d;
-    }
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `round` | `uint256` | the number of the current oracle voting round |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRound
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRound   
+1809
+{{< /tab >}}
+{{< /tabpane >}}
+
 
 ## getRoundData
 
- /**
-     * @notice Return price data for a specific round.
-     * @param _round, the round for which the price should be returned.
-     * @param _symbol, the symbol for which the current price should be returned.
-     */
-    function getRoundData(uint256 _round, string memory _symbol) external view returns
-    (RoundData memory data) {
-        Price memory _p = prices[_round][_symbol];
-        RoundData memory _d = RoundData(_round, _p.price, _p.timestamp, uint(_p.status));
-        return _d;
-    }
+Returns the median price data for a [currency pair](/glossary/#currency-pair) symbol at a given oracle voting round.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_round` | `uint256` | the oracle voting round index number for which the current price is requested |
+| `_symbol` | `string` | the currency pair symbol for which the current price is requested |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `round` | `uint256` | the index number of the oracle voting round in which the price was generated |
+| `_p.price` | `uint256` | the median price for the requested currency pair symbol |
+| `_p.timestamp` | `string` | the timestamp of the block height at which the returned price was calculated; the  timestamp is in Unix Timestamp format |
+| `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in the requested `round`; value of `0` (FAILURE) or `1` (SUCCESS). If a price was not successfully calculated in the requested `round`, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
+
+{{< alert title="Note" >}}
+Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
+{{< /alert >}}
 
 
-## setSymbols
-   // ["NTNUSD", "NTNEUR", ... ]
-    function setSymbols(string[] memory _symbols) external onlyOperator {
-        require(_symbols.length != 0, "symbols can't be empty");
-        require((symbolUpdatedRound+1 != int256(round)) && (symbolUpdatedRound != int256(round)), "can't be updated in this round");
-        newSymbols = _symbols;
-        symbolUpdatedRound = int256(round);
-        // these symbols will be effective for oracles from next round
-        emit NewSymbols(_symbols, round+1);
-    }
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRoundData _round _symbol
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRoundData 1809 "BTCUSD"
+{"round": 1809, "price": 272694800000, "timestamp": 1684418293, "status": 0}
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ## getSymbols
-    function getSymbols() external view returns(string[] memory) {
-        // if current round is the next round of the symbol update round
-        // we should return the updated symbols, because oracle clients are supposed
-        // to use updated symbols to fetch data
-        if (symbolUpdatedRound+1 == int256(round)) {
-            return newSymbols;
-        }
-        return symbols;
-    }
+
+Returns the [currency pair](/glossary/#currency-pair) symbols for which the oracle generates price reports.
+
+Note that if the symbols supported by the oracle are changed that there is a delay of 2 voting rounds before prices are reported for the new symbols. This is because if symbols are updated at round number `r` then:
+
+- oracles submit price data commits for the new symbols the following round in `r + 1`
+- prices for the new symbols are computed by the oracle network in `r + 2` when the commits are revealed and prices voted on by the oracle voters.
+
+If the `getSymbols` call is made at `r + 1`, then it will return the updated symbols for which prices will be generated at `r + 2`.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbols` | `string` array | a comma-separated list of the currency pair symbols for which price reports are generated |
+
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSymbols
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSymbols               
+["BTCUSD", "BTCUSDC", "BTCUSDT", "BTCUSD4"]
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+## getVotePeriod
+
+Returns the oracle contract setting for the interval at which the oracle network initiates a new oracle round for submitting, voting, and aggregating data points for oracle price reports. The interval is measured in blocks.
+
+Vote period is set at network genesis, see Reference, Genesis,[`oracle`](/reference/genesis/#configautonityoracle-object) config. 
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `votePeriod` | `uint256` | integer value expressing the duration of an oracle round, measured in blocks |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVotePeriod
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVotePeriod
+60
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ## getVoters
 
-  function getVoters() external view returns(address[] memory) {
-        return newVoters;
-    }
-## getRound
+Returns the current list of oracle voters from memory.
 
-    function getRound() external view returns (uint256) {
-        return round;
-    }
+The response is returned as a list of oracle identifier addresses, sorted in descending dictionary order.
 
+### Parameters
 
-## _updateVotingInfo
+None.
 
-  function _updateVotingInfo() internal {
-        uint _i = 0;
-        uint _j = 0;
+### Response
 
-        while ( _i < voters.length && _j < newVoters.length){
-            if(voters[_i] == newVoters[_j]){
-                _i++;
-                _j++;
-                continue;
-            } else if(voters[_i] < newVoters[_j]){
-                // delete from votingInfo since this voter is not present in the new Voters
-                delete votingInfo[voters[_i]];
-                _i++;
-            } else {
-                _j++;
-            }
-        }
-
-        while ( _i < voters.length) {
-            // delete from voted since it's not present in the new Voters
-            delete votingInfo[voters[_i]];
-            _i++;
-        }
-        voters = newVoters;
-    }
-
-## setVoters
-
-    function setVoters(address[] memory _newVoters) onlyAutonity public {
-        require(_newVoters.length != 0, "Voters can't be empty");
-        _votersSort(_newVoters, int(0), int(_newVoters.length - 1));
-        newVoters = _newVoters;
-        lastVoterUpdateRound = int256(round);
-    }
-
-## _votersSort
-
-   /**
-    * @dev QuickSort algorithm sorting addresses in lexicographic order.
-    */
-    function _votersSort(address[] memory _voters, int _low, int _high)
-    internal pure {
-        int _i = _low;
-        int _j = _high;
-        if (_i == _j) return;
-        address _pivot = _voters[uint(_low + (_high - _low) / 2)];
-        // Set the pivot element in its right sorted index in the array
-        while (_i <= _j) {
-            while (_voters[uint(_i)] > _pivot) _i++;
-            while (_pivot > _voters[uint(_j)]) _j--;
-            if (_i <= _j) {
-                (_voters[uint(_i)], _voters[uint(_j)]) =
-                (_voters[uint(_j)], _voters[uint(_i)]);
-                _i++;
-                _j--;
-            }
-        }
-        // Recursion call in the left partition of the array
-        if (_low < _j) {
-            _votersSort(_voters, _low, _j);
-        }
-        // Recursion call in the right partition
-        if (_i < _high) {
-            _votersSort(_voters, _i, _high);
-        }
-    }
-
-## _getMedian
-
-   /**
-    * @dev QuickSort algorithm sorting addresses in lexicographic order.
-    */
-    function _getMedian(int256[] memory _priceArray, uint _length) internal pure returns (int256) {
-        if (_length == 0) {
-            return 0;
-        }
-        _sortPrice(_priceArray, 0, int(_length -1));
-        uint _midIndex = _length/2;
-        return (_length % 2 == 0) ? (_priceArray[_midIndex-1] + _priceArray[_midIndex])/2 : _priceArray[_midIndex];
-    }
-
-## _sortPrice
+| Field | Datatype | Description |
+| --| --| --|
+| `address` | `address` array | a comma-separated list of the oracle addresses for the current Oracle Voter set |
 
 
-    function _sortPrice( int256[] memory _priceArray, int _low, int _high) internal pure {
-        int _i = _low;
-        int _j = _high;
-        if (_i == _j)  return;
-        int256 pivot = _priceArray[uint(_low+(_high-_low)/2)];
-        while (_i <= _j) {
-            while(_priceArray[uint(_i)] < pivot) _i++;
-            while(pivot < _priceArray[uint(_j)]) _j--;
-            if (_i <= _j) {
-                (_priceArray[uint(_i)], _priceArray[uint(_j)]) = (_priceArray[uint(_j)], _priceArray[uint(_i)]);
-                _j--;
-                _i++;
-            }
-        }
-        // recurse left partition
-        if (_low < _j) {
-            _sortPrice(_priceArray, _low, _j);
-        }
-        // recurse right partition
-        if (_i < _high ) {
-            _sortPrice(_priceArray, _i, _high);
-        }
-        return ;
-    }
+### Usage
 
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVoters
+{{< /tab >}}
+{{< /tabpane >}}
 
+### Example
 
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVoters   
+["0xf8D8c4818Fd21B4be57a0ACD619fdD88ec7A858c", "0xd4d2874450a21f1Bf5E1C12260773d8716b526B8", "0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03"]
+{{< /tab >}}
+{{< /tabpane >}}
 
+## latestRoundData
+
+Returns the latest available median price data for a [currency pair](/glossary/#currency-pair) symbol.  The price returned is the one generated in the last successfully completed oracle voting round.
+
+If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_symbol` | `string` | the currency pair symbol for which the current oracle price is requested |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `round-1` | `uint256` | the index number of the oracle voting round in which the price was generated. This is always `1` less than the number of the oracle's voting round at the time of the call |
+| `_p.price` | `uint256` | the latest median price for the requested currency pair symbol |
+| `_p.timestamp` | `string` | the timestamp of the block height at which the returned price was calculated; the  timestamp is in Unix Timestamp format |
+| `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in `round-1`, represented by a value of `1` (SUCCESS) or `0` (FAILURE).  If a price was not successfully calculated, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
+
+{{< card header="Example" title="Converting Unix Timestamp format to a human-readable form" subtitle="" footer="" >}}
+
+Unix time represents time as an integer value recording the number of seconds since 1 January 1970 00:00:00 UTC.
+
+This can easily be converted to a human-readable form, for example:
+
+- programmatically, using the Python `datetime` library `fromtimestamp()` function
+- on the web, using online converters like https://www.unixtimestamp.com/index.php <i class='fas fa-external-link-alt'></i>.
+
+{{< /card >}}
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 latestRoundData "BTCUSD"
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 latestRoundData "BTCUSD"
+{"round": 1809, "price": 272694800000, "timestamp": 1684418293, "status": 0}
+{{< /tab >}}
+{{< /tabpane >}}

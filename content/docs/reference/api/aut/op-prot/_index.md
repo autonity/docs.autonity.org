@@ -453,6 +453,51 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 -->
 
+
+### setSymbols (Oracle Contract)
+Sets a new value set for the [currency pair](/glossary/#currency-pair) symbols for which the oracle generates price reports.
+
+Note that the function overwrites the existing symbols; and does not update; the complete set of symbols for which oracles shall provide price reports must be provided.
+
+Constraint checks are applied:
+
+- the `_symbols` parameter cannot be empty; new symbols are provided
+- the current `round` number is not equal to the current symbol update (a) round number, and (b) round number +1.
+
+The symbol update is applied and oracle submissions for the new symbols are effective from the next round `round+1`.
+
+aut account import-private-key --keyfile /root/.autonity/keystore/UTC--2023-05-15T18-24-45.148377000Z--16c69b4700a5292eb644c89321baf08c2175ae90 /root/Ahmkah.priv
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbols` | `string` array | a comma-separated list of the new currency pair symbols for which price reports are generated |
+
+#### Response
+
+None.
+
+#### Event
+On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective  `round+1`.
+        
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 setSymbols
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 setSymbols
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ###  setTreasuryAccount
 
 Sets a new account address as the value of the `treasuryAccount` protocol parameter. 
@@ -727,7 +772,7 @@ The block finalisation function, invoked each block after processing every trans
 On successful reward distribution the function emits a `Rewarded` event for each staking reward distribution, logging: recipient address `addr` and reward amount `amount`.
 
 
-###  finalize (oracle contract)
+###  finalize (Oracle Contract)
 
 The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/api/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
@@ -748,4 +793,3 @@ None.
 #### Event
 
 On success the function emits a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.number`, `block.timestamp` and vote period duration `votePeriod`.
-
