@@ -29,7 +29,6 @@ The precision is the multiplier applied to price data points before aggregation 
 {{< card header="Example" title="Conversion to decimal places" subtitle="" footer="" >}}
 
 For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the on-chain aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
-
 {{< /card >}}
 
 ### Parameters
@@ -128,8 +127,8 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundD
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "BTCUSD"
-{"round": 1809, "price": 272694800000, "timestamp": 1684418293, "status": 0}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "SEK-USD"
+{"round": 1809, "price": 899334, "timestamp": 1694668219, "status": 0}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -201,6 +200,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePe
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
+
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
 60
 {{< /tab >}}
@@ -269,6 +269,7 @@ This can easily be converted to a human-readable form, for example:
 
 - programmatically, using the Python `datetime` library `fromtimestamp()` function
 - on the web, using online converters like https://www.unixtimestamp.com/index.php <i class='fas fa-external-link-alt'></i>.
+
 {{< /card >}}
 
 ### Usage
