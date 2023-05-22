@@ -1,7 +1,7 @@
 baseURL = 'https://docs.autonity.org/'
 enableGitInfo = true
 languageCode = 'en-gb'
-theme = "docsy"
+theme = ["docsy", "plausible-hugo"]
 title = 'docs.autonity.org'
 
 # Move the default contentDir one level down to facilitate a "docs only" site
@@ -36,3 +36,8 @@ navbar_logo = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[params.plausible]
+  enable = true  # Whether to enable plausible tracking
+  domain = "docs.autonity.org"  # Plausible "domain" name/id in your dashboard
+  gitstar = false
