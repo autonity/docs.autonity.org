@@ -611,7 +611,6 @@ None.
 #### Event
 
 On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective `round+1`.
-
         
 #### Usage
 
