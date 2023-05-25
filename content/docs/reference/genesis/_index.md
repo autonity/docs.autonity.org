@@ -185,12 +185,24 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     "oracle": {
       "bytecode": "",
       "abi": "",
-      "symbols": [
-       "BTCUSD",
-       "BTCUSDC",
-       "BTCUSDT",
-       "BTCUSD4"
-      ],
+      "symbols":[
+            "NTNUSD",
+            "NTNAUD",
+            "NTNCAD",
+            "NTNEUR",
+            "NTNGBP",
+            "NTNJPY",
+            "NTNSEK",
+            "AUD/USD",
+            "CAD/USD",
+            "EUR/USD",
+            "GBP/USD",
+            "JPY/USD",
+            "SEK/USD",
+            "ATN/USD",
+            "NTN/USD",
+            "NTN/ATN"
+         ],
       "votePeriod": 60
     }
   },

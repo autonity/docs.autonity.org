@@ -466,7 +466,6 @@ Constraint checks are applied:
 
 The symbol update is applied and oracle submissions for the new symbols are effective from the next round `round+1`.
 
-aut account import-private-key --keyfile /root/.autonity/keystore/UTC--2023-05-15T18-24-45.148377000Z--16c69b4700a5292eb644c89321baf08c2175ae90 /root/Ahmkah.priv
 #### Parameters
 
 | Field | Datatype | Description |
@@ -478,7 +477,7 @@ aut account import-private-key --keyfile /root/.autonity/keystore/UTC--2023-05-1
 None.
 
 #### Event
-On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective  `round+1`.
+On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective `round+1`.
         
 #### Usage
 
@@ -493,7 +492,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 setSymbol
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 setSymbols
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 setSymbols ["NTNUSD", "NTNAUD", "NTNCAD", "NTNEUR", "NTNGBP", "NTNJPY", "NTNSEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/USD", "NTN/ATN"]
 {{< /tab >}}
 {{< /tabpane >}}
 
