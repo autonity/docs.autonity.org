@@ -1,4 +1,3 @@
-
 ---
 title: "Autonity Oracle Server Command-line"
 linkTitle: "Autonity Oracle Server Command-line"
@@ -6,7 +5,7 @@ weight: 20
 description: >
   Command-line options and facilities of the Autonity Oracle Server
 ---
-
+<!--
 ## Command-line facilities
 
 Command-line tools for interacting with an Autonity Oracle Server are provided by:
@@ -16,7 +15,7 @@ Command-line tools for interacting with an Autonity Oracle Server are provided b
 For `aut` installation, usage, and command-line options see Reference [Setup the Autonity Utility Tool (aut)](/account-holders/setup-aut/).
 
 For calling Oracle Contract functions using `aut` see Reference [Autonity Interfaces, Oracle Contract interface](/reference/api/oracle/).
-
+-->
 ## Command-line options
 
 Autonity Oracle Server provides command-line options for displaying version and help information, and setting oracle server configuration.
