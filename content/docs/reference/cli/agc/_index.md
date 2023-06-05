@@ -1,3 +1,4 @@
+
 ---
 title: "Autonity Go Client Command-line"
 linkTitle: "Autonity Go Client Command-line"
@@ -6,7 +7,6 @@ weight: 10
 description: >
   Command-line options and facilities of the Autonity Go Client
 ---
-
 
 <!--
 ## Command-line facilities
@@ -57,7 +57,6 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `--dev` | A developer mode option to create an ephemeral proof-of-stake network with a pre-funded developer account, mining enabled |
 | `--dev.gaslimit` | An option to set the initial block gas limit (default: 30000000) for the developer mode network |
 | `--dev.etherbase` | An option to set the public address of the external account to be used for developer mode (default: "0") |
-
 
 ## Usage
 
