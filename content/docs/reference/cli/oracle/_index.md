@@ -1,13 +1,12 @@
-
 ---
 title: "Autonity Oracle Command-line"
 linkTitle: "Autonity Oracle Command-line"
-
+weight: 20
 description: >
   Command-line options and facilities of the Autonity Oracle Server
 ---
 
-
+<!--
 ## Command-line facilities
 
 Command-line tools for interacting with an Autonity Oracle Server are provided by:
@@ -17,12 +16,12 @@ Command-line tools for interacting with an Autonity Oracle Server are provided b
 For `aut` installation, usage, and command-line options see RReference [Setup the Autonity Utility Tool (aut)](/account-holders/setup-aut/).
 
 For calling Oracle Contract functions using `aut` see Reference [Autonity Interfaces, Oracle Contract interface](/reference/api/oracle/).
-
+-->
 ## Command-line options
 
 Autonity Oracle Server supports command-line options for configuration.
 
-### Usage
+## Usage
 
 Run `autoracle --help` to view the options:
 

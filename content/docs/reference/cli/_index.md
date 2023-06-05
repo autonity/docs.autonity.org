@@ -17,3 +17,5 @@ Command-line tools for interacting with an Autonity Go Client are provided by:
 <!-- - Autonity NodeJS Console. A Node.JS JavaScript runtime environment for executing RPC calls. Autonity NodeJS console provides access to Ethereum Web3 Namespace and Autonity Contract interfaces. -->
 
 For `aut` installation, usage, and command-line options see Reference [Setup the Autonity Utility Tool (aut)](/account-holders/setup-aut/).
+
+For calling Oracle Contract functions using `aut` see Reference [Autonity Interfaces, Oracle Contract interface](/reference/api/oracle/).

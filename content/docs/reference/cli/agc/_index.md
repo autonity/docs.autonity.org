@@ -1,23 +1,22 @@
-
 ---
 title: "Autonity Go Client Command-line"
 linkTitle: "Autonity Go Client Command-line"
-
+weight: 10
 description: >
   Command-line options and facilities of the Autonity Go Client
 ---
 
-
+<!--
 ## Command-line facilities
 
 Command-line tools for interacting with an Autonity Go Client are provided by:
 
 - Autonity Utility Tool `aut`. A Python command-line RPC client for Autonity. The tool provides access to Autonity Contract and ERC20 token contract interfaces.
-
+-->
 <!-- - Autonity NodeJS Console. A Node.JS JavaScript runtime environment for executing RPC calls. Autonity NodeJS console provides access to Ethereum Web3 Namespace and Autonity Contract interfaces. -->
-
+<!--
 For `aut` installation, usage, and command-line options see Reference [Setup the Autonity Utility Tool (aut)](/account-holders/setup-aut/).
-
+-->
 ## Command-line options
 
 Autonity supports all Geth command-line options with the following _exceptions_:
@@ -56,8 +55,7 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `--dev.gaslimit` | An option to set the initial block gas limit (default: 30000000) for the developer mode network |
 | `--dev.etherbase` | An option to set the public address of the external account to be used for developer mode (default: "0") |
 
-
-### Usage
+## Usage
 
 Run `autonity --help` to view the options:
 
