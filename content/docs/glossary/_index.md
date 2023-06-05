@@ -302,12 +302,13 @@ A [participant](/glossary/#participant) [node](/glossary/#node) that has registe
 An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation) by the oracle network.
 
 ## voting period
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit and vote on price data reports to agree an aggregated data price for the [currency pair](/glossary/#currency-pair) symbols for which an Autonity network provides a median price. See [vote period](/glossary/#vote-period).
+The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) symbols for which an Autonity network provides a median price. See [voting round](/glossary/#voting-round).
 
 ## voting power
-The amount of stake bonded by [delegation](/glossary/#delegation) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
+The amount of stake [delegated](/glossary/#delegate) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
 
 ## voting round
+
 An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
 
 ## wallet
