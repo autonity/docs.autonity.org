@@ -1,9 +1,7 @@
-
 ---
 title: "Autonity Go Client Command-line"
 linkTitle: "Autonity Go Client Command-line"
 weight: 10
-
 description: >
   Command-line options and facilities of the Autonity Go Client
 ---
