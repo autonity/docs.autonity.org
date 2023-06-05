@@ -1,10 +1,14 @@
+
 ---
 title: "Autonity Oracle Server Command-line"
 linkTitle: "Autonity Oracle Server Command-line"
 weight: 20
+title: "Autonity Oracle Command-line"
+linkTitle: "Autonity Oracle Command-line"
 description: >
   Command-line options and facilities of the Autonity Oracle Server
 ---
+
 ## Command-line options
 
 Autonity Oracle Server provides command-line options for displaying version and help information, and setting oracle server configuration.
