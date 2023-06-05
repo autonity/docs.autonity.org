@@ -304,9 +304,13 @@ The Unix OS system for representing a point in time as a timestamp. Time is meas
 ## validator
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
 
+## vote period
+
+An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation) by the oracle network.
+
 ## voting period
 
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [voting round](/glossary/#voting-round).
+The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit and vote on price data reports to agree an aggregated data price for the [currency pair](/glossary/#currency-pair) symbols for which an Autonity network provides a median price. See [vote period](/glossary/#vote-period).
 
 ## voting power
 
