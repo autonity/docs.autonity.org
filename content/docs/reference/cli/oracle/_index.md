@@ -1,3 +1,4 @@
+
 ---
 title: "Autonity Oracle Server Command-line"
 linkTitle: "Autonity Oracle Server Command-line"
@@ -5,18 +6,6 @@ weight: 20
 description: >
   Command-line options and facilities of the Autonity Oracle Server
 ---
-
-<!--
-## Command-line facilities
-
-Command-line tools for interacting with an Autonity Oracle Server are provided by:
-
-- Autonity Utility Tool `aut`. A Python command-line RPC client for Autonity. The tool provides access to Autonity Oracle Contract interface functions.
-
-For `aut` installation, usage, and command-line options see Reference [Setup the Autonity Utility Tool (aut)](/account-holders/setup-aut/).
-
-For calling Oracle Contract functions using `aut` see Reference [Autonity Interfaces, Oracle Contract interface](/reference/api/oracle/).
--->
 
 ## Command-line options
 
