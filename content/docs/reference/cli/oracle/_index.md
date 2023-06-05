@@ -1,3 +1,4 @@
+
 ---
 title: "Autonity Oracle Server Command-line"
 linkTitle: "Autonity Oracle Server Command-line"
@@ -28,4 +29,3 @@ Run `autoracle --help` to view the options:
 | `-oracle_key_password` | The password of the key file that contains the private key of the oracle server | (defaults to password for testing key in `/test_data/keystore`) | Yes |
 | `-oracle_plugin_dir` | The path to the DIR where the data source plugins are stored | `./build/bin/plugins` | No |
 | `-oracle_plugin_conf` | The path to the data source plugins YAML configuration file `plugins-conf.yml` | `./build/bin/plugins/plugins- conf.yml` | Yes |
-
