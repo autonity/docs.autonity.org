@@ -1,22 +1,14 @@
+
 ---
 title: "Autonity Oracle Server Command-line"
 linkTitle: "Autonity Oracle Server Command-line"
 weight: 20
+title: "Autonity Oracle Command-line"
+linkTitle: "Autonity Oracle Command-line"
 description: >
   Command-line options and facilities of the Autonity Oracle Server
 ---
 
-<!--
-## Command-line facilities
-
-Command-line tools for interacting with an Autonity Oracle Server are provided by:
-
-- Autonity Utility Tool `aut`. A Python command-line RPC client for Autonity. The tool provides access to Autonity Oracle Contract interface functions.
-
-For `aut` installation, usage, and command-line options see RReference [Setup the Autonity Utility Tool (aut)](/account-holders/setup-aut/).
-
-For calling Oracle Contract functions using `aut` see Reference [Autonity Interfaces, Oracle Contract interface](/reference/api/oracle/).
--->
 ## Command-line options
 
 Autonity Oracle Server provides command-line options for displaying version and help information, and setting oracle server configuration.
@@ -29,8 +21,8 @@ Run `autoracle --help` to view the options:
 |:--|:--|
 | `version`, `v` | Print version information and default configuration |
 | `-help`, `-h`  | Shows a list of Oracle Server configuration options |
-   
-   
+
+
 | ORACLE SERVER OPTIONS: | Description | Default | Required? |
 |:--|:--|:--|:--|
 | `-oracle_autonity_ws_url` | The web socket RPC URL of the Autonity node that the oracle server communicates with | "ws://127.0.0.1:8546" | Yes |
@@ -39,6 +31,3 @@ Run `autoracle --help` to view the options:
 | `-oracle_key_password` | The password of the key file that contains the private key of the oracle server | (defaults to password for testing key in `/test_data/keystore`) | Yes |
 | `-oracle_plugin_dir` | The path to the DIR where the data source plugins are stored | `./build/bin/plugins` | No |
 | `-oracle_plugin_conf` | The path to the data source plugins YAML configuration file `plugins-conf.yml` | `./build/bin/plugins/plugins- conf.yml` | Yes |
-
-
-
