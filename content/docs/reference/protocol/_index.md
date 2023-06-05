@@ -27,3 +27,4 @@ Autonity Protocol parameters specify economic, consensus, temporal, and governan
 | Protocol Contract upgrade: `bytecode`, `abi`  | Autonity Protocol Contract is provided as part of the codebase. An upgraded contract can be specified at or post genesis | To specify an upgraded contract at initialisation, see [`config.autonity.bytecode`](/reference/genesis/#configautonity-object) and [`config.autonity.abi`](/reference/genesis/#configautonity-object) | See [`upgradeContract`](/reference/api/aut/op-prot/#upgradecontract) |
 | `symbols` | the currency pairs that the oracle network provides data points for | See [`config.autonity.oracle.symbols`](/reference/genesis/#configautonityoracle-object) | None |
 | `votePeriod` | the time interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | See [`config.autonity.oracle.votePeriod`](/reference/genesis/#configautonityoracle-object) | None |
+
