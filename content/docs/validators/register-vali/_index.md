@@ -1,7 +1,7 @@
 ---
 title: "Register as a Validator"
 linkTitle: "Register Validator"
-weight: 120
+weight: 30
 description: >
   How to register your node as a Validator on an Autonity network
 ---
