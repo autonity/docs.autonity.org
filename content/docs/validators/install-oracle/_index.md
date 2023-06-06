@@ -1,7 +1,7 @@
 ---
 title: "Install Autonity Oracle Server in your environment"
 linkTitle: "Install Autonity Oracle Server"
-weight: 10
+weight: 110
 description: >
   How to install an Autonity Oracle Server on your host machine.
 ---
