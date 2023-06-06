@@ -1,7 +1,7 @@
 ---
 title: "Change Validator Commission Rate"
 linkTitle: "Change Validator Commission Rate"
-weight: 50
+weight: 150
 description: >
   How to change the stake delegation commission rate of your Validator node on an Autonity network
 ---
