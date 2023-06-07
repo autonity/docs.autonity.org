@@ -699,7 +699,8 @@ The block finalization function, invoked each block after processing every trans
 - checks if the block number is the last epoch block number and if so, then:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
     - sets `epochReward` to `0`
-    - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` darta structures in memory
+    - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
+    - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
     - selects the consensus committee for the following epoch, invoking the [`computeCommittee`](/reference/api/aut/op-prot/#computecommittee) function
     - assigns the `lastEpochBlock` state variable the value of the current block number.
 

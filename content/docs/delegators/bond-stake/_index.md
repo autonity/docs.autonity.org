@@ -53,7 +53,7 @@ aut validator info --validator 0x9fd408Bdb83Be1c8504Ff13eBcCe7f490DCCC2cF
 }
 ```
 
-{{< alert name="Note" >}}
+{{< alert title="Note" >}}
 If you interact with a specific validator very frequently, you might consider making it the default by adding an entry such as
 
 ```
@@ -82,8 +82,8 @@ The `aut validator bond` command creates a transaction that bonds the caller's n
 aut validator bond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx sign - | aut tx send -
 ```
 
-{{< alert name="Note" >}}
-Bonding requests are not processed until the end of the current epoch.  The newton to be bonded will be deducted from your balance, but your [liquid newton balance](/delegators/transfer-lntn) will not be affected until the epoch
+{{< alert title="Note" >}}
+Bonding requests are not processed until the end of the current epoch.  The newton to be bonded will be deducted from your balance, but your [liquid newton balance](/delegators/transfer-lntn) will not be affected until the epoch end.
 
 (Pending and historical bonding requests can be queried using the [getBondingReq](/reference/api/) api call or the `aut protocol get-bonding-req` command)
 {{< /alert >}}
@@ -96,6 +96,6 @@ The `aut validator unbond` command creates a transaction that unbonds the caller
 aut validator unbond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx sign - | aut tx send -
 ```
 
-{{< alert name="Note" >}}
+{{< alert title="Note" >}}
 Like bonding requests, unbonding does not complete immediately.  After an unbonding period, the Newton will be returned to the caller.  See the [staking section](/concepts/staking/) for further details.
 {{< /alert >}}

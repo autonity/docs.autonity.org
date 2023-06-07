@@ -137,25 +137,25 @@ Validator economic returns are determined by the amount of stake bonded to them,
 
 Staking reward revenue is proportionate to the validator's share of the stake active in a consensus round in which it participates. Staking rewards are distributed to consensus committee members _pro rata_ to the amount of stake they have at stake. Validators can earn from:
 
-   -  Staking rewards earned from their own '[self-bonded](/glossary/#self-bonded)' stake.
-   -  From [delegated](/glossary/#delegate) stake through the delegation rate they charge to delegators as commission.
-   -  From the priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
+-  Staking rewards earned from their own '[self-bonded](/glossary/#self-bonded)' stake.
+-  From [delegated](/glossary/#delegate) stake through the delegation rate they charge to delegators as commission.
+-  From the priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
 
 Staking reward revenue potential is determined by the frequency with which a validator is an active member of the consensus committee. This is driven by:
 
-   -  The amount of stake the validator has bonded to it.
-   -  The committee size and number of registered validators.
-   -  The frequency with which the validator proposes blocks.
-   -  The amount of transaction revenue earned from transactions included in blocks committed when the validator is a member of the committee.
-   -  The validator's commission rate. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate (see [`changeCommissionRate`](/reference/api/aut/#changecommissionrate)). 
+-  The amount of stake the validator has bonded to it.
+-  The committee size and number of registered validators.
+-  The frequency with which the validator proposes blocks.
+-  The amount of transaction revenue earned from transactions included in blocks committed when the validator is a member of the committee.
+-  The validator's commission rate. The percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator's stake delegators. The rate can be any value in the range `0 - 100%`. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate - see [Validator commission rate change](/concepts/validator/#validator-commission-rate-change) on this page.
 
 Staking rewards may be reduced by any slashing penalties applied to the validator for accountability and omissions failures. The extent of these varies according to the gravity of the fault and the punishment applied.
 
 ## Validator registration
 A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:
 
-   -  The validator has a node address (an enode URL).
-   -  The validator has a funded account on the network.
+-  The validator has a node address (an enode URL).
+-  The validator has a funded account on the network.
 
 A validator's registration is recorded and maintained as a state variable in a `Validator` data structure. (See [`registerValidator()`](/reference/api/aut/#registervalidator)).
 
@@ -177,6 +177,7 @@ At genesis the process is:
    "bondedStake": 10000
    },
    ```
+
 - Genesis of the Autonity Network is initialised and for each validator:
    - The `registerValidator()` function is called. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
    - A `RegisteredValidator` event is emitted by the Autonity Protocol Contract.
@@ -246,3 +247,18 @@ The process is:
    - The validator's state is changed from `paused` to `active`.
 
 The validator is active, able to accept new stake delegations, and once again eligible for selection to the consensus committee.
+
+## Validator commission rate change
+
+A validator operator can modify its validator commission rate from the global default rate set for the validator on initial registration  (see Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object)) by submitting a commission rate change request to the Autonity Network.
+
+Commission rate changes are subject to the same temporal [unbonding period](/concepts/staking/#unbondingperiod) constraint as staking transitions. This gives the stake delegator protection from validator commission rate changes intra-epoch.
+
+The process is:
+
+- The validator operator entity submits a commission rate change request transaction to the Autonity Protocol Public APIs, calling the [`changeCommissionRate()`](/reference/api/aut/#changecommissionrate) function, submitting the transaction from the account used to register the validator (validator `treasury` account) and passing in the validator identifier address and the new commission rate in basis points (bps).
+- Transaction processed and committed to state:
+   - The commission rate change request is tracked in memory and the [unbonding period](/concepts/staking/#unbondingperiod) lock constraint begins.
+   - The rate change is applied at the end of the epoch in which the unbonding period expires as the last block of the epoch is finalised.
+
+Note that on a successful call the `changeCommissionRate `function emits a `CommissionRateChange` event, logging the validator identifier address and the new rate value.  This allows a stake delegator to listen for upcoming commission rate changes. The effective block of the commission rate change can then be calculated from data points: the `changeCommissionRate` transaction commit block number, and the network `unbondingPeriod` and `epochPeriod` values.
