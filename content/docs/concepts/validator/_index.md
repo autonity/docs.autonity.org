@@ -203,7 +203,6 @@ The validator is registered and eligible for selection to the genesis consensus 
 
 Note that genesis registration requires the validator [self-bond](/glossary/#self-bonded) stake. The chain will not deploy if `bondedStake` for a genesis validator is null. This constraint guarantees genesis validators have stake and are eligible for selection to the consensus committee. This mitigates the risk of having no consensus committee for the genesis block and so a chain halt at initialisation!
 
-
 ### Post-genesis registration
 
 After genesis the process is:
