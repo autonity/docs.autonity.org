@@ -71,7 +71,9 @@ The network bootnode addresses are:
 - Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://faucet.autonity.org/)
 - There is currently no faucet for [newton](/concepts/protocol-assets/newton), as newton tokens will be made available to network participants in later phases of the testnet.
 
-## Public endpoints:
+## Public endpoints
+
+Default rate limit on calls to `ws` and `http` public endpoints combined  is 250 requests per second per IP.
 
 - RPC: https://rpc1.bakerloo.autonity.org
 - WebSocket: wss://rpc1.bakerloo.autonity.org/ws
