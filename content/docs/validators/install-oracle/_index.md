@@ -8,45 +8,41 @@ description: >
 
 ## Overview
 
-The Autonity Go Client can be installed in several ways:
+The Autonity Oracle Server can be installed in several ways:
 
 - as a pre-compiled Linux Executable File from the Release Archive
-- in a Docker container,
+<!-- - in a Docker container -->
 - by building the client from source code.
 
-We assume that the Autonity Go Client will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _local_ machine will be used for creating transactions and queries which are then sent to the Autonity Go Client on the _host_ via the RPC endpoint.
+We assume that the Autonity Oracle Server will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _host_ machine will be used for Autonity Go Client the oracle serves via the WSS endpoint.
 
 {{< alert title="Note" >}}
-Client source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/).
+Autonity Oracle Server source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (TO DO - ADD REPO LINK).
 {{< /alert >}}
 
 ## Requirements
 
 ### Hardware
 
-To run an Autonity Go Client node, we recommend using a host machine (physical or virtual) with the following _minimum_ specification:
+To run an Autonity Oracle Server, we recommend using a host machine (physical or virtual) with the following _minimum_ specification:
 
 | Requirement	 | At least | Recommended|
 |-------------|----------|------------|
 | OS | Ubuntu 20.04	LTS | Ubuntu 20.04 LTS |
-| CPU | 3.10 GHz with 8 CPU's | 3.10 GHz with 16 CPU's |
-| RAM | 8GB | 16GB |
-| Storage | 1024GB free storage for full nodes and Validators | 1024 GB free storage for full nodes and validators |
-| Network interface	| 200 Mbit/s | 200 Mbit/s |
+| CPU |  |  |
+| RAM |  |  |
+| Storage |  |  |
+| Network interface	|  |  |
 
 ### Network
 
 A public-facing internet connection with static IP is required.  Incoming traffic must be allowed on the following:
-* `TCP, UDP 30303` for node p2p (DEVp2p) communication.
-
-You may also choose to allow traffic on the following ports:
-* `TCP 8545` to make http RPC connections to the node.
 * `TCP 8546` to make WebSocket RPC connections to the node.
-* `TCP 6060` to export Autonity metrics (recommended but not required)
 
-<!-- who collects the metrics? -->
+{{< alert title="Note" >}}
 
-It is assumed that most administrators will want to restrict access to these ports (unless they wish to support public access to the RPC calls for anonymous clients).  However, you should ensure that you can connect to one of the RPC ports from your _local_ machine (e.g. with IP whitelisting in your firewall rules, SSH port forwarding or other technique).
+Your validator node's [installation](/node-operators/install-aut/#network) must also allow traffic on your validator node's port `TCP 8546` to allow the Oracle Server's t WebSocket RPC connection to the node.
+{{< /alert >}}
 
 The description here covers only the basic network setup. Especially in a production setting, administrators should consider further security measures based on their situation.
 
@@ -56,31 +52,32 @@ The description here covers only the basic network setup. Especially in a produc
   A Linux OS running on AMD64 architecture is required to run the pre-compiled executable.
 {{< /alert >}}
 
-1. Navigate to the Autonity [Releases <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases) Archive and download the latest stable release version of the client `autonity-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
+1. Navigate to the Autonity Oracle Server [Releases <i class='fas fa-external-link-alt'></i>]  (TO DO - ADD REPO LINK) Archive and download the latest stable release version of the Autonity Oracle Server `autoracle-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
 
-2. Create a working directory for installing Autonity. For example:
+2. Create a working directory for installing Oracle Server. For example:
 
     ```bash
-    mkdir autonity-go-client
-    cd autonity-go-client
+    mkdir autonity-oracle
+    cd autonity-oracle
     ```
 
 3. Unpack the downloaded _tarball_ to your working directory:
 
     ```bash
-    tar -xzf <PATH_TO_DOWNLOADS_DIRECTORY>/autonity-linux-amd64-<RELEASE_VERSION>.tar.gz
+    tar -xf <PATH_TO_DOWNLOADS_DIRECTORY>/autoracle-linux-amd64-<RELEASE_VERSION>.tar.gz
     ```
 
 4. (Optional) Copy the binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
 
     ```bash
-    sudo cp -r autonity /usr/local/bin/autonity
+    sudo cp -r autoracle /usr/local/bin/autoracle
     ```
 
 {{% pageinfo %}}
-You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary).
+You can now [configure and launch Autonity Oracle Server](/validators/run-oracle/#run-binary).
 {{% /pageinfo %}}
 
+<!--
 ## Installing the Docker image {#install-docker}
 
 {{< alert title="Note" >}}
@@ -132,42 +129,40 @@ sudo systemctl restart docker
     ```
 
 {{% pageinfo %}}
-You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker).
+You can now [configure and launch Autonity](/validators/run-oracle/#run-docker).
 {{% /pageinfo %}}
-
+-->
 ## Build from source code {#install-source}
 
 {{< alert title="Prerequisites" >}}
-The following should be installed in order to build the Autonity Go Client.:
+The following should be installed in order to build the Autonity Oracle Server:
 - **Git** Follow the official GitHub documentation to [install git <i class='fas fa-external-link-alt'></i>](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
-- **Golang** (version 1.15 or later) - [https://golang.org/dl <i class='fas fa-external-link-alt'></i>](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
+- **Golang** (version 1.19.3 or later) - [https://golang.org/dl <i class='fas fa-external-link-alt'></i>](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
 - **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
 - [**GNU Make** <i class='fas fa-external-link-alt'></i>](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
 {{< /alert >}}
 
 
-1. Clone/Copy the Autonity repo:
+1. Clone/Copy the Autonity Oracle Server repo:
 
     ```bash
-    git clone git@github.com:autonity/autonity.git
+    git clone git@github.com:autonity/autonity-oracle.git
     ```
 
-1. Enter the `autonity` directory and build autonity:
+2. Enter the `autonity-oracle` directory and build autonity:
 
     ```bash
-    cd autonity
-    make autonity
+    cd autonity-oracle
+    make
     ```
 
     (The `cmd` utilities, including the Clef account management tool, can be built using `make all`.)
 
-1. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
+3. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH`:
 
     ```bash
-    sudo cp build/bin/autonity /usr/local/bin/autonity
+    sudo cp build/bin/autoracle /usr/local/bin/autoracle
     ```
-
-1. (Optional) Copy the Autonity Go Client binary to `/usr/local/bin`, so it can be accessed system-wide without specifying the path to the install directory:
 
 ## Verify the installation {#verify}
 
@@ -206,7 +201,7 @@ GOROOT=/usr/local/go
 ```
 
 {{< alert title="Note" >}}
-The output above will vary depending on the version of the Autonity Go Client you have installed.  Confirm that the "Version" field is consistent with the version you expect.
+The output above will vary depending on the version of the Autonity Oracle Server you have installed.  Confirm that the "Version" field is consistent with the version you expect.
 {{< /alert >}}
 
 ## Next steps {#next}

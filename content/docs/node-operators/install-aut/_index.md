@@ -11,7 +11,7 @@ description: >
 The Autonity Go Client can be installed in several ways:
 
 - as a pre-compiled Linux Executable File from the Release Archive
-- in a Docker container,
+- in a Docker container
 - by building the client from source code.
 
 We assume that the Autonity Go Client will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _local_ machine will be used for creating transactions and queries which are then sent to the Autonity Go Client on the _host_ via the RPC endpoint.
@@ -138,7 +138,7 @@ You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker)
 ## Build from source code {#install-source}
 
 {{< alert title="Prerequisites" >}}
-The following should be installed in order to build the Autonity Go Client.:
+The following should be installed in order to build the Autonity Go Client:
 - **Git** Follow the official GitHub documentation to [install git <i class='fas fa-external-link-alt'></i>](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
 - **Golang** (version 1.15 or later) - [https://golang.org/dl <i class='fas fa-external-link-alt'></i>](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
 - **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
@@ -152,7 +152,7 @@ The following should be installed in order to build the Autonity Go Client.:
     git clone git@github.com:autonity/autonity.git
     ```
 
-1. Enter the `autonity` directory and build autonity:
+2. Enter the `autonity` directory and build autonity:
 
     ```bash
     cd autonity
@@ -161,13 +161,11 @@ The following should be installed in order to build the Autonity Go Client.:
 
     (The `cmd` utilities, including the Clef account management tool, can be built using `make all`.)
 
-1. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
+3. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
 
     ```bash
     sudo cp build/bin/autonity /usr/local/bin/autonity
     ```
-
-1. (Optional) Copy the Autonity Go Client binary to `/usr/local/bin`, so it can be accessed system-wide without specifying the path to the install directory:
 
 ## Verify the installation {#verify}
 
