@@ -114,7 +114,7 @@ The commands given in this step assume that your `.autrc` configuration file con
 {{< /alert >}}
 
 ```bash
-aut validator register <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -
+aut contract tx --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 registerValidator <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -
 ```
 
 where:

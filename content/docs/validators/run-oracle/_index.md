@@ -7,48 +7,63 @@ description: >
 ---
 
 {{< alert title="Prerequisites" >}}
-- Ensure that the host machine meets the [minimum requirements](/node-operators/install-aut/#requirements)
+- Ensure that the host machine meets the [minimum requirements](/validators/install-oracle/#requirements)
 {{< /alert >}}
 
-## Run Autonity (binary or source code install) {#run-binary}
+## Run Autonity Oracle Server (binary or source code install) {#run-binary}
 
-- Ensure that the Autonity Go Client has been installed from a [pre-compiled binary](/node-operators/install-aut#install-binary) or from [source code](/node-operators/install-aut#install-source)
+- Ensure that the Autonity Oracle Server has been installed from a [pre-compiled binary](/validators/install-oracle/#install-binary) or from [source code](/validators/install-oracle/#install-source)
 
-To connect to a network and sync, get the genesis and bootnode files if needed, and run Autonity. Autonity will initialise, connect to the network, and then sync ledger state.
+To run Autonity Oracle Server you will need to generate a keyfile for your oracle server, configure plugin(s) for external data sources, and set the oracle server configuration, and connect to your Autonity Go Client node. Autonity Oracle Server will initialise, connect to the data sources and node, and then begin to submit price reports to your connected node.
 
-1. Create and enter a working directory for autonity.
+1. Create and enter a working directory for the oracle server.
 
-1. Create the autonity-chaindata directory to hold the autonity working data:
+2. Generate a key file for the oracle server. Use `aut` to [create an account](/account-holders/create-acct/) for the oracle. Make a note of your oracle account address as this will be required when registering your validator.
 
-	```bash
-    mkdir autonity-chaindata
-    ```
+3. Fund the oracle server account. Oracle transactions fees for submitting price reports on-chain are refunded, but the initial price report transaction requires seed funding. (See [Fund account](/account-holders/fund-acct/).)
 
-1. Start autonity:
+4. (Optional) Add data source plugins. Navigate to the `plugins` sub-directory of your installation (default: `./build/bin/plugins`) and add sub-directories for additional plugins you are configuring.
+
+5. Configure the oracle server. Specify the oracle server configuration; see [command line reference](/reference/cli/oracle/). Options can be set as system environment variables or directly in the terminal.
+
+
+6. Start oracle server:
 
     ``` bash
-    autonity \
-        --datadir ./autonity-chaindata  \
-        --piccadilly  \
-        --http  \
-        --http.addr 0.0.0.0 \
-        --http.api aut,eth,net,txpool,web3,admin  \
-        --http.vhosts \* \
-        --ws  \
-        --ws.addr 0.0.0.0 \
-        --ws.api aut,eth,net,txpool,web3,admin  \
-        --nat extip:<IP_ADDRESS>
+    autoracle \
+        -oracle_key_file="<KEYFILE>" \
+        -oracle_key_password="<PWD>" \
+        -oracle_autonity_ws_url="<IP_ADDRESS>" ;
+        
     ```
 
    where:
 
-   - `<IP_ADDRESS>` is the node's host IP Address, which can be determined with `curl ifconfig.me`.
-   - `--piccadilly` specifies that the node will use the Piccadilly tesnet.  For other tesnets, use the appropriate flag (for example, `--bakerloo`).
+   - `<KEYFILE>` specifies the path to your oracle key file, e.g. `../aut/keystore/oracle.key`
+   - `<PWD>` is the password to your oracle key file
+   - `<IP_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network).
 
-See the [Autonity command-line reference](/reference/cli) for the full set of available flags.
+See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/#usage) for all available flags.
 
-Autonity will download the blockchain in "snap" syncmode by default.  Once fully synced, it will continue to import new chain segments as they are finalized.
+Oracle server will connect to external data sources using the providers in the `/plugins` subdirectory and begin submitting price reports to the connected node.
 
+{{< alert title="External data source plugins" >}}
+By default oracle server will use data source providers packaged in the server release `/plugins` subdirectory.
+
+New plugins are configured by simply adding the binary code to the `/plugins` directory. See [Install Autonity Oracle Server](/validators/install-oracle/) for how to do this.
+
+If plugins for external data sources or the symbols for which oracle server provides price data are changed while oracle server is running, the server does **not** need to be re-started: changes will be auto-detected and applied. 
+{{< /alert >}}
+
+## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
+
+TO DO
+
+## Run Autonity as Docker image {#run-docker}
+
+TO DO
+
+<!--
 ## Run Autonity as Docker image {#run-docker}
 
 - Ensure that the Autonity Go Client [Docker image](/node-operators/install-aut#install-docker) has been installed.
@@ -101,14 +116,11 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 {{< /alert >}}
 
 Naturally, the above command line can be tailored to suit a specific deployment. See the docker documentation for the complete list of Docker options.
+-->
 
-## Stopping the Autonity Go Client
+## Stopping the Autonity Oracle Server
 
-To shutdown the node, press `CTRL-C` and wait for it to exit.
-
-{{% pageinfo %}}
-Now you can now [connect to your node using `aut`](/node-operators/connect/) from your _local_ machine.
-{{% /pageinfo %}}
+To shutdown the oracle server, press `CTRL-C` and wait for it to exit.
 
 ------------------------------------------------
 
