@@ -28,20 +28,21 @@ To run an Autonity Oracle Server, we recommend using a host machine (physical or
 
 | Requirement	 | At least | Recommended|
 |-------------|----------|------------|
-| OS | Ubuntu 20.04	LTS | Ubuntu 20.04 LTS |
-| CPU |  |  |
-| RAM |  |  |
-| Storage |  |  |
-| Network interface	|  |  |
+| OS | Ubuntu 20.04 LTS | Ubuntu 20.04 LTS |
+| CPU |1.9GHz with 4CPU's |  1.9GHz with 4CPU's |
+| RAM |2GB |  4GB |
+| Storage |32GB |  64GB |
+| Network interface	| 64Mbit/s |  128Mbit/s |
 
 ### Network
 
 A public-facing internet connection with static IP is required.  Incoming traffic must be allowed on the following:
+
 * `TCP 8546` to make WebSocket RPC connections to the node.
 
 {{< alert title="Note" >}}
 
-Your validator node's [installation](/node-operators/install-aut/#network) must also allow traffic on your validator node's port `TCP 8546` to allow the Oracle Server's t WebSocket RPC connection to the node.
+Your validator node's [installation](/node-operators/install-aut/#network) must also allow traffic on your validator node's port `TCP 8546` to allow the Oracle Server's WebSocket RPC connection to the node.
 {{< /alert >}}
 
 The description here covers only the basic network setup. Especially in a production setting, administrators should consider further security measures based on their situation.
@@ -66,8 +67,11 @@ The description here covers only the basic network setup. Especially in a produc
     ```bash
     tar -xf <PATH_TO_DOWNLOADS_DIRECTORY>/autoracle-linux-amd64-<RELEASE_VERSION>.tar.gz
     ```
+    This will unpack the pre-compiled executable and create a `/plugins` subdirectory containing data source plugins packaged in the release.
 
-4. (Optional) Copy the binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
+4. (Optional) Add data source plugins. Navigate to the `plugins` sub-directory of your working directory and add sub-directories for additional plugins you are installing.
+
+5. (Optional) Copy the binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
 
     ```bash
     sudo cp -r autoracle /usr/local/bin/autoracle
@@ -155,10 +159,12 @@ The following should be installed in order to build the Autonity Oracle Server:
     cd autonity-oracle
     make
     ```
+    
+    This will build the executable (`./build/bin/autoracle`) and create a subdirectory containing data source plugins packaged in the release (`./build/bin/plugins/`).
 
-    (The `cmd` utilities, including the Clef account management tool, can be built using `make all`.)
+4. (Optional) Add data source plugins. Navigate to the `plugins` sub-directory of your working directory and add sub-directories for additional plugins you are installing.
 
-3. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH`:
+5. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH`:
 
     ```bash
     sudo cp build/bin/autoracle /usr/local/bin/autoracle
@@ -166,23 +172,19 @@ The following should be installed in order to build the Autonity Oracle Server:
 
 ## Verify the installation {#verify}
 
-You should now be able to execute the `autonity` command.  Verify your installation by executing `autonity version` to return the client version and executable build details:
+You should now be able to execute the `autoracle` command.  Verify your installation by executing `autoracle version` to return the oracle version and configuration:
 
 ```bash
-$ ./autonity version
+$ ./autoracle version
 ```
 ```
-Autonity
-Version: 0.10.1
-Architecture: amd64
-Protocol Versions: [66]
-Go Version: go1.18.2
-Operating System: linux
-GOPATH=
-GOROOT=/usr/local/go
+2023/06/09 15:17:58 
+
+
+ 	Running autonity oracle client V0.0.1 with symbols: NTNUSD,NTNAUD,NTNCAD,NTNEUR,NTNGBP,NTNJPY,NTNSEK and plugin diretory: ./build/bin/plugins by connnecting to L1 node: ws://127.0.0.1:8645 
 ```
 
-<!-- TODO: Check this works -->
+<!-- TODO: Check this works
 
 If using Docker, the setup of the image can be verified with:
 
@@ -199,6 +201,7 @@ Operating System: linux
 GOPATH=
 GOROOT=/usr/local/go
 ```
+-->
 
 {{< alert title="Note" >}}
 The output above will vary depending on the version of the Autonity Oracle Server you have installed.  Confirm that the "Version" field is consistent with the version you expect.
