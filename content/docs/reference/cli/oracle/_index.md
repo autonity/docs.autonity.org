@@ -19,17 +19,23 @@ For calling Oracle Contract functions using `aut` see Reference [Autonity Interf
 -->
 ## Command-line options
 
-Autonity Oracle Server supports command-line options for configuration.
+Autonity Oracle Server provides command-line options for displaying version and help information, and setting oracle server configuration.
 
 ## Usage
 
 Run `autoracle --help` to view the options:
 
-| Options | Description |
+| COMMANDS: | Description |
 |:--|:--|
-| `-oracle_autonity_ws_url` | The websocket URL of autonity client |
-| `-oracle_crypto_symbols` | The symbols string separated by comma |
-| `-oracle_key_file` | The file that save the private key of the oracle client |
-| `-oracle_key_password` | The password to decode your oracle account's key file |
-| `-oracle_plugin_dir` | The DIR where the adapter plugins are stored. Default: ./build/bin/plugins |
+| `version`, `v` | Print version information and default configuration |
+| `-help`, `-h`  | Shows a list of Oracle Server configuration options |
+   
+   
+| ORACLE SERVER OPTIONS: | Description | Required? |
+|:--|:--|:--:|
+| `-oracle_autonity_ws_url` | The websocket URL of autonity client | Yes |
+| `-oracle_crypto_symbols` | The symbols string separated by comma (default: )| No |
+| `-oracle_key_file` | The file that save the private key of the oracle client | Yes |
+| `-oracle_key_password` | The password to decode your oracle account's key file | Yes |
+| `-oracle_plugin_dir` | The DIR where the adapter plugins are stored (default: `./build/bin/plugins`) | No |
 

@@ -13,7 +13,7 @@ This how to covers the import and generation of new accounts using `aut`. Accoun
 {{< alert title="Warning" color="warning" >}}
 The use of hardware wallets or other key-management tools may be more secure than encrypted files.  Operators may choose to make use of such tools with Autonity, and explicit support for these will be added in the future.  For the purposes of the testnets this guide will assume the use of password-protected  keyfiles.
 
-Ensure that your `keystore` file is stored securely according to your security policy at all times and remember the password phrase you used to create it! If you do not remember the password, you will not be able to decrypt this private key file and may lose any funds associated with this account.
+Ensure that your `keystore` file is backed up and stored securely according to your security policy at all times; remember the password phrase you used to create it! If you do not remember the password, you will not be able to decrypt this private key file and may lose any funds associated with this account.
 {{< /alert >}}
 
 ## Create account using `aut`
