@@ -26,8 +26,4 @@ Run `autoracle --help` to view the options:
 | `-oracle_key_file` | The path to the encrypted key file that contains the private key of the oracle server. | (defaults to testing key in `/test_data/keystore`) | Yes |
 | `-oracle_key_password` | The password of the key file that contains the private key of the oracle server | (defaults to password for testing key in `/test_data/keystore`) | Yes |
 | `-oracle_plugin_dir` | The path to the DIR where the data source plugins are stored | `./build/bin/plugins` | No |
-<<<<<<< HEAD
 | `-oracle_plugin_conf` | The path to the data source plugins YAML configuration file `plugins-conf.yml` | `./build/bin/plugins/plugins-conf.yml` | Yes |
-=======
-| `-oracle_plugin_conf` | The path to the data source plugins YAML configuration file `plugins-conf.yml` | `./build/bin/plugins/plugins- conf.yml` | Yes |
->>>>>>> d22382a (Reference, Command-line, refactor and add oracle cli)
