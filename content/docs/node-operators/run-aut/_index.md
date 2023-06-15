@@ -110,6 +110,29 @@ To shutdown the node, press `CTRL-C` and wait for it to exit.
 Now you can now [connect to your node using `aut`](/node-operators/connect/) from your _local_ machine.
 {{% /pageinfo %}}
 
+## Migrating an Autonity Go Client
+
+To migrate a node to a new instance the node identity must be preserved. The [P2P node key](/concepts/validator/#p2p-node-key) and the node's host [ip address](/node-operators/install-aut/#network) must be maintained to keep the same node [identifier](/concepts/validator/#validator-identifier) address and [enode url](/glossary/#enode).
+
+Copy the P2P `nodekey` to a safe location and when reinstalling and running the node:
+
+- Install the node as described in the [install autonity](/node-operators/install-aut/) guide
+- Migrate the `nodekey` before running the node:
+  - When following the steps in this guide, modify the command creating the chaindata folder (Step 2 in this guide) to also create an autonity subfolder, i.e. `mkdir -p autonity-chaindata/autonity`
+  - Copy your original `nodekey` from the safe location to your `autonity-chaindata/autonity` directory
+- Start the node per Step 3 in this guide, maintaining the original IP address value for `--nat extip:<IP_ADDRESS>`.
+
+Autonity will detect and use the original `nodekey`. The new node installation will have the same identity as the original.
+
+{{< alert title="Note" >}}
+If you are running a validator node you need to:
+
+- [pause the validator node](/validators/pause-vali/) **before migration**, and 
+- [reactivate the new validator](/validators/pause-vali/) **after migration**
+
+Be sure to fully decommission the original node installation.
+{{< /alert >}}
+
 ------------------------------------------------
 
 If you need help, you can chat to us on Autonity [Discord Server](https://discord.gg/autonity)!
