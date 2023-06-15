@@ -133,12 +133,12 @@ The Autonity Oracle Contract implements logic to manage submission of price data
 - Set oracle voters based on validators in the consensus committee and update the voter set as the consensus committee is re-selected at the end of an epoch.
 - Manage oracle voting rounds, triggering the initiation of a new voting period at the end of a round.
 
-
 ### Voter selection
 
 Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on median price computation by a protocol-only function. As the last block of an epoch is finalised, this function is executed to determine the oracle voters for the following epoch.
 
 Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
+
 
 ## Blockchain Consensus
 
