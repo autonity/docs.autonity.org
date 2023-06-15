@@ -455,7 +455,7 @@ Enter passphrase (or CTRL-d to exit):
 
 
 ### setSymbols (Oracle Contract)
-Sets a new value set for the [currency pair](/glossary/#currency-pair) symbols for which the oracle generates price reports.
+Sets a new value set for the [currency pair](/glossary/#currency-pair) symbols for which the Oracle Contracts computes median price.
 
 Note that the function overwrites the existing symbols; and does not update; the complete set of symbols for which oracles shall provide price reports must be provided.
 
