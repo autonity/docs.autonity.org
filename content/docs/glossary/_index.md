@@ -209,6 +209,9 @@ The set of [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas)
 
 Median price data is computed by protocol in [voting rounds](/glossary/#voting-round).
 
+## oracle protocol
+The logic and rules governing the calculation of median price data by the [oracle network](/glossary/#oracle-network). The protocol has off- and on-chain operations. Price data is collected from external data providers by [oracle servers](/glossary/#autonity-oracle-server-aos) run by validator operators and submitted on-chain to an oracle [contract](/glossary/#smart-contract). The oracle contract computes aggregate median price data for those currency pairs; consensus committee members vote to agree the median prices by consensus in [voting rounds](/glossary/#voting-round).
+
 ## participant
 A [peer](/glossary/#peer) [node](/glossary/#node) that is currently connected to other nodes in an Autonity network.
 
