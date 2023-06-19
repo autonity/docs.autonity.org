@@ -31,6 +31,7 @@ Prerequisites for participating in the oracle network as a validator node operat
 - An [Autonity Oracle Server](/concepts/oracle-server/) installation, configured to connect to your full node and external price data sources via plugin adaptors.
 - Plugin adaptors for connecting to external data provider sources to retrieve price data for the currency pairs required for your node's connected Autonity network.
 
+
 ## Oracle identity, accounts and keypairs
 The oracle server makes use of a single account and private/public [key pair](/glossary/#key-pair) for oracle identity, oracle protocol participation, and cryptographic security. 
 
@@ -155,7 +156,3 @@ The validator is registered and eligible for selection to the consensus committe
 {{% alert title="Note" %}}
 Note that oracle vote transactions are limited to 1 each Round. This prevents the refund funding a spam attack vector in a Byzantine behaviour scenario. Once 1 vote transaction from an oracle account has been successfully processed, any further vote transactions from that oracle account during the round are reverted.
 {{% /alert %}}
-
-
-
-
