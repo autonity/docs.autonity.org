@@ -1,19 +1,17 @@
 @font-face {
     font-family: 'berkeley Mono';
-    src: url('../fonts/berkeley/BerkeleyMonoVariable-Regular.woff2') format('woff2'),
-        url('../fonts/berkeley/BerkeleyMonoVariable-Regular.woff') format('woff');
+    src: url('../fonts/berkeley/BerkeleyMonoVariable-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-    font-displau: swap;
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'berkeley Mono';
-    src: url('../fonts/berkeley/BerkeleyMonoVariable-Italic.woff2') format('woff2'),
-        url('../fonts/berkeley/BerkeleyMonoVariable-Italic.woff') format('woff');
+    src: url('../fonts/berkeley/BerkeleyMonoVariable-Italic.woff2') format('woff2');
     font-weight: normal;
     font-style: italic;
-    font-displau: swap;
+    font-display: swap;
 }
 
 /*
@@ -72,4 +70,8 @@ footer.bg-dark.py-5.row.d-print-none {
 */
 .td-content {
     word-wrap: break-word;
+}
+
+html {
+    font-variation-settings: 'wght' 100;
 }
