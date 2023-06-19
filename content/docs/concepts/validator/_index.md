@@ -31,7 +31,6 @@ It has responsibilities to:
 
 As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour by stake [slashing](/concepts/staking/#slashing) and penalty mechanisms implemented by an [accountability and fault detection protocol](/concepts/accountability/). Consensus committee members are incentivised by [staking rewards](/concepts/staking/#staking-rewards), receiving a share of the transaction fee revenue earned for each block of transactions committed to system state, _pro rata_ to their share of bonded stake securing the system in that block. Consensus committee members are incentivised to report Byzantine behaviour by other committee members by [slashing rewards](/concepts/accountability/#slashing-rewards) for reporting accountability faults resulting in a penalty.
 
-
 ### Validator prerequisites 
 
 To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
