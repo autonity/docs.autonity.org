@@ -84,3 +84,10 @@ footer.bg-dark.py-5.row.d-print-none {
         }
     }
 }
+
+/**
+* Word break on large words (stop them overlapping ToC)
+*/
+.td-content {
+    word-wrap: break-word;
+}
