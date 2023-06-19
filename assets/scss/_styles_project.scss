@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Berkley Mono';
-    src: url('../fonts/berkley/BerkeleyMono-Regular.woff2') format('woff2'),
-        url('../fonts/berkley/BerkeleyMono-Regular.woff') format('woff');
+    src: url('../fonts/berkley/BerkeleyMonoVariable-Regular.woff2') format('woff2'),
+        url('../fonts/berkley/BerkeleyMonoVariable-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-displau: swap;
@@ -9,27 +9,9 @@
 
 @font-face {
     font-family: 'Berkley Mono';
-    src: url('../fonts/berkley/BerkeleyMono-Italic.woff2') format('woff2'),
-        url('../fonts/berkley/BerkeleyMono-Italic.woff') format('woff');
+    src: url('../fonts/berkley/BerkeleyMonoVariable-Italic.woff2') format('woff2'),
+        url('../fonts/berkley/BerkeleyMonoVariable-Italic.woff') format('woff');
     font-weight: normal;
-    font-style: italic;
-    font-displau: swap;
-}
-
-@font-face {
-    font-family: 'Berkley Mono';
-    src: url('../fonts/berkley/BerkeleyMono-Bold.woff2') format('woff2'),
-        url('../fonts/berkley/BerkeleyMono-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-displau: swap;
-}
-
-@font-face {
-    font-family: 'Berkley Mono';
-    src: url('../fonts/berkley/BerkeleyMono-BoldItalic.woff2') format('woff2'),
-        url('../fonts/berkley/BerkeleyMono-BoldItalic.woff') format('woff');
-    font-weight: bold;
     font-style: italic;
     font-displau: swap;
 }
