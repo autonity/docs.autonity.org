@@ -13,8 +13,7 @@ AOS is the reference implementation of the Autonity Oracle Protocol and the orac
 ### Core logic
 
 - _Core_, the core off-chain Autonity Oracle Server codebase managing interactions with the external price data source providers and the on-chain Oracle Contract via the connected Autonity Go Client node. Core executes aggregation of data from external sources ("_L1 aggregation_"), calculates a median price, and submits price report transactions on-chain to the Oracle Contract.
-- _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the Autonity network ledger providing operations for: computing median price ("_L2 aggregation_") from submitted price report transactions in oracle voting rounds, providing median price data, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
->>>>>>> f2a060f (Edits to Reference pages, Concepts: client, add Oracle, Architecture)
+- _Autonity Oracle Contract_, the core on-chain oracle protocol contract logic deployed to the Autonity network ledger at network genesis as part of the Autonity Go Client. The contract provides operations for: computing median price ("_L2 aggregation_") from submitted price report transactions in oracle voting rounds, providing median price data, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Client](/concepts/client/).
 - _Networking_, WebSocket and HTTP connections. HTTP RPC calls to configured data source providers; WebSocket connection to the Autonity Go Client validator node served to (a) submit price report transactions; (b) listen for on-chain Oracle Contract events.
 
 ### State storage
