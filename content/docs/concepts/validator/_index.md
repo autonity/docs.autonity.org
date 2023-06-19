@@ -31,9 +31,8 @@ It has responsibilities to:
 
 As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour by stake [slashing](/concepts/staking/#slashing) and penalty mechanisms implemented by an [accountability and fault detection protocol](/concepts/accountability/). Consensus committee members are incentivised by [staking rewards](/concepts/staking/#staking-rewards), receiving a share of the transaction fee revenue earned for each block of transactions committed to system state, _pro rata_ to their share of bonded stake securing the system in that block. Consensus committee members are incentivised to report Byzantine behaviour by other committee members by [slashing rewards](/concepts/accountability/#slashing-rewards) for reporting accountability faults resulting in a penalty.
 
-### Validator prerequisites 
 
-To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to Autonity [full node](/concepts/client/) software.
+### Validator prerequisites 
 
 Prerequisites for becoming a validator node operator are:
 
@@ -42,7 +41,6 @@ Prerequisites for becoming a validator node operator are:
 - A [treasury account](/concepts/validator/#treasury-account). An EOA account that is the validator node operator's online identity and which:
   - Is the `msg.sender()` account used by the operator to submit state affecting transactions that govern the [validator lifecycle](/concepts/validator/#validator-lifecycle).
   - Will receive the validator's share of [staking rewards](/concepts/staking/#staking-rewards).
-
 
 ## Validator identity, accounts and keypairs
 The validator makes use of different accounts and private/public [key pairs](/glossary/#key-pair) for validator lifecycle management (registration, pausing, reactivation), validator identity, staking rewards, consensus participation and cryptographic security. 
