@@ -31,6 +31,7 @@ Prerequisites for participating in the oracle network as a validator node operat
 - An [Autonity Oracle Server](/concepts/oracle-server/) installation, configured to connect to your full node and external price data sources via plugin adaptors.
 - Plugin adaptors for connecting to external data provider sources to retrieve price data for the currency pairs required for your node's connected Autonity network.
 
+
 ## Oracle identity, accounts and keypairs
 The oracle server makes use of a single account and private/public [key pair](/glossary/#key-pair) for oracle identity, oracle protocol participation, and cryptographic security. 
 
