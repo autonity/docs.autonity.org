@@ -1999,15 +1999,15 @@ Enter passphrase (or CTRL-d to exit):
 
 Registers a validator on an Autonity Network.
 
-The `registerValidator` method provides as argument the [enode](/glossary/#enode) URL of the validator node, the validator's oracle server address, and a proof of node ownership generated using the private key of the validator node's [P2P node key](/concepts/validator/#p2p-node-key) and the validator's [oracle server key](http://localhost:1313/concepts/oracle/#oracle-server-key).
+The `registerValidator` method provides as argument the [enode](/glossary/#enode) URL of the validator node, the validator's oracle server address, and a proof of node ownership generated using the private key of the validator node's [P2P node key](/concepts/validator/#p2p-node-key) and the validator's [oracle server key](/concepts/oracle-network/#oracle-server-key).
 
 On method execution a `Validator` object data structure is constructed in memory, populated with method arguments and default values ready for validator registration processing:
 
 | Field | Datatype | Description |
 | --| --| --|
 | `treasury` | `address payable` | Set to the `msg.sender` address submitting the `registerValidator` method call transaction |
-| `address` | `address` | Set to temporary value of `0` before assignment |
-| `_oracleAddress`| `string` | Assigned the value of the `_oracleAddress` argument to the method call |
+| `nodeAddress` | `address` | Set to temporary value of `0` before assignment |
+| `oracleAddress`| `string` | Assigned the value of the `_oracleAddress` argument to the method call |
 | `enode`| `string` | Assigned the value of the `_enode` argument to the method call |
 | `commissionRate` | | Assigned the value of the `delegationRate` parameter in the genesis configuration file |
 | `bondedStake` | `uint256` | Set to the value of `0`. There is no stake bonded to the newly registered validator at this point. |

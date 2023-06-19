@@ -47,9 +47,9 @@ Providing [oracle](/glossary/#data-oracle) reference data is a validator respons
 The set of [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas) instances run by [validators](/glossary#validator) [nodes](/glossary/#node) logically forms an "Autonity oracle network".
 
 ## Autonity Protocol
-A generalisation of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic finality, and liquid staking.
+A generalisation of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic finality, an oracle network, and liquid staking.
 
-The AutonityProtocol uses Ethereum’s EVM-based state transition function. State transition is by transaction, the transaction associated with an economic cost for computation, and transactions affecting [system state](/glossary/#system-state)).
+The Autonity Protocol uses Ethereum’s EVM-based state transition function. State transition is by transaction, the transaction associated with an economic cost for computation, and transactions affecting [system state](/glossary/#system-state)).
 
 ## block
 A set of transaction’s validated by consensus and appended to the [blockchain](/glossary/#blockchain).
@@ -171,6 +171,11 @@ The stake token used to stake an [Autonity network](/glossary/#autonity-network)
 ## node
 A participant running the Autonity Go Client software and able to connect to an Autonity network. See [peer](/glossary/#peer) [mesh network](/glossary/#mesh-network), [peer-to-peer network](/glossary/#peer-to-peer-network-p2p).
 
+## oracle network
+The network of validator-operated oracles that submits price data frm external data providers for on-chain aggregation to compute median price data for [currency pairs](/glossary/#currency-pair) provided by an Autonity network.
+
+Median price data is computed by protocol in [voting rounds](/glossary/#voting-round).
+
 ## participant
 A [peer](/glossary/#peer) [node](/glossary/#node) that is currently connected to other nodes in an Autonity network.
 
@@ -238,13 +243,13 @@ The Unix OS system for representing a point in time as a timestamp. Time is meas
 ## validator
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
 
-## vote period
-
-An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation) by the oracle network.
-
 ## voting period
 
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit and vote on price data reports to agree an aggregated data price for the [currency pair](/glossary/#currency-pair) symbols for which an Autonity network provides a median price. See [vote period](/glossary/#vote-period).
+The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [round](/glossary/#voting-round).
+
+## voting round
+
+An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
 
 ## voting power
 The amount of stake [delegated](/glossary/#delegate) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.

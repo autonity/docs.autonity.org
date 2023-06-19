@@ -116,20 +116,29 @@ Oracle Contract functions for returning price data, currency pairs provided, and
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Oracle Contract Interface](/reference/api/oracle/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
+### Median price computation
 
-### Oracle network
+The Autonity Oracle Contract manages the computation of median price data for currency pair price reports submitted by validator-operated oracle servers. The contract implements logic to:
 
-Validator oracle network
-Validator responsibility
+- Aggregate price report data submitted on-chain by validator-operated oracle servers and compute median prices for the currency pairs provided by the oracle network in voting rounds.
+- Manage the set of currency pair symbols for which the oracle network must provide price report data.
+- Provide contract operations for data consumers to determine the currency pair data provided and retrieve historical and latest computed median price data.
 
 To learn more about the concept see [Oracle network](/concepts/oracle-network/).
 
 ### Voting rounds
 
-Oracle voters
-Voting Rounds
+The Autonity Oracle Contract implements logic to manage submission of price data reports and calculation of median price over [voting rounds](/glossary/#voting-round) by protocol only functions:
+
+- Set oracle voters based on validators in the consensus committee and update the voter set as the consensus committee is re-selected at the end of an epoch.
+- Manage oracle voting rounds, triggering the initiation of a new voting period at the end of a round.
+
 
 ### Voter selection
+
+Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on median price computation by a protocol only function. As the last block of an epoch is finalised, this function is executed to determine the oracle voters for the following epoch.
+
+Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
 
 ## Blockchain Consensus
 
