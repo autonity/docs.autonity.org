@@ -75,15 +75,3 @@ footer.bg-dark.py-5.row.d-print-none {
 html {
     font-variation-settings: 'wght' 100;
 }
-
-/**
-* Fix word spacing for large header tags
-*/
-h1,
-h2,
-h3,
-.h1,
-.h2,
-.h3 {
-    letter-spacing: -1px;
-}
