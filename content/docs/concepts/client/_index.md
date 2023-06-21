@@ -14,7 +14,7 @@ AGC is the reference implementation of the Autonity Protocol and the main client
 ### Core logic
 
 - _Autonity Protocol Contract_, the protocol contract logic deployed to the ledger providing operations for: protocol governance, staking, validator registration, consensus committee selection, and staking rewards distribution. See [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract).
-- _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the ledger providing operations for: computing median price data, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Oracle](/concepts/oracle-server/).
+- _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the Autonity network ledger providing operations for: computing median price data, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Oracle](/concepts/oracle-server/).
 - _EVM_, the deterministic virtual machine providing the state transition function for computing global state
 - _Consensus_, Autonity implementation of the  Tendermint BFT consensus protocol managing state replication and block production with dynamic committee selection. See [Blockchain Consensus](/concepts/architecture/#blockchain-consensus)
 - _P2P Networking_, transport and wire protocols providing reliable broadcast for blockchain and consensus state synchronisation between participants. See [Communication Layer](/concepts/architecture/#communication-layer)

@@ -13,12 +13,11 @@ AOS is the reference implementation of the Autonity Oracle Protocol and the orac
 
 ### Core logic
 
-- _Core_, the core off-chain Autonity Oracle Server (AOS) codebase. Core manages interactions with external price data source providers via data adaptor 'plugins' and the connected Autonity Go Client (AGC) validator node AOS serves. Core executes aggregation of data from external sources ("_L1 aggregation_"), calculates an aggregated median price, and submits price report transactions on-chain to the Oracle Contract.
+- _Core_, the core off-chain Autonity Oracle Server (AOS) codebase. Core manages interactions with external price data source providers via data adaptor 'plugins' and the connected Autonity Go Client (AGC) validator node AOS serves. Core executes aggregation of data from external sources ("_off-chain aggregation_"), calculates an aggregated median price, and submits price report transactions on-chain to the Oracle Contract.
 - _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the ledger by AGC. The Oracle Contract manages the computation of median price data for currency pair price reports submitted by oracle servers. The contract provides operations for: computing median price ("_on-chain aggregation_") from submitted price report transactions in oracle voting rounds, providing median price data via interface, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Client](/concepts/client/).
 - _Networking_, the system uses WebSocket and HTTP network protocols. RPC calls are made to configured data source providers over HTTP, HTTPS, or WebSocket. The system establishes a connection to the AGC validator using WebSocket to (a) submit price report transactions and (b) listen for on-chain Oracle Contract events.
 
 The RPC calls to configured data source might have different network protocols, it may have HTTP, HTTPS, or even Web Socket, the plugin should implement this adaptation protocols, it depends on the provider's scheme.
-
 
 ### State storage
 
@@ -73,6 +72,7 @@ The sequence of lifecycle events for an oracle server is:
 3. Selection to consensus committee. Assuming stake bonded to validator and if selected to the consensus committee, the validator (a) participates in block validation, (b) participates in oracle voting rounds by oracle server submitting oracle vote transactions to the oracle contract with cryptographic commits and reveals of price report submissions.
 4. Runtime plugin management. The validator operator manages and updates data source plugins in accordance with currency pair changes and own operational requirements.
 
+
 ### Interfaces
 
 The oracle server provides interfaces for:
@@ -82,9 +82,5 @@ The oracle server provides interfaces for:
 
 The oracle server scans and load plugins from the plugin directory during runtime. Detection of new or changed plugins is dynamic;
 no shutdown of the oracle client is required to detect and apply the change.
-<!--
-TODO
-- RPC calls from the Autonity Utility Tool `aut`. `aut` provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.
--->
 
 - Command line options for oracle server configuration and interaction - see [Command-line options](/reference/cli/oracle/#command-line-options) Reference.

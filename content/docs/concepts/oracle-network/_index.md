@@ -31,7 +31,6 @@ Prerequisites for participating in the oracle network as a validator node operat
 - An [Autonity Oracle Server](/concepts/oracle-server/) installation, configured to connect to your full node and external price data sources via plugin adaptors.
 - Plugin adaptors for connecting to external data provider sources to retrieve price data for the currency pairs required for your node's connected Autonity network.
 
-
 ## Oracle identity, accounts and keypairs
 The oracle server makes use of a single account and private/public [key pair](/glossary/#key-pair) for oracle identity, oracle protocol participation, and cryptographic security. 
 
@@ -140,7 +139,6 @@ Primary consumers of oracle data are:
 
 - Auton Stabilisation Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
-
 
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
