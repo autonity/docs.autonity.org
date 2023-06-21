@@ -75,6 +75,7 @@ The sequence of lifecycle events for an oracle server is:
 4. Selection to consensus committee. Assuming stake bonded to validator and if selected to the consensus committee, the validator (a) participates in block validation, (b) participates in oracle voting rounds by oracle server submitting oracle vote transactions to the oracle contract with cryptographic commits and reveals of price report submissions.
 5. Runtime plugin management. The validator operator manages and updates data source plugins in accordance with currency pair changes and own operational requirements.
 
+
 ### Interfaces
 
 The oracle server provides interfaces for:

@@ -1,4 +1,3 @@
-
 ---
 title: "Autonity Go Client (AGC)"
 linkTitle: "Autonity Go Client (AGC)"
