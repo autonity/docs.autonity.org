@@ -60,10 +60,6 @@ Providing [oracle](/glossary/#data-oracle) reference data is a validator respons
 
 For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
 
-For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
-
-For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
-
 ## Autonity Protocol
 A generalization of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic [finality](/glossary/#finality), an [oracle protocol](/glossary/#oracle-protocol), and [liquid staking](/glossary/#liquid-staking).
 

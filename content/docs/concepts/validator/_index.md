@@ -34,6 +34,8 @@ As an entity contributing bonded stake to secure the network a validator active 
 
 ### Validator prerequisites 
 
+To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
+
 Prerequisites for becoming a validator node operator are:
 
 - A [validator enode URL](/concepts/validator/#validator-enode-url). A node joined to the network.
