@@ -103,10 +103,10 @@ To exemplify oracle frequency of new median price data publication from genesis 
 |Time (Block Height) | Event|
 |:----:|:-----|
 |`Genesis` | Network genesis; initiation of first oracle voting round: `R1` |
-|`Block 1...30`| Oracle voters submit price report vote, providing _commit_; _reveal_ and _salt_ null. |
+|`Block 1...29`| Oracle voters submit price report vote, providing _commit_; _reveal_ and _salt_ null. |
 |`Block 30`| `R1` voting round ends. No previous round so no _commits_ to _reveal_ and no valid price submissions for median price computation for `R1`. New Round event emitted for `R2`. |
 |`Block 31`| New Round begins: `R2` |
-|`Block 31...60`| Oracle voters submit price report vote, providing _commit_ for `R2`; _reveal_ and _salt_ for `R1`. |
+|`Block 31...59`| Oracle voters submit price report vote, providing _commit_ for `R2`; _reveal_ and _salt_ for `R1`. |
 |`Block 60`| `R2` voting round ends. Commit and reveal; median price round data computed for `R2`. New Round event emitted for `R3`&hellip; |
 
 {{% alert title="Note" %}}
@@ -179,7 +179,6 @@ Primary consumers of oracle data are:
 - Auton Stabilisation Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
 
-
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
 
@@ -188,6 +187,8 @@ Participation in the oracle network is a validator responsibility and receives n
 Oracle transactions are refunded if successfully committed.
 
 The oracle account must be funded with a seed balance to cover at least one voting transaction.
+
+Oracle votes in a round are limited to 1 because of this refund to prevent Byzantine behaviour.
 
 The validator is registered and eligible for selection to the consensus committee.
 
