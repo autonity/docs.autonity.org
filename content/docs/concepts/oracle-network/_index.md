@@ -197,6 +197,8 @@ Oracle transactions are refunded if successfully committed.
 
 The oracle account must be funded with a seed balance to cover at least one voting transaction.
 
+Oracle votes in a round are limited to 1 because of this refund to prevent Byzantine behaviour.
+
 The validator is registered and eligible for selection to the consensus committee.
 
 {{% alert title="Note" %}}
