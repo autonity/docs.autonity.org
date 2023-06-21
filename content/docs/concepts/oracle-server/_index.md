@@ -19,7 +19,6 @@ AOS is the reference implementation of the Autonity Oracle Protocol and the orac
 
 The RPC calls to configured data source might have different network protocols, it may have HTTP, HTTPS, or even Web Socket, the plugin should implement this adaptation protocols, it depends on the provider's scheme.
 
-
 ### State storage
 
 Oracle server is stateless and does not maintain an off-chain database. Off-chain price aggregation is computed by the server in memory. Price report transactions submitted to the Oracle Contract on-chain are committed to the Autonity network's ledger and persisted in world state. See also [System model](/concepts/system-model/) and the [Ledger object](/concepts/system-model/#the-ledger-object). 
