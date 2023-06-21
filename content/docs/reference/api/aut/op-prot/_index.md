@@ -739,7 +739,9 @@ Returns the amount of stake token bonded to the new consensus committee members 
 The block finalisation function, invoked each block after processing every transaction within it. The function:
 
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
-- adds the `amount` parameter value to the `epochReward` protocol parameter
+
+<!-- - adds the `amount` parameter value to the `epochReward` protocol parameter -->
+
 - checks if the block number is the last epoch block number and if so, then:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
     - sets `epochReward` to `0`

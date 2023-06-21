@@ -34,6 +34,8 @@ A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the nat
 ## Autonity Go Client (AGC)
 Autonity Go Client is main client software for accessing and participating in an Autonity network. AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
 
+For AGC features see Concept [Client](/concepts/client/).
+
 ## Autonity network
 An instance of an Autonity blockchain [peer-to-peer network](/glossary/#peer-to-peer-network-p2p), all [peer](/glossary/#peer) [nodes](/glossary/#node) running Autonity Go Client main client software. Public Autonity networks are instantiated for specific purposes - e.g. testnet, mainnet.
 
@@ -42,12 +44,12 @@ Autonity network peers are connected in a full [mesh network](/glossary/#mesh-ne
 ## Autonity Oracle Server (AOS)
 Autonity Oracle Server (AOS) is software for participating in the [Autonity oracle network](/glossary/#autonity-oracle-network). AOS retrieves exchange rate data for [currency pairs](/glossary/#currency-pair) from data providers, consolidates these data points into a standardised report, and submits to the Autonity Protocol's oracle contract on-chain via the AOS operator's [validator](/glossary/#validator) [node](/glossary/#node). Submitted data reports are then aggregated by the oracle contract which uses a voting mechanism to provide exchange rate reference data agreed by consensus.
 
-Providing [oracle](/glossary/#data-oracle) reference data is a validator responsibility; [validator](/glossary/#validator) node operators run an AOS connected to their [AGC](/glossary/#autonity-go-client-agc).
+Providing [oracle](/glossary/#data-oracle) reference data is a validator responsibility. [Validator](/glossary/#validator) node operators must operate an AOS connected to their validator [node](/glossary/#autonity-go-client-agc).
 
-The set of [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas) instances run by [validators](/glossary#validator) [nodes](/glossary/#node) logically forms an "Autonity oracle network".
+For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
 
 ## Autonity Protocol
-A generalisation of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic finality, an oracle network, and liquid staking.
+A generalisation of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic [finality](/glossary/#finality), an [oracle protocol](/glossary/#oracle-protocol), and [liquid staking](/glossary/#liquid-staking).
 
 The Autonity Protocol uses Ethereum’s EVM-based state transition function. State transition is by transaction, the transaction associated with an economic cost for computation, and transactions affecting [system state](/glossary/#system-state)).
 
@@ -172,9 +174,10 @@ The stake token used to stake an [Autonity network](/glossary/#autonity-network)
 A participant running the Autonity Go Client software and able to connect to an Autonity network. See [peer](/glossary/#peer) [mesh network](/glossary/#mesh-network), [peer-to-peer network](/glossary/#peer-to-peer-network-p2p).
 
 ## oracle network
-The network of validator-operated oracles that submits price data frm external data providers for on-chain aggregation to compute median price data for [currency pairs](/glossary/#currency-pair) provided by an Autonity network.
+The network of validator-operated oracles that submits price data from off-chain external data providers on-chain and votes on agreeing an aggregated median price data according to an [oracle protocol](/glossary/#oracle-protocol).
 
-Median price data is computed by protocol in [voting rounds](/glossary/#voting-round).
+## oracle protocol
+The logic and rules governing the calculation of median price data by the [oracle network](/glossary/#oracle-network). The protocol has off- and on-chain operations. Price data is collected from external data providers by [oracle servers](/glossary/#autonity-oracle-server-aos) run by validator operators and submitted on-chain to an oracle [contract](/glossary/#smart-contract). The oracle contract computes aggregate median price data for those currency pairs; consensus committee members vote to agree the median prices by consensus in [voting rounds](/glossary/#voting-round).
 
 ## participant
 A [peer](/glossary/#peer) [node](/glossary/#node) that is currently connected to other nodes in an Autonity network.

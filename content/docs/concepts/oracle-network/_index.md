@@ -9,11 +9,9 @@ description: >
 
 ## Overview
 
-This section describes the oracle network, the role of validator as oracle, and the oracle protocol.
+This section describes the oracle protocol, the role of validators in providing and agreeing median price data, and the lifecycle for oracle voting and currency pair management.
 
-Validator nodes selected to the consensus committee must participate in the Oracle protocol and submit price reports for median aggregation in voting rounds.
-
-Autonity provides consensus-computed median price data for selected currency pairs as an L1 platform feature. The submission of price data for aggregation and voting in an oracle protocol is a validator responsibility. As such, validator nodes form an oracle network. If selected to the consensus committee, these 'validator oracles' submit raw price data reports for the selected currency pairs on-chain, and, participate in an oracle protocol to agree an aggregated median price for those selected currency pairs in discrete voting rounds. As voting rounds complete, the aggregated median price data computed and provided by the Autonity network is updated. As the consensus committee changes, so does the set of 'validator oracles' to keep it in sync with the consensus committee.
+Autonity provides consensus-computed median price data for selected currency pairs as an L1 platform feature. The submission of price data for aggregation and voting is a validator responsibility and executed according to an _oracle protocol_. As consequence, validator nodes form an _oracle network_. When a member of the [consensus committee](/glossary/#consensus-committee), validators must submit raw price data reports for currency pairs on-chain, and participate in the oracle protocol to agree an aggregated median price for the submitted price data in discrete _voting rounds_ using a _commit and reveal_ protocol. As voting rounds complete, the aggregated median price data computed and provided by the Autonity network is updated. As [epoch](/glossary/#epoch)'s end the set of oracle voters changes to accord with new consensus committee membership.
 
 In the oracle protocol a validator has responsibilities to:
 
@@ -25,41 +23,13 @@ In the oracle protocol a validator has responsibilities to:
 
 ### Oracle prerequisites   
 
-To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
+To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
 
 Prerequisites for participating in the oracle network as a validator node operator are:
 
-- An Autonity Go Client full node installation, joined to an Autonity network.
-- An Autonity Oracle Server installation, configured to connect to your full node installation and external data source providers via plugin adaptors.
+- An [Autonity Go Client](/concepts/client/) full node installation, joined to an Autonity network.
+- An [Autonity Oracle Server](/concepts/oracle-server/) installation, configured to connect to your full node and external price data sources via plugin adaptors.
 - Plugin adaptors for connecting to external data provider sources to retrieve price data for the currency pairs required for your node's connected Autonity network.
-
-
-## Oracle protocol
-
-### Median price computation
-
-The Autonity Oracle Contract manages the computation of median price data for currency pair price reports submitted by validator-operated oracle servers. 
-
-
-### Voting rounds
-
-Oracle voters
-Voting Rounds
-
-### Voter selection
-
-By oracle protocol
-In sync with consensus committee changes
-
-### Commit and reveal
-
-Commit and reveal protocol
-
-### Currency pair management
-Set at genesis config
-Symbols - get, current
-Symbols - set, change
-Symbols - when change applied
 
 ## Oracle identity, accounts and keypairs
 The oracle server makes use of a single account and private/public [key pair](/glossary/#key-pair) for oracle identity, oracle protocol participation, and cryptographic security. 
@@ -76,23 +46,102 @@ The private key is used:
 The public key is used:
 
 - To derive an ethereum format account that is then used to identify the oracle server. See [oracle identifier](#oracle-identifier).
+- As the `msg.Sender` address used by the oracle server to submit transactions for oracle price report submissions by function call to the Oracle Contract on-chain.
 
 ### Oracle identifier
 
-A unique identifier for the Autonity Oracle Server used:
-
-- as the oracle identity in validator registration, where it is provided as an  `oracleAddress` parameter
-- as the `msg.Sender` address used by the oracle server to submit transactions for oracle price report submissions by function call to the Oracle Contract on-chain.
+A unique identifier for the Autonity Oracle Server used as the oracle identity in validator registration, where it is provided as an  `oracleAddress` parameter.
 
 The identity is created as an ethereum format account address, generated by the entity operating the oracle server as part of the deployment process. It provides an unambiguous relationship between oracle server identity and the associated validator node for which the oracle server is a data provider.
-
-The identifier may be referred to as the `oracle` account.
 
 {{< alert title="Note" >}}
 The oracle identifier is stored in the `oracleAddress` field in the Validator data struct maintained in state.
 
-Note that this identifier is the _oracle server's_ on-chain identity and is distinct from the `nodeAddress` which is the validator node identifier, and the `treasury` account which is the validator _operator's_ account.
+Note that this identifier is the _oracle server's_ on-chain identity and is distinct from the `nodeAddress` which is the validator node identifier, and the `treasury` account which is the validator _operator's_ account. 
+The identifier may be referred to as the `oracle` account.
 {{< /alert >}}
+
+## Oracle network
+
+Validator nodes must participate in the [oracle protocol](/concepts/oracle-network/#oracle-protocol) when a member of the consensus committee.
+
+This results in a logical '_oracle network_' of validator-operated oracles responsible for sourcing price data, submitting price reports on-chain, and participating in [voting rounds](/concepts/oracle-network/#voting-rounds) to agree on aggregated median prices for the [currency pairs](/glossary/#currency-pair) provided by an Autonity network.
+
+## Oracle protocol
+
+The computation of median price data is governed by protocol logic and rules. The protocol has off- and on-chain operations. Price data is collected from external data providers by [oracle servers](/glossary/#autonity-oracle-server-aos) run by validator operators and submitted on-chain to an oracle [contract](/glossary/#smart-contract) that computes aggregate median price data in [voting rounds](/glossary/#voting-round). Validators are responsible for providing source data from off-chain and voting to agree a median price on-chain when members of the consensus committee.
+
+The protocol computes median price by aggregation:
+
+- Off-chain _L1 aggregation_. Oracle Server's collect source price data for currency pairs from one or more sources. If data is taken from multiple sources, then an aggregation is performed to consolidate price data into a standardised report. This price report (or price data 'sample') is then pushed to the oracle contract deployed on the Autonity L1 network via a transaction submitted from the oracle server account.
+- On-chain _L2 aggregation_. The oracle contract aggregates the supplied price data reports to compute a reference exchange rate data through a voting mechanism using a [commit-reveal](/concepts/oracle-network/#commit-and-reveal) protocol in [voting rounds](/concepts/oracle-network/#voting-rounds). 
+
+The commit and reveal scheme is applied for security in price voting and  results in a round lag between oracle price updates.
+
+### Voting rounds
+
+To coordinate the submission of source price data reports and computation of median price in the oracle network, oracle voting on median price computation takes place in [voting rounds](/glossary/#voting-round) run over a fixed duration of blocks, the [voting period](/glossary/#voting-period) (the duration in blocks of which is set as the [protocol parameter](/reference/protocol/) `votePeriod`). In the last block of each [vote period](/glossary/#voting-period) the L1 oracle contract issues a `NewRound` event. The round event provides a tuple of round ID, block number, block timestamp, and vote period, which tells the oracle server that on the round with that ID a price report for that timestamp is required for submission by the oracle server. The  block number indicates the block height at which the new round begins, while the vote period is the length measured in blocks of the new round. The oracle server uses the metadata to estimate and manage data sampling for submission to the new round, submitting price data as close as possible to the required timestamp.
+
+### Voter selection
+
+Oracle voters are selected from the current consensus committee and are kept in sync with consensus committee changes by protocol as the committee changes with new epochs.
+
+Voters are allowed to vote once each round. If a validator leaves the  consensus committee then their vote is discarded; if a validator joins the consensus committee then their first vote is not taken into account.
+
+### Commit and reveal
+
+A _commit and reveal_ protocol is used for price voting. In each round the oracle voter submits a vote transaction providing:
+
+- `_commit`: a cryptographic hash of the new price report submitted for the round
+- `_reports`: a reveal of the price report submitted for the previous round
+- `_salt`: a salt value used to generate the previous round's commitment
+
+Protocol then uses the _salt_ to verify the previous round's _commit_ matches the _reveal_ for that commit provided by the voter in the current round. This introduces a time lag in oracle price updates: prices are submitted in round `1`, revealed and median price data at the end of round `2`.
+
+To exemplify oracle frequency of new median price data publication from genesis in a scenario of vote period set to 30 blocks:
+
+|Time (Block Height) | Event|
+|:----:|:-----|
+|`Genesis` | Network genesis; initiation of first oracle voting round: `R1` |
+|`Block 1...29`| Oracle voters submit price report vote, providing _commit_; _reveal_ and _salt_ null. |
+|`Block 30`| `R1` voting round ends. No previous round so no _commits_ to _reveal_ and no valid price submissions for median price computation for `R1`. New Round event emitted for `R2`. |
+|`Block 31`| New Round begins: `R2` |
+|`Block 31...59`| Oracle voters submit price report vote, providing _commit_ for `R2`; _reveal_ and _salt_ for `R1`. |
+|`Block 60`| `R2` voting round ends. Commit and reveal; median price round data computed for `R2`. New Round event emitted for `R3`&hellip; |
+
+{{% alert title="Note" %}}
+If an oracle fails to vote in a round, or the reveal does not match the past commit, then the oracle voter is recorded as submitting an invalid price for the round.
+{{% /alert %}}
+
+
+### Currency pair management
+Set at genesis config
+Symbols - get, current
+Symbols - set, change
+Symbols - when change applied
+
+
+## Data adaptors - plugin architecture
+The Autonity oracle client provides a unified interface between itself and plugins that adapt data from
+different data providers, for example Binance and Coingecko, etc. Any party can build a plugin implementing
+this unified interface and so provide an adaptor for any data source on demand. The oracle client will scan and load
+plugins from the plugin directory during runtime. Detection of new or changed plugins is dynamic;
+no shutdown of the oracle client is required to detect and apply the change.
+
+Runtime plugin management
+Adding new plugins
+To add a new data source, just put the new plugin into the service's plugins directory. The oracle service auto discovers and manages it. There are no other operations required from the operator.
+
+Replace running plugins
+To replace running plugins with new ones, just replace the binary in the plugins directory. The oracle service auto discovers it by checking the modification time of the binary and does the plugin replacement itself. There are no other operations required from the operator.
+
+## Oracle data providers
+
+TO DO
+
+## Oracle data consumers
+
+DApps deployed on the Autonity L1 network can access median price data via the oracle contract interface.
 
 ## Oracle lifecycle
 
@@ -104,13 +153,6 @@ Note that this identifier is the _oracle server's_ on-chain identity and is dist
 
 Oracle transactions are refunded if successful. The balance of the oracle account is required to be funded to cover at least one voting transaction.
 
-## Oracle registration
-
-A proof of ownership for the oracle account is required when submitting a registration transaction to the Autonity Contract.
-
-
-### Genesis registration
-
-### Post-genesis registration
+Oracle votes in a round are limited to 1 because of this refund to prevent Byzantine behaviour.
 
 

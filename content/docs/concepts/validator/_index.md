@@ -12,7 +12,7 @@ This section describes the role of validators, prerequisites for becoming a vali
 
 A validator is an Autonity full node with bonded stake that is eligible for selection to an Autonity Network's consensus committee. As a member of the consensus committee its primary function is to ensure the integrity of system state. Validators participate in block proposal, voting, and verification, and the computation of median price data for selected currency pairs according to the Oracle protocol.
 
-To fulfil this it participates in consensus computation with other members of the consensus committee:
+To fulfil this purpose the validator participates in consensus computation with other members of the consensus committee:
 
 - Validating proposed blocks in accordance with the rules of Autonity's implementation of the Tendermint consensus mechanism.
 - Submitting price reports and voting on aggregated median price data in oracle protocol voting rounds.
@@ -31,7 +31,7 @@ As an entity contributing bonded stake to secure the network a validator active 
 
 ### Validator prerequisites 
 
-To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
+To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
 
 Prerequisites for becoming a validator node operator are:
 
@@ -167,7 +167,7 @@ Staking rewards may be reduced by any slashing penalties applied to the validato
 A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:
 
 -  The validator has a node address (an enode URL).
--  The validator has a connected [oracle server](/concepts/oracle/).
+-  The validator has a connected [oracle server](/concepts/oracle-server/).
 -  The validator has a funded account on the network.
 
 A validator's registration is recorded and maintained as a state variable in a `Validator` data structure. (See [`registerValidator()`](/reference/api/aut/#registervalidator)).

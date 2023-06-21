@@ -18,7 +18,7 @@ To register a validator you need:
 {{< alert title="Note" >}}
 See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.
 
-See the [Oracle](/concepts/oracle/) section for an explanation of the oracle server.
+See the [Oracle](/concepts/oracle-server/) section for an explanation of the oracle server.
 {{< /alert >}}
 
 ## Register as a validator
