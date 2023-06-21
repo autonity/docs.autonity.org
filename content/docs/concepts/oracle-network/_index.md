@@ -148,8 +148,10 @@ Oracle transactions are refunded if successfully committed.
 
 The oracle account must be funded with a seed balance to cover at least one voting transaction.
 
+Oracle votes in a round are limited to 1 because of this refund to prevent Byzantine behaviour.
+
 The validator is registered and eligible for selection to the consensus committee.
 
 {{% alert title="Note" %}}
-Note that oracle vote transactions are limited to 1 each Round. This prevents the refund funding a spam attack vector in a Byzantine behaviour scenario. Once 1 vote transaction from an oracle account has been successfully processed, any further vote transactions from that oracle account during the round are reverted.
+Limiting the oracle vote transaction to 1 each Round prevents the refund funding a spam attack vector in a Byzantine behaviour scenario. Once 1 vote transaction from an oracle account has been successfully processed, any further vote transactions from that oracle account during the round are reverted.
 {{% /alert %}}

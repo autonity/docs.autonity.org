@@ -56,9 +56,9 @@ Autonity network peers are connected in a full [mesh network](/glossary/#mesh-ne
 ## Autonity Oracle Server (AOS)
 Autonity Oracle Server (AOS) is software for participating in the [Autonity oracle network](/glossary/#autonity-oracle-network). AOS retrieves exchange rate data for [currency pairs](/glossary/#currency-pair) from data providers, consolidates these data points into a standardised report, and submits to the Autonity Protocol's oracle contract on-chain via the AOS operator's [validator](/glossary/#validator) [node](/glossary/#node). Submitted data reports are then aggregated by the oracle contract which uses a voting mechanism to provide exchange rate reference data agreed by consensus.
 
-Providing [oracle](/glossary/#data-oracle) reference data is a validator responsibility; [validator](/glossary/#validator) node operators run an AOS connected to their [AGC](/glossary/#autonity-go-client-agc).
+Providing [oracle](/glossary/#data-oracle) reference data is a validator responsibility. [Validator](/glossary/#validator) node operators must operate an AOS connected to their validator [node](/glossary/#autonity-go-client-agc).
 
-The set of [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas) instances run by [validators](/glossary#validator) [nodes](/glossary/#node) logically forms an "Autonity oracle network".
+For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
 
 For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
 
@@ -201,20 +201,11 @@ The stake token used to stake an [Autonity network](/glossary/#autonity-network)
 A participant running the Autonity Go Client software and able to connect to an Autonity network. See [peer](/glossary/#peer) [mesh network](/glossary/#mesh-network), [peer-to-peer network](/glossary/#peer-to-peer-network-p2p).
 
 ## oracle network
-<<<<<<< HEAD
 The network of validator-operated oracles that submits price data from off-chain external data providers on-chain and votes on agreeing an aggregated median price data according to an [oracle protocol](/glossary/#oracle-protocol).
 
 The set of [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas) instances run by [validators](/glossary#validator) [nodes](/glossary/#node) logically forms an "Autonity oracle network".
 
 Median price data is computed by protocol in [voting rounds](/glossary/#voting-round).
-
-## oracle protocol
-The logic and rules governing the calculation of median price data by the [oracle network](/glossary/#oracle-network). The protocol has off- and on-chain operations. Price data is collected from external data providers by [oracle servers](/glossary/#autonity-oracle-server-aos) run by validator operators and submitted on-chain to an oracle [contract](/glossary/#smart-contract). The oracle contract computes aggregate median price data for those currency pairs; consensus committee members vote to agree the median prices by consensus in [voting rounds](/glossary/#voting-round).
-=======
-The network of validator-operated oracles that submits price data frm external data providers for on-chain aggregation to compute median price data for [currency pairs](/glossary/#currency-pair) provided by an Autonity network.
-
-Median price data is computed by protocol in [voting rounds](/glossary/#voting-round).
->>>>>>> 848c992 (Edits to Concepts)
 
 ## participant
 A [peer](/glossary/#peer) [node](/glossary/#node) that is currently connected to other nodes in an Autonity network.
@@ -305,21 +296,11 @@ The Unix OS system for representing a point in time as a timestamp. Time is meas
 ## validator
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
 
-<<<<<<< HEAD
 ## vote period
 An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation) by the oracle network.
 
 ## voting period
 The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit and vote on price data reports to agree an aggregated data price for the [currency pair](/glossary/#currency-pair) symbols for which an Autonity network provides a median price. See [vote period](/glossary/#vote-period).
-=======
-## voting period
-
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [round](/glossary/#voting-round).
-
-## voting round
-
-An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
->>>>>>> 848c992 (Edits to Concepts)
 
 ## voting power
 The amount of stake bonded by [delegation](/glossary/#delegation) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
