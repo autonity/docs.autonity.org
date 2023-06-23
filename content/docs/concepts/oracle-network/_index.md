@@ -115,11 +115,11 @@ If an oracle fails to vote in a round, or the reveal does not match the past com
 
 ### Currency pair management
 
-The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see [`config.autonity.oracle`](/reference/genesis/#configautonityoracle-object) object.
+The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see `[config.autonity.oracle](/reference/genesis/#configautonityoracle-object)` object.
 
-The currency pair symbols set for a network can be returned by a contract call using the [`getSymbols()`](/reference/api/oracle/#getsymbols) function.
+The currency pair symbols set for a network can be returned by a contract call using the [getSymbols()](/reference/api/oracle/#getsymbols) function.
 
-The pairs can be updated post-genesis by a governance-only function, [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
+The pairs can be updated post-genesis by a governance-only function, `[setSymbols()](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
 
 Note that if currency pair symbols are changed there is a 2-round delay in applying the change after the symbol update round. This is because of the [commit and reveal](/concepts/oracle-network/#commit-and-reveal) process for submitting and revealing price reports: oracles send commits for the new symbols in "symbol updated round + 1" and reveals for the new symbols in "symbol updated round + 2".
 
@@ -152,41 +152,12 @@ To exemplify:
 |`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
 |`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
 
-Valid price data sources are exchanges providing up to date market prices for trades in the currency pairs provided by the oracle server's configuration.
-
-
-Primary data providers for oracle data are:
-
-- FX and ATN/NTN currency pairs utilised in the Autonity Stability Mechanism.
-
-A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
-
-- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
-- Simulator plugin: for simulated ATN/NTN data. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
-
-{{% alert title="Info" color="info"%}}
-ATN and NTN symbols are preview listed but untraded:
-
-- https://www.coingecko.com/en/coins/auton
-- https://www.coingecko.com/en/coins/newton
-
-Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch.
-{{% /alert %}}
-
-### Developing data plugins
-Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
-
-- Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
-- Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
-
-
 ## Oracle data consumers
 
 Primary consumers of oracle data are:
 
 - Auton Stabilisation Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
-
 
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
@@ -196,8 +167,6 @@ Participation in the oracle network is a validator responsibility and receives n
 Oracle transactions are refunded if successfully committed.
 
 The oracle account must be funded with a seed balance to cover at least one voting transaction.
-
-Oracle votes in a round are limited to 1 because of this refund to prevent Byzantine behaviour.
 
 The validator is registered and eligible for selection to the consensus committee.
 
