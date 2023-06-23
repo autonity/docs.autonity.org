@@ -1299,7 +1299,7 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 '0x2f3BcE2d6C2602de594d9a6662f0b93416cfB4d7'
 {{< /tab >}}
 -->
-
+<!--
 ##  getProposer
 
 Returns the address of the consensus committee member proposing a new block for a specified block height and consensus round.
@@ -1329,12 +1329,13 @@ aut protocol get-proposer [OPTIONS] HEIGHT ROUND
 {"method": "aut_getProposer", "params":[height, round]}
 {{< /tab >}}
 {{< /tabpane >}}
-
+-->
 <!--
 {{< tab header="NodeJS Console" >}}
 autonity.getProposer(height, round).call()
 {{< /tab >}}
 -->
+<!--
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -1354,7 +1355,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
 {{< /tab >}}
 {{< /tabpane >}}
-
+-->
 <!--
 {{< tab header="NodeJS Console" >}}
 > autonity.getProposer(4576868,0).call()

@@ -105,11 +105,12 @@ Validator lifecycle management comprises registration, pausing, and reactivation
 The sequence of lifecycle events for a validator is:
 
 1. Join the network. The validator's main client software is admitted to the P2P network as a peer node, syncing state on connection.
-2. Register as a validator. The validator's node is registered as a validator by the submission of registration parameters.
-3. Stake bonding. Stake is bonded to the validator, either by the validator itself or by delegation from a stake token holder. Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the committee selection process.
-4. Selection to consensus committee. In the last block of an epoch, the committee selection process is run and a validator may be selected to the consensus committee for the next epoch.
-5. Pause as a validator. The validator's node enters a `paused` state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until reactivated. Stake is _not_ automatically unbonded.
-6. Reactivate as a validator. The validator's node transitions from a `paused` state to resume an `active` state in which it is eligible for inclusion in the committee selection process.
+2. Configure oracle server and data sources. Pre-validator registration, the validator installs the oracle server software and configures data sources for price data provision. 
+3. Register as a validator. The validator's node is registered as a validator by the submission of registration parameters.
+4. Stake bonding. Stake is bonded to the validator, either by the validator itself or by delegation from a stake token holder. Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the committee selection process.
+5. Selection to consensus committee. In the last block of an epoch, the committee selection process is run and a validator may be selected to the consensus committee for the next epoch. Whilst a member of the consensus committee it is responsible for participating in (a) block validation, proposing and voting on new blocks, and (b) oracle price data submission and voting.
+6. Pause as a validator. The validator's node enters a `paused` state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until reactivated. Stake is _not_ automatically unbonded.
+7. Reactivate as a validator. The validator's node transitions from a `paused` state to resume an `active` state in which it is eligible for inclusion in the committee selection process.
 
 Validator registration can take place at genesis initialisation or after genesis. In the genesis scenario, event steps 1-4 happen automatically as the network is initialised and the validator is included in the genesis run of the committee selection process. After genesis, all lifecycle steps are discrete and initiated by the validator node operator entity. 
 
