@@ -161,7 +161,6 @@ Primary consumers of oracle data are:
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
 
 
-
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
 
@@ -170,8 +169,6 @@ Participation in the oracle network is a validator responsibility and receives n
 Oracle transactions are refunded if successfully committed.
 
 The oracle account must be funded with a seed balance to cover at least one voting transaction.
-
-Oracle votes in a round are limited to 1 because of this refund to prevent Byzantine behaviour.
 
 The validator is registered and eligible for selection to the consensus committee.
 
