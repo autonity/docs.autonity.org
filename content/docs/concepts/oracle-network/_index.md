@@ -143,7 +143,6 @@ The oracle server scans and load plugins from the `/plugins` directory (see how 
 - Adding new plugins. To add an adaptor for a new data source, place the new plugin into the oracle server's `/plugins` directory. The oracle server auto-discovers and manages it. There are no other operations required from the operator.
 - Replace or upgrade running plugins. To replace a (running) data adaptor plugin with a new version, just replace the binary in the `/plugins` directory. The oracle server auto-discovers the new version by checking the modification time of the binary and manages the plugin replacement itself. There are no other operations required from the operator.
 
-
 ## Oracle data providers
 
 Valid price data sources are exchanges providing up to date market prices for trades in the currency pairs provided by the oracle server's configuration.
@@ -172,12 +171,25 @@ Additional data adaptors for any external data source can be developed using the
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
 
+
 ## Oracle data consumers
 
 Primary consumers of oracle data are:
 
 - Auton Stabilisation Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
+
+
+## Oracle server lifecycle
+Oracle server lifecycle management is an adjunct of validator operations and comprises software installation and the configuration and (optionally) development of adaptors for data to data sources for currency pair price data.
+
+The sequence of lifecycle events for an oracle server is:
+
+1. Join the oracle network. The validator’s oracle server is installed and configured: oracle server account created, data plugins configured to pull currency pair data from external data sources; oracle server configured to connect to the validator's main client software.
+2. Register as a validator. The validator’s node is registered as a validator by the submission of registration parameters, which include the oracle address.
+3. Oracle server initialised. The server is initialised and begins retrieving price report data from its connected data sources transactions to its connected validator node.
+3. Selection to consensus committee. Assuming stake bonded to validator and if selected to the consensus committee, the validator (a) participates in block validation, (b) participates in oracle voting rounds by oracle server submitting oracle vote transactions to the oracle contract with cryptographic commits and reveals of price report submissions.
+4. Runtime plugin management. The validator operator manages and updates data source plugins in accordance with currency pair changes and own operational requirements.
 
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
@@ -187,8 +199,6 @@ Participation in the oracle network is a validator responsibility and receives n
 Oracle transactions are refunded if successfully committed.
 
 The oracle account must be funded with a seed balance to cover at least one voting transaction.
-
-Oracle votes in a round are limited to 1 because of this refund to prevent Byzantine behaviour.
 
 The validator is registered and eligible for selection to the consensus committee.
 
