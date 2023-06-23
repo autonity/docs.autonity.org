@@ -152,12 +152,25 @@ To exemplify:
 |`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
 |`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
 
+
 ## Oracle data consumers
 
 Primary consumers of oracle data are:
 
 - Auton Stabilization Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
+
+
+## Oracle server lifecycle
+Oracle server lifecycle management is an adjunct of validator operations and comprises software installation and the configuration and (optionally) development of adaptors for data to data sources for currency pair price data.
+
+The sequence of lifecycle events for an oracle server is:
+
+1. Join the oracle network. The validator’s oracle server is installed and configured: oracle server account created, data plugins configured to pull currency pair data from external data sources; oracle server configured to connect to the validator's main client software.
+2. Register as a validator. The validator’s node is registered as a validator by the submission of registration parameters, which include the oracle address.
+3. Oracle server initialised. The server is initialised and begins retrieving price report data from its connected data sources transactions to its connected validator node.
+3. Selection to consensus committee. Assuming stake bonded to validator and if selected to the consensus committee, the validator (a) participates in block validation, (b) participates in oracle voting rounds by oracle server submitting oracle vote transactions to the oracle contract with cryptographic commits and reveals of price report submissions.
+4. Runtime plugin management. The validator operator manages and updates data source plugins in accordance with currency pair changes and own operational requirements.
 
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
@@ -167,8 +180,6 @@ Participation in the oracle network is a validator responsibility and receives n
 Oracle transactions are refunded if successfully committed.
 
 The oracle account must be funded with a seed balance to cover at least one voting transaction.
-
-Oracle votes in a round are limited to 1 because of this refund to prevent Byzantine behaviour.
 
 The validator is registered and eligible for selection to the consensus committee.
 
