@@ -13,11 +13,9 @@ AOS is the reference implementation of the Autonity Oracle Protocol and the orac
 
 ### Core logic
 
-- _Core_, the core off-chain Autonity Oracle Server (AOS) codebase. Core manages interactions with external price data source providers via data adaptor 'plugins' and the connected Autonity Go Client (AGC) validator node AOS serves. Core executes aggregation of data from external sources ("_off-chain aggregation_"), calculates an aggregated median price, and submits price report transactions on-chain to the Oracle Contract.
-- _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the ledger by AGC. The Oracle Contract manages the computation of median price data for currency pair price reports submitted by oracle servers. The contract provides operations for: computing median price ("_on-chain aggregation_") from submitted price report transactions in oracle voting rounds, providing median price data via interface, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Client](/concepts/client/).
-- _Networking_, the system uses WebSocket and HTTP network protocols. RPC calls are made to configured data source providers over HTTP, HTTPS, or WebSocket. The system establishes a connection to the AGC validator using WebSocket to (a) submit price report transactions and (b) listen for on-chain Oracle Contract events.
-
-The RPC calls to configured data source might have different network protocols, it may have HTTP, HTTPS, or even Web Socket, the plugin should implement this adaptation protocols, it depends on the provider's scheme.
+- _Core_, the core off-chain Autonity Oracle Server codebase managing interactions with the external price data source providers via a data adaptor 'plugin' architecture, and the on-chain Oracle Contract via the connected Autonity Go Client node. Core executes aggregation of data from external sources ("_L1 aggregation_"), calculates a median price, and submits price report transactions on-chain to the Oracle Contract.
+- _Autonity Oracle Contract_, the core on-chain oracle protocol contract logic deployed to the Autonity network ledger at network genesis as part of the Autonity Go Client. The Oracle Contract manages the computation of median price data for currency pair price reports submitted by oracle servers. The contract provides operations for: computing median price ("_L2 aggregation_") from submitted price report transactions in oracle voting rounds, providing median price data via interface, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Client](/concepts/client/).
+- _Networking_, WebSocket and HTTP connections. HTTP RPC calls to configured data source providers; WebSocket connection to the Autonity Go Client validator node served to (a) submit price report transactions; (b) listen for on-chain Oracle Contract events.
 
 ### State storage
 
@@ -82,5 +80,10 @@ The oracle server provides interfaces for:
 
 The oracle server scans and load plugins from the plugin directory during runtime. Detection of new or changed plugins is dynamic;
 no shutdown of the oracle client is required to detect and apply the change.
+
+<!--
+TODO
+- RPC calls from the Autonity Utility Tool `aut`. `aut` provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.
+-->
 
 - Command line options for oracle server configuration and interaction - see [Command-line options](/reference/cli/oracle/#command-line-options) Reference.
