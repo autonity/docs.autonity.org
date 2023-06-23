@@ -115,11 +115,11 @@ If an oracle fails to vote in a round, or the reveal does not match the past com
 
 ### Currency pair management
 
-The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see [`config.autonity.oracle`](/reference/genesis/#configautonityoracle-object) object.
+The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see `[config.autonity.oracle](/reference/genesis/#configautonityoracle-object)` object.
 
-The currency pair symbols set for a network can be returned by a contract call using the [`getSymbols()`](/reference/api/oracle/#getsymbols) function.
+The currency pair symbols set for a network can be returned by a contract call using the [getSymbols()](/reference/api/oracle/#getsymbols) function.
 
-The pairs can be updated post-genesis by a governance-only function, [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
+The pairs can be updated post-genesis by a governance-only function, `[setSymbols()](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
 
 Note that if currency pair symbols are changed there is a 2-round delay in applying the change after the symbol update round. This is because of the [commit and reveal](/concepts/oracle-network/#commit-and-reveal) process for submitting and revealing price reports: oracles send commits for the new symbols in "symbol updated round + 1" and reveals for the new symbols in "symbol updated round + 2".
 
@@ -132,11 +132,10 @@ To exemplify:
 |`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
 |`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
 
-
 ## Data adaptors - plugin architecture
 Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
 
-The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) during runtime. Detection of new or updated plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
+The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/validators/install-oracle/) oracle server) directory during runtime. Detection of new or changed plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
 
 ### Runtime plugin management
 
@@ -152,12 +151,14 @@ To exemplify:
 |`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
 |`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
 
+
 ## Oracle data consumers
 
 Primary consumers of oracle data are:
 
-- Auton Stabilisation Mechanism
+- Auton Stabilization Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
+
 
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
