@@ -1178,6 +1178,7 @@ None.
 {{< tab header="aut" >}}
 
 {{< /tab >}}
+<<<<<<< HEAD
 {{< tab header="RPC" >}}
 
 {{< /tab >}}
@@ -1224,7 +1225,6 @@ aut protocol get-proposer [OPTIONS] HEIGHT ROUND
 {"method": "aut_getProposer", "params":[height, round]}
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 ### Example
 
