@@ -10,4 +10,7 @@ $td-fonts-serif: 'berkeley mono';
 $font-weight-light: 100;
 $font-weight-normal: 110;
 $font-weight-medium: 130;
-$font-weight-bold: 150;
+$font-weight-bold: 140;
+
+// Default Docsy font weight for headings is medium, which seems a bit too heavy
+$headings-font-weight: $font-weight-normal;

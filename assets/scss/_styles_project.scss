@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'berkeley mono';
     src: url('../fonts/berkeley/BerkeleyMonoVariable-Regular.woff2') format('woff2');
-    font-weight: normal;
+    font-weight: 100 150;
     font-style: normal;
     font-display: swap;
 }
@@ -9,7 +9,7 @@
 @font-face {
     font-family: 'berkeley mono';
     src: url('../fonts/berkeley/BerkeleyMonoVariable-Italic.woff2') format('woff2');
-    font-weight: normal;
+    font-weight: 100 150;
     font-style: italic;
     font-display: swap;
 }
@@ -72,10 +72,6 @@ footer.bg-dark.py-5.row.d-print-none {
     word-wrap: break-word;
 }
 
-html {
-    font-variation-settings: 'wght' 100;
-}
-
 /**
 * Fix word spacing for large header tags
 */
@@ -86,4 +82,28 @@ h3,
 .h2,
 .h3 {
     letter-spacing: -1px;
+}
+
+/**
+* Tweaks to improve Berkeley font weights
+*/
+.td-sidebar-nav__section-title {
+    font-weight: $font-weight-normal;
+}
+
+.td-content h1 {
+    font-weight: $font-weight-medium;
+}
+
+.td-content p {
+    font-weight: $font-weight-medium;
+}
+
+.lead {
+    font-weight: $font-weight-normal;
+    font-style: italic;
+}
+
+.section-index h5 a {
+    font-weight: $font-weight-bold;
 }
