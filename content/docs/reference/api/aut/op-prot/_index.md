@@ -777,7 +777,7 @@ On successful reward distribution the function emits a `Rewarded` event for each
 
 The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
-- executes the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract [`aggregateSymbol`](/reference/api/api/oracle-contract/#aggregatesymbol) function
+- executes the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
 - checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
 - resets the `lastRoundBlock` to the current `block.number`
 - increments the `round` counter by `1`
