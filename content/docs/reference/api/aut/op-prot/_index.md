@@ -511,7 +511,7 @@ Sets a new account address as the value of the `treasuryAccount` protocol parame
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to the [`treasuryAccount`](/reference/api/aut/#treasuryaccount) public variable.
+The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
 
 #### Usage
 
@@ -562,7 +562,7 @@ Sets a new value for the `treasuryFee` protocol parameter.
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to the [`treasuryFee`](/reference/api/aut/#treasuryfee) public variable.
+The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
 
 #### Usage
 
@@ -614,7 +614,7 @@ The `unbondingPeriod` period value must be greater than the `epochPeriod` protoc
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to read the [`unbondingPeriod`](/reference/api/aut/#unbondingperiod) public variable.
+The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
 
 #### Usage
 
@@ -728,11 +728,11 @@ None.
 
 No response object is returned on successful execution of the method invocation.
 
-The new committee can be retrieved from state by calling the [`getCommittee`](/reference/api/aut/#getcommittee) method.
+The new committee can be retrieved from state by calling the [`getCommittee()`](/reference/api/aut/#getcommittee) method.
 
-The new committee enode URL's can be retrieved from state by calling the [`getCommitteeEnodes `](/reference/api/aut/#getcommitteeenodes) method.
+The new committee enode URL's can be retrieved from state by calling the [`getCommitteeEnodes()`](/reference/api/aut/#getcommitteeenodes) method.
 
-Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake`](/reference/api/aut/#epochtotalbondedstake) public variable.
+Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake()`](/reference/api/aut/#epochtotalbondedstake) method.
 
 ###  finalize
 
@@ -748,10 +748,10 @@ The block finalisation function, invoked each block after processing every trans
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
     - selects the consensus committee for the following epoch, invoking the [`computeCommittee`](/reference/api/aut/op-prot/#computecommittee) function
-    - sets oracle voters for the following epoch, invoking the Oracle Contract [`setVoters`](/reference/api/api/op-prot/#setvoters) function
+    - sets oracle voters for the following epoch, invoking the Oracle Contract `setVoters` function
     - assigns the `lastEpochBlock` state variable the value of the current block number
     - increments the `epochID` by `1`
-    - invokes the Oracle Contract [`finalize`](/reference/api/api/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
+    - invokes the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
 
 #### Parameters
 
@@ -775,7 +775,7 @@ On successful reward distribution the function emits a `Rewarded` event for each
 
 ###  finalize (Oracle Contract)
 
-The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/api/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
+The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
 - executes the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract [`aggregateSymbol`](/reference/api/api/oracle-contract/#aggregatesymbol) function
 - checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
