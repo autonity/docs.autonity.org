@@ -741,10 +741,10 @@ The block finalisation function, invoked each block after processing every trans
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
 
 <!-- - adds the `amount` parameter value to the `epochReward` protocol parameter -->
+<!-- - sets `epochReward` to `0` -->
 
 - checks if the block number is the last epoch block number and if so, then:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
-<!-- - sets `epochReward` to `0` -->
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
     - selects the consensus committee for the following epoch, invoking the [`computeCommittee`](/reference/api/aut/op-prot/#computecommittee) function

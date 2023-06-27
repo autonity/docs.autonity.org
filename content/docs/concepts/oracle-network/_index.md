@@ -1,6 +1,6 @@
 
 ---
-title: "Oracle Network"
+title: "Oracle network"
 linkTitle: "Oracle network"
 weight: 4
 description: >
