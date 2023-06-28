@@ -171,7 +171,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSymbol
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSymbols               
-["NTNUSD", "NTNAUD", "NTNCAD", "NTNEUR", "NTNGBP", "NTNJPY", "NTNSEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/USD", "NTN/ATN"]
+["NTN/USD", "NTN/AUD", "NTN/CAD", "NTN/EUR", "NTN/GBP", "NTN/JPY", "NTN/SEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
 {{< /tab >}}
 {{< /tabpane >}}
 
