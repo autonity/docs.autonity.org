@@ -38,7 +38,7 @@ To operate as a validator node the operator must operate Autonity [oracle server
 Prerequisites for becoming a validator node operator are:
 
 - A [validator enode URL](/concepts/validator/#validator-enode-url). A node joined to the network.
-- An [oracle server](/concepts/oracle-network/) configured to collect external price data from off-chain data providers, and connected to the operator's validator node for on-chain submission of price reports.
+- An [oracle server](/concepts/oracle-server/) configured to collect external price data from off-chain data providers, and connected to the operator's validator node for on-chain submission of price reports.
 - A [treasury account](/concepts/validator/#treasury-account). An EOA account that is the validator node operator's online identity and which:
   - Is the `msg.sender()` account used by the operator to submit state affecting transactions that govern the [validator lifecycle](/concepts/validator/#validator-lifecycle).
   - Will receive the validator's share of [staking rewards](/concepts/staking/#staking-rewards).
