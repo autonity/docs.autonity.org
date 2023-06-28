@@ -492,7 +492,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 setSymbol
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 setSymbols ["NTN/USD", "NTN/AUD", "NTN/CAD", "NTN/EUR", "NTN/GBP", "NTN/JPY", "NTN/SEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 setSymbols ["NTNUSD", "NTNAUD", "NTNCAD", "NTNEUR", "NTNGBP", "NTNJPY", "NTNSEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/USD", "NTN/ATN"]
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -741,7 +741,7 @@ The block finalisation function, invoked each block after processing every trans
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
 
 <!-- - adds the `amount` parameter value to the `epochReward` protocol parameter -->
-<!-- - sets `epochReward` to `0` -->
+<!--     - sets `epochReward` to `0` -->
 
 - checks if the block number is the last epoch block number and if so, then:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
