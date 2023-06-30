@@ -370,6 +370,10 @@ The updated parameter can be retrieved from state by a call to the [`epochPeriod
 
 On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
+#### Event
+
+On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
+
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -1026,6 +1030,7 @@ The block finalisation function, invoked each block after processing every trans
   - re-set oracle voters and parameters ready for the next oracle voting round.
 - then, if the oracle has computed data and started a new voting round (`newRound` is `true`), invokes the ACU Contract [`update()`](/reference/api/aut/op-prot/#update-acu-contract) function to recompute the ACU value using the new price data.
 
+
 #### Parameters
 
 None.
@@ -1108,6 +1113,7 @@ The function emits events:
 
 - on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`.
 - after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`.
+
 
 
 ###  finalize (Oracle Contract)
