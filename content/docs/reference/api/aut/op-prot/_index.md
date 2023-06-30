@@ -253,6 +253,10 @@ On a successful call the function emits an `EpochPeriodUpdated` event, logging: 
 
 On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
+#### Event
+
+On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
+
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -903,6 +907,27 @@ The function emits events:
 - on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`
 - after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`
 
+
+###  finalize (Accountability Contract)
+
+The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
+
+- On each block, tries to promote accusations without proof of innocence into misconducts.
+- On epoch end, performs slashing tasks.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --| 
+| `epochEnded` | `Bool` | boolean value indicating if the current block is the last block of the current epoch (`true`) or not (`false`) |
+
+#### Response
+
+TO DO.
+
+#### Event
+
+TO DO.
 
 ###  finalize (Oracle Contract)
 

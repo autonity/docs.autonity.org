@@ -1340,7 +1340,7 @@ Returns a `Validator` object consisting of:
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
 | `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height) |
 | `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
-| `ValidatorState` | `state` | the state of the validator, an enumerated type with values: `active`, `paused`, `jailed` |
+| `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
 
 ### Usage
 
@@ -1672,7 +1672,7 @@ Constraint checks are applied:
 - the `msg.sender` address of the transaction is equal to the validator's `treasury` address
 - the validator state must be `active`
 
-Validator pausing is executed on transaction commit. New stake delegations are reverted from submission of the pausing transaction. Exclusion of the validator from the consensus commmittee selection algorithm takes effect at epoch end (i.e. the 'effective block').
+Validator pausing is executed on transaction commit. New stake delegations are reverted from submission of the pausing transaction. Exclusion of the validator from the consensus committee selection algorithm takes effect at epoch end (i.e. the 'effective block').
 
 ### Parameters
 
