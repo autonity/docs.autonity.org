@@ -278,6 +278,10 @@ The updated parameter can be retrieved from state by a call to the [`epochPeriod
 
 On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
+#### Event
+
+On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
+
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}

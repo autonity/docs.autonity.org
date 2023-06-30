@@ -1173,7 +1173,6 @@ Returns a `Validator` object consisting of:
 | `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
 | `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
 
-
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -1459,7 +1458,6 @@ On method execution a `Validator` object data structure is constructed in memory
 | `jailReleaseBlock` | `uint256` | Set to `0`. (The block number at which a validator jail period applied for an accountability or omission fault ends.) |
 | `provableFaultCount` | `uint256` | Set to `0`. (Counter recording the number of times the validator has been penalised for accountability and omission faults.) |
 | `ValidatorState` | `state` | Set to `active`. |
-
 
 Constraint checks are applied:
 
