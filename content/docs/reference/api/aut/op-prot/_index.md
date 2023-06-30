@@ -270,6 +270,10 @@ No response object is returned on successful execution of the call.
 
 The updated parameter can be retrieved from state by a call to the [`epochPeriod`](/reference/api/aut/#epochperiod) public variable.
 
+#### Event
+
+On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
+
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -744,7 +748,9 @@ The block finalisation function, invoked each block after processing every trans
 <!-- - adds the `amount` parameter value to the `epochReward` protocol parameter -->
 <!--     - sets `epochReward` to `0` -->
 
-- checks if the block number is the last epoch block number and if so, then:
+- tests if the block number is the last epoch block number (equal to `lastEpochBlock + epochPeriod` config) and if so sets the `epochEnded` boolean variable to `true` or `false` accordingly
+- invokes the Accountability Contract [`finalize`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
+- then, if `epochEnded` is `true`:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
@@ -752,7 +758,8 @@ The block finalisation function, invoked each block after processing every trans
     - sets oracle voters for the following epoch, invoking the Oracle Contract `setVoters` function
     - assigns the `lastEpochBlock` state variable the value of the current block number
     - increments the `epochID` by `1`
-    - invokes the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
+    - emits a `NewEpoch` event logging the `epochID` of the new epoch
+- invokes the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
 
 #### Parameters
 
@@ -771,8 +778,31 @@ The block finalisation function, invoked each block after processing every trans
 
 #### Event
 
-On successful reward distribution the function emits a `Rewarded` event for each staking reward distribution, logging: recipient address `addr` and reward amount `amount`.
+On successful reward distribution the function emits:
 
+- a `Rewarded` event for each staking reward distribution, logging: recipient address `addr` and reward amount `amount`.
+- a `NewEpoch` event signalling the beginning of a new epoch, logging: unique identifier for the new epoch `epochID`.
+
+###  finalize (Accountability Contract)
+
+The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
+
+- On each block, tries to promote accusations without proof of innocence into misconducts.
+- On epoch end, performs slashing tasks.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --| 
+| `epochEnded` | `Bool` | boolean value indicating if the current block is the last block of the current epoch (`true`) or not (`false`) |
+
+#### Response
+
+TO DO.
+
+#### Event
+
+TO DO.
 
 ###  finalize (Oracle Contract)
 

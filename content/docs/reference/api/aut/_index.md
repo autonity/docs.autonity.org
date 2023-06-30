@@ -28,7 +28,8 @@ Constraint checks are applied:
 
 - the `address` of the validator is registered
 - the `msg.sender` address of the transaction is equal to the validator's `treasury` address
-- the validator state must be `paused`
+- the validator state must not be `active`; it must be `paused` or `jailed`
+- if the validator state is `jailed`, the validator's `jailReleaseBlock` is less than the current block number at the time of the call
 
 Validator re-activation is executed on transaction commit. New stake delegations to the validator are accepted and the validator is included in the consensus committee selection algorithm at epoch end.
 
@@ -44,6 +45,9 @@ No response object is returned on successful execution of the method call.
 
 The updated state can be viewed by calling the [`getValidator`](/reference/api/aut/#getvalidator) method.
 
+### Event
+
+On a successful call the function emits an `ActivatedValidator` event, logging: `val.treasury`, `_address`, `effectiveBlock`.
 
 ### Usage
 
@@ -511,6 +515,8 @@ Returns a `Config` object consisting of:
 | --| --| --|
 | `operatorAccount` | `address` | the address of the Autonity governance account |
 | `treasuryAccount` | `address payable` | the address of the Autonity Treasury account for community funds |
+| `accountabilityContract` | `address` | the address of the Autonity Accountability Contract |
+| `oracleContract` | `address` | the address of the Autonity Oracle Contract |
 | `treasuryFee` | `uint256` | the percentage of staking rewards deducted from staking rewards and sent to the Autonity Treasury account for community funding before staking rewards are distributed |
 | `minBaseFee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [attoton](/glossary/#attoton) |
 | `delegationRate` | `uint256` | the percentage of staking rewards deducted by validators as a commission from delegated stake |
@@ -1469,11 +1475,14 @@ Returns a `Validator` object consisting of:
 | `enode` | `string` | the enode url of the validator node |
 | `commissionRate` | `uint256` | the percentage commission that the validator will charge on staking rewards from delegated stake |
 | `bondedStake` | `uint256` | the total amount of delegated and self-bonded stake that has been bonded to the validator |
-| `totalSlashed` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
+| `selfBondedStake` | `uint256` | the total amount of 'self-bonded' stake that has been bonded to the validator by the validator operator |
 | `liquidContract` | `Liquid` | the address of the validator's Liquid Newton contract |
 | `liquidSupply` | `uint256` | the total amount of Liquid Newton in circulation |
 | `registrationBlock` | `uint256` | the block number in which the registration of the validator was committed to state|
-| `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
+| `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
+| `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends. (The validator can be re-activated after this block height.) |
+| `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
+| `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
 
 ### Usage
 
@@ -1931,7 +1940,7 @@ The updated state can be viewed by calling the [`getValidator`](/reference/api/a
 
 ### Event
 
-On a successful call the function emits a `PausedValidator ` event, logging: `val.treasury`, `_address`, `effectiveBlock`.
+On a successful call the function emits a `PausedValidator` event, logging: `val.treasury`, `_address`, `effectiveBlock`.
 
 
 ### Usage
@@ -2007,16 +2016,19 @@ On method execution a `Validator` object data structure is constructed in memory
 | Field | Datatype | Description |
 | --| --| --|
 | `treasury` | `address payable` | Set to the `msg.sender` address submitting the `registerValidator` method call transaction |
-| `nodeAddress` | `address` | Set to temporary value of `0` before assignment |
+| `nodeAddress` | `address` | Set to temporary value of `0` before assignment of the actual validator node identifier address value|
 | `oracleAddress`| `string` | Assigned the value of the `_oracleAddress` argument to the method call |
 | `enode`| `string` | Assigned the value of the `_enode` argument to the method call |
 | `commissionRate` | | Assigned the value of the `delegationRate` parameter in the genesis configuration file |
-| `bondedStake` | `uint256` | Set to the value of `0`. There is no stake bonded to the newly registered validator at this point. |
-| `totalSlashed` | `uint256` | Set to the value of `0`. The counter recording the number of times the validator has been penalised for accountability and omission faults is set to `0`. |
-| `liquidContract` | `address`| address of the newly registered validator's Liquid Newton Contract |
-| `liquidSupply` | `uint256` | Set to the value of `0`. There is no liquid token supply until stake is bonded to the newly registered validator. |
-| `registrationBlock` | `uint256` | Set to the number of the block that the register validator transaction will be committed |
-| `state` | `ValidatorState` | Set to `active` |
+| `bondedStake` | `uint256` | Set to `0`. There is no stake bonded to the newly registered validator at this point. |
+| `selfBondedStake ` | `uint256` | Set to `0`. There is no self-bonded  stake to the newly registered validator at this point |
+| `liquidContract` | `address` | Set to the contract address of the newly registered validator's Liquid Newton Contract |
+| `liquidSupply` | `uint256` | Set to `0`. There is no liquid token supply until stake is bonded to the newly registered validator |
+| `registrationBlock` | `uint256` | Set to current block number (the number of the block that the register validator transaction will be committed in) |
+| `totalSlashed` | `uint256` | Set to `0`. (The total amount of stake that a validator has had slashed for accountability and omission faults since registration.) |
+| `jailReleaseBlock` | `uint256` | Set to `0`. (The block number at which a validator jail period applied for an accountability or omission fault ends.) |
+| `provableFaultCount` | `uint256` | Set to `0`. (Counter recording the number of times the validator has been penalised for accountability and omission faults.) |
+| `ValidatorState` | `state` | Set to `active`. |
 
 Constraint checks are applied:
 
@@ -2027,7 +2039,6 @@ Constraint checks are applied:
 Validator registration is then executed, the temporary address assignments updated, and the new validator object appended to the indexed validator list recorded in system state. I.E. the most recently registered validator will always have the highest index identifier value and will always be the last item in the validator list returned by a call to get a network's registered validators (see [`getValidators`](/reference/api/aut/#getvalidators)).
 
 A validator-specific Liquid Newton contract is deployed; the contract's `name` and `symbol` properties are both set to `LNTN-<ID>` where `<ID>` is the validator's registration index identifier.
-
 
 ### Parameters
 
