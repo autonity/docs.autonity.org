@@ -14,7 +14,7 @@ Autonity implements the Tendermint Proof of Stake consensus protocol, enhanced b
 
 Stake in an Autonity network is represented as the [Newton](/concepts/protocol-assets/newton/) stake token. Any network participant holding Newton becomes a [stakeholder](/glossary/#stakeholder) and is able to participate in securing the network and earn a share of [staking rewards](/glossary/#staking-rewards) proportionate to their stake in return. As default, Newton is in an unbonded and unlocked state and can be transferred to other stakeholders. On bonding, Newton is locked and no longer transferrable; Liquid Newton is minted to the stakeholder in equal proportion to the stake locked. In this liquid staking model the Liquid Newton receives the staking reward entitlements due to the bonded stake it represents, and Liquid Newton is transferrable. To redeem stake, the converse to bonding occurs. Liquid Newton is burned (so it is no longer tradable) and after the expiry of a [locking (unbonding) period](/concepts/staking/#unbondingperiod) the bonded Newton is redeemed.
 
-Staking is open - any network participant is able to purchase stake token and [delegate](/glossary/#delegate) stake to validators. 
+Staking is open - any network participant is able to purchase stake token and bond stake by [delegation](/glossary/#delegation) to validators. 
 
 Staking rewards are distributed to stake that is actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
 
@@ -64,6 +64,10 @@ Liquid Newton has fundamental operations for:
 For details on how to transfer Liquid Newton from a stake delegation to another account, see:
 
 - How to [Transfer Liquid Newton](/delegators/transfer-lntn/).
+
+## Penalty Absorbing Stake (PAS)
+
+TO DO
 
 ## Staking rewards
 
@@ -176,7 +180,7 @@ Bonding and unbonding requests submitted during an epoch are processed and commi
 
 ### Bonding
 
-Stake token is bonded to an active validator through a bonding operation. Once in a bonded state the token is locked and cannot be transferred to other stakeholders. If the stake token belongs to the validator then it is [self-bonded](/glossary/#self-bonded), otherwise the token is [delegated](/glossary/#delegate). The  [voting power](/glossary/#voting-power) of a validator is determined by the amount of stake bonded to it. 
+Stake token is bonded to an active validator through a bonding operation. Once in a bonded state the token is locked and cannot be transferred to other stakeholders. If the stake token belongs to the validator then it is [self-bonded](/glossary/#self-bonded), otherwise the token is [delegated](/glossary/#delegated). The  [voting power](/glossary/#voting-power) of a validator is determined by the amount of stake bonded to it. 
 
 On bonding Newton, the stake token is locked on execution of the `bond()` function and Liquid Newton is minted to the stakeholder at the end of the epoch when the staking transition is applied. Minting Liquid Newton is an autonomous protocol-only function. The resulting voting power change is applied at epoch end and the stake becomes eligible to earn staking rewards from that point. Note that a bond allocation cannot be changed after submission but before the bonding is applied at epoch end.
 

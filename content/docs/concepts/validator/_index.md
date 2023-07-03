@@ -126,14 +126,14 @@ Eligible validators are included in the committee selection algorithm. The algor
 
 ## Stake bonding and delegation
 
-Validators are staked with Autonity's [Newton](/concepts/protocol-assets/newton/) stake token. A genesis validator must bond stake at genesis. After genesis, a validator can bond their own Newton and have Newton staked to them by delegation from other Newton token holders at any time.
+Validators are staked with Autonity's [Newton](/concepts/protocol-assets/newton/) stake token. A genesis validator must bond stake at genesis. After genesis, a validator can bond their own Newton and have Newton staked to them by [delegation](/glossary/#delegation) from other Newton token holders at any time.
 
 Autonity implements a [liquid staking](/concepts/staking/#liquid-staking) model, minting [Liquid Newton](/concepts/protocol-assets/liquid-newton/) to the staker in proportion to the amount of Newton staked to a validator. It is important to note that staking rewards accrue to all holders of liquid newton. Upon receipt of liquid newton the holder becomes a delegator to the associated validator, and has a claim to some staked newton. Stake can be redeemed by a delegator at any time subject to the unbonding period set for the chain.
 
 Account addresses owning liquid newton and receiving staking reward revenue are:
 
 - For own stake bonding ('[self-bonded](/glossary/#self-bonded)') - the account address of the validator entity that registered the validator node.
-- For [delegated](/glossary/#delegate) stake bonding - the account address of the delegator entity that bonded stake to the validator node.
+- For [delegated](/glossary/#delegated) stake bonding - the account address of the delegator entity that bonded stake to the validator node.
 
 For clarity, these are the `msgSender()` addresses of the account submitting `registerValidator()` and `bond()` transactions to the Autonity Network.
 
@@ -151,7 +151,7 @@ Validator economic returns are determined by the amount of stake bonded to them,
 Staking reward revenue is proportionate to the validator's share of the stake active in a consensus round in which it participates. Staking rewards are distributed to consensus committee members _pro rata_ to the amount of stake they have at stake. Validators can earn from:
 
 -  Staking rewards earned from their own '[self-bonded](/glossary/#self-bonded)' stake.
--  From [delegated](/glossary/#delegate) stake through the delegation rate they charge to delegators as commission.
+-  From [delegated](/glossary/#delegated) stake through the delegation rate they charge to delegators as commission.
 -  From the priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
 
 Staking reward revenue potential is determined by the frequency with which a validator is an active member of the consensus committee. This is driven by:

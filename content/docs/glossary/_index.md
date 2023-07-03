@@ -109,11 +109,18 @@ An off-chain data feed service that provides data to a [blockchain](/glossary/#b
 ## decentralised application (dApp)
 A software application deployed on to a blockchain p2p network. A dApp interacts with one or more smart contracts and is typically a combination of those contract(s) and a frontend for using that contract. The frontend graphical user interface (GUI) is typically built out using JavaScript, HTML, CSS technologies. User interactions with a dApp are by transactions and calls submitted to a network [peer](/glossary/#peer)'s JSON RPC API using the web3.js library. Interactions may be mediated by a user via a GUI or application-level interactions.
 
-## delegate
+## delegation
 The process of bonding stake token to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder).
 
+See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, [delegation rate](/glossary/#delegation-rate).
+
+## delegated
+Stake token bonded to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder). The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) can be any network participant account *except* the validator `treasury` account.
+
+Stake delegation transactions submitted from the validator `treasury` account result in [self-bonded](/glossary/#self-bonded) stake
+
 ## delegation rate
-The percentage commission of earned [staking rewards](/glossary/#staking-rewards) that a [validator](/glossary/#validator) charges as a commission on [delegated](/glossary/#delegate) stake.
+The percentage commission of earned [staking rewards](/glossary/#staking-rewards) that a [validator](/glossary/#validator) charges as a commission on [delegated](/glossary/#delegation) stake.
 
 ## enode
 The unique identifier of a node in the form of a URI. It provides the network address of a node on an Autonity network, giving the  network location of the node client for p2p networking.
@@ -149,7 +156,7 @@ A cryptoeconomic mechanism where economic penalties are applied for incorrect ac
 A pair of public and private cryptography keys used for signing and encryption. The private key is used to produce signatures that are publicly verifiable using the public key. The public key may also be used to encrypt messages intended for the private key holder who can decrypt them using the private key.
 
 ## Liquid Newton
-The liquid token representing [Newton](/glossary/#newton) stake token  bonded (i.e. [delegated](/glossary/#delegate)) to a validator in an Autonity Network. Unlike bonded Newton, Liquid Newton is transferrable and the holder receives due staking rewards. See also  [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/).
+The liquid token representing [Newton](/glossary/#newton) stake token  [bonded](/glossary/#bond) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Unlike bonded Newton, Liquid Newton is transferrable and the holder receives due staking rewards. See also [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/).
 
 ## liquid staking
 A staking model in which funds staked to a Proof of Stake network have a liquid representation of staked assets in the form of a token. For Autonity's liquid staking model see [Staking, Liquid staking](/concepts/staking/#liquid-staking).
@@ -194,7 +201,9 @@ A distributed systems architecture in which the systems' resources are pooled an
 A peer-to-peer network where access is open and public. Any node can connect to the network and become a [peer](/glossary/#peer).
 
 ## self-bonded
-Stake token bonded to a [validator](/glossary/#validator) where the validator is the [stakeholder](/glossary/#stakeholder).
+Stake token bonded to a [validator](/glossary/#validator) where the validator is the [stakeholder](/glossary/#stakeholder). The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) is the validator `treasury` account.
+
+Stake delegation transactions submitted from other stakeholder accounts result in [delegated](/glossary/#delegated) stake
 
 ## smart contract
 The program code for encoding and executing decentralised application logic in the [EVM](/glossary/#ethereum-virtual-machine-evm). Smart contracts are written in a higher level programming language such as 'Solidity' and compiled to [bytecode](/glossary/#bytecode) for execution in the EVM. A smart contract stores the application's state.
@@ -203,7 +212,7 @@ The program code for encoding and executing decentralised application logic in t
 A network participant that holds an amount of the [Newton](/glossary/#newton) stake token.
 
 ## staking
-The process by which stake is delegated to a validator node in a Proof of Stake (PoS) blockchain. Validators with bonded stake participate in transaction validation if a member of the consensus committee. Stake can be [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegate).
+The process by which stake is delegated to a validator node in a Proof of Stake (PoS) blockchain. Validators with bonded stake participate in transaction validation if a member of the consensus committee. Stake can be [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegated).
 
 ## staking rewards
 Revenue earned by bonded stake when it is actively securing the network during consensus. Only stake bonded to members of the current consensus committee earns staking rewards.

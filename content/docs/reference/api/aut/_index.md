@@ -332,7 +332,11 @@ $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a8
 
 ## bond
 
-Delegates an amount of Newton stake token to a designated validator. The bonded Newton amount is locked on successful processing of the method call and a bonding object for the necessary voting power change is created and tracked in memory until applied at epoch end.
+Delegates an amount of Newton stake token to a designated validator.
+On successful processing of the method call:
+
+- the bonded Newton amount is locked in the `msg.Sender`'s Newton account
+- a bonding object for the necessary voting power change is created and tracked in memory until applied at epoch end. At that block point, if the `msg.Sender` is a stake delegator account then Liquid Newton will be minted to the delegator for the bonded stake amount.
 
 Constraint checks:
 
@@ -340,6 +344,12 @@ Constraint checks:
 - the `validator` state is `active`. A bonding operation submitted to a validator in `paused` state will revert
 - the `amount` is a positive integer value > 0
 - the Newton balance of the account submitting  the `bond()` method call has a Newton balance >= to the `amount` being bonded
+
+{{< alert title="Note" >}}
+If `msg.Sender` is the validator `treasury` account, then Liquid Newton is not minted for the bonded stake amount.
+
+This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
+{{< /alert >}}
 
 ### Parameters
 
@@ -811,8 +821,8 @@ The array range is specified by a start and end index using the bonding request 
 
 | Field | Datatype | Description |
 | --| --| --|
-| `startId` | `uint256` | the bonding identifier specifying the start index of the array |
-| `lastId` | `uint256` | the bonding identifier specifying the end index of the array |
+| `startID` | `uint256` | the bonding identifier specifying the start index of the array |
+| `lastID` | `uint256` | the bonding identifier specifying the end index of the array |
 
 ### Response
 
@@ -832,13 +842,13 @@ Returns a `_results` array of `Staking` objects, each object consisting of:
 aut protocol get-unbonding-req [OPTIONS] START END
 {{< /tab >}}
 {{< tab header="RPC" >}}
-{"method": "aut_getBondingReq", "params":[startId, lastId]}
+{"method": "aut_getBondingReq", "params":[startID, lastID]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 <!--
 {{< tab header="NodeJS Console" >}}
-autonity.getBondingReq(startId, lastId).call()
+autonity.getBondingReq(startID, lastID).call()
 {{< /tab >}}
 -->
 ### Example
@@ -1084,6 +1094,60 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 {{< /tab >}}
 -->
 
+## getEpochFromBlock
+
+Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_block` | `uint256` | the input block number |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochID` | `uint256` | the identifier of the epoch in which the block was committed to state |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+
+{{< tab header="RPC" >}}
+{"method": "aut_getEpochFromBlock", "params":[_block]}
+{{< /tab >}}
+{{< /tabpane >}}
+
+<!--
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+-->
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+
+{{< tab header="RPC" >}}
+curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+        "jsonrpc":"2.0",
+        "method":"aut_getEpochFromBlock",
+        "params":[1900],
+        "id":1500
+}'
+{"jsonrpc":"2.0","id":1,"result":1}
+{{< /tab >}}
+{{< /tabpane >}}
+
+<!--
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+-->
+
 ##  getMaxCommitteeSize
 
 Returns the protocol setting for the maximum number of validators that can be selected to the consensus committee.
@@ -1305,7 +1369,7 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 '0x2f3BcE2d6C2602de594d9a6662f0b93416cfB4d7'
 {{< /tab >}}
 -->
-<!--
+
 ##  getProposer
 
 Returns the address of the consensus committee member proposing a new block for a specified block height and consensus round.
@@ -1335,13 +1399,13 @@ aut protocol get-proposer [OPTIONS] HEIGHT ROUND
 {"method": "aut_getProposer", "params":[height, round]}
 {{< /tab >}}
 {{< /tabpane >}}
--->
+
 <!--
 {{< tab header="NodeJS Console" >}}
 autonity.getProposer(height, round).call()
 {{< /tab >}}
 -->
-<!--
+
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -1368,6 +1432,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 '0x5fe87ee4f61da6e640aec02ce818cdcd30b8cb13'
 {{< /tab >}}
 -->
+
 ##  getUnbondingReq
 
 Returns an array of pending unbonding requests within a requested block range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
@@ -1381,8 +1446,8 @@ The array range is specified by a start and end index using the unbonding reques
 
 | Field | Datatype | Description |
 | --| --| --|
-| `startId` | `uint256` | the unbonding identifier specifying the start index of the array |
-| `lastId` | `uint256` | the unbonding identifier specifying the last index of the array |
+| `startID` | `uint256` | the unbonding identifier specifying the start index of the array |
+| `lastID` | `uint256` | the unbonding identifier specifying the last index of the array |
 
 
 ### Response
@@ -1403,13 +1468,13 @@ Returns a `_results` array of `Staking` objects, each object consisting of:
 aut protocol get-unbonding-req [OPTIONS] START END
 {{< /tab >}}
 {{< tab header="RPC" >}}
-{"method": "aut_getUnbondingReq", "params":[startId, lastId]}
+{"method": "aut_getUnbondingReq", "params":[startID, lastID]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 <!--
 {{< tab header="NodeJS Console" >}}
-autonity.getUnbondingReq(startId, lastId).call()
+autonity.getUnbondingReq(startID, lastID).call()
 {{< /tab >}}
 -->
 
@@ -2620,12 +2685,26 @@ Enter passphrase (or CTRL-d to exit):
 
 Unbonds an amount of Liquid Newton stake token from a designated validator.
 
-On successful execution of the method call the designated amount of Liquid Newton amount is burnt, the unbonding period begins, and an unbonding object for the necessary voting power change and tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point  Newton redemption occurs and due Newton is minted to the staker's Newton account.
+On successful processing of the method call:
+
+- the designated amount of Liquid Newton amount is burnt if the stake being unbonded is _delegated_ and *not* _self-bonded_ stake, 
+- the unbonding period begins,
+- an unbonding object for the necessary voting power change is created and tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the staker's Newton account.
 
 Constraint checks:
 
 - the `validator` address is registered as a validator
-- the Liquid Newton balance of the account submitting  the `unbond()` method call has a balance `>=` to the `amount` being unbonded
+- If the `msg.Sender` is a stake delegator account, then Liquid Newton balance and supply checks are applied:
+    - the Liquid Newton balance of the account submitting  the `unbond()` method call has a balance `>=` to the `amount` being unbonded
+    - if the validator is in the current consensus committee, then the total supply of Liquid Newton remaining after the unbonding will be `> 0` (preventing the case of a committee member having a `0` supply of LNTN).
+
+
+{{< alert title="Note" >}}
+If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance and supply checks are not required.
+
+This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
+{{< /alert >}}
+
 
 ### Parameters
 
