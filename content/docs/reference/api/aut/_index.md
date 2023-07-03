@@ -852,6 +852,7 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
+
 ## getEpochPeriod
 
 Returns the epoch period from the protocol configuration.
@@ -882,6 +883,7 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 ## getEpochFromBlock
 
@@ -936,6 +938,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 
 {{< /tab >}}
 -->
+
 
 ## getLastEpochBlock
 
@@ -1184,6 +1187,7 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
+
 ## getOracle
 
 Returns the address of the Autonity Oracle Contract.
@@ -1220,6 +1224,7 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 
 ##  getProposer
@@ -1271,6 +1276,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 
 ## getUnbondingPeriod

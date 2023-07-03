@@ -159,6 +159,8 @@ Account addresses owning liquid newton and receiving staking reward revenue are:
 - EOA accounts that have bonded [delegated](/glossary/#delegated) stake to a validator node, or have been recipients of a liquid newton transfer.
 - Contract accounts that have been recipients of a liquid newton transfer from an EOA or a contract account.
 
+For clarity, these are the `msgSender()` addresses of the account submitting `registerValidator()` and `bond()` transactions to the Autonity Network.
+
 Autonity implements an 'active epoch' staking model, applying staking transitions for bonding and unbonding at the end of each block epoch.
 
 Stake is bonded and redeemed by Newton holders submitting transaction requests to the Autonity Protocol Contract. These requests are recorded in state on submission as `BondingRequest` and `UnbondingRequest` data structures in the Autonity Protocol Contract state, but there is a temporal delay in effect. Voting power cannot change mid-epoch and so staking transitions are applied at epoch end before the next committee selection is run.
@@ -176,6 +178,7 @@ Staking reward revenue is proportionate to the validator's share of the stake ac
 - Commission charged on [delegated](/glossary/#delegated) stake per the delegation rate they charge as commission.
 - The priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
 - [Slashing rewards](/concepts/accountability/#slashing-rewards) earned for reporting slashed faults in the [accountability and fault detection](/concepts/accountability/) protocol.
+
 
 Staking reward revenue potential is determined by the frequency with which a validator is an active member of the consensus committee. This is driven by:
 
