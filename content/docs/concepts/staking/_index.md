@@ -85,6 +85,7 @@ By self-bonding stake, a validator puts "skin in the game" because this constitu
 {{% /alert %}}
 
 
+
 ## Penalty-Absorbing Stake (PAS)
 
 Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absorbing-stake-pas) model where validator [self-bonded](/glossary/#self-bonded) stake is slashed in priority to [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.

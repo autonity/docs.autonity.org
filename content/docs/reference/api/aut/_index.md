@@ -846,6 +846,7 @@ None.
 
 
 
+
 ## getEpochPeriod
 
 Returns the epoch period from the protocol configuration.
@@ -1209,6 +1210,7 @@ None.
 
 
 
+
 ## getOracle
 
 Returns the address of the Autonity Oracle Contract.
@@ -1297,6 +1299,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 
 ## getUnbondingPeriod
