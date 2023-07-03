@@ -266,6 +266,12 @@ The `BondingRequest` is tracked in memory until applied at epoch end. At that bl
 Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 {{< /alert >}}
 
+{{< alert title="Note" >}}
+If `msg.Sender` is the validator `treasury` account, then Liquid Newton is not minted for the bonded stake amount.
+
+This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
+{{< /alert >}}
+
 ### Parameters
 
 | Field | Datatype | Description |
@@ -845,6 +851,60 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
+## getEpochFromBlock
+
+Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_block` | `uint256` | the input block number |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochID` | `uint256` | the identifier of the epoch in which the block was committed to state |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+
+{{< tab header="RPC" >}}
+{"method": "aut_getEpochFromBlock", "params":[_block]}
+{{< /tab >}}
+{{< /tabpane >}}
+
+<!--
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+-->
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+
+{{< tab header="RPC" >}}
+curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+        "jsonrpc":"2.0",
+        "method":"aut_getEpochFromBlock",
+        "params":[1900],
+        "id":1500
+}'
+{"jsonrpc":"2.0","id":1,"result":1}
+{{< /tab >}}
+{{< /tabpane >}}
+
+<!--
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+-->
+
 ##  getMaxCommitteeSize
 
 Returns the protocol setting for the maximum number of validators that can be selected to the consensus committee.
@@ -1102,7 +1162,6 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 
 ## getUnbondingPeriod
@@ -1775,6 +1834,12 @@ Enter passphrase (or CTRL-d to exit):
 Unbonds an amount of bonded stake from a designated validator.
 
 The amount specifies Newton stake token if the delegator is unbonding [self-bonded](/glossary/#self-bonded) stake, else Liquid Newton if [delegated](/glossary/#delegated) stake is being unbonded.
+
+On successful processing of the method call:
+
+- the designated amount of Liquid Newton amount is burnt if the stake being unbonded is _delegated_ and *not* _self-bonded_ stake, 
+- the unbonding period begins,
+- an unbonding object for the necessary voting power change is created and tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the staker's Newton account.
 
 {{< alert title="Warning" color="warning">}}
 The unbonding request will only be effective after the unbonding period, rounded to the next epoch.
