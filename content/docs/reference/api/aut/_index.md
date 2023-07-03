@@ -637,6 +637,7 @@ aut protocol get-unbonding-req [OPTIONS] START END
 {{< /tab >}}
 {{< /tabpane >}}
 
+
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -893,6 +894,32 @@ Returns the unique identifier of the epoch block epoch associated with a block a
 
 {{< /tab >}}
 -->
+
+
+## getEpochFromBlock
+
+Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_block` | `uint256` | the input block number |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochID` | `uint256` | the identifier of the epoch in which the block was committed to state |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+
+{{< tab header="RPC" >}}
+{"method": "aut_getEpochFromBlock", "params":[_block]}
+{{< /tab >}}
+{{< /tabpane >}}
 
 ### Example
 
@@ -1198,6 +1225,7 @@ aut protocol get-proposer [OPTIONS] HEIGHT ROUND
 {{< /tab >}}
 {{< /tabpane >}}
 
+
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -1240,7 +1268,6 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 ### Example
 

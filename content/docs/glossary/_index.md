@@ -236,6 +236,8 @@ Stake token bonded to a [validator](/glossary/#validator) where the validator is
 
 Self-bonded stake earns [staking rewards](/glossary/#staking-rewards), but unlike [delegated](/glossary/#delegated) stake does not have [Liquid Newton](/glossary/#liquid-newton) minted for the [Newton](/glossary/#newton) stake token bonded. 
 
+Stake delegation transactions submitted from other stakeholder accounts result in [delegated](/glossary/#delegated) stake
+
 ## slashing
 A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
 
