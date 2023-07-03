@@ -1178,7 +1178,7 @@ None.
 {{< tab header="aut" >}}
 
 {{< /tab >}}
-<<<<<<< HEAD
+
 {{< tab header="RPC" >}}
 
 {{< /tab >}}
@@ -2159,6 +2159,7 @@ On successful processing of the method call:
 - an unbonding object for the necessary voting power change is created and tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the staker's Newton account.
 
 Constraint checks are applied. The  `validator` address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is `<=` to the `msg.sender`'s bonded stake amount. For delegated stake this is done by checking the `msg.Sender`'s Liquid Newton balance is `>=` to the requested amount, and for self-bonded stake this is done by checking the validator's `selfBondedStake` balance is`>=` to the requested unbonding amount.
+
 
 {{< alert title="Note" >}}
 If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance and supply checks are not required.
