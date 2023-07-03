@@ -897,6 +897,7 @@ None.
 {{< /tabpane >}}
 
 
+
 ## getEpochPeriod
 
 Returns the epoch period from the protocol configuration.
@@ -927,6 +928,7 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 ## getEpochFromBlock
 
@@ -1007,6 +1009,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 
 {{< /tab >}}
 -->
+
 
 ## getLastEpochBlock
 
@@ -1260,6 +1263,7 @@ None.
 {{< /tabpane >}}
 
 
+
 ## getOracle
 
 Returns the address of the Autonity Oracle Contract.
@@ -1296,6 +1300,7 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 
 ##  getProposer
@@ -1378,6 +1383,7 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 
 ## getUnbondingPeriod
