@@ -1370,7 +1370,7 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 '0x2f3BcE2d6C2602de594d9a6662f0b93416cfB4d7'
 {{< /tab >}}
 -->
-<!--
+
 ##  getProposer
 
 Returns the address of the consensus committee member proposing a new block for a specified block height and consensus round.
@@ -1400,7 +1400,7 @@ aut protocol get-proposer [OPTIONS] HEIGHT ROUND
 {"method": "aut_getProposer", "params":[height, round]}
 {{< /tab >}}
 {{< /tabpane >}}
--->
+
 <!--
 {{< tab header="NodeJS Console" >}}
 autonity.getProposer(height, round).call()
@@ -2700,6 +2700,7 @@ Constraint checks:
     - if the validator is in the current consensus committee, then the total supply of Liquid Newton remaining after the unbonding will be `> 0` (preventing the case of a committee member having a `0` supply of LNTN).
 - if the `msg.Sender` is a validator `treasury` account:
     - the `selfBondedStake` balance is`>=` to the `amount` being unbonded
+
 
 {{< alert title="Note" >}}
 If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance and supply checks are not required.
