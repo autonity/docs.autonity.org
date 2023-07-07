@@ -856,7 +856,7 @@ Protocol adjusts the slashing rate according to the total number of fault offenc
 This mechanism applies a dynamic slashing rate mitigating collusion risk by Byzantine agents in an epoch.
 
 If the distribution of rewards to the reporting validator's `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol treasury account for community funds.
-{{% /alert %}}    
+{{% /alert %}}   
 
 #### Parameters
 

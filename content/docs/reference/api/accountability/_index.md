@@ -2,7 +2,6 @@
 title: "Accountability Contract Interface"
 linkTitle: "Accountability Contract Interface"
 weight: 40
-
 description: >
   Autonity Accountability Contract functions
 ---
@@ -129,11 +128,7 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 
 ## getValidatorAccusation
 
-Returns a pending accusation event reported for a validator. The method response may be empty if there is not a pending accusation for the address argument provided.
-
-{{% alert title="Info" color="info"%}}
-This function is only used for development testing.
-{{% /alert %}}
+Returns the most recent pending accusation reported for a validator. The method response may be empty if there is no associated validator accusation event object for the address argument provided.
 
 ### Parameters
 
@@ -229,5 +224,4 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValida
 []
 {{< /tab >}}
 {{< /tabpane >}}
-
 

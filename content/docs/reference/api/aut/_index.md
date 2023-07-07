@@ -2701,7 +2701,6 @@ Constraint checks:
 - if the `msg.Sender` is a validator `treasury` account:
     - the `selfBondedStake` balance is`>=` to the `amount` being unbonded
 
-
 {{< alert title="Note" >}}
 If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance and supply checks are not required.
 

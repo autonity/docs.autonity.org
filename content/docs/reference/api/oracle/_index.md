@@ -289,7 +289,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRou
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK/USD"
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK-USD"
 {"round": 47631, "price": 963459, "timestamp": 1688390007, "status": 0}
 {{< /tab >}}
 {{< /tabpane >}}
