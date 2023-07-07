@@ -805,6 +805,24 @@ The new committee enode URL's can be retrieved from state by calling the [`getCo
 
 Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake()`](/reference/api/aut/#epochtotalbondedstake) method.
 
+### distributeRewards (Accountability Contract)
+
+The Accountability Contract reward distribution function, called at epoch finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). 
+
+The function:
+
+- distributes rewards for reporting provable faults committed by an offending validator to the reporting validator.
+- if multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.
+- if funds can't be transferred to the reporter's `treasury` account, then rewards go to the autonity protocol `treasury` account for community funds (see also [Protocol Parameters](/reference/protocol/#parameters) Reference).
+
+After distribution, the reporting validator is removed from the `beneficiaries` array.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validator` | `address` | the address of the validator node being slashed |
+
 
 ###  finalize
 
@@ -912,22 +930,88 @@ The function emits events:
 
 The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
 
-- On each block, tries to promote accusations without proof of innocence into misconducts.
+- On each block, tries to promote accusations without proof of innocence into misconducts. Accusations without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous faults already committed by the validator in the current epoch.
+
+{{% alert title="Note" %}}
+Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
+{{% /alert %}}
+
 - On epoch end, performs slashing tasks.
+
+#### promote guilty accusations
+
+For each accusation the protocol:
+
+- checks if an innocence submission has been submitted for the accusation within the innocence submission window and if not promotes the accusation into a misbehaviour fault.
+
+How it works:
+
+- accountability proof submissions are submitted and placed into `accusation` and `innocence` queues stored in memory. The `innocence` queue is ordered by time of submission
+- as the function executes it takes each `Accusation` proof from the queue and checks the `innocence` queue to determine if an `InnocenceProof` has been submitted for the accusation within the innocence proof window: `_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number` (i.e. if the sum of the block number at which the accusation was reported and the number of blocks in the innocence window is greater than the current block number), then:
+  - if greater than, then the `InnocenceProof` submission is considered stale and ignored, and the function continues to the next `InnocenceProof` in the queue is tested.
+  - if less than, then the function breaks and fault severity is determined. The function:
+    - deletes the `Accusation` proof
+    - checks the slashing history of the validator to determine if the validator already has a proven offence (i.e. a `FaultProof`) with a severity `>=` to the `Accusation`'s reported fault:
+    - if true, then the `Accusation` is skipped as a `FaultProof` with a higher severity has already been reported during the epoch
+    - if false, then:
+      - the validator's slashing history is updated to record the severity of the fault, so the history records the highest fault severity applied to the validator during the epoch
+      - a new `FaultProof` is created for the validator and added to the slashing queue
+      - a `FaultProof` event is emitted logging the event.
+
+The reported validator will be silenced and slashed for the fault at the end of the current epoch.
+
+#### perform slashing tasks
+
+For each fault the performs slashing over faulty validators at the end of an epoch.
+
+How it works:
+
+- checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue
+- applies slashing for each fault in the slashing queue:
+  - computes the slashing rate to apply, taking into account the number of fault offences committed in the epoch,
+  - applies slashing to the offending validator's stake,
+  - adds the reporting validators' to the array of reward beneficiaries that will receive rewards for offence reporting,
+- rewards are then distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator self-bonded and delegated stakeholders _pro rata_ to their bonded stake amount. If the validator `treasury` account.
+
+
+How it works to apply slashing for each fault in the slashing queue. The function:
+
+- adds the validator reporting the offence to the list of beneficiaries that will receive rewards for offence reporting
+- computes the slashing rate to apply based on slashing factors: base rate from fault severity, validator reputation (the validator's proven fault count), count of offences committed in the epoch, slashing rate precision.
+- computes the slashing amount to apply: `(slashing rate * validator bonded stake)/slashing rate precision`
+- computes the slashing, subtracting the slashing amount from the validator's bonded stake and transferring the fined amount of NTN stake token from the validator to the Autonity Contract Account address.
+    - the slashing fine is applied according to the protocol's Penalty Absorbing Stake model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
+- increments the validator's proven offence fault counter by `1` to record the slashing occurrence in the validator's reputational slashing history
+- computes the jail period of the offending validator - `current block number + jail factor * proven offence fault count * epoch period` - and sets the validator's jail release block number
+- updates the validator's state and transfers the slashed stake token funds to the Autonity Protocol global `treasury` account for community funds use
+- Emit a `NodeSlashed` event for each validator that has been slashed.
+- Resets the pending slashing task queue ready for the next epoch.
+
+{{% alert title="Note" %}}
+Protocol adjusts the slashing rate according to the total number of fault offences committed in an epoch across all validators.
+
+This mechanism applies a dynamic slashing rate mitigating collusion risk by Byzantine agents in an epoch.
+
+If the distribution of rewards to the reporting validator's `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol treasury account for community funds.
+{{% /alert %}}    
 
 #### Parameters
 
 | Field | Datatype | Description |
 | --| --| --| 
-| `epochEnded` | `Bool` | boolean value indicating if the current block is the last block of the current epoch (`true`) or not (`false`) |
+| `epochEnd` | `Bool` | boolean value indicating if the current block is the last block of the epoch (`true`) or not (`false`) |
 
 #### Response
 
-TO DO.
+None.
 
 #### Event
 
-TO DO.
+The function emits events:
+
+- on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`.
+- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`.
+
 
 ###  finalize (Oracle Contract)
 
@@ -1047,6 +1131,7 @@ On proof submission an `_event` object data structure is constructed in memory, 
 | `reportingBlock` | `uint256` | the number of the block at which the accountability event was reported. Assigned by protocol after proof verification. |
 | `messageHash` | `uint256` | hash of the main evidence for the accountability event. Assigned by protocol after proof verification. |
 
+
 #### Response
 
 None.
@@ -1110,10 +1195,5 @@ The Auton Currency Unit (ACU) Contract finalisation function, called once per Or
 
 None.
 
-#### Response
-
-None.
-
 #### Event
-
 On success the function emits an `Updated` event for the new ACU value, logging: `block.number`, `block.timestamp`, oracle voting round number `round`, and the ACU index value calculated `_value`.
