@@ -2,6 +2,7 @@
 title: "Accountability Contract Interface"
 linkTitle: "Accountability Contract Interface"
 weight: 40
+description: >
   Autonity Accountability Contract functions
 ---
 
@@ -208,7 +209,6 @@ Returns an array of `Event` object(s) of type `FaultProof` consisting of:
 | `epoch` | `uint256` | identifier of the epoch in which the accountability event occurred |
 | `reportingBlock` | `uint256` | block number at which the accountability event was reported |
 | `messageHash` | `uint256` | hash of the main evidence for the accountability event |
-
 
 ### Usage
 
