@@ -1,0 +1,140 @@
+---
+title: "Accountability Contract Interface"
+linkTitle: "Accountability Contract Interface"
+
+description: >
+  Autonity Accountability Contract functions
+---
+
+Interface for interacting with Autonity Accountability Contract functions using:
+
+- The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
+
+{{% pageinfo %}}
+Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
+
+Usage and Examples illustrate using the Accountability Contract's generated ABI and the `aut` tool's `contract` command to call the Accountability Contract address `TO ADD ADDRESS`. See `aut contract call --help`.
+
+Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Accountability.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/Oracle.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
+{{% /pageinfo %}}
+
+
+## canSlash
+
+Called by a reporting validator to determine if the infraction of a protocol rule by a designated offending validator has a severity higher than any rule infraction committed by the offending validator in the current epoch.
+
+Returns true if the severity of the reported rule infraction is higher than that of any already reported.
+
+{{% alert title="Note" %}}
+Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
+
+If the severity of the rule infraction reported is higher than any infraction faults committed by the offending validator in the current epoch, then it can lead to a slashing until a rule infraction with a higher severity is reported.
+{{% /alert %}}
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_offender` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the offending validator |
+| `_rule` | `Rule` | enumerated value providing the ID for the protocol rule |
+| `_block` | `uint256` | block number at which the rule infraction occurred |
+
+### Response
+
+The method returns a `boolean` flag specifying whether the reported infraction is slashable (`true`) or not (`false`).
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+## canAccuse
+
+Called by a reporting validator to determine if (a) an offending validator can be accused of a rule infraction, and, (b) the number of blocks before which an accusation can be submitted.
+
+Returns (a) a boolean flag specifying if the validator is acusable or not, and, (b) the number of blocks remaining in the innocence proof submission window before a new `Accusation` proof can be be submitted on-chain.
+
+{{% alert title="Note" %}}
+A reporting validator can only submit an accusation against an offending validator if the offending validator:
+
+- has not already been slashed in the epoch in which the accusation is being made for an offence with a higher severity. Slashing history is checked to determine this.
+- is not currently already under accusation. In this case, a new accusation cannot be made until expiry of the innocence window during which an accused validator is able to submit an `Innocence` proof refuting the accusation. This creates a _deadline_ before which a new `Accusation` proof cannot be submitted. Pending validator accusations are checked to determine this.
+
+Accusations do not automatically cause slashing. The _innocence proof window_ is measured in blocks and gives the accused offending validator a window to detect an accusation and prove innocence by submitting an `Innocence` proof on-chain. If the validator a reporting validator wants to accuse already has an accusation pending, the accountability protocol determines the offender is not currently accusable. Protocol has to wait to determine if the accusation has been defended or, if not, promoted to a fault or not. Until then, it cannot determine if the offending has committed a rule infraction with a higher severity or not.
+{{% /alert %}}
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_offender` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the offending validator |
+| `_rule` | `Rule` | enumerated value providing the ID for the protocol rule |
+| `_block` | `uint256` | block number at which the rule infraction occurred |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_result` | `bool` | a `boolean` value specifying whether the reported infraction is accusable (`true`) or not (`false`) |
+| `_deadline` | `uint256` | the number of blocks before the validator becomes acusable. Returns (a) a `non zero` value indicating the block height at which a pending accusation's innocence window expires, or, (b) `0` indicating that there is no pending innocence window expiry |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+## getValidatorAccusation
+
+Returns the most recent pending accusation reported for a validator. The method response may be empty if there is no associated validator accusation event object for the address argument provided.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_val` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the validator |
+
+### Response
+
+Returns an `Event` object consisting of:
+
+TO DO ADD Event object table as done for getValidator on Validator object
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+

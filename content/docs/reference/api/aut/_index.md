@@ -2694,10 +2694,11 @@ On successful processing of the method call:
 Constraint checks:
 
 - the `validator` address is registered as a validator
-- If the `msg.Sender` is a stake delegator account, then Liquid Newton balance and supply checks are applied:
+- if the `msg.Sender` is a stake delegator account, then Liquid Newton balance and supply checks are applied:
     - the Liquid Newton balance of the account submitting  the `unbond()` method call has a balance `>=` to the `amount` being unbonded
     - if the validator is in the current consensus committee, then the total supply of Liquid Newton remaining after the unbonding will be `> 0` (preventing the case of a committee member having a `0` supply of LNTN).
-
+- if the `msg.Sender` is a validator `treasury` account:
+    - the `selfBondedStake` balance is`>=` to the `amount` being unbonded
 
 {{< alert title="Note" >}}
 If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance and supply checks are not required.

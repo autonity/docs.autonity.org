@@ -202,7 +202,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePe
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
-60
+30
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -276,15 +276,7 @@ This can easily be converted to a human-readable form, for example:
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "BTCUSD"
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "BTCUSD"
-{"round": 1809, "price": 272694800000, "timestamp": 1684418293, "status": 0}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK/USD"
+{"round": 47631, "price": 963459, "timestamp": 1688390007, "status": 0}
 {{< /tab >}}
 {{< /tabpane >}}
