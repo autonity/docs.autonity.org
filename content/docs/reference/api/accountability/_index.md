@@ -2,7 +2,6 @@
 title: "Accountability Contract Interface"
 linkTitle: "Accountability Contract Interface"
 weight: 40
-description: >
   Autonity Accountability Contract functions
 ---
 
@@ -47,7 +46,7 @@ Accusations do not automatically cause slashing. The _innocence proof window_ is
 | Field | Datatype | Description |
 | --| --| --|
 | `_result` | `bool` | a `boolean` value specifying whether the reported infraction is accusable (`true`) or not (`false`) |
-| `_deadline` | `uint256` | the number of blocks before the validator becomes accusable. Returns (a) a `non zero` value indicating the block height at which a pending accusation's innocence window expires, or, (b) `0` indicating that there is no pending innocence window expiry |
+| `_deadline` | `uint256` | the number of blocks before the validator becomes acusable. Returns (a) a `non zero` value indicating the block height at which a pending accusation's innocence window expires, or, (b) `0` indicating that there is no pending innocence window expiry |
 
 ### Usage
 
@@ -209,6 +208,7 @@ Returns an array of `Event` object(s) of type `FaultProof` consisting of:
 | `epoch` | `uint256` | identifier of the epoch in which the accountability event occurred |
 | `reportingBlock` | `uint256` | block number at which the accountability event was reported |
 | `messageHash` | `uint256` | hash of the main evidence for the accountability event |
+
 
 ### Usage
 
