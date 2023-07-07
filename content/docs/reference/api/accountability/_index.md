@@ -131,11 +131,7 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 
 ## getValidatorAccusation
 
-Returns a pending accusation event reported for a validator. The method response may be empty if there is not a pending accusation for the address argument provided.
-
-{{% alert title="Info" color="info"%}}
-This function is only used for development testing.
-{{% /alert %}}
+Returns the most recent pending accusation reported for a validator. The method response may be empty if there is no associated validator accusation event object for the address argument provided.
 
 ### Parameters
 
