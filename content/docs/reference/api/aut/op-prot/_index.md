@@ -1115,7 +1115,6 @@ The function emits events:
 - after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`.
 
 
-
 ###  finalize (Oracle Contract)
 
 The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
@@ -1213,6 +1212,7 @@ Then, depending on event type:
   - The accusation queue is checked and the associated accusation is removed.
   - The validator's pending accusation is reset to `0`, indicating the validator has no pending accusations (so a new accusation can now be submitted against the validator).
 
+
 #### Parameters
 
 | Field | Datatype | Description |
@@ -1248,6 +1248,7 @@ On success the function emits events for handling of:
 - Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
+
 
 ###  mint (Supply Control Contract)
 
