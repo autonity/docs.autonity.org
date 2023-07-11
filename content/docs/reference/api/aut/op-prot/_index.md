@@ -930,13 +930,13 @@ The function emits events:
 
 The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
 
-- On each block, tries to promote accusations without proof of innocence into misconducts. Accusations without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous faults already committed by the validator in the current epoch.
+- On each block, tries to [promote accusations](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. Accusations without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous faults already committed by the validator in the current epoch.
 
 {{% alert title="Note" %}}
 Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
 {{% /alert %}}
 
-- On epoch end, performs slashing tasks.
+- On epoch end, [performs slashing tasks](/reference/api/aut/op-prot/#perform-slashing-tasks).
 
 #### promote guilty accusations
 
@@ -1130,7 +1130,6 @@ On proof submission an `_event` object data structure is constructed in memory, 
 | `epoch` | `uint256` | the identifier of the epoch in which the accountability event occurred. Assigned by protocol after proof verification. |
 | `reportingBlock` | `uint256` | the number of the block at which the accountability event was reported. Assigned by protocol after proof verification. |
 | `messageHash` | `uint256` | hash of the main evidence for the accountability event. Assigned by protocol after proof verification. |
-
 
 #### Response
 

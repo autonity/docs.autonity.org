@@ -327,6 +327,7 @@ If multiple slashing events are committed by the same _offending validator_ duri
 
 If the distribution of rewards to the _reporting validator’s_ `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol `treasury` account for community funds.
 {{% /alert %}}
+
 <!--
 ### Transaction fee refund
 
