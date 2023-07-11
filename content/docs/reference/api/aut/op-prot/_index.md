@@ -791,13 +791,13 @@ On successful reward distribution the function emits:
 
 The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
 
-- On each block, tries to promote accusations without proof of innocence into misconducts. Accusations without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous faults already committed by the validator in the current epoch.
+- On each block, tries to [promote accusations](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. Accusations without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous faults already committed by the validator in the current epoch.
 
 {{% alert title="Note" %}}
 Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
 {{% /alert %}}
 
-- On epoch end, performs slashing tasks.
+- On epoch end, [performs slashing tasks](/reference/api/aut/op-prot/#perform-slashing-tasks).
 
 #### promote guilty accusations
 
@@ -896,23 +896,103 @@ None.
 
 On success the function emits a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.number`, `block.timestamp` and vote period duration `votePeriod`.
 
-### distributeRewards (Accountability Contract)
 
-The Accountability Contract reward distribution function, called at epoch finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). 
+### handleEvent (Accountability Contract)
 
-The function:
+The accountability event handling function, invoked by protocol on submission of accountability event data to handle event processing.
 
-- distributes rewards for reporting provable faults committed by an offending validator to the reporting validator.
-- if multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.
-- if funds can't be transferred to the reporter's `treasury` account, then rewards go to the autonity protocol `treasury` account for community funds (see also [Protocol Parameters](/reference/protocol/#parameters) Reference).
+Constraint checks are applied:
+ 
+ - the `msg.sender` caller is a registered [validator identifier](/concepts/validator/#validator-identifier), else the transaction reverts. (Rewards for reporting a successful slashing event are distributed to the validator's [`treasury` account](/concepts/validator/#treasury-account).)
+ - the `msg.sender` calling the function and the slashing event reporter addresses are the same.
+ - chunk segments are contiguous for oversize events that have been chunked for storage into a map. If an event's raw proof data is above a floor byte size, then the event is `chunked` into `16kb` size chunks and stored in a map. Chunk id's must be contiguous; i.e. a map can only contain chunks from one and not multiple events.
 
-After distribution, the reporting validator is removed from the `beneficiaries` array.
+The function checks the event data:
+
+- If the raw proof contains `>1` chunk, then the function stores the event into a map and then returns.
+
+The function then processes the event according to event type.
+
+The function validates the accountability event proof, passing the event's `rawProof` data to a precompiled contract for verification. The precompiled contract returns verification outcome to the method:
+
+- `_success` - boolean flag indicating if proof verification succeeded or failed
+- `_offender` - validator identifier address of the fault offender
+- `_ruleId` - ID of the accountability rule tested
+- `_block` - number of the block in which the fault occurred
+- `_messageHash` - cryptographic hash of the main fault evidence, the `rawProof`.
+
+Based on the verification outcome, constraint checks are applied:
+
+- the raw proof verification passed: `_success` is `true`
+- there are no mismatches between the event data and the verified raw proof data fields:
+  - the returned `_offender` and event `offender` address values match
+  - the returned `_ruleId` and event `rule` identifier values match
+- the`_block` number returned by the verification is less than the current `block.number` - the proof is for a historical and not future event
+
+- depending on event type, specific constraint checks are applied:
+
+  - if `FaultProof`, then:
+    - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch
+    - the validator has not already been slashed for a fault with a higher severity in the proof's epoch.
+
+  - if `Accusation`, then:
+    - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch
+    - the validator has not already been slashed for a fault with a higher severity in the proof's epoch.
+    - the validator does not have a pending accusation being processed
+
+  - if `InnocenceProof`, then:
+    - the validator has an associated accusation already being processed
+    - the innocence proof and associated accusation proof have matching: rule identifiers, block number, message hash.
+
+On successful constraint checking:
+
+- The `event` data object is updated using data returned by processing of the raw proof during proof verification processing:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `block ` | `uint256` | assigned block number returned from verification in `_block`|
+| `epoch` | `uint256` | assigned the identifier of the epoch in which the accountability event `_block` occurred |
+| `reportingBlock` | `uint256` | assigned the current block number |
+| `messageHash` | `uint256` | assigned the hash of the main evidence for the accountability event returned from verification in `_messageHash` |
+
+- The event is added to the events queue and assigned an `_eventId` value reflecting its position in the event queue.
+
+Then, depending on event type:
+
+- If `FaultProof`, then:
+  - The record of validator faults is updated to add the new event ID.
+  - The event is added to the slashing queue.
+  - The slashing history of the validator for the epoch is updated to record the fault's severity.
+
+- If `Accusation`, then:
+  - The accusation is added to the queue of pending validator accusations.
+  - The event is added to the accusation queue.
+
+- If `InnocenceProof`, then:
+  - The accusations queue is checked and the associated accusation is removed.
+  - The validator's pending accusation is reset to `0`, indicating the validator has no pending accusations (so a new accusation can now be submitted against the validator).
 
 #### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_validator` | `address` | the address of the validator node being slashed |
+| `_event` | `Event` | event data object |
+
+On proof submission an `_event` object data structure is constructed in memory, populated with fields ready for proof processing:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `chunks` | `uint8` | counter of the number of chunks in the accountability event (for oversize accountability event) |
+| `chunkId` | `uint8` | chunk index to construct the oversize accountability event |
+| `eventType` | `EventType` | the accountability event type, one of: `FaultProof` (proven misbehaviour), `Accusation` (pending accusation), `InnocenceProof` (proven innocence) |
+| `rule` | `Rule` | the identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. Enumerated values are defined for each AFD Rule ID. |
+| `reporter` | `address` | the node address of the validator that reported this accountability event |
+| `offender` | `address` | the node address of the validator accused of the accountability event |
+| `rawProof` | `bytes` | the `rlp` encoded bytes of the accountability proof object |
+| `block ` | `uint256` | the number of the block at which the accountability event occurred. Assigned by protocol after proof verification. |
+| `epoch` | `uint256` | the identifier of the epoch in which the accountability event occurred. Assigned by protocol after proof verification. |
+| `reportingBlock` | `uint256` | the number of the block at which the accountability event was reported. Assigned by protocol after proof verification. |
+| `messageHash` | `uint256` | hash of the main evidence for the accountability event. Assigned by protocol after proof verification. |
 
 #### Response
 
@@ -920,24 +1000,8 @@ None.
 
 #### Event
 
-None.
+On success the function emits events for handling of:
 
-### setEpochPeriod (Accountability Contract)
-
-Called by the Autonity Contract [`setEpochPeriod`](/reference/api/aut/op-prot/#setepochperiod) method when the epoch period is updated.
-
-The function maintains the epoch period setting of the Accountability Contract in sync with that of the Autonity Contract.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_newPeriod` | `uint256` | the new epoch period |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
+- Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
+- Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
+- Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.

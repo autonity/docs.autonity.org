@@ -19,46 +19,6 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 {{% /pageinfo %}}
 
 
-## canSlash
-
-Called by a reporting validator to determine if the infraction of a protocol rule by a designated offending validator has a severity higher than any rule infraction committed by the offending validator in the current epoch.
-
-Returns true if the severity of the reported rule infraction is higher than that of any already reported.
-
-{{% alert title="Note" %}}
-Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
-
-If the severity of the rule infraction reported is higher than any infraction faults committed by the offending validator in the current epoch, then it can lead to a slashing until a rule infraction with a higher severity is reported.
-{{% /alert %}}
-
-### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_offender` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the offending validator |
-| `_rule` | `Rule` | enumerated value providing the ID for the protocol rule |
-| `_block` | `uint256` | block number at which the rule infraction occurred |
-
-### Response
-
-The method returns a `boolean` flag specifying whether the reported infraction is slashable (`true`) or not (`false`).
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
 ## canAccuse
 
 Called by a reporting validator to determine if (a) an offending validator can be accused of a rule infraction, and, (b) the number of blocks before which an accusation can be submitted.
@@ -106,21 +66,29 @@ Accusations do not automatically cause slashing. The _innocence proof window_ is
 {{< /tabpane >}}
 
 
-## getValidatorAccusation
+## canSlash
 
-Returns the most recent pending accusation reported for a validator. The method response may be empty if there is no associated validator accusation event object for the address argument provided.
+Called by a reporting validator to determine if the infraction of a protocol rule by a designated offending validator has a severity higher than any rule infraction committed by the offending validator in the current epoch.
+
+Returns true if the severity of the reported rule infraction is higher than that of any already reported.
+
+{{% alert title="Note" %}}
+Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
+
+If the severity of the rule infraction reported is higher than any infraction faults committed by the offending validator in the current epoch, then it can lead to a slashing until a rule infraction with a higher severity is reported.
+{{% /alert %}}
 
 ### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_val` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the validator |
+| `_offender` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the offending validator |
+| `_rule` | `Rule` | enumerated value providing the ID for the protocol rule |
+| `_block` | `uint256` | block number at which the rule infraction occurred |
 
 ### Response
 
-Returns an `Event` object consisting of:
-
-TO DO ADD Event object table as done for getValidator on Validator object
+The method returns a `boolean` flag specifying whether the reported infraction is slashable (`true`) or not (`false`).
 
 ### Usage
 
@@ -137,4 +105,102 @@ TO DO ADD Event object table as done for getValidator on Validator object
 
 {{< /tab >}}
 {{< /tabpane >}}
+
+
+## getValidatorAccusation
+
+Returns a pending accusation event reported for a validator. The method response may be empty if there is not a pending accusation for the address argument provided.
+
+{{% alert title="Note" %}}
+Protocol only allows a validator to be under accusation once at a time.
+
+Accusations do not automatically cause slashing and an _innocence proof window_ measured in blocks gives the accused offending validator a window to detect an accusation and prove innocence by submitting an `Innocence` proof on-chain. The expiry of this window creates a _deadline_ before which a new `Accusation` proof cannot be submitted.
+
+See _Note_ on [`canAccuse`](/reference/api/accountability/#canaccuse) above for more detail.
+{{% /alert %}}
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_val` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the validator |
+
+### Response
+
+Returns an `Event` object of type `Accusation` consisting of:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `chunks` | `uint8` | counter of number of chunks in the event (for oversize accountability event) |
+| `chunkId` | `uint8` | chunk index to construct the oversize accountability event |
+| `eventType` | `EventType` | accountability event type: `Accusation` |
+| `rule` | `Rule` | the identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. |
+| `reporter` | `address` | the node address of the validator that reported this accountability event |
+| `offender` | `address` | the node address of the validator accused of the accountability event. |
+| `rawProof` | `bytes` | the rlp encoded bytes of the accountability proof object |
+| `block ` | `uint256` | block number at which the accountability event occurred |
+| `epoch` | `uint256` | identifier of the epoch in which the accountability event occurred |
+| `reportingBlock` | `uint256` | block number at which the accountability event was reported |
+| `messageHash` | `uint256` | hash of the main evidence for the accountability event |
+
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+## getValidatorFaults
+
+Returns proven misbehaviour faults reported for a validator. The method response may be empty if there are no associated validator `FaultProof` event object(s) for the address argument provided.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_val` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the validator |
+
+Returns an array of `Event` object(s) of type `FaultProof` consisting of:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `chunks` | `uint8` | counter of number of chunks in the event (for oversize accountability event) |
+| `chunkId` | `uint8` | chunk index to construct the oversize accountability event |
+| `eventType` | `EventType` | accountability event type: `FaultProof` |
+| `rule` | `Rule` | the identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. |
+| `reporter` | `address` | the node address of the validator that reported this accountability event |
+| `offender` | `address` | the node address of the validator accused of the accountability event. |
+| `rawProof` | `bytes` | the rlp encoded bytes of the accountability proof object |
+| `block ` | `uint256` | block number at which the accountability event occurred |
+| `epoch` | `uint256` | identifier of the epoch in which the accountability event occurred |
+| `reportingBlock` | `uint256` | block number at which the accountability event was reported |
+| `messageHash` | `uint256` | hash of the main evidence for the accountability event |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
 
