@@ -23,7 +23,7 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 
 Called by a reporting validator to determine if (a) an offending validator can be accused of a rule infraction, and, (b) the number of blocks before which an accusation can be submitted.
 
-Returns (a) a boolean flag specifying if the validator is acusable or not, and, (b) the number of blocks remaining in the innocence proof submission window before a new `Accusation` proof can be be submitted on-chain.
+Returns (a) a boolean flag specifying if the validator is accusable or not, and, (b) the number of blocks remaining in the innocence proof submission window before a new `Accusation` proof can be be submitted on-chain.
 
 {{% alert title="Note" %}}
 A reporting validator can only submit an accusation against an offending validator if the offending validator:
@@ -47,7 +47,7 @@ Accusations do not automatically cause slashing. The _innocence proof window_ is
 | Field | Datatype | Description |
 | --| --| --|
 | `_result` | `bool` | a `boolean` value specifying whether the reported infraction is accusable (`true`) or not (`false`) |
-| `_deadline` | `uint256` | the number of blocks before the validator becomes acusable. Returns (a) a `non zero` value indicating the block height at which a pending accusation's innocence window expires, or, (b) `0` indicating that there is no pending innocence window expiry |
+| `_deadline` | `uint256` | the number of blocks before the validator becomes accusable. Returns (a) a `non zero` value indicating the block height at which a pending accusation's innocence window expires, or, (b) `0` indicating that there is no pending innocence window expiry |
 
 ### Usage
 

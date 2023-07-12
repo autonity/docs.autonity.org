@@ -965,11 +965,11 @@ Then, depending on event type:
   - The slashing history of the validator for the epoch is updated to record the fault's severity.
 
 - If `Accusation`, then:
-  - The accusation is added to the queue of pending validator accusations.
+  - The event is recorded as the validator's pending accusation.
   - The event is added to the accusation queue.
 
 - If `InnocenceProof`, then:
-  - The accusations queue is checked and the associated accusation is removed.
+  - The accusation queue is checked and the associated accusation is removed.
   - The validator's pending accusation is reset to `0`, indicating the validator has no pending accusations (so a new accusation can now be submitted against the validator).
 
 #### Parameters

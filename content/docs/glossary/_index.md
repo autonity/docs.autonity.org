@@ -152,6 +152,12 @@ The JSON-formatted genesis configuration file that contains the data necessary t
 ## incentivisation scheme
 A cryptoeconomic mechanism where economic penalties are applied for incorrect actions or state transitions by network participants, enforced by cryptographic proofs of state or action.
 
+## jailing
+A protocol action that excludes a validator from selection to the [consensus committee](/glossary/#consensus-committee) for a designated period of time as a [slashing penalty](/glossary/#slashing-penalty). See [jail period](/glossary#jail-period).
+
+## jail period
+The period of time for which a validator is debarred from selection to the consensus committee, defined as a number of epochs.  The jail period is set as a protocol parameter.
+
 ## key pair
 A pair of public and private cryptography keys used for signing and encryption. The private key is used to produce signatures that are publicly verifiable using the public key. The public key may also be used to encrypt messages intended for the private key holder who can decrypt them using the private key.
 
@@ -197,6 +203,11 @@ A [node](/glossary/#node) which is currently connected to other nodes in a [peer
 ## peer-to-peer network (p2p)
 A distributed systems architecture in which the systems' resources are pooled and shared across nodes that are peers of the network.
 
+## Penalty-Absorbing Stake (PAS)
+A stake [slashing](/glossary/#slashing) model whereby [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.
+
+In the PAS model self-bonded stake absorbs any slashing penalties before they are applied pro-rata to the remaining delegated stake.
+
 ## permissionless network
 A peer-to-peer network where access is open and public. Any node can connect to the network and become a [peer](/glossary/#peer).
 
@@ -204,6 +215,12 @@ A peer-to-peer network where access is open and public. Any node can connect to 
 Stake token bonded to a [validator](/glossary/#validator) where the validator is the [stakeholder](/glossary/#stakeholder). The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) is the validator `treasury` account.
 
 Stake delegation transactions submitted from other stakeholder accounts result in [delegated](/glossary/#delegated) stake
+
+## slashing
+A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
+
+## slashing penalty
+An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: stake [slashing](/glossary/#slashing), stake freezing, [jailing](/glossary/#jailing).
 
 ## smart contract
 The program code for encoding and executing decentralised application logic in the [EVM](/glossary/#ethereum-virtual-machine-evm). Smart contracts are written in a higher level programming language such as 'Solidity' and compiled to [bytecode](/glossary/#bytecode) for execution in the EVM. A smart contract stores the application's state.
@@ -226,12 +243,6 @@ The [account](/glossary/#account) used by a [stakeholder](/glossary/#stakeholder
 
 ## state database
 The local data store of a node used to persist the node’s local copy of [system state](/glossary/#system-state).
-
-## slashing
-A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
-
-## slashing penalty
-An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: slashing, freezing stake.
 
 ## system state
 The computational state of an Autonity system. State is  computed according to the [Autonity Protocol](/glossary/#autonity-protocol). System state is stored as key-value pairs, mapping between account [addresses](/glossary/#address) and [account states](/glossary#account-state) in Ethereum's modified Merkle Patricia trie data structure (See [Merkle Patricia Tree, Ethereum Developer docs <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/)).
