@@ -48,6 +48,7 @@ As a consensus committee member the validator may play the roles in the table be
 
 The economic impact of the AFD protocol on a validator depends on their role.
 
+#### Faults
 
 | Role | Economic impact |
 |:--|:--|
@@ -335,8 +336,8 @@ The fees for submitting a new accusation may be refunded to the _reporting_ vali
 
 - the accusation is the last new accusation submitted in an epoch.
 
+
 {{% alert title="Note" %}}
 Note the validator can determine if a detected fault is accusable by calling the [`canAccuse()`](/reference/api/accountability/#canaccuse) and [`canSlash()`](/reference/api/accountability/#canslash) contract functions.
 {{% /alert %}}
 -->
-

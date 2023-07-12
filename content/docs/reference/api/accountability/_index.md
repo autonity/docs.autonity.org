@@ -25,6 +25,15 @@ Called by a reporting validator to determine if (a) an offending validator can b
 
 Returns (a) a boolean flag specifying if the validator is accusable or not, and, (b) the number of blocks remaining in the innocence proof submission window before a new `Accusation` proof can be be submitted on-chain.
 
+{{% alert title="Note" %}}
+A reporting validator can only submit an accusation against an offending validator if the offending validator:
+
+- has not already been slashed in the epoch in which the accusation is being made for an offence with a higher severity. Slashing history is checked to determine this.
+- is not currently already under accusation. In this case, a new accusation cannot be made until expiry of the innocence window during which an accused validator is able to submit an `Innocence` proof refuting the accusation. This creates a _deadline_ before which a new `Accusation` proof cannot be submitted. Pending validator accusations are checked to determine this.
+
+Accusations do not automatically cause slashing. The _innocence proof window_ is measured in blocks and gives the accused offending validator a window to detect an accusation and prove innocence by submitting an `Innocence` proof on-chain. If the validator a reporting validator wants to accuse already has an accusation pending, the accountability protocol determines the offender is not currently accusable. Protocol has to wait to determine if the accusation has been defended or, if not, promoted to a fault or not. Until then, it cannot determine if the offending has committed a rule infraction with a higher severity or not.
+{{% /alert %}}
+
 ### Parameters
 
 | Field | Datatype | Description |
