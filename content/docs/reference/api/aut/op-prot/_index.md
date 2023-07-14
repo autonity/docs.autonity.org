@@ -942,19 +942,21 @@ Protocol only applies an accountability slashing for the fault with the highest 
 
 For each accusation the protocol:
 
-- checks if an innocence submission has been submitted for the accusation within the innocence submission window and if not promotes the accusation into a misbehaviour fault.
+- checks the proof submission window for an accusation has expired and if so then attempts to promote the accusation into a misbehaviour fault:
+- if a fault with a higher severity than the accusation for the epoch already exists, the accusation is dropped
+- else, a new fault is created from the accusation and the slashing history of the validator is updated to record the new fault severity.
 
 How it works:
 
 - accountability proof submissions are submitted and placed into `accusation` and `innocence` queues stored in memory. The `innocence` queue is ordered by time of submission
-- as the function executes it takes each `Accusation` proof from the queue and checks the `innocence` queue to determine if an `InnocenceProof` has been submitted for the accusation within the innocence proof window: `_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number` (i.e. if the sum of the block number at which the accusation was reported and the number of blocks in the innocence window is greater than the current block number), then:
-  - if greater than, then the `InnocenceProof` submission is considered stale and ignored, and the function continues to the next `InnocenceProof` in the queue is tested.
-  - if less than, then the function breaks and fault severity is determined. The function:
-    - deletes the `Accusation` proof
-    - checks the slashing history of the validator to determine if the validator already has a proven offence (i.e. a `FaultProof`) with a severity `>=` to the `Accusation`'s reported fault:
-    - if true, then the `Accusation` is skipped as a `FaultProof` with a higher severity has already been reported during the epoch
+- as the function executes it takes each `Accusation` proof from the accusations queue and:
+  - checks if the sum of the block number at which the accusation was reported and the number of blocks in the proof innocence window is greater than the current block number (`_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number`):
+  <!-- - if greater than, then the `InnocenceProof` submission is considered stale and ignored, and the function continues to the next `InnocenceProof` in the queue is tested. -->
+  - if less than, accusation remains
+  - if greater than, the accusation is removed from the queue (i.e. deleted) and its fault severity is determined. The function checks the slashing history of the validator to determine if the validator already has a proven offence (i.e. a `FaultProof`) with a severity `>=` to the `Accusation`'s reported fault:
+    - if true, then the `Accusation` is skipped: a `FaultProof` with a higher severity has already been reported during the epoch
     - if false, then:
-      - the validator's slashing history is updated to record the severity of the fault, so the history records the highest fault severity applied to the validator during the epoch
+      - the validator's slashing history is updated to record the severity of the accusation, so the history records the highest fault severity applied to the validator during the epoch
       - a new `FaultProof` is created for the validator and added to the slashing queue
       - a `FaultProof` event is emitted logging the event.
 
@@ -980,8 +982,8 @@ How it works to apply slashing for each fault in the slashing queue. The functio
 - computes the slashing rate to apply based on slashing factors: base rate from fault severity, validator reputation (the validator's proven fault count), count of offences committed in the epoch, slashing rate precision.
 - computes the slashing amount to apply: `(slashing rate * validator bonded stake)/slashing rate precision`
 - computes the slashing, subtracting the slashing amount from the validator's bonded stake and transferring the fined amount of NTN stake token from the validator to the Autonity Contract Account address.
-    - the slashing fine is applied according to the protocol's Penalty Absorbing Stake model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
-- increments the validator's proven offence fault counter by `1` to record the slashing occurrence in the validator's reputational slashing history
+    - the slashing fine is applied according to the protocol's Penalty Absorbing Stake (PAS) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
+- increments the validator's proven fault counter by `1` to record the slashing occurrence in the validator's reputational slashing history
 - computes the jail period of the offending validator - `current block number + jail factor * proven offence fault count * epoch period` - and sets the validator's jail release block number
 - updates the validator's state and transfers the slashed stake token funds to the Autonity Protocol global `treasury` account for community funds use
 - Emit a `NodeSlashed` event for each validator that has been slashed.
