@@ -11,7 +11,6 @@ description: >
 
 This section describes the Autonity accountability and fault detection protocol, the role of validators in submitting and verifying accountability event proofs (fault, accusation, innocence), the lifecycle for fault accountability and detection, and slashing.
 
-<<<<<<< HEAD
 Autonity implements an _accountability and fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behavior while participating in block proposal and voting. Failure to adhere to these rules is a _rule infraction_.
 
 Proven rule infractions are reported as _faults_ and slashing makes faults _accountable_. Faults are _detected_ by validators and submitted on chain as _accountability events_ providing proof of misbehavior. Proofs are derived from cryptographically signed messages broadcast between committee members during Tendermint consensus rounds as validators propose, prevote, and precommit blocks (see the concept description [Consensus round and internal state](/concepts/consensus/pos/#consensus-round-and-internal-state)). The proofs are then submitted on-chain to the Accountability Contract.
@@ -19,57 +18,6 @@ Proven rule infractions are reported as _faults_ and slashing makes faults _acco
 It is important to note that AFD runs alongside Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
 
 AFD functions by submitting, verifying, and processing accountability event proofs for Rule infractions by epoch. There are two ways for Rule infractions to be created.
-=======
-Autonity implements an _accountability and fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behaviour during consensus while participating in block proposal and voting as a committee member. Failure to adhere to these rules is a _rule infraction_ and AFD will detect and apply slashing penalties for proven rule infractions.
-
-Proven rule infractions are reported as _faults_ and slashing makes faults _accountable_. Faults are _detected_ by validators and submitted on chain as accountability _events_ providing proof of behaviour. This proof is derived from consensus messaging between validators during consensus rounds and submitted on-chain to the Accountability Contract.
-
-It is important to note that AFD is embedded into Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
-
-AFD functions by submitting, verifying, and processing accountability event proofs by epoch. Suspected rule infractions are:
-
-- reported as an _accusation_ proof, submitted by a _reporting_ validator against an _offending_ validator
-- defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
-- promoted to _fault_ proofs, _accusation_ promoted to _fault_ by protocol on individual block finalisation if not refuted by _innocence_ and the _offending_ validator does not already have a _fault_ with a higher or equivalent severity. 
-
-Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history.
-
-Slashing is applied as part of the state finalisation function:
-
-- As each block is finalised, AFD will: promote within protocol constraints new _accusations_ to proven _faults_ after expiry of an _innocence_ proof submission window
-- As the last block of an epoch is finalised, AFD will: apply accountability for _faults_ to _offending_ validators, slashing [self-bonded](glossary/#self-bonded) and [delegated](glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](glossary/#penalty-absorbing-stake-pas) model.
-
-Rewards are paid for reporting a slashable _fault_ at epoch end. The _offending_ validator's share of the epoch's staking rewards is forefeited and paid to the  _reporting_ validator `treasury` account for distribution along with the staking rewards at epoch end.
-
-### Accountability prerequisites 
-
-To participate in AFD a [validator](/glossary/#validator) must be a [consensus committee](/glossary/#consensus-committee) member.
-
-## Accountability and Fault Detection protocol
-
-### Validator roles
-
-Consensus committee members play the following roles in AFD:
-
-- _reporting_: the validator reporting a suspected rule infraction and submitting new _accusation_ proofs on-chain
-- _offending_: the validator committing a suspected rule infraction and submitting new _innocence_ proofs on-chain
-- _committee member_: the validator as a consensus committee member executing Autonity's consensus protocol and for AFD handling and processing accountability events, processing and maintaining system state, and computing and applying slashing penalties.
-
-### Protocol primitives
-
-Essential primitives of AFD are accusations, proof of innocence, fault promotion, and jailing.
-
-#### Accusations
-
-- pending accusation. Only one pending accusation at a time; new accusations cannot be submitted whilst there is a pending accusation subject with an open proof submission window.
-  - see notes on `canAccuse`
-  - see notes on `canSlash`
-  - hence these methods; called by validator before accusation submission to determine economic viability.
-
-#### Innocence
-
-- innocence proof submission window. The reported validator has a certain amount of time to submit a proof-of-innocence, otherwise, he gets slashed. innocence window.
->>>>>>> 4b1bf8a (Edits to Glossary, API Reference, Concept AFD)
 
 Rule infractions can be directly submitted as a _fault_ proof by a _reporting validator_.
 
@@ -161,8 +109,6 @@ Unlike _accusations_ where an accusation must be made within a `<= 256` block wi
 
 A direct fault proof can be reported at any time.
 {{% /alert %}}
-
-Slashing for _faults_ is applied at the end of each epoch. For each validator with _fault(s)_ slashing is applied for the _fault_ with the highest _severity_ (grouping faults by epoch).
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of a directly submitted _fault_ on-chain, a `NewFaultProof` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 

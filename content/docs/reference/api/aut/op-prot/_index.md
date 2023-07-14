@@ -1081,11 +1081,11 @@ Based on the verification outcome, constraint checks are applied:
 
   - if `FaultProof`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch.
-  
+
   - if `Accusation`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch
-    - the validator has not already been slashed for a fault with a higher severity in the proof's epoch.
-    - the validator does not have a pending accusation being processed
+    <!-- - the validator has not already been slashed for a fault with a higher severity in the proof's epoch. -->
+    - the validator does not have a pending accusation being processed.
 
   - if `InnocenceProof`, then:
     - the validator has an associated pending accusation being processed
