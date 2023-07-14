@@ -111,12 +111,8 @@ The method returns a `boolean` flag specifying whether the reported infraction i
 
 Returns a pending accusation event reported for a validator. The method response may be empty if there is not a pending accusation for the address argument provided.
 
-{{% alert title="Note" %}}
-Protocol only allows a validator to be under accusation once at a time.
-
-Accusations do not automatically cause slashing and an _innocence proof window_ measured in blocks gives the accused offending validator a window to detect an accusation and prove innocence by submitting an `Innocence` proof on-chain. The expiry of this window creates a _deadline_ before which a new `Accusation` proof cannot be submitted.
-
-See _Note_ on [`canAccuse`](/reference/api/accountability/#canaccuse) above for more detail.
+{{% alert title="Info" color="info"%}}
+This function is only used for development testing.
 {{% /alert %}}
 
 ### Parameters

@@ -20,9 +20,11 @@ It is important to note that AFD is embedded into Autonity's Tendermint proof of
 
 AFD functions by submitting, verifying, and processing accountability event proofs by epoch. Suspected rule infractions are:
 
-- reported as an _accusation_ proof, submitted by a _reporting_ validator against an _offending_ validator
-- defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
-- promoted to _fault_ proofs, _accusation_ promoted to _fault_ by protocol on individual block finalisation if not refuted by _innocence_ and the _offending_ validator does not already have a _fault_ with a higher or equivalent severity. 
+- directly submitted as a _fault_ proof by a _reporting_ validator
+- promoted from accusations where they are:
+  - reported as an _accusation_ proof, submitted by a _reporting_ validator against an _offending_ validator
+  - defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
+  - promoted to _fault_ by protocol on individual block finalisation if not refuted by _innocence_ and the _offending_ validator does not already have a _fault_ with a higher or equivalent severity. 
 
 Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history.
 
@@ -39,54 +41,160 @@ To participate in AFD a [validator](/glossary/#validator) must be a [consensus c
 
 ## Accountability and Fault Detection protocol
 
+AFD roles, core concepts, and the lifecycle of accountability event processing from accusation to slashing.
+
 ### Validator roles
 
-Consensus committee members play the following roles in AFD:
+As consensus committee members, validators play the following roles in AFD processing:
 
-- _reporting_: the validator reporting a suspected rule infraction and submitting new _accusation_ proofs on-chain
-- _offending_: the validator committing a suspected rule infraction and submitting new _innocence_ proofs on-chain
-- _committee member_: the validator as a consensus committee member executing Autonity's consensus protocol and for AFD handling and processing accountability events, processing and maintaining system state, and computing and applying slashing penalties.
+- _reporting_: as the validator reporting a suspected rule infraction and submitting new _accusation_ proofs on-chain
+- _offending_: as the validator committing a suspected rule infraction and submitting new _innocence_ proofs on-chain
+- _committee member_: as a validator in the consensus committee executing Autonity's consensus protocol and for AFD handling and processing accountability events, maintaining system state for accountability events, and computing and applying slashing penalties.
+
+Validators and stake delegators play the following economic roles in AFD processing:
+
+- _offending_: loss of stake, validator reputation, staking reward revenue
+- _beneficiary_: gain of slashing reward.
+
+Autonity community play the following economic role in AFD processing:
+
+- _beneficiary_: gain of slashed stake token for community funds.
 
 ### Protocol primitives
 
-Essential primitives of AFD are accusations, proof of innocence, fault promotion, and jailing.
+Essential primitives of AFD are accusations, proof of innocence, fault promotion, slashing and severity, and jailing.
 
 #### Accusations
 
-- pending accusation. Only one pending accusation at a time; new accusations cannot be submitted whilst there is a pending accusation subject with an open proof submission window.
-  - see notes on `canAccuse`
-  - see notes on `canSlash`
-  - hence these methods; called by validator before accusation submission to determine economic viability.
+An _accusation_ is a claim that a consensus committee member has failed to participate correctly in consensus. I.e. it has failed to adhere to a rule governing validator participation in consensus and so is guilty of a rule infraction. Protocol only allows a validator to be under _accusation_ once at a time. New _accusations_ are made by submitting _proof_ of an accusable rule infraction on-chain as an event of type `NewAccusation`.
+
+Accusations do not automatically cause slashing and an _innocence proof window_ measured in blocks gives the accused _offending_ validator a window to detect an _accusation_ and prove _innocence_ by submitting an _innocence_ proof on-chain. The expiry of this window creates a _deadline_ before which a new `Accusation` proof cannot be submitted.
+
+There are protocol constraints on when an _accusation_ can be made. A _reporting_ validator can only submit an _accusation_ _proof_ if:
+
+- the _offending_ validator:
+  - does not already have a _fault_ in the epoch in which the _new accusation_ is being made for an offence with a higher _severity_
+  - is not currently already accused of committing a rule infraction, i.e. there is a _pending accusation_. In this case, a _new accusation_ cannot be made until expiry of the _innocence proof window_ during which an accused _offending_ validator is able to submit an `innocence` proof refuting the _pending accusation_. This creates a _deadline_ measured in block height before which a new `accusation` proof cannot be submitted.
+- it is within the _accusation window_:
+  - an accusation must be made `<= 256` blocks after the detected accountability event.
+
+To check if an _offending_ validator has a _pending accusation_, a _reporting_ validator calls protocol functions:
+
+- [`canAccuse()`](/reference/api/accountability/#canaccuse): to determine if (a) an offending validator is accusable, and, (b) the _deadline_ number of blocks remaining in the _innocence proof submission window_ if there is a _pending accusation_.
+- [`canSlash()`](/reference/api/accountability/#canslash): to determine if the  _offending_ validator already has a _fault_ for a rule infraction in the epoch with a _severity_ higher than the new accusable rule infraction detected.
+
+After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _accusation_ on-chain a `NewAccusation` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
 #### Innocence
 
-- innocence proof submission window. The reported validator has a certain amount of time to submit a proof-of-innocence, otherwise, he gets slashed. innocence window.
+An _innocence_ is a claim refuting an _accusation_ for an accusable rule infraction. An _innocence_ is made by an _offending_ validator to prove innocence from a _pending accusation_ against it. Claims of _innocence_ are made by submitting _proof_ of innocence of an accusable rule infraction on-chain as an event of type `Innocence`. If successful, a proof of innocence cancels the _pending accusation_.
 
-After receiving a proof-of-innocence cancelling an accusation.
+The _offending_ validator has a limited time window to submit a _proof_ of _innocence_, otherwise, the _accusation_ may be _promoted_ to a _fault_ and be slashable end of epoch.
 
-Event emitted after verifying an innocence proof.
+An _innocence_ must be submitted within an _innocence proof submission window_ to be accepted, a designated number of blocks set as a protocol parameter. The window begins at the block height number at which the _accusation_ states the rule infraction occurred.
 
-#### Faults
+If the _innocence_ is successfully verified, then the _accusation_ queue is checked and the corresponding _accusation_ is cancelled. The _pending accusation_ state is cleared and a _reporting_ validator is now able to submit a _new accusation_ against the _offending_ validator.
 
-Fault promotion
+To check if a _new accusation_ has been made against it, an _offending_ validator:
 
-Event emitted after verifying a fault proof.
+- subscribes to `NewAccusation` events where it is the offender, retrieves the accountability event ID and queries the `Events` data structure to retrieve the _pending accusation_ against it.
+
+After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _innocence_ on-chain an `Innocence` proof event is emitted logging: _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, and `0` indicating there are no pending accusations against the validator.
+
+{{% alert title="Note" %}}
+As noted under [Accusations](/concepts/accountability/#accusations) above, a validator with a _pending accusation_ is not accusable because protocol has to wait to determine if the _pending accusation_ has been defended or, if not, promoted to a fault or not. Until then, protocol cannot determine if the _offending_ validator has committed a rule infraction with a higher _severity_ or not in the epoch.
+{{% /alert %}}
+
+#### Faults 
+
+A _fault_ is a proven consensus rule infraction in an epoch. A _fault_ is created by:
+
+- **direct submission**: a _reporting_ validator submits a _fault proof_ on-chain.  Directly submitted faults:
+  - does not offer possibility of defence
+  - are unforgeable evidence of rule infraction
+
+- **_promotion_ of an _accusation_**:
+  - offers the possibility of defence by submission of an _innocence_ proof
+  - promotion to _fault_ requires the _accusation_ to have a higher _severity_ than any _fault_ the _offending_ validator has for the epoch.
+
+{{% alert title="Note" %}}
+Unlike _accusations_ where an accusation must be made within a `<= 256` block window of the rule infraction, there is no _window_ constraint for direct _fault_ submissions.
+
+A direct fault proof can be reported at any time.
+{{% /alert %}}
+
+Slashing for _faults_ is applied at the end of each epoch. For each validator with _fault(s)_ slashing is applied for the _fault_ with the highest _severity_.
+
+After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of a directly submitted _fault_ on-chain a `NewFaultProof` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
 #### Slashing and severity
 
-- slashing only applied for highest severity fault in an epoch
-  - see notes on `canSlash`
-- slashing amount variable
-- slashing applied per PAS
+The AFD protocol will only apply slashing to an _offending_ validator once in an epoch, only slashing the reported _fault_ with the highest _severity_ in an epoch.
+
+Rule infraction _severity_ has two key influences:
+
+- determining if a new _fault_ is created or not, conditional on the _offending_ validator not having an existing _fault_ with a _severity_ `>=` to that of the candidate new _fault_
+- determining the amount of the slashing applied.
+
+Slashing amount is calculated by a number of parameters, including _severity_. 
+
+For the severity taxonomy see [Rule severity](/concepts/accountability/#rule-severity).
+
+For slashing calculation and parameters see [Slashing](/concepts/accountability/#slashing).
+
+{{% alert title="Note" %}}
+A validator can theoretically be slashed for committing a fault in an epoch more than once in an edge case scenario. For example:
+
+- **epoch `n`**: _offending_ validator slashed for highest severity fault committed in epoch `n`
+- **Epoch `n+1`**: new _faults_ are reported for the _offending_ validator: (1) one for the current **epoch `n+1`**; (2) one for **epoch `n`** with a higher _severity_ than the _fault_ already slashed in **epoch `n`**.
+- The _offending_ validator has two slashings applied applied in **epoch `n+1`**:
+  - for epoch `n+1`
+  - for epoch `n`.
+{{% /alert %}}
+
 
 #### Jail
 
-- applied or may be applied as part of a slashing penalty
-- changes validator state
-- jail period
-- re-activate to get out of jail
+Jailing is a protocol action that excludes a validator from selection to the consensus committee for a period of time measured as a number of blocks.
 
+Jailing may be applied as part of a slashing penalty depending on the _severity_ of the _fault_ being _slashed_. Jailing changes a validator's state from `active` to `jailed`. Validators in a `jailed` state are debarred from [consensus committee selection](/concepts/consensus/committee/#committee-member-selection).
 
+The jail period is computed by `current block number + jail factor * proven fault count * epoch period` where:
+
+- `current block number`: the block number at the time of computation (i.e. the last block of an epoch when slashing is applied)
+- `jail factor`: a set number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration).
+- `proven fault count`: the number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history
+- `[epoch period](/glossary/#epoch-period)`: The period of time for which a consensus committee is elected, defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
+
+This computes the validator's jail release block number, after which a validator may get out of jail by [re-activating](/concepts/validator/#validator-re-activation) to revert to an `active` state and resume [eligibility for consensus committee selection](/concepts/validator/#eligibility-for-selection-to-consensus-committee).
+
+{{% alert title="Note" %}}
+Validator's **must** [re-activate](/concepts/validator/#validator-re-activation) to get out of jail.
+
+The protocol **does not** automatically revert validator state from `jailed` to `active` at the jail release block number. 
+{{% /alert %}}
+
+### Accountability event lifecycle
+
+- stages of processing an accountability event
+  - accusation
+  - innocence proven and cancellation
+  - fault promotion
+  - fault slashing for highest severity fault
+Accountability event lifecycle management comprises: accountability event submission on-chain, event handling on-chain, accusations, innocence, fault promotion, slashing.
+
+The sequence of lifecycle events for an accountability event is:
+
+- Detected by validator and submitted on-chain. An accountability event is detected by AFD protocol and submitted on-chain by a validator.
+- Event handling. The event is verified and according to its event type:
+  - `FaultProof`: recorded if the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch. Else, discarded.
+  - `Accusation`: recorded if the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch, and, the validator does not already have a pending accusation. Else, discarded.
+  - `InnocenceProof`: recorded and corresponding `Accusation` it defends against deleted if: the validator has an associated pending accusation being processed, and, the innocence proof and associated accusation proof have matching: rule identifiers, block number, message hash. Else, discarded
+- Fault promotion. Each block until epoch end, protocol attempt to promote `Accusations` to new `FaultProofs`: promoted if the proof innocence window has expired, and, the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch. Else, discarded.
+- Queued for slashing. Accountability `FaultProof` events are queued until slashing end of epoch when: for each offending validator with one or more proven faults, a slashing penalty is applied for the `FaultProof` with the highest severity for its fault epoch.
+- Validator jailing: validators may be [jailed](/concepts/accountability/#jail) as part of slashing for a fault. The validator’s node transitions from `n `active` to a `jailed` state and will only resume an `active` state when `re-activated` by the validator operator after the [jail period](/glossary/#jail-period) expires.
+
+### GOT TO HERE
 ## Slashing
 
 Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history.
@@ -159,16 +267,19 @@ Datatype enumerations
 
 ### Rule severity
 
-Datatype enumerations
+Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block finality and block integrity. For example:
 
-| Datatype | Enum | Description |
-| --| --| --|
-| `Severity` | | the severity of the fault. `Severity` is an enumerated type with enumerations: |
-| | `Minor` | |
-| | `Low` | |
-| | `Mid` | |
-| | `High` | |
-| | `Critical` | |
+- failing to finalise a block and/or halting the chain
+- proposing an invalid block
+- voting for multiple and/or conflicting blocks
+
+| Severity | Description |
+| --| --|
+| `Minor` | |
+| `Low` | |
+| `Mid` | |
+| `High` | |
+| `Critical` | |
 
 ## Events
 
