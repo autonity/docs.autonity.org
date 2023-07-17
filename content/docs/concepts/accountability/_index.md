@@ -67,10 +67,12 @@ An _accusation_ is a claim that a consensus committee member has failed to parti
 Accusations do not automatically cause slashing, as an _innocence proof window_ measured in blocks gives the accused _offending validator_ a window to detect an _accusation_ and prove _innocence_ by submitting an _innocence_ proof on-chain.
 
 {{% alert title="A note on why a new accusation cannot be submitted until the innocence window has expired" %}}
-
 If the _offending validator_ already has an _accusation_ pending, the accountability protocol determines the offender is not currently accusable. This is because the protocol has to wait to determine if the pending _accusation_ has been defended or, if not, promoted to a _fault_. Until then, it cannot determine if the offending validator has committed a rule infraction with a higher severity than the new candidate _accusation_ in the epoch or not.
-
 {{% /alert %}}
+
+As each block is finalised, AFD will attempt to promote _accusations_ where the _innocence proof submission window_ has expired within protocol constraints to proven _faults_.
+
+To check if an _offending_ validator has a _pending accusation_, a _reporting_ validator calls protocol functions:
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _accusation_ on-chain, a `NewAccusation` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
@@ -170,7 +172,7 @@ The sequence of lifecycle events for an accountability event is:
 
 ## Slashing
 
-Slashing penalties are computed by the protocol and applied for proven faults at epoch end. The penalty severity is computed based on slashing protocol parameter configuration, the _offending validator's_ own slashing history, and the total number of slashable offences committed in the epoch by all validators.
+Slashing penalties are computed by the protocol and applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending validator's_ own slashing history. For parameters see [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) beneath.
 
 Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, AFD will apply slashing for proven _faults_ to validator stake, slashing stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing.
 
@@ -226,7 +228,7 @@ To learn more about PAS, see the section on [Penalty-Absorbing Stake (PAS)](/con
 
 Accountability rules are applied to detect faults in the three Tendermint consensus round phases *propose*, *prevote*, and *precommit*.
 
-The table below lists each of the rule defined in the AFD rule engine, identified by a unique Rule ID.
+The table below lists each of the rules defined in the AFD rule engine, identified by a unique Rule ID.
 
 {{% alert title="Info" color="info"%}}
 The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tendermint consensus phases:
@@ -253,6 +255,7 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 
 Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity.
 
+
 {{% alert title="Note" %}}
 In this release all offences are treated as `Mid` severity.
 
@@ -272,7 +275,7 @@ There are three accountability _event_ types in AFD:
 | Event type | Description |
 | --| --| 
 | `Accusation` | an _accusation_ of a committee member validator failing to adhere to, or violating, a consensus rule submitted by another validator committee member |
-| `InnocenceProof` | a _proof of innocence_ from an _accusation_ submitted by the accused committee member, which refute and cancel the _accusation_ if the proof is valid |
+| `InnocenceProof` | a _proof of innocence_ from an _accusation_ submitted by the accused committee member, which refutes and cancels the _accusation_ if the proof is valid |
 | `FaultProof` | a misbehavior _fault_ |
 
 {{% alert title="Note" %}}
