@@ -1,7 +1,16 @@
 $primary: #000000;
 $secondary: #A23B72;
 $link-color: $secondary;
+$font-size-base: 0.85rem;
+$td-enable-google-fonts: false;
+$theme-font-family: 'berkeley mono';
+$font-family-base: 'berkeley mono';
+$td-fonts-serif: 'berkeley mono';
 
-$google_font_name: "Proxima Nova";
-$google_font_family: "Proxima+Nova:300,300i,400,400i,700,700i";
+$font-weight-light: 100;
+$font-weight-normal: 110;
+$font-weight-medium: 130;
+$font-weight-bold: 140;
 
+// Default Docsy font weight for headings is medium, which seems a bit too heavy
+$headings-font-weight: $font-weight-normal;
