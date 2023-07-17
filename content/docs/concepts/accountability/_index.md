@@ -48,7 +48,6 @@ As a consensus committee member the validator may play the roles in the table be
 
 The economic impact of the AFD protocol on a validator depends on their role.
 
-
 | Role | Economic impact |
 |:--|:--|
 | _offender_ | loss of stake, validator reputation, staking reward revenue as the _offending validator_ of a slashed _fault_ |
@@ -69,7 +68,6 @@ Accusations do not automatically cause slashing, as an _innocence proof window_ 
 {{% alert title="A note on why a new accusation cannot be submitted until the innocence window has expired" %}}
 
 If the _offending validator_ already has an _accusation_ pending, the accountability protocol determines the offender is not currently accusable. This is because the protocol has to wait to determine if the pending _accusation_ has been defended or, if not, promoted to a _fault_. Until then, it cannot determine if the offending validator has committed a rule infraction with a higher severity than the new candidate _accusation_ in the epoch or not.
-
 {{% /alert %}}
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _accusation_ on-chain, a `NewAccusation` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
@@ -227,6 +225,7 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 - `P`: *propose*
 - `PV`: *prevote*
 - `C`: *precommit*
+
 {{% /alert %}}
 
 | Rule ID | Description |
@@ -317,8 +316,7 @@ Slashing rewards are distributed for reporting provable faults committed by an _
 
 Slashing rewards earned by a _reporting validator_ are conditional on the _offending validator_ being a member of the consensus committee in the epoch when the slashing penalty is applied. If multiple slashing events are committed by the same _offending validator_ during the same epoch, then rewards are only distributed to the last _reporter_ for the last slashing penalty applied to an _offending validator_ in the epoch.
 
-Staking rewards earned by the _offending validator_ for the epoch are distributed to the _reporting validator_
-at epoch end. 
+Staking rewards earned by the _offending validator_ for the epoch are distributed to the _reporting validator_ at epoch end.
 
 {{% alert title="Note" %}}
 The protocol distributes rewards for reporting provable faults committed by an _offending validator_ to the _reporting_ validator.
