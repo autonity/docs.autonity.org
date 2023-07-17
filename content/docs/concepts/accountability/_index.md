@@ -51,10 +51,10 @@ As consensus committee members, validators play the following roles in AFD proce
 - _offending_: as the validator committing a suspected rule infraction and submitting new _innocence_ proofs on-chain
 - _committee member_: as a validator in the consensus committee executing Autonity's consensus protocol and for AFD handling and processing accountability events, maintaining system state for accountability events, and computing and applying slashing penalties.
 
-Validators and stake delegators play the following economic roles in AFD processing:
+Validators play the following economic roles in AFD processing:
 
-- _offending_: loss of stake, validator reputation, staking reward revenue
-- _beneficiary_: gain of slashing reward.
+- _loss_: loss of stake, validator reputation, staking reward revenue as the _offending_ validator of a slashed _fault_
+- _beneficiary_: gain of slashing reward as the _reporting_ validator of a slashed _fault_.
 
 Autonity community play the following economic role in AFD processing:
 
@@ -77,6 +77,8 @@ There are protocol constraints on when an _accusation_ can be made. A _reporting
   - is not currently already accused of committing a rule infraction, i.e. there is a _pending accusation_. In this case, a _new accusation_ cannot be made until expiry of the _innocence proof window_ during which an accused _offending_ validator is able to submit an `innocence` proof refuting the _pending accusation_. This creates a _deadline_ measured in block height before which a new `accusation` proof cannot be submitted.
 - it is within the _accusation window_:
   - an accusation must be made `<= 256` blocks after the detected accountability event.
+
+As each block is finalised, AFD will attempt to promote _accusations_ where the _innocence proof submission window_ has expired within protocol constraints to proven _faults_.
 
 To check if an _offending_ validator has a _pending accusation_, a _reporting_ validator calls protocol functions:
 
@@ -194,15 +196,11 @@ The sequence of lifecycle events for an accountability event is:
 - Queued for slashing. Accountability `FaultProof` events are queued until slashing end of epoch when: for each offending validator with one or more proven faults, a slashing penalty is applied for the `FaultProof` with the highest severity for its fault epoch.
 - Validator jailing: validators may be [jailed](/concepts/accountability/#jail) as part of slashing for a fault. The validator’s node transitions from `n `active` to a `jailed` state and will only resume an `active` state when `re-activated` by the validator operator after the [jail period](/glossary/#jail-period) expires.
 
-### GOT TO HERE
 ## Slashing
 
-Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history.
+Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history. For parameters see [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) beneath.
 
-Slashing is applied as part of the state finalisation function:
-
-- As each block is finalised, AFD will: promote within protocol constraints new accusations to proven faults after expiry of an _innocence_ proof submission window
-- As the last block of an epoch is finalised, AFD will: apply slashing for proven faults to validator stake, slashing [self-bonded](glossary/#self-bonded) and [delegated](glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](glossary/#penalty-absorbing-stake-pas) model.
+Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalised, AFD will apply slashing for proven _faults_ to validator stake, slashing [self-bonded](glossary/#self-bonded) and [delegated](glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](glossary/#penalty-absorbing-stake-pas) model.
 
 ### Slashing protocol configuration
 
@@ -218,56 +216,71 @@ Slashing protocol parameter settings:
 
 ### Autonity slashing amount calculation
 
+The slashing amount to fine for the fault is computed based on slashing factors: base rate from fault severity, validator reputation (the validator’s proven fault count), count of offences committed in the epoch, slashing rate precision.
 
+- Inputs:
+  - [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) parameters, and,
+  - `base rate`: assigned the [rule severity](/concepts/accountability/#rule-severity) of the rule broken by the fault event
+  - `history`: assigned the count of proven faults committed by the offending validator
+  - `epoch offences count`: assigned the count of proven faults created by all validators in the epoch
+- `slashing rate` is computed:
+  - `base rate + epoch offences count * collusion factor + history * history factor`.
+- `slashing amount` of the fine is computed:
+  - `(slashing rate * validator bonded stake)/slashing rate precision`
+- the slashing is computed:
+  - the slashed amount of NTN stake token is subtracted from the validator’s bonded stake and transferred to the Autonity Protocol global `treasury` account for community funding
+  - the slashing fine is applied to validator bonded stake according to the protocol’s [Penalty Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model
+  - the `jail period` of the validator is computed to determine the validator's jail release block number: `current block number + jail factor * history * epoch period`.
+- the validator state is updated: (a) the self-bonded and total staked amounts, (b) the slashing amount is added to the validator's `totalSlashed` amount.
 
 ### Penalty Absorbing Stake (PAS) 
 
-NOTE: MAIN ENTRY FOR THIS SHOULD BE MOVED TO **Staking** Concept AND THEN LINKED TO FROM HERE.
+Autonity implements a [_penalty absorbing stake_](glossary/#penalty-absorbing-stake-pas) model where validator [self-bonded](glossary/#self-bonded) stake is slashed in priority to [delegated](glossary/#delegated) stake when applying slashing penalties for accountability events.
 
-[Penalty-Absorbing Stake (PAS)](glossary/#penalty-absorbing-stake-pas) model for slashing validator stake for proven misbehaviour offences.
+Slashing priority is simply:
 
-- skin in the game
-- slashing priority:
-  - [self-bonded](glossary/#self-bonded) as first priority until exhausted
-  - [delegated](glossary/#delegated) as second priority until exhausted.
+- self-bonded stake is slashed as first priority until exhausted
+- delegated stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available.
 
-
+Consequently, validator operator stake ("skin in the game") is at first risk and provides loss absorbing capital in the case of a slashing event. Self-bonding stake is not just a source of income but a public commitment to the operational integrity of a validator node by a validator operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
 
 ## Rules
 
 ### Accountability rules
 
-Rules and Rule ID
+Accountability rules are applied to detect faults in the three Tendermint consensus round phases *propose*, *prevote*, *precommit*. Rules are detailed in the table below.
 
-Type of accountability rules - equivocation, etc
+{{% alert title="Note" %}}
+In the table:
 
-Add placeholder for omission rules are to be added in next protocol upgrade?
+- *value*: is shorthand for "block proposal"
+- Rule ID: is the unique identifier for the Rule defined in the AFD rule engine. ID prefixes correspond to Tendermint consensus phases:
+  - `PO`: *propose*
+  - `PV`: *prevote*
+  - `C`: *precommit*
+{{% /alert %}}
 
-Datatype enumerations
-
-| Datatype | Enum | Description |
-| --| --| --|
-| `Rule` | | Rule ID defined in AFD rule engine. `Rule` is an enumerated type with enumerations: |
-| | `PN` | JC: The value proposed by proper does not match the precommit |
-| | `PO` | JC: The value proposed by proposer is not new |
-| | `PVN` | JC: Prevote for a proposal that does not exist |
-| | `PVO` | JC: |
-| | `PVO1` | JC: |
-| | `PVO2` | JC: |
-| | `PVO3` | JC: Prevote for an invalid old proposal |
-| | `C`  | JC: |
-| | `C1` | JC: |
-| | `InvalidProposal` | The value proposed by proposer cannot pass the blockchain's validation |
-| | `InvalidProposer` | A proposal sent from none proposer nodes of the committee |
-| | `Equivocation` | Multiple distinguish votes(proposal, prevote, precommit) sent by validator) |
-| | `InvalidRoundStep` | Consensus round message contains invalid round number or step |
-| | `AccountableGarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded |
-| | `MsgNotFromCommitteeMember` | Consensus round message sender is not the member of current committee |
-
+| Rule ID | Description |
+| --| --|
+| `PN` | Proposer has proposed a new *value* (i.e. block proposal) having (a) already sent a precommit message earlier, or (b) has received sufficiently many prevotes for an earlier proposal *value* during the same round. |
+| `PO` | Proposer has proposed a *value* (i.e. block proposal) that has already been proposed without attaching as justification the `2f + 1` prevotes from the same round for the value. |
+| `PVN` | Committee member has sent two distinct prevotes during the same round. |
+| `PVO` | Committee member has prevoted for a *value* in more than one consensus round. |
+| `PVO1` | Committee member has prevoted for a *value* having already precommitted for that *value* in an earlier round. |
+| `PVO2` | Committee member has prevoted for a *value* having already precommitted for a different *value* in an earlier round.  |
+| `PVO3` | Committee member has prevoted for an invalid old *value* (i.e. sent an invalid message) |
+| `C`  | TBC - IS THIS: Committee member has precommitted for an invalid old *value*  (i.e. sent an invalid message) |
+| `C1` | TBC - IS THIS: Committee member has precommitted for a *value* having already precommitted for that *value* in an earlier round. |
+| `InvalidProposal` | Proposer has proposed a *value* that fails blockchain validation |
+| `InvalidProposer` | Invalid block proposal *value*. Proposer of a *value* is not the committee's elected Proposer. |
+| `Equivocation` | Multiple different messages have been broadcast by Proposer and committee member validators. Proposer has broadcast conflicting *value*s to different committee members. Committee member has broadcast different messages during *prevote* or *precommit*. |
+| `InvalidRoundStep` | Consensus round message contains invalid round number or step |
+| `AccountableGarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded |
+| `MsgNotFromCommitteeMember` | Consensus round message sender is not a member of the current consensus committee |
 
 ### Rule severity
 
-Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block finality and block integrity. For example:
+Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity. For example:
 
 - failing to finalise a block and/or halting the chain
 - proposing an invalid block
@@ -275,36 +288,31 @@ Rules are given a severity rating according to the risk that failure to adhere t
 
 | Severity | Description |
 | --| --|
-| `Minor` | |
-| `Low` | |
-| `Mid` | |
-| `High` | |
-| `Critical` | |
+| `Minor` | _Not currently implemented_ |
+| `Low` | Invalid message: invalid proposal, invalid voting message |
+| `Mid` | Equivocation message: (a) proposer has sent conflicting block proposal messages; (b) committee member has sent conflicting prevote or precommit messages. Inconsistent message: (a) proposer sends new proposal having already pre-committed for an earlier value in an earlier round; (b) proposer sends an old value that the proposer has never locked on. |
+| `High` | _Not currently implemented_ |
+| `Critical` | _Not currently implemented_ |
 
 ## Events
 
 ### Event handling
 
-Processing of raw proof data by precompiled contracts
+Accountability _events_ are submitted to the system by validator's submitting proofs of behaviour from consensus messaging on-chain. See [`handleEvent()`](/reference/api/aut/op-prot/#handleevent-accountability-contract) for a description of event handling logic.
 
-See API Ref and docs of event handling methods - remove from there and use as input here.
 ### Event types
 
 There are three accountability _event_ types in AFD:
 
-- _accusation_: an accusation of a committee member validator failing to adhere to or violating a consensus rule submitted by another validator committee member
-- _innocence_: a proof of innocence from an _accusation_ submitted by the accused validator committee member, refuting and cancelling the _accusation_ if valid
-- _fault_: a proven fault generated by protocol from an _accusation_ that has not been been successfully refuted by an _innocence_ proof and has been promoted to a _fault_.
+| Event type | Description |
+| --| --| 
+| `Accusation` | an _accusation_ of a committee member validator failing to adhere to or violating a consensus rule submitted by another validator committee member |
+| `InnocenceProof` | a proof of _innocence_ from an _accusation_ submitted by the accused validator committee member, refuting and cancelling the _accusation_ if valid |
+| `FaultProof` | a misbehaviour _fault_. |
 
-
-Datatype enumerations:
-
-| Datatype | Enum | Description |
-| --| --| --|
-| `EventType` | | Accountability event types. `EventType` is an enumerated type with enumerations: | 
-| | `FaultProof` | Misbehaviour |
-| | `Accusation` | Accusation |
-| | `InnocenceProof` | Innocence |
+{{% alert title="Note" %}}
+See distinction between _direct_ and _promoted_ in [Faults](/concepts/accountability/#faults) above.
+{{% /alert %}}
 
 ### Event structure
 
@@ -354,10 +362,7 @@ Slashing rewards earned by a _reporting_ validator are conditional on:
 - the _offending_ validator's share of the [voting power](/glossary/#voting-power) in the committee, as staking rewards are distributed _pro rata_ to voting power
 - the slashable offence reported by the _reporting_ validator is the last slashing penalty applied to an _offending_ validator in an epoch. If multiple slashing events are committed by the same _offending_ validator during the same epoch, then rewards are only distributed to the last _reporter_.
 
-Slashing rewards are distributed to the _reporting_ validator along with the validator's other staking rewards at epoch end:
-
-- the validator receives commission revenue on the slashing rewards according to its commission rate
-- stake delegators receive their share of the slashing rewards _pro rata_ to the amount of stake they have bonded to the _reporting_ validator.
+Slashing rewards are distributed to the _reporting_ validator at epoch end.
 
 {{% alert title="Note" %}}
 The protocol distributes rewards for reporting provable faults committed by an _offending_ validator to the _reporting_ validator.

@@ -847,7 +847,7 @@ How it works to apply slashing for each fault in the slashing queue. The functio
 - increments the validator's proven fault counter by `1` to record the slashing occurrence in the validator's reputational slashing history
 - computes the jail period of the offending validator - `current block number + jail factor * proven offence fault count * epoch period` - and sets the validator's jail release block number
 - updates the validator's state and transfers the slashed stake token funds to the Autonity Protocol global `treasury` account for community funds use
-- Emit a `NodeSlashed` event for each validator that has been slashed.
+- Emit a `SlashingEvent` event for each validator that has been slashed.
 - Resets the pending slashing task queue ready for the next epoch.
 
 {{% alert title="Note" %}}
