@@ -255,7 +255,7 @@ In the table:
 
 - *value*: is shorthand for "block proposal"
 - Rule ID: is the unique identifier for the Rule defined in the AFD rule engine. ID prefixes correspond to Tendermint consensus phases:
-  - `PO`: *propose*
+  - `P`: *propose*
   - `PV`: *prevote*
   - `C`: *precommit*
 {{% /alert %}}
