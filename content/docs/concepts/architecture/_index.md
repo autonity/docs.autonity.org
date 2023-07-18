@@ -21,12 +21,15 @@ Autonity extends Ethereum at three logical layers:
 - Application layer: protocol smart contracts:
 	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, and staking rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
-	- **Accountability Contract** implementing protocol primitives for accountability and fault detection, enforcing adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules by committee members, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model.
-	- **Autonity Oracle Contract** implementing protocol primitives for computing median price data from external price data and managing the set of currency pairs for which Autonity's [oracle network](/concepts/oracle-network/) provides price data.
+	- **Accountability Contract** implementing protocol primitives for accountability and fault detection of failures to adhere to consensus rules by consensus committee members during Tendermint consensus rounds.
+	- **Autonity Oracle Contract** implementing protocol primitives for computing median price data and managing the set of currency pairs for which Autonity's oracle network provides price data.
 	
 	Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
-- Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
+- Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system. Consensus is further extended to:
+  - provide accountability and fault detection for failure to adhere to consensus rules by committee members, implementing slashing penalties and a Penalty Absorbing Stake (PAS) model.
+  - provide median price data computed by consensus from external price data sourced by committee members forming an oracle network.
+
 - Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
 
 ## Protocol contracts
@@ -97,6 +100,7 @@ The Autonity Protocol Contract manages state finalization, maintaining [system s
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
 #### Staking
+
 The Autonity Protocol Contract manages liquid staking,  maintaining the ledger of _newton_ stake token in the system and triggering the deployment of validator-specific _liquid newton_ contracts. The contract implements logic to:
 
 - Maintain the ledger of _newton_ stake token in the system, implementing the ERC20 token contract interface.
