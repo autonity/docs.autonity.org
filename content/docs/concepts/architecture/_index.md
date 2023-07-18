@@ -20,11 +20,15 @@ Autonity extends Ethereum at three logical layers:
 - Application layer: protocol smart contracts:
 	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, and staking rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
+	- **Accountability Contract** implementing protocol primitives for accountability and fault detection of failures to adhere to consensus rules by consensus committee members during Tendermint consensus rounds.
 	- **Autonity Oracle Contract** implementing protocol primitives for computing median price data and managing the set of currency pairs for which Autonity's oracle network provides price data.
 	
-	Autonity Protocol and Oracle smart contracts are part of the client binary. _Liquid newton_ smart contracts are deployed on validator registration.
+	Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
-- Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
+- Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system. Consensus is further extended to:
+  - provide accountability and fault detection for failure to adhere to consensus rules by committee members, implementing slashing penalties and a Penalty Absorbing Stake (PAS) model.
+  - provide median price data computed by consensus from external price data sourced by committee members forming an oracle network.
+
 - Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
 
 ## Autonity Protocol Contract
@@ -56,6 +60,19 @@ Governance operations are used to modify protocol parameterisation set in the ge
 
 For all parameter definitions and the subset of modifiable parameters see the [Protocol Parameter](/reference/protocol/) reference.
 
+### State finalisation
+The Autonity Protocol Contract manages state finalisation, maintaining [system state](/glossary/#system-state), and executing the state transition function (STF). Contract logic triggers:
+
+- block finalisation
+- at epoch end:
+  - [selection of a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
+  - applying staking transitions for stake bonding and unbonding
+  - applying slashing penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
+  - [distributing staking rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
+- computation of median price data at the end of an oracle voting round by the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
+
+To learn more about the finalisation logic see the protocol only `finalise()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
+
 ### Staking
 The Autonity Protocol Contract manages liquid staking,  maintaining the ledger of _newton_ stake token in the system and triggering the deployment of validator-specific _liquid newton_ contracts. The contract implements logic to:
 
@@ -64,7 +81,7 @@ The Autonity Protocol Contract manages liquid staking,  maintaining the ledger o
 - Provide stake holders operations to bond and unbond stake from validators, managing _newton_ staking transitions and _liquid newton_ emission and redemption.
 - Provide stake holders standard ERC20 token operations for accessing the _newton_ stake token ledger and metadata.
 - Manage staking transitions, tracking bond and unbond requests until staking transitions are applied at epoch end.
-- Trigger computation of median price data at the end of an oracle voting round by the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
+- Trigger application of stake slashing penalties, calling the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) which applies stake slashing at epoch end for accountable faults.
 
 To learn more about the concept see [Staking](/concepts/staking/).
 
@@ -104,6 +121,31 @@ When distribution occurs:
 - Rewards accumulate until claimed by stake delegators 
 
 To learn more about the concept see [Staking rewards and distribution](/concepts/staking/#staking-rewards-and-distribution) and [Staking accounts](/concepts/staking/#staking-accounts).
+
+## Autonity Accountability Contract
+The contract implementing the accountability and fault detection (AFD) protocol extensions, including primitives for ....
+
+Per the Autonity Protocol Contract, the contract is deployed at network genesis using the null or 'zero' account address and the Autonity Oracle Contract address for a network is deterministic and will always be `TBC`.
+
+The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for which the oracle provides median price data and the interval over which an oracle round for submitting and voting on price data runs, measured in blocks. Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
+
+Oracle Contract functions for returning price data, currency pairs provided, and the oracle network voters can be called by all participants.  Function calls to govern (i.e. manage) the set of currency pairs provided by the oracle are restricted to the `operator` account.
+
+All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/accountability/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
+
+### Slashing penalty computation
+
+The Autonity Accountability Contract manages the computation of median price data for currency pair price reports submitted by validator-operated oracle servers. The contract implements logic to:
+
+- Aggregate price report data submitted on-chain by validator-operated oracle servers and compute median prices for the currency pairs provided by the oracle network in voting rounds.
+- Manage the set of currency pair symbols for which the oracle network must provide price report data.
+- Provide contract operations for data consumers to determine the currency pair data provided and retrieve historical and latest computed median price data.
+
+To learn more about the concept see [Accountability and fault detection](/concepts/accountability/).
+
+
+
+
 
 ## Autonity Oracle Contract
 The contract implementing the Oracle protocol extensions, including primitives for computing median price data, and managing the set of currency pairs for which Autonity provides price data.
