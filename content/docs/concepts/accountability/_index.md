@@ -31,7 +31,7 @@ Slashing penalties are computed by protocol and  applied for proven faults at ep
 Slashing is applied as part of the state finalisation function:
 
 - As each block is finalised, AFD will: promote within protocol constraints new _accusations_ to proven _faults_ after expiry of an _innocence_ proof submission window
-- As the last block of an epoch is finalised, AFD will: apply accountability for _faults_ to _offending_ validators, slashing [self-bonded](glossary/#self-bonded) and [delegated](glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](glossary/#penalty-absorbing-stake-pas) model.
+- As the last block of an epoch is finalised, AFD will: apply accountability for _faults_ to _offending_ validators, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
 
 Rewards are paid for reporting a slashable _fault_ at epoch end. The _offending_ validator's share of the epoch's staking rewards is forefeited and paid to the  _reporting_ validator `treasury` account for distribution along with the staking rewards at epoch end.
 
@@ -200,7 +200,7 @@ The sequence of lifecycle events for an accountability event is:
 
 Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history. For parameters see [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) beneath.
 
-Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalised, AFD will apply slashing for proven _faults_ to validator stake, slashing [self-bonded](glossary/#self-bonded) and [delegated](glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](glossary/#penalty-absorbing-stake-pas) model.
+Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalised, AFD will apply slashing for proven _faults_ to validator stake, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
 
 ### Slashing protocol configuration
 
@@ -235,14 +235,11 @@ The slashing amount to fine for the fault is computed based on slashing factors:
 
 ### Penalty Absorbing Stake (PAS) 
 
-Autonity implements a [_penalty absorbing stake_](glossary/#penalty-absorbing-stake-pas) model where validator [self-bonded](glossary/#self-bonded) stake is slashed in priority to [delegated](glossary/#delegated) stake when applying slashing penalties for accountability events.
+Slashing penalties for accountability events are applied according to Autonity's [_penalty absorbing stake_](/glossary/#penalty-absorbing-stake-pas) model. 
 
-Slashing priority is simply:
+The _offending_ validator's own [self-bonded](/glossary/#self-bonded) stake is slashed in priority to [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
 
-- self-bonded stake is slashed as first priority until exhausted
-- delegated stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available.
-
-Consequently, validator operator stake ("skin in the game") is at first risk and provides loss absorbing capital in the case of a slashing event. Self-bonding stake is not just a source of income but a public commitment to the operational integrity of a validator node by a validator operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
+To learn more about PAS, see the concept Staking, [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 
 ## Rules
 
@@ -341,7 +338,7 @@ Slashing economics have facets: slashing penalties, slashing rewards for reporti
 
 Economic loss to validators and their delegators from penalties is multi-dimensional:
 
-- stake token: the _offending_ validator stake is slashed for the penalty amount, taken at epoch end from [self-bonded](glossary/#self-bonded) then [delegated](glossary/#delegated) stake according to the protocol's [Penalty-Absorbing Stake (PAS)](glossary/#penalty-absorbing-stake-pas) model. The amount of stake token slashed varies according to the severity of the fault committed and the slashing factors applied.
+- stake token: the _offending_ validator stake is slashed for the penalty amount, taken at epoch end from [self-bonded](/glossary/#self-bonded) then [delegated](/glossary/#delegated) stake according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. The amount of stake token slashed varies according to the severity of the fault committed and the slashing factors applied.
 - staking rewards: the _offending_ validator staking rewards earned if a member of the consensus committee in the epoch when the slashing penalty is applied are lost. The forfeited staking rewards are distributed to the _reporting_ validator.
 - future staking rewards: if the slashing penalty applies [jailing](/glossary/#jailing) for the fault, then the _offending_ validator is excluded from consensus committee selection and so the opportunity to earn staking rewards as a committee member while in a `jailed` state.
 

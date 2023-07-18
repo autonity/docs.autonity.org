@@ -123,28 +123,34 @@ When distribution occurs:
 To learn more about the concept see [Staking rewards and distribution](/concepts/staking/#staking-rewards-and-distribution) and [Staking accounts](/concepts/staking/#staking-accounts).
 
 ## Autonity Accountability Contract
-The contract implementing the accountability and fault detection (AFD) protocol extensions, including primitives for ....
+The contract implementing the accountability and fault detection (AFD) protocol extensions, including primitives for misbehaviour accusations, proving innocence against an accusation, proven faults, slashing, and jailing.
 
-Per the Autonity Protocol Contract, the contract is deployed at network genesis using the null or 'zero' account address and the Autonity Oracle Contract address for a network is deterministic and will always be `TBC`.
+Per the Autonity Protocol Contract, the contract is deployed at network genesis using the null or 'zero' account address and the Autonity Accountability Contract address for a network is deterministic and will always be `0x5a443704dd4B594B382c22a083e2BD3090A6feF3`.
 
-The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for which the oracle provides median price data and the interval over which an oracle round for submitting and voting on price data runs, measured in blocks. Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
+The contract stores static [slashing protocol configuration parameters](/concepts/accountability/#slashing-protocol-configuration) used to compute slashing penalties.
 
-Oracle Contract functions for returning price data, currency pairs provided, and the oracle network voters can be called by all participants.  Function calls to govern (i.e. manage) the set of currency pairs provided by the oracle are restricted to the `operator` account.
+Oracle Contract functions for returning a committee member's proven faults, if a new accusation can be made and is slashable, and to submit accountability events are called by validators whilst participating in the AFD protocol. Function calls to compute accountability each block and apply slashing penalties at epoch end are restricted to protocol.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/accountability/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
+
+### Accountability event handling
+The Autonity Accountability Contract implements logic for handling accountability events submitted by committee members on-chain:
+
+- Accusations and proofs of innocence:
+  - accusations of misbehaviour by a committee member failing to follow consensus rules correctly whilst proposing new blocks or voting on proposed blocks
+  - proofs of innocence submitted in defence against accusations within the constraints of a proof window, cancelling accusations successfully defended
+  - promotion of accusations to faults where feasible after expiry of the innocence window
+- Faults - direct submission of unforgeable faults that can't be defended by proof of innocence.
+
 ### Slashing penalty computation
 
-The Autonity Accountability Contract manages the computation of median price data for currency pair price reports submitted by validator-operated oracle servers. The contract implements logic to:
+The Autonity Accountability Contract manages the computation of slashing penalties for proven faults at epoch end. A slashing model is implemented where a committee member is only slashed for the highest severity fault committed in an epoch. The contract implements logic to:
 
-- Aggregate price report data submitted on-chain by validator-operated oracle servers and compute median prices for the currency pairs provided by the oracle network in voting rounds.
-- Manage the set of currency pair symbols for which the oracle network must provide price report data.
-- Provide contract operations for data consumers to determine the currency pair data provided and retrieve historical and latest computed median price data.
+- Calculate slashing amount based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/accountability/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/accountability/#autonity-slashing-amount-calculation.
+- Apply slashing according to Autonity's [Penalty Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
 
 To learn more about the concept see [Accountability and fault detection](/concepts/accountability/).
-
-
-
 
 
 ## Autonity Oracle Contract
