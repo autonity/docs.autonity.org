@@ -72,6 +72,10 @@ footer.bg-dark.py-5.row.d-print-none {
     word-wrap: break-word;
 }
 
+body {
+    font-family: 'proxima nova', sans-serif;
+}
+
 /**
 * Fix word spacing for large header tags
 */
@@ -81,6 +85,7 @@ h3,
 .h1,
 .h2,
 .h3 {
+    font-family: 'berkeley mono';
     letter-spacing: -1px;
 }
 
