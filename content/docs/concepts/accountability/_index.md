@@ -262,7 +262,7 @@ In the table:
 
 | Rule ID | Description |
 | --| --|
-| `PN` | Proposer has proposed a new *value* (i.e. block proposal) having (a) already sent a precommit message earlier, or (b) has received sufficiently many prevotes for an earlier proposal *value* during the same round. |
+| `PN` | Proposer has proposed a new *value* (i.e. block proposal) having already sent a _non-nil_ precommit message earlier <!--, or (b) has received sufficiently many prevotes for an earlier proposal *value* during the same round. --> |
 | `PO` | Proposer has proposed a *value* (i.e. block proposal) that has already been proposed without attaching as justification the `2f + 1` prevotes from the same round for the value. |
 | `PVN` | Committee member has sent two distinct prevotes during the same round. |
 | `PVO` | Committee member has prevoted for a *value* in more than one consensus round. |
