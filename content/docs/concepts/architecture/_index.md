@@ -8,6 +8,7 @@ description: >
 ---
 
 ## Overview
+
 Autonity is an EVM-based blockchain which extends the Ethereum protocol to add Autonity-specific functionality to optimise the creation and maintenance of decentralised markets. This section documents the details of these Autonity extensions. An understanding of the core Ethereum principles is assumed.
 
 Autonity inherits from Ethereum:
@@ -18,7 +19,7 @@ Autonity inherits from Ethereum:
 
 Autonity extends Ethereum at three logical layers:
 
-- Application layer: protocol smart contracts:
+- Protocol smart contracts:
 	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, and staking rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
 	- **Accountability Contract** implementing protocol primitives for accountability and fault detection, enforcing adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules by committee members, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model.
@@ -26,7 +27,10 @@ Autonity extends Ethereum at three logical layers:
 	
 	Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
-- Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
+- Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system. Consensus is further extended to:
+  - provide accountability and fault detection for failure to adhere to consensus rules by committee members, implementing slashing penalties and a Penalty Absorbing Stake (PAS) model.
+  - provide median price data computed by consensus from external price data sourced by committee members forming an oracle network.
+
 - Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
 
 ## Protocol contracts
@@ -97,7 +101,6 @@ The Autonity Protocol Contract manages state finalization, maintaining [system s
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
 #### Staking
-
 The Autonity Protocol Contract manages liquid staking,  maintaining the ledger of _newton_ stake token in the system and triggering the deployment of validator-specific _liquid newton_ contracts. The contract implements logic to:
 
 - Maintain the ledger of _newton_ stake token in the system, implementing the ERC20 token contract interface.
@@ -187,7 +190,6 @@ Contract functions for returning price data, currency pairs provided, and the or
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Oracle Contract Interface](/reference/api/oracle/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
 
-
 #### Median price computation
 
 The Autonity Oracle Contract manages the computation of median price data for currency pair price reports submitted by validator-operated oracle servers. The contract implements logic to:
@@ -211,6 +213,7 @@ Participation in the oracle protocol is a validator responsibility and validator
 
 Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
 
+
 ### ASM ACU Contract
 
 The contract implementing the Auton Currency Unit (ACU) element of the Auton Stabilization Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
@@ -231,6 +234,7 @@ The Autonity ACU Contract manages the computation of the ACU value, i.e. price, 
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
 
+
 ### ASM Supply Control Contract
 
 The contract implementing the Auton supply control element of the Auton Stability Mechanism. The contract controls the supply of Auton on an Autonity network by minting and burning invoked by the ASM Stabilization Contract.
@@ -248,6 +252,7 @@ The Autonity Supply Control Contract manages the Auton supply. The contract impl
 - Mint and burn of Auton to take Auton in and out of circulation.
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+
 
 ### ASM Stabilization Contract
 
@@ -302,6 +307,7 @@ The consensus protocol makes use of:
 To learn more about the concept, see [consensus](/concepts/consensus/) and the [protocol parameters](/reference/protocol/) reference.
 
 ## Communication Layer
+
 Autonity uses a [fully connected network topology](/glossary/#mesh-network) with peer-to-peer communication based on Ethereum [devp2p <i class='fas fa-external-link-alt'></i>](https://github.com/ethereum/devp2p) network protocols RLPx and wire protocol.
 
 Each participant maintains a current record of peers in the network, updated as new participants join or leave the system. Participants establish an authenticated connection with one another over TCP by the RLPx transport protocol. At the application-level, Autonity extends the Ethereum wire protocol for message broadcast to:
