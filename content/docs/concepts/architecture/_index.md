@@ -149,6 +149,7 @@ When distribution occurs:
 
 To learn more about the concept see [Staking rewards and distribution](/concepts/staking/#staking-rewards-and-distribution) and [Staking accounts](/concepts/staking/#staking-accounts).
 
+
 ### Autonity Accountability Contract
 The contract implementing the accountability and fault detection (AFD) protocol extensions, including primitives for misbehaviour accusations, proving innocence against an accusation, proven faults, slashing, and jailing.
 
@@ -181,6 +182,7 @@ The Autonity Accountability Contract manages the computation of slashing penalti
 To learn more about the concept see [Accountability and fault detection](/concepts/accountability/).
 
 ### Autonity Oracle Contract
+
 The contract implementing the Oracle protocol extensions, including primitives for computing median price data, and managing the set of currency pairs for which Autonity provides price data.
 
 The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for which the oracle provides median price data and the interval over which an oracle round for submitting and voting on price data runs, measured in blocks. Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
