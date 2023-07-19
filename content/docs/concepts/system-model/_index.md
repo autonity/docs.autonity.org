@@ -7,11 +7,11 @@ description: >
   Autonity system model - participant nodes, blockchain primitives, transactions and fees 
 ---
 
-An Autonity network is a distributed blockchain system comprised of peer nodes running client software executing the Autonity Protocol. It is a permissionless network: nodes can leave and join the network on demand. On connecting to an Autonity network a node becomes a **participant** of the distributed system and one of the processes comprising the system's distributed virtual machine. Each participant maintains a local copy of the system's distributed ledger, maintains synchrony with network time, and runs the Autonity Go Client software. Autonity is an _eventually synchronous_ distributed system utilising Tendermint BFT consensus protocol, the Ethereum EVM, and reliable networking protocols to synchronise time and replicate state across the system.
+An Autonity network is a distributed blockchain system comprised of peer nodes running client software executing the [Autonity Protocol](/glossary/#autonity-protocol). It is a permissionless network: nodes can leave and join the network on demand. On connecting to an Autonity network a node becomes a [participant](/glossary/#participant) of the distributed system and one of the processes comprising the system's distributed virtual machine. Each participant maintains a [local copy](/glossary/#state-database) of the system's distributed ledger, maintains synchrony with network time, and as a validator participates in [consensus](/glossary/#consensus) computation of [system state](/glossary/#system-state). Autonity is an _eventually synchronous_ distributed system utilising Tendermint BFT consensus protocol, the Ethereum EVM, and reliable networking protocols to synchronise time and replicate state across the system.
 
 ## Participants
-A participant is a network node connected to an Autonity distributed system and forming part of the system's distributed virtual machine. Participants run the Autonity Go Client software, communicate with one another over networking protocols in Autonity's communication layer, execute state transitions in the Ethereum runtime environment, and have read and write access to the system ledger. Each participant maintains an up-to-date copy of system state in a ledger object.
- 
+A participant is a network node connected to an Autonity distributed system and forming part of the system's distributed virtual machine. Participants run a peer node running main client software implementing the [Autonity Protocol](/glossary/#autonity-protocol), i.e. the [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) software, communicate with one another over networking protocols in Autonity's communication layer, execute state transitions in the [EVM](/glossary/#ethereum-virtual-machine-evm) Ethereum runtime environment, and have read and write access to the system ledger. Each participant maintains an up-to-date copy of [system state](/glossary/#system-state) in a [ledger object](/concepts/system-model/#the-ledger-object).
+
 Participants are secured and uniquely identified by public key cryptography. Each participant has a public and private keypair ([node key](/concepts/validator/#p2p-node-key)) for signing the messages it broadcasts at the communication layer. This message signature allows cryptographic verification of message sender identity by recipient participants. 
 
 Each participant node has:
@@ -31,7 +31,7 @@ The committee is dynamically maintained and selection is a deterministic functio
 
 A committee member participates in Tendermint Consensus instances, voting for and deciding on proposed blocks. Blocks endorsed by two-thirds or more of the committee's voting power are appended to the blockchain. The validator votes for a block are recorded in the [block header](/concepts/system-model/#the-blockchain-object) `committedSeals` field.
 
-[System participants](/overview/#system-participants) submit calls and state affecting transactions to the system by RPC to [Autonity Interfaces](/reference/api/) provided by Autonity Go Client nodes. 
+[System actors](/overview/#system-actors) submit calls and state affecting transactions to the system by RPC to [Autonity Interfaces](/reference/api/) provided by Autonity Go Client nodes. 
 
 ## Networking
 
@@ -72,19 +72,19 @@ Autonity modifies the inherited Ethereum blockchain structure, extending the blo
 
 Fields inherited from Ethereum:
 
-- `coinbase`, unused
+<!-- - `coinbase`, unused -->
+- `baseFeePerGas`, minimum price per unit of gas for your transaction to be included in the block.
 - `difficulty`, a scalar value corresponding to the difficulty level of this block. Can be calculated from the previous block's difficulty level and the timestamp
 - `extraData`, an arbitrary byte array containing data relevant to this block. This must be 32 bytes or fewer
 - `gasLimit`, a scalar value equal to the current limit of gas expenditure per block
 - `gasUsed`, a scalar value equal to the total gas used in transactions in this block
-- `baseFeePerGas`, minimum price per unit of gas for your transaction to be included in the block.
 - `hash`, the Keccak 256-bit hash of the current block's header.
 - `logsBloom`, the Bloom filter composed from indexable information (logger address and log topics) contained in each log entry from the receipt of each transaction in the transactions list
 - `miner`, the address of the block proposer
 - `mixHash`, a 256-bit hash which, combined with the nonce, proves that a sufficient amount of computation has been carried out on this block
 - `nonce`, a 64-bit value which, combined with the mixHash, proves that a sufficient amount of computation has been carried out on this block
 - `number`, a scalar value equal to the number of ancestor blocks. The genesis block has a number of zero.
-- `ommersHash`, unused.
+<!-- - `ommersHash`, unused. -->
 - `parentHash`, the Keccak 256-bit hash of the parent block’s header.
 - `receiptsRoot`, the Keccak 256-bit hash of the root node of the trie structure populated with the receipts of each transaction in the transactions list portion of the block
 - `sha3Uncles`, the SHA3 hash of the uncle parents of the block. This always has the value '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
@@ -98,7 +98,7 @@ Fields inherited from Ethereum:
 New Autonity Fields:
 
 - `committedSeals`, array of signed committee member precommit votes for the block
-- `committee`, array of the consensus committee members for the **following block**. Each item in the array is recorded as an RLP-encoded pair of committee member properties (`account`, `voting_power`).
+- `committee`, array of the consensus committee members for the **following block**. Each item in the array is recorded as an RLP-encoded pair of committee member properties (`address`, `votingPower`).
 - `proposerSeal`, the block proposer's signed block proposal
 - `round`, a scalar value corresponding to the number of consensus rounds initiated for the block. Initial value of `0`.
 
@@ -109,72 +109,63 @@ New Autonity Fields:
 
 The block content structure is unmodified per standard Ethereum:
 
-- transactions: a list of the transactions comprising the block. Recorded as an array of Keccak 256-bit hashes of the signed transaction.
-- uncles: unused
+- `transactions`: a list of the transactions comprising the block. Recorded as an array of Keccak 256-bit hashes of the signed transaction.
+- `uncles`: unused.
 
 
 #### Example block
 
-```javascript
-> web3.eth.getBlock(await web3.eth.getBlockNumber())
+```python
+aut block height | aut block get | jq .
 {
-  baseFeePerGas: 5000,
-  committedSeals: [
-    '0x53f8f109e5a3391437a5511bd85e9ea9da60abd1031b52a73ba6d133b132a5bb40121f0c2836ed4ce2199ab9c95f9f76ed3a24d80467863bea44fce37378e30401',
-    '0x99988475e5a1d77777d903cc6680b24f7cfd0fd5259ea59708fbd35646da6d4a7758a0bc4639fc6398d4f667f3210695191c90949116d2a89af6705ad84648ab00',
-    '0xeeba261aca27203c5410fec6cef70d33794afae69379e704e46f582002b29eb91cc9354fd2825e59d6dc617746d24242216b664b6ed1d705bd39a3cf7ea4a06d01',
-    '0x64ddbe2cf7f31c0e04c46a06e2edf10de34a4acc429c9faf86dbc5a17e456de00fab2b3e7edc83643645b0aac3d5f6e11570bacff801b6491a85699d212ae91c01'
+  "baseFeePerGas": 5000,
+  "committedSeals": [
+    "0x19e8bdb5827723327a9fcfc305aa2825076ff14340ac7ddc56610fd2a49765036c9283746580661314534ca5c22ed0ec194d5e263f266d779d5a8b4493c2527801",
+    "0x1aca00d74bcbe6a893860dee0311a764e23e577bf5bb7266c7e7f74f066d7a18767623df78bc988e7f7030fd64a2355672f1bd721a24b6cd02cf39dab57511e001",
+    "0xfe6918b694abd11df39eeb0d81d1a5e338a3b414900c8ba1104ed29ca056c4123be24a7c45e23d1f4521c1a5521a19eb92d34713f5c2a70d7dec77d70ce3956c00"
   ],
-  committee: [
+  "committee": [
     {
-      address: '0x055a7c97b73db9649ff03ac50db0552c959cca91',
-      votingPower: '0x2710'
+      "address": "0x0be4ee22d794c640366352ef6ce666e52229886d",
+      "votingPower": "0x21e19e0c9bab2402710"
     },
     {
-      address: '0x0be4ee22d794c640366352ef6ce666e52229886d',
-      votingPower: '0x2710'
+      "address": "0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c",
+      "votingPower": "0x21e19e0c9bab2402710"
     },
     {
-      address: '0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c',
-      votingPower: '0x2710'
+      "address": "0x4827c61c0bdf17578a0879d1aab75abebc4898fe",
+      "votingPower": "0x2710"
     },
     {
-      address: '0x35379a60fc0f108583d6692cc6d2fa0317cc9724',
-      votingPower: '0x2710'
-    },
-    {
-      address: '0x8cc985ded2546e9675546db6bcf34f87f4a16c56',
-      votingPower: '0x2710'
-    },
-    {
-      address: '0x94c1eee283fac8102ddb08ac0661a268d4977b2d',
-      votingPower: '0x2710'
+      "address": "0x8cc985ded2546e9675546db6bcf34f87f4a16c56",
+      "votingPower": "0x21e19e0c9bab2402710"
     }
   ],
-  difficulty: '1',
-  extraData: '0x',
-  gasLimit: 8000000,
-  gasUsed: 35358,
-  hash: '0x550eb0801af4421e70c97a001314fd79a110d70f3921fbadce144c1480427126',
-  logsBloom: '0x00004000000000000000000000020400000000010000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000004000000002000000000000000000000000000000000000000000000002000000000000000000000000000000000000000080000000000000000000000000000000',
-  miner: '0x0be4Ee22d794c640366352Ef6CE666E52229886d',
-  mixHash: '0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365',
-  nonce: '0x0000000000000000',
-  number: 1206023,
-  parentHash: '0x8f7f604767283c9c20ba8db627e4a9ecd663de059f663c367ec83fb6bc575c5e',
-  proposerSeal: '0x83b4c1d76dd0879cc38d2a8d0af587869163de3ee5fcaedb332e6659eb04d4af04725fe5f3a80371372183cf3ff2ca7601d9a1ecd6839e47a6b93e125815970e01',
-  receiptsRoot: '0x51b9007d1c90e4c49520a136e26146d08d5120071ac93f280e0eaed97feb273f',
-  round: '0x0',
-  sha3Uncles: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
-  size: 1195,
-  stateRoot: '0xd59bc7f93e7bbc21ef51da834c12319fd3d9f97f272df5a5b689a1bef7cdf1f9',
-  timestamp: 1649686303,
-  totalDifficulty: '1206023',
-  transactions: [
-    '0x155e061b49a5c0340c982cce856fb8ec3e6c1d2914f72a8e0429452e3a790fd2'
+  "difficulty": 1,
+  "extraData": "0x",
+  "gasLimit": 30000000,
+  "gasUsed": 104740,
+  "hash": "0xf9c37be33aa458e472c7ee017d03a4b3fe782c170eafd05334535092fd01bce0",
+  "logsBloom": "0x00200000000000000000000080000000000000000000000000000008000000000000000000000000000100000000000000000000000000000000000000200000200000000000000000000008000000200000000000000000000402000000000000000000000000000000000000000000000000020200002000000010000200000000000080000000000000080000000040000000000000080008004000000000020000000000000000000000000000200000000000000000000000010000000000000002000000000000000000100000800000000000001000000000000000000010000000000000000000000080000000000000000000000000000000000000",
+  "miner": "0x0be4Ee22d794c640366352Ef6CE666E52229886d",
+  "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+  "nonce": "0x0000000000000000",
+  "number": 4017598,
+  "parentHash": "0x58653bcfa028c2a19194b1b9bec3a7e5a167595b0a4c7eae10531f88ab0bd097",
+  "proposerSeal": "0xf282a6230a12f3c913193ca57f99793dce8f5c14a0c5ed51163735430eb9487e394a53a4b8b4f075ff41a93d85d7af235121b2edd35e7941313b713bc7a30bc301",
+  "receiptsRoot": "0x91118225d50963cf4b0626d78bcb017ca6763ff683e2d4220bf161485f297bce",
+  "round": "0x0",
+  "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+  "size": 1302,
+  "stateRoot": "0x2351f09ed0c16f0bb7ace91f1b75223a885895573348667435304eed6e43b7f9",
+  "timestamp": 1689680235,
+  "totalDifficulty": 4017598,
+  "transactions": [
+    "0x29cd30370da131cdb79e8e0e1ca95e33be21fb3da78ba37009cbc8433a24a7da"
   ],
-  transactionsRoot: '0x2f8dc505d5d06ba6023a20ffcfa2683a8febfeee9ade2ac2edd9b9386027b2a4',
-  uncles: []
+  "transactionsRoot": "0x97f1cfbdf36cfe329d50fb218093e2267356f8139ec09654a7b30515b1129278",
+  "uncles": []
 }
 ```
 
