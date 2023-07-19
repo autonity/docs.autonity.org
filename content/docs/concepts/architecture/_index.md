@@ -38,7 +38,7 @@ The Autonity Protocol Contract is deployed at network genesis using the null or 
 
 The contract stores [protocol parameters](/reference/protocol/) that specify economic, consensus, and governance settings of an Autonity network. Protocol parameters are initialised at network [genesis](/reference/genesis/) in the genesis state provided by the client's config for connecting to public Autonity networks, or a custom [genesis configuration file](/reference/genesis/#genesis-configuration-file) if running a local development network.
 
-Many of the Autonity Protocol Contract functions can be called by all participants, such as those for bonding and unbonding stake, and for reading protocol parameters.  Some functions are restricted to the `operator` account, such as those related to governance of the network.
+Many of the Autonity Protocol Contract functions can be called by all participants, such as those for bonding and unbonding stake, and for reading protocol parameters.  Some functions are restricted to the governance `operator` account, such as those related to governance of network parameters.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Autonity Contract Interface](/reference/api/aut/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
@@ -61,13 +61,13 @@ Governance operations are used to modify protocol parameterisation set in the ge
 For all parameter definitions and the subset of modifiable parameters see the [Protocol Parameter](/reference/protocol/) reference.
 
 ### State finalisation
-The Autonity Protocol Contract manages state finalisation, maintaining [system state](/glossary/#system-state), and executing the state transition function (STF). Contract logic triggers:
+The Autonity Protocol Contract manages state finalisation, maintaining [system state](/glossary/#system-state). Contract logic triggers:
 
 - block finalisation
 - at epoch end:
   - [selection of a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
-  - applying staking transitions for stake bonding and unbonding
-  - applying slashing penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
+  - applying [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
+  - applying [slashing](/concepts/accountability/#slashing) penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
   - [distributing staking rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
 - computation of median price data at the end of an oracle voting round by the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
 
@@ -97,7 +97,7 @@ To learn more about the concept see [Validators](/concepts/validator/).
 ### Committee selection
 Computing the committee is a protocol only function. As the last block of an epoch is finalised, this function is executed to determine the committee for the following epoch.
 
-The committee is selected from the registered validators maintained in system state by the Autonity contract. Validators are ranked by bonded stake, those with the highest stake being selected to the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members that voted to approve the block.
+The committee is selected from the registered validators maintained in system state by the Autonity contract. Validators are ranked by bonded stake amount, those with the highest stake being selected to the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members that voted to approve the block.
 
 To learn more about the concept see [Consensus](/concepts/consensus/) and  [Committee](/concepts/consensus/committee/).
 
@@ -125,11 +125,11 @@ To learn more about the concept see [Staking rewards and distribution](/concepts
 ## Autonity Accountability Contract
 The contract implementing the accountability and fault detection (AFD) protocol extensions, including primitives for misbehaviour accusations, proving innocence against an accusation, proven faults, slashing, and jailing.
 
-Per the Autonity Protocol Contract, the contract is deployed at network genesis using the null or 'zero' account address and the Autonity Accountability Contract address for a network is deterministic and will always be `0x5a443704dd4B594B382c22a083e2BD3090A6feF3`.
+Per the Autonity Protocol Contract, the contract is deployed at network genesis using the null or 'zero' account address and the Autonity Accountability Contract address for a network is deterministic; it will always be `0x5a443704dd4B594B382c22a083e2BD3090A6feF3`.
 
 The contract stores static [slashing protocol configuration parameters](/concepts/accountability/#slashing-protocol-configuration) used to compute slashing penalties.
 
-Oracle Contract functions for returning a committee member's proven faults, if a new accusation can be made and is slashable, and to submit accountability events are called by validators whilst participating in the AFD protocol. Function calls to compute accountability each block and apply slashing penalties at epoch end are restricted to protocol.
+Contract functions for returning a committee member's proven faults, if a new accusation can be made and is slashable, and to submit accountability events are called by validators whilst participating in the AFD protocol. Function calls to compute accountability each block and apply slashing penalties at epoch end are restricted to protocol.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/accountability/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
@@ -139,8 +139,8 @@ The Autonity Accountability Contract implements logic for handling accountabilit
 
 - Accusations and proofs of innocence:
   - accusations of misbehaviour by a committee member failing to follow consensus rules correctly whilst proposing new blocks or voting on proposed blocks
-  - proofs of innocence submitted in defence against accusations within the constraints of a proof window, cancelling accusations successfully defended
-  - promotion of accusations to faults where feasible after expiry of the innocence window
+  - proofs of innocence submitted in defence against accusations within the constraints of a proof window measured in blocks, cancelling accusations successfully defended
+  - promotion of accusations to faults where feasible after expiry of the innocence window.
 - Faults - direct submission of unforgeable faults that can't be defended by proof of innocence.
 
 ### Slashing penalty computation
@@ -156,11 +156,11 @@ To learn more about the concept see [Accountability and fault detection](/concep
 ## Autonity Oracle Contract
 The contract implementing the Oracle protocol extensions, including primitives for computing median price data, and managing the set of currency pairs for which Autonity provides price data.
 
-Per the Autonity Protocol Contract, the contract is deployed at network genesis using the null or 'zero' account address and the Autonity Oracle Contract address for a network is deterministic and will always be `0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D`.
+Per the Autonity Protocol Contract, the contract is deployed at network genesis using the null or 'zero' account address and the Autonity Oracle Contract address for a network is deterministic; it will always be `0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D`.
 
 The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for which the oracle provides median price data and the interval over which an oracle round for submitting and voting on price data runs, measured in blocks. Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
 
-Oracle Contract functions for returning price data, currency pairs provided, and the oracle network voters can be called by all participants.  Function calls to govern (i.e. manage) the set of currency pairs provided by the oracle are restricted to the `operator` account.
+Contract functions for returning price data, currency pairs provided, and the oracle network voters can be called by all participants.  Function calls to govern (i.e. manage) the set of currency pairs provided by the oracle are restricted to the governance `operator` account.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Oracle Contract Interface](/reference/api/oracle/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
 
