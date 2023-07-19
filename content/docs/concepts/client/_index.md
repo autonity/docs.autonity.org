@@ -13,8 +13,11 @@ AGC is the reference implementation of the Autonity Protocol and the main client
 
 ### Core logic
 
-- _Autonity Protocol Contract_, the protocol contract logic deployed to the ledger providing operations for: protocol governance, staking, validator registration, consensus committee selection, and staking rewards distribution. See [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract).
-- _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the ledger providing operations for: computing median price data, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Oracle](/concepts/oracle-server/).
+- _Protocol Contracts_, Autonity Protocol contract logic deployed to the ledger:
+  - _Autonity Protocol Contract_, the core Autonity Protocol contract providing operations for: protocol governance, staking, validator registration, consensus committee selection, and staking rewards distribution. See [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract).
+  - _Autonity Accountability Contract_, the accountability and fault detection protocol contract providing operations for: returning accountability history and status, handling submitted accountability events, and computing accountability and slashing penalties. See [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) and concept [Accountability and fault detection](/concepts/accountability/).
+  - _Autonity Oracle Contract_, the oracle protocol contract providing operations for: computing median price data, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concepts [Oracle Server](/concepts/oracle-server/) and [Oracle network](/concepts/oracle-network/).
+>>>>>>> 259fcca (Edit Concept Client for accountability feature)
 - _EVM_, the deterministic virtual machine providing the state transition function for computing global state
 - _Consensus_, Autonity implementation of the  Tendermint BFT consensus protocol managing state replication and block production with dynamic committee selection. See [Blockchain Consensus](/concepts/architecture/#blockchain-consensus)
 - _P2P Networking_, transport and wire protocols providing reliable broadcast for blockchain and consensus state synchronisation between participants. See [Communication Layer](/concepts/architecture/#communication-layer)
