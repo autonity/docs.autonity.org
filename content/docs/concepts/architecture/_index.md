@@ -89,12 +89,13 @@ For all parameter definitions and the subset of modifiable parameters see the [P
 #### State finalization
 The Autonity Protocol Contract manages state finalization, maintaining [system state](/glossary/#system-state). Contract logic triggers block finalization:
 
+
 - invoking the [Accountability Contract](/concepts/architecture/#autonity-accountability-contract) to apply [slashing](/concepts/accountability/#slashing) penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
 - at epoch end:
   - [distributing staking rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
   - applying [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
   - applying pending [validator commission rate changes](/concepts/validator/#validator-commission-rate-change)
-  - [selecting of a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
+  - [selecting a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
   - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection)
 - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) for the [computation of median price data](/concepts/architecture/#median-price-computation) at the end of an oracle voting round.
 
@@ -233,7 +234,7 @@ The Autonity ACU Contract manages the computation of the ACU value, i.e. price, 
 - Manage the ACU basket currency pair symbols, quantities, and ACU value scale precision.
 - Provide contract operations for data consumers to determine the ACU value, and basket symbols and quantities.
 
-To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/concepts/asm/).
 
 
 ### ASM Supply Control Contract
