@@ -33,7 +33,7 @@ As an entity contributing bonded stake to secure the network a validator active 
 
 ### Validator prerequisites 
 
-To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
+To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to Autonity [full node](/concepts/client/) software.
 
 Prerequisites for becoming a validator node operator are:
 
@@ -114,7 +114,6 @@ The sequence of lifecycle events for a validator is:
 7. Pause as a validator. The validator's node enters a `paused` state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until reactivated. Stake is _not_ automatically unbonded.
 8. Reactivate as a validator. The validator's node transitions from a `paused` or `jailed` state to resume an `active` state in which it is eligible for inclusion in the committee selection process.
 
-
 Validator registration can take place at genesis initialisation or after genesis. In the genesis scenario, event steps 1-4 happen automatically as the network is initialised and the validator is included in the genesis run of the committee selection process. After genesis, all lifecycle steps are discrete and initiated by the validator node operator entity. 
 
 
@@ -156,15 +155,8 @@ Note that:
 
 Account addresses owning liquid newton and receiving staking reward revenue are:
 
-- For own stake bonding ('[self-bonded](/glossary/#self-bonded)') - the account address of the validator entity that registered the validator node.
-- For [delegated](/glossary/#delegated) stake bonding - the account address of the delegator entity that bonded stake to the validator node.
-
-{{% alert title="Note" %}}
-For clarity, these are the `msgSender()` addresses of the account submitting `registerValidator()` and `bond()` transactions to the Autonity Network.
-have been recipients of a liquid newton transfer from a Liquid Newton holder account.
-{{% /alert %}}
-
-- For Liquid Newton transfer recipients - the EOA or contract accounts that are the recipient address of a Liquid Newton transfer.
+- EOA accounts that have bonded [delegated](/glossary/#delegated) stake to a validator node, or have been recipients of a liquid newton transfer.
+- Contract accounts that have been recipients of a liquid newton transfer from an EOA or a contract account.
 
 Autonity implements an 'active epoch' staking model, applying staking transitions for bonding and unbonding at the end of each block epoch.
 
@@ -193,6 +185,7 @@ Staking reward revenue potential is determined by the frequency with which a val
 -  The validator's commission rate. The percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator's stake delegators. The rate can be any value in the range `0 - 100%`. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate - see [Validator commission rate change](/concepts/validator/#validator-commission-rate-change) on this page.
 
 Bonded stake may be slashed and/or staking rewards may be reduced or forfeited by slashing penalties applied to the validator for accountable faults. The extent of the fine varies according to the severity of the fault committed. See Concept [accountability and fault detection protocol](/concepts/accountability/) and [slashing economics](/concepts/accountability/#slashing-economics).
+
 
 ## Validator registration
 A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:
