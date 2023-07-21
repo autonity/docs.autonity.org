@@ -246,12 +246,6 @@ A protocol action that reduces the amount of a validator's bonded stake as a [sl
 ## slashing penalty
 An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: stake [slashing](/glossary/#slashing), stake freezing, [jailing](/glossary/#jailing).
 
-## slashing
-A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
-
-## slashing penalty
-An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: stake [slashing](/glossary/#slashing), stake freezing, [jailing](/glossary/#jailing).
-
 ## smart contract
 The program code for encoding and executing decentralised application logic in the [EVM](/glossary/#ethereum-virtual-machine-evm). Smart contracts are written in a higher level programming language such as 'Solidity' and compiled to [bytecode](/glossary/#bytecode) for execution in the EVM. A smart contract stores the application's state.
 
