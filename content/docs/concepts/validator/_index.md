@@ -132,7 +132,7 @@ A validator may be found guilty by the [accountability and fault detection proto
 
 - is transitioned by protocol from an `active` to a `jailed` state
 - is barred from consensus committee selection until the [jail period](/glossary/#jail-period) has expired and the validator has been reactivated to an `active` state
-- suffer stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee
+- suffers stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee
 
 To get out of jail at the end of the [jail period](/glossary/#jail-period), the validator operator must [reactivate their validator node](/concepts/validator/#validator-re-activation) to (a) transition to an `active` state, and (b) resume eligibility for selection to the consensus committee.
 
@@ -146,7 +146,7 @@ In this model:
 
 - [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas): [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake, ensuring the validator has "skin in the game" and incentivising reliable and honest validator operations and behaviour.
 - [Liquid staking](/concepts/staking/#liquid-staking): [delegated](/glossary/#delegated) stake has [Liquid Newton](/concepts/protocol-assets/liquid-newton/) minted to the staker in proportion to the amount of Newton staked to a validator.
- 
+
 {{% alert title="Note" %}}
 Note that:
   - [Liquid Newton](/concepts/protocol-assets/liquid-newton/) is **not** minted for [self-bonded](/glossary/#self-bonded) stake. For rationale see [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
