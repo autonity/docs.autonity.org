@@ -7,7 +7,7 @@ description: >
   Newton - token for staking and securing the network
 ---
 
-Newton is the native staking instrument of Autonity. Its primary function is staking the network, and it is the stake token used in Autonity's Proof-of-Stake consensus mechanism. Newton is divisible up to 18 decimal places (the smallest unit is 10^-18 or 0.000000000000000001). The symbol of _Newton_ is `NTN`.
+Newton is the native staking instrument of Autonity. Its primary function is staking the network, and it is the [stake token](/glossary/#stake-token) used in Autonity's [Proof-of-Stake](/glossary/#proof-of-stake-pos) consensus mechanism. Newton is divisible up to 18 decimal places (the smallest unit is 10^-18 or 0.000000000000000001). The symbol of _Newton_ is `NTN`.
 
 A newton stake token can be in one of three states:
 
@@ -19,4 +19,4 @@ Newton is bonded by the owner staking the token to a [validator](/glossary/#vali
 
 Newton is unbonded by the staker in an unbonding operation. Unbonded tokens are subject to an unbonding delay, at the end of which it is redeemed and the staked Newton tokens are transferred back to the owner's account.
 
-As Newton is bonded and redeemed a corresponding equivalent amount of [Liquid Newton](/concepts/protocol-assets/liquid-newton/) is minted and burned to the staker's account per Autonity's [liquid staking](/concepts/staking/#liquid-staking) model.
+As Newton is bonded and redeemed a corresponding equivalent amount of [Liquid Newton](/concepts/protocol-assets/liquid-newton/) is minted and burned to the staker's account for [delegated](/glossary/#delegated) stake per Autonity's [liquid staking](/concepts/staking/#liquid-staking) model.
