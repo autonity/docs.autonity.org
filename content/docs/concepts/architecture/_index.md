@@ -122,6 +122,7 @@ The Autonity Protocol Contract implements logic to manage validator registration
 To learn more about the concept see [Validators](/concepts/validator/).
 
 #### Committee selection
+
 Computing the committee is a protocol only function. As the last block of an epoch is finalized, this function is executed to determine the committee for the following epoch.
 
 The committee is selected from the registered validators maintained in system state by the Autonity contract. Validators are ranked by bonded stake amount, those with the highest stake being selected to the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members that voted to approve the block.
@@ -148,7 +149,6 @@ When distribution occurs:
 - Rewards accumulate until claimed by stake delegators 
 
 To learn more about the concept see [Staking rewards and distribution](/concepts/staking/#staking-rewards-and-distribution) and [Staking accounts](/concepts/staking/#staking-accounts).
-
 
 ### Autonity Accountability Contract
 The contract implementing the accountability and fault detection (AFD) protocol extensions, including primitives for misbehaviour accusations, proving innocence against an accusation, proven faults, slashing, and jailing.
@@ -213,6 +213,7 @@ The Autonity Oracle Contract implements logic to manage submission of price data
 Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on median price computation by a protocol-only function. As the last block of an epoch is finalized, this function is executed to determine the oracle voters for the following epoch.
 
 Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
+
 
 ### ASM ACU Contract
 
@@ -287,6 +288,7 @@ The Autonity Stabilization Contract implements logic for a liquidator to:
 - Liquidate a CDP that is undercollateralized.
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+
 
 ## Consensus layer
 
