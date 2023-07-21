@@ -136,7 +136,7 @@ Eligible validators are included in the committee selection algorithm. The algor
 A validator may be found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of failing to adhere to consensus rules when a member of the consensus committee. In this case, depending on the type of fault committed, a validator may as part of the slashing penalty:
 
 - be transitioned by protocol from an `active` to a `jailed` state and debarred from selection to the consensus committee member for a '[jail period](/glossary/#jail-period)' measured in block.
-- suffer stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or lose [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee.
+- suffer stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee.
 
 To get out of jail, the validator simply [reactivates their validator](/concepts/validator/#validator-re-activation) after expiry of the [jail period](/glossary/#jail-period). Returned to an `active` state, the validator is again eligible for selection to the consensus committee.
 
@@ -149,9 +149,13 @@ Autonity implements a [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty
 In this model:
 
 - [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas): [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake, ensuring the validator has "skin in the game" and incentivising reliable and honest validator operations and behaviour.
-- [Liquid staking](/concepts/staking/#liquid-staking): [delegated](/glossary/#delegated) stake has [Liquid Newton](/concepts/protocol-assets/liquid-newton/) minted to the staker in proportion to the amount of Newton staked to a validator. It is important to note that staking rewards accrue to all holders of liquid newton. Upon receipt of liquid newton the holder becomes a delegator to the associated validator, and has a claim to some staked newton. Stake can be redeemed by a delegator at any time subject to the unbonding period set for the chain.
-
-{{% alert title="Note" %}}Note that [liquid newton](/concepts/protocol-assets/liquid-newton/) is **not** minted for [self-bonded](/glossary/#self-bonded) stake. The validator earns revenue from commission on staking rewards only.{{% /alert %}}
+- [Liquid staking](/concepts/staking/#liquid-staking): [delegated](/glossary/#delegated) stake has [Liquid Newton](/concepts/protocol-assets/liquid-newton/) minted to the staker in proportion to the amount of Newton staked to a validator.
+- 
+{{% alert title="Note" %}}
+Note that:
+  - [Liquid Newton](/concepts/protocol-assets/liquid-newton/) is **not** minted for [self-bonded](/glossary/#self-bonded) stake. For rationale see [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
+  - Staking rewards accrue to all bonded stake active in the current consensus committee; [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stakers earn staking rewards _pro rata_ to their share of the validator's total bonded stake.
+{{% /alert %}}
 
 Account addresses owning liquid newton and receiving staking reward revenue are:
 
@@ -171,9 +175,10 @@ Validator economic returns are determined by the amount of stake bonded to them,
 
 Staking reward revenue is proportionate to the validator's share of the stake active in a consensus round in which it participates. Staking rewards are distributed to consensus committee members _pro rata_ to the amount of stake they have at stake. Validators can earn from:
 
--  From commission on [delegated](/glossary/#delegated) stake rewards through the delegation rate they charge to delegators.
--  From the priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
--  From [slashing rewards](/concepts/accountability/#slashing-rewards) earned for reporting slashed faults in the [accountability and fault detection](/concepts/accountability/) protocol.
+- Staking rewards earned from their own [self-bonded](/glossary/#self-bonded) stake.
+- Commission charged on [delegated](/glossary/#delegated) stake per the delegation rate they charge as commission.
+- The priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
+- [Slashing rewards](/concepts/accountability/#slashing-rewards) earned for reporting slashed faults in the [accountability and fault detection](/concepts/accountability/) protocol.
 
 Staking reward revenue potential is determined by the frequency with which a validator is an active member of the consensus committee. This is driven by:
 
