@@ -14,7 +14,7 @@ A validator is an Autonity full node with bonded stake that is eligible for sele
 
 To fulfil this purpose the validator participates in consensus computation with other members of the consensus committee:
 
-- Proposing, voting, and validating new [blocks](/glossasry/#block) in accordance with the rules of Autonity's implementation of the Tendermint consensus mechanism.
+- Proposing, voting, and validating new [blocks](/glossary/#block) in accordance with the rules of Autonity's implementation of the Tendermint consensus mechanism.
 - Reporting infractions of consensus rules by committee members in the accountability and fault detection protocol.
 - Submitting price reports and voting on aggregated median price data for selected currency pairs in oracle protocol voting rounds.
 
