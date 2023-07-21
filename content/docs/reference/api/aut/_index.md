@@ -1,6 +1,7 @@
 ---
 title: "Autonity Contract Interface"
 linkTitle: "Autonity Contract Interface"
+weight: 10
 
 description: >
   Autonity Protocol Contract functions

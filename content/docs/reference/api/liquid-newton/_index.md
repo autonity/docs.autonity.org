@@ -1,6 +1,7 @@
 ---
 title: "Liquid Newton Contract Interface"
 linkTitle: "Liquid Newton Contract Interface"
+weight: 20
 
 description: >
   Autonity Liquid Newton Contract functions

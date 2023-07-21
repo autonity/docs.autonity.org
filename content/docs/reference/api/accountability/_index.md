@@ -1,6 +1,7 @@
 ---
 title: "Accountability Contract Interface"
 linkTitle: "Accountability Contract Interface"
+weight: 40
 
 description: >
   Autonity Accountability Contract functions
