@@ -19,7 +19,9 @@ Staking is open - any network participant is able to purchase stake token and bo
 Staking rewards are distributed to [delegated](/glossary/#delegated) stake that is actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
 
 {{% alert title="Note" %}}
+
 Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and slashing rewards. See [validator economics](/concepts/validator/#validator-economics).
+
 {{% /alert %}}
 
 
@@ -83,19 +85,20 @@ In the PAS model self-bonded stake has a different risk profile to delegated sta
 By self-bonding stake, a validator puts "skin in the game" because this constitutes a public commitment to the operational integrity of the validator node by its operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
 {{% /alert %}}
 
-## Penalty Absorbing Stake (PAS)
+## Penalty-Absorbing Stake (PAS)
 
-Autonity implements a [_penalty absorbing stake (PAS)_](glossary/#penalty-absorbing-stake-pas) model where validator [self-bonded](/glossary/#self-bonded) stake is slashed in priority to [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
+Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absorbing-stake-pas) model where validator [self-bonded](/glossary/#self-bonded) stake is slashed in priority to [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.
 
 Slashing priority is simply:
 
 - [self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted
 - [delegated](/glossary/#delegated) stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available.
 
-In the PAS model self-bonded stake absorbs any slashing penalties before they are applied pro-rata to the remaining delegated stake.
+In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator liquid newton has a uniform risk profile.
 
-Consequently, validator operator stake ("skin in the game") is at first risk and provides loss absorbing capital in the case of a slashing event. Self-bonding stake is not just a source of income but a public commitment to the operational integrity of a validator node by a validator operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
-
+{{% alert title="Note" %}}
+Self-bonding stake by a validator puts "skin in the game" and is a public commitment to the operational integrity of a validator node by a validator operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
+{{% /alert %}}
 
 ## Staking rewards
 
@@ -239,7 +242,7 @@ See [Bonding](/concepts/staking/#bonding) above.
 
 Stake is unbonded from a validator through an unbonding operation. Unbonding is subject to an [unbonding period](/concepts/staking/#unbondingperiod) during which it remains locked. The unbonding period applies irrespective of whether the nominated validator is a member of the consensus committee or not. 
 
-Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalised. On processing the transaction the bonded stake token moves from `bonded` to the intermediate state of `unbonding` and is locked during the unbonding period. If the unbonding is for [delegated](/glossary/#delegated) stake, then the associated Liquid Newton is burned so that it is no longer transferable. The unbonding request is captured and tracked in memory and the staking transition is applied at the end of the epoch in which the unbonding period expires: unbonding is applied, reducing the validator’s bonded stake amount and so applying the voting power change to the validator.
+Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalized. On processing the transaction the bonded stake token moves from `bonded` to the intermediate state of `unbonding` and is locked during the unbonding period. If the unbonding is for [delegated](/glossary/#delegated) stake, then the associated Liquid Newton is burned so that it is no longer transferable. The unbonding request is captured and tracked in memory and the staking transition is applied at the end of the epoch in which the unbonding period expires: unbonding is applied, reducing the validator’s bonded stake amount and so applying the voting power change to the validator.
 
 {{< alert title="Example" >}}
 Alice sends an `unbond()` tx at time `T`, a block in an epoch. Liquid Newton is burned at `T` and unbonding begins in the next block, `T+1`. The unbonding request is tracked in memory for application at the end of the epoch in which the unbonding period falls. At this point, the validator's bonded stake is reduced and Newton is unlocked and redeemed to Alice. Actual unbonding is then executed at `T+1` + `unbondingPeriod` + remainder of the epoch in which the `unbondingPeriod` expires.
