@@ -247,10 +247,9 @@ To learn more about PAS, see the concept Staking, [Penalty Absorbing Stake (PAS)
 
 Accountability rules are applied to detect faults in the three Tendermint consensus round phases *propose*, *prevote*, *precommit*. Rules are detailed in the table below.
 
-{{% alert title="Note" %}}
+{{% alert title="Info" color="info"%}}
 In the table:
 
-- *value*: is shorthand for "block proposal"
 - Rule ID: is the unique identifier for the Rule defined in the AFD rule engine. ID prefixes correspond to Tendermint consensus phases:
   - `P`: *propose*
   - `PV`: *prevote*
@@ -259,18 +258,18 @@ In the table:
 
 | Rule ID | Description |
 | --| --|
-| `PN` | Proposer has proposed a new *value* (i.e. block proposal) having already sent a _non-nil_ precommit message earlier <!--, or (b) has received sufficiently many prevotes for an earlier proposal *value* during the same round. --> |
-| `PO` | Proposer has proposed a *value* (i.e. block proposal) that has already been proposed without attaching as justification the `2f + 1` prevotes from the same round for the value. |
+| `PN` | Proposer has proposed a new block proposal having already sent a _non-nil_ precommit message earlier <!--, or (b) has received sufficiently many prevotes for an earlier proposal block proposal during the same round. --> |
+| `PO` | Proposer has proposed a block proposal that has already been proposed without attaching as justification the `2f + 1` prevotes from the same round for the value. |
 | `PVN` | Committee member has sent two distinct prevotes during the same round. |
-| `PVO` | Committee member has prevoted for a *value* in more than one consensus round. |
-| `PVO1` | Committee member has prevoted for a *value* having already precommitted for that *value* in an earlier round. |
-| `PVO2` | Committee member has prevoted for a *value* having already precommitted for a different *value* in an earlier round.  |
-| `PVO3` | Committee member has prevoted for an invalid old *value* (i.e. sent an invalid message) |
-| `C`  | TBC - IS THIS: Committee member has precommitted for an invalid old *value*  (i.e. sent an invalid message) |
-| `C1` | TBC - IS THIS: Committee member has precommitted for a *value* having already precommitted for that *value* in an earlier round. |
-| `InvalidProposal` | Proposer has proposed a *value* that fails blockchain validation |
-| `InvalidProposer` | Invalid block proposal *value*. Proposer of a *value* is not the committee's elected Proposer. |
-| `Equivocation` | Multiple different messages have been broadcast by Proposer and committee member validators. Proposer has broadcast conflicting *value*s to different committee members. Committee member has broadcast different messages during *prevote* or *precommit*. |
+| `PVO` | Committee member has prevoted for a block proposal in more than one consensus round. |
+| `PVO1` | Committee member has prevoted for a block proposal having already precommitted for that block proposal in an earlier round. |
+| `PVO2` | Committee member has prevoted for a block proposalblock proposal having already precommitted for a different block proposal in an earlier round.  |
+| `PVO3` | Committee member has prevoted for an invalid old block proposal (i.e. sent an invalid message) |
+| `C`  | TBC - IS THIS: Committee member has precommitted for an invalid old block proposal  (i.e. sent an invalid message) |
+| `C1` | TBC - IS THIS: Committee member has precommitted for a block proposal having already precommitted for that block proposal in an earlier round. |
+| `InvalidProposal` | Proposer has proposed a block proposal that fails blockchain validation |
+| `InvalidProposer` | Invalid block proposal block proposal. Proposer of a block proposal is not the committee's elected Proposer. |
+| `Equivocation` | Multiple different messages have been broadcast by Proposer and committee member validators. Proposer has broadcast conflicting block proposals to different committee members. Committee member has broadcast different messages during *prevote* or *precommit*. |
 | `InvalidRoundStep` | Consensus round message contains invalid round number or step |
 | `AccountableGarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded |
 | `MsgNotFromCommitteeMember` | Consensus round message sender is not a member of the current consensus committee |
