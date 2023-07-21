@@ -33,6 +33,7 @@ Autonity extends Ethereum at three logical layers:
 
 - Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
 
+
 ## Protocol contracts
 
 The Autonity Protocol Contracts are deployed by the node when it is initialised and run for the first time.
@@ -89,7 +90,6 @@ For all parameter definitions and the subset of modifiable parameters see the [P
 #### State finalization
 The Autonity Protocol Contract manages state finalization, maintaining [system state](/glossary/#system-state). Contract logic triggers block finalization:
 
-
 - invoking the [Accountability Contract](/concepts/architecture/#autonity-accountability-contract) to apply [slashing](/concepts/accountability/#slashing) penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
 - at epoch end:
   - [distributing staking rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
@@ -123,6 +123,7 @@ The Autonity Protocol Contract implements logic to manage validator registration
 To learn more about the concept see [Validators](/concepts/validator/).
 
 #### Committee selection
+
 Computing the committee is a protocol only function. As the last block of an epoch is finalized, this function is executed to determine the committee for the following epoch.
 
 The committee is selected from the registered validators maintained in system state by the Autonity contract. Validators are ranked by bonded stake amount, those with the highest stake being selected to the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members that voted to approve the block.
@@ -164,6 +165,7 @@ The contract stores static [slashing protocol configuration parameters](/concept
 Function calls to compute accountability each block and apply slashing penalties at epoch end are restricted to protocol.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/accountability/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
+
 
 #### Accountability event handling
 The Autonity Accountability Contract implements logic for handling accountability events submitted by committee members on-chain:
