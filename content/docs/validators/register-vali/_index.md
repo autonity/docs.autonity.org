@@ -1,7 +1,7 @@
 ---
 title: "Register as a Validator"
 linkTitle: "Register Validator"
-weight: 120
+weight: 10
 description: >
   How to register your node as a Validator on an Autonity network
 ---
@@ -10,8 +10,8 @@ description: >
 
 To register a validator you need:
 
-- A running instance of the Autonity Go Client running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on its WebSocket port.  This will be the node to be registered as a validator.
-- A running instance of the Autonity Oracle Server running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your  validator node's WebSocket port.
+- A [running instance of the Autonity Go Client](/node-operators/) running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on its WebSocket port.  This will be the node to be registered as a validator.
+- A [running instance of the Autonity Oracle Server](/oracle/) running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your  validator node's WebSocket port.
 - A configured instance of [`aut`](/account-holders/setup-aut/).
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that that will also receive the validator's share of staking rewards.
 
@@ -40,7 +40,7 @@ docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name a
 where:
 
   - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
-  - `<ORACLE_KEY_PATH>`: is the path to the private key file of the oracle server key. (For creating this key How to [Run Autonity Oracle Server](/validators/run-oracle/).)
+  - `<ORACLE_KEY_PATH>`: is the path to the private key file of the oracle server key. (For creating this key How to [Run Autonity Oracle Server](/oracle/run-oracle/).)
   - `<TREASURY_ACCOUNT_ADDRESS>`: is the account address you will use to operate the validator and receive commission revenue rewards to (i.e. the address you are using to submit the registration transaction from the local machine).
 
 You should see something like this:
