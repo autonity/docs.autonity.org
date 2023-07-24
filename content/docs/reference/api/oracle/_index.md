@@ -13,7 +13,7 @@ Interface for interacting with Autonity Oracle Contract functions using:
 {{% pageinfo %}}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
 
-Usage and Examples illustrate using the Oracle Contract's generated ABI and the `aut` tool's `contract` command to call the Oracle Contract address `0x5a443704dd4B594B382c22a083e2BD3090A6feF3`. See `aut contract call --help`.
+Usage and Examples illustrate using the Oracle Contract's generated ABI and the `aut` tool's `contract` command to call the Oracle Contract address `0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D`. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Oracle.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/Oracle.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 {{% /pageinfo %}}
@@ -47,7 +47,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getPrecision
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecision
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -55,7 +55,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getPrecis
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getPrecision
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecision
 10000000
 {{< /tab >}}
 {{< /tabpane >}}
@@ -79,7 +79,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRound
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -87,7 +87,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRound
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRound   
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound   
 1809
 {{< /tab >}}
 {{< /tabpane >}}
@@ -122,7 +122,7 @@ Note that median price calculation happens when the last block of a round is fin
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRoundData _round _symbol
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData _round _symbol
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -130,7 +130,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRoundD
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getRoundData 1809 "BTCUSD"
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "BTCUSD"
 {"round": 1809, "price": 272694800000, "timestamp": 1684418293, "status": 0}
 {{< /tab >}}
 {{< /tabpane >}}
@@ -162,7 +162,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSymbols
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbols
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -170,7 +170,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSymbol
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSymbols               
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbols               
 ["NTN/USD", "NTN/AUD", "NTN/CAD", "NTN/EUR", "NTN/GBP", "NTN/JPY", "NTN/SEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
 {{< /tab >}}
 {{< /tabpane >}}
@@ -196,7 +196,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVotePeriod
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -204,7 +204,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVotePe
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVotePeriod
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
 60
 {{< /tab >}}
 {{< /tabpane >}}
@@ -231,7 +231,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVoters
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -239,7 +239,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVoters
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getVoters   
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters   
 ["0xf8D8c4818Fd21B4be57a0ACD619fdD88ec7A858c", "0xd4d2874450a21f1Bf5E1C12260773d8716b526B8", "0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03"]
 {{< /tab >}}
 {{< /tabpane >}}
@@ -280,7 +280,7 @@ This can easily be converted to a human-readable form, for example:
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 latestRoundData "BTCUSD"
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "BTCUSD"
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -288,7 +288,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 latestRou
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 latestRoundData "BTCUSD"
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "BTCUSD"
 {"round": 1809, "price": 272694800000, "timestamp": 1684418293, "status": 0}
 {{< /tab >}}
 {{< /tabpane >}}
