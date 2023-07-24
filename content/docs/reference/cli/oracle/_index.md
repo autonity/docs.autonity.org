@@ -30,6 +30,19 @@ Run `autoracle --help` to view the options:
 |:--|:--|
 | `version`, `v` | Print version information and default configuration |
 | `-help`, `-h`  | Shows a list of Oracle Server configuration options |
+   
+   
+| ORACLE SERVER OPTIONS: | Description | Required? |
+|:--|:--|:--:|
+| `-oracle_autonity_ws_url` | The web socket RPC URL of the Autonity node that the oracle server communicates with. | Yes |
+| `-oracle_symbols` | The symbols that the oracle component collects data points for. A comma-separated string of values. (default: "NTN/USD,ATN/USD,EUR/USD,JPY/USD,GBP/USD,AUD/USD,CAD/USD,SEK/USD")| No |
+| `-oracle_key_file` | The path to the encrypted key file that contains the private key of the oracle server. | Yes |
+| `-oracle_key_password` | The password of the key file that contains the private key of the oracle server. | Yes |
+| `-oracle_plugin_dir` | The path to the DIR where the data source plugins are stored (default: `./build/bin/plugins`) | No |
+| `-oracle_plugin_conf` | The path to the data source plugins YAML configuration file `plugins-conf.yml` . | Yes |
+
+
+>>>>>>> 170df0d (Edit Reference CLI, AOS - editorial, add cli flag for oracle_pluugin_conf)
 
 
 | ORACLE SERVER OPTIONS: | Description | Default | Required? |
