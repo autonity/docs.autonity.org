@@ -289,13 +289,6 @@ To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/
 
 
 ## Consensus layer
-=======
-Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on median price computation by a protocol only function. As the last block of an epoch is finalised, this function is executed to determine the oracle voters for the following epoch.
-
-Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
-
-## Blockchain Consensus
->>>>>>> 848c992 (Edits to Concepts)
 
 The append of new blocks to the ledger with immediate finality is managed by the Proof-of-Stake based Tendermint BFT consensus mechanism. It enables dynamic committee selection and maximises stake securing the system by a stake-weighted algorithm for committee selection.
 
