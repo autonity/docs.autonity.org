@@ -34,7 +34,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
 1. Enter your working directory for the oracle server.
 
-2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add plugin configuration.
+2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add an entry for each plugin you are configuring.
 
     For how to do this see [Configure plugins](/oracle/run-oracle/#configure-plugins) on this page.
 
@@ -84,7 +84,7 @@ A basic set of data adaptor plugins for sourcing this data is provided out the b
 
 To configure plugins edit the `plugins_conf.yml` file to add a config entry for each plugin.  The oracle server release contains out-the-box multiple plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
 
-Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle#configuration) section to view the supported FX endpoint providers.
+Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle#configuration) section to view the supported FX endpoint providers.
 
 For each FX endpoint configured:
 
@@ -129,6 +129,70 @@ TODO
 ## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
 
 TODO
+=======
+  
+## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
+
+TO DO
+
+## Run Autonity as Docker image {#run-docker}
+
+TO DO
+
+<!--
+## Run Autonity as Docker image {#run-docker}
+
+- Ensure that the Autonity Go Client [Docker image](/node-operators/install-aut#install-docker) has been installed.
+
+1. Create and enter a working directory for autonity.
+
+1. Create the autonity-chaindata directory to hold the autonity working data:
+
+	```bash
+    mkdir autonity-chaindata
+    ```
+1. Start the node. Set the Docker configuration and the arguments for connecting Autonity to a network.
+
+   ```bash
+   docker run \
+       -t -i \
+       --volume $(pwd)/autonity-chaindata:/autonity-chaindata \
+       --publish 8545:8545 \
+       --publish 8546:8546 \
+       --publish 30303:30303 \
+       --publish 30303:30303/udp \
+       --publish 6060:6060 \
+       --name autonity \
+       --rm \
+       ghcr.io/autonity/autonity:latest \
+           --datadir ./autonity-chaindata  \
+           --piccadilly \
+           --http  \
+           --http.addr 0.0.0.0 \
+           --http.api aut,eth,net,txpool,web3,admin  \
+           --http.vhosts \* \
+           --ws  \
+           --ws.addr 0.0.0.0 \
+           --ws.api aut,eth,net,txpool,web3,admin  \
+           --nat extip:<IP_ADDRESS>
+   ```
+
+   where:
+   - `<IP_ADDRESS>` is the node's host IP Address, which can be determined with `curl ifconfig.me`.
+   - `--piccadilly` specifies that the node will use the Piccadilly tesnet.  For other tesnets, use the appropriate flag (for example, `--bakerloo`).
+
+   See the [Autonity command-line reference](/reference/cli) for the full set of available flags.
+
+{{< alert title="Important Notes" >}}
+- Note that all flags after the image name are passed to the Autonity Go Client in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
+- The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
+- The hosts `autonity-chaindata` directory is mounted in the container (via the `--volume` option).  All working data will be saved in this directory and therefore persisted even when the temporary container is removed.
+- The same `autonity-chaindata` directory can thereby be used by both a local binary and the docker image (although not at the same time), allowing administrators to switch between run methods at any time.
+- The `--publish` flag causes incoming connections to the localhost to be forwarded to the container.
+{{< /alert >}}
+
+Naturally, the above command line can be tailored to suit a specific deployment. See the docker documentation for the complete list of Docker options.
+>>>>>>> 6913a4e (Add Running an Oracle Server section, moving in cinstall and run ontent from Running a Validator)
 -->
 
 ## Stopping the Autonity Oracle Server
