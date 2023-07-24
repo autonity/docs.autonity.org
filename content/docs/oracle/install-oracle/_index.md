@@ -204,7 +204,6 @@ v0.0.2
 The output above will vary depending on the version of the Autonity Oracle Server you have installed.  Confirm that the "Version" field is consistent with the version you expect.
 {{< /alert >}}
 
-
 ## Installing data source plugins {#install-plugin}
 
 Oracle server will need to provide price data for FX and ATN/NTN currency pairs utilised in the Autonity Stability Mechanism.
@@ -227,6 +226,7 @@ If you have developed your own plugins for external data sources using the oracl
 
 For how to do this, see [Developing data plugins](/concepts/oracle-network/#developing-data-plugins).
 {{% /alert %}}
+
 
 ## Next steps {#next}
 
