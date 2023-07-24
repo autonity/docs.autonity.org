@@ -227,6 +227,7 @@ If you have developed your own plugins for external data sources using the oracl
 For how to do this, see [Developing data plugins](/concepts/oracle-network/#developing-data-plugins).
 {{% /alert %}}
 
+
 ## Next steps {#next}
 
 {{% pageinfo %}}
