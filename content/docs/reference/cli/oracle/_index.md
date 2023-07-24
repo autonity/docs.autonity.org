@@ -17,7 +17,7 @@ Run `autoracle --help` to view the options:
 |:--|:--|
 | `version`, `v` | Print version information and default configuration |
 | `-help`, `-h`  | Shows a list of Oracle Server configuration options |
-   
+
 
 | ORACLE SERVER OPTIONS: | Description | Default | Required? |
 |:--|:--|:--|:--|
