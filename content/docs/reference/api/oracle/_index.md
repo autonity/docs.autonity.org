@@ -202,7 +202,6 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePe
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
 30
 {{< /tab >}}
