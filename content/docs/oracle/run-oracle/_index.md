@@ -34,7 +34,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
 1. Enter your working directory for the oracle server.
 
-2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add plugin configuration.
+2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add an entry for each plugin you are configuring.
 
     For how to do this see [Configure plugins](/oracle/run-oracle/#configure-plugins) on this page.
 
@@ -50,6 +50,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
         -oracle_key_password="<PWD>" \
         -oracle_autonity_ws_url="<WS_ADDRESS>"
         -oracle_plugin_conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml" ;
+
     ```
 
    where:
@@ -84,7 +85,7 @@ A basic set of data adaptor plugins for sourcing this data is provided out the b
 
 To configure plugins edit the `plugins_conf.yml` file to add a config entry for each plugin.  The oracle server release contains out-the-box multiple plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
 
-Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle#configuration) section to view the supported FX endpoint providers.
+Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle#configuration) section to view the supported FX endpoint providers.
 
 For each FX endpoint configured:
 

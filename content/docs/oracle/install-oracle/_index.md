@@ -197,7 +197,7 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ ./autoracle version
 ```
 ```
-v0.0.2
+v0.1.2
 ```
 
 {{< alert title="Note" >}}
@@ -233,6 +233,7 @@ For how to do this, see [Developing data plugins](/concepts/oracle-network/#deve
 {{% pageinfo %}}
 You can now [configure and launch the oracle server](/oracle/run-oracle/#run-binary).
 {{% /pageinfo %}}
+
 
 ------------------------------------------------
 
