@@ -1,7 +1,7 @@
 ---
 title: "Install Autonity Oracle Server in your environment"
 linkTitle: "Install Autonity Oracle Server"
-weight: 110
+weight: 10
 description: >
   How to install an Autonity Oracle Server on your host machine.
 ---
@@ -17,7 +17,7 @@ The Autonity Oracle Server can be installed in several ways:
 We assume that the Autonity Oracle Server will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _host_ machine will be used for Autonity Go Client the oracle serves via the WSS endpoint.
 
 {{< alert title="Note" >}}
-Autonity Oracle Server source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (TO DO - ADD REPO LINK).
+Autonity Oracle Server source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle).
 {{< /alert >}}
 
 ## Requirements
@@ -78,7 +78,7 @@ The description here covers only the basic network setup. Especially in a produc
     ```
 
 {{% pageinfo %}}
-You can now [configure and launch Autonity Oracle Server](/validators/run-oracle/#run-binary).
+You can now [configure and launch Autonity Oracle Server](/oracle/run-oracle/#run-binary).
 {{% /pageinfo %}}
 
 <!--
@@ -131,9 +131,28 @@ sudo systemctl restart docker
     REPOSITORY                               TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
     ghcr.io/autonity/autonity                latest    sha256:0eb561ce19ed3617038b022db89586f40abb9580cb0c4cd5f28a7ce74728a3d4   3375da450343   3 weeks ago    51.7MB
     ```
+-->
+<!-- TODO: Check this works
 
+If using Docker, the setup of the image can be verified with:
+
+```bash
+$ docker run --rm ghcr.io/autonity/autonity:latest version
+```
+```
+Autonity
+Version: 0.10.1
+Architecture: amd64
+Protocol Versions: [66]
+Go Version: go1.17.10
+Operating System: linux
+GOPATH=
+GOROOT=/usr/local/go
+```
+-->
+<!--
 {{% pageinfo %}}
-You can now [configure and launch Autonity](/validators/run-oracle/#run-docker).
+You can now [configure and launch oracle server](/oracle/run-oracle/#run-docker).
 {{% /pageinfo %}}
 -->
 ## Build from source code {#install-source}
@@ -178,30 +197,8 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ ./autoracle version
 ```
 ```
-2023/06/09 15:17:58 
-
-
- 	Running autonity oracle client V0.0.1 with symbols: NTNUSD,NTNAUD,NTNCAD,NTNEUR,NTNGBP,NTNJPY,NTNSEK and plugin diretory: ./build/bin/plugins by connnecting to L1 node: ws://127.0.0.1:8645 
+v0.1.1
 ```
-
-<!-- TODO: Check this works
-
-If using Docker, the setup of the image can be verified with:
-
-```bash
-$ docker run --rm ghcr.io/autonity/autonity:latest version
-```
-```
-Autonity
-Version: 0.10.1
-Architecture: amd64
-Protocol Versions: [66]
-Go Version: go1.17.10
-Operating System: linux
-GOPATH=
-GOROOT=/usr/local/go
-```
--->
 
 {{< alert title="Note" >}}
 The output above will vary depending on the version of the Autonity Oracle Server you have installed.  Confirm that the "Version" field is consistent with the version you expect.
@@ -210,7 +207,7 @@ The output above will vary depending on the version of the Autonity Oracle Serve
 ## Next steps {#next}
 
 {{% pageinfo %}}
-You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary).
+You can now [configure and launch the oracle server](/oracle/run-oracle/#run-binary).
 {{% /pageinfo %}}
 
 
