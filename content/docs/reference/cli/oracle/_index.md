@@ -33,9 +33,12 @@ Run `autoracle --help` to view the options:
    
 | ORACLE SERVER OPTIONS: | Description | Required? |
 |:--|:--|:--:|
-| `-oracle_autonity_ws_url` | The websocket URL of autonity client | Yes |
-| `-oracle_crypto_symbols` | The symbols string separated by comma (default: )| No |
-| `-oracle_key_file` | The file that save the private key of the oracle client | Yes |
-| `-oracle_key_password` | The password to decode your oracle account's key file | Yes |
-| `-oracle_plugin_dir` | The DIR where the adapter plugins are stored (default: `./build/bin/plugins`) | No |
+| `-oracle_autonity_ws_url` | The web socket RPC URL of the Autonity node that the oracle server communicates with. | Yes |
+| `-oracle_symbols` | The symbols that the oracle component collects data points for. A comma-separated string of values. (default: "NTN/USD,ATN/USD,EUR/USD,JPY/USD,GBP/USD,AUD/USD,CAD/USD,SEK/USD")| No |
+| `-oracle_key_file` | The path to the encrypted key file that contains the private key of the oracle server. | Yes |
+| `-oracle_key_password` | The password of the key file that contains the private key of the oracle server. | Yes |
+| `-oracle_plugin_dir` | The path to the DIR where the data source plugins are stored (default: `./build/bin/plugins`) | No |
+| `-oracle_plugin_conf` | The path to the data source plugins YAML configuration file `plugins-conf.yml` . | Yes |
+
+
 
