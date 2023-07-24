@@ -136,7 +136,7 @@ To exemplify:
 ## Data adaptors - plugin architecture
 Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
 
-The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/validators/install-oracle/) oracle server) directory during runtime. Detection of new or changed plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
+The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) directory during runtime. Detection of new or changed plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
 
 ### Runtime plugin management
 
