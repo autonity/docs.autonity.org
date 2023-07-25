@@ -53,7 +53,7 @@ The description here covers only the basic network setup. Especially in a produc
   A Linux OS running on AMD64 architecture is required to run the pre-compiled executable.
 {{< /alert >}}
 
-1. Navigate to the Autonity Oracle Server [Releases <i class='fas fa-external-link-alt'></i>]  (TO DO - ADD REPO LINK) Archive and download the latest stable release version of the Autonity Oracle Server `autoracle-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
+1. Navigate to the Autonity Oracle Server [Releases <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/releases) Archive and download the latest stable release version of the Autonity Oracle Server `autoracle-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
 
 2. Create a working directory for installing Oracle Server. For example:
 
@@ -197,12 +197,36 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ ./autoracle version
 ```
 ```
-v0.1.1
+v0.0.2
 ```
 
 {{< alert title="Note" >}}
 The output above will vary depending on the version of the Autonity Oracle Server you have installed.  Confirm that the "Version" field is consistent with the version you expect.
 {{< /alert >}}
+
+
+## Installing data source plugins {#install-plugin}
+
+Oracle server will need to provide price data for FX and ATN/NTN currency pairs utilised in the Autonity Stability Mechanism.
+
+A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
+
+- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
+- Simulator plugin: for simulated ATN/NTN data. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
+
+To install:
+
+1. To build the Simulator data source simulator run `make simulator`.
+
+This will build the `simulator_plugin` in the `/plugins` directory.
+
+The FX plugins in the `/plugins` directory are built when running `make autoracle`.
+
+{{% alert title="Note"%}}
+If you have developed your own plugins for external data sources using the oracle server's plugin template architecture, then you will need to build them and add to the `/plugins` directory.
+
+For how to do this, see [Developing data plugins](/concepts/oracle-network/#developing-data-plugins).
+{{% /alert %}}
 
 ## Next steps {#next}
 

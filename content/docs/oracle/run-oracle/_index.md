@@ -32,16 +32,15 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
 - Ensure that the Autonity Oracle Server has been installed from a [pre-compiled binary](/oracle/install-oracle/#install-binary) or from [source code](/oracle/install-oracle/#install-source)
 
-1. Create and enter a working directory for the oracle server.
+1. Enter your working directory for the oracle server.
 
-2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add an entry for each plugin you are configuring.
+2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add plugin configuration.
 
     For how to do this see [Configure plugins](/oracle/run-oracle/#configure-plugins) on this page.
 
 3. (Optional) Add your own data source plugin(s). If you have developed your own FX plugins, (a) add sub-directory(ies) containing the plugin source code to the `plugins` sub-directory of your installation; (b) add config entry(ies) to the `plugin-conf.yml` file. 
  
 4. Configure the oracle server. Specify the oracle server configuration; see [command line reference](/reference/cli/oracle/). Options can be set as system environment variables or directly in the terminal.
-
 
 5. Start oracle server:
 
@@ -75,9 +74,17 @@ If plugins for external data sources or the symbols for which oracle server prov
 
 ## Configure plugins
 
+The oracle server will need to provide FX and ATN/NTN currency pairs utilised in the Autonity Stability Mechanism.
+
+A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
+
+- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
+- Simulator plugin: for simulated ATN/NTN data. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
+
+### Configure FX data source plugins
 To configure plugins edit the `plugins_conf.yml` file to add a config entry for each plugin.  The oracle server release contains out-the-box multiple plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
 
-Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle#configuration) section to view the supported FX endpoint providers.
+Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle#configuration) section to view the supported FX endpoint providers.
 
 For each FX endpoint configured:
 
@@ -93,7 +100,7 @@ Configuration fields:
 | `scheme` | string | the data service http scheme, http or https |
 | `endpoint` | string | the data service endpoint url of the data provider |
 | `timeout` | int | the duration of the timeout period for an API request |
-| `reflesh` | int | data update interval. Used for a rate limited provider's plugin to limit the request rate. |
+| `refresh` | int | data update interval. Used for a rate limited provider's plugin to limit the request rate. |
 
 An example minimal entry could be:
 
@@ -101,6 +108,15 @@ An example minimal entry could be:
 - name: forex_currencyfreaks
   key: 5490e15565e741129788f6100e022ec5
 ```
+### Configure ATN/NTN data source plugin
+
+No configuration is required for the testnet ATN/NTN Simulator built when [installing oracle server data source plugins](/oracle/install-oracle/#install-plugin).
+
+### Develop plugins
+Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
+
+- Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
+- Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
   
 ## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
 

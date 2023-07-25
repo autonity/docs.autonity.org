@@ -75,8 +75,8 @@ Genesis configuration file JSON objects:
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `abi` | The abi of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Leave empty for default contract deployment |
-|`bytecode`| The EVM bytecode of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Leave empty for default contract deployment |
+| `abi` | The abi of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
+|`bytecode`| The EVM bytecode of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivises validators at genesis when transaction volumes are low | Set to: `500000000` |
 | `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Commonly known as 'block time' or 'block interval' | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
 | `unbondingPeriod` | The number of blocks bonded stake must wait before Liquid Newton can be redeemed for Newton after processing a stake redeem transaction. The `unbondingPeriod` must be longer than an `epochPeriod` | Value is specific to network configuration. For a production environment a number of blocks to span 1 week to 1 month would be typical to enable Byzantine behaviour detection. For a local devnet supporting rapid testing a value of `120` could be appropriate|
@@ -102,10 +102,10 @@ Genesis configuration file JSON objects:
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Leave empty for default contract deployment |
-| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Leave empty for default contract deployment |
-| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. For example, `"NTNUSD","NTNJPY",..` |
-| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. For example, set to `60` for initiating a new oracle voting round at 60-block intervals |
+|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
+| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
+| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. For example, `"AUD/USD","JPY/USD","GBP/USD",..` |
+| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. For example, set to `30` for initiating a new oracle voting round at 30-block intervals |
 
 #### alloc object
 
@@ -132,8 +132,6 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
   "config": {
     "chainId": 65110000,
     "autonity": {
-      "bytecode": "",
-      "abi": "",
       "minBaseFee": 500000000,
       "delegationRate" : 1000,
       "blockPeriod": 1,
@@ -183,16 +181,14 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
       ]
     },
     "oracle": {
-      "bytecode": "",
-      "abi": "",
       "symbols":[
-            "NTNUSD",
-            "NTNAUD",
-            "NTNCAD",
-            "NTNEUR",
-            "NTNGBP",
-            "NTNJPY",
-            "NTNSEK",
+            "NTN/USD",
+            "NTN/AUD",
+            "NTN/CAD",
+            "NTN/EUR",
+            "NTN/GBP",
+            "NTN/JPY",
+            "NTN/SEK",
             "AUD/USD",
             "CAD/USD",
             "EUR/USD",
@@ -203,7 +199,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
             "NTN/USD",
             "NTN/ATN"
          ],
-      "votePeriod": 60
+      "votePeriod": 30
     }
   },
   "nonce": "0x0",
