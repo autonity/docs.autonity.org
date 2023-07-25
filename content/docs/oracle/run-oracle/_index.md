@@ -34,7 +34,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
 1. Enter your working directory for the oracle server.
 
-2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add an entry for each plugin you are configuring.
+2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add plugin configuration.
 
     For how to do this see [Configure plugins](/oracle/run-oracle/#configure-plugins) on this page.
 
@@ -85,7 +85,7 @@ A basic set of data adaptor plugins for sourcing this data is provided out the b
 
 To configure plugins edit the `plugins_conf.yml` file to add a config entry for each plugin.  The oracle server release contains out-the-box multiple plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
 
-Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle#configuration) section to view the supported FX endpoint providers.
+Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle#configuration) section to view the supported FX endpoint providers.
 
 For each FX endpoint configured:
 
@@ -109,6 +109,17 @@ An example minimal entry could be:
 - name: forex_currencyfreaks
   key: 5490e15565e741129788f6100e022ec5
 ```
+
+### Configure ATN/NTN data source plugin
+
+No configuration is required for the testnet ATN/NTN Simulator built when [installing oracle server data source plugins](/oracle/install-oracle/#install-plugin).
+
+### Develop plugins
+Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
+
+- Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
+- Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
+
 
 ### Configure ATN/NTN data source plugin
 

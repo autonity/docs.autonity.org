@@ -136,7 +136,7 @@ To exemplify:
 ## Data adaptors - plugin architecture
 Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
 
-The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) directory during runtime. Detection of new or changed plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
+The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) during runtime. Detection of new or updated plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
 
 ### Runtime plugin management
 
@@ -152,9 +152,32 @@ To exemplify:
 |`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
 |`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
 
-Data adaptors for any external data source can be developed using the oracle server's plugin architecture.
-
 Valid price data sources are exchanges providing up to date market prices for trades in the currency pairs provided by the oracle server's configuration.
+
+
+Primary data providers for oracle data are:
+
+- FX and ATN/NTN currency pairs utilised in the Autonity Stability Mechanism.
+
+A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
+
+- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
+- Simulator plugin: for simulated ATN/NTN data. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
+
+{{% alert title="Info" color="info"%}}
+ATN and NTN symbols are preview listed but untraded:
+
+- https://www.coingecko.com/en/coins/auton
+- https://www.coingecko.com/en/coins/newton
+
+Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch.
+{{% /alert %}}
+
+### Developing data plugins
+Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
+
+- Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
+- Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
 
 
 ## Oracle data consumers
