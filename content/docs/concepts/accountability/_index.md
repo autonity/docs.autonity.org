@@ -16,7 +16,7 @@ Autonity implements an _accountability and fault detection_ (AFD) protocol for d
 
 Proven rule infractions are reported as _faults_ and slashing makes faults _accountable_. Faults are _detected_ by validators and submitted on chain as accountability _events_ providing proof of behaviour. This proof is derived from consensus messaging between validators during consensus rounds and submitted on-chain to the Accountability Contract.
 
-It is important to note that AFD is embedded into Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
+It is important to note that AFD runs alongside Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
 
 AFD functions by submitting, verifying, and processing accountability event proofs by epoch. Suspected rule infractions are:
 
@@ -62,7 +62,7 @@ Autonity community play the following economic role in AFD processing:
 
 ### Protocol primitives
 
-Essential primitives of AFD are accusations, proof of innocence, fault promotion, slashing and severity, and jailing.
+Essential primitives of AFD are: accusation, innocence, and fault proofs; slashing and severity; jailing.
 
 #### Accusations
 
