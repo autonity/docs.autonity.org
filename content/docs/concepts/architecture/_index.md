@@ -52,7 +52,7 @@ Governance operations are used to modify protocol parameterisation set in the ge
 - Consensus committee size and block epoch period.
 - Stake delegation unbonding period.
 - Protocol treasury account address for community funds and the treasury fee.
-- The set of currency pairs for which median price data is provided by the oracle network
+- The set of currency pairs for which median price data is provided by the oracle network.
 
 For all parameter definitions and the subset of modifiable parameters see the [Protocol Parameter](/reference/protocol/) reference.
 
