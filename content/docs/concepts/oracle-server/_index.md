@@ -29,12 +29,10 @@ Oracle server provides a standard interface for data adaptors pulling data from 
 
 The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) during runtime. Detection of new or updated plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
 
-
 #### Runtime plugin management
 
 - Adding new plugins. To add an adaptor for a new data source, place the new plugin into the oracle server's `/plugins` directory. The oracle server auto-discovers and manages it. There are no other operations required from the operator.
 - Replace or upgrade running plugins. To replace a (running) data adaptor plugin with a new version, just replace the binary in the `/plugins` directory. The oracle server auto-discovers the new version by checking the modification time of the binary and manages the plugin replacement itself. There are no other operations required from the operator.
-
 
 #### Oracle data providers
 
@@ -84,8 +82,6 @@ The oracle server provides interfaces for:
 - Oracle Contract Interfaces and JSON-RPC APIs - see [Autonity Interfaces](/reference/api/oracle/) Reference
 - Plugin interface - a standard interface implemented by data adaptors developed to pull data from external data sources on demand.
 
-The oracle server scans and load plugins from the plugin directory during runtime. Detection of new or changed plugins is dynamic;
-no shutdown of the oracle client is required to detect and apply the change.
 <!--
 TODO
 - RPC calls from the Autonity Utility Tool `aut`. `aut` provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.
