@@ -29,6 +29,7 @@ Oracle server provides a standard interface for data adaptors pulling data from 
 
 The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) during runtime. Detection of new or updated plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
 
+
 #### Runtime plugin management
 
 - Adding new plugins. To add an adaptor for a new data source, place the new plugin into the oracle server's `/plugins` directory. The oracle server auto-discovers and manages it. There are no other operations required from the operator.
@@ -63,7 +64,6 @@ Additional data adaptors for any external data source can be developed using the
 
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
-
 
 ### Oracle server lifecycle
 
