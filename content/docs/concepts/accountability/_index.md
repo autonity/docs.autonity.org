@@ -22,7 +22,7 @@ AFD functions by submitting, verifying, and processing accountability event proo
 
 - directly submitted as a _fault_ proof by a _reporting_ validator
 - promoted from accusations where they are:
-  - reported as an _accusation_ proof, submitted by a _reporting_ validator against an _offending_ validator
+  - reported as an _accusation_, submitted by a _reporting_ validator against an _offending_ validator
   - defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
   - promoted to _fault_ by protocol on individual block finalisation if not refuted by _innocence_ and the _offending_ validator does not already have a _fault_ with a higher or equivalent severity. 
 
