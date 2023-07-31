@@ -120,18 +120,6 @@ Additional data adaptors for any external data source can be developed using the
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
 
-
-### Configure ATN/NTN data source plugin
-
-No configuration is required for the testnet ATN/NTN Simulator built when [installing oracle server data source plugins](/oracle/install-oracle/#install-plugin).
-
-### Develop plugins
-Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
-
-- Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
-- Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
-
-
 <!--
 ## Run Autonity Oracle Server as Docker image {#run-docker}
 
