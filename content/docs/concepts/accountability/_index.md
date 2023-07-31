@@ -74,7 +74,7 @@ There are protocol constraints on when an _accusation_ can be made. A _reporting
 
 - the _offending_ validator:
   - does not already have a _fault_ in the epoch in which the _new accusation_ is being made for an offence with a higher _severity_
-  - is not currently already accused of committing a rule infraction, i.e. there is a _pending accusation_. In this case, a _new accusation_ cannot be made until expiry of the _innocence proof window_ during which an accused _offending_ validator is able to submit an `innocence` proof refuting the _pending accusation_. This creates a _deadline_ measured in block height before which a new `accusation` proof cannot be submitted.
+  - is not currently already accused of committing a rule infraction, i.e. there is a _pending accusation_. In this case, a _new accusation_ cannot be made until expiry of the _innocence proof window_. This creates a _deadline_ measured in block height before which a new `accusation` cannot be submitted.
 - it is within the _accusation window_:
   - an accusation must be made `<= 256` blocks after the detected accountability event.
 
