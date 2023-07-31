@@ -159,7 +159,7 @@ All functions are documented in the Reference [Autonity Interfaces](/reference/a
 The Autonity Accountability Contract implements logic for handling accountability events submitted by committee members on-chain:
 
 - Accusations and proofs of innocence:
-  - accusations of misbehaviour by a committee member failing to follow consensus rules correctly whilst proposing new blocks or voting on proposed blocks
+  - accusations of misbehaviour to a committee member failing to follow consensus rules correctly.
   - proofs of innocence submitted in defence against accusations within the constraints of a proof window measured in blocks, cancelling accusations successfully defended
   - promotion of accusations to faults where feasible after expiry of the innocence window.
 - Faults - direct submission of unforgeable faults that can't be defended by proof of innocence.
