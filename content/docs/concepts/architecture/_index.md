@@ -162,7 +162,7 @@ The Autonity Accountability Contract implements logic for handling accountabilit
   - accusations of misbehaviour to a committee member failing to follow consensus rules correctly.
   - proofs of innocence submitted in defence against accusations. They must be presented within the constraints of a innocence window measured in blocks to be valid. An accusation successfully defended gets deleted.
   - promotion of accusations to faults where feasible after expiry of the innocence window.
-- Faults - direct submission of unforgeable faults that can't be defended by proof of innocence.
+- Faults - direct submission of unforgeable faults. They lead to slashing without possibility of being defended by proof of innocence.
 
 #### Slashing penalty computation
 
