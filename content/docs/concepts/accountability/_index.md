@@ -18,7 +18,7 @@ Proven rule infractions are reported as _faults_ and slashing makes faults _acco
 
 It is important to note that AFD runs alongside Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
 
-AFD functions by submitting, verifying, and processing accountability event proofs by epoch. Suspected rule infractions are:
+AFD functions by submitting, verifying, and processing accountability event proofs by epoch. Rule infractions can be:
 
 - directly submitted as a _fault_ proof by a _reporting_ validator
 - promoted from accusations where they are:
