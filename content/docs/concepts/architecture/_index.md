@@ -21,7 +21,7 @@ Autonity extends Ethereum at three logical layers:
 - Application layer: protocol smart contracts:
 	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, and staking rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
-	- **Accountability Contract** implementing protocol primitives for accountability and fault detection of failures to adhere to consensus rules by consensus committee members during Tendermint consensus rounds.
+	- **Accountability Contract** implementing protocol primitives for accountability and fault detection, enforcing adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules by committee members.
 	- **Autonity Oracle Contract** implementing protocol primitives for computing median price data and managing the set of currency pairs for which Autonity's oracle network provides price data.
 	
 	Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
