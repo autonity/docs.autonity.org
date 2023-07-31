@@ -47,7 +47,7 @@ AFD roles, core concepts, and the lifecycle of accountability event processing f
 
 As consensus committee members, validators play the following roles in AFD processing:
 
-- _reporting_: as the validator reporting a suspected rule infraction and submitting new _accusation_ proofs on-chain
+- _reporting_: as the validator reporting a suspected rule infraction and submitting new _accusation_ on-chain
 - _offending_: as the validator committing a suspected rule infraction and submitting new _innocence_ proofs on-chain
 - _committee member_: as a validator in the consensus committee executing Autonity's consensus protocol and for AFD handling and processing accountability events, maintaining system state for accountability events, and computing and applying slashing penalties.
 
