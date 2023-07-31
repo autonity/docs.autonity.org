@@ -120,6 +120,7 @@ Additional data adaptors for any external data source can be developed using the
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
 
+
 <!--
 ## Run Autonity Oracle Server as Docker image {#run-docker}
 
