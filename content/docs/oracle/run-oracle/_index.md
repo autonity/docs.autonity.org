@@ -118,16 +118,13 @@ Additional data adaptors for any external data source can be developed using the
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
   
+<!--
 ## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
 
 TO DO
-
-## Run Autonity as Docker image {#run-docker}
-
-TO DO
-
+-->
 <!--
-## Run Autonity as Docker image {#run-docker}
+## Run Autonity Oracle Server as Docker image {#run-docker}
 
 - Ensure that the Autonity Go Client [Docker image](/node-operators/install-aut#install-docker) has been installed.
 
