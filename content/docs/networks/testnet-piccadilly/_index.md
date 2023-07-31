@@ -3,12 +3,15 @@ title: "Piccadilly Testnet"
 linkTitle: "Piccadilly Testnet"
 weight: 2
 description: >
-  An open testnet for node operators, validators and developers
+  The _bleeding-edge_ public Testnet running the latest deployable version of the Autonity protocol
 ---
 
-A public testnet for participants interested in:
+Piccadilly is a public Testnet running the latest deployable version of the Autonity protocol. It is the testing environment used in the pre-MainNet [Piccadilly Circus Games Competition (PCGC) <i class='fas fa-external-link-alt'></i>](https://game.autonity.org) and may undergo re-genesis with the latest protocol implementation at the end of a game round. 
 
-- Helping find bugs in Autonity.
+Piccadilly is for participants interested in:
+
+- Taking part in the [Piccadilly Circus Games Competition <i class='fas fa-external-link-alt'></i>](https://game.autonity.org) and helping to develop the Autonity project.
+- Helping find bugs in Autonity (See the game's [Bug Bounty<i class='fas fa-external-link-alt'></i>](https://game.autonity.org/#tasks--points)).
 - Operating node infrastructure.
 - Operating as a validator.
 - Stake delegation.
@@ -20,7 +23,7 @@ A public testnet for participants interested in:
 |------|----------|
 |Network Name|`Autonity Piccadilly Testnet`|
 |New RPC URL|`https://rpc1.piccadilly.autonity.org/`|
-|ChainID |`65100000`|
+|ChainID |`65100001`|
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
 
@@ -30,7 +33,7 @@ A public testnet for participants interested in:
 
 | Name                               | Piccadilly                    |
 | ---------------------------------- | ----------------------------- |
-| `chainId`                          | `65100000`                    |
+| `chainId`                          | `65100001`                    |
 | `gasLimit`                         | `30000000`(30M)               |
 | `config.autonity.blockPeriod`      | `1` second                    |
 | `config.autonity.epochPeriod`      | `1800`(30 min)                |
@@ -47,6 +50,8 @@ A public testnet for participants interested in:
 |  | `enode://9435658d26e5daf30261648504560f6375b24cdf0e4403613d44ebc4020489cc67ac82ababe7928d63d9f113c67b946845d18db935abe3d241e665114fc75e94@35.177.73.222:30303` |
 |  | `enode://fe2c621f2b660725a3d529b3eefd780e90bb86e9eb4b7136c0b00a7365260a478b9b8941f1a65c6d4d77bff1b2e22eb6d781f5cc86401d60b373c6d4155c189a@3.10.195.56:30304` |
 |  | `enode://6ab1e6bbf5897e1a24ccf8d8718615ec972ffd54d99c3e46f4517d5602e8bf7110e2e5e2c2e584795e45e2e842172de044b4df165a7082133c6697b632da8282@18.168.88.205:30305` |
+| `config.oracle.symbols`       | `"AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","SEK/USD","ATN/USD","NTN/USD","NTN/ATN"`        |
+| `config.oracle.votePeriod`       | `30` (30 blocks)       |
 
 Note:
 
@@ -63,14 +68,13 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.10.1 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.10.1)
+- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.11.0 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.11.0)
 
 - The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
 ## Faucet
 
-- Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://faucet.autonity.org/)
-- There is currently no faucet for [newton](/concepts/protocol-assets/newton), as newton tokens will be made available to network participants in later phases of the testnet.
+- There is currently no faucet for [auton](/concepts/protocol-assets/auton) or [newton](/concepts/protocol-assets/newton) on Piccadilly. Network participants access testnet auton and newton by participating in the [Piccadilly Circus Games Competition (PCGC) <i class='fas fa-external-link-alt'></i>](https://game.autonity.org).
 
 ## Public endpoints
 
