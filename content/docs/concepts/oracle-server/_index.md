@@ -21,7 +21,6 @@ AOS is the reference implementation of the Autonity Oracle Protocol and the orac
 
 Oracle server is stateless and does not maintain an off-chain database. L1 price aggregation is computed by the server in memory. Price report transactions submitted to the Oracle Contract on-chain are committed to the Autonity network's ledger and persisted in world state. See also [System model](/concepts/system-model/) and the [Ledger object](/concepts/system-model/#the-ledger-object). 
 
-
 ### Data adaptors - plugin architecture
 
 Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
@@ -55,7 +54,6 @@ ATN and NTN symbols are preview listed but untraded:
 
 Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch.
 {{% /alert %}}
-
 
 #### Developing data plugins
 
