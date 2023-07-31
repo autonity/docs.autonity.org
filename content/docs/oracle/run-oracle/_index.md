@@ -123,26 +123,10 @@ Additional data adaptors for any external data source can be developed using the
 <!--
 ## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
 
-TODO
+TO DO
 -->
 <!--
 ## Run Autonity Oracle Server as Docker image {#run-docker}
-
-TODO
-=======
-=======
->>>>>>> d8f6842 (Edits to Concept Oracle network, Running an oracle server, Reference CLI and Genesis)
-  
-## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
-
-TO DO
-
-## Run Autonity as Docker image {#run-docker}
-
-TO DO
-
-<!--
-## Run Autonity as Docker image {#run-docker}
 
 - Ensure that the Autonity Go Client [Docker image](/node-operators/install-aut#install-docker) has been installed.
 
@@ -194,7 +178,6 @@ TO DO
 {{< /alert >}}
 
 Naturally, the above command line can be tailored to suit a specific deployment. See the docker documentation for the complete list of Docker options.
->>>>>>> 6913a4e (Add Running an Oracle Server section, moving in cinstall and run ontent from Running a Validator)
 -->
 
 ## Stopping the Autonity Oracle Server
