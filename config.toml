@@ -2,7 +2,7 @@ baseURL = 'https://docs.autonity.org/'
 enableGitInfo = true
 languageCode = 'en-gb'
 theme = ["docsy", "plausible-hugo"]
-title = 'docs.autonity.org'
+title = 'Documentation'
 
 # Move the default contentDir one level down to facilitate a "docs only" site
 # without having to change the directory structure, which will be useful if we
