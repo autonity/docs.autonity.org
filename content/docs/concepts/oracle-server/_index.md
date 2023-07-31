@@ -21,6 +21,7 @@ AOS is the reference implementation of the Autonity Oracle Protocol and the orac
 
 Oracle server is stateless and does not maintain an off-chain database. Off-chain price aggregation is computed by the server in memory. Price report transactions submitted to the Oracle Contract on-chain are committed to the Autonity network's ledger and persisted in world state. See also [System model](/concepts/system-model/) and the [Ledger object](/concepts/system-model/#the-ledger-object). 
 
+
 ### Data adaptors - plugin architecture
 
 Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
@@ -31,6 +32,7 @@ The oracle server scans and load plugins from the `/plugins` directory (see how 
 
 - Adding new plugins. To add an adaptor for a new data source, place the new plugin into the oracle server's `/plugins` directory. The oracle server auto-discovers and manages it. There are no other operations required from the operator.
 - Replace or upgrade running plugins. To replace a (running) data adaptor plugin with a new version, just replace the binary in the `/plugins` directory. The oracle server auto-discovers the new version by checking the modification time of the binary and manages the plugin replacement itself. There are no other operations required from the operator.
+
 
 #### Oracle data providers
 
@@ -54,12 +56,14 @@ ATN and NTN symbols are preview listed but untraded:
 Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch.
 {{% /alert %}}
 
+
 #### Developing data plugins
 
 Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
 
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
+
 
 ### Oracle server lifecycle
 
