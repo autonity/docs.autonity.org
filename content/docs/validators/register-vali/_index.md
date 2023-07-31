@@ -107,7 +107,7 @@ aut validator compute-address enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb
 
 Make a note of this identifier.
 
-### Step 3. Submit the registration transaction.
+### Step 3. Submit the registration transaction
 
 {{< alert title="Important Note" >}}
 The `aut validator register` command does not currently support registering a validator with oracle.
