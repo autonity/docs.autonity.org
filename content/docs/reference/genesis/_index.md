@@ -182,13 +182,6 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     },
     "oracle": {
       "symbols":[
-            "NTN/USD",
-            "NTN/AUD",
-            "NTN/CAD",
-            "NTN/EUR",
-            "NTN/GBP",
-            "NTN/JPY",
-            "NTN/SEK",
             "AUD/USD",
             "CAD/USD",
             "EUR/USD",
@@ -197,7 +190,6 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
             "SEK/USD",
             "ATN/USD",
             "NTN/USD",
-            "NTN/ATN"
          ],
       "votePeriod": 30
     }
