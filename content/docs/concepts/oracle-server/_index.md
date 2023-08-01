@@ -17,6 +17,7 @@ AOS is the reference implementation of the Autonity Oracle Protocol and the orac
 - _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the ledger by AGC. The Oracle Contract manages the computation of median price data for currency pair price reports submitted by oracle servers. The contract provides operations for: computing median price ("_L2 aggregation_") from submitted price report transactions in oracle voting rounds, providing median price data via interface, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Client](/concepts/client/).
 - _Networking_, the system uses WebSocket and HTTP connections. HTTP RPC calls are made to configured data source providers, and a WebSocket connection is established to the AGC validator to (a) submit price report transactions and (b) listen for on-chain Oracle Contract events.
 
+
 ### State storage
 
 Oracle server is stateless and does not maintain an off-chain database. Off-chain price aggregation is computed by the server in memory. Price report transactions submitted to the Oracle Contract on-chain are committed to the Autonity network's ledger and persisted in world state. See also [System model](/concepts/system-model/) and the [Ledger object](/concepts/system-model/#the-ledger-object). 
