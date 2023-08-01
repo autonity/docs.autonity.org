@@ -76,7 +76,7 @@ The protocol computes median price by aggregation:
 - Off-chain _L1 aggregation_. Oracle Server's collect source price data for currency pairs from one or more sources. If data is taken from multiple sources, then an aggregation is performed to consolidate price data into a standardised report. This price report (or price data 'sample') is then pushed to the oracle contract deployed on the Autonity L1 network via a transaction submitted from the oracle server account.
 - On-chain _L2 aggregation_. The oracle contract aggregates the supplied price data reports to compute a reference exchange rate data through a voting mechanism using a [commit-reveal](/concepts/oracle-network/#commit-and-reveal) protocol in [voting rounds](/concepts/oracle-network/#voting-rounds). 
 
-The commit and reveal scheme is applied for security in price voting and  results in a round lag between oracle price updates.
+The commit and reveal scheme is applied for security in price voting and results in a round lag between oracle price updates.
 
 ### Voting rounds
 
