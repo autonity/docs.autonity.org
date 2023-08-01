@@ -41,7 +41,7 @@ The private/public key pair of the oracle server node.
 The private key is used:
 
 - By an oracle server for submitting price report transactions to the Oracle Contract on-chain.
-- To generate the `proof` of enode ownership required for validator registration. The `proof` is generated with the oracle server private key and the validator's [p2p node key](/concepts/validator/#p2p-node-key) using the [`genOwnershipProof`](/reference/cli/agc/#command-line-options) command-line option of the Autonity Go Client. 
+- To generate the `proof` of enode ownership required for validator registration. The `proof` is generated with the oracle server private key and the validator's [p2p node key](/concepts/validator/#p2p-node-key) using the [`genOwnershipProof`](/reference/cli/agc/#command-line-options) command-line option of the Autonity Go Client.
 
 The public key is used:
 
