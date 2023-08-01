@@ -64,7 +64,7 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Bakerloo network is built using this Autonity Release: [v0.11.0 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.11.0)
+- The current iteration of the Bakerloo network is built using this Autonity Release: [v0.12.0 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.12.0)
 
 - The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
