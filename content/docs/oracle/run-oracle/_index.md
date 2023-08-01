@@ -48,7 +48,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
     autoracle \
         -oracle_key_file="<KEYFILE>" \
         -oracle_key_password="<PWD>" \
-        -oracle_autonity_ws_url="<IP_ADDRESS>" 
+        -oracle_autonity_ws_url="<WS_ADDRESS>" 
         -oracle_plugin_conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml" ;
         
     ```
@@ -57,7 +57,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
    - `<KEYFILE>` specifies the path to your oracle key file, e.g. `../aut/keystore/oracle.key`
    - `<PWD>` is the password to your oracle key file
-   - `<IP_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network)
+   - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network)
    - `<PLUGINS_CONFIG_FILE>` is the path to the plugins YAML configuration file `plugins-conf.yml`.
 
 See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/#usage) for all available flags.
