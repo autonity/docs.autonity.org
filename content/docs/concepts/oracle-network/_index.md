@@ -138,7 +138,7 @@ To exemplify:
 Primary consumers of oracle data are:
 
 - Auton Stabilisation Mechanism
-- DApps deployed on the Autonity L1 network can access median price data via the oracle contract interface.
+- Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
 
 
 ## Oracle economics
