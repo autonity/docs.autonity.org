@@ -70,10 +70,6 @@ Accusations do not automatically cause slashing, as an _innocence proof window_ 
 If the _offending validator_ already has an _accusation_ pending, the accountability protocol determines the offender is not currently accusable. This is because the protocol has to wait to determine if the pending _accusation_ has been defended or, if not, promoted to a _fault_. Until then, it cannot determine if the offending validator has committed a rule infraction with a higher severity than the new candidate _accusation_ in the epoch or not.
 {{% /alert %}}
 
-As each block is finalised, AFD will attempt to promote _accusations_ where the _innocence proof submission window_ has expired within protocol constraints to proven _faults_.
-
-To check if an _offending_ validator has a _pending accusation_, a _reporting_ validator calls protocol functions:
-
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _accusation_ on-chain, a `NewAccusation` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
 There are protocol constraints on when an _accusation_ can be made. A _reporting validator_ can only submit an _accusation_ against an _offending validator_ within the constraints described in the table beneath.
@@ -221,7 +217,6 @@ Slashing penalties for accountability events are applied according to Autonity's
 The _offending validator's_ own [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
 
 To learn more about PAS, see the section on [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) in [Staking](/concepts/staking).
-
 
 ## Rules
 
