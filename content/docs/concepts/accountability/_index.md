@@ -93,6 +93,10 @@ If the _innocence_ claim is successfully verified, then the _accusation_ queue i
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _innocence_ claim on-chain, an `InnocenceProven` event is emitted that logs: _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, and `0` indicating there are no pending accusations against the validator.
 
+{{% alert title="Note" %}}
+As noted under [Accusations](/concepts/accountability/#accusations) above, a validator with a _pending accusation_ is not accusable because protocol has to wait to determine if the _pending accusation_ has been defended or, if not, promoted to a fault or not. Until then, protocol cannot determine if the _offending_ validator has committed a rule infraction with a higher _severity_ or not in the epoch.
+{{% /alert %}}
+
 #### Faults 
 
 A _fault_ is a proven consensus rule infraction in an epoch. A _fault_ is created *directly* or by *promotion of an accusation*.
@@ -216,7 +220,6 @@ To learn more about PAS, see the section on [Penalty-Absorbing Stake (PAS)](/con
 
 Accountability rules are applied to detect faults in the three Tendermint consensus round phases *propose*, *prevote*, and *precommit*.
 
-<<<<<<< HEAD
 The table below lists each of the rule defined in the AFD rule engine, identified by a unique Rule ID.
 
 {{% alert title="Info" color="info"%}}
@@ -336,4 +339,3 @@ The fees for submitting a new accusation may be refunded to the _reporting_ vali
 Note the validator can determine if a detected fault is accusable by calling the [`canAccuse()`](/reference/api/accountability/#canaccuse) and [`canSlash()`](/reference/api/accountability/#canslash) contract functions.
 {{% /alert %}}
 -->
-
