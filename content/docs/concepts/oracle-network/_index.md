@@ -63,7 +63,7 @@ The identifier may be referred to as the `oracle` account.
 
 ## Oracle network
 
-Validator nodes must participate in the [oracle protocol](/concepts/oracle-network/#oracle-protocol) when a member of the consensus committee.
+Validator nodes must participate in the [oracle protocol](/concepts/oracle-network/#oracle-protocol) when serving as a member of the consensus committee.
 
 This results in a logical '_oracle network_' of validator-operated oracles responsible for sourcing price data, submitting price reports on-chain, and participating in [voting rounds](/concepts/oracle-network/#voting-rounds) to agree on aggregated median prices for the [currency pairs](/glossary/#currency-pair) provided by an Autonity network.
 
