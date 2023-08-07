@@ -176,8 +176,9 @@ Additional data adaptors for any external data source can be developed using the
 
 Primary consumers of oracle data are:
 
-- Auton Stabilization Mechanism
+- Auton Stabilisation Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
+
 
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
