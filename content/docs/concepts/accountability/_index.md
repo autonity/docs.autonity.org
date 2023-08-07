@@ -66,25 +66,25 @@ Essential primitives of AFD are: accusation, innocence, and fault proofs; slashi
 
 #### Accusations
 
-An _accusation_ is a claim that a consensus committee member has failed to participate correctly in consensus. I.e. it has failed to adhere to a rule governing validator participation in consensus and so is guilty of a rule infraction. Protocol only allows a validator to be under _accusation_ once at a time. New _accusations_ are made by submitting _proof_ of an accusable rule infraction on-chain as an event of type `NewAccusation`.
+An _accusation_ is a claim that a consensus committee member has failed to participate correctly in consensus. I.e. it has failed to adhere to a rule governing validator participation in consensus and so is guilty of a rule infraction. Protocol only allows a validator to be under _accusation_ once at a time. New _accusations_ are made by submitting evidence of an accusable rule infraction on-chain as an accountability event of type `Accusation`.
 
 Accusations do not automatically cause slashing and an _innocence proof window_ measured in blocks gives the accused _offending_ validator a window to detect an _accusation_ and prove _innocence_ by submitting an _innocence_ proof on-chain.
 
 There are protocol constraints on when an _accusation_ can be made. A _reporting_ validator can only submit an _accusation_ _proof_ if:
 
 - the _offending_ validator:
-  - does not already have a _fault_ in the epoch in which the _new accusation_ is being made for an offence with a higher _severity_
+  - does not already have a _fault_ in the epoch for which the _new accusation_ is being made for an offence with a higher _severity_
   - is not currently already accused of committing a rule infraction, i.e. there is a _pending accusation_. In this case, a _new accusation_ cannot be made until expiry of the _innocence proof window_. This creates a _deadline_ measured in block height before which a new `accusation` cannot be submitted.
 - it is within the _accusation window_:
   - an accusation must be made `<= 256` blocks after the detected accountability event.
 
 As each block is finalised, AFD will attempt to promote _accusations_ where the _innocence proof submission window_ has expired within protocol constraints to proven _faults_.
-
+<!--
 To check if an _offending_ validator has a _pending accusation_, a _reporting_ validator calls protocol functions:
 
 - [`canAccuse()`](/reference/api/accountability/#canaccuse): to determine if (a) an offending validator is accusable, and, (b) the _deadline_ number of blocks remaining in the _innocence proof submission window_ if there is a _pending accusation_.
 - [`canSlash()`](/reference/api/accountability/#canslash): to determine if the  _offending_ validator already has a _fault_ for a rule infraction in the epoch with a _severity_ higher than the new accusable rule infraction detected.
-
+-->
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _accusation_ on-chain a `NewAccusation` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
 #### Innocence
@@ -96,11 +96,11 @@ The _offending_ validator has a limited time window to submit a _proof_ of _inno
 An _innocence_ must be submitted within an _innocence proof submission window_ to be accepted, a designated number of blocks set as a protocol parameter. The window begins at the block height number at which the _accusation_ was reported.
 
 If the _innocence_ is successfully verified, then the _accusation_ queue is checked and the corresponding _accusation_ is cancelled. The _pending accusation_ state is cleared and a _reporting_ validator is now able to submit a _new accusation_ against the _offending_ validator.
-
+<!--
 To check if a _new accusation_ has been made against it, an _offending_ validator:
 
 - subscribes to `NewAccusation` events where it is the offender, retrieves the accountability event ID and queries the `Events` data structure to retrieve the _pending accusation_ against it.
-
+-->
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _innocence_ on-chain an `Innocence` proof event is emitted logging: _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, and `0` indicating there are no pending accusations against the validator.
 
 {{% alert title="Note" %}}
@@ -229,17 +229,17 @@ The slashing amount to fine for the fault is computed based on slashing factors:
   - `(slashing rate * validator bonded stake)/slashing rate precision`
 - the slashing is computed:
   - the slashed amount of NTN stake token is subtracted from the validator’s bonded stake and transferred to the Autonity Protocol global `treasury` account for community funding
-  - the slashing fine is applied to validator bonded stake according to the protocol’s [Penalty Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model
+  - the slashing fine is applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model
   - the `jail period` of the validator is computed to determine the validator's jail release block number: `current block number + jail factor * history * epoch period`.
 - the validator state is updated: (a) the self-bonded and total staked amounts, (b) the slashing amount is added to the validator's `totalSlashed` amount.
 
-### Penalty Absorbing Stake (PAS) 
+### Penalty-Absorbing Stake (PAS) 
 
-Slashing penalties for accountability events are applied according to Autonity's [_penalty absorbing stake_](/glossary/#penalty-absorbing-stake-pas) model. 
+Slashing penalties for accountability events are applied according to Autonity's [_penalty-absorbing stake_](/glossary/#penalty-absorbing-stake-pas) model. 
 
 The _offending_ validator's own [self-bonded](/glossary/#self-bonded) stake is slashed in priority to [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
 
-To learn more about PAS, see the concept Staking, [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
+To learn more about PAS, see the concept Staking, [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 
 ## Rules
 
