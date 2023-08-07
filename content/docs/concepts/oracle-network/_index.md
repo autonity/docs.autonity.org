@@ -115,11 +115,11 @@ If an oracle fails to vote in a round, or the reveal does not match the past com
 
 ### Currency pair management
 
-The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see `[config.autonity.oracle](/reference/genesis/#configautonityoracle-object)` object.
+The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see [`config.autonity.oracle`](/reference/genesis/#configautonityoracle-object) object.
 
-The currency pair symbols set for a network can be returned by a contract call using the [getSymbols()](/reference/api/oracle/#getsymbols) function.
+The currency pair symbols set for a network can be returned by a contract call using the [`getSymbols()`](/reference/api/oracle/#getsymbols) function.
 
-The pairs can be updated post-genesis by a governance-only function, `[setSymbols()](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
+The pairs can be updated post-genesis by a governance-only function, [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
 
 Note that if currency pair symbols are changed there is a 2-round delay in applying the change after the symbol update round. This is because of the [commit and reveal](/concepts/oracle-network/#commit-and-reveal) process for submitting and revealing price reports: oracles send commits for the new symbols in "symbol updated round + 1" and reveals for the new symbols in "symbol updated round + 2".
 
