@@ -106,7 +106,7 @@ To exemplify oracle frequency of new median price data publication from genesis 
 |`Block 1...30`| Oracle voters submit price report vote, providing _commit_; _reveal_ and _salt_ null. |
 |`Block 30`| `R1` voting round ends. No previous round so no _commits_ to _reveal_ and no valid price submissions for median price computation for `R1`. New Round event emitted for `R2`. |
 |`Block 31`| New Round begins: `R2` |
-|`Block 31...59`| Oracle voters submit price report vote, providing _commit_ for `R2`; _reveal_ and _salt_ for `R1`. |
+|`Block 31...60`| Oracle voters submit price report vote, providing _commit_ for `R2`; _reveal_ and _salt_ for `R1`. |
 |`Block 60`| `R2` voting round ends. Commit and reveal; median price round data computed for `R2`. New Round event emitted for `R3`&hellip; |
 
 {{% alert title="Note" %}}
@@ -116,11 +116,11 @@ If an oracle fails to vote in a round, or the reveal does not match the past com
 
 ### Currency pair management
 
-The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see `[config.autonity.oracle](/reference/genesis/#configautonityoracle-object)` object.
+The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see [`config.autonity.oracle`](/reference/genesis/#configautonityoracle-object) object.
 
-The currency pair symbols set for a network can be returned by a contract call using the [getSymbols()](/reference/api/oracle/#getsymbols) function.
+The currency pair symbols set for a network can be returned by a contract call using the [`getSymbols()`](/reference/api/oracle/#getsymbols) function.
 
-The pairs can be updated post-genesis by a governance-only function, `[setSymbols()](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
+The pairs can be updated post-genesis by a governance-only function, [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
 
 Note that if currency pair symbols are changed there is a 2-round delay in applying the change after the symbol update round. This is because of the [commit and reveal](/concepts/oracle-network/#commit-and-reveal) process for submitting and revealing price reports: oracles send commits for the new symbols in "symbol updated round + 1" and reveals for the new symbols in "symbol updated round + 2".
 
