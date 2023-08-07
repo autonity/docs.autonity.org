@@ -106,7 +106,7 @@ To exemplify oracle frequency of new median price data publication from genesis 
 |`Block 1...30`| Oracle voters submit price report vote, providing _commit_; _reveal_ and _salt_ null. |
 |`Block 30`| `R1` voting round ends. No previous round so no _commits_ to _reveal_ and no valid price submissions for median price computation for `R1`. New Round event emitted for `R2`. |
 |`Block 31`| New Round begins: `R2` |
-|`Block 31...59`| Oracle voters submit price report vote, providing _commit_ for `R2`; _reveal_ and _salt_ for `R1`. |
+|`Block 31...60`| Oracle voters submit price report vote, providing _commit_ for `R2`; _reveal_ and _salt_ for `R1`. |
 |`Block 60`| `R2` voting round ends. Commit and reveal; median price round data computed for `R2`. New Round event emitted for `R3`&hellip; |
 
 {{% alert title="Note" %}}
