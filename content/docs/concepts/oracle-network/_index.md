@@ -96,7 +96,7 @@ A _commit and reveal_ protocol is used for price voting. In each round the oracl
 - `_reports`: a reveal of the price report submitted for the previous round
 - `_salt`: a salt value used to generate the previous round's commitment
 
-Protocol then uses the _salt_ to verify the previous round's _commit_ matches the _reveal_ for that commit provided by the voter in the current round. This introduces a time lag in oracle price updates: prices are submitted in round `1`, revealed and median price data at the end of round `2`.
+Protocol then uses the _salt_ to verify the previous round's _commit_ matches the _reveal_ for that commit provided by the voter in the current round. This introduces a time lag in oracle price updates: prices are submitted in round `1`, revealed during round `2`, with median price data computed at the end of round `2`.
 
 To exemplify oracle frequency of new median price data publication from genesis in a scenario of vote period set to 30 blocks:
 
