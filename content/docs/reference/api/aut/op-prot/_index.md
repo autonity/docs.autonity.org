@@ -990,7 +990,7 @@ The block finalisation function, invoked each block after processing every trans
 - invokes the Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
 - then, if `epochEnded` is `true`:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
-    - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
+    - applies any staking transitions - pending bonding and unbonding requests tracked in `BondingRequest` and `UnbondingRequest` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
     - selects the consensus committee for the following epoch, invoking the [`computeCommittee()`](/reference/api/aut/op-prot/#computecommittee) function
     - sets oracle voters for the following epoch, invoking the Oracle Contract `setVoters` function

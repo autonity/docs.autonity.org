@@ -286,7 +286,7 @@ aut validator bond [OPTIONS] AMOUNT
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut validator bond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 1 | aut tx sign - | aut tx send -
+aut validator bond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xaa3705ef2d38cf2d98925660e6ca55de8948e8a075e7ee9edf6be7fa540ffe51
@@ -341,7 +341,7 @@ aut validator change-commission-rate [OPTIONS] RATE
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut validator change-commission-rate --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 900 | aut tx sign - | aut tx send -
+aut validator change-commission-rate --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 900 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x7a4c6bb2e19eb8a4a160723b07eeb538e835db512541621aef0062cd9e1e15f2
@@ -634,7 +634,7 @@ None.
 
 ##  getBondingRequests
 
-Returns an array of pending bonding requests within a specified range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
+Returns an array of pending bonding requests within a specified range. Staking transitions are maintained in memory as `BondingRequest` data structures until voting power changes are applied at epoch end before selection of the next consensus committee.
 
 The array range is specified by a start and end index using the bonding request identifier.
 
@@ -657,14 +657,14 @@ Bonding identifiers can be returned by calling:
 
 ### Response
 
-Returns a `_results` array of `Staking` objects, each object consisting of:
+Returns a `_results` array of `BondingRequest` objects, each object consisting of:
 
 | Field | Datatype | Description |
 | --| --| --|
 | `delegator` | `address payable` | account address of the account bonding stake |
 | `delegatee` | `address` | validator identifier account address of the validator to which stake is being bonded |
 | `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
-| `startBlock` | `uint256` | the block number at which a bonding transaction was committed. Only applicable to bonding staking transitions |
+| `requestBlock` | `uint256` | the block number at which a bonding transaction was committed. Only applicable to bonding staking transitions |
 
 ### Usage
 
@@ -1518,6 +1518,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {{< /tab >}}
 {{< /tabpane >}}
 
+<<<<<<< HEAD
 
 ## getUnbondingPeriod
 
@@ -1538,41 +1539,9 @@ None.
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
-
-
-
-## getUnbondingPeriod
-
-Returns the unbonding period from the protocol configuration.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `unbondingPeriod` | `uint256` | the period of time for which bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction, defined as a number of blocks |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
 
 ### Example
 
@@ -1585,7 +1554,7 @@ None.
 
 ##  getUnbondingRequests
 
-Returns an array of pending unbonding requests within a specified range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
+Returns an array of pending unbonding requests within a specified range. Staking transitions are maintained in memory as `UnbondingRequest` data structures until voting power changes are applied at epoch end before selection of the next consensus committee.
 
 The array range is specified by a start and end index using the unbonding request identifier.
 
@@ -1610,14 +1579,17 @@ Unbonding request identifiers can be returned by calling:
 
 ### Response
 
-Returns a `_results` array of `Staking` objects, each object consisting of:
+Returns a `_results` array of `UnbondingRequest` objects, each object consisting of:
 
 | Field | Datatype | Description |
 | --| --| --|
 | `delegator` | `address payable` | account address of the account bonding stake |
 | `delegatee` | `address` | validator identifier account address of the validator to which stake is being bonded |
-| `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
-| `startBlock` | `uint256` | the block number at which an unbonding transaction was committed and from which the unbonding period begins. Only applicable to unbonding staking transitions |
+| `amount` | `uint256` | the amount of stake being unbonded from the `delegatee` account. It records the amount unbound in (a) Newton stake token for [self-bonded](/glossary/#self-bonded) stake, or (b) Liquid Newton for [delegated](/glossary/#delegated) stake  |
+| `unbondingShare` | `uint256` | the share of total bonded stake that the unbonding amount represents |
+| `requestBlock` | `uint256` | the block number at which an unbonding transaction was committed and from which the unbonding period begins. Only applicable to unbonding staking transitions |
+| `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
+| `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
 
 ### Usage
 

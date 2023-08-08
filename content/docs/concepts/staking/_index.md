@@ -211,19 +211,21 @@ For example, an unbonding scenario with an epoch period of 30 blocks, an unbondi
 
 ## Staking transitions
 
-Staking transitions are the application of changes to stake bonded to validators. Newton stake token can be in [three states](/concepts/protocol-assets/newton/):
+Staking transitions are the application of changes to stake bonded to validators. Staking transitions are created by stake bonding and unbonding operations. 
+
+After Newton stake token can be in [three states](/concepts/protocol-assets/newton/):
  - The default state of `unbonded`.
  - The locked state of `bonded`.
  - An intermediate state of `unbonding` when it is locked pending redemption.
 
-Staking transitions are created by stake bonding and unbonding operations. Stake token is liable to protocol application of slashing penalties for accountability and omissions faults applied to validators whilst locked in the `bonded` and `unbonding` states.
+Stake token is liable to protocol application of slashing penalties for accountability and omissions faults applied to validators whilst locked in the `bonded` and `unbonding` states.
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end they are maintained in memory in the `Staking` data structure and can be viewed using the `getBondingReq()`, `getUnbondingReq()` functions of the Autonity Protocol Contract. (See the [Autonity Contract Interface](/reference/api/aut/).)
 
 
 ### Bonding
 
-Stake token is bonded to an active validator through a bonding operation. Once in a bonded state the token is locked and cannot be transferred to other stakeholders. If the stake token belongs to the validator then it is [self-bonded](/glossary/#self-bonded), otherwise the token is [delegated](/glossary/#delegated). The  [voting power](/glossary/#voting-power) of a validator is determined by the amount of stake bonded to it. 
+Stake token is bonded to an active validator through a bonding operation. Once in a bonded state the token is locked and cannot be transferred to other stakeholders. If the stake token belongs to the validator then it is [self-bonded](/glossary/#self-bonded), otherwise the token is [delegated](/glossary/#delegated). The [voting power](/glossary/#voting-power) of a validator is determined by the amount of stake bonded to it. 
 
 On bonding Newton, the stake token is locked on execution of the `bond()` function and Liquid Newton is minted for [delegated](/glossary/#delegated) stake. Minting Liquid Newton is an autonomous protocol-only function. The resulting voting power change is tracked and the staking transition is applied at epoch end. From this point the stake is actively bonded and able to earn staking rewards. Note that a bond allocation cannot be changed after submission and before the bonding is applied at epoch end.
 
