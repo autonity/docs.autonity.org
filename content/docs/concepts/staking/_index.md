@@ -216,23 +216,12 @@ Staking transitions are changes to stake bonded to validators caused by:
 - stake bonding and unbonding operations submitted by stake delegators
 - [slashing](/concepts/staking/#slashing) penalties applied by protocol for proven validator faults whilst a member of the consensus committee. 
 
-In Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, Liquid Newton is only minted for [delegated](/glossary/#delegated) stake and not [self-bonded](/glossary/#self-bonded) As noted in [Protocol assets](/concepts/protocol-assets/):
-
-- Newton stake token can be in [three states](/concepts/protocol-assets/newton/):
-  - The default state of `unbonded`.
-  - The locked state of `bonded`.
-  - An intermediate state of `unbonding` when it is locked pending redemption.
-- Liquid Newton stake token can be in [two states](/concepts/protocol-assets/liquid-newton/):
-  - The default state of `unlocked`.
-  - An intermediate state of `locked` when it is locked pending redemption.
-
-Bonded stake is liable to protocol application of slashing penalties per Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas):
-
-- Newton whilst locked in the `bonded` and `unbonding` states.
-- Liquid Newton whilst in the `locked` and `unlocked` states.
-
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end they are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures and can be viewed using the `getBondingRequests()`, `getUnbondingRequests()` functions of the Autonity Protocol Contract. (See the [Autonity Contract Interface](/reference/api/aut/).)
 
+In Autonity's AFD protocol, slashable faults are likewise processed throughout an epoch and any staking transitions caused by stake slashing are applied to bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded stake is liable to protocol application of [slashing](/concepts/staking/slashing/) penalties:
+
+- Newton whilst locked in [states](/concepts/protocol-assets/newton/) `bonded` and `unbonding`.
+- Liquid Newton in [states](/concepts/protocol-assets/liquid-newton/) `locked` and `unlocked`.
 
 ### Bonding
 
