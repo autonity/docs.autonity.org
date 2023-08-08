@@ -1384,7 +1384,6 @@ None.
 {{< /tabpane >}}
 
 
-
 ##  getProposer
 
 Returns the address of the consensus committee member proposing a new block for a specified block height and consensus round.
@@ -1434,7 +1433,6 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 
 ## getUnbondingPeriod

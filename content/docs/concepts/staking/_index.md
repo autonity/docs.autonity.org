@@ -233,9 +233,7 @@ Stake remains at risk during the unbonding period. The amount of Newton returned
 
 ## Staking transitions
 
-Staking transitions are changes to stake bonded to validators caused by:
-
-- stake bonding and unbonding operations submitted by stake delegators 
+Staking transitions are changes to stake bonded to validators caused by stake bonding and unbonding operations submitted by stake delegators. 
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end staking transitions are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures. They can be read by listening for and viewing `NewBondingRequest` and `NewUnbondingRequest` events emitted by the [`bond()`](/reference/api/aut/#bond) and [`unbond()`](/reference/api/aut/#unbond) functions of the Autonity Protocol Contract.
 
