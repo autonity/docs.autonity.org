@@ -12,7 +12,7 @@ To register a validator you need:
 
 - A running instance of the Autonity Go Client running on your host machine.  This will be the nod to be registered as a validator.
 - A configured instance of [`aut`](/account-holders/setup-aut/).
-- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that that will also receive the validator's share of staking rewards.
+- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that will also receive the validator's share of staking rewards.
 
 {{< alert title="Note" >}}See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.{{< /alert >}}
 
@@ -89,7 +89,7 @@ Make a note of this identifier.
 ### Step 3. Submit the registration transaction.
 
 {{< alert title="Important Note" >}}
-The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator regster` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
+The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator register` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
 {{< /alert >}}
 
 ```bash
