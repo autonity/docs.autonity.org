@@ -272,7 +272,7 @@ No response object is returned on successful execution of the method call.
 The pending voting power change is tracked in memory until applied and can be returned by calling:
 
 - the [`headBondingID`](/reference/api/aut/#headbondingid) method to return the ID of the pending bonding request, and
-- the [`getBondingReq`](/reference/api/aut/#getbondingreq) method to return metadata including the start block when the bonding will be applied.
+- the [`getBondingRequests`](/reference/api/aut/#getbondingrequests) method to return metadata including the start block when the bonding will be applied.
 
 ### Usage
 
@@ -632,11 +632,18 @@ None.
 {{< /tabpane >}}
 
 
-##  getBondingReq
+##  getBondingRequests
 
-Returns an array of pending bonding request within a requested block range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
+Returns an array of pending bonding requests within a specified range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
 
-The array range is specified by a start and end index using the bonding request identifier. Bonding identifiers can be returned by calling:
+The array range is specified by a start and end index using the bonding request identifier.
+
+Constraint checks are applied:
+
+- the `startID` must be less than or equal to the `lastID`
+- the `lastID` must be less than or equal to the most recent request id, i.e. the `headBondingID`.
+
+Bonding identifiers can be returned by calling:
 
 - [tailBondingID](/reference/api/aut/#tailbondingid) to return the ID of the last processed bonding request,
 - [headBondingID](/reference/api/aut/#headbondingid) to return the ID of the last received pending bonding request.
@@ -1049,6 +1056,164 @@ None.
 {{< /tabpane >}}
 
 
+##  getFirstPendingBondingRequest
+
+Returns the identifier of the oldest i.e. 'first submitted' bonding request pending processing at the time of the call.
+
+If no bonding requests are pending processing the function reverts.
+
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `ID` | `uint256` | the identifier of the first submitted bonding request that is pending processing |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+##  getFirstPendingUnbondingRequest
+
+Returns the identifier of the oldest i.e. 'first submitted' unbonding request pending processing at the time of the call.
+
+If no unbonding requests are pending processing the function reverts.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `ID` | `uint256` | the identifier of the first submitted bonding request that is pending processing |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+##  getLastRequestedBondingRequest
+
+Returns the identifier of the last processed bonding request at the time of the call.
+
+If no bonding requests have been processed the function reverts.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `ID` | `uint256` | the identifier of the last processed bonding request |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+##  getLastRequestedUnbondingRequest
+
+Returns the identifier of the last processed unbonding request at the time of the call.
+
+If no unbonding requests have been processed the function reverts.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `ID` | `uint256` | the identifier of the last processed unbonding request |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ##  getMaxCommitteeSize
 
 Returns the protocol setting for the maximum number of validators that can be selected to the consensus committee.
@@ -1418,14 +1583,22 @@ None.
 {{< /tabpane >}}
 
 
-##  getUnbondingReq
+##  getUnbondingRequests
 
-Returns an array of pending unbonding requests within a requested block range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
+Returns an array of pending unbonding requests within a specified range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
 
-The array range is specified by a start and end index using the unbonding request identifier. Unbonding identifiers can be returned by calling:
+The array range is specified by a start and end index using the unbonding request identifier.
 
-- [tailUnbondingID](/reference/api/aut/#tailunbondingid) to return the ID of the last processed unbonding request,
-- [headUnbondingID](/reference/api/aut/#headunbondingid) to return the ID of the last received pending unbonding request.
+Constraint checks are applied:
+
+- the `startID` must be less than or equal to the `lastID`
+- the `lastID` must be less than or equal to the most recent request id, i.e. the `headUnbondingID`.
+
+Unbonding request identifiers can be returned by calling:
+
+- [`tailUnbondingID()`](/reference/api/aut/#tailunbondingid) to return the ID of the last processed unbonding request,
+- [`headUnbondingID()`](/reference/api/aut/#headunbondingid) to return the ID of the last received pending unbonding request.
+
 
 ### Parameters
 
@@ -2321,7 +2494,7 @@ No response object is returned on successful execution of the method call.
 The pending voting power change is tracked in memory until applied and can be returned by calling:
 
 - the [`tailUnbondingID`](/reference/api/aut/#tailunbondingid) method to return the ID of the unbonding request, and
-- the [`getUnbondingReq`](/reference/api/aut/#getunbondingreq) method to return metadata including the start block when the unbonding will be applied.
+- the [`getUnbondingRequests`](/reference/api/aut/#getunbondingrequests) method to return metadata including the start block when the unbonding will be applied.
 
 ### Usage
 
