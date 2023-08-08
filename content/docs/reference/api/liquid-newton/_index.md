@@ -47,13 +47,11 @@ Queries the contract and returns the amount of locked Liquid Newton held by a st
 | --| --| --| 
 | `delegator ` | `address` | the account address of the Liquid Newton holder for which the locked balance amount is requested |
 
-
 ### Response
 
 | Field | Datatype | Description |
 | --| --| --|
 | `amount` |  `uint256`  | the account balance for Liquid Newton in a locked state |
-
 
 ### Usage
 
@@ -82,7 +80,6 @@ Queries the contract and returns the amount of unlocked Liquid Newton held by a 
 | Field | Datatype | Description |
 | --| --| --| 
 | `delegator ` | `address` | the account address of the Liquid Newton holder for which the unlocked balance amount is requested |
-
 
 ### Response
 
