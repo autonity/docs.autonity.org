@@ -978,6 +978,164 @@ None.
 {{< /tabpane >}}
 
 
+##  getFirstPendingBondingRequest
+
+Returns the identifier of the oldest i.e. 'first submitted' bonding request pending processing at the time of the call.
+
+If no bonding requests are pending processing the function reverts.
+
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `ID` | `uint256` | the identifier of the first submitted bonding request that is pending processing |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+##  getFirstPendingUnbondingRequest
+
+Returns the identifier of the oldest i.e. 'first submitted' unbonding request pending processing at the time of the call.
+
+If no unbonding requests are pending processing the function reverts.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `ID` | `uint256` | the identifier of the first submitted bonding request that is pending processing |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+##  getLastRequestedBondingRequest
+
+Returns the identifier of the last processed bonding request at the time of the call.
+
+If no bonding requests have been processed the function reverts.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `ID` | `uint256` | the identifier of the last processed bonding request |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+##  getLastRequestedUnbondingRequest
+
+Returns the identifier of the last processed unbonding request at the time of the call.
+
+If no unbonding requests have been processed the function reverts.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `ID` | `uint256` | the identifier of the last processed unbonding request |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+>>>>>>> 3b95896 (REference, Autonity Contract, add getter methods)
+
 
 ##  getMaxCommitteeSize
 
