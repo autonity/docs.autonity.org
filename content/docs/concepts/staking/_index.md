@@ -211,16 +211,27 @@ For example, an unbonding scenario with an epoch period of 30 blocks, an unbondi
 
 ## Staking transitions
 
-Staking transitions are the application of changes to stake bonded to validators. Staking transitions are created by stake bonding and unbonding operations. 
+Staking transitions are changes to stake bonded to validators caused by:
 
-After Newton stake token can be in [three states](/concepts/protocol-assets/newton/):
- - The default state of `unbonded`.
- - The locked state of `bonded`.
- - An intermediate state of `unbonding` when it is locked pending redemption.
+- stake bonding and unbonding operations submitted by stake delegators
+- [slashing](/concepts/staking/#slashing) penalties applied by protocol for proven validator faults whilst a member of the consensus committee. 
 
-Stake token is liable to protocol application of slashing penalties for accountability and omissions faults applied to validators whilst locked in the `bonded` and `unbonding` states.
+In Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, Liquid Newton is only minted for [delegated](/glossary/#delegated) stake and not [self-bonded](/glossary/#self-bonded) As noted in [Protocol assets](/concepts/protocol-assets/):
 
-Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end they are maintained in memory in the `Staking` data structure and can be viewed using the `getBondingReq()`, `getUnbondingReq()` functions of the Autonity Protocol Contract. (See the [Autonity Contract Interface](/reference/api/aut/).)
+- Newton stake token can be in [three states](/concepts/protocol-assets/newton/):
+  - The default state of `unbonded`.
+  - The locked state of `bonded`.
+  - An intermediate state of `unbonding` when it is locked pending redemption.
+- Liquid Newton stake token can be in [two states](/concepts/protocol-assets/liquid-newton/):
+  - The default state of `unlocked`.
+  - An intermediate state of `locked` when it is locked pending redemption.
+
+Bonded stake is liable to protocol application of slashing penalties per Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas):
+
+- Newton whilst locked in the `bonded` and `unbonding` states.
+- Liquid Newton whilst in the `locked` and `unlocked` states.
+
+Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end they are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures and can be viewed using the `getBondingRequests()`, `getUnbondingRequests()` functions of the Autonity Protocol Contract. (See the [Autonity Contract Interface](/reference/api/aut/).)
 
 
 ### Bonding
