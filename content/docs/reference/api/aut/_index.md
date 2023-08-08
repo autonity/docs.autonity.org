@@ -613,7 +613,6 @@ None.
 {{< /tabpane >}}
 
 
-
 ## getBlockPeriod
 
 Returns the block period from the protocol configuration.
