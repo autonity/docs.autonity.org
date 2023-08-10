@@ -28,7 +28,7 @@ It is highly recommended to also follow the [instructions in the repository <i c
 
 ## Configuration using the `.autrc` file {#configure}
 
-As detailed in the [`aut` repository <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut), some configuration parameters can be set in a `.autrc` file in the working directory or any parent directory.  As a minimal configuration, it is recommended to create an `.autrc` containing the end-point to use for RPC operations:
+As detailed in the [`aut` repository <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut#configuration-using-autrc-files), some configuration parameters can be set in an `.autrc` file in the working directory or any parent directory.  As a minimal configuration, it is recommended to create an `.autrc` containing the end-point to use for RPC operations:
 
 ```
 [aut]

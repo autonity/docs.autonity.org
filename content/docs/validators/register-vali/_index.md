@@ -1,7 +1,7 @@
 ---
 title: "Register as a Validator"
 linkTitle: "Register Validator"
-weight: 120
+weight: 10
 description: >
   How to register your node as a Validator on an Autonity network
 ---
@@ -10,40 +10,61 @@ description: >
 
 To register a validator you need:
 
-- A running instance of the Autonity Go Client running on your host machine.  This will be the nod to be registered as a validator.
+- A [running instance of the Autonity Go Client](/node-operators/) running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on its WebSocket port.  This will be the node to be registered as a validator.
+- A [running instance of the Autonity Oracle Server](/oracle/) running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your  validator node's WebSocket port.
 - A configured instance of [`aut`](/account-holders/setup-aut/).
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that that will also receive the validator's share of staking rewards.
 
-{{< alert title="Note" >}}See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.{{< /alert >}}
+{{< alert title="Note" >}}
+See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.
+
+See the [Oracle](/concepts/oracle-server/) section for an explanation of the oracle server.
+{{< /alert >}}
 
 ## Register as a validator
 
 ### Step 1. Generate a cryptographic proof of node ownership
 
-This must be performed on the host machine running the Autonity Go Client, using the `autonity genEnodeProof` command:
+This must be performed on the host machine running the Autonity Go Client, using the `autonity genOwnershipProof` command:
 
 ```bash
-autonity genEnodeProof --nodekey <NODE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
+autonity genOwnershipProof --nodekey <NODE_KEY_PATH> --oraclekey <ORACLE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
 ```
 
 If you are running the Autonity Go Client in a docker container, setup as described in the [Run Autonity section](../../node-operators/run-aut#run-docker) (i.e. with the `autonity-chaindata` directory mapped to a host directory of the same name), the proof can be generated as follows:
 
 ```bash
-docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name autonity-proof --rm ghcr.io/autonity/autonity:latest genEnodeProof --nodekey ./autonity-chaindata/autonity/nodekey <TREASURY_ACCOUNT_ADDRESS>
+docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name autonity-proof --rm ghcr.io/autonity/autonity:latest genOwnershipProof --nodekey ./autonity-chaindata/autonity/nodekey --oraclekey <ORACLE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
 ```
 
-where
-    - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
-    - `<TREASURY_ACCOUNT_ADDRESS>`: is treasury account address (i.e. the address you are using to submit the registration transaction from the local machine).
+where:
+
+  - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
+  - `<ORACLE_KEY_PATH>`: is the path to the private key file of the oracle server key. (For creating this key How to [Run Autonity Oracle Server](/oracle/run-oracle/).)
+  - `<TREASURY_ACCOUNT_ADDRESS>`: is the account address you will use to operate the validator and receive commission revenue rewards to (i.e. the address you are using to submit the registration transaction from the local machine).
 
 You should see something like this:
 
 ```bash
-autonity genEnodeProof --nodekey ./blockchain/autonity/nodekey 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
-Signature hex: 0x4563c91c4a1c0371ff3633f1e8c23f211e4ac6b50852689dbaa17f6b74711f2869e41d847862d5ad2a08a15d57b4d5a3b4315eb10dd22f69aa27c3ce229539c700
+autonity genOwnershipProof --nodekey ./autonity-chaindata/autonity/nodekey --oraclekey oracle.key 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
+Signature hex: 0x116f317684203d325732fbdd74632649c60ff9b246e09aced5172a0ab87ed8014b43cdce2f4c745e7c18272bc360066ee8b737bbbf27b82f9ddcd18cdc792f29012b5c3aad85f54fb2ff530a69dbd5cb5bf27dfc1658bc6f496dba4bec7d12e65a243ec8f79a4b5fbc6913273072dd1eaddee6e3b8fb699ba9b924c7d015a9c35c00
 ```
 
 This signature hex will be required for the registration.
+
+{{< alert title="Note" >}}
+The `genOwnershipProof` command options `--nodekey` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument. The `nodekey` file is unencrypted. If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
+
+Autonity's `ethkey` cmd utility can be used to inspect the keystore file and view the account address, public key, and private key after entering your account password:
+
+```
+./build/bin/ethkey inspect --private <ORACLE_KEY_PATH>/oracle.key                   
+
+Password: 
+```
+To install the `cmd` utilities use `make all` when [building Autonity from source code](/node-operators/install-aut/#install-source).
+
+{{< /alert >}}
 
 ### Step 2. Determine the validator enode and address
 
@@ -86,19 +107,39 @@ aut validator compute-address enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb
 
 Make a note of this identifier.
 
-### Step 3. Submit the registration transaction.
+### Step 3. Submit the registration transaction
 
 {{< alert title="Important Note" >}}
-The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator regster` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
+The `aut validator register` command does not currently support registering a validator with oracle.
+
+This step illustrates using the Autonity Contract’s generated ABI and the `aut` tool’s `contract tx` command to call the Autonity Contract address `0xBd770416a3345F91E4B34576cb804a576fa48EB1`. See `aut contract tx --help`.
+
+Commands assumes the path to the ABI file has been set in `aut`’s configuration file `.autrc`. The `Autonity.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/Autonity.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
+
+The commands given in this step assume that your `.autrc` configuration file specifies:
+
+- `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.
+- `contract_abi' = <path>` entry pointing to the `Autonity.abi` file.
 {{< /alert >}}
 
 ```bash
-aut validator register <ENODE_URL> <PROOF> | aut tx sign - | aut tx send -
+aut contract tx --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 registerValidator <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -
 ```
+<!--
+{{< alert title="Important Note" >}}
+The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator register` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
+{{< /alert >}}
+
+```bash
+aut validator register <ENODE_URL> `<ORACLE_ADDRESS>` <PROOF> | aut tx sign - | aut tx send -
+```
+-->
 
 where:
+
 - `<ENODE_URL>`: the enode url returned in Step 2.
-- `<PROOF>`: the proof of enode ownership generated in Step 1.
+- `<ORACLE_ADDRESS>`: the oracle server account address.
+- `<PROOF>`: the proof of node ownership generated in Step 1.
 
 Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/concepts/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.
 
@@ -109,7 +150,11 @@ Errors of the form
 Error: execution reverted: Invalid proof provided for registration
 ```
 indicate a mismatch between treasury address and either:
+<!--
 - the `from` address of the transaction generated in the `aut validator register` command, AND/OR
+
+-->
+- the `from` address of the transaction generated in the `aut contract tx` command, AND/OR
 - the key used in the `aut tx sign` command
 
 Check your configuration as described in the "Important Note" at the start of this section.

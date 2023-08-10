@@ -405,7 +405,7 @@ Enter passphrase (or CTRL-d to exit):
 -->
 ###  setOperatorAccount
 
-Sets a new governance account address as the value of the `operatorAccount` protocol parameter. 
+Sets a new governance account address as the value of the `operatorAccount` protocol parameter for the Autonity Protocol Contract and Autonity Oracle Contract.
 
 #### Parameters
    
@@ -453,6 +453,50 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 -->
 
+
+### setSymbols (Oracle Contract)
+Sets a new value set for the [currency pair](/glossary/#currency-pair) symbols for which the Oracle Contracts computes median price.
+
+Note that the function overwrites the existing symbols; and does not update; the complete set of symbols for which oracles shall provide price reports must be provided.
+
+Constraint checks are applied:
+
+- the `_symbols` parameter cannot be empty; new symbols are provided
+- the current `round` number is not equal to the current symbol update (a) round number, and (b) round number +1.
+
+The symbol update is applied and oracle submissions for the new symbols are effective from the next round `round+1`.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbols` | `string` array | a comma-separated list of the new currency pair symbols for which price reports are generated |
+
+#### Response
+
+None.
+
+#### Event
+On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective `round+1`.
+        
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["NTN/USD", "NTN/AUD", "NTN/CAD", "NTN/EUR", "NTN/GBP", "NTN/JPY", "NTNSEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ###  setTreasuryAccount
 
 Sets a new account address as the value of the `treasuryAccount` protocol parameter. 
@@ -467,7 +511,7 @@ Sets a new account address as the value of the `treasuryAccount` protocol parame
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to the [`treasuryAccount`](/reference/api/aut/#treasuryaccount) public variable.
+The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
 
 #### Usage
 
@@ -518,7 +562,7 @@ Sets a new value for the `treasuryFee` protocol parameter.
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to the [`treasuryFee`](/reference/api/aut/#treasuryfee) public variable.
+The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
 
 #### Usage
 
@@ -570,7 +614,7 @@ The `unbondingPeriod` period value must be greater than the `epochPeriod` protoc
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to read the [`unbondingPeriod`](/reference/api/aut/#unbondingperiod) public variable.
+The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
 
 #### Usage
 
@@ -684,25 +728,30 @@ None.
 
 No response object is returned on successful execution of the method invocation.
 
-The new committee can be retrieved from state by calling the [`getCommittee`](/reference/api/aut/#getcommittee) method.
+The new committee can be retrieved from state by calling the [`getCommittee()`](/reference/api/aut/#getcommittee) method.
 
-The new committee enode URL's can be retrieved from state by calling the [`getCommitteeEnodes `](/reference/api/aut/#getcommitteeenodes) method.
+The new committee enode URL's can be retrieved from state by calling the [`getCommitteeEnodes()`](/reference/api/aut/#getcommitteeenodes) method.
 
-Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake`](/reference/api/aut/#epochtotalbondedstake) public variable.
+Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake()`](/reference/api/aut/#epochtotalbondedstake) method.
 
 ###  finalize
 
-The block finalization function, invoked each block after processing every transaction within it. The function:
+The block finalisation function, invoked each block after processing every transaction within it. The function:
 
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
-- adds the `amount` parameter value to the `epochReward` protocol parameter
+
+<!-- - adds the `amount` parameter value to the `epochReward` protocol parameter -->
+<!--     - sets `epochReward` to `0` -->
+
 - checks if the block number is the last epoch block number and if so, then:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
-    - sets `epochReward` to `0`
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
     - selects the consensus committee for the following epoch, invoking the [`computeCommittee`](/reference/api/aut/op-prot/#computecommittee) function
-    - assigns the `lastEpochBlock` state variable the value of the current block number.
+    - sets oracle voters for the following epoch, invoking the Oracle Contract `setVoters` function
+    - assigns the `lastEpochBlock` state variable the value of the current block number
+    - increments the `epochID` by `1`
+    - invokes the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
 
 #### Parameters
 
@@ -722,3 +771,26 @@ The block finalization function, invoked each block after processing every trans
 #### Event
 
 On successful reward distribution the function emits a `Rewarded` event for each staking reward distribution, logging: recipient address `addr` and reward amount `amount`.
+
+
+###  finalize (Oracle Contract)
+
+The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
+
+- executes the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
+- checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
+- resets the `lastRoundBlock` to the current `block.number`
+- increments the `round` counter by `1`
+- checks if there have been any oracle symbol changes, if so then updates the oracle symbol set for the following oracle voting round.
+
+#### Parameters
+
+None.
+
+#### Response
+
+None.
+
+#### Event
+
+On success the function emits a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.number`, `block.timestamp` and vote period duration `votePeriod`.

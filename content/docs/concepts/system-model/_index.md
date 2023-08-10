@@ -24,8 +24,8 @@ Each participant node has:
 
 Participants can register as validators and have stake bonded to them as described in the [Validator](/concepts/validator/) section. Consequently the set of participants can be subdivided into divisions or subclassed as:
 
-- The set of possible validator participants, and, for those validators selected to the consensus committee.
-- The set of committee members.
+- The set of possible validator participants, and, for those validators selected to the consensus committee,
+- The set of committee members. Validators in the consensus committee also participate in the [oracle network](/concepts/oracle-network/).
 
 The committee is dynamically maintained and selection is a deterministic function of the protocol - see [Committee member selection](/concepts/consensus/committee/#committee-member-selection).
 
@@ -37,7 +37,7 @@ A committee member participates in Tendermint Consensus instances, voting for an
 
 An Autonity system has a full [mesh network](/glossary/#mesh-network) topology. Each participant is connected to every other participant by a direct TCP/IP connection. This gives a reliable and _eventually synchronous_ channel for message broadcast between peers.
 
-P2P networking protocols are Ethereum [devp2p <i class='fas fa-external-link-alt'></i>](https://github.com/ethereum/devp2p), RLPx as transport to an ethereum wire protocol (eth65) modified to add messages for Tendermint BFT consensus rounds.
+P2P networking protocols are Ethereum [devp2p <i class='fas fa-external-link-alt'></i>](https://github.com/ethereum/devp2p), RLPx as transport to an ethereum wire protocol (eth66) modified to add messages for Tendermint BFT consensus rounds.
  
 _Eventual synchrony_ is a model described by a Global Stabilisation Time (GST) and a _Delta_ time. If a message is sent by a participant at time _t, then the message is received by time _max{t,GST} + Delta_, _Delta > 0_ and unknown by all the participants. Client logic verifies if a received message has been sent to a participant before forwarding, preventing duplicate message sends. The Tendermint algorithm assumes that at _GST + Delta_, all the consensus messages sent at GST should have been received by committee members.
 
@@ -53,7 +53,7 @@ The principal message primitives of the networking communication layer are:
 
 Autonity inherits Ethereum's state model, ledger trie structures, and transaction state machine. Per Ethereum the state of the system incrementally evolves from genesis state as blocks are decided and appended to the ledger, each individual transaction forming a valid arc between state transitions to an account. The world (or global) state of the system comprises the mapping between accounts and their states, recorded in the distributed ledger maintained by participants. Per Ethereum, a participant can compute the current world state of each account on the system at any time by using the ledger and EVM, and applying in order the sequence of transactions from genesis block to current block height.
 
-At network genesis the ledger state comprises the Autonity Protocol Contract and the genesis block state as set in the [genesis configuration file](/reference/genesis/). The genesis block contains the initial set of participant validators and smart contracts, both with their states. The initial smart contracts are: Autonity Protocol Contract, validator _liquid newton_ contracts, and optionally additional contracts deployed using the `alloc` structure in the genesis file. Initial smart contract state is Autonity Protocol Contract parameterisation and validator _liquid newton_ contract bonded stake.
+At network genesis the ledger state comprises the [Autonity Protocol](/glossary/#autonity-protocol) contracts (Protocol Contract, Oracle Contract) and the genesis block state as set in the [genesis configuration file](/reference/genesis/). The genesis block contains the initial set of participant validators and smart contracts, both with their states. The initial smart contracts are: Autonity Protocol Contract, Autonity Oracle Contract, genesis validator _liquid newton_ contracts, and optionally additional contracts deployed using the `alloc` structure in the genesis file. Initial smart contract state is Autonity Protocol and Oracle Contract parameterisation and genesis validator _liquid newton_ contract bonded stake.
 
 
 ### The Ledger Object
@@ -182,7 +182,7 @@ The block content structure is unmodified per standard Ethereum:
 
 Transactions are standard Ethereum transaction structures. Autonity supports both legacy (type 0) and EIP 1559 (type 2) transaction types. Use of the EIP 1559 type 2 transaction to take advantage of the economic benefits provided by the EIP 1559 fee market mechanism is recommended.
 
-{{% alert title="Note" %}}For an explanation of how specifying gas in transactions differs between legacy and EIP 1559 transaction types, see the Ethereum developer docs explanation of Gas and Fees - [https://ethereum.org/en/developers/docs/gas/ <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/gas/).{{% /alert %}}
+{{% alert title="Note" %}}For an explanation of how specifying gas in transactions differs between legacy and EIP 1559 transaction types, see Ethereum developer docs "Gas and Fees" - [https://ethereum.org/en/developers/docs/gas/ <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/gas/).{{% /alert %}}
 
 Generated and signed by accounts on the network, transactions are submitted to the system via participant node client API's. The client performs standard Ethereum pre-flight checks to the transaction before broadcasting it to the network.
 
@@ -190,7 +190,7 @@ Transactions are used to transfer value between individual account state, invoke
 
 #### Requests, transactions and calls
 
-Transactions are submitted as [requests](/concepts/system-model/#request) over the JSON-RPC remote procedure call (RPC) protocol to read and write to system state. Requests to protocol contract functions are made as Ethereum [transactions and calls](/concepts/system-model/#transactions-and-calls) executed in the Ethereum runtime. The on-chain operation executed by smart contract logic may be a [transaction](/concepts/system-model/#transaction-1) that is a write operation resulting in a change to system state or a read-only [call](/concepts/system-model/#call-1) that queries system state. Execution of a contract function may result in one contract invoking another contract, resulting in a [message call](/concepts/system-model/#message-call) between contracts. For example, a bonding request submitted to the Autonity Protocol contract results in a state change to the validator's liquid newton contract ledger when staking transitions are applied at epoch end.
+Transactions are submitted as [requests](/concepts/system-model/#request) over the JSON-RPC remote procedure call (RPC) protocol to read and write to system state. Requests to protocol contract functions are made as Ethereum [transactions and calls](/concepts/system-model/#transactions-and-calls) executed in Autonity's Ethereum runtime. The on-chain operation executed by smart contract logic may be a [transaction](/concepts/system-model/#transaction-1) that is a write operation resulting in a change to system state or a read-only [call](/concepts/system-model/#call-1) that queries system state. Execution of a contract function may result in one contract invoking another contract, resulting in a [message call](/concepts/system-model/#message-call) between contracts. For example, a bonding request submitted to the Autonity Protocol contract results in a state change to the validator's liquid newton contract ledger when staking transitions are applied at epoch end.
 
 #### Request
 
@@ -295,11 +295,11 @@ Autonity modifies EIP 1559 by:
 An _account_ is the unique identifier for referring to an external system user, a participant node, or a smart contract deployed on the system:
 
 - External users require an Ethereum account based on public-key cryptography to access and call functionality of the Autonity Protocol contracts and other decentralised application contracts deployed on the system.
-- Participant and validator nodes and their operators have unique accounts as described in [Participants](/concepts/system-model/#participants) and [Validator identity, accounts and keypairs](/concepts/validator/#validator-identity-accounts-and-keypairs)
-- Smart contracts deployed on the system ledger are uniquely identified by their contract account addresses and have a state. Smart contracts native to Autonity and forming part of an Autonity system are described in [Autonity Protocol Contract](/concepts/#autonity-protocol-contract). 
+- Participant and validator nodes, oracle servers, and their operators have unique accounts as described in [Participants](/concepts/system-model/#participants), [Validator identity, accounts and keypairs](/concepts/validator/#validator-identity-accounts-and-keypairs), and [Oracle identity, accounts and keypairs](/concepts/oracle-network/#oracle-identity-accounts-and-keypairs)
+- Smart contracts deployed on the system ledger are uniquely identified by their contract account addresses and have a state. Smart contracts native to Autonity and forming part of an Autonity system are described in concept Architecture: [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract), [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract). 
 
 
-As an Ethereum-based blockchain system, Autonity account addresses are in Ethereum format - a 42 character hexadecimal string derived from last 20 bytes of the account's public key and prepended by `0x`. Keccak-256 and the Elliptic Curve Digital Signature Algorithm (ECDSA) are used for generating (and verifying) cryptographic signatures over the `secp256k1` Elliptic Curve (EC). The use of public-key cryptography based on elliptic curves allows the system to efficiently secure user's data via asymmetric encryption and provides pseudonymity to the user's identity via the public key. The private key gives the owner control over transfer and ownership of the Autonity system's native protocol coins (_Auton_, _Newton_, _Liquid Newton_) to another account. In the wider Ethereum ecosystem this private key may be referred to as a user's 'Ethereum private key'. The private key is used to sign all [transactions and calls](/concepts/system-model/#transactions-and-calls) submitted to an Autonity system by users from the external environment via an EOA.
+As an Ethereum-based blockchain system, Autonity account addresses are in Ethereum format - a 42 character hexadecimal string derived from the last 20 bytes of the account's public key and prepended by `0x`. Keccak-256 and the Elliptic Curve Digital Signature Algorithm (ECDSA) are used for generating (and verifying) cryptographic signatures over the `secp256k1` Elliptic Curve (EC). The use of public-key cryptography based on elliptic curves allows the system to efficiently secure user's data via asymmetric encryption and provides pseudonymity to the user's identity via the public key. The private key gives the owner control over transfer and ownership of the Autonity system's native protocol coins (_Auton_, _Newton_, _Liquid Newton_) to another account. In the wider Ethereum ecosystem this private key may be referred to as a user's 'Ethereum private key'. The private key is used to sign all [transactions and calls](/concepts/system-model/#transactions-and-calls) submitted to an Autonity system by users from the external environment via an EOA.
 
 The key elements of an Ethereum account are:
 
@@ -319,7 +319,7 @@ EOA's: represent accounts belonging to external users with a private key, are fu
 
 Contract Account's: deployed smart contracts are also account objects. However, while these accounts have a balance, they are initialised with code and do not have an associated private key. As opposed to EOA's, interactions with a contract account are governed by its EVM code. Such code is either triggered by transactions from EOA's or message calls from other contract accounts. A contract account can call other contracts by [message calls](/concepts/system-model/#message-call), but such message calls are not signed by a private key.
 
-Contract accounts native to an Autonity system are described in [Autonity Protocol Contract](/concepts/#autonity-protocol-contract).
+Contract accounts native to an Autonity system are described in [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract) and [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
 
   
 #### References
@@ -327,5 +327,5 @@ Contract accounts native to an Autonity system are described in [Autonity Protoc
 - Ethereum uses the Keccak-256 cryptographic hash function developed by the [Keccak Team <i class='fas fa-external-link-alt'></i>](https://keccak.team/keccak.html) - see "[The Keccak SHA-3 Submission <i class='fas fa-external-link-alt'></i>](https://keccak.team/files/Keccak-submission-3.pdf)". This differs slightly to the NIST standardised Sha-3 hash function published as [FIPS 202 <i class='fas fa-external-link-alt'></i>](https://keccak.team/specifications.html#FIPS_202).
 - Elliptic Curve Digital Signature Algorithm (ECDSA) for generating (and verifying) cryptographic signatures over the `secp256k1` Elliptic Curve (EC). See [SEC 2: Recommended Elliptic Curve Domain Parameters <i class='fas fa-external-link-alt'></i>](http://www.secg.org/sec2-v2.pdf).
 - For more information on transaction signing with ECDSA, see the Ethereum Yellow Paper, [Appendix F. Signing Transactions <i class='fas fa-external-link-alt'></i>](https://ethereum.github.io/yellowpaper/paper.pdf).
-- For an overview of EOA vs. Contract account, see Clearmatics "Zeth Protocol Specification, [Section 1.2.1 <i class='fas fa-external-link-alt'></i>](https://raw.githubusercontent.com/clearmatics/zeth-specifications/master/zeth-protocol-specification.pdf).
+- For an overview of EOA vs. Contract account, see Clearmatics "Zeth Protocol Specification", [Section 1.2.1 <i class='fas fa-external-link-alt'></i>](https://raw.githubusercontent.com/clearmatics/zeth-specifications/master/zeth-protocol-specification.pdf).
 

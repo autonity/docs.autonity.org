@@ -8,10 +8,14 @@ description: >
 
 ## Overview
 
-
 This section describes the role of validators, prerequisites for becoming a validator, and the validator lifecycle (registration, pausing, reactivation).
 
-A validator is an Autonity full node with bonded stake that is eligible for selection to an Autonity Network's consensus committee. As a member of the consensus committee its primary function is to ensure the integrity of system state. To fulfil this it participates in consensus computation with other members of the consensus committee, validating proposed blocks in accordance with the rules of Autonity's implementation of the Tendermint consensus mechanism.
+A validator is an Autonity full node with bonded stake that is eligible for selection to an Autonity Network's consensus committee. As a member of the consensus committee its primary function is to ensure the integrity of system state. Validators participate in block proposal, voting, and verification, and the computation of median price data for selected currency pairs according to the Oracle protocol.
+
+To fulfil this purpose the validator participates in consensus computation with other members of the consensus committee:
+
+- Validating proposed blocks in accordance with the rules of Autonity's implementation of the Tendermint consensus mechanism.
+- Submitting price reports and voting on aggregated median price data in oracle protocol voting rounds.
 
 It has responsibilities to:
 
@@ -21,15 +25,18 @@ It has responsibilities to:
 - Maintain system state by committing new blocks to state as a consensus round completes.
 - Propagate new blocks to the network at the end of a consensus round, sending the full block if round leader otherwise sending a new block announcement.
 - Provide bonded stake to the Proof of Stake consensus mechanism, providing locked stake for network security economics.
-
+- Participate in the oracle protocol, inputting raw price data and voting for aggregated median price data for currency pairs provided by the Autonity network during oracle [voting rounds](/glossary/#voting-round). See concept [oracle network](/concepts/oracle-network/).
 
 As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour by [slashing](/concepts/staking/#slashing) mechanisms implemented in the consensus protocol. Consensus committee members are incentivised by [staking rewards](/concepts/staking/#staking-rewards), receiving a share of the transaction fee revenue earned for each block of transactions committed to system state, _pro rata_ to their share of bonded stake securing the system in that block. Byzantine behaviour is disincentivised by penalties for accountability and omission faults whilst a validator.
 
-### Validator prerequisites   
+### Validator prerequisites 
+
+To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
 
 Prerequisites for becoming a validator node operator are:
 
 - A [validator enode URL](/concepts/validator/#validator-enode-url). A node joined to the network.
+- An [oracle server](/concepts/oracle-server/) configured to collect external price data from off-chain data providers, and connected to the operator's validator node for on-chain submission of price reports.
 - A [treasury account](/concepts/validator/#treasury-account). An EOA account that is the validator node operator's online identity and which:
   - Is the `msg.sender()` account used by the operator to submit state affecting transactions that govern the [validator lifecycle](/concepts/validator/#validator-lifecycle).
   - Will receive the validator's share of [staking rewards](/concepts/staking/#staking-rewards).
@@ -51,7 +58,7 @@ The public key is used:
 - As the identifier or 'node ID' of the node (in RLPx and node discovery protocols).
 - As the PUBKEY component of the enode URL as a hex string.
 - To verify the signature of consensus level network messages.
-- To derive an ethereum account that is then used to identify the validator node. See [validator identifier](#validator-identifier).
+- To derive an ethereum format account that is then used to identify the validator node. See [validator identifier](#validator-identifier).
 
 {{< alert title="Note" >}}The private key can be used by Autonity’s `bootnode` utility to derive the hex string used in the `enode` URL. (See Networking Options  `nodekey` and `nodekeyhex` in [Autonity command-line options](/reference/cli/#usage) and, for reference,  the ethereum stack exchange article [how to produce enode from node key <i class='fas fa-external-link-alt'></i>](https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key).){{< /alert >}}
 
@@ -69,13 +76,13 @@ enode://PUBKEY@IP:PORT
 
 The PUBKEY component is the public key from the P2P node key. The PUBKEY is static. The IP and PORT COMPONENTS may change over time.
 
-The PUBKEY component is used to derive an ethereum account address that is used as the validator identity in validator registration, staking, and accountability and omissions operations - see validator identifier.
+The PUBKEY component is used to derive an ethereum format account address that is used as the validator identity in validator registration, staking, and accountability and omissions operations - see validator identifier.
 
 ### Validator identifier
 
 A unique identifier for the validator used as the validator identity in validator lifecycle management (registration, pausing, reactivation), staking, and accountability and omissions operations. It provides an unambiguous relationship between validator identity and node. For example, it is used to identify the validator in a bond stake function call.
 
-The identity is created as an ethereum account address, derived on registration by protocol logic from the PUBKEY component of the validator node's enode URL. It is stored in the `_addr` field in the Validator data struct maintained in state.
+The identity is created as an ethereum format account address, derived on registration by protocol logic from the PUBKEY component of the validator node's enode URL. It is stored in the `nodeAddress` field in the Validator data struct maintained in state.
 
 Note that the identifier is the validator _node's_ on-chain identity and is distinct from the treasury account which is the validator _operator's_ account. 
 
@@ -85,6 +92,11 @@ Note that the identifier is the validator _node's_ on-chain identity and is dist
 
 The `treasury` account is the Autonity Network account used by a validator to submit transactions for validator lifecycle management transactions and to receive its share of staking rewards. It uses a different private/public key pair with respect to the p2p node key. This is because those keys may have different security requirements, as well as because multiple validators could use the same treasury account.
 
+### Oracle identifier
+
+A unique identifier for the Autonity Oracle Server providing price data reports to the validator node.
+
+The identity is created as an ethereum format account address and provided as a validator registration parameter. For more information see concept [oracle network](/concepts/oracle-network/) and [oracle identifier](/concepts/oracle-network/#oracle-identifier). 
 
 ## Validator lifecycle
 
@@ -93,11 +105,12 @@ Validator lifecycle management comprises registration, pausing, and reactivation
 The sequence of lifecycle events for a validator is:
 
 1. Join the network. The validator's main client software is admitted to the P2P network as a peer node, syncing state on connection.
-2. Register as a validator. The validator's node is registered as a validator by the submission of registration parameters.
-3. Stake bonding. Stake is bonded to the validator, either by the validator itself or by delegation from a stake token holder. Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the committee selection process.
-4. Selection to consensus committee. In the last block of an epoch, the committee selection process is run and a validator may be selected to the consensus committee for the next epoch.
-5. Pause as a validator. The validator's node enters a `paused` state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until reactivated. Stake is _not_ automatically unbonded.
-6. Reactivate as a validator. The validator's node transitions from a `paused` state to resume an `active` state in which it is eligible for inclusion in the committee selection process.
+2. Configure oracle server and data sources. Pre-validator registration, the validator installs the oracle server software and configures data sources for price data provision. 
+3. Register as a validator. The validator's node is registered as a validator by the submission of registration parameters.
+4. Stake bonding. Stake is bonded to the validator, either by the validator itself or by delegation from a stake token holder. Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the committee selection process.
+5. Selection to consensus committee. In the last block of an epoch, the committee selection process is run and a validator may be selected to the consensus committee for the next epoch. Whilst a member of the consensus committee it is responsible for participating in (a) block validation, proposing and voting on new blocks, and (b) oracle price data submission and voting.
+6. Pause as a validator. The validator's node enters a `paused` state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until reactivated. Stake is _not_ automatically unbonded.
+7. Reactivate as a validator. The validator's node transitions from a `paused` state to resume an `active` state in which it is eligible for inclusion in the committee selection process.
 
 Validator registration can take place at genesis initialisation or after genesis. In the genesis scenario, event steps 1-4 happen automatically as the network is initialised and the validator is included in the genesis run of the committee selection process. After genesis, all lifecycle steps are discrete and initiated by the validator node operator entity. 
 
@@ -155,6 +168,7 @@ Staking rewards may be reduced by any slashing penalties applied to the validato
 A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:
 
 -  The validator has a node address (an enode URL).
+-  The validator has a connected [oracle server](/concepts/oracle-server/).
 -  The validator has a funded account on the network.
 
 A validator's registration is recorded and maintained as a state variable in a `Validator` data structure. (See [`registerValidator()`](/reference/api/aut/#registervalidator)).
@@ -165,6 +179,7 @@ At genesis the process is:
 - Registration parameters for the genesis validator set are listed in the network's genesis configuration file (See`validators` struct):
    - `treasury` - the account address that will receive staking rewards the validator earns.
    - `enode` - the enode URL of the validator node.
+   - `oracleAddress` - the identifier address of the validator node's connected oracle server.
    - `bondedStake` - the amount of stake the validator is bonding at genesis.
    - `delegationRate` - the amount of commission that the validator will charge on staking rewards earned from delegated stake. This is a global value set for all validators, specified by the `delegationRate` parameter in the genesis configuration file.
 
@@ -173,7 +188,8 @@ At genesis the process is:
    ```
    {
     "treasury": "0xd0A5fB6A3CBD7cB0328ae298598527E62bE90A0F",
-    "enode": "enode://  bdbae1dede11147d0f1de2b6339a25fae9d46edfbeb48b3441d8dfff5d396bcb0b99f2ade05bf37239451f9a  dc60015f7a7b744321ea9a845b7c3a1f1ebd73e3@127.0.0.1:5003",
+    "enode": "enode://bdbae1dede11147d0f1de2b6339a25fae9d46edfbeb48b3441d8dfff5d396bcb0b99f2ade05bf37239451f9a  dc60015f7a7b744321ea9a845b7c3a1f1ebd73e3@127.0.0.1:5003",
+    "oracleAddress":"0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03",
    "bondedStake": 10000
    },
    ```
@@ -187,16 +203,15 @@ The validator is registered and eligible for selection to the genesis consensus 
 
 Note that genesis registration requires the validator [self-bond](/glossary/#self-bonded) stake. The chain will not deploy if `bondedStake` for a genesis validator is null. This constraint guarantees genesis validators have stake and are eligible for selection to the consensus committee. This mitigates the risk of having no consensus committee for the genesis block and so a chain halt at initialisation!
 
-
 ### Post-genesis registration
 
 After genesis the process is:
 
-- Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the `registerValidator()` function to submit the Validator registration parameters  `enode` url and a `proof` of enode ownership generated from the private key of the validator node's [P2P node key](/concepts/validator/#p2p-node-key). The transaction `msgSender()` address is used for the validator's `treasury` parameter value. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
+- Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the `registerValidator()` function to submit the Validator registration parameters `enode` URL, `oracleAddress` [oracle identifier](/concepts/validator/#oracle-identifier), and a `proof` of node ownership generated from the private key of the validator node’s [P2P node key](/concepts/validator/#p2p-node-key) and the validator’s [oracle server key](/concepts/oracle-network/#oracle-server-key). The transaction `msgSender()` address is used for the validator's `treasury` parameter value. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
 - A `RegisteredValidator` event is emitted by the Autonity Protocol Contract.
 - To bond stake to the validator, the staker submits a bonding request transaction to the Autonity Protocol Public APIs, calling the `bond()` function with its validator address (`enode`) and the bonded stake amount. This is recorded in a `Staking` state variable data structure ready to be applied at epoch end
 
-The validator is registered and eligible for selection to the genesis consensus committee.
+The validator is registered and eligible for selection to the consensus committee.
 
 {{% alert title="Note" %}}Note that registration after genesis allows a validator to register with zero bonded stake. The validator bonds stake after registration to become eligible for committee selection.{{% /alert %}}
 
@@ -230,7 +245,7 @@ The validator is paused and ignored by the committee selection algorithm. Stake 
 
 ## Validator re-activation
 
-A validator can re-activate and resume active committee participation by submitting an activate request to the Autonity Network. Once the activate request has been submitted the validator's state changes from `paused` to `active`. In this state:
+A validator can re-activate and resume active committee participation by submitting an activate request to the Autonity network. Once the activate request has been submitted the validator's state changes from `paused` to `active`. In this state:
 
 - It is again included by the committee selection algorithm run at the epoch end.
 - New stake delegations are accepted.
