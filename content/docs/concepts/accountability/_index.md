@@ -262,14 +262,13 @@ In the table:
 | `PO` | Proposer has proposed a block proposal that has already been proposed without attaching as justification the `2f + 1` prevotes from the same round for the value. |
 | `PVN` | Committee member has sent two distinct prevotes during the same round. |
 | `PVO` | Committee member has prevoted for a block proposal in more than one consensus round. |
-| `PVO1` | Committee member has prevoted for a block proposal having already precommitted for that block proposal in an earlier round. |
-| `PVO2` | Committee member has prevoted for a block proposalblock proposal having already precommitted for a different block proposal in an earlier round.  |
+| `PVO12` | Committee member has prevoted for a block proposal having already precommitted for that block proposal or a different block proposal in an earlier round.  |
 | `PVO3` | Committee member has prevoted for an invalid old block proposal (i.e. sent an invalid message) |
-| `C`  | TBC - IS THIS: Committee member has precommitted for an invalid old block proposal  (i.e. sent an invalid message) |
-| `C1` | TBC - IS THIS: Committee member has precommitted for a block proposal having already precommitted for that block proposal in an earlier round. |
+| `C`  | Committee member has precommitted for an invalid block proposal  (i.e. sent an invalid message) |
+| `C1` | Committee member has precommitted for a block proposal having already precommitted for that block proposal in an earlier round. |
 | `InvalidProposal` | Proposer has proposed a block proposal that fails blockchain validation |
-| `InvalidProposer` | Invalid block proposal block proposal. Proposer of a block proposal is not the committee's elected Proposer. |
-| `Equivocation` | Multiple different messages have been broadcast by Proposer and committee member validators. Proposer has broadcast conflicting block proposals to different committee members. Committee member has broadcast different messages during *prevote* or *precommit*. |
+| `InvalidProposer` | Proposer of a block proposal is not the committee's elected Proposer. |
+| `Equivocation` | Validator has sent conflicting messages during a consensus round: a committee member has sent conflicting votes  (prevote, precommit), a  proposer has broadcast conflicting block proposals to different committee members. |
 | `InvalidRoundStep` | Consensus round message contains invalid round number or step |
 | `AccountableGarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded |
 | `MsgNotFromCommitteeMember` | Consensus round message sender is not a member of the current consensus committee |
