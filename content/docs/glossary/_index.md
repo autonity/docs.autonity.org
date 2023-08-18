@@ -31,6 +31,21 @@ The smallest denomination of Autonity's [auton](/glossary/#auton) native [crypto
 ## Auton
 A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/concepts/protocol-assets/auton/).
 
+## Auton Currency Unit (ACU) {#acu}
+A base-invariant, volatility-minimised index based on a currency basket of 7 free-floating fiat currencies.
+
+The ACU is the _Stabilisation Target_ for [Auton](/glossary/#auton) price stability used by the [Auton Stabilisation Mechanism (ASM)](/glossary/#asm). 
+
+
+## Auton Stabilisation Mechanism (ASM) {#asm}
+The protocol mechanism used to maintain Auton price stability. The _Stabilisation Mechanism_ is [CDP](/glossary/#cdp), [Auton](/glossary/#auton) borrowed against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
+
+
+## Collateralised Debt Position (CDP) {#cdp}
+A [smart contract](/glossary/#smart-contract) based lending mechanism where collateral is deposited and locked in a smart contract to borrow another token-based asset. CDP's operate subject to collateral requirements and may be liquidated if the lender fails to maintain, i.e. breaches, the collateral conditions of the CDP.
+
+CDP's are used by the [Auton Stabilisation Mechanism (ASM)](/glossary/#asm) to borrow [Auton](/glossary/#auton) against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
+
 ## Autonity Go Client (AGC)
 Autonity Go Client is main client software for accessing and participating in an Autonity network. AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
 

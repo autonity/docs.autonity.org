@@ -58,6 +58,10 @@ Genesis configuration file JSON objects:
 - [config.autonity](#configautonity-object)
 - [config.autonity.validators object](#configautonityvalidators-object)
 - [config.autonity.oracle object](#configautonityoracle-object)
+- [config.asm](#configasm-object)
+- [config.asm.acu](#configasmacu-object)
+- [config.asm.stabilization](#configasmstabilization-object)
+- [config.asm.supplyControl](#configasmsupplycontrol-object)
 - [alloc object](#alloc-object)
 - [alloc.account object](#allocaccount-object)
 
@@ -67,6 +71,7 @@ Genesis configuration file JSON objects:
 |---------|-----------|-----|
 | `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
+| `asm` | Auton Stability Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
 
 
 #### config.autonity object
@@ -106,6 +111,50 @@ Genesis configuration file JSON objects:
 | `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. For example, `"AUD/USD","JPY/USD","GBP/USD",..` |
 | `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. For example, set to `30` for initiating a new oracle voting round at 30-block intervals |
+
+#### config.asm object
+
+Configuration of the Auton Stabilisation Mechanism (ASM).
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `acu` | Object structure for the ASM Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
+| `stabilization` | Object structure for the ASM stabilisation configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
+| `supplyControl` | Object structure for the ASM Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
+
+
+##### config.asm.acu object
+
+Configuration of the Auton Currency Unit (ACU).
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `symbols` |  | Value is specific to network configuration. |
+| `quantities` |  | Value is specific to network configuration. |
+| `scale` |  | Value is specific to network configuration. |
+
+
+##### config.asm.stabilization object
+
+TO DO
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Value is specific to network configuration. |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Value is specific to network configuration. |
+| `minCollateralizationRatio` | The minimum amount of debt required to maintain a CDP. | Value is specific to network configuration. |
+| `minDebtRequirement` |  | Value is specific to network configuration. |
+| `redemptionPrice` |  | Value is specific to network configuration. |
+
+
+##### config.asm.supplyControl object
+
+TO DO
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `initialAllocation` |  | Value is specific to network configuration. |
+
 
 #### alloc object
 
@@ -179,6 +228,23 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "bondedStake": 10000000000000000000000
         }
       ]
+    },
+    "asm": {
+      "acu" : {
+        "symbols" : ["NTN/USD", "BTC/SHIB"],
+        "quantities" : [5,7],
+        "scale" : 7
+      },
+      "stabilization":{
+        "borrowInterestRate" : 700000,
+        "liquidationRatio": 700000,
+        "minCollateralizationRatio":700000,
+        "minDebtRequirement"  : 700000,
+        "redemptionPrice" : 700000
+      },
+      "supplyControl" : {
+        "initialAllocation": 1000
+      }
     },
     "oracle": {
       "symbols":[
