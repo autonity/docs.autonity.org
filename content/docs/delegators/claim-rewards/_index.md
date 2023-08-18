@@ -20,7 +20,7 @@ To claim staking rewards you need:
 1. To return the current balance of your claimable rewards for a validator, use the `unclaimed-rewards` command to submit a call to query for claimable rewards. Specify:
 	- `<VALIDATOR_IDENTIFIER_ADDRESS>`: the validator identifier address of the validator you are querying for your claimable rewards balance.
 
-	It will return the amount of staking rewards you have available to claim, denominated in [attoton](/glossary/#attoton):
+	It will return the amount of staking rewards you have available to claim, denominated in [ton](/glossary/#ton):
 
 	```bash
     aut validator unclaimed-rewards --validator <VALIDATOR_IDENTIFIER_ADDRESS>

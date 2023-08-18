@@ -529,7 +529,7 @@ Returns a `Config` object consisting of:
 | `accountabilityContract` | `address` | the address of the Autonity Accountability Contract |
 | `oracleContract` | `address` | the address of the Autonity Oracle Contract |
 | `treasuryFee` | `uint256` | the percentage of staking rewards deducted from staking rewards and sent to the Autonity Treasury account for community funding before staking rewards are distributed |
-| `minBaseFee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [attoton](/glossary/#attoton) |
+| `minBaseFee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
 | `delegationRate` | `uint256` | the percentage of staking rewards deducted by validators as a commission from delegated stake |
 | `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
 | `unbondingPeriod` | `uint256` | the period of time for which bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction, defined as a number of blocks |
@@ -1220,7 +1220,7 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `minBaseFee` | `uint256` | the minimum price per unit of gas, denominated in [attoton](/glossary/#attoton) |
+| `minBaseFee` | `uint256` | the minimum price per unit of gas, denominated in [ton](/glossary/#ton) |
 
 ### Usage
 

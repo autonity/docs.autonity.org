@@ -329,13 +329,13 @@ Enter passphrase (or CTRL-d to exit):
 -->
 ###  setMinimumBaseFee
 
-Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in `attoton`. 
+Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in [`ton`](/glossary/#ton). 
 
 #### Parameters
    
 | Field | Datatype | Description |
 | --| --| --| 
-| `_price` | `uint256` | a positive integer value for the minimum gas price, denominated in `attoton` |
+| `_price` | `uint256` | a positive integer value for the minimum gas price, denominated in [`ton`](/glossary/#ton) |
 
 #### Response
 

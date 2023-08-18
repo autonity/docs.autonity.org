@@ -25,9 +25,6 @@ A part of [system state](/glossary/#system-state) that is specific to an [accoun
 ## address{#address}
 A 64 character hex string providing the unique identifier of an [account](/glossary/#account).
 
-## attoton
-The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 attoton (10^18). Attoton is effectively Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [nanoton](/glossary/#nanoton).
-
 ## Auton
 A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/concepts/protocol-assets/auton/).
 
@@ -164,6 +161,9 @@ The genesis state is provided in the [genesis state file](/glossary/#genesis-sta
 ## genesis state file
 The JSON-formatted genesis configuration file that contains the data necessary to generate the genesis block of an Autonity network. Typically called `genesis.json` but can be given any custom name.
 
+## gigaton
+The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to denominate Autonity gas prices. 1 `gigaton` = 1,000,000,000 [ton](/glossary/#ton). The Autonity equivalent of wei is [ton](/glossary/#ton) and of gwei gigaton.
+
 ## incentivisation scheme
 A cryptoeconomic mechanism where economic penalties are applied for incorrect actions or state transitions by network participants, enforced by cryptographic proofs of state or action.
 
@@ -186,9 +186,6 @@ A staking model in which funds staked to a Proof of Stake network have a liquid 
 A network topology where each node is connected to one or more other network nodes. All nodes in the  mesh relay data and co-operate in the distribution of data across the network. A mesh topology can be _full_ or _partial_.
 
 In a _full mesh topology_ each node is directly connected to every other node. In a _partial mesh topology_ a node is directly connected to a subset of the other network nodes only.
-
-## nanoton
-The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to denominate Autonity gas prices. 1 `nanoton` = 1,000,000,000 [attoton](/glossary/#attoton). The Autonity equivalent of wei is [attoton](/glossary/#attoton) and of gwei nanoton.
 
 ## native coin
 A cryptocurrency that is inherent to a decentralised computer network.
@@ -275,6 +272,10 @@ The local data store of a node used to persist the node’s local copy of [syste
 ## system state
 The computational state of an Autonity system. State is  computed according to the [Autonity Protocol](/glossary/#autonity-protocol). System state is stored as key-value pairs, mapping between account [addresses](/glossary/#address) and [account states](/glossary#account-state) in Ethereum's modified Merkle Patricia trie data structure (See [Merkle Patricia Tree, Ethereum Developer docs <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/)).
 
+## ton
+The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 ton (10^18). The ton is Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [gigaton](/glossary/#gigaton).
+
+
 ## transaction fee mechanism (TFM)
 The protocol mechanism for pricing the cost of processing a transaction on a blockchain.
 
@@ -313,4 +314,4 @@ An Autonity network's configured [voting period](/glossary/#voting-period) for c
 A software application that provides functionality for a system user to access and manage their [accounts](/glossary/#account).
 
 ## wei
-The smallest denomination of Ethereum's `ether` native cryptocurrency. 1 `ether` = 1,000,000,000,000,000,000 wei (10^18). In Ethereum gas prices are denominated in gwei - giga wei (10^9), 1 gwei = 1,000,000,000 wei. The Autonity equivalent of wei is [attoton](/glossary/#attoton) and of gwei [nanoton](/glossary/#nanoton).
+The smallest denomination of Ethereum's `ether` native cryptocurrency. 1 `ether` = 1,000,000,000,000,000,000 wei (10^18). In Ethereum gas prices are denominated in gwei - giga wei (10^9), 1 gwei = 1,000,000,000 wei. The Autonity equivalent of wei is [ton](/glossary/#ton) and of gwei [gigaton](/glossary/#gigaton).
