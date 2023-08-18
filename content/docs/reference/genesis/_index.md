@@ -150,7 +150,6 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 |---------|-----------|-----|
 | `initialAllocation` | The initial allocation of Auton to the ASM. | Value is specific to network configuration. |
 
-
 #### config.accountability object
 
 Object structure for the Accountability and Fault Detection (AFD) protocol configuration at genesis.
@@ -175,51 +174,6 @@ Object structure for the oracle network at genesis.
 | `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs retrieved by the oracle for (a) FX price data, and (b) ATN and NTN price data. Set to `["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","SEK/USD","ATN/USD","NTN/USD"]` |
 | `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. Set to `30` for initiating a new oracle voting round at 30-block intervals |
-
-
-#### config.asm object
-
-Configuration of the Auton Stabilisation Mechanism (ASM).
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `acu` | Object structure for the ASM Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
-| `stabilization` | Object structure for the ASM stabilisation configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
-| `supplyControl` | Object structure for the ASM Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
-
-
-##### config.asm.acu object
-
-Configuration of the Auton Currency Unit (ACU).
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `symbols` |  | Value is specific to network configuration. |
-| `quantities` |  | Value is specific to network configuration. |
-| `scale` |  | Value is specific to network configuration. |
-
-
-##### config.asm.stabilization object
-
-TO DO
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Value is specific to network configuration. |
-| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Value is specific to network configuration. |
-| `minCollateralizationRatio` | The minimum amount of debt required to maintain a CDP. | Value is specific to network configuration. |
-| `minDebtRequirement` |  | Value is specific to network configuration. |
-| `redemptionPrice` |  | Value is specific to network configuration. |
-
-
-##### config.asm.supplyControl object
-
-TO DO
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `initialAllocation` |  | Value is specific to network configuration. |
-
 
 #### alloc object
 
