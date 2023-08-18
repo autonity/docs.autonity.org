@@ -70,6 +70,20 @@ Genesis configuration file JSON objects:
 | `mixHash` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. Used for: (a) compatibility with 3rd party Ethereum tools that expect the field, (b) an internal code check by the Autonity Protocol before a block is accepted during consensus; blocks without this hash are rejected. | A 256-bit hash as a Hex encoded string, set to: `0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365` |
 | `alloc` | An array of accounts to be assigned `Auton` on chain initialisation. Contract accounts for deployment at genesis can also be specified. | See [`alloc` object](#alloc-object) definition |
 
+### JSON data structures
+Genesis configuration file JSON objects:
+
+- [config](#config-object)
+- [config.autonity](#configautonity-object)
+- [config.autonity.validators object](#configautonityvalidators-object)
+- [config.autonity.oracle object](#configautonityoracle-object)
+- [config.asm](#configasm-object)
+- [config.asm.acu](#configasmacu-object)
+- [config.asm.stabilization](#configasmstabilization-object)
+- [config.asm.supplyControl](#configasmsupplycontrol-object)
+- [alloc object](#alloc-object)
+- [alloc.account object](#allocaccount-object)
+
 #### config object
 
 |Parameter|Description|Value|
@@ -173,6 +187,50 @@ Object structure for the oracle network at genesis.
 | `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs retrieved by the oracle for (a) FX price data, and (b) ATN and NTN price data. Set to `["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","SEK/USD","ATN/USD","NTN/USD"]` |
 | `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. Set to `30` for initiating a new oracle voting round at 30-block intervals |
+
+
+#### config.asm object
+
+Configuration of the Auton Stabilisation Mechanism (ASM).
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `acu` | Object structure for the ASM Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
+| `stabilization` | Object structure for the ASM stabilisation configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
+| `supplyControl` | Object structure for the ASM Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
+
+
+##### config.asm.acu object
+
+Configuration of the Auton Currency Unit (ACU).
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `symbols` |  | Value is specific to network configuration. |
+| `quantities` |  | Value is specific to network configuration. |
+| `scale` |  | Value is specific to network configuration. |
+
+
+##### config.asm.stabilization object
+
+TO DO
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Value is specific to network configuration. |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Value is specific to network configuration. |
+| `minCollateralizationRatio` | The minimum amount of debt required to maintain a CDP. | Value is specific to network configuration. |
+| `minDebtRequirement` |  | Value is specific to network configuration. |
+| `redemptionPrice` |  | Value is specific to network configuration. |
+
+
+##### config.asm.supplyControl object
+
+TO DO
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `initialAllocation` |  | Value is specific to network configuration. |
 
 
 #### alloc object
