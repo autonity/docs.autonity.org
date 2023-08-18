@@ -70,6 +70,7 @@ Genesis configuration file JSON objects:
 | `mixHash` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. Used for: (a) compatibility with 3rd party Ethereum tools that expect the field, (b) an internal code check by the Autonity Protocol before a block is accepted during consensus; blocks without this hash are rejected. | A 256-bit hash as a Hex encoded string, set to: `0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365` |
 | `alloc` | An array of accounts to be assigned `Auton` on chain initialisation. Contract accounts for deployment at genesis can also be specified. | See [`alloc` object](#alloc-object) definition |
 
+
 #### config object
 
 |Parameter|Description|Value|
@@ -77,8 +78,8 @@ Genesis configuration file JSON objects:
 | `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
 | `accountability` | Autonity Accountability and Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
-| `asm` | Auton Stability Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
-| `oracle` | Auton Stability Mechanism configuration parameters | See [`config.oracle` object](#configoracle-object) |
+| `asm` | Auton Stabilization Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
+| `oracle` | Oracle protocol configuration parameters | See [`config.oracle` object](#configoracle-object) |
 
 
 #### config.autonity object
@@ -176,6 +177,50 @@ Object structure for the oracle network at genesis.
 | `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. Set to `30` for initiating a new oracle voting round at 30-block intervals |
 
 
+#### config.asm object
+
+Configuration of the Auton Stabilisation Mechanism (ASM).
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `acu` | Object structure for the ASM Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
+| `stabilization` | Object structure for the ASM stabilisation configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
+| `supplyControl` | Object structure for the ASM Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
+
+
+##### config.asm.acu object
+
+Configuration of the Auton Currency Unit (ACU).
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `symbols` |  | Value is specific to network configuration. |
+| `quantities` |  | Value is specific to network configuration. |
+| `scale` |  | Value is specific to network configuration. |
+
+
+##### config.asm.stabilization object
+
+TO DO
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Value is specific to network configuration. |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Value is specific to network configuration. |
+| `minCollateralizationRatio` | The minimum amount of debt required to maintain a CDP. | Value is specific to network configuration. |
+| `minDebtRequirement` |  | Value is specific to network configuration. |
+| `redemptionPrice` |  | Value is specific to network configuration. |
+
+
+##### config.asm.supplyControl object
+
+TO DO
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `initialAllocation` |  | Value is specific to network configuration. |
+
+
 #### alloc object
 
 The `alloc` object is used to issue native coin and allows pre-deployment of smart contract accounts at network genesis.
@@ -251,7 +296,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     },
     "asm": {
       "acu" : {
-        "symbols" : ["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","USD/USD","SEK/USD"],
+        "symbols" : ["AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","USD-USD","SEK-USD"],
         "quantities" : [21_300, 18_700, 14_300, 10_400, 1_760_000, 18_000, 141_000],
         "scale" : 5
       },
@@ -276,15 +321,14 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
          "slashingRatePrecision": 10000
        },
      "oracle": {
-      "symbols":[
-            "AUD/USD",
-            "CAD/USD",
-            "EUR/USD",
-            "GBP/USD",
-            "JPY/USD",
-            "SEK/USD",
-            "ATN/USD",
-            "NTN/USD",
+            "AUD-USD",
+            "CAD-USD",
+            "EUR-USD",
+            "GBP-USD",
+            "JPY-USD",
+            "SEK-USD",
+            "ATN-USD",
+            "NTN-USD",
          ],
       "votePeriod": 30
     }
