@@ -52,16 +52,17 @@ For launching a local Autonity network, genesis configuration and bootnodes need
 | `alloc` | An array of accounts to be assigned `Auton` on chain initialisation. Contract accounts for deployment at genesis can also be specified. | See [`alloc` object](#alloc-object) definition |
 
 ### JSON data structures
+
 Genesis configuration file JSON objects:
 
 - [config](#config-object)
 - [config.autonity](#configautonity-object)
 - [config.autonity.validators object](#configautonityvalidators-object)
-- [config.autonity.oracle object](#configautonityoracle-object)
 - [config.asm](#configasm-object)
 - [config.asm.acu](#configasmacu-object)
 - [config.asm.stabilization](#configasmstabilization-object)
 - [config.asm.supplyControl](#configasmsupplycontrol-object)
+- [config.oracle object](#configoracle-object)
 - [alloc object](#alloc-object)
 - [alloc.account object](#allocaccount-object)
 
@@ -92,7 +93,6 @@ Genesis configuration file JSON objects:
 | `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `21` could be appropriate |
 | `operator` | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) | EOA account address |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
-| `oracle` | Object structure for a validator's oracle server at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
 ##### config.autonity.validators object
 
@@ -103,14 +103,6 @@ Genesis configuration file JSON objects:
 | `oracleAddress` | The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address. | The Oracle Server's account address |
 | `bondedStake` | The amount of stake bonded to the validator node at genesis. Denominated in Newton. Positive integer for stake amount | Value is specific to validator's stake at genesis |
 
-##### config.autonity.oracle object
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. For example, `"AUD/USD","JPY/USD","GBP/USD",..` |
-| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. For example, set to `30` for initiating a new oracle voting round at 30-block intervals |
 
 #### config.asm object
 
@@ -118,42 +110,51 @@ Configuration of the Auton Stabilisation Mechanism (ASM).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `acu` | Object structure for the ASM Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
-| `stabilization` | Object structure for the ASM stabilisation configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
-| `supplyControl` | Object structure for the ASM Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
-
+| `acu` | Object structure for the ASM's Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
+| `stabilization` | Object structure for the ASM's stabilisation mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
+| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
 
 ##### config.asm.acu object
 
-Configuration of the Auton Currency Unit (ACU).
+Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 free-floating fiat currencies.
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `symbols` |  | Value is specific to network configuration. |
-| `quantities` |  | Value is specific to network configuration. |
-| `scale` |  | Value is specific to network configuration. |
-
+| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set to `["AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "USD/USD", "SEK/USD"]` |
+| `quantities` | The basket quantity corresponding to each symbol. | Set to `[21_300,18_700,14_300,10_400,1_760_000,18_000,141_000]` |
+| `scale` | The scale used to represent the basket `quantities` and ACU value. | Set to `5` |
 
 ##### config.asm.stabilization object
 
-TO DO
+Configuration of the stabilisation mechanism's Collateralised Debt Position (CDP).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Value is specific to network configuration. |
-| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Value is specific to network configuration. |
-| `minCollateralizationRatio` | The minimum amount of debt required to maintain a CDP. | Value is specific to network configuration. |
-| `minDebtRequirement` |  | Value is specific to network configuration. |
-| `redemptionPrice` |  | Value is specific to network configuration. |
-
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set to 5%, `50_000_000_000_000_000` |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. Set to 1.8, | `1_800_000_000_000_000_000` |
+| `minCollateralizationRatio` | The minimum amount of debt required to maintain a CDP. | Set to 2, `2_000_000_000_000_000_000` |
+| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set to a `megaton`, `1_000_000 ` |
+| `redemptionPrice` | The ACU value of 1 unit of debt. | Set to 1, `1_000_000_000_000_000_000` |
 
 ##### config.asm.supplyControl object
 
-TO DO
+Configuration of the stabilisation mechanism's Collateralised Debt Position (CDP).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `initialAllocation` |  | Value is specific to network configuration. |
+| `initialAllocation` | The initial allocation of Auton to the ASM. | Value is specific to network configuration. |
+
+
+#### config.oracle object
+
+Object structure for the oracle network at genesis.
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
+| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
+| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs retrieved by the oracle for (a) FX price data, and (b) ATN and NTN price data. Set to `["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","SEK/USD","ATN/USD","NTN/USD"]` |
+| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. Set to `30` for initiating a new oracle voting round at 30-block intervals. |
 
 
 #### alloc object
@@ -231,16 +232,16 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     },
     "asm": {
       "acu" : {
-        "symbols" : ["NTN/USD", "BTC/SHIB"],
-        "quantities" : [5,7],
-        "scale" : 7
+        "symbols" : ["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","USD/USD","SEK/USD"],
+        "quantities" : [21_300, 18_700, 14_300, 10_400, 1_760_000, 18_000, 141_000],
+        "scale" : 5
       },
       "stabilization":{
-        "borrowInterestRate" : 700000,
-        "liquidationRatio": 700000,
-        "minCollateralizationRatio":700000,
-        "minDebtRequirement"  : 700000,
-        "redemptionPrice" : 700000
+        "borrowInterestRate" : 50_000_000_000_000_000,
+        "liquidationRatio": 1_800_000_000_000_000_000,
+        "minCollateralizationRatio": 2_000_000_000_000_000_000,
+        "minDebtRequirement"  : 1_000_000,
+        "redemptionPrice" : 1_000_000_000_000_000_000
       },
       "supplyControl" : {
         "initialAllocation": 1000
