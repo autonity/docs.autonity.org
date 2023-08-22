@@ -1355,7 +1355,7 @@ autonity.getOperator().call()
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol get-operator -r https://rpc1.bakerloo.autonity.org/
+aut protocol get-operator -r https://rpc1.bakerloo.autonity.org/
 0x293039dDC627B1dF9562380c0E5377848F94325A
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1370,6 +1370,44 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 '0x2f3BcE2d6C2602de594d9a6662f0b93416cfB4d7'
 {{< /tab >}}
 -->
+
+## getOracle
+
+Returns the address of the Autonity Oracle Contract.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `address` | the oracle contract account address |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
 
 ##  getProposer
 

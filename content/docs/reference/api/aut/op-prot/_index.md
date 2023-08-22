@@ -54,7 +54,7 @@ autonity.burn(_addr, _amount).send()
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut protocol burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3e86062cca9fa263acb7076f8287117e9ee2c5570e0f4e4bd2ff4db21895796e
@@ -97,6 +97,25 @@ Enter passphrase (or CTRL-d to exit):
 }
 {{< /tab >}}
 -->
+
+###  burn (Supply Control Contract)
+
+Burns the specified amount of Auton, taking it out of circulation.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `amount ` | `uint256` | a non-zero integer value for the value amount being burned, denominated in Auton |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
+
 
 ###  mint
 
@@ -142,7 +161,7 @@ autonity.mint(_addr, _amount).send()
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut protocol mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xbd9e604372cc922c4594b0fce94919f933734e29b0043c5af3c4a7774ed99ad7
@@ -186,6 +205,55 @@ Enter passphrase (or CTRL-d to exit):
 }
 {{< /tab >}}
 -->
+
+###  mint (Supply Control Contract)
+
+Mints Auton and sends it to a recipient account, increasing the amount of auton in circulation. 
+
+The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
+
+
+###  modifyBasket (ACU Contract)
+
+Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbols_` | `string` | the symbols used to retrieve prices |
+| `quantities_` | `uint256` | the basket quantity corresponding to each symbol |
+| `scale_` | `uint256` | the scale for quantities and the ACU value |
+
+#### Response
+
+None.
+
+#### Event
+
+On success the function emits a `BasketModified` event for the new ACU basket parameterisation, logging: `symbols_`, `quantities_`, and `scale_`.
+
 
 ###  setCommitteeSize
 
@@ -368,7 +436,7 @@ autonity.setMinimumBaseFee(_price).send()
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol set-minimum-base-fee 50000000 | aut tx sign - | aut tx send -
+aut protocol set-minimum-base-fee 50000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x4d1abc6881f63d7856b3b2d6f0b9865a4a9c2b1378dd824e36e9ac194fd8da52
@@ -411,9 +479,10 @@ Enter passphrase (or CTRL-d to exit):
 }
 {{< /tab >}}
 -->
+
 ###  setOperatorAccount
 
-Sets a new governance account address as the value of the `operatorAccount` protocol parameter for the Autonity Protocol Contract and Autonity Oracle Contract.
+Sets a new governance account address as the protocol parameter for the [Autonity Protocol Contracts](/concepts/architecture/#protocol-contract-account-addresses).
 
 #### Parameters
    
@@ -688,7 +757,6 @@ See also the function [`getNewContract`](/reference/api/aut/#getnewcontract).
 #### Response
 
 The method returns a boolean flag `contractUpgradeReady`, set to `true` if an Autonity Protocol Contract upgrade is available.
-
 
 #### Event
 
@@ -1007,3 +1075,28 @@ On success the function emits events for handling of:
 - Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
+
+
+###  update (ACU Contract)
+
+The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+
+- it retrieves the latest prices from the Oracle Contract (i.e. the latest round data)
+- checks price data completeness:
+  - if latest prices have been returned for all symbols in the ACU currency basket, then:
+    - computes the ACU index value
+    - resets the `round` to the index number of the oracle voting round that computed the retrieved latest prices.
+    - returns status of `true` to the calling Autonity Protocol Contract
+  - else if one or more prices are unavailable from the Oracle, it will not compute the ACU value for that round, and returns status of `false` to the calling Autonity Protocol Contract.
+
+#### Parameters
+
+None.
+
+#### Response
+
+None.
+
+#### Event
+
+On success the function emits an `Updated` event for the new ACU value, logging: `block.number`, `block.timestamp`, oracle voting round number `round`, and the ACU index value calculated `_value`.
