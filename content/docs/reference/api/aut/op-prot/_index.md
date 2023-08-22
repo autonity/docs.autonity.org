@@ -53,6 +53,25 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
+###  burn (Supply Control Contract)
+
+Burns the specified amount of Auton, taking it out of circulation.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `amount ` | `uint256` | a non-zero integer value for the value amount being burned, denominated in Auton |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
+
+
 ###  mint
 
 Mints new stake token and adds it to the recipient's account balance. When `x` amount of newton is minted, then `x` is simply added to the account’s balance and to the total supply of newton in circulation.       
@@ -214,6 +233,55 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
+
+###  mint (Supply Control Contract)
+
+Mints Auton and sends it to a recipient account, increasing the amount of auton in circulation. 
+
+The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
+
+
+###  modifyBasket (ACU Contract)
+
+Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbols_` | `string` | the symbols used to retrieve prices |
+| `quantities_` | `uint256` | the basket quantity corresponding to each symbol |
+| `scale_` | `uint256` | the scale for quantities and the ACU value |
+
+#### Response
+
+None.
+
+#### Event
+
+On success the function emits a `BasketModified` event for the new ACU basket parameterisation, logging: `symbols_`, `quantities_`, and `scale_`.
 
 
 ###  setCommitteeSize
@@ -512,7 +580,6 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
 - [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
-
 
 #### Parameters
    
@@ -1196,7 +1263,7 @@ On a successful call the function emits a `Mint` event, logging: `recipient`, `a
 
 ###  update (ACU Contract)
 
-The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+The Auton Currency Unit (ACU) Contract finalization function, called once per Oracle voting round as part of the state finalization function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
 
 - it retrieves the latest prices from the Oracle Contract (i.e. the latest round data)
 - checks price data completeness:

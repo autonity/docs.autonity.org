@@ -1113,6 +1113,44 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
+## getOracle
+
+Returns the address of the Autonity Oracle Contract.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `address` | the oracle contract account address |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ##  getProposer
 
 Returns the address of the consensus committee member proposing a new block for a specified block height and consensus round.

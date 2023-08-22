@@ -17,6 +17,7 @@ Examples for calling functions from `aut` use the setup described in the How to 
 Usage and Examples illustrate using the Stabilization Contract's generated ABI and the `aut` tool's `contract` command to call the Stabilization Contract address `0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f`. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Stabilization.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Stabilization.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
+
 {{% /pageinfo %}}
 
 ## CDP Owner
@@ -182,7 +183,8 @@ Constraint checks are applied:
 - no debt position: there is a debt; the CDP `principal` is `> 0`.
 - invalid debt position: the debt after payment must satisfy the minimum debt requirement. The payment amount is `<` the `debt` and the `debt` after the payment amount satisfies the minimum debt requirement.
 
-The payment is allocated to first cover outstanding interest debt on the CDP, and then repay CDP principal debt. If there is a surplus after principal repayment, then the surplus is returned to the CDP Owner.
+The payment first covers the outstanding interest debt before the principal debt. If there is a surplus after repayment, then the surplus is returned to the CDP Owner.
+
 
 #### Parameters
 
