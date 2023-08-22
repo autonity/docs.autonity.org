@@ -190,7 +190,6 @@ The payment is allocated to first cover outstanding interest debt on the CDP, an
 | --| --| --|
 | `msg.value` | `uint256` | The payment amount |
 
-
 #### Response
 
 None.

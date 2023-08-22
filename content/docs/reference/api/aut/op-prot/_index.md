@@ -53,6 +53,25 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
+###  burn (Supply Control Contract)
+
+Burns the specified amount of Auton, taking it out of circulation.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `amount ` | `uint256` | a non-zero integer value for the value amount being burned, denominated in Auton |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
+
+
 ###  mint
 
 Mints new stake token and adds it to the recipient's account balance. When `x` amount of newton is minted, then `x` is simply added to the account’s balance and to the total supply of newton in circulation.       
@@ -185,6 +204,55 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
+
+###  mint (Supply Control Contract)
+
+Mints Auton and sends it to a recipient account, increasing the amount of auton in circulation. 
+
+The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
+
+
+###  modifyBasket (ACU Contract)
+
+Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbols_` | `string` | the symbols used to retrieve prices |
+| `quantities_` | `uint256` | the basket quantity corresponding to each symbol |
+| `scale_` | `uint256` | the scale for quantities and the ACU value |
+
+#### Response
+
+None.
+
+#### Event
+
+On success the function emits a `BasketModified` event for the new ACU basket parameterisation, logging: `symbols_`, `quantities_`, and `scale_`.
 
 
 ###  setCommitteeSize
@@ -431,6 +499,7 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
+<<<<<<< HEAD
 
 ###  setOperatorAccount
 
@@ -441,6 +510,48 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
 - [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
+=======
+<!--
+{{< tab header="NodeJS Console" >}}
+> autonity.setMinimumBaseFee(50000000).send({from: myAddress, gas: gas})
+{
+  blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
+  blockNumber: 7247,
+  contractAddress: null,
+  cumulativeGasUsed: 30100,
+  effectiveGasPrice: 2500247492,
+  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
+  gasUsed: 30100,
+  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
+  status: true,
+  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
+  transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
+  transactionIndex: 0,
+  type: '0x2',
+  events: {
+    MinimumBaseFeeUpdated: {
+      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
+      blockNumber: 7247,
+      transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
+      transactionIndex: 0,
+      blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
+      logIndex: 0,
+      removed: false,
+      id: 'log_2f1e2457',
+      returnValues: [Result],
+      event: 'MinimumBaseFeeUpdated',
+      signature: '0x1f4d2fc7529047a5bd96d3229bfea127fd18b7748f13586e097c69fccd389128',
+      raw: [Object]
+    }
+  }
+}
+{{< /tab >}}
+-->
+
+###  setOperatorAccount
+
+Sets a new governance account address as the protocol parameter for the [Autonity Protocol Contracts](/concepts/architecture/#protocol-contract-account-addresses).
+>>>>>>> 784942d (Reference, ASM Contract Interfaces iteration 1)
 
 #### Parameters
    
@@ -739,6 +850,59 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
+<<<<<<< HEAD
+=======
+<!--
+{{< tab header="NodeJS Console" >}}
+> autonity.setUnbondingPeriod(1000).send({from: myAddress, gas: gas})
+{{< /tab >}}
+-->
+
+<!--
+###  upgradeContract
+
+The `upgradeContract` method is used as part of the Autonity Protocol Contract upgrade process. 
+
+The method is called by the governance account (i.e. `operator`) to provide the compiled EVM bytecode and Contract ABI of the new Autonity Protocol Contract. The method appends to the contract storage buffer (i.e. fills with) the new contract bytecode and abi.
+
+The method:
+
+- assigns the argument data to protocol parameters `newContractBytecode` and `newContractAbi`
+- sets the `contractUpgradeReady` state variable to `true`. 
+
+The default value of `newContractBytecode` and  `newContractAbi` is `""` and `contractUpgradeReady` is `false` when the Autonity Protocol Contract is deployed. If the `bytecode` is not empty, then a contract upgrade is triggered automatically by protocol. The contract upgrade is then applied at epoch end in the last block's finalisation phase: if `contractUpgradeReady` = `true`, then a `completeContractUpgrade()` method is called by  protocol to update the bytecode of the Autonity Protocol Contract.
+
+The new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion`](/reference/api/aut/#getversion) method.
+
+See also the function [`getNewContract`](/reference/api/aut/#getnewcontract).
+    
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --| 
+| `_bytecode` | `bytes` | the EVM bytecode compiled from the new Autonity Protocol Contract's source Solidity. Assigned to protocol parameter `bytecode` |
+| `_abi` | `string` | the Application Binary Interface (ABI) of the new Autonity Protocol Contract as a JSON representation. Assigned to protocol parameter `contractAbi`  |
+
+#### Response
+
+The method returns a boolean flag `contractUpgradeReady`, set to `true` if an Autonity Protocol Contract upgrade is available.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="NodeJS Console" >}}
+autonity.upgradeContract(_bytecode, _abi).send()
+{{< /tab >}}
+{{< tab header="RPC" >}}
+{"method": "aut_upgradeContract", "params":[_bytecode, _abi, _version]}
+{{< /tab >}}
+{{< /tabpane >}}
+-->
+>>>>>>> 784942d (Reference, ASM Contract Interfaces iteration 1)
 
 ## Protocol only
 
@@ -1146,6 +1310,7 @@ On success the function emits events for handling of:
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
 
 
+<<<<<<< HEAD
 ###  mint (Supply Control Contract)
 
 The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
@@ -1183,6 +1348,11 @@ On a successful call the function emits a `Mint` event, logging: `recipient`, `a
 ###  update (ACU Contract)
 
 The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+=======
+###  update (ACU Contract)
+
+The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+>>>>>>> 784942d (Reference, ASM Contract Interfaces iteration 1)
 
 - it retrieves the latest prices from the Oracle Contract (i.e. the latest round data)
 - checks price data completeness:
@@ -1196,5 +1366,14 @@ The Auton Currency Unit (ACU) Contract finalisation function, called once per Or
 
 None.
 
+<<<<<<< HEAD
 #### Event
+=======
+#### Response
+
+None.
+
+#### Event
+
+>>>>>>> 784942d (Reference, ASM Contract Interfaces iteration 1)
 On success the function emits an `Updated` event for the new ACU value, logging: `block.number`, `block.timestamp`, oracle voting round number `round`, and the ACU index value calculated `_value`.
