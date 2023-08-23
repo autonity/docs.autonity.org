@@ -211,3 +211,59 @@ On a successful call the function emits a `Repay` event, logging: `msg.sender`, 
 {{< /tab >}}
 {{< /tabpane >}}
 
+
+## CDP Liquidator WIP 
+### liquidate
+
+Liquidates a CDP that is undercollateralized.
+
+The liquidator must pay all the CDP debt outstanding. As a reward, the liquidator will receive the collateral that is held in the CDP. The transaction value is the payment amount.
+
+On method execution, state is inspected to retrieve:
+
+- the current CDP debt, collateral, and accrued interest amounts
+- the liquidation ratio from the Stabilization Contract config
+- the current Collateral Token price.
+
+Constraint checks are applied:
+
+- no debt position: there is a debt to liquidate; the CDP `principal` is `> 0`.
+- not liquidatable: the CDP is under collateralized and eligible for liquidation.
+- insufficient payment: the payment amount is sufficient to pay off the CDP debt (principal and  accrued interest). After covering the debt the surplus remaining from the payment is `>= 0`.
+
+On processing the payment:
+
+- the CDP's debt is paid off and any payment surplus is refunded to the liquidator
+- the CDP's Collateral Token is transferred to the liquidator
+- Auton to the value of the CDP's debt is burnt.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `account` | `address` | The CDP account address to liquidate |
+| `msg.value` | `uint256` | The payment amount |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits a `Liquidate ` event, logging: `account`, `msg.sender`.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
