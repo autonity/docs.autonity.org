@@ -99,7 +99,7 @@ Genesis configuration file JSON objects:
 | `operator` | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) | EOA account address |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
-##### config.autonity.validators object
+#### config.autonity.validators object
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
@@ -118,7 +118,7 @@ Configuration of the Auton Stabilisation Mechanism (ASM).
 | `stabilization` | Object structure for the ASM's stabilisation mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
 | `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
 
-##### config.asm.acu object
+#### config.asm.acu object
 
 Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 free-floating fiat currencies.
 
@@ -128,7 +128,7 @@ Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 
 | `quantities` | The basket quantity corresponding to each symbol. | Set to `[21_300,18_700,14_300,10_400,1_760_000,18_000,141_000]` |
 | `scale` | The scale used to represent the basket `quantities` and ACU value. | Set to `5` |
 
-##### config.asm.stabilization object
+#### config.asm.stabilization object
 
 Configuration of the stabilisation mechanism's Collateralised Debt Position (CDP).
 
@@ -183,7 +183,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 |---------|-----------|-----|
 | `alloc` | An array of accounts objects to be created on the network at genesis. These can be EOA or contract accounts | See [`alloc.account` object](#alloc-object) definition |
 
-##### alloc.account object
+#### alloc.account object
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
@@ -193,7 +193,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 | `alloc.ADDRESS.storage` | The key-value pair for the contract bytecode storage space if a contract account _ADDRESS_ | k-v pairs for contract storage |
 
 
-### Example `genesis.json`
+#### Example `genesis.json`
 
 ```javascript
 {
@@ -349,7 +349,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 | `enode` | An array of [enode url](/glossary/#enode) addresses for the network bootnodes | The node's enode URL |
 
 
-### Example `static-nodes.json`
+#### Example `static-nodes.json`
 
 ```javascript
 [
