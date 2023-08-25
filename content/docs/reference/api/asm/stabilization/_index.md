@@ -269,7 +269,7 @@ false
 {{< /tab >}}
 {{< /tabpane >}}
 
-
+## CDP Liquidator 
 ### liquidate
 
 Liquidates a CDP that is undercollateralized.
@@ -1086,3 +1086,499 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underColl
 false
 {{< /tab >}}
 {{< /tabpane >}}
+
+
+## CDP View functions
+
+### accounts
+
+Retrieve all the accounts that have opened a CDP.
+
+#### Parameters
+
+None.
+
+#### Response
+Returns an `_accounts` array of CDP account addresses:
+
+
+| Field | Datatype | Description |
+| --| --| --|
+| `account` | `address` | The CDP account address |
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### debtAmount
+
+Calculates the current debt amount outstanding for a CDP at the block height of the call.
+
+Constraint checks are applied:
+
+- valid timestamp: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
+ 
+{{< alert title="Info" >}}
+The function calculates the outstanding debt of a CDP by calling [`_debtamount()`](/reference/api/asm/stabilization/#_debtamount).
+{{< /alert >}}
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `account` | `address` | The CDP account address to liquidate |
+
+#### Response
+
+The function returns the debt amount as an `uint256` integer value.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### isLiquidatable
+
+Determines if a CDP is liquidatable at the block height of the call.
+
+Constraint checks are applied:
+
+- valid timestamp: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
+ 
+
+{{< alert title="Info" >}}
+The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
+{{< /alert >}}
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `account` | `address` | The CDP account address |
+<!--
+| `timestamp` | `uint` | The timestamp at which the CDP liquidatability is being queried |
+-->
+
+#### Response
+
+The function returns a `Boolean` flag indicating if the CDP is liquidatable (`True`) or not (`False`).
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### collateralPrice
+
+Retrieves the Collateral Token price from the Oracle Contract and converts it to Auton.
+
+The function reverts in case the price is invalid or unavailable.
+
+Constraint checks are applied:
+
+- price unavailable: the Oracle Contract is providing data computed in the oracle network's last completed voting round.
+
+{{< alert title="Info" >}}
+To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
+{{< /alert >}}
+
+- invalid price: the `price` returned by the Oracle Contract is not equal to `0`.
+
+On method execution, state is inspected to retrieve:
+
+- the latest computed Collateral Token price data and the Oracle Contract scale precision from the Oracle Contract.
+
+{{< alert title="Info" >}}
+The function converts the Collateral Token price retrieved from the Oracle Contract to `SCALE` decimals used by the Stabilisation Contract.
+
+Conversion is conditional upon the difference between the Stabilisation Contract and Oracle Contract scale and precision:
+
+- if `(SCALE_FACTOR > precision)`, then collateral price = `price * (SCALE_FACTOR / precision`
+- else collateral price = `price / (precision() / SCALE_FACTOR)`.
+
+Where:
+
+- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
+- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
+- `price` is the aggregated median price for Collateral Token calculated by the Oracle Contract (returned by calling [`latestRoundData()`](/reference/api/oracle/#latestrounddata)).
+- `precision` is the Oracle Contract setting for the multiplier applied to submitted data price reports before calculation of an aggregated median price for a symbol (returned by calling [`getPrecision()`](/reference/api/oracle/#getprecision)).
+{{< /alert >}}
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `price` | `uint256` | Price of Collateral Token |
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### borrowLimit
+
+Calculates the maximum amount of Amount that can be borrowed for the given amount of Collateral Token.
+    
+Constraint checks are applied:
+
+- invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
+
+{{< alert title="Info" >}}
+The borrowing limit amount is calculated by `(collateral * price * targetPrice) / (mcr * SCALE_FACTOR)`.
+
+Where:
+
+- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
+- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
+{{< /alert >}}
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `collateral` | `uint256` | Amount of Collateral Token backing the debt |
+| `price` | `uint256` | The price of Collateral Token in Auton |
+| `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
+| `mcr` | `uint256` | The minimum collateralization ratio |
+
+#### Response
+
+The function returns the maximum amount of Auton that can be borrowed as an `uint256` integer value.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### minimumCollateral
+
+Calculates the minimum amount of Collateral Token that must be deposited in the CDP in order to borrow the given amount of Autons.
+
+Constraint checks are applied:
+
+- invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
+
+{{< alert title="Info" >}}
+The minimum collateral amount is calculated by `(principal * mcr) / price`.
+{{< /alert >}}
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `principal` | `uint256` | Auton amount to borrow |
+| `price` | `uint256` | The price of Collateral Token in Auton |
+| `mcr` | `uint256` | The minimum collateralization ratio |
+
+
+#### Response
+
+The function returns the minimum collateral required as an `uint256` integer value.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### interestDue
+
+Calculates the interest due for a given amount of debt.
+
+Constraint checks are applied:
+
+- invalid parameter: the `timeBorrow` argument is not greater than the `timeDue` argument value.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `debt` | `uint256` | The debt amount |
+| `rate` | `uint256` | The borrow interest rate |
+| `timeBorrow` | `uint` | The borrow time |
+| `timeDue` | `uint` | The time the interest is due |
+  
+#### Response
+
+The function returns the amount of interest due as an `uint256` integer value.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### underCollateralized
+
+Determines if a debt position is undercollateralized or not.
+
+Constraint checks are applied:
+
+- invalid price: the value of the `price` argument is valid, i.e. it is not equal to `0`.
+
+If the CDP is under collateralized, then it can be liquidated - see [`liquidate()`](/reference/api/asm/stabilization/#liquidate).
+
+{{< alert title="Info" >}}
+If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
+{{< /alert >}}
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `collateral` | `uint256` | Amount of Collateral Token backing the debt |
+| `price` | `uint256` | The price of Collateral Token in Auton |
+| `debt` | `uint256` | The debt amount |
+| `liquidationRatio` | `uint256` | The liquidation ratio |
+
+#### Response
+
+The method returns a boolean flag specifying whether the CDP is undercollateralized (true) or not (false).
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+
+## Internal functions
+### _debtAmount
+
+Calculates the outstanding debt of a CDP.
+
+On method execution, state is inspected to retrieve:
+
+- the CDP principal and interest amounts
+- the CDP borrowing interest rate from the Stabilization Contract config.
+
+Constraint checks are applied:
+
+- invalid parameter: the provided `timestamp` is valid, i.e. it is not equal to `0`.
+
+The function:
+
+- computes the `debt` amount: `debt = cdp.principal + cdp.interest`
+- computes `accrued` interest due:
+  - if the CDP timestamp is equal to the timestamp argument, then `0`.
+  - else computes the interest due based on debt amount, CDP borrow interest rate, and the elapsed time using the CDP timestamp and the timestamp argument.
+- computes the `total` debt amount: `total = debt + accrued`.
+
+```
+function _debtAmount(
+        CDP storage cdp,
+        uint timestamp
+    ) internal view returns (uint256 total, uint256 accrued) {
+        if (timestamp == 0) revert InvalidParameter();
+        uint256 debt = cdp.principal + cdp.interest;
+        if (timestamp == cdp.timestamp) accrued = 0;
+        else {
+            accrued = interestDue(
+                debt,
+                config.borrowInterestRate,
+                cdp.timestamp,
+                timestamp
+            );
+        }
+        total = debt + accrued;
+    }
+```
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `cdp` | `address` | The CDP account address to liquidate |
+| `timestamp` | `uint` | an integer value in [Unix time <i class='fas fa-external-link-alt'></i>](https://en.wikipedia.org/wiki/Unix_time) format for the requested timepoint |
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `total` | `uint256` | the total amount of debt outstanding |
+| `accrued` | `uint256` | the accrued interest for the debt |
+
+#### Event
+
+None.
+
+
+### _allocatePayment
+
+Calculates the allocation of a payment when repaying the debt of a CDP. See function [`repay()`](/reference/api/asm/stabilization/#repay). The function takes the payment amount and computes how that payment would be allocated to paying off debt principal, accrued interest due, and any surplus remaining that will be returned to the payer, the CDP Owner.
+
+On method execution, state is inspected to retrieve:
+
+- the CDP principal and interest amounts.
+
+The function:
+
+- computes the `debt` amount: `debt = cdp.principal + cdp.interest`
+- computes the accrued `interest` allocation:
+  - if payment `amount < cdp.interest`, then allocate payment `amount`
+  - else allocate `cdp.interest`
+- computes the `principal` allocation:
+  - if payment `amount < debt`, then allocate payment `amount - interest`
+  - else allocate `cdp.principal`.
+- computes the `surplus` allocation:
+  - if payment `amount > debt`, then allocate payment `amount - debt`
+  - else allocate `0`.
+
+```
+    function _allocatePayment(
+        CDP storage cdp,
+        uint256 amount
+    )
+        internal
+        view
+        returns (uint256 interest, uint256 principal, uint256 surplus)
+    {
+        uint256 debt = cdp.principal + cdp.interest;
+        interest = amount < cdp.interest ? amount : cdp.interest;
+        principal = amount < debt ? amount - interest : cdp.principal;
+        surplus = amount > debt ? amount - debt : 0;
+    }
+```
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `cdp` | `address` | The CDP account address to allocate a payment to |
+| `amount` | `uint256` | The payment amount |
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `interest` | `uint256` | the amount of the payment allocated to paying off CDP accrued interest due |
+| `principal` | `uint256` | the amount of the payment allocated to paying of CDP principal debt|
+| `surplus` | `uint256` | the amount of the payment allocated to surplus and due for return to the payer |
+
+#### Event
+
+None.

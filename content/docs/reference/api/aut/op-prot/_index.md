@@ -485,7 +485,6 @@ None.
 {{< /tabpane >}}
 
 
-
 ###  setMinimumBaseFee
 
 Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in [`ton`](/glossary/#ton). 
@@ -765,7 +764,6 @@ None.
 
 On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective `round+1`.
 
-        
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -774,12 +772,11 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbol
 {{< /tab >}}
 {{< /tabpane >}}
 
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-ATN"]
 {{< /tab >}}
 {{< /tabpane >}}
 
