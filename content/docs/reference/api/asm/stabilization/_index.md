@@ -183,7 +183,7 @@ Constraint checks are applied:
 - no debt position: there is a debt; the CDP `principal` is `> 0`.
 - invalid debt position: the debt after payment must satisfy the minimum debt requirement. The payment amount is `<` the `debt` and the `debt` after the payment amount satisfies the minimum debt requirement.
 
-The payment first covers the outstanding interest debt before the principal debt. If there is a surplus after repayment, then the surplus is returned to the CDP Owner.
+The payment is allocated to first cover outstanding interest debt on the CDP, and then repay CDP principal debt. If there is a surplus after principal repayment, then the surplus is returned to the CDP Owner.
 
 
 #### Parameters
@@ -1133,11 +1133,7 @@ Calculates the current debt amount outstanding for a CDP at the block height of 
 
 Constraint checks are applied:
 
-- valid timestamp: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
- 
-{{< alert title="Info" >}}
-The function calculates the outstanding debt of a CDP by calling [`_debtamount()`](/reference/api/asm/stabilization/#_debtamount).
-{{< /alert >}}
+- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested).
 
 #### Parameters
 
@@ -1176,7 +1172,7 @@ Determines if a CDP is liquidatable at the block height of the call.
 
 Constraint checks are applied:
 
-- valid timestamp: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
+- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
  
 
 {{< alert title="Info" >}}
@@ -1464,121 +1460,3 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
-
-
-
-## Internal functions
-### _debtAmount
-
-Calculates the outstanding debt of a CDP.
-
-On method execution, state is inspected to retrieve:
-
-- the CDP principal and interest amounts
-- the CDP borrowing interest rate from the Stabilization Contract config.
-
-Constraint checks are applied:
-
-- invalid parameter: the provided `timestamp` is valid, i.e. it is not equal to `0`.
-
-The function:
-
-- computes the `debt` amount: `debt = cdp.principal + cdp.interest`
-- computes `accrued` interest due:
-  - if the CDP timestamp is equal to the timestamp argument, then `0`.
-  - else computes the interest due based on debt amount, CDP borrow interest rate, and the elapsed time using the CDP timestamp and the timestamp argument.
-- computes the `total` debt amount: `total = debt + accrued`.
-
-```
-function _debtAmount(
-        CDP storage cdp,
-        uint timestamp
-    ) internal view returns (uint256 total, uint256 accrued) {
-        if (timestamp == 0) revert InvalidParameter();
-        uint256 debt = cdp.principal + cdp.interest;
-        if (timestamp == cdp.timestamp) accrued = 0;
-        else {
-            accrued = interestDue(
-                debt,
-                config.borrowInterestRate,
-                cdp.timestamp,
-                timestamp
-            );
-        }
-        total = debt + accrued;
-    }
-```
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `cdp` | `address` | The CDP account address to liquidate |
-| `timestamp` | `uint` | an integer value in [Unix time <i class='fas fa-external-link-alt'></i>](https://en.wikipedia.org/wiki/Unix_time) format for the requested timepoint |
-
-#### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `total` | `uint256` | the total amount of debt outstanding |
-| `accrued` | `uint256` | the accrued interest for the debt |
-
-#### Event
-
-None.
-
-
-### _allocatePayment
-
-Calculates the allocation of a payment when repaying the debt of a CDP. See function [`repay()`](/reference/api/asm/stabilization/#repay). The function takes the payment amount and computes how that payment would be allocated to paying off debt principal, accrued interest due, and any surplus remaining that will be returned to the payer, the CDP Owner.
-
-On method execution, state is inspected to retrieve:
-
-- the CDP principal and interest amounts.
-
-The function:
-
-- computes the `debt` amount: `debt = cdp.principal + cdp.interest`
-- computes the accrued `interest` allocation:
-  - if payment `amount < cdp.interest`, then allocate payment `amount`
-  - else allocate `cdp.interest`
-- computes the `principal` allocation:
-  - if payment `amount < debt`, then allocate payment `amount - interest`
-  - else allocate `cdp.principal`.
-- computes the `surplus` allocation:
-  - if payment `amount > debt`, then allocate payment `amount - debt`
-  - else allocate `0`.
-
-```
-    function _allocatePayment(
-        CDP storage cdp,
-        uint256 amount
-    )
-        internal
-        view
-        returns (uint256 interest, uint256 principal, uint256 surplus)
-    {
-        uint256 debt = cdp.principal + cdp.interest;
-        interest = amount < cdp.interest ? amount : cdp.interest;
-        principal = amount < debt ? amount - interest : cdp.principal;
-        surplus = amount > debt ? amount - debt : 0;
-    }
-```
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `cdp` | `address` | The CDP account address to allocate a payment to |
-| `amount` | `uint256` | The payment amount |
-
-#### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `interest` | `uint256` | the amount of the payment allocated to paying off CDP accrued interest due |
-| `principal` | `uint256` | the amount of the payment allocated to paying of CDP principal debt|
-| `surplus` | `uint256` | the amount of the payment allocated to surplus and due for return to the payer |
-
-#### Event
-
-None.
