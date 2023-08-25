@@ -290,7 +290,7 @@ The period of time for which bonded stake remains locked after processing an unb
 Proof of Stake consensus places constraints on the minimum length of the unbonding period. It must be long enough to allow the detection and reporting of consensus faults by validators, and not short enough to  allow unbonding before a [slashing penalty](/glossary/#slashing-penalty) can be applied. As such it is a security property of the network.
 
 ## Unix time
-The Unix OS system for representing a point in time as a timestamp. Time is measured as the number of seconds since the Unix Epoch began - 1st January 1970 at 00:00:00 UTC. Unix time is used for Autonity timestamps.
+The Unix OS system for representing a point in time as a timestamp. Time is measured as the number of seconds since the Unix Epoch began - 1st January 1970 at 00:00:00 UTC. Unix time is used for Autonity timestamps. For detail and format see [Unix time <i class='fas fa-external-link-alt'></i>](https://en.wikipedia.org/wiki/Unix_time).
 
 ## validator
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
