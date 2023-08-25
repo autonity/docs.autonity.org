@@ -395,6 +395,192 @@ Enter passphrase (or CTRL-d to exit):
 }
 {{< /tab >}}
 -->
+
+###  setLiquidationRatio (ASM Stabilization Contract)
+
+Sets a new value for the `liquidationRatio` protocol parameter in the ASM Stabilization Contract configuration. 
+    
+Constraint checks are applied:
+
+- the ratio must be less than the minimum collateralization ratio parameter.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `ratio` | `uint256` | an integer value specifying the liquidation ratio for ASM CDP's |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setMinCollateralizationRatio (ASM Stabilization Contract)
+
+Sets a new value for the `minCollateralizationRatio` protocol parameter in the ASM Stabilization Contract configuration
+    
+Constraint checks are applied:
+
+- the ratio must be a positive value
+- the ratio must be greater than the liquidation ratio
+- minimum collateralization ratio parameter.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `ratio` | `uint256` | a positive integer value specifying the minimum collateralization ratio for ASM CDP's |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setMinDebtRequirement (ASM Stabilization Contract)
+
+Sets a new value for the `minDebtRequirement` protocol parameter in the ASM Stabilization Contract configuration. 
+            
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `amount` | `uint256` |  an integer value specifying the minimum debt requirement for ASM CDP's |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setOracle (ASM Stabilization Contract)
+
+Sets a new value for the Oracle Contract address in the ASM Stabilization Contract configuration.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `oracle ` | `address` | the ethereum formatted address of the Oracle Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setSupplyControl (ASM Stabilization Contract)
+
+Sets a new value for the SupplyControl Contract address in the ASM Stabilization Contract configuration.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `supplyControl` | `address` |  the ethereum formatted address of the SupplyControl Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ###  setMinimumBaseFee
 
 Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in [`ton`](/glossary/#ton). 
