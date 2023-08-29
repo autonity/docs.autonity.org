@@ -115,6 +115,35 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
+###  mint (Supply Control Contract)
+
+The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
+
+The protocol calls the function using by the `stabilizer` account, the Stabilization Contract address
+The recipient cannot be the `stabilizer` account or the `0` zero address. The minted `amount` cannot be equal to `0` or greater than the Supply Control Contract's available auton `balance`.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
+
+
 ###  modifyBasket (ACU Contract)
 
 Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
@@ -133,7 +162,7 @@ None.
 
 #### Event
 
-None.
+On success the function emits a `BasketModified` event for the new ACU basket parameterisation, logging: `symbols_`, `quantities_`, and `scale_`.
 
 
 ###  setAccountabilityContract
@@ -204,55 +233,6 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
-
-
-###  mint (Supply Control Contract)
-
-Mints Auton and sends it to a recipient account, increasing the amount of auton in circulation. 
-
-The recipient cannot be the Autonity network's governance `operator` account or the zero address.
-    
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `recipient ` | `address` | the recipient account address |
-| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
-
-The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply`](/reference/api/asm/supplycontrol/#availablesupply) method.
-
-#### Event
-
-On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
-
-
-###  modifyBasket (ACU Contract)
-
-Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `symbols_` | `string` | the symbols used to retrieve prices |
-| `quantities_` | `uint256` | the basket quantity corresponding to each symbol |
-| `scale_` | `uint256` | the scale for quantities and the ACU value |
-
-#### Response
-
-None.
-
-#### Event
-
-On success the function emits a `BasketModified` event for the new ACU basket parameterisation, logging: `symbols_`, `quantities_`, and `scale_`.
 
 
 ###  setCommitteeSize
@@ -373,36 +353,6 @@ None.
 {{< tab header="aut" >}}
 
 {{< /tab >}}
--->
-
-###  setLiquidationRatio (ASM Stabilization Contract)
-
-Sets a new value for the `liquidationRatio` protocol parameter in the ASM Stabilization Contract configuration. 
-    
-Constraint checks are applied:
-
-- the ratio must be less than the minimum collateralization ratio parameter.
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `ratio` | `uint256` | an integer value specifying the liquidation ratio for ASM CDP's |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
 {{< /tabpane >}}
 
 #### Example
@@ -464,76 +414,6 @@ Sets a new value for the `minDebtRequirement` protocol parameter in the ASM Stab
 | Field | Datatype | Description |
 | --| --| --| 
 | `amount` | `uint256` |  an integer value specifying the minimum debt requirement for ASM CDP's |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-###  setOracle (ASM Stabilization Contract)
-
-Sets a new value for the Oracle Contract address in the ASM Stabilization Contract configuration.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `oracle ` | `address` | the ethereum formatted address of the Oracle Contract |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-###  setSupplyControl (ASM Stabilization Contract)
-
-Sets a new value for the SupplyControl Contract address in the ASM Stabilization Contract configuration.
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `supplyControl` | `address` |  the ethereum formatted address of the SupplyControl Contract |
 
 #### Response
 
@@ -642,6 +522,41 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
+###  setOracle (ASM Stabilization Contract)
+
+Sets a new value for the Oracle Contract address in the ASM Stabilization Contract configuration.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `oracle ` | `address` | the ethereum formatted address of the Oracle Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ###  setOracleContract
 
 Sets a new value for the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) address.
@@ -727,6 +642,41 @@ Sets a new value for the [ASM Supply Control Contract](/concepts/architecture/#a
 | Field | Datatype | Description |
 | --| --| --| 
 | `supplyControl` | `address` |  the ethereum formatted address of the Supply Control Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setSupplyControl (ASM Stabilization Contract)
+
+Sets a new value for the SupplyControl Contract address in the ASM Stabilization Contract configuration.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `supplyControl` | `address` |  the ethereum formatted address of the SupplyControl Contract |
 
 #### Response
 
@@ -1095,94 +1045,6 @@ The function emits events:
 - after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`
 
 
-###  finalize (Accountability Contract)
-
-The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
-
-- On each block, tries to [promote accusations](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. Accusations without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous faults already committed by the validator in the current epoch.
-
-{{% alert title="Note" %}}
-Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
-{{% /alert %}}
-
-- On epoch end, [performs slashing tasks](/reference/api/aut/op-prot/#perform-slashing-tasks).
-
-#### promote guilty accusations
-
-For each accusation the protocol:
-
-- checks the proof submission window for an accusation has expired and if so then attempts to promote the accusation into a misbehaviour fault:
-- if a fault with a higher severity than the accusation for the epoch already exists, the accusation is dropped
-- else, a new fault is created from the accusation and the slashing history of the validator is updated to record the new fault severity.
-
-How it works:
-
-- Accusations are placed into the `accusation` queue stored in memory. 
-- as the function executes it takes each `Accusation` proof from the accusations queue and:
-  - checks if the sum of the block number at which the accusation was reported and the number of blocks in the proof innocence window is greater than the current block number (`_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number`):
-  <!-- - if greater than, then the `InnocenceProof` submission is considered stale and ignored, and the function continues to the next `InnocenceProof` in the queue is tested. -->
-  - if less than, accusation remains
-  - if greater than, the accusation is removed from the queue (i.e. deleted) and its fault severity is determined. The function checks the slashing history of the validator to determine if the validator already has a proven offence (i.e. a `FaultProof`) with a severity `>=` to the `Accusation`'s reported fault:
-    - if true, then the `Accusation` is skipped: a `FaultProof` with a higher severity has already been reported during the epoch
-    - if false, then:
-      - the validator's slashing history is updated to record the severity of the accusation, so the history records the highest fault severity applied to the validator during the epoch
-      - a new `FaultProof` is created for the validator and added to the slashing queue
-      - a `FaultProof` event is emitted logging the event.
-
-The reported validator will be silenced and slashed for the fault at the end of the current epoch.
-
-#### perform slashing tasks
-
-For each fault the protocol performs slashing over faulty validators at the end of an epoch.
-
-How it works:
-
-- checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue. This serves the purpose of quantifying collusion.
-- applies slashing for each fault in the slashing queue:
-  - computes the slashing rate to apply, taking into account the number of fault offences committed in the epoch,
-  - applies slashing to the offending validator's stake,
-  - adds the reporting validators' to the array of reward beneficiaries that will receive rewards for offence reporting,
-- rewards are then distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator self-bonded and delegated stakeholders receive a share of the rewards _pro rata_ to their bonded stake amount. If the rewards transfer to the validator `treasury` account fails, then the rewards are sent to the Autonity Protocol's community `treasury` account.
-
-How it works to apply slashing for each fault in the slashing queue. The function:
-
-- adds the validator reporting the offence to the list of beneficiaries that will receive rewards for offence reporting
-- computes the slashing rate to apply based on slashing factors: base rate from fault severity, validator reputation (the validator's proven fault count), count of offences committed in the epoch, slashing rate precision.
-- computes the slashing amount to apply: `(slashing rate * validator bonded stake)/slashing rate precision`
-- computes the slashing, subtracting the slashing amount from the validator's bonded stake and transferring the fined amount of NTN stake token from the validator to the Autonity Contract Account address.
-    - the slashing fine is applied according to the protocol's Penalty Absorbing Stake (PAS) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
-- increments the validator's proven fault counter by `1` to record the slashing occurrence in the validator's reputational slashing history
-- computes the jail period of the offending validator - `current block number + jail factor * proven offence fault count * epoch period` - and sets the validator's jail release block number
-- updates the validator's state and transfers the slashed stake token funds to the Autonity Protocol global `treasury` account for community funds use
-- Emit a `SlashingEvent` event for each validator that has been slashed.
-- Resets the pending slashing task queue ready for the next epoch.
-
-{{% alert title="Note" %}}
-Protocol adjusts the slashing rate according to the total number of fault offences committed in an epoch across all validators.
-
-This mechanism applies a dynamic slashing rate mitigating collusion risk by Byzantine agents in an epoch.
-
-If the distribution of rewards to the reporting validator's `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol treasury account for community funds.
-{{% /alert %}}   
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --| 
-| `epochEnd` | `Bool` | boolean value indicating if the current block is the last block of the epoch (`true`) or not (`false`) |
-
-#### Response
-
-None.
-
-#### Event
-
-The function emits events:
-
-- on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`.
-- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`.
-
-
 ###  finalize (Oracle Contract)
 
 The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
@@ -1312,40 +1174,6 @@ On success the function emits events for handling of:
 - Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
-
-
-###  mint (Supply Control Contract)
-
-The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
-
-Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
-
-Constraint checks are applied:
-
-- the caller is the `stabilizer` account, the Stabilization Contract address
-- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
-- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
-    
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `recipient ` | `address` | the recipient account address |
-| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
-
-The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
-
-#### Event
-
-On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
 
 
 ###  update (ACU Contract)

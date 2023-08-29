@@ -215,7 +215,7 @@ Consensus committee membership is computed by the Autonity Protocol Contract; se
 
 ### ASM ACU Contract
 
-The contract implementing the Auton Currency Unit (ACU) element of the Auton Stability Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
+The contract implementing the Auton Currency Unit (ACU) element of the Auton Stabilization Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
 
 The contract provides primitives for computing the ACU value and managing the basket currency symbols and quantities (i.e. weighting). It stores [protocol parameters](/reference/protocol/) that specify the currency pairs for the basket, the quantities of those currencies in the basket, and the scale of precision for the ACU value. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
 
@@ -253,15 +253,15 @@ To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/
 
 ### ASM Stabilization Contract
 
-The contract implementing the CDP-based stabilization mechanism for the Auton. Auton is borrowed against Collateral Token using a Collateralized Debt Position (CDP) mechanism. The Stabilization Contract manages CDPs throughout the lifecycle, from initial borrowing through repayment and liquidation scenarios. Collateral Token is deposited into a CDP to borrow Auton. Auton is brought in and out of circulation on an Autonity network as CDPs are opened and closed.
+The contract implementing the CDP-based stabilization mechanism for the Auton. Auton is borrowed against Collateral Token using a Collateralized Debt Position (CDP) mechanism. The Stabilization Contract manages CDP's throughout the lifecycle, from initial borrowing through repayment and liquidation scenarios. Collateral Token is deposited into a CDP to borrow Auton. Auton is brought in and out of circulation on an Autonity network as CDP's are opened and closed.
 
 The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
 
-Contract functions can be called by:
+Contract functions can be called by all participants to:
 
-- By CDP owners to take out CDPs to borrow Auton, withdraw collateral, and repay CDPs.
-- By prospective CDP owners to determine borrowing limits  and collateral level requirements
-- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDPs.
+- By CDP owners to take out CDP's to borrow Auton, withdraw collateral, and repay CDP's.
+- By prospective CDP owners to determine borrowing limits  and collateral level requirements.
+- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDP's.
 - To view CDP data and retrieve stabilization configuration settings from system state.
 
 Function calls to govern (i.e. manage) the stabilization configuration are restricted to the governance `operator` account.
