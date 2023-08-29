@@ -53,25 +53,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
-###  burn (Supply Control Contract)
-
-Burns the specified amount of Auton, taking it out of circulation.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `amount ` | `uint256` | a non-zero integer value for the value amount being burned, denominated in Auton |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-#### Event
-
-On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
-
-
 ###  mint
 
 Mints new stake token and adds it to the recipient's account balance. When `x` amount of newton is minted, then `x` is simply added to the account’s balance and to the total supply of newton in circulation.       
@@ -235,33 +216,6 @@ None.
 {{< /tabpane >}}
 
 
-###  mint (Supply Control Contract)
-
-Mints Auton and sends it to a recipient account, increasing the amount of auton in circulation. 
-
-The recipient cannot be the Autonity network's governance `operator` account or the zero address.
-    
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `recipient ` | `address` | the recipient account address |
-| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
-
-The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply`](/reference/api/asm/supplycontrol/#availablesupply) method.
-
-#### Event
-
-On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
-
 
 ###  modifyBasket (ACU Contract)
 
@@ -341,10 +295,6 @@ Constraint checks are applied:
 No response object is returned on successful execution of the call.
 
 The updated parameter can be retrieved from state by a call to the [`epochPeriod()`](/reference/api/aut/#epochperiod) public variable.
-
-#### Event
-
-On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
 #### Event
 
@@ -904,10 +854,6 @@ The Auton burn function, called by the Stabilization Contract `stabilizer` accou
 
 Burns the specified amount of Auton, taking it out of circulation.
 
-Constraint checks are applied:
-
-- the caller is the `stabilizer` account, the Stabilization Contract address.
-
 #### Parameters
    
 | Field | Datatype | Description |
@@ -1223,6 +1169,35 @@ On success the function emits events for handling of:
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
 
+###  mint (Supply Control Contract)
+
+The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
+
+Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
+
+The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
+
 
 ###  mint (Supply Control Contract)
 
@@ -1260,7 +1235,11 @@ On a successful call the function emits a `Mint` event, logging: `recipient`, `a
 
 ###  update (ACU Contract)
 
+<<<<<<< HEAD
 The Auton Currency Unit (ACU) Contract finalization function, called once per Oracle voting round as part of the state finalization function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+=======
+The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+>>>>>>> 498b005 (Reference, API, op-prot. Move SupplyControl mint and burn to protocol ony section)
 
 - it retrieves the latest prices from the Oracle Contract (i.e. the latest round data)
 - checks price data completeness:
