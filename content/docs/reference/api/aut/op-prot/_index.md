@@ -344,11 +344,6 @@ No response object is returned on successful execution of the call.
 
 The updated parameter can be retrieved from state by a call to the [`epochPeriod()`](/reference/api/aut/#epochperiod) public variable.
 
-
-#### Event
-
-On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
-
 #### Event
 
 On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
@@ -914,6 +909,7 @@ Constraint checks are applied:
 
 - the caller is the `stabilizer` account, the Stabilization Contract address.
 
+
 #### Parameters
    
 | Field | Datatype | Description |
@@ -1001,7 +997,6 @@ The block finalisation function, invoked each block after processing every trans
   - calculate the median price of [currency pairs](/glossary/#currency-pair)
   - re-set oracle voters and parameters ready for the next oracle voting round.
 - then, if the oracle has computed data and started a new voting round (`newRound` is `true`), invokes the ACU Contract [`update()`](/reference/api/aut/op-prot/#update-acu-contract) function to recompute the ACU value using the new price data.
-
 
 #### Parameters
 
@@ -1219,6 +1214,35 @@ On success the function emits events for handling of:
 - Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
+
+###  mint (Supply Control Contract)
+
+The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
+
+Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
+
+The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
 
 
 ###  mint (Supply Control Contract)
