@@ -25,9 +25,9 @@ Burns the specified amount of Newton stake token from an account. When `x` amoun
 
 No response object is returned on successful execution of the method call.
 
-The new Newton balance of the account can be retrieved from state by calling the [`balanceOf`](/reference/api/aut/#balanceof) method.
+The new Newton balance of the account can be retrieved from state by calling the [`balanceOf()`](/reference/api/aut/#balanceof) method.
 
-The new total supply of Newton in circulation can be retrieved from state by calling the [`totalSupply`](/reference/api/aut/#totalsupply) method.
+The new total supply of Newton in circulation can be retrieved from state by calling the [`totalSupply()`](/reference/api/aut/#totalsupply) method.
 
 #### Event
 
@@ -98,25 +98,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 -->
 
-###  burn (Supply Control Contract)
-
-Burns the specified amount of Auton, taking it out of circulation.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `amount ` | `uint256` | a non-zero integer value for the value amount being burned, denominated in Auton |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-#### Event
-
-On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
-
-
 ###  mint
 
 Mints new stake token and adds it to the recipient's account balance. When `x` amount of newton is minted, then `x` is simply added to the account’s balance and to the total supply of newton in circulation.       
@@ -132,9 +113,9 @@ Mints new stake token and adds it to the recipient's account balance. When `x` a
 
 No response object is returned on successful execution of the method call.
 
-The new Newton balance of the recipient account can be retrieved from state by calling the [`balanceOf`](/reference/api/aut/#balanceof) method.
+The new Newton balance of the recipient account can be retrieved from state by calling the [`balanceOf()`](/reference/api/aut/#balanceof) method.
 
-The new total supply of newton in circulation can be retrieved from state by calling the [`totalSupply`](/reference/api/aut/#totalsupply) method.
+The new total supply of newton in circulation can be retrieved from state by calling the [`totalSupply()`](/reference/api/aut/#totalsupply) method.
 
 #### Event
 
@@ -206,33 +187,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 -->
 
-###  mint (Supply Control Contract)
-
-Mints Auton and sends it to a recipient account, increasing the amount of auton in circulation. 
-
-The recipient cannot be the Autonity network's governance `operator` account or the zero address.
-    
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `recipient ` | `address` | the recipient account address |
-| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
-
-The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply`](/reference/api/asm/supplycontrol/#availablesupply) method.
-
-#### Event
-
-On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
-
 
 ###  modifyBasket (ACU Contract)
 
@@ -269,7 +223,7 @@ Sets a new value for the `committeeSize` protocol parameter.
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by calling the [`getMaxCommitteeSize`](/reference/api/aut/#getmaxcommitteesize) method.
+The updated parameter can be retrieved from state by calling the [`getMaxCommitteeSize()`](/reference/api/aut/#getmaxcommitteesize) method.
 
 #### Usage
 
@@ -340,7 +294,7 @@ Constraint checks are applied:
 
 No response object is returned on successful execution of the call.
 
-The updated parameter can be retrieved from state by a call to the [`epochPeriod`](/reference/api/aut/#epochperiod) public variable.
+The updated parameter can be retrieved from state by a call to the [`epochPeriod()`](/reference/api/aut/#epochperiod) public variable.
 
 #### Event
 
@@ -595,7 +549,7 @@ Sets a new value for the `minBaseFee` protocol parameter. The value is denominat
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by calling the [`getMinimumBaseFee`](/reference/api/aut/#getminimumbasefee) method.
+The updated parameter can be retrieved from state by calling the [`getMinimumBaseFee()`](/reference/api/aut/#getminimumbasefee) method.
 
 #### Event
 
@@ -680,7 +634,7 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to the [`operatorAccount`](/reference/api/aut/#operatoraccount) public variable.
+The updated parameter can be retrieved from state by a call to the [`operatorAccount()`](/reference/api/aut/#operatoraccount) public variable.
 
 #### Usage
 
@@ -929,9 +883,9 @@ The method:
 
 The default value of `newContractBytecode` and  `newContractAbi` is `""` and `contractUpgradeReady` is `false` when the Autonity Protocol Contract is deployed. If the `bytecode` is not empty, then a contract upgrade is triggered automatically by protocol. The contract upgrade is then applied at epoch end in the last block's finalisation phase: if `contractUpgradeReady` = `true`, then a `completeContractUpgrade()` method is called by  protocol to update the bytecode of the Autonity Protocol Contract.
 
-The new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion`](/reference/api/aut/#getversion) method.
+The new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.
 
-See also the function [`getNewContract`](/reference/api/aut/#getnewcontract).
+See also the function [`getNewContract()`](/reference/api/aut/#getnewcontract).
     
 #### Parameters
 
@@ -962,7 +916,32 @@ autonity.upgradeContract(_bytecode, _abi).send()
 
 ## Protocol only
 
-Functions with the `onlyProtocol` access constraint can only be invoked by the Autonity protocol itself.
+Functions with protocol contract access constraints can only be invoked by the Autonity protocol itself:
+
+- Autonity Protocol Contract: for state finalization and committee selection
+- Autonity Stabilization Contract: for Auton mint and burn.
+
+###  burn (Supply Control Contract)
+
+The Auton burn function, called by the Stabilization Contract to burn Auton while processing a CDP repayment. 
+
+Burns the specified amount of Auton, taking it out of circulation.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `amount ` | `uint256` | a non-zero integer value for the value amount being burned, denominated in Auton |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
+
+
 
 ###  computeCommittee
 
@@ -1008,17 +987,17 @@ The block finalisation function, invoked each block after processing every trans
 <!--     - sets `epochReward` to `0` -->
 
 - tests if the block number is the last epoch block number (equal to `lastEpochBlock + epochPeriod` config) and if so sets the `epochEnded` boolean variable to `true` or `false` accordingly
-- invokes the Accountability Contract [`finalize`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
+- invokes the Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
 - then, if `epochEnded` is `true`:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
-    - selects the consensus committee for the following epoch, invoking the [`computeCommittee`](/reference/api/aut/op-prot/#computecommittee) function
+    - selects the consensus committee for the following epoch, invoking the [`computeCommittee()`](/reference/api/aut/op-prot/#computecommittee) function
     - sets oracle voters for the following epoch, invoking the Oracle Contract `setVoters` function
     - assigns the `lastEpochBlock` state variable the value of the current block number
     - increments the `epochID` by `1`
     - emits a `NewEpoch` event logging the `epochID` of the new epoch
-- invokes the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
+- invokes the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
 
 #### Parameters
 
@@ -1033,7 +1012,7 @@ The block finalisation function, invoked each block after processing every trans
 | `contractUpgradeReady` | `bool` | Set to `true` if an Autonity Protocol Contract upgrade is available |
 | `committee`| `CommitteeMember[]` array | the consensus committee that approved the block, each `CommitteeMember` struct recording the validator's account address (`_addr`) and bonded stake amount (`votingPower`)|
 
-{{% alert title="Note" %}}If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion`](/reference/api/aut/#getversion) method.{{% /alert %}}
+{{% alert title="Note" %}}If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.{{% /alert %}}
 
 #### Event
 
@@ -1132,7 +1111,7 @@ The function emits events:
 
 ###  finalize (Oracle Contract)
 
-The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
+The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
 - executes the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
 - checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
@@ -1262,10 +1241,39 @@ On success the function emits events for handling of:
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
 
+###  mint (Supply Control Contract)
+
+The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
+
+Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
+
+The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
+
 
 ###  update (ACU Contract)
 
-The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
 
 - it retrieves the latest prices from the Oracle Contract (i.e. the latest round data)
 - checks price data completeness:
