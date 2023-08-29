@@ -178,11 +178,6 @@ The protocol **does not** automatically revert validator state from `jailed` to 
 
 ### Accountability event lifecycle
 
-- stages of processing an accountability event
-  - accusation
-  - innocence proven and cancellation
-  - fault promotion
-  - fault slashing for highest severity fault
 Accountability event lifecycle management comprises: accountability event submission on-chain, event handling on-chain, accusations, innocence, fault promotion, slashing.
 
 The sequence of lifecycle events for an accountability event is:
