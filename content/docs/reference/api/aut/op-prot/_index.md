@@ -53,25 +53,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
-###  burn (Supply Control Contract)
-
-Burns the specified amount of Auton, taking it out of circulation.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `amount ` | `uint256` | a non-zero integer value for the value amount being burned, denominated in Auton |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-#### Event
-
-On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
-
-
 ###  mint
 
 Mints new stake token and adds it to the recipient's account balance. When `x` amount of newton is minted, then `x` is simply added to the account’s balance and to the total supply of newton in circulation.       
@@ -292,14 +273,6 @@ Constraint checks are applied:
 No response object is returned on successful execution of the call.
 
 The updated parameter can be retrieved from state by a call to the [`epochPeriod()`](/reference/api/aut/#epochperiod) public variable.
-
-#### Event
-
-On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
-
-#### Event
-
-On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
 #### Event
 
@@ -867,13 +840,9 @@ Functions with protocol contract access constraints can only be invoked by the A
 
 ###  burn (Supply Control Contract)
 
-The Auton burn function, called by the Stabilization Contract to burn Auton while processing a CDP repayment. 
+The Auton burn function, called by the Stabilization Contract `stabilizer` account address to burn Auton while processing a CDP repayment. 
 
 Burns the specified amount of Auton, taking it out of circulation.
-
-Constraint checks are applied:
-
-- the caller is the `stabilizer` account, the Stabilization Contract address.
 
 #### Parameters
    
@@ -949,7 +918,7 @@ The block finalisation function, invoked each block after processing every trans
 
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
 - tests if the block number is the last epoch block number (equal to `lastEpochBlock + epochPeriod` config) and if so sets the `epochEnded` boolean variable to `true` or `false` accordingly
-- invokes the Accountability Contract [`finalize`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
+- invokes the Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
 - then, if `epochEnded` is `true`:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
@@ -959,7 +928,7 @@ The block finalisation function, invoked each block after processing every trans
     - assigns the `lastEpochBlock` state variable the value of the current block number
     - increments the `epochID` by `1`
     - emits a `NewEpoch` event logging the `epochID` of the new epoch
-- invokes the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
+- invokes the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
 
 #### Parameters
 
@@ -1174,6 +1143,35 @@ On success the function emits events for handling of:
 - Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
+
+###  mint (Supply Control Contract)
+
+The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
+
+Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
+
+The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
 
 
 ###  update (ACU Contract)
