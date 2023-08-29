@@ -216,9 +216,78 @@ Consensus committee membership is computed by the Autonity Protocol Contract; se
 
 ### ASM ACU Contract
 
+The contract implementing the Auton Currency Unit (ACU) element of the Auton Stability Mechanism. The contract computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
+
+The contract provides primitives for computing the ACU value and managing the basket currency symbols and quantities (i.e. weighting). The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for the basket, the quantities of those currencies in the basket, and the scale of precision for the ACU value. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
+
+Contract functions for returning ACU value, basket symbols, and basket quantities can be called by all participants.  Function calls to govern (i.e. manage) the basket composition and value scale are restricted to the governance `operator` account.
+
+All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [ACU Contract Interface](/reference/api/asm/acu/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
+
+#### ACU value computation
+
+The Autonity ACU Contract manages the computation of the ACU value, i.e. price, for the ASM. The contract implements logic to:
+
+- Compute the ACU value from the currency basket using the latest median price data for the symbols computed by the Oracle Contract.
+- Manage the ACU basket currency pair symbols, quantities, and ACU value scale precision.
+- Provide contract operations for data consumers to determine the ACU value, and basket symbols and quantities.
+
+To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+
 ### ASM Supply Control Contract
 
+The contract implementing the Auton supply control element of the Auton Stability Mechanism. The contract controls the supply of Auton on an Autonity network by minting and burning invoked by the ASM Stabilization Contract.
+
+The contract provides primitives for managing the available supply of Auton in an Autonity network. The contract stores the [protocol parameter](/reference/protocol/) setting the network's available Auton supply. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
+
+The contract function for returning the available supply of Auton for minting can be called by all participants.  Function calls to mint and burn Auton are restricted to invocation by the protocol Stabilization Contract.
+
+All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Supply Control Contract Interface](/reference/api/asm/supplycontrol/), mint and burn under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
+
+#### Auton supply control
+
+The Autonity Supply Control Contract manages the Auton supply. The contract implements logic to:
+
+- Mint and burn of Auton to take Auton in and out of circulation.
+
+To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+
 ### ASM Stabilization Contract
+
+The contract implementing the CDP-based stabilization mechanism for the Auton. Auton is borrowed against Collateral Token using a Collateralized Debt Position (CDP) mechanism. The Stabilization Contract manages CDP's throughout the lifecycle, from initial borrowing through repayment and liquidation scenarios. Collateral Token is deposited into a CDP to borrow Auton. Auton is brought in and out of circulation on an Autonity network as CDP's are opened and closed.
+
+The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
+
+Contract functions can be called by all participants to:
+
+- By CDP owners to take out CDP's to borrow Auton, withdraw collateral, and repay CDP's.
+- By prospective CDP owners to determine borrowing limits  and collateral level requirements
+- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDP's.
+- To view CDP data and retrieve stabilization configuration settings from system state.
+
+Function calls to govern (i.e. manage) the stabilization configuration are restricted to the governance `operator` account.
+
+All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Stabilization Contract Interface](/reference/api/asm/stabilization/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
+
+#### CDP ownership
+
+The Autonity Stabilization Contract implements logic for a CDP owner to:
+
+- Manage the lifecycle of a CDP through stages of initial borrowing, collateral withdrawal, and debt repayment.
+- Maintain the position in a non-liquidatable state by keeping CDP debt and collateral levels within stabilisation mechanism requirements for minimum debt and collateralization values.
+- Determine borrowing limits and collateral requirements for a new or existing CDP.
+
+To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+
+#### CDP liquidation
+
+The Autonity Stabilization Contract implements logic for a liquidator to:
+
+- Determine if a CDP is liquidatable, i.e. if the CDP is under collateralized and the collateral value is less than the liquidation ratio requirement.
+- Liquidate a CDP that is undercollateralized.
+
+To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+
 
 ## Consensus layer
 
