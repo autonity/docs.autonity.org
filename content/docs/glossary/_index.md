@@ -33,8 +33,10 @@ A base-invariant, volatility-minimised index based on a currency basket of 7 fre
 
 The ACU is the _Stabilization Target_ for [Auton](/glossary/#auton) price stability used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm). 
 
+
 ## Auton Stabilization Mechanism (ASM) {#asm}
-The protocol mechanism used to maintain Auton price stability. The _Stabilization Mechanism_ is [CDP](/glossary/#cdp), [Auton](/glossary/#auton) borrowed against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
+The protocol mechanism used to maintain Auton price stability. The _Stabilization Mechanism_ is [CDP](/glossary/#cdp), [Auton](/glossary/#auton) borrowed against [Newton](/glossary/#newton) collateral.
+
 
 ## Collateralised Debt Position (CDP) {#cdp}
 A [smart contract](/glossary/#smart-contract) based lending mechanism where collateral is deposited and locked in a smart contract to borrow another token-based asset. CDPs operate subject to collateral requirements and may be liquidated if the lender fails to maintain, i.e. breaches, the collateral conditions of the CDP.
