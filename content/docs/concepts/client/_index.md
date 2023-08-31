@@ -1,8 +1,8 @@
 
 ---
 title: "Autonity Go Client (AGC)"
-linkTitle: "Client"
-weight: 3
+linkTitle: "Autonity Go Client (AGC)"
+weight: 4
 description: >
   Main client software features
 ---

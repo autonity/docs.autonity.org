@@ -1,7 +1,7 @@
 ---
 title: "Validator "
 linkTitle: "Validator"
-weight: 5
+weight: 7
 description: >
   The role of validators, the functions they perform, and their lifecycle
 ---

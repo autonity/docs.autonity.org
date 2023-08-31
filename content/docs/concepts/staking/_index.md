@@ -2,7 +2,7 @@
 ---
 title: "Staking "
 linkTitle: "Staking"
-weight: 6
+weight: 8
 description: >
   Autonity's Liquid Staking and Penalty-Absorbing Stake (PAS) model, staking and staking rewards, temporal constraints governing staking transitions, and economic penalties for Byzantine behaviour.
 ---
