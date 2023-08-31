@@ -31,11 +31,11 @@ A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the nat
 ## Auton Currency Unit (ACU) {#acu}
 A base-invariant, volatility-minimised index based on a currency basket of 7 free-floating fiat currencies.
 
-The ACU is the _Stabilisation Target_ for [Auton](/glossary/#auton) price stability used by the [Auton Stabilisation Mechanism (ASM)](/glossary/#asm). 
+The ACU is the _Stabilization Target_ for [Auton](/glossary/#auton) price stability used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm). 
 
 
-## Auton Stabilisation Mechanism (ASM) {#asm}
-The protocol mechanism used to maintain Auton price stability. The _Stabilisation Mechanism_ is [CDP](/glossary/#cdp), [Auton](/glossary/#auton) borrowed against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
+## Auton Stabilization Mechanism (ASM) {#asm}
+The protocol mechanism used to maintain Auton price stability. The _Stabilization Mechanism_ is [CDP](/glossary/#cdp), [Auton](/glossary/#auton) borrowed against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
 
 
 ## Collateralised Debt Position (CDP) {#cdp}

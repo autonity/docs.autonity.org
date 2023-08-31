@@ -1,7 +1,7 @@
 
 ---
-title: "Accountability and fault detection"
-linkTitle: "Accountability and fault detection"
+title: "Accountability and fault detection (AFD)"
+linkTitle: "Accountability and fault detection (AFD)"
 weight: 9
 description: >
   Autonity's Accountability Fault Detection model -- reporting mechanism, temporal constraints and economics for reporting offences and penalties for Byzantine behaviour.

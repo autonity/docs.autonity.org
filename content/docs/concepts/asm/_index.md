@@ -1,15 +1,15 @@
 
 ---
-title: "Auton Stability Mechanism (ASM)"
-linkTitle: "Auton Stability Mechanism (ASM)"
+title: "Auton Stabilization Mechanism (ASM)"
+linkTitle: "Auton Stabilization Mechanism (ASM)"
 weight: 10
 description: >
-  Auton Stability Mechanism: elements, the functions they perform, and the lifecycle for Auton and Newton supply.
+  Auton Stabilization Mechanism: elements, the functions they perform, and the lifecycle for Auton and Newton supply.
 ---
 
 ## Overview
 
-This section describes the Auton Stability Mechanism (ASM) protocol, the elements composing the mechanism, the functions it provides for computing and maintaining a stable price for Auton, and the lifecycle for Auton and Newton supply.
+This section describes the Auton Stabilization Mechanism (ASM) protocol, the elements composing the mechanism, the functions it provides for computing and maintaining a stable price for Auton, and the lifecycle for Auton and Newton supply.
 
 ...
 
