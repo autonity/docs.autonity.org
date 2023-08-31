@@ -182,7 +182,7 @@ Configuration of the Auton Stabilisation Mechanism (ASM).
 |Parameter|Description|Value|
 |---------|-----------|-----|
 | `acu` | Object structure for the ASM's Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
-| `stabilization` | Object structure for the ASM's stabilisation mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
+| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
 | `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
 
 #### config.asm.acu object
@@ -197,19 +197,19 @@ Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 
 
 #### config.asm.stabilization object
 
-Configuration of the stabilisation mechanism's Collateralised Debt Position (CDP).
+Configuration of the Stabilization mechanism's Collateralised Debt Position (CDP).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
 | `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set to 5%, `50_000_000_000_000_000` |
 | `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. Set to 1.8, | `1_800_000_000_000_000_000` |
-| `minCollateralizationRatio` | The minimum amount of debt required to maintain a CDP. | Set to 2, `2_000_000_000_000_000_000` |
+| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set to 2, `2_000_000_000_000_000_000` |
 | `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` |
 | `targetPrice` | The ACU value of 1 unit of debt. | Set to 1, `1_000_000_000_000_000_000` |
 
-##### config.asm.supplyControl object
+#### config.asm.supplyControl object
 
-Configuration of the stabilisation mechanism's Collateralised Debt Position (CDP).
+Configuration of the Stabilization mechanism's initial Auton supply.
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
