@@ -206,7 +206,77 @@ None.
 
 #### Event
 
-On success the function emits a `BasketModified` event for the new ACU basket parameterisation, logging: `symbols_`, `quantities_`, and `scale_`.
+None.
+
+
+###  setAccountabilityContract
+
+Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Accountability Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setAcuContract
+
+Sets a new value for the [ASM Auton Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the ACU Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
 
 
 ###  setCommitteeSize
@@ -465,75 +535,6 @@ None.
 {{< /tabpane >}}
 
 
-###  setOracle (ASM Stabilization Contract)
-
-Sets a new value for the Oracle Contract address in the ASM Stabilization Contract configuration.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `oracle ` | `address` | the ethereum formatted address of the Oracle Contract |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-###  setSupplyControl (ASM Stabilization Contract)
-
-Sets a new value for the SupplyControl Contract address in the ASM Stabilization Contract configuration.
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `supplyControl` | `address` |  the ethereum formatted address of the SupplyControl Contract |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
 
 ###  setMinimumBaseFee
 
@@ -622,7 +623,7 @@ Enter passphrase (or CTRL-d to exit):
 
 ###  setOperatorAccount
 
-Sets a new governance account address as the protocol parameter for the [Autonity Protocol Contracts](/concepts/architecture/#protocol-contract-account-addresses):
+Sets a new governance account address as the protocol parameter for the [Autonity Protocol Contracts](/concepts/architecture/#application-layer-protocol-contracts):
 
 - [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract)
 - [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract)
@@ -664,7 +665,7 @@ autonity.setOperatorAccount(_account).send()
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut protocol set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xee513f48b4ad4cd24cfc5bb0fe0c1402a5e03ae030b6c73824bae253f56efd51
@@ -676,6 +677,116 @@ Enter passphrase (or CTRL-d to exit):
 > autonity.setOperatorAccount('0x11a87b260dd85ff7189d848fd44b28cc8505fa9c').send({from: myAddress, gas: gas})
 {{< /tab >}}
 -->
+
+###  setOracleContract
+
+Sets a new value for the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) address.
+
+The Oracle Contract is called by the [Autonity Protocol Contracts](/concepts/architecture/#application-layer-protocol-contracts):
+
+- [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract)
+- [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
+- [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address` | `address` | the ethereum formatted address of the Oracle Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setStabilizationContract
+
+Sets a new value for the [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Stabilization Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setSupplyControlContract
+
+Sets a new value for the [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract) address.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `supplyControl` | `address` |  the ethereum formatted address of the Supply Control Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
 
 
 ### setSymbols (Oracle Contract)
@@ -934,6 +1045,10 @@ The Auton burn function, called by the Stabilization Contract to burn Auton whil
 
 Burns the specified amount of Auton, taking it out of circulation.
 
+Constraint checks are applied:
+
+- the caller is the `stabilizer` account, the Stabilization Contract address.
+
 #### Parameters
    
 | Field | Datatype | Description |
@@ -947,7 +1062,6 @@ No response object is returned on successful execution of the method call.
 #### Event
 
 On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
-
 
 
 ###  computeCommittee
@@ -1004,13 +1118,14 @@ The block finalisation function, invoked each block after processing every trans
     - assigns the `lastEpochBlock` state variable the value of the current block number
     - increments the `epochID` by `1`
     - emits a `NewEpoch` event logging the `epochID` of the new epoch
-- invokes the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
+- invokes the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to check it is the end of a voting round and if so:
+  - calculate the median price of [currency pairs](/glossary/#currency-pair)
+  - re-set oracle voters and parameters ready for the next oracle voting round.
+- then, if the oracle has computed data and started a new voting round (`newRound` is `true`), invokes the ACU Contract [`update()`](/reference/api/aut/op-prot/#update-acu-contract) function to recompute the ACU value using the new price data.
 
 #### Parameters
 
-| Field | Datatype | Description |
-| --| --| --| 
-| `amount` | `uint256` | the amount of transaction fees collected for the block |
+None.
 
 #### Response
 
@@ -1120,7 +1235,7 @@ The function emits events:
 
 The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
-- executes the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
+- executes the Oracle Contract's on-chain aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
 - checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
 - resets the `lastRoundBlock` to the current `block.number`
 - increments the `round` counter by `1`
@@ -1132,7 +1247,7 @@ None.
 
 #### Response
 
-None.
+Returns `true` if there is a new voting round and new symbol prices are available, `false` if not.
 
 #### Event
 
@@ -1254,9 +1369,13 @@ The Auton mint function, called by the Stabilization Contract to mint Auton to r
 
 Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
 
-The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+Constraint checks are applied:
+
+- the caller is the `stabilizer` account, the Stabilization Contract address
+- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
+- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
     
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
         
 #### Parameters
    
