@@ -632,6 +632,39 @@ None.
 {{< /tabpane >}}
 
 
+
+## getBlockPeriod
+
+Returns the block period from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `blockPeriod` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ##  getBondingRequests
 
 Returns an array of pending bonding requests within a specified range. Staking transitions are maintained in memory as `BondingRequest` data structures until voting power changes are applied at epoch end before selection of the next consensus committee.
@@ -1054,6 +1087,7 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 
 ##  getFirstPendingBondingRequest
@@ -1542,6 +1576,39 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+
+## getUnbondingPeriod
+
+Returns the unbonding period from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `unbondingPeriod` | `uint256` | the period of time for which bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction, defined as a number of blocks |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
 
 ### Example
 
