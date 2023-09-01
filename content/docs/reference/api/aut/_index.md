@@ -978,6 +978,7 @@ None.
 {{< /tabpane >}}
 
 
+
 ##  getFirstPendingBondingRequest
 
 Returns the identifier of the oldest i.e. 'first submitted' bonding request pending processing at the time of the call.
@@ -1134,7 +1135,6 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
->>>>>>> 3b95896 (REference, Autonity Contract, add getter methods)
 
 
 ##  getMaxCommitteeSize
