@@ -583,6 +583,7 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
+
 ## getBlockPeriod
 
 Returns the block period from the protocol configuration.
@@ -851,6 +852,37 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
+## getEpochPeriod
+
+Returns the epoch period from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
 ## getEpochFromBlock
 
 Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
@@ -904,6 +936,45 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 
 {{< /tab >}}
 -->
+
+## getLastEpochBlock
+
+Returns the last epoch's end block height.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `lastEpochBlock` | `uint256` | the number of the last block in the previous epoch |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 
 ##  getMaxCommitteeSize
 

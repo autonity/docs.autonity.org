@@ -235,7 +235,77 @@ None.
 
 #### Event
 
-On success the function emits a `BasketModified` event for the new ACU basket parameterisation, logging: `symbols_`, `quantities_`, and `scale_`.
+None.
+
+
+###  setAccountabilityContract
+
+Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Accountability Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setAcuContract
+
+Sets a new value for the [ASM Auton Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the ACU Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
 
 
 ###  setCommitteeSize
@@ -854,6 +924,10 @@ The Auton burn function, called by the Stabilization Contract `stabilizer` accou
 
 Burns the specified amount of Auton, taking it out of circulation.
 
+Constraint checks are applied:
+
+- the caller is the `stabilizer` account, the Stabilization Contract address.
+
 #### Parameters
    
 | Field | Datatype | Description |
@@ -1175,9 +1249,13 @@ The Auton mint function, called by the Stabilization Contract to mint Auton to r
 
 Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
 
-The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+Constraint checks are applied:
+
+- the caller is the `stabilizer` account, the Stabilization Contract address
+- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
+- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
     
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
         
 #### Parameters
    
