@@ -909,7 +909,6 @@ Constraint checks are applied:
 
 - the caller is the `stabilizer` account, the Stabilization Contract address.
 
-
 #### Parameters
    
 | Field | Datatype | Description |
@@ -1221,9 +1220,13 @@ The Auton mint function, called by the Stabilization Contract to mint Auton to r
 
 Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
 
-The recipient cannot be the Autonity network's governance `operator` account or the zero address.
+Constraint checks are applied:
+
+- the caller is the `stabilizer` account, the Stabilization Contract address
+- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
+- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
     
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of auton in circulation and reducing the supply of auton available for minting.       
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
         
 #### Parameters
    
