@@ -21,18 +21,17 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 
 ## getPrecision
 
-Returns the precision to be used with price reports.
+Returns the precision to be used with price reports
 
 The precision is set as a constant to the integer value `10000000`.
 
-The precision is the multiplier applied to price data points before aggregation and calculation of a median price for symbols by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
+{{< card header="Info" title="Precision" subtitle="" footer="" >}}
 
-{{< card header="Example" title="Conversion to decimal places" subtitle="" footer="" >}}
+The precision is the multiplier applied to price data points before aggregation and calculation of a median price for a symbol by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
 
 For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the on-chain aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
 
 {{< /card >}}
-
 
 ### Parameters
 
