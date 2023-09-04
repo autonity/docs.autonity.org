@@ -91,17 +91,13 @@ Values are set in params config. `autonity/params/` and are the default used at 
 
 #### CDP
 
-    /// Represents a Collateralized Debt Position (CDP)
-    struct CDP {
-        /// The timestamp of the last borrow or repayment.
-        uint timestamp;
-        /// The collateral deposited with the Stabilization Contract.
-        uint256 collateral;
-        /// The principal debt outstanding as of `timestamp`.
-        uint256 principal;
-        /// The interest debt that is due at the `timestamp`.
-        uint256 interest;
-    }
+Collateralized Debt Position (CDP) attributes:
+
+- `timestamp`: the timestamp of the last borrow or repayment.
+- `collateral`: the collateral deposited with the Stabilization Contract.
+- `principal`: the principal debt outstanding as of `timestamp`.
+- `interest`: the interest debt that is due at the `timestamp`.
+
 
    /// The decimal places in fixed-point integer representation.
     uint256 public constant SCALE = 18; // Match UD60x18
