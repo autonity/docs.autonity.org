@@ -49,3 +49,80 @@ aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 available
 
 {{< /tab >}}
 {{< /tabpane >}}
+
+
+## stabilizer
+
+Returns the Stabilization Contract address, the `stabilizer` account that is authorized to mint and burn Auton.
+    
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype| Description |
+| --| --| --|
+| `address` | `address` | the Stabilization Contract address |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+## totalSupply
+
+Returns the total supply of Auton under management.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype| Description |
+| --| --| --|
+| Auton Supply | `uint256` | the total supply of Auton under management |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
