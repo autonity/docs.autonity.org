@@ -51,12 +51,32 @@ Mechanism
 
 #### Stabilization
 
-CDP-based stabilization mechanism.
+/// @title ASM Stabilization Contract
+/// @notice A CDP-based stabilization mechanism for the Auton.
+/// @dev Intended to be deployed by the protocol at genesis. Note that all
+/// rates, ratios, prices, and amounts are represented as fixed-point integers
+/// with `SCALE` decimal places.
 
 ...
 
 #### ASM configuration
 
+
+Values are set in params config. `autonity/params/` and are the default used at network genesis for acu,supply control, stabilization contracts.
+ 
+/// Stabilization Configuration.
+
+
+- `borrowInterestRate`: the annual continuously-compounded interest rate for borrowing.
+
+- `liquidationRatio`: the minimum ACU value of collateral required to maintain 1 ACU value of debt.
+
+- `minCollateralizationRatio`: the minimum ACU value of collateral required to borrow 1 ACU value of debt.
+
+- `minDebtRequirement`: the minimum amount of debt required to maintain a CDP.
+
+- `targetPrice`: the ACU value of 1 unit of debt.
+    
 ...
 
 ### Protocol primitives
@@ -69,7 +89,30 @@ CDP-based stabilization mechanism.
 
 ...
 
-#### xyz
+#### CDP
+
+    /// Represents a Collateralized Debt Position (CDP)
+    struct CDP {
+        /// The timestamp of the last borrow or repayment.
+        uint timestamp;
+        /// The collateral deposited with the Stabilization Contract.
+        uint256 collateral;
+        /// The principal debt outstanding as of `timestamp`.
+        uint256 principal;
+        /// The interest debt that is due at the `timestamp`.
+        uint256 interest;
+    }
+
+   /// The decimal places in fixed-point integer representation.
+    uint256 public constant SCALE = 18; // Match UD60x18
+    /// The multiplier for scaling numbers to the required scale.
+    uint256 public constant SCALE_FACTOR = 10 ** SCALE;
+    /// A year is assumed to have 365 days for interest rate calculations.
+    uint256 public constant SECONDS_IN_YEAR = 365 days;
+    /// The Config object that stores Stabilization Contract parameters.
+    Config public config;
+    /// A mapping to retrieve the CDP for an account address.
+    mapping(address => CDP) public cdps;
 
 ...
 
@@ -80,7 +123,31 @@ CDP-based stabilization mechanism.
 ### CDP lifecycle
 
 CDP lifecycle events.
+
+    /// Collateral Token was deposited into a CDP
+    /// @param account The CDP account address
+    /// @param amount Collateral Token deposited
+    event Deposit(address indexed account, uint256 amount);
+    /// Collateral Token was withdrawn from a CDP
+    /// @param account The CDP account address
+    /// @param amount Collateral Token withdrawn
+    event Withdraw(address indexed account, uint256 amount);
+    /// Auton was borrowed from a CDP
+    /// @param account The CDP account address
+    /// @param amount Auton amount borrowed
+    event Borrow(address indexed account, uint256 amount);
+    /// Auton debt was paid into a CDP
+    /// @param account The CDP account address
+    /// @param amount Auton amount repaid
+    event Repay(address indexed account, uint256 amount);
+    /// A CDP was liquidated
+    /// @param account The CDP account address
+    /// @param liquidator The liquidator address
+    event Liquidate(address indexed account, address liquidator);
+
 ...
+
+
 
 ### CDP ownership
 
