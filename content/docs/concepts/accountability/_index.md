@@ -4,7 +4,7 @@ title: "Accountability and fault detection"
 linkTitle: "Accountability and fault detection"
 weight: 6
 description: >
-  Autonity's Accountability Fault Detection model, reporting, proving innocence or guilt, temporal constraints, and economics for reporting offences and penalties for Byzantine behaviour.
+  Autonity's Accountability Fault Detection model -- reporting mechanism, temporal constraints and economics for reporting offences and penalties for Byzantine behaviour.
 ---
 
 
