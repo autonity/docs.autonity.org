@@ -18,9 +18,15 @@ Proven rule infractions are reported as _faults_ and slashing makes faults _acco
 
 It is important to note that AFD runs alongside Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
 
-AFD functions by submitting, verifying, and processing accountability event proofs by epoch. Rule infractions are submitted by _reporting validators_ as _faults_ or as an _accusations_ against _offending validators_. An _offending validator_ may defend against an _accusation_ by submitting a proof of _innocence_ within an _innocence window_ measured in blocks.
+AFD functions by submitting, verifying, and processing accountability event proofs by epoch. Rule infractions can be:
 
-Slashing penalties are computed by protocol and  applied for proven _faults_ at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch (collusion) and the individual _offending_ validator's own slashing history.
+- directly submitted as a _fault_ proof by a _reporting_ validator
+- promoted from accusations, which in turns are:
+  - reported as an _accusation_, submitted by a _reporting_ validator against an _offending_ validator
+  - eventually defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
+  - if not defended, promoted to _fault_ by the protocol once the innocence window has expired.
+
+Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch (collusion) and the individual _offending_ validator's own slashing history.
 
 Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalised, the Autonity contract will: apply accountability for _faults_ to _offending_ validators, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
 
