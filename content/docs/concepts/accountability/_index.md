@@ -12,7 +12,7 @@ description: >
 
 This section describes the Autonity accountability and fault detection protocol, the role of validators in submitting and verifying accountability event proofs (fault, accusation, innocence), the lifecycle for fault accountability and detection, and slashing.
 
-Autonity implements an _accountability and fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behaviour during consensus while participating in block proposal and voting as a committee member. Failure to adhere to these rules is a _rule infraction_ and AFD will detect and apply slashing penalties for proven rule infractions.
+Autonity implements an _accountability and fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behaviour while participating in block proposal and voting. Failure to adhere to these rules is a _rule infraction_.
 
 Proven rule infractions are reported as _faults_ and slashing makes faults _accountable_. Faults are _detected_ by validators and submitted on chain as accountability _events_ providing proof of behaviour. This proof is derived from consensus messaging between validators during consensus rounds and submitted on-chain to the Accountability Contract.
 
