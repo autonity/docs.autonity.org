@@ -50,7 +50,7 @@ As consensus committee members, validators play the following roles in AFD proce
 
 Validators play the following economic roles in AFD processing:
 
-- _loss_: loss of stake, validator reputation, staking reward revenue as the _offending_ validator of a slashed _fault_
+- _offender_: loss of stake, validator reputation, staking reward revenue as the _offending_ validator of a slashed _fault_
 - _beneficiary_: gain of the _offending_ validator's protocol rewards as the _reporting_ validator of a slashed _fault_.
 
 Autonity community play the following economic role in AFD processing:
