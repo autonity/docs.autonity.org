@@ -40,7 +40,7 @@ To participate in AFD a [validator](/glossary/#validator) must be a [consensus c
 
 AFD roles, core concepts, and the lifecycle of accountability event processing from accusation to slashing.
 
-### Validator roles
+### Roles
 
 As consensus committee members, validators play the following roles in AFD processing:
 
