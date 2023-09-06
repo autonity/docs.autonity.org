@@ -26,7 +26,7 @@ AFD functions by submitting, verifying, and processing accountability event proo
   - eventually defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
   - if not defended, promoted to _fault_ by the protocol once the innocence window has expired.
 
-Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history.
+Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch (collusion) and the individual _offending_ validator's own slashing history.
 
 Slashing is applied as part of the state finalisation function:
 
