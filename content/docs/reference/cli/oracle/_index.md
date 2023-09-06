@@ -32,9 +32,19 @@ Run `autoracle --help` to view the options:
 
 | ORACLE SERVER OPTIONS: | Description | Default | Required? |
 |:--|:--|:--|:--|
+<<<<<<< HEAD
 | `-oracle_autonity_ws_url` | The web socket RPC URL of the Autonity node that the oracle server communicates with | "ws://127.0.0.1:8546" | Yes |
 | `-oracle_symbols` | The symbols that the oracle component collects data points for. A comma-separated string of values. | "NTN/USD,ATN/USD,EUR/USD, JPY/USD,GBP/USD,AUD/USD, CAD/USD,SEK/USD" | No |
 | `-oracle_key_file` | The path to the encrypted key file that contains the private key of the oracle server. | (defaults to testing key in `/test_data/keystore`) | Yes |
 | `-oracle_key_password` | The password of the key file that contains the private key of the oracle server | (defaults to password for testing key in `/test_data/keystore`) | Yes |
 | `-oracle_plugin_dir` | The path to the DIR where the data source plugins are stored | `./build/bin/plugins` | No |
 | `-oracle_plugin_conf` | The path to the data source plugins YAML configuration file `plugins-conf.yml` | `./build/bin/plugins/plugins-conf.yml` | Yes |
+=======
+| `-oracle_autonity_ws_url` | WS-RPC server listening interface and port of the connected Autonity Go Client node | "ws://127.0.0.1:8546" | Yes |
+| `-oracle_gas_tip_cap` | The gas priority fee cap set for oracle data report transactions. Must be a non-zero value. | Default `1` | No |                                                             
+| `-oracle_symbols` | The currency pair symbols the oracle returns data for. A comma-separated list | "AUD-USD,CAD-USD,SEK-USD,EUR-USD,GBP-USD,JPY-USD,ATN-USD,NTN-USD" | No |
+| `-oracle_key_file` | Path to the oracle server key file | (defaults to testing key in `/test_data/keystore`) | Yes |
+| `-oracle_key_password` | Password to the oracle server key file | (defaults to password for testing key in `/test_data/keystore`) | Yes |
+| `-oracle_plugin_dir` | Path to the DIR where the data source plugins are stored | `./build/bin/plugins` | No |
+| `-oracle_plugin_conf` | Path to the data source plugins YAML configuration file `plugins-conf.yml` | `./build/bin/plugins/plugins-conf.yml` | Yes |
+>>>>>>> b68833b (Oracle, edits to add Docker run and install)

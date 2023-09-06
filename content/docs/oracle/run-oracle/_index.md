@@ -120,16 +120,69 @@ Additional data adaptors for any external data source can be developed using the
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
 
 
+<<<<<<< HEAD
+=======
+## Run Autonity Oracle Server as Docker image {#run-docker}
+
+- Ensure that the Autonity Oracle Server [Docker image](/oracle/install-oracle/#install-docker) has been installed.
+
+1. Enter you have the necess working directory for autonity oracle server.
+
+2. Edit your oracle server config file `plugins-conf.yml` to specify the `name` and `key` for each plugins you are using.  in the node. 
+3. Set the Docker configuration and the arguments for connecting Autonity to a network.
+
+   ```bash
+   docker run \
+       -t -i \
+       --volume $(pwd)/autonity-chaindata:/autonity-chaindata \
+       --publish 8545:8545 \
+       --publish 8546:8546 \
+       --publish 30303:30303 \
+       --publish 30303:30303/udp \
+       --publish 6060:6060 \
+       --name autonity-oracle \
+       --rm \
+       ghcr.io/autonity/autonity:latest \
+           --datadir ./autonity-chaindata  \
+           --piccadilly \
+           --http  \
+           --http.addr 0.0.0.0 \
+           --http.api aut,eth,net,txpool,web3,admin  \
+           --http.vhosts \* \
+           --ws  \
+           --ws.addr 0.0.0.0 \
+           --ws.api aut,eth,net,txpool,web3,admin  \
+           --nat extip:<IP_ADDRESS>
+   ```
+
+   where:
+   - `<IP_ADDRESS>` is the node's host IP Address, which can be determined with `curl ifconfig.me`.
+   - `--piccadilly` specifies that the node will use the Piccadilly tesnet.  For other tesnets, use the appropriate flag (for example, `--bakerloo`).
+
+   See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
+
+{{< alert title="Important Notes" >}}
+- Note that all flags after the image name are passed to the Autonity Oracle Server in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
+- The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
+
+- The `--publish` flag causes incoming connections to the localhost to be forwarded to the container.
+{{< /alert >}}
+
+Naturally, the above command line can be tailored to suit a specific deployment. See the docker documentation for the complete list of Docker options.
+
+
+>>>>>>> b68833b (Oracle, edits to add Docker run and install)
 <!--
 ## Run Autonity Oracle Server as Docker image {#run-docker}
 
 TODO
 -->
+<<<<<<< HEAD
 <!--  
 ## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
+=======
+>>>>>>> b68833b (Oracle, edits to add Docker run and install)
 
-TODO
--->
 
 ## Stopping the Autonity Oracle Server
 

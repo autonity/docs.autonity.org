@@ -115,7 +115,7 @@ A digital currency that provides a medium of exchange in a decentralised compute
 ## currency pair
 Two currencies valued against one another with a quotation and pricing structure based on quoting one currency against the other. A currency pair consists of a base currency (listed first) and a quote currency (listed second). The currency pair expresses the amount of quote currency required to buy one unit of the base currency.
 
-For example, in the currency pair `JPY/USD 0.0074`, `1` Japanese Yen will trade for `0.0074` US dollars.
+For example, in the currency pair `JPY-USD 0.0074`, `1` Japanese Yen will trade for `0.0074` US dollars.
 
 ## data oracle
 An off-chain data feed service that provides data to a [blockchain](/glossary/#blockchain). An oracle data service is considered a secure and reliable source of information on the blockchain and may be used in on-chain logic execution. For example, a price data feed. See also [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas)
