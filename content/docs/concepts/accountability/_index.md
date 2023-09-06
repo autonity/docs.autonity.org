@@ -154,6 +154,15 @@ Accountability event lifecycle management comprises: accountability event submis
   - eventually defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
   - if not defended, promoted to _fault_ by the protocol once the innocence window has expired.
 
+ Rule infractions can be:
+
+- directly submitted as a _fault_ proof by a _reporting_ validator
+- promoted from accusations where they are:
+  - reported as an _accusation_, submitted by a _reporting_ validator against an _offending_ validator
+  - eventually defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
+  - if not defended, promoted to _fault_ by the protocol once the innocence window has expired.
+
+
 The sequence of lifecycle events for an accountability event is:
 
 - An accountability event is detected by the AFD protocol and submitted on-chain by a _reporting validator_.
