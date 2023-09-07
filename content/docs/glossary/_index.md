@@ -183,7 +183,7 @@ A network participant that holds an amount of the [Newton](/glossary/#newton) st
 The process by which stake is delegated to a validator node in a Proof of Stake (PoS) blockchain. Validators with bonded stake participate in transaction validation if a member of the consensus committee. Stake can be [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegate).
 
 ## staking rewards
-Revenue earned by bonded stake when it is actively securing the network during consensus. Only stake bonded to members of the current consensus committee earns staking rewards.
+Revenue earned by bonded stake when it is actively securing the network during consensus. Only stake bonded to members of the current consensus committee earn staking rewards.
 
 ## staking wallet account
 The [account](/glossary/#account) used by a [stakeholder](/glossary/#stakeholder) for stake delegation. This is the account address used to submit transactions for operations to:
