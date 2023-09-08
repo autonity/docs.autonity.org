@@ -114,6 +114,11 @@ If plugins for external data sources or the symbols for which oracle server prov
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
 
+
+{{< alert title="Info" >}}
+AOS requires an accessible `ws/wss` AGC endpoint. If you are also running AGC in docker and facing issues in connecting AOS to it, then see docker docs [Networking <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/network/).  
+{{< /alert >}}
+ 
 On running the Docker you should see something like:
 
    ```
@@ -129,6 +134,7 @@ On running the Docker you should see something like:
 
 {{< alert title="Important Notes" >}}
 - Note that all flags after the image name are passed to the Autonity Oracle Server in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
+
 - The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
 
 - The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
@@ -145,12 +151,12 @@ TODO
 
 ## Configure plugins
 
-The oracle server will need to provide FX and ATN/NTN currency pairs utilised in the Autonity Stability Mechanism.
+The oracle server will need to provide FX, ATN and NTN currency pairs utilised in the Auton Stabilization Mechanism.
 
-A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
+A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet in the `autonity-oracle` GitHub repo [`/plugins` <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins) directory:
 
-- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
-- Simulator plugin: for simulated ATN/NTN data. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
+- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors. Four forex plugins are currently provided.
+- Simulator plugin: for simulated ATN/NTN data. See the `simulator_plugin` adaptor.
 
 ### Set up plugins config file
 To configure FX data source plugins edit the `plugins_conf.yml` file to add a config entry for each plugin.  The oracle server release contains out-the-box plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
