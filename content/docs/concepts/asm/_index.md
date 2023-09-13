@@ -15,11 +15,15 @@ Autonity implements a Collateralized Debt Position or [CDP](/glossary/#cdp)-base
 
 Autons are minted when users take out CDPs. Users deposit collateral in the form of Newtons (NTN) to borrow Auton at interest. 
 
+<<<<<<< HEAD
 Autons are burned when a CDP is repaid by depositing ATN to the ASM's smart contract. The NTN collateral is removed and returned to circulation. 
 
 CDPs are created with defined collateralization and liquidation ratios which limit the risk that the debt cannot be adequately covered by the sale of the collateral.
 
 Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
+=======
+Elasticity in supply and demand for Auton is absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
+>>>>>>> 8e41871 (Concepts, ASM first iteration)
 
 ## ASM identifiers and accounts
 
@@ -269,7 +273,6 @@ ASM economics are multi-dimensional:
 - For the protocol:
   - Protocol asset price stability: the stabilization mechanism mean-reverts Auton to the ACU stabilization target over time, smoothing Auton price movement.
   - Supply and demand elasticity: Auton supply increases and decreases according to demand, the CDP _borrow rate_ providing the economic lever to adjust CDP incentives.
-  - Protocol revenue from _borrow interest_ earned on CDP's.
 - For the borrower:
   - CDP's give access to collateralized borrowing for Auton with  flexibility to increase and decrease borrowing and collateral amounts within constraints. Borrowers can offset flexibility against opportunity costs of borrow interest, staking reward potential if deposited Newton collateral were earning staking rewards, and liquidation risk.
 - For the liquidator:
