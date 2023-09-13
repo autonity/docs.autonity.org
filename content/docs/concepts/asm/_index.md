@@ -273,6 +273,7 @@ ASM economics are multi-dimensional:
 - For the protocol:
   - Protocol asset price stability: the stabilization mechanism mean-reverts Auton to the ACU stabilization target over time, smoothing Auton price movement.
   - Supply and demand elasticity: Auton supply increases and decreases according to demand, the CDP _borrow rate_ providing the economic lever to adjust CDP incentives.
+  - Protocol revenue from _borrow interest_ earned on CDP's.
 - For the borrower:
   - CDP's give access to collateralized borrowing for Auton with  flexibility to increase and decrease borrowing and collateral amounts within constraints. Borrowers can offset flexibility against opportunity costs of borrow interest, staking reward potential if deposited Newton collateral were earning staking rewards, and liquidation risk.
 - For the liquidator:
