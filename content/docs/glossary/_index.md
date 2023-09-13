@@ -41,7 +41,7 @@ The protocol mechanism used to maintain Auton price stability. The _Stabilizatio
 ## Collateralised Debt Position (CDP) {#cdp}
 A [smart contract](/glossary/#smart-contract) based lending mechanism where collateral is deposited and locked in a smart contract to borrow another token-based asset. CDP's operate subject to collateral requirements and may be liquidated if the lender fails to maintain, i.e. breaches, the collateral conditions of the CDP.
 
-CDP's are used by the [Auton Stabilisation Mechanism (ASM)](/glossary/#asm) to borrow [Auton](/glossary/#auton) against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
+CDP's are used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) to borrow [Auton](/glossary/#auton) against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
 
 ## Autonity Go Client (AGC)
 Autonity Go Client is main client software for accessing and participating in an Autonity network. AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
@@ -61,7 +61,7 @@ Providing [oracle](/glossary/#data-oracle) reference data is a validator respons
 For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
 
 ## Autonity Protocol
-A generalisation of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic [finality](/glossary/#finality), an [oracle protocol](/glossary/#oracle-protocol), and [liquid staking](/glossary/#liquid-staking).
+A generalization of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic [finality](/glossary/#finality), an [oracle protocol](/glossary/#oracle-protocol), and [liquid staking](/glossary/#liquid-staking).
 
 The Autonity Protocol uses Ethereum’s EVM-based state transition function. State transition is by transaction, the transaction associated with an economic cost for computation, and transactions affecting [system state](/glossary/#system-state)).
 
@@ -164,7 +164,7 @@ The JSON-formatted genesis configuration file that contains the data necessary t
 ## gigaton
 The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to denominate Autonity gas prices. 1 `gigaton` = 1,000,000,000 [ton](/glossary/#ton). The Autonity equivalent of wei is [ton](/glossary/#ton) and of gwei gigaton.
 
-## incentivisation scheme
+## incentivization scheme
 A cryptoeconomic mechanism where economic penalties are applied for incorrect actions or state transitions by network participants, enforced by cryptographic proofs of state or action.
 
 ## jailing
