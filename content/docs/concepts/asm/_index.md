@@ -15,10 +15,7 @@ For Auton stabilization control Autonity implements a [CDP](/glossary/#cdp)-base
 
 CDP are maintained according to collateralization and liquidation ratios that set collateral amount and collateral value thresholds to keep a CDP in good health.  Auton is minted and burned as CDP's pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
 
-Elasticity in supply and demand for Auton is absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target.
-
-Auton price has the [Auton Currency Unit (ACU)](/glossary/#acu) as the Stabilization Target to which it mean-reverts. ACU is a basket of free-floating currencies. An index price is computed from the basket, weighted _pro rata_ to each currency's share i.e. _quantity_ in the basket, and an index value for ACU computed. Use of a currency basket minimises the Auton user's exposure to an individual currency's FX exchange risk.
-
+Elasticity in supply and demand for Auton is absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
 
 ## ASM identifiers and accounts
 
@@ -101,12 +98,22 @@ Public functions to return the total supply of Auton and the amount of Auton ava
 
 #### Stabilization
 
+The Stabilization Contract maintains a ledger of CDPs and calls the Supply Control Contract to mint and burn Auton as collateral token is deposited or withdrawn and borrowing repaid.
+
+The Stabilization Contract maintains an _Internal Balance Sheet_ ledger of CDP debt, recording for each CDP:
+
+- `timestamp`: the timestamp of the last borrow or repayment.
+- `collateral`: the collateral deposited with the Stabilization Contract.
+- `principal`: the principal debt outstanding as of `timestamp`.
+- `interest`: the interest debt that is due at the `timestamp`.
+
 Stabilization functions by dynamically adjusting CDP incentives.
 
-Users post Collateral Token (NTN) to borrow ATN against collateral at the Borrow Rate. The Auton Borrow Rate goes up (down) depending on whether ATN/ACU is below (above) the target exchange rate for ATN/ACU to:
+Users post Collateral Token to borrow ATN against collateral at the Borrow Rate. The Auton Borrow Rate goes up (down) depending on whether ATN/ACU is below (above) the target exchange rate for ATN/ACU to:
+
   - Increase ATN borrowing (more supply) when ATN/ACU is above target
-  - Decrease ATN borrowing (less supply) when ATN/ACU is below target
- 
+  - Decrease ATN borrowing (less supply) when ATN/ACU is below target.
+
 CDP collateral token is currently restricted to the Autonity staking token NTN. A next generation of the ASM will also accept LNTN as collateral. In this future iteration, stakers who post LNTN collateral will continue to receive their staking awards, eliminating opportunity cost distortions. I.e. lending NTN collateral introduces an opportunity cost of paying interest and losing opportunity to earn staking rewards if bonded.
 
 Modifying the stabilization configuration for CDP collateral and debt thresholds is restricted to the governance account. See the Governance and Protocol Only Reference, [`setLiquidationRatio()`](/reference/api/aut/op-prot/#setliquidationratio-asm-stabilization-contract), [`setMinCollateralizationRatio()`](/reference/api/aut/op-prot/#setmincollateralizationratio-asm-stabilization-contract), and [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract).
@@ -147,71 +154,122 @@ ASM parameter settings:
 
 ### Protocol primitives
 
-- CDP - CDP-based stabilization mechanism and the core attributes thereof - principal, etc
-- Protocol Assets - Auton, Newton, Liquid Newton - Auton supply, price stability, collateral token
-- ACU - ACU value derived from weighted currency basket, to minimize FX exposure for borderless markets.
-- Oracle. Oracle data from oracle contract - or subsume this into ACU?
-- CDP liquidation - of under collateralized debt positions
+Essential primitives of ASM are: collateral, exchange rate price data, ACU, and the CDP.
 
-...
+#### Collateral
+
+Auton borrowing is collateralized by depositing collateral token into a CDP. The amount and value of collateral backing a CDP is determined by collateralization and liquidation ratios set in the [ASM configuration](/concepts/asm/#asm-configuration). Failure by a [borrower](/concepts/asm/#stabilization-roles) to maintain these ratios results in a CDP becoming liquidatable. In a liquidation scenario a [liquidator](/concepts/asm/#stabilization-roles) is able to assume the debt position, repay outstanding debt, and receive the position's remaining collateral in return.
+
+Autonity's native protocol asset [Newton (NTN)](/concepts/protocol-assets/newton/) is used as the collateral token.
+
+{{% alert title="Info" %}}
+A future iteration of ASM will enable the use of [Liquid Newton (LNTN)](/concepts/protocol-assets/liquid-newton/) as collateral token.
+{{% /alert %}}
+
+#### Exchange rate price data
+ASM sources price data via Autonity's [oracle network](/concepts/oracle-network/), retrieving the data on-chain by contract interactions with the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
+
+Oracle price data is used for two purposes:
+
+- for the ACU currency basket symbols to compute the ACU _value_
+- for CDP borrowing to compute the value of Collateral Token (NTN) in ATN and determine the _borrow limit_.
+
+Oracle price data is computed per the [Oracle protocol](/concepts/oracle-network/#oracle-protocol), updated periodically in [voting rounds](/glossary/#voting-round).
+
+#### ACU
+
+Auton price has the [Auton Currency Unit (ACU)](/glossary/#acu) as the Stabilization Target to which it _mean-reverts_. ACU is an index value computed from a basket of free-floating currencies. Use of a currency basket minimises exposure to an individual currency's FX exchange risk. The index value is computed from the basket, weighted _pro rata_ to each currency's share i.e. _quantity_ in the basket. Basket quantities are set at network genesis and may be modified by governance.
+
+ASM then functions to maintain Auton-to-ACU value, '_mean reverting_' to this value by the CDP stabilization mechanism. 
+
+ACU value is kept current by protocol recomputing the value at the end of each oracle voting round when price data for all the basket currencies is available. See the Protocol Only Reference functions [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) [`update()`](/reference/api/aut/op-prot/#update-acu-contract) for more detail.
 
 #### CDP
 
-Collateralized Debt Position (CDP) attributes:
+The CDP functions to manage Auton borrowing and stabilize Auton price by adjusting the CDP borrowing cost. CDP's are operated within strict parameterisation constraints:
 
-- `timestamp`: the timestamp of the last borrow or repayment.
-- `collateral`: the collateral deposited with the Stabilization Contract.
-- `principal`: the principal debt outstanding as of `timestamp`.
-- `interest`: the interest debt that is due at the `timestamp`.
+- CDP Ownership:
+  - A borrower (CDP Owner) can have only `1` open CDP at a time.
+  - A borrower opens a CDP by depositing collateral `>=` the _minimum debt requirement_ for a CDP. A borrower can then within CDP constraints:
+  - borrow ATN against collateral
+  - repay ATN to partially or completely repay the CDP
+  - withdraw collateral
 
+- Minimum debt requirement:
+  - A CDP must be `>=` a minimum amount of debt. This ensures the position is economically viable, i.e. the transaction and interest costs of opening and servicing, or liquidating, a position is viable.
 
-...
+- Borrow interest rate:
+  - Interest on debt is charged at an annual continuously-compounded interest rate.
+  - Adjusting the borrow rate is the primary economic lever by which the CDP-based stabilization mechanism incentivises increase or decrease in ATN borrowing and '_mean-revert_' ATN to ACU value.
+  - Repayments to a CDP are used to cover accrued interest before debt principal.
 
-#### xyz
+- Borrow limit:
+  - The amount of Auton that can be borrowed against collateral deposited to a CDP is determined by the ATN value of that deposited collateral, forming a _borrow limit_.
+  - The CDP Owner can borrow Auton to an amount `<=` the  _borrow limit_.
+  - The amount of Auton borrowed in a CDP is the _principal_ of the debt position. _Principal_ cannot exceed the _borrow limit_. 
 
-...
+- Collateralization:
+  - A CDP must maintain adequate collateral value at all times. A _minimum collateralization ratio_ sets the minimum ACU value of collateral required to _borrow_ 1 ACU value of debt. This ratio must be strictly greater than `1.0`.
+  - Collateral must be an ERC 20 token. The accepted collateral token is the protocol asset Newton.
+
+- Liquidation ratio:
+  - A CDP must maintain adequate collateral value at all times. A _liquidation ratio_ sets the minimum ACU value of collateral required to _maintain_ 1 ACU value of debt. 
+  - The liquidation ratio must be strictly less than the _minimum collateralization ratio_.
+
+- Liquidation Condition:
+  - A CDP is _liquidatable_ when the CDP's _collateralisation ratio_ falls below the _liquidation ratio_:
+  - If the _liquidation condition_ is met, the only permitted operations on the CDP are:
+    - For the _Borrower_, the CDP Owner, to pay back Auton until and repay the CDP or bring the position back within the _liquidation ratio_
+    - For a _Liquidator_ to liquidate the position.
+
 
 ### CDP lifecycle
 
-CDP lifecycle events.
+The sequence of lifecycle events for a CDP is:
 
-    /// Collateral Token was deposited into a CDP
-    /// @param account The CDP account address
-    /// @param amount Collateral Token deposited
-    event Deposit(address indexed account, uint256 amount);
-    /// Collateral Token was withdrawn from a CDP
-    /// @param account The CDP account address
-    /// @param amount Collateral Token withdrawn
-    event Withdraw(address indexed account, uint256 amount);
-    /// Auton was borrowed from a CDP
-    /// @param account The CDP account address
-    /// @param amount Auton amount borrowed
-    event Borrow(address indexed account, uint256 amount);
-    /// Auton debt was paid into a CDP
-    /// @param account The CDP account address
-    /// @param amount Auton amount repaid
-    event Repay(address indexed account, uint256 amount);
-    /// A CDP was liquidated
-    /// @param account The CDP account address
-    /// @param liquidator The liquidator address
-    event Liquidate(address indexed account, address liquidator);
+- CDP is opened.
+  - Borrower determines their borrowing and collateral requirements. To do this, the borrower can call Stabilization Contract functions, see [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice), [`minimumCollateral()`](/reference/api/asm/stabilization/#minimumcollateral).
+  - Borrower opts to open a CDP, becoming a CDP Owner. The CDP Owner then approves the Stabilization Contract to spend Collateral Token (NTN) on their behalf for the amount of collateral to be deposited:
+    - Calls the Collateral Token Contract (i.e. Autonity Protocol Contract) to [`approve()`](/reference/api/aut/#approve) the [Stabilization Contract address](/concepts/architecture/#protocol-contract-account-addresses) as a spender on their behalf and set the [`allowance()`](/reference/api/aut/#allowance) of collateral token that the Stabilization Contract can spend.
+    - Calls the Stabilization Contract to deposit Collateral Token to a CDP, calling the contract's [`deposit()`(/reference/api/asm/stabilization/#deposit) to deposit collateral.
+  - Stabilization Contract creates the CDP, using the ERC20 allowance mechanism to execute the collateral deposit. A CDP object is created, and the [CDP attributes](/concepts/asm/#stabilization) are populated.
 
-...
+- CDP is maintained and serviced. The CDP Owner maintains the CDP, opting to increase or decrease borrowing and deposited collateral within [CDP primitive constraints](/concepts/asm/#cdp). The CDP Owner may:
 
+  - _Borrow_: CDP Owner borrows Auton from CDP against collateral. Constraint checks are applied:
+    - the amount borrowed must not exceed the _borrow limit_ for the deposited collateral value
+    - the _principal_ debt must meet the _minimum debt requirement_
+    - the borrowing does not make the CDP meet the _liquidation condition_.
+    
+      The Stabilization Contract calls the Supply Control Contract to mint the borrowed Auton amount to the CDP Owner.
 
+  - _Repay_: CDP Owner pays back some or all borrowed Auton in a CDP to (a) service the debt, or (b) maintain the CDP within constraints and prevent a CDP becoming _liquidatable_. Constraint checks are applied:
+    - Payment is only accepted if outstanding debt after the payment meets the _minimum debt requirement_
+    
+      The Stabilization Contract uses the payment to cover outstanding accrued _interest_ before outstanding debt _principal_, transfering the interest proceeds to the contract's _Internal Balance Sheet_. If a payment surplus remains after covering outstanding interest, then the contract reduces the CDP _principal_ and calls the Supply Control Contract to burn the amount of Auton _principal_ debt paid back.
 
-### CDP ownership
+  - _Withdraw_: CDP Owner withdraws _collateral token_ from the CDP. Constraint checks are applied:
+    - the withdrawal must not reduce collateral below the CDP's _liquidation ratio_, making the CDP meet the _liquidation condition_ and so become _liquidatable_
+    - the withdrawal must not reduce the remaining collateral below the CDP's _minimum collateralization ratio_.
+    
+      The Stabilization Contract transfers the withdrawn amount of collateral to the CDP Owner account address.
 
-...
+- CDP is liquidated.
+  - A Liquidator determines that a CDP has or will meet the _liquidation condition_ and so become _liquidatable_. To do this, the liquidator can call Stabilization Contract [CDP View functions](/reference/api/asm/stabilization/#cdp-view-functions) to view CDP state.
+  - Liquidator opts to liquidate a CDP. The liquidator calls the Stabilization Contract [`liquidate()`](/reference/api/asm/stabilization/#liquidate) function to repay the CDP and claim the collateral. Constraint checks are applied:
+  - The liquidate transaction payment amount will pay all the CDP debt outstanding, _principal_ and accrued _interest_. 
 
-
-### CDP liquidation
-
-...
+    As a reward, the liquidator will receive the collateral that is held in the CDP. Any payment surplus remaining after covering the CDP's debt is refunded to the liquidator.
 
 
 ## ASM economics
 
-- for protocol - Auton supply control
-- for borrower - collateralized borrowing using protocol asset as collateral token; borrow interest payment, risk of liquidation
-- for liquidator - returns from liquidation, remaining collateral after settlement of debt and interest outstanding
+ASM economics are multi-dimensional:
+
+- For the protocol:
+  - Protocol asset price stability: the stabilization mechanism mean-reverts Auton to the ACU stabilization target over time, smoothing Auton price movement.
+  - Supply and demand elasticity: Auton supply increases and decreases according to demand, the CDP _borrow rate_ providing the economic lever to adjust CDP incentives.
+- For the borrower:
+  - CDP's give access to collateralized borrowing for Auton with  flexibility to increase and decrease borrowing and collateral amounts within constraints. Borrowers can offset flexibility against opportunity costs of borrow interest, staking reward potential if deposited Newton collateral were earning staking rewards, and liquidation risk.
+- For the liquidator:
+  - Liquidation returns from remaining collateral after settlement of debt and interest outstanding.
