@@ -6,6 +6,7 @@ description: >
   Publicly available Autonity networks
 ---
 
+Autonity provides open testnets for node operators, validators and developers.
 
 ## Get Auton test funds
 
