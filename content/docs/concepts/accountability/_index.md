@@ -67,10 +67,12 @@ An _accusation_ is a claim that a consensus committee member has failed to parti
 
 Accusations do not automatically cause slashing and an _innocence proof window_ measured in blocks gives the accused _offending_ validator a window to detect an _accusation_ and prove _innocence_ by submitting an _innocence_ proof on-chain.
 
+After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _accusation_ on-chain a `NewAccusation` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
+
 There are protocol constraints on when an _accusation_ can be made. A _reporting_ validator can only submit an _accusation_ _proof_ if:
 
 - the _offending_ validator:
-  - has not been already punished in the epoch for which the new _accusation_ is being made for, for an offence with a higher severity.
+  - has not been already punished in the epoch for which the new _accusation_ is being made for an offence with a higher severity.
   - is not currently already accused of committing a rule infraction, i.e. there is a _pending accusation_. In this case, a _new accusation_ cannot be made until expiry of the _innocence proof window_. This creates a _deadline_ measured in block height before which a new `accusation` cannot be submitted.
 - it is within the _accusation window_:
   - an accusation must be made `<= 256` blocks after the detected accountability event.
@@ -82,7 +84,6 @@ To check if an _offending_ validator has a _pending accusation_, a _reporting_ v
 - [`canAccuse()`](/reference/api/accountability/#canaccuse): to determine if (a) an offending validator is accusable, and, (b) the _deadline_ number of blocks remaining in the _innocence proof submission window_ if there is a _pending accusation_.
 - [`canSlash()`](/reference/api/accountability/#canslash): to determine if the  _offending_ validator already has a _fault_ for a rule infraction in the epoch with a _severity_ higher than the new accusable rule infraction detected.
 -->
-After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _accusation_ on-chain a `NewAccusation` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
 #### Innocence
 
