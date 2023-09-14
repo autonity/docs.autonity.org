@@ -28,7 +28,7 @@ AFD functions by submitting, verifying, and processing accountability event proo
 
 Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch (collusion) and the individual _offending_ validator's own slashing history.
 
-Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalised, the Autonity contract will: apply accountability for _faults_ to _offending_ validators, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
+Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalized, the Autonity contract will: apply accountability for _faults_ to _offending_ validators, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
 
 Rewards are paid for reporting a slashable _fault_ at epoch end. The _offending_ validator's share of the epoch's staking rewards is forefeited and paid to the  _reporting_ validator `treasury` account for distribution along with the staking rewards at epoch end.
 
@@ -77,7 +77,7 @@ There are protocol constraints on when an _accusation_ can be made. A _reporting
 - it is within the _accusation window_:
   - an accusation must be made `<= 256` blocks after the detected accountability event.
 
-As each block is finalised, AFD will attempt to promote _ expired accusations_ (where the _innocence proof submission window_ has elapsed) to proven _faults_.
+As each block is finalized, AFD will attempt to promote _ expired accusations_ (where the _innocence proof submission window_ has elapsed) to proven _faults_.
 <!--
 To check if an _offending_ validator has a _pending accusation_, a _reporting_ validator calls protocol functions:
 
@@ -202,7 +202,7 @@ The sequence of lifecycle events for an accountability event is:
 
 Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history. For parameters see [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) beneath.
 
-Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalised, AFD will apply slashing for proven _faults_ to validator stake, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
+Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalized, AFD will apply slashing for proven _faults_ to validator stake, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
 
 ### Slashing protocol configuration
 
@@ -279,7 +279,7 @@ In the table:
 
 Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity. For example:
 
-- failing to finalise a block and/or halting the chain
+- failing to finalize a block and/or halting the chain
 - proposing an invalid block
 - voting for multiple and/or conflicting blocks
 
