@@ -58,10 +58,10 @@ Consensus committee members are responsible for proposing and voting on new bloc
 
 ## Audit trail
 
-Committee membership and pending staking transitions can be audited by RPC call to the Autonity Contract:
+Committee membership and pending staking transitions can be audited by reading Autonity Protocol Contract state:
 
-- `getCommittee()` to return the current committee members
-- `getBondingReq()` and `getUnbondingReq()` to return pending bonding and unbonding requests to be applied at finalisation of the current epoch's last block
+- RPC call to `getCommittee()` to return the current committee members
+- Subscribing to `NewBondingRequest` and `NewUnbondingRequest` events to return pending bonding and unbonding requests to be applied at finalisation of the current epoch's last block
 
 Historic data can be retrieved by querying system state:
 

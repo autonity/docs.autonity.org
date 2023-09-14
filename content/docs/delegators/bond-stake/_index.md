@@ -83,9 +83,9 @@ aut validator bond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx 
 ```
 
 {{< alert title="Note" >}}
-Bonding requests are not processed until the end of the current epoch.  The newton to be bonded will be deducted from your balance, but your [liquid newton balance](/delegators/transfer-lntn) will not be affected until the epoch end.
+Bonding requests are not processed until the end of the current epoch.  The Newton to be bonded will be deducted from your balance, but your [liquid newton balance](/delegators/transfer-lntn) will not be affected until the epoch end.
 
-(Pending and historical bonding requests can be queried using the [getBondingReq](/reference/api/) api call or the `aut protocol get-bonding-req` command)
+(Pending and historical bonding requests can be discovered by listening for `NewBondingRequest` events emitted by the [bond()](/reference/api/aut/#bond) function.)
 {{< /alert >}}
 
 ## Unbond Newton from validator
@@ -97,5 +97,9 @@ aut validator unbond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut t
 ```
 
 {{< alert title="Note" >}}
-Like bonding requests, unbonding does not complete immediately.  After an unbonding period, the Newton will be returned to the caller.  See the [staking section](/concepts/staking/) for further details.
+If you are a validator operator unbonding [self-bonded](/glossary/#self-bonded) stake, then the amount specifies Newton stake token. Otherwise if you are unbonding [delegated](/glossary/#delegated) stake the amount is specifying Liquid Newton.
+
+Like bonding requests, unbonding does not complete immediately.  The unbonding request will only be effective after the unbonding period, rounded to the next epoch. Newton will then be returned to the caller.  See the [staking section](/concepts/staking/) for further details.
+
+(Pending and historical unbonding requests can be discovered by listening for `NewUnbondingRequest` events emitted by the [unbond()](/reference/api/aut/#unbond) function.)
 {{< /alert >}}
