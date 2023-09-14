@@ -1673,7 +1673,7 @@ aut protocol get-unbonding-req [OPTIONS] START END
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol get-unbonding-req --rpc-endpoint https://rpc1.piccadilly.autonity.org 0 1
+aut protocol get-unbonding-req --rpc-endpoint https://rpc1.piccadilly.autonity.org 0 1
 [
   {
     "delegator": "0xB17b5DD3fD63c736e538172A640ab0510E608a80",
@@ -1712,7 +1712,12 @@ Returns a `Validator` object consisting of:
 | `enode` | `string` | the enode url of the validator node |
 | `commissionRate` | `uint256` | the percentage commission that the validator will charge on staking rewards from delegated stake |
 | `bondedStake` | `uint256` | the total amount of delegated and self-bonded stake that has been bonded to the validator |
+| `unbondingStake` | `uint256` | the total amount of NTN in the unbonding staking pool |
+| `unbondingShares` | `uint256` | the total amount of shares issued for the unbonding staking pool |
 | `selfBondedStake` | `uint256` | the total amount of 'self-bonded' stake that has been bonded to the validator by the validator operator |
+| `selfUnbondingStake` | `uint256` | the total amount of NTN in the self-unbonding staking pool |
+| `selfUnbondingShares` | `uint256` | the total amount of shares in the self-unbonding staking pool |
+| `selfUnbondingStakeLocked` | `uint256` | the total amount of NTN in the self-unbonding staking pool that is locked pending unbonding |
 | `liquidContract` | `Liquid` | the address of the validator's Liquid Newton contract |
 | `liquidSupply` | `uint256` | the total amount of Liquid Newton in circulation |
 | `registrationBlock` | `uint256` | the block number in which the registration of the validator was committed to state|
@@ -1736,24 +1741,31 @@ aut validator info [OPTIONS]
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1
+$ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
 {
-  "treasury": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "node_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "oracle_address": "0x400d5cd23a6cd7d660aeaf313e9ee15e635f3eaa",
-  "enode": "enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303",
+  "treasury": "0x61EE7d3244642E5f6D654416a098DEabFBF5306e",
+  "node_address": "0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C",
+  "oracle_address": "0x9b844631B7279576330B9B822bE79266696fF8C2",
+  "enode": "enode://b2748268c31ebab8603058335bb4bed062e05b9ceaa3562f69868a01d1038a84136fc587fb913e1cb8ce821f1eb0bf9879e3249f18adcd39f1211a104ceb57a9@35.197.223.249:30303",
   "commission_rate": 1000,
-  "bonded_stake": 52,
+  "bonded_stake": 10000000000000000000000,
+  "unbonding_stake": 0,
+  "unbonding_shares": 0,
+  "self_bonded_stake": 10000000000000000000000,
+  "self_unbonding_stake": 0,
+  "self_unbonding_shares": 0,
+  "liquid_contract": "0x0000000000000000000000000000000000000000",
+  "liquid_supply": 1397840815523076466699159265359708166239426845751,
+  "registration_block": 0,
   "total_slashed": 0,
-  "liquid_contract": "0xF8060D5D9FBbAF99fF63E37C2118343001558a60",
-  "liquid_supply": 52,
-  "registration_block": 6734993,
+  "jail_release_block": 0,
+  "provable_fault_count": 0,
   "state": 0
 }
 {{< /tab >}}
 {{< tab header="RPC" >}}
-$ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1"], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":{"treasury":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","nodeAddress":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","oracleAddress":"0x400d5cd23a6cd7d660aeaf313e9ee15e635f3eaa","enode":"enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@34.22.252.187:30303","commissionRate":1000,"bondedStake":0,"totalSlashed":0,"liquidContract":"0xf39e7f3b0bde2a349c13b49c082e20c93038429d","liquidSupply":0,"registrationBlock":649760,"state":0}}
+$ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c"], "id":1}'
+{"jsonrpc":"2.0","id":1,"result":{"treasury":"0x61ee7d3244642e5f6d654416a098deabfbf5306e","nodeAddress":"0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c","oracleAddress":"0x9b844631b7279576330b9b822be79266696ff8c2","enode":"enode://b2748268c31ebab8603058335bb4bed062e05b9ceaa3562f69868a01d1038a84136fc587fb913e1cb8ce821f1eb0bf9879e3249f18adcd39f1211a104ceb57a9@35.197.223.249:30303","commissionRate":1000,"bondedStake":10000000000000000000000,"unbondingStake":0,"unbondingShares":0,"selfBondedStake":10000000000000000000000,"selfUnbondingStake":0,"selfUnbondingShares":0,"selfUnbondingStakeLocked":0,"liquidContract":"0xf4d9599afd90b5038b18e3b551bc21a97ed21c37","liquidSupply":0,"registrationBlock":0,"totalSlashed":0,"jailReleaseBlock":0,"provableFaultCount":0,"state":0}}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -2105,7 +2117,12 @@ On method execution a `Validator` object data structure is constructed in memory
 | `enode`| `string` | Assigned the value of the `_enode` argument to the method call |
 | `commissionRate` | | Assigned the value of the `delegationRate` parameter in the genesis configuration file |
 | `bondedStake` | `uint256` | Set to `0`. There is no stake bonded to the newly registered validator at this point. |
-| `selfBondedStake ` | `uint256` | Set to `0`. There is no self-bonded  stake to the newly registered validator at this point |
+| `unbondingStake` | `uint256` | Set to `0`. There is no stake in the unbonding staking pool at this point |
+| `unbondingShares` | `uint256` | Set to `0`. There are no  shares issued for the unbonding staking pool at this point |
+| `selfBondedStake ` | `uint256` | Set to `0`. There is no self-bonded stake to the newly registered validator at this point |
+| `selfUnbondingStake` | `uint256` | Set to `0`. There is no stake in the self-unbonding staking pool at this point |
+| `selfUnbondingShares` | `uint256` | Set to `0`. There are no  shares issued for the self-unbonding staking pool at this point |
+| `selfUnbondingStakeLocked` | `uint256` | Set to `0`. There is no stake in the self-unbonding staking pool at this point that is locked pending unbonding |
 | `liquidContract` | `address` | Set to the contract address of the newly registered validator's Liquid Newton Contract |
 | `liquidSupply` | `uint256` | Set to `0`. There is no liquid token supply until stake is bonded to the newly registered validator |
 | `registrationBlock` | `uint256` | Set to current block number (the number of the block that the register validator transaction will be committed in) |
