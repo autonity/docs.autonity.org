@@ -63,7 +63,7 @@ Essential primitives of AFD are: accusation, innocence, and fault proofs; slashi
 
 #### Accusations
 
-An _accusation_ is a claim that a consensus committee member has failed to participate correctly in consensus. I.e. it has failed to adhere to a rule governing validator participation in consensus and so is guilty of a rule infraction. Protocol only allows a validator to be under _accusation_ once at a time. New _accusations_ are made by submitting evidence of an accusable rule infraction on-chain as an accountability event of type `Accusation`.
+An _accusation_ is a claim that a consensus committee member has failed to participate correctly in consensus. Protocol only allows a validator to be under _accusation_ once at a time. New _accusations_ are made by submitting evidence of an accusable rule infraction on-chain as an accountability event of type `Accusation`.
 
 Accusations do not automatically cause slashing and an _innocence proof window_ measured in blocks gives the accused _offending_ validator a window to detect an _accusation_ and prove _innocence_ by submitting an _innocence_ proof on-chain.
 
