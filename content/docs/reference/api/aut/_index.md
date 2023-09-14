@@ -266,12 +266,6 @@ The `BondingRequest` is tracked in memory until applied at epoch end. At that bl
 Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 {{< /alert >}}
 
-{{< alert title="Note" >}}
-If `msg.Sender` is the validator `treasury` account, then Liquid Newton is not minted for the bonded stake amount.
-
-This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
-{{< /alert >}}
-
 ### Parameters
 
 | Field | Datatype | Description |
@@ -978,165 +972,6 @@ None.
 {{< /tabpane >}}
 
 
-
-##  getFirstPendingBondingRequest
-
-Returns the identifier of the oldest i.e. 'first submitted' bonding request pending processing at the time of the call.
-
-If no bonding requests are pending processing the function reverts.
-
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `ID` | `uint256` | the identifier of the first submitted bonding request that is pending processing |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-##  getFirstPendingUnbondingRequest
-
-Returns the identifier of the oldest i.e. 'first submitted' unbonding request pending processing at the time of the call.
-
-If no unbonding requests are pending processing the function reverts.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `ID` | `uint256` | the identifier of the first submitted bonding request that is pending processing |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-##  getLastRequestedBondingRequest
-
-Returns the identifier of the last processed bonding request at the time of the call.
-
-If no bonding requests have been processed the function reverts.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `ID` | `uint256` | the identifier of the last processed bonding request |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-##  getLastRequestedUnbondingRequest
-
-Returns the identifier of the last processed unbonding request at the time of the call.
-
-If no unbonding requests have been processed the function reverts.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `ID` | `uint256` | the identifier of the last processed unbonding request |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
 ##  getMaxCommitteeSize
 
 Returns the protocol setting for the maximum number of validators that can be selected to the consensus committee.
@@ -1656,7 +1491,6 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 {{< /tabpane >}}
 
 
-
 ## name
 
 Returns the name of the Newton stake token as a human-readable string. Set as contract metadata to the value of `Newton`.
@@ -2106,11 +1940,13 @@ Unbonds an amount of bonded stake from a designated validator.
 
 The amount specifies Newton stake token if the delegator is unbonding [self-bonded](/glossary/#self-bonded) stake, else Liquid Newton if [delegated](/glossary/#delegated) stake is being unbonded.
 
-On successful processing of the method call:
+{{< alert title="Warning" color="warning">}}
+The unbonding request will only be effective after the unbonding period, rounded to the next epoch.
 
-- the designated amount of Liquid Newton amount is burnt if the stake being unbonded is _delegated_ and *not* _self-bonded_ stake, 
-- the unbonding period begins,
-- an unbonding object for the necessary voting power change is created and tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the staker's Newton account.
+If the validator has a [slashing](/concepts/accountability/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
+
+See Concept [Accountability and fault detection (AFD)](/concepts/accountability/) for Autonity's slashing mechanism.
+{{< /alert >}}
 
 {{< alert title="Warning" color="warning">}}
 The unbonding request will only be effective after the unbonding period, rounded to the next epoch.
@@ -2140,20 +1976,7 @@ On successful processing of the method call an `UnbondingRequest` object for the
 | `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
 | `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
 
-The [unbonding period](/glossary/#unbonding-period) begins the next block. The `UnbondingRequest` is tracked in memory and applied:
-
-- at the end of the epoch in which the unbond request was processed:
-  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake,
-  - the amount of stake to reduce the unbonding pool by and the delegator's share of the unbonding pool is calculated,
-  - the amount of Newton bonded to the validator is reduced by the unbonding amount.
-- at the end of the epoch in which the unbonding period expires:
-  - Newton redemption occurs and due Newton is minted to the staker’s Newton account.
-
-{{< alert title="Warning" color="warning" >}}
-The amount of Newton released may be less than the unbonded amount if the validator has been slashed.
-{{< /alert >}}
-
-- due Newton is minted to the delegator's Newton account.
+The `UnbondingRequest` is tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the delegator's Newton account.
 
 ### Parameters
 
