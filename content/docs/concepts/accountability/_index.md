@@ -77,7 +77,7 @@ There are protocol constraints on when an _accusation_ can be made. A _reporting
 - it is within the _accusation window_:
   - an accusation must be made `<= 256` blocks after the detected accountability event.
 
-As each block is finalized, AFD will attempt to promote _ expired accusations_ (where the _innocence proof submission window_ has elapsed) to proven _faults_.
+As each block is finalized, AFD will attempt to promote _expired accusations_ (where the _innocence proof submission window_ has elapsed) to proven _faults_.
 <!--
 To check if an _offending_ validator has a _pending accusation_, a _reporting_ validator calls protocol functions:
 
