@@ -239,12 +239,7 @@ $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a8
 
 ## bond
 
-Delegates an amount of Newton stake token to a designated validator.
-On successful processing of the method call:
-
-- The bonded Newton amount is locked in the `msg.Sender`'s Newton account.
-- A bonding object for the necessary voting power change is created and tracked in memory until applied at epoch end. At that block point, if the `msg.Sender` is a stake delegator account then Liquid Newton will be minted to the delegator for the bonded stake amount.
-
+Delegates an amount of Newton stake token to a designated validator. If the delegator's `msg.Sender` address is the validator `treasury` account then the stake is self-bonded and no Liquid Newton will be issued.
 
 Constraint checks:
 
@@ -1746,7 +1741,6 @@ LNTN-0
 {{< /tab >}}
 {{< /tabpane >}}
 
-
 ## totalRedistributed
 
 Returns the total amount of staking rewards distributed since genesis minus treasury fee.
@@ -1998,20 +1992,7 @@ On successful processing of the method call an `UnbondingRequest` object for the
 | `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
 | `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
 
-The [unbonding period](/glossary/#unbonding-period) begins the next block. The `UnbondingRequest` is tracked in memory and applied:
-
-- at the end of the epoch in which the unbond request was processed:
-  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake,
-  - the amount of stake to reduce the unbonding pool by and the delegator's share of the unbonding pool is calculated,
-  - the amount of Newton bonded to the validator is reduced by the unbonding amount.
-- at the end of the epoch in which the unbonding period expires:
-  - Newton redemption occurs and due Newton is minted to the staker’s Newton account.
-
-{{< alert title="Warning" color="warning" >}}
-The amount of Newton released may be less than the unbonded amount if the validator has been slashed.
-{{< /alert >}}
-
-- due Newton is minted to the delegator's Newton account.
+The `UnbondingRequest` is tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the delegator's Newton account.
 
 ### Parameters
 
