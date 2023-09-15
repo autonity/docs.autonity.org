@@ -13,7 +13,7 @@ This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm)
 
 For Auton stabilization control Autonity implements a [CDP](/glossary/#cdp)-based stabilization mechanism. Users take out CDP's, depositing Collateral Token (NTN) to borrow Auton at interest. As CDP's are taken out and repaid Collateral Token (NTN) and ATN are removed and returned to circulation, bringing equilibrium to supply and demand.
 
-CDP are maintained according to collateralization and liquidation ratios that set collateral amount and collateral value thresholds to keep a CDP in good health.  Auton is minted and burned as CDP's pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
+CDP are maintained according to collateralization and liquidation ratios that set debt to collateral ratio to keep a CDP in good health. Auton is minted and burned as CDP's pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
 
 Elasticity in supply and demand for Auton is absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
 
@@ -64,7 +64,7 @@ The ACU currency basket is composed of 7 free-floating currencies:
 - SEK - Swedish Krona
 - USD - United States Dollar
 
-Each currency's quantity in the basket is computed to provide a currency basket with minimal variance. The index value then has minimal volatility with respect to variance from individual currency fluctuations.
+Each currency's quantity in the basket is computed to provide a currency basket with minimal total variance with respect to its underlying currencies. The index value then has minimal volatility with respect to variance from individual currency fluctuations.
 
 ACU is used as the _stabilization target_ for Auton price, see _[Stabilization](/concepts/asm/#stabilization)_.
 
@@ -74,8 +74,7 @@ The value of ACU can be computed at any time in terms of exchange rates. ACU is 
 A 365 calendar day is used, end-of-day is 17:00 GMT. Price data is sourced from off-chain by the validator [oracle network](/concepts/oracle-network/) and retrieved from the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) on-chain.
 {{% /alert %}}
 
-USD is used as the numeraire over the data. The quantity of each currency in the basket is then computed based on a weighting that minimizes variance and using an initial target value of 1 USD for the total value of the basket. Basket quantities fixed over time. The value of SAC at any time can be computed in terms of exchange rates.
-\end{enumerate}
+USD is used as the numeraire over the data. The quantity of each currency in the basket is then computed based on a weighting that aims to minimize its variance with respect to the basket and using an initial target value of 1 USD for the total value of the basket. Basket quantities fixed over time. The value of ACU at any time can be computed in terms of exchange rates.
 
 To illustrate supposing the ACU is computed at 17:00 GMT today:
 
@@ -239,7 +238,7 @@ The sequence of lifecycle events for a CDP is:
   - _Borrow_: CDP Owner borrows Auton from CDP against collateral. Constraint checks are applied:
     - the amount borrowed must not exceed the _borrow limit_ for the deposited collateral value
     - the _principal_ debt must meet the _minimum debt requirement_
-    - the borrowing does not make the CDP meet the _liquidation condition_.
+    - the borrowing does not decrease the CDP collateralization ratio below the _minimum collateralization ratio_.
     
       The Stabilization Contract calls the Supply Control Contract to mint the borrowed Auton amount to the CDP Owner.
 
