@@ -17,6 +17,14 @@ Liquid Newton tokens implement the ERC20 interface, and so all ERC20 calls are i
 Autonity implements a 'pull-based' model for staking rewards where delegators must manually retrieve their rewards.
 {{% /pageinfo %}}
 
+{{% pageinfo %}}
+Some Usage and Examples illustrate using the Liquid Newton  Contracts' generated ABI and the `aut` tool's `contract` command to call the Liquid Newton Contract functions. See `aut contract call --help`.
+
+Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The contract `.abi` files are generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Liquid.sol`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
+
+You will need to specify the validator's Liquid Newton contract address. This can be retrieved using the `aut` command `aut validator info` - for usage see Autonity Contract Interface and [`getValidator()`](/reference/api/aut/#getvalidator).
+{{% /pageinfo %}}
+
 ## unclaimedRewards
 
 Queries the contract and returns the total rewards owed to a given account.
@@ -51,7 +59,7 @@ Queries the contract and returns the amount of locked Liquid Newton held by a st
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address --abi lockedBalanceOf delegator
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -60,7 +68,8 @@ Queries the contract and returns the amount of locked Liquid Newton held by a st
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 --abi Liquid.abi lockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
+0
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -85,7 +94,7 @@ Queries the contract and returns the amount of unlocked Liquid Newton held by a 
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address --abi unlockedBalanceOf delegator
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -93,6 +102,7 @@ Queries the contract and returns the amount of unlocked Liquid Newton held by a 
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 --abi Liquid.abi unlockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
+0
 {{< /tab >}}
 {{< /tabpane >}}
