@@ -237,9 +237,9 @@ Staking transitions are changes to stake bonded to validators caused by stake bo
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end staking transitions are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures. They can be read by listening for and viewing `NewBondingRequest` and `NewUnbondingRequest` events emitted by the [`bond()`](/reference/api/aut/#bond) and [`unbond()`](/reference/api/aut/#unbond) functions of the Autonity Protocol Contract.
 
-In Autonity's [AFD](/concepts/accountability/) protocol, slashable faults are likewise processed throughout an epoch and any changes to delegated stake caused by stake slashing are applied to unbonding and bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model before staking transitions are applied. 
+In Autonity's AFD protocol, slashable faults are likewise processed throughout an epoch and any staking transitions caused by stake slashing are applied to unbonding and bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. i.e. self-bonded stake is slashed in priority to delegated stake. 
 
-As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to [slashing](/concepts/staking/#slashing) penalties:
+As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to protocol application of [slashing](/concepts/staking/#slashing) penalties:
 
 - Newton whilst locked in [states](/concepts/protocol-assets/newton/) `bonded` and `unbonding`.
 - Liquid Newton in [states](/concepts/protocol-assets/liquid-newton/) `locked` and `unlocked`.
@@ -247,12 +247,10 @@ As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid New
 Whilst stake is unbonding the protocol tracks the relative ownership of stake in the delegated and self-bonded unbonding pools via a "share" mechanism so that the PAS slashing priority may be correctly applied to the unbonding stake and the correct amount of delegated or self-bonded stake be released at the end of the unbonding period.
 
 {{< alert title="Info" >}}
-Metadata providing the total amount of shares and unbonding stake is returned as part of the response when querying for a validator. See the [`getValidator()`](/reference/api/aut/#getvalidator) response object which contains fields for:
+Metadata stating the unbonding pools and tracking "shares" amounts are returned as part of the response when querying for a validator. See the [`getValidator()`](/reference/api/aut/#getvalidator) response object which contains fields for:
 
 - Delegated stake unbonding pool: `unbondingStake` and `unbondingShares`
 - Self-bonded unbonding pool: `selfUnbondingStake` and `selfUnbondingShares`.
-
-The shares and unbonding stake amounts for each unbonding request are stored in the `UnbondingRequest` object. See the `NewUnbondingRequest` event emitted by the [`unbond()`](/reference/api/aut/#unbond) for the object fields.
 {{< /alert >}}
 
 ### Bonding
