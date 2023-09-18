@@ -608,37 +608,6 @@ None.
 {{< /tabpane >}}
 
 
-## getBlockPeriod
-
-Returns the block period from the protocol configuration.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `blockPeriod` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
 ##  getCommittee
 
 Returns a list of the validators selected as members of the consensus committee at the block height of the method call.
@@ -1992,7 +1961,17 @@ On successful processing of the method call an `UnbondingRequest` object for the
 | `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
 | `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
 
-The `UnbondingRequest` is tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the delegator's Newton account.
+The [unbonding period](/glossary/#unbonding-period) begins the next block. The `UnbondingRequest` is tracked in memory until applied at the end of the epoch in which the unbonding period expires and at that block point Newton redemption (i.e. 'release') occurs:
+
+- the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake,
+- the amount of stake to reduce the unbonding pool by and the delegator's share of the unbonding pool is calculated,
+- the amount of Newton bonded to the validator is reduced by the unbonding amount,
+
+{{< alert title="Warning" color="warning" >}}
+The amount of Newton released may be less than the unbonded amount if the validator has been slashed.
+{{< /alert >}}
+
+- due Newton is minted to the delegator's Newton account.
 
 ### Parameters
 
