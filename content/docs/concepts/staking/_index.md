@@ -216,16 +216,27 @@ Staking transitions are changes to stake bonded to validators caused by:
 - stake bonding and unbonding operations submitted by stake delegators
 - [slashing](/concepts/staking/#slashing) penalties applied by protocol for proven validator faults whilst a member of the consensus committee. 
 
-Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end they are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures. They can be read by listening for the and can be viewed using `NewBondingRequest` and `NewUnbondingRequest` events emitted by the [`bond()`](/reference/api/aut/#bond) and [`unbond()`](/reference/api/aut/#unbond) functions of the Autonity Protocol Contract.
+Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end staking transitions are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures. They can be read by listening for and viewing `NewBondingRequest` and `NewUnbondingRequest` events emitted by the [`bond()`](/reference/api/aut/#bond) and [`unbond()`](/reference/api/aut/#unbond) functions of the Autonity Protocol Contract.
 
-In Autonity's AFD protocol, slashable faults are likewise processed throughout an epoch and any staking transitions caused by stake slashing are applied to bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded stake is liable to protocol application of [slashing](/concepts/staking/#slashing) penalties:
+In Autonity's AFD protocol, slashable faults are likewise processed throughout an epoch and any staking transitions caused by stake slashing are applied to unbonding and bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. i.e. self-bonded stake is slashed in priority to delegated stake. 
+
+As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to protocol application of [slashing](/concepts/staking/#slashing) penalties:
 
 - Newton whilst locked in [states](/concepts/protocol-assets/newton/) `bonded` and `unbonding`.
 - Liquid Newton in [states](/concepts/protocol-assets/liquid-newton/) `locked` and `unlocked`.
 
+Whilst stake is unbonding the protocol tracks the relative ownership of stake in the delegated and self-bonded unbonding pools via a "share" mechanism so that the PAS slashing priority may be correctly applied to the unbonding stake and the correct amount of delegated or self-bonded stake be released at the end of the unbonding period.
+
+{{< alert title="Info" >}}
+Metadata stating the unbonding pools and tracking "shares" amounts are returned as part of the response when querying for a validator. See the [`getValidator()`](/reference/api/aut/#getvalidator) response object which contains fields for:
+
+- Delegated stake unbonding pool: `unbondingStake` and `unbondingShares`
+- Self-bonded unbonding pool: `selfUnbondingStake` and `selfUnbondingShares`.
+{{< /alert >}}
+
 ### Bonding
 
-Stake token is bonded to an active validator through a bonding operation. Once in a bonded state the token is locked and cannot be transferred to other stakeholders. If the stake token belongs to the validator then it is [self-bonded](/glossary/#self-bonded), otherwise the token is [delegated](/glossary/#delegated). The [voting power](/glossary/#voting-power) of a validator is determined by the amount of stake bonded to it. 
+Stake token is bonded to an active validator through a bonding operation. Once bonded stake token is locked and cannot be transferred to other stakeholders. If bonded stake token belongs to the validator then it is [self-bonded](/glossary/#self-bonded), otherwise the token is [delegated](/glossary/#delegated). The [voting power](/glossary/#voting-power) of a validator is determined by the amount of stake bonded to it. 
 
 On bonding Newton, the stake token is locked on execution of the `bond()` function and Liquid Newton is minted for [delegated](/glossary/#delegated) stake. Minting Liquid Newton is an autonomous protocol-only function. The resulting voting power change is tracked and the staking transition is applied at epoch end. From this point the stake is actively bonded and able to earn staking rewards. Note that a bond allocation cannot be changed after submission and before the bonding is applied at epoch end.
 
@@ -248,7 +259,18 @@ Stake is unbonded from a validator through an unbonding operation. Unbonding is 
 Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalized. On processing the transaction the bonded stake token moves from `bonded` to the intermediate state of `unbonding` and is locked during the unbonding period. If the unbonding is for [delegated](/glossary/#delegated) stake, then the associated Liquid Newton is burned so that it is no longer transferable. The unbonding request is captured and tracked in memory and the staking transition is applied at the end of the epoch in which the unbonding period expires: unbonding is applied, reducing the validator’s bonded stake amount and so applying the voting power change to the validator.
 
 {{< alert title="Example" >}}
-Alice sends an `unbond()` tx at time `T`, a block in an epoch. Liquid Newton is burned at `T` and unbonding begins in the next block, `T+1`. The unbonding request is tracked in memory for application at the end of the epoch in which the unbonding period falls. At this point, the validator's bonded stake is reduced and Newton is unlocked and redeemed to Alice. Actual unbonding is then executed at `T+1` + `unbondingPeriod` + remainder of the epoch in which the `unbondingPeriod` expires.
+Alice sends an `unbond()` tx at time `T`, a block in an epoch. The tx is processed at `T` and an `UnbondingRequest` object for the necessary voting power change is created. At `T+1` the [unbonding period](/glossary/#unbonding-period) begins.
+
+The unbonding request is tracked in memory for application at the end of the epoch in which the unbonding period falls. At this point, `T-U`, the staking transition is applied - actual unbonding is executed at `T+1` + `unbondingPeriod` + remainder of the `epoch` in which the `unbondingPeriod` expires.
+
+At this block point Newton redemption (i.e. 'release') occurs:
+
+- the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated),
+- the amount of stake to reduce the unbonding pool by and Alice's share of the unbonding pool is calculated,
+- the amount of Newton bonded to the validator is reduced by the unbonding amount,
+- due Newton is minted to Alice's Newton account.
+
+Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and `T-U`.
 {{< /alert >}}
 
 ## Slashing
@@ -265,7 +287,7 @@ See concept [Accountability and fault detection](/concepts/accountability/) and 
 
 ### Consequences for stake redemption
 
-Bonding stake to a validator enters the staker in to a risk mutualisation model shared with the validator, i.e. if the validator is penalised then the staker may lose stake as consequence. This risk is realised when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
+Bonding stake to a validator enters the staker in to a risk mutualisation model shared with the validator, i.e. if the validator is penalised then the stake delegator may lose stake as consequence. This risk is realised when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
 
 As described in [Liquid Newton](/concepts/staking/#liquid-newton), a conversion rate between Liquid Newton and Newton is maintained by the protocol's tokenomics to ensure that a validator's Liquid Newton tokens remain 1:1 fungible. As consequence, a staker can redeem staked Newton in full _unless_ there has been a slashing event. In this circumstance, the stake redemption will be affected. 
 
@@ -289,6 +311,5 @@ To exemplify redemption in this scenario for a validator `V`:
 |`T+2`|Bond Event|100 NTN|125|225||180|
 |`T+3`|Unbond Event|100 LNTN||125|80|100|
 |`T+4`|Unbond Event|125 LNTN||0|100|0|
-
 
 {{% alert title="Note" %}}In a trading context, if 100 Liquid Newton is purchased after this slashing event, then on redemption 80 Newton would be received. If the market price for Liquid Newton has dropped you would be purchasing it at a discount.{{% /alert %}}

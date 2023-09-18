@@ -636,39 +636,6 @@ None.
 {{< /tab >}}
 {{< /tabpane >}}
 
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-## getBlockPeriod
-
-Returns the block period from the protocol configuration.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `blockPeriod` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -994,38 +961,35 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 
 ## getLastEpochBlock
 
-Returns the last epoch's end block height.
-
-### Parameters
-
-None.
+Returns the number of the last block in the preceding epoch at the block height of the call.
 
 ### Response
 
 | Field | Datatype | Description |
 | --| --| --|
-| `lastEpochBlock` | `uint256` | the number of the last block in the previous epoch |
+| `lastEpochBlock` | `uint256` | the number of the last block in the preceding epoch |
 
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut protocol get-last-epoch-block [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
-
+{"method":"aut_getLastEpochBlock", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+$ aut protocol get-last-epoch-block -r https://rpc1.piccadilly.autonity.org
+12981684
 {{< /tab >}}
 {{< tab header="RPC" >}}
-
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getLastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":12981684}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1357,7 +1321,6 @@ None.
 {{< /tab >}}
 {{< /tabpane >}}
 
-
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -1555,44 +1518,6 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 {{< /tab >}}
 {{< /tabpane >}}
 
-
-## lastEpochBlock
-
-Returns the number of the last block in the preceding epoch at the block height of the call.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `uint256` | the number of the last block in the preceding epoch |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol get-last-epoch-block [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method":"aut_lastEpochBlock", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-$ aut protocol get-last-epoch-block -r https://rpc1.piccadilly.autonity.org
-12981684
-{{< /tab >}}
-{{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_lastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":12981684}
-{{< /tab >}}
-{{< /tabpane >}}
 
 
 ## name
@@ -2060,11 +1985,7 @@ If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance 
 This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 {{< /alert >}}
 
-On successful processing of the method call:
-
-- the designated amount of Liquid Newton amount is burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake, 
-- the [unbonding period](/glossary/#unbonding-period) begins,
-- an `UnbondingRequest` object for the necessary voting power change is created:
+On successful processing of the method call an `UnbondingRequest` object for the necessary voting power change is created:
 
 | Field | Datatype | Description |
 | --| --| --|
@@ -2076,7 +1997,17 @@ On successful processing of the method call:
 | `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
 | `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
 
-The `UnbondingRequest` is tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the delegator's Newton account.
+The [unbonding period](/glossary/#unbonding-period) begins the next block. The `UnbondingRequest` is tracked in memory until applied at the end of the epoch in which the unbonding period expires and at that block point Newton redemption (i.e. 'release') occurs:
+
+- the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake,
+- the amount of stake to reduce the unbonding pool by and the delegator's share of the unbonding pool is calculated,
+- the amount of Newton bonded to the validator is reduced by the unbonding amount,
+
+{{< alert title="Warning" color="warning" >}}
+The amount of Newton released may be less than the unbonded amount if the validator has been slashed.
+{{< /alert >}}
+
+- due Newton is minted to the delegator's Newton account.
 
 ### Parameters
 

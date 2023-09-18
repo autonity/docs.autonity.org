@@ -29,25 +29,25 @@ Computes the total rewards owed to the caller, and sends the appropriate amount 
 
 The `aut validator claim-rewards` command uses this function.  Usage details and examples are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#claim-rewards) section.
 
-###  lockedBalanceOf
+##  lockedBalanceOf
 
 Queries the contract and returns the amount of locked Liquid Newton held by a stake delegator's account.
 
-#### Parameters
+### Parameters
    
 | Field | Datatype | Description |
 | --| --| --| 
 | `delegator ` | `address` | the account address of the Liquid Newton holder for which the locked balance amount is requested |
 
 
-#### Response
+### Response
 
 | Field | Datatype | Description |
 | --| --| --|
 | `amount` |  `uint256`  | the account balance for Liquid Newton in a locked state |
 
 
-#### Usage
+### Usage
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
@@ -56,7 +56,7 @@ Queries the contract and returns the amount of locked Liquid Newton held by a st
 {{< /tabpane >}}
 
 
-#### Example
+### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
@@ -64,24 +64,24 @@ Queries the contract and returns the amount of locked Liquid Newton held by a st
 {{< /tab >}}
 {{< /tabpane >}}
 
-###  unlockedBalanceOf
+##  unlockedBalanceOf
 
 Queries the contract and returns the amount of unlocked Liquid Newton held by a stake delegator's account.
 
-#### Parameters
+### Parameters
    
 | Field | Datatype | Description |
 | --| --| --| 
 | `delegator ` | `address` | the account address of the Liquid Newton holder for which the unlocked balance amount is requested |
 
 
-#### Response
+### Response
 
 | Field | Datatype | Description |
 | --| --| --|
 | `amount` |  `uint256`  | the account balance for Liquid Newton in an unlocked state |
 
-#### Usage
+### Usage
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
@@ -89,7 +89,7 @@ Queries the contract and returns the amount of unlocked Liquid Newton held by a 
 {{< /tab >}}
 {{< /tabpane >}}
 
-#### Example
+### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
