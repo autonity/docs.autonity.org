@@ -80,16 +80,17 @@ Governance operations are used to modify protocol parameterisation set in the ge
 
 For all parameter definitions and the subset of modifiable parameters see the [Protocol Parameter](/reference/protocol/) reference.
 
-#### State finalisation
-The Autonity Protocol Contract manages state finalisation, maintaining [system state](/glossary/#system-state). Contract logic triggers:
+#### State finalization
+The Autonity Protocol Contract manages state finalization, maintaining [system state](/glossary/#system-state). Contract logic triggers block finalization:
 
-- block finalisation
+- invoking the [Accountability Contract](/concepts/architecture/#autonity-accountability-contract) to apply [slashing](/concepts/accountability/#slashing) penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
 - at epoch end:
-  - [selection of a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
-  - applying [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
-  - applying [slashing](/concepts/accountability/#slashing) penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
   - [distributing staking rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
-- computation of median price data at the end of an oracle voting round by the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
+  - applying [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
+  - applying pending [validator commission rate changes](/concepts/validator/#validator-commission-rate-change)
+  - [selecting of a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
+  - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection).
+- invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) for the [computation of median price data](/concepts/architecture/#median-price-computation) at the end of an oracle voting round.
 
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
@@ -115,7 +116,7 @@ The Autonity Protocol Contract implements logic to manage validator registration
 To learn more about the concept see [Validators](/concepts/validator/).
 
 #### Committee selection
-Computing the committee is a protocol only function. As the last block of an epoch is finalised, this function is executed to determine the committee for the following epoch.
+Computing the committee is a protocol only function. As the last block of an epoch is finalized, this function is executed to determine the committee for the following epoch.
 
 The committee is selected from the registered validators maintained in system state by the Autonity contract. Validators are ranked by bonded stake amount, those with the highest stake being selected to the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members that voted to approve the block.
 
@@ -125,7 +126,7 @@ To learn more about the concept see [Consensus](/concepts/consensus/) and  [Comm
 
 Validators and stake delegators are incentivised by the distribution of staking rewards to stake bonded to the active consensus committee. Rewards are paid in Auton.
 
-Rewards accumulate from transaction fees collected by the transaction fee mechanism as blocks are finalised by the committee:
+Rewards accumulate from transaction fees collected by the transaction fee mechanism as blocks are finalized by the committee:
 
 - Block _priority fees_ are distributed to block proposers at block interval.
 - Block _base fees_ are added to the rewards pool and distributed at epoch end.
@@ -203,7 +204,7 @@ The Autonity Oracle Contract implements logic to manage submission of price data
 
 #### Voter selection
 
-Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on median price computation by a protocol-only function. As the last block of an epoch is finalised, this function is executed to determine the oracle voters for the following epoch.
+Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on median price computation by a protocol-only function. As the last block of an epoch is finalized, this function is executed to determine the oracle voters for the following epoch.
 
 Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
 
