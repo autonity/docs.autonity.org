@@ -169,7 +169,7 @@ The jail period is computed by `current block number + jail factor * proven faul
 This computes the validator's jail release block number, after which a validator may get out of jail by [re-activating](/concepts/validator/#validator-re-activation) to revert to an `active` state and resume [eligibility for consensus committee selection](/concepts/validator/#eligibility-for-selection-to-consensus-committee).
 
 {{% alert title="Note" %}}
-Validator's **must** [re-activate](/concepts/validator/#validator-re-activation) to get out of jail.
+Validator's **must** manually [re-activate](/concepts/validator/#validator-re-activation) to get out of jail.
 
 The protocol **does not** automatically revert validator state from `jailed` to `active` at the jail release block number. 
 {{% /alert %}}
