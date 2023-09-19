@@ -91,7 +91,7 @@ The Autonity Protocol Contract manages state finalisation, maintaining [system s
   - [distributing staking rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
 - computation of median price data at the end of an oracle voting round by the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
 
-To learn more about the finalisation logic see the protocol only `finalise()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
+To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
 #### Staking
 The Autonity Protocol Contract manages liquid staking,  maintaining the ledger of _newton_ stake token in the system and triggering the deployment of validator-specific _liquid newton_ contracts. The contract implements logic to:
