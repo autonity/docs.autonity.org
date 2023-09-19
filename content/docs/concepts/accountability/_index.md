@@ -272,11 +272,7 @@ In the table:
 
 ### Rule severity
 
-Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity. For example:
-
-- failing to finalize a block and/or halting the chain
-- proposing an invalid block
-- voting for multiple and/or conflicting blocks
+Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity.
 
 | Severity | Description |
 | --| --|
