@@ -229,7 +229,7 @@ The slashing amount to fine for the fault is computed based on slashing factors:
   - `base rate + epoch offences count * collusion factor + history * history factor`.
 - `slashing amount` of the fine is computed:
   - `(slashing rate * validator bonded stake)/slashing rate precision`
-- the slashing is computed:
+- the slashing is enforced by:
   - the slashed amount of NTN stake token is subtracted from the validator’s bonded stake and transferred to the Autonity Protocol global `treasury` account for community funding
   - the slashing fine is applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model
   - the `jail period` of the validator is computed to determine the validator's jail release block number: `current block number + jail factor * history * epoch period`.
