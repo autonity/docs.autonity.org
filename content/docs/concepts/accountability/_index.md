@@ -260,20 +260,15 @@ In the table:
 
 | Rule ID | Description |
 | --| --|
-| `PN` | Proposer has proposed a new block proposal having already sent a _non-nil_ precommit message earlier <!--, or (b) has received sufficiently many prevotes for an earlier proposal block proposal during the same round. --> |
-| `PO` | Proposer has proposed a block proposal that has already been proposed without attaching as justification the `2f + 1` prevotes from the same round for the value. |
-| `PVN` | Committee member has sent two distinct prevotes during the same round. |
-| `PVO` | Committee member has prevoted for a block proposal in more than one consensus round. |
-| `PVO12` | Committee member has prevoted for a block proposal having already precommitted for that block proposal or a different block proposal in an earlier round.  |
-| `PVO3` | Committee member has prevoted for an invalid old block proposal (i.e. sent an invalid message) |
-| `C`  | Committee member has precommitted for an invalid block proposal  (i.e. sent an invalid message) |
-| `C1` | Committee member has precommitted for a block proposal having already precommitted for that block proposal in an earlier round. |
-| `InvalidProposal` | Proposer has proposed a block proposal that fails blockchain validation |
+| `PN` - `PO` | Propose step related consensus rule infraction. | 
+| `PVN` - `PVO` - `PVO12` - `PVO3` | Prevote step related consensus rule infraction. |
+| `C` - `C1` | Precommit step related consensus rule infraction. |
+| `InvalidProposal` | Proposer has proposed a block that fails blockchain validation |
 | `InvalidProposer` | Proposer of a block proposal is not the committee's elected Proposer. |
-| `Equivocation` | Validator has sent conflicting messages during a consensus round: a committee member has sent conflicting votes  (prevote, precommit), a  proposer has broadcast conflicting block proposals to different committee members. |
+| `Equivocation` | Validator has sent conflicting messages during a consensus round: a committee member sending multiple prevotes/precommits for different values, a  proposer has broadcast conflicting block proposals to different committee members. |
 | `InvalidRoundStep` | Consensus round message contains invalid round number or step |
-| `AccountableGarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded |
-| `MsgNotFromCommitteeMember` | Consensus round message sender is not a member of the current consensus committee |
+| `WrongValidRound` | Consensus round message contains wrong valid round number |
+| `GarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded |
 
 ### Rule severity
 
