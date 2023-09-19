@@ -196,7 +196,7 @@ The sequence of lifecycle events for an accountability event is:
   - `InnocenceProof`: recorded and corresponding `Accusation` it defends against deleted if: the validator has an associated pending accusation being processed, and, the innocence proof and associated accusation proof have matching: rule identifiers, block number, message hash. Else, discarded
 - Fault promotion. Each block until epoch end, protocol attempt to promote `Accusations` to new `FaultProofs`: promoted if the proof innocence window has expired, and, the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch. Else, discarded.
 - Queued for slashing. Accountability `FaultProof` events are queued until slashing end of epoch when: for each offending validator with one or more proven faults, a slashing penalty is applied for the `FaultProof` with the highest severity for its fault epoch.
-- Validator jailing: validators may be [jailed](/concepts/accountability/#jail) as part of slashing for a fault. The validator’s node transitions from `n `active` to a `jailed` state and will only resume an `active` state when `re-activated` by the validator operator after the [jail period](/glossary/#jail-period) expires.
+- Validator jailing: validators may be [jailed](/concepts/accountability/#jail) as part of slashing for a fault. The validator’s node transitions from `active` to a `jailed` state and will only resume an `active` state when `re-activated` by the validator operator after the [jail period](/glossary/#jail-period) expires.
 
 ## Slashing
 
