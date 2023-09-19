@@ -209,7 +209,7 @@ Slashing is applied as part of the state finalisation function. As the last bloc
 Slashing protocol parameter settings:
 
 - _slashing rate precision_ = `10_000`, the division precision used as the denominator when computing the slashing amount of a penalty
-- _innocence proof submission window_ = `600`, the number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation`.
+- _innocence proof submission window_ = `600`, the number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an `accusation`.
 - _base slashing rate low_ = `1000` (10%), base slashing rate for a fault of _Low_ severity 
 - _base slashing rate mid_ = `2000` (20%), base slashing rate for a fault of _Mid_ severity
 - _collusion factor_ = `800` (8%), the percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty
