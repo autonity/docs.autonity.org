@@ -120,7 +120,6 @@ The Autonity Protocol Contract implements logic to manage validator registration
 To learn more about the concept see [Validators](/concepts/validator/).
 
 #### Committee selection
-
 Computing the committee is a protocol only function. As the last block of an epoch is finalized, this function is executed to determine the committee for the following epoch.
 
 The committee is selected from the registered validators maintained in system state by the Autonity contract. Validators are ranked by bonded stake amount, those with the highest stake being selected to the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members that voted to approve the block.
