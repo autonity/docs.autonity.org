@@ -123,7 +123,7 @@ Unlike _accusations_ where an accusation must be made within a `<= 256` block wi
 A direct fault proof can be reported at any time.
 {{% /alert %}}
 
-Slashing for _faults_ is applied at the end of each epoch. For each validator with _fault(s)_ slashing is applied for the _fault_ with the highest _severity_.
+Slashing for _faults_ is applied at the end of each epoch. For each validator with _fault(s)_ slashing is applied for the _fault_ with the highest _severity_ (grouping faults by epoch).
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of a directly submitted _fault_ on-chain a `NewFaultProof` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
