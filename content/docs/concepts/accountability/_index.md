@@ -164,7 +164,7 @@ The jail period is computed by `current block number + jail factor * proven faul
 - `current block number`: the block number at the time of computation (i.e. the last block of an epoch when slashing is applied)
 - `jail factor`: a set number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration).
 - `proven fault count`: the number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history
-- `[epoch period](/glossary/#epoch-period)`: The period of time for which a consensus committee is elected, defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
+- [epoch period](/glossary/#epoch-period): The period of time for which a consensus committee is elected, defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
 
 This computes the validator's jail release block number, after which a validator may get out of jail by [re-activating](/concepts/validator/#validator-re-activation) to revert to an `active` state and resume [eligibility for consensus committee selection](/concepts/validator/#eligibility-for-selection-to-consensus-committee).
 
