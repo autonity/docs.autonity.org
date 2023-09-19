@@ -188,7 +188,7 @@ Returns an array of `Event` object(s) of type `FaultProof` consisting of:
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults _val
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -196,7 +196,8 @@ Returns an array of `Event` object(s) of type `FaultProof` consisting of:
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults 0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C
+[]
 {{< /tab >}}
 {{< /tabpane >}}
 
