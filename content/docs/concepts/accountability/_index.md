@@ -260,7 +260,6 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 
 Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity.
 
-
 {{% alert title="Note" %}}
 In this release all offences are treated as `Mid` severity.
 
