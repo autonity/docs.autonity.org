@@ -710,7 +710,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -718,7 +718,8 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
+[]
 {{< /tab >}}
 {{< /tabpane >}}
 
