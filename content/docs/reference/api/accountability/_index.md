@@ -51,20 +51,29 @@ Accusations do not automatically cause slashing. The _innocence proof window_ is
 | `_deadline` | `uint256` | the number of blocks before the validator becomes accusable. Returns (a) a `non zero` value indicating the block height at which a pending accusation's innocence window expires, or, (b) `0` indicating that there is no pending innocence window expiry |
 
 ### Usage
-
+<!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
+-->
+{{% alert title="Info" %}}
+To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+{{% /alert %}}
 
 ### Example
 
+<!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
+-->
+{{% alert title="Info" %}}
+To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+{{% /alert %}}
 
 
 ## canSlash
@@ -93,19 +102,29 @@ The method returns a `boolean` flag specifying whether the reported infraction i
 
 ### Usage
 
+<!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
+-->
+{{% alert title="Info" %}}
+To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+{{% /alert %}}
 
 ### Example
 
+<!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
+-->
+{{% alert title="Info" %}}
+To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+{{% /alert %}}
 
 
 ## getValidatorAccusation
@@ -143,19 +162,29 @@ Returns an `Event` object of type `Accusation` consisting of:
 
 ### Usage
 
+<!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
+-->
+{{% alert title="Info" %}}
+To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+{{% /alert %}}
 
 ### Example
 
+<!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
+-->
+{{% alert title="Info" %}}
+To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+{{% /alert %}}
 
 
 ## getValidatorFaults
