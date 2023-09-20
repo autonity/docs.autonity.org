@@ -16,9 +16,5 @@ Examples for calling functions from `aut` use the setup described in the How to 
 
 Usage and Examples illustrate using the ASM Contracts' generated ABI and the `aut` tool's `contract` command to call the ASM Contract functions. See `aut contract call --help`.
 
-<<<<<<< HEAD
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The contract `.abi` files are generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
-=======
-Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The contract `.abi` files are generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
->>>>>>> 784942d (Reference, ASM Contract Interfaces iteration 1)
 {{% /pageinfo %}}

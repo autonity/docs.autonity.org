@@ -17,7 +17,6 @@ Examples for calling functions from `aut` use the setup described in the How to 
 Usage and Examples illustrate using the Stabilization Contract's generated ABI and the `aut` tool's `contract` command to call the Stabilization Contract address `0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f`. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Stabilization.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Stabilization.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
-
 {{% /pageinfo %}}
 
 ## CDP Owner
@@ -1114,7 +1113,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1122,7 +1121,8 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
+[]
 {{< /tab >}}
 {{< /tabpane >}}
 
