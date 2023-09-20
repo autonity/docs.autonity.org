@@ -16,7 +16,7 @@ Examples for calling functions from `aut` use the setup described in the How to 
 
 Usage and Examples illustrate using the ACU Contract's generated ABI and the `aut` tool's `contract` command to call the ACU Contract address `0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA`. See `aut contract call --help`.
 
-Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `ACU.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/ACU.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
+Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `ACU.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/ACU.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 {{% /pageinfo %}}
 
 ## value
@@ -45,7 +45,8 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
+98410
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -75,7 +76,8 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
+["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "USD-USD", "SEK-USD"]
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -105,6 +107,7 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantitie
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
+[21300, 18700, 14300, 10400, 1760000, 18000, 141000]
 {{< /tab >}}
 {{< /tabpane >}}

@@ -114,7 +114,7 @@ The commands given in this step assume that your `.autrc` configuration file con
 {{< /alert >}}
 
 ```bash
-aut contract tx --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 registerValidator <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -
+aut validator register <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -
 ```
 
 where:
@@ -143,7 +143,7 @@ Check your configuration as described in the "Important Note" at the start of th
 
 ### Step 4. Confirm registration
 
-Confirm that the validator has been registered by checking that its identifier appears in the validator list:
+Confirm that the validator has been registered by checking that its identifier (noted in Step 2) appears in the validator list:
 ```bash
 aut validator list
 ```
