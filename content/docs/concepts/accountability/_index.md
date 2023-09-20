@@ -7,7 +7,6 @@ description: >
   Autonity's Accountability Fault Detection model -- reporting mechanism, temporal constraints and economics for reporting offences and penalties for Byzantine behaviour.
 ---
 
-
 ## Overview
 
 This section describes the Autonity accountability and fault detection protocol, the role of validators in submitting and verifying accountability event proofs (fault, accusation, innocence), the lifecycle for fault accountability and detection, and slashing.
@@ -274,6 +273,13 @@ In the table:
 
 Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity.
 
+{{% alert title="Note" %}}
+In this release all offences are treated as `Mid` severity.
+
+Future releases will introduce an offence scale range. 
+{{% /alert %}}
+
+<!--
 | Severity | Description |
 | --| --|
 | `Minor` | _Not currently implemented_ |
@@ -281,6 +287,7 @@ Rules are given a severity rating according to the risk that failure to adhere t
 | `Mid` | Equivocation message: (a) proposer has sent conflicting block proposal messages; (b) committee member has sent conflicting prevote or precommit messages. Inconsistent message: (a) proposer sends new proposal having already pre-committed for an earlier value in an earlier round; (b) proposer sends an old value that the proposer has never locked on. |
 | `High` | _Not currently implemented_ |
 | `Critical` | _Not currently implemented_ |
+-->
 
 ## Events
 

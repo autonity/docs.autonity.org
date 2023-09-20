@@ -834,7 +834,7 @@ How it works:
   - computes the slashing rate to apply, taking into account the number of fault offences committed in the epoch,
   - applies slashing to the offending validator's stake,
   - adds the reporting validators' to the array of reward beneficiaries that will receive rewards for offence reporting,
-- rewards are then distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator self-bonded and delegated stakeholders _pro rata_ to their bonded stake amount. If the validator `treasury` account.
+- rewards are then distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator self-bonded and delegated stakeholders receive a share of the rewards _pro rata_ to their bonded stake amount. If the rewards transfer to the validator `treasury` account fails, then the rewards are sent to the Autonity Protocol's community `treasury` account.
 
 
 How it works to apply slashing for each fault in the slashing queue. The function:

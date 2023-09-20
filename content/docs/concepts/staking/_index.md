@@ -19,7 +19,7 @@ Staking is open - any network participant is able to purchase stake token and bo
 Staking rewards are distributed to [delegated](/glossary/#delegated) stake that is actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
 
 {{% alert title="Note" %}}
-Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton or earn staking rewards. Validator revenue is derived from commission, block proposal, and slashing rewards. See [validator economics](/concepts/validator/#validator-economics).
+Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and slashing rewards. See [validator economics](/concepts/validator/#validator-economics).
 {{% /alert %}}
 
 
@@ -80,8 +80,8 @@ Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absor
 
 Slashing priority is simply:
 
-- [self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted
-- [delegated](/glossary/#delegated) stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available.
+- [self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted. If the validator has unbonding stake, then the unbonding stake is slashed first before bonded stake.
+- [delegated](/glossary/#delegated) stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available. If the delegator has unbonding stake, then the unbonding stake and bonded stake are slashed _pro rata_ with equal priority.
 
 In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator liquid newton has a uniform risk profile.
 
