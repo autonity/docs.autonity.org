@@ -250,7 +250,7 @@ In this state:
 
 - It is ignored by the committee selection algorithm run at the epoch end.
 - New stake delegations are not accepted.
-- That the validator is being jailed and barred from active validator duty is visible to delegators.
+- The information that the validator is being jailed and barred from active validator duty is visible to delegators.
 
 Note that:
 
