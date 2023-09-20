@@ -149,7 +149,8 @@ The contract implementing the accountability and fault detection (AFD) protocol 
 The contract stores static [slashing protocol configuration parameters](/concepts/accountability/#slashing-protocol-configuration) used to compute slashing penalties. Contract functions are called by validators whilst participating in the AFD protocol to:
 
 - Return a committee member's proven faults
-- Determine if a new accusation can be made and is slashable
+- Determine if a new accusation can be made
+- Determine if a validator is slashable
 - Submit accountability events.
 
 Function calls to compute accountability each block and apply slashing penalties at epoch end are restricted to protocol.
