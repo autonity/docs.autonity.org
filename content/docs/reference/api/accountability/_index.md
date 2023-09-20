@@ -163,19 +163,29 @@ Returns an `Event` object of type `Accusation` consisting of:
 
 ### Usage
 
+<!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
+-->
+{{% alert title="Info" %}}
+To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+{{% /alert %}}
 
 ### Example
 
+<!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 
 {{< /tab >}}
 {{< /tabpane >}}
+-->
+{{% alert title="Info" %}}
+To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+{{% /alert %}}
 
 
 ## getValidatorFaults
