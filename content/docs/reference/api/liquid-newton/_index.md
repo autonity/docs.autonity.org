@@ -57,7 +57,7 @@ Queries the contract and returns the amount of locked Liquid Newton held by a st
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address --abi lockedBalanceOf delegator
+aut contract call --address lockedBalanceOf delegator
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -66,7 +66,7 @@ aut contract call --address --abi lockedBalanceOf delegator
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 --abi Liquid.abi lockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
+aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313  lockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
 0
 {{< /tab >}}
 {{< /tabpane >}}
@@ -91,7 +91,7 @@ Queries the contract and returns the amount of unlocked Liquid Newton held by a 
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address --abi unlockedBalanceOf delegator
+aut contract call --address unlockedBalanceOf delegator
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -99,7 +99,7 @@ aut contract call --address --abi unlockedBalanceOf delegator
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 --abi Liquid.abi unlockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
+aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 unlockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
 0
 {{< /tab >}}
 {{< /tabpane >}}
