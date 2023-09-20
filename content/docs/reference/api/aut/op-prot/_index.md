@@ -968,7 +968,7 @@ For each fault the protocol performs slashing over faulty validators at the end 
 
 How it works:
 
-- checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue
+- checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue. This serves the purpose of quantifying collusion.
 - applies slashing for each fault in the slashing queue:
   - computes the slashing rate to apply, taking into account the number of fault offences committed in the epoch,
   - applies slashing to the offending validator's stake,
