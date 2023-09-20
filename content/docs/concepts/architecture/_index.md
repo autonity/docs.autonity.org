@@ -171,7 +171,7 @@ The Autonity Accountability Contract implements logic for handling accountabilit
 
 The Autonity Accountability Contract manages the computation of slashing penalties for proven faults at epoch end. A slashing model is implemented where a committee member is only slashed for the highest severity fault committed in an epoch. The contract implements logic to:
 
-- Calculate slashing amount based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/accountability/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/accountability/#autonity-slashing-amount-calculation.
+- Calculate slashing amount based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/accountability/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/accountability/#autonity-slashing-amount-calculation).
 - Apply slashing according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
 
 To learn more about the concept see [Accountability and fault detection](/concepts/accountability/).
