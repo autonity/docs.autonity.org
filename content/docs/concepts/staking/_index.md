@@ -188,7 +188,7 @@ The period of time for which a consensus committee is elected and defined as a n
 
 The duration of the epoch period is set at genesis by the `epochPeriod` parameter, see the [Protocol](/reference/protocol) parameter reference. The setting can be changed by governance calling the [`setEpochPeriod()`](/reference/api/aut/op-prot/#setepochperiod) function.
 
-At each epoch rollover there is an evaluation of the bonded stake. As the last block of an epoch is finalised then:
+At each epoch rollover there is an evaluation of the bonded stake. As the last block of an epoch is finalized then:
 
 - Voting power changes affected by staking transitions are applied.
 - The committee selection algorithm is run to choose members of the consensus committee for the upcoming epoch.
