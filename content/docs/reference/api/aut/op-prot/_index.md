@@ -964,7 +964,7 @@ The reported validator will be silenced and slashed for the fault at the end of 
 
 #### perform slashing tasks
 
-For each fault the performs slashing over faulty validators at the end of an epoch.
+For each fault the protocol performs slashing over faulty validators at the end of an epoch.
 
 How it works:
 
