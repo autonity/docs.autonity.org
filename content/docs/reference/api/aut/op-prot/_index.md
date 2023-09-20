@@ -809,7 +809,7 @@ For each accusation the protocol:
 
 How it works:
 
-- accountability proof submissions are submitted and placed into `accusation` and `innocence` queues stored in memory. The `innocence` queue is ordered by time of submission
+- Accusations are placed into the `accusation` queue stored in memory. 
 - as the function executes it takes each `Accusation` proof from the accusations queue and:
   - checks if the sum of the block number at which the accusation was reported and the number of blocks in the proof innocence window is greater than the current block number (`_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number`):
   <!-- - if greater than, then the `InnocenceProof` submission is considered stale and ignored, and the function continues to the next `InnocenceProof` in the queue is tested. -->
