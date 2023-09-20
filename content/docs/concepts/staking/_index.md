@@ -266,7 +266,6 @@ Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbondi
 
 - _at the end of the epoch in which the unbonding period expires_: NTN for the unbonding stake amount are released to the delegator.
 
-
 {{< alert title="Example" >}}
 Alice sends an `unbond()` tx at time `T`, a block in an epoch. The tx is processed at `T` and an `UnbondingRequest` object for the necessary voting power change is created. At `T+1` the [unbonding period](/glossary/#unbonding-period) begins.
 
