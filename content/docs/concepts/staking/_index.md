@@ -152,7 +152,7 @@ The Autonity Protocol's `treasury` account for receiving treasury fees. See `tre
 
 The Autonity Protocol's contract account for holding staking rewards (serving as a 'rewards pool') until reward distribution occurs at epoch end. 
 
-The Autonity Contract account is generated automatically on deployment of the Autonity Protocol Contract at network genesis. See [Protocal Contract Addresses](/concepts/architecture/#protocol-contract-account-addresses) for the address value.
+The Autonity Contract account is generated automatically on deployment of the Autonity Protocol Contract at network genesis. See [Protocol Contract Addresses](/concepts/architecture/#protocol-contract-account-addresses) for the address value.
 
 ## Temporal constraints
 
