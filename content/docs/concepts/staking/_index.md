@@ -220,7 +220,7 @@ Bonding and unbonding requests submitted during an epoch are processed and commi
 
 In Autonity's AFD protocol, slashable faults are likewise processed throughout an epoch and any staking transitions caused by stake slashing are applied to unbonding and bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. i.e. self-bonded stake is slashed in priority to delegated stake. 
 
-As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to protocol application of [slashing](/concepts/staking/#slashing) penalties:
+As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to [slashing](/concepts/staking/#slashing) penalties:
 
 - Newton whilst locked in [states](/concepts/protocol-assets/newton/) `bonded` and `unbonding`.
 - Liquid Newton in [states](/concepts/protocol-assets/liquid-newton/) `locked` and `unlocked`.
