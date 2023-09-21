@@ -213,12 +213,11 @@ For example, an unbonding scenario with an epoch period of 30 blocks, an unbondi
 
 Staking transitions are changes to stake bonded to validators caused by:
 
-- stake bonding and unbonding operations submitted by stake delegators
-- [slashing](/concepts/staking/#slashing) penalties applied by protocol for proven validator faults whilst a member of the consensus committee. 
+- stake bonding and unbonding operations submitted by stake delegators 
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end staking transitions are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures. They can be read by listening for and viewing `NewBondingRequest` and `NewUnbondingRequest` events emitted by the [`bond()`](/reference/api/aut/#bond) and [`unbond()`](/reference/api/aut/#unbond) functions of the Autonity Protocol Contract.
 
-In Autonity's AFD protocol, slashable faults are likewise processed throughout an epoch and any staking transitions caused by stake slashing are applied to unbonding and bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. i.e. self-bonded stake is slashed in priority to delegated stake. 
+In Autonity's [AFD](/concepts/accountability/) protocol, slashable faults are likewise processed throughout an epoch and any changes to delegated stake caused by stake slashing are applied to unbonding and bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model before staking transitions are applied. 
 
 As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to [slashing](/concepts/staking/#slashing) penalties:
 
@@ -275,7 +274,7 @@ Note that the amount of Newton released to Alice may be less than the original u
 
 ## Slashing
 
-Bonded stake is subject to economic [slashing penalties](/concepts/accountability/#slashing-penalties) if misbehaviour by the staked validator node is detected by the [accountability and fault detection (AFD) protocol](/concepts/accountability/). The AFD protocol detects infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members.
+Bonded stake is subject to economic [slashing penalties](/concepts/accountability/#slashing-penalties) if misbehavior by the staked validator node is detected by the [accountability and fault detection (AFD) protocol](/concepts/accountability/). The AFD protocol detects infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members.
 
 ### Economic penalties
 
@@ -287,7 +286,7 @@ See concept [Accountability and fault detection](/concepts/accountability/) and 
 
 ### Consequences for stake redemption
 
-Bonding stake to a validator enters the staker in to a risk mutualisation model shared with the validator, i.e. if the validator is penalised then the stake delegator may lose stake as consequence. This risk is realised when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
+Bonding stake to a validator enters the staker in to a risk mutualization model shared with the validator, i.e. if the validator is penalised then the stake delegator may lose stake as consequence. This risk is realised when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
 
 As described in [Liquid Newton](/concepts/staking/#liquid-newton), a conversion rate between Liquid Newton and Newton is maintained by the protocol's tokenomics to ensure that a validator's Liquid Newton tokens remain 1:1 fungible. As consequence, a staker can redeem staked Newton in full _unless_ there has been a slashing event. In this circumstance, the stake redemption will be affected. 
 
