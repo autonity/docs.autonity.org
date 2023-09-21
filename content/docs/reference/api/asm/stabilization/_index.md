@@ -63,7 +63,7 @@ aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f deposit amo
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f deposit 1000000000000000000 | aut tx sign - | aut tx send -
+aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --abi Stabilization.abi deposit 1000000000000000000 | aut tx sign - | aut tx send -
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -719,7 +719,7 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
-[]
+["0x1f790c60D974F5A8f88558CA90F743a71F009641"]
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -737,6 +737,7 @@ Constraint checks are applied:
 | Field | Datatype | Description |
 | --| --| --|
 | `account` | `address` | The CDP account address to liquidate |
+| `timestamp` | `uint` | the timestamp to value the debt. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 
 #### Response
 
@@ -750,7 +751,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -758,7 +759,8 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount "0x1f790c60D974F5A8f88558CA90F743a71F009641" 1695300701
+0
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -901,6 +903,12 @@ Where:
 | `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
+{{< alert title="Info" >}}
+For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
+
+The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
+{{< /alert >}}
+
 #### Response
 
 The function returns the maximum amount of Auton that can be borrowed as an `uint256` integer value.
@@ -913,7 +921,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -921,7 +929,8 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
+19633000000000000000
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -945,6 +954,11 @@ The minimum collateral amount is calculated by `(principal * mcr) / price`.
 | `price` | `uint256` | The price of Collateral Token in Auton |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
+{{< alert title="Info" >}}
+For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
+
+The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
+{{< /alert >}}
 
 #### Response
 
@@ -958,7 +972,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal price mcr
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -966,7 +980,8 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000000 9672000000000000000 2000000000000000000
+206782464846980976
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -984,8 +999,12 @@ Constraint checks are applied:
 | --| --| --|
 | `debt` | `uint256` | The debt amount |
 | `rate` | `uint256` | The borrow interest rate |
-| `timeBorrow` | `uint` | The borrow time |
-| `timeDue` | `uint` | The time the interest is due |
+| `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
+| `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
+
+{{< alert title="Info" >}}
+For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
+{{< /alert >}}
   
 #### Response
 
@@ -999,7 +1018,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1007,7 +1026,8 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
+4118044981651418
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1034,6 +1054,12 @@ If a debt position is under collateralized or not is determined by calculating `
 | `debt` | `uint256` | The debt amount |
 | `liquidationRatio` | `uint256` | The liquidation ratio |
 
+{{< alert title="Info" >}}
+For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
+
+The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
+{{< /alert >}}
+
 #### Response
 
 The method returns a boolean flag specifying whether the CDP is undercollateralized (true) or not (false).
@@ -1046,7 +1072,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized collateral price debt liquidationRatio
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1054,6 +1080,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 206782464846980976 9672000000000000000 1000000000000000000 1800000000000000000
+false
 {{< /tab >}}
 {{< /tabpane >}}
