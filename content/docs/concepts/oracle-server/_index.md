@@ -41,12 +41,12 @@ Valid price data sources are exchanges providing up to date market prices for tr
 
 Primary data providers for oracle data are:
 
-- FX and ATN/NTN currency pairs utilised in the Autonity Stability Mechanism.
+- FX and protocol asset (ATN, NTN) currency pairs utilised in the [Auton Stabilization Mechanism (ASM)](/concepts/asm/).
 
-A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
+A basic set of data adaptor plugins for sourcing this price data is provided out the box with oracle server for testnet pre-Mainnet:
 
 - Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
-- Simulator plugin: for simulated ATN/NTN data. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
+- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
 
 {{% alert title="Info" color="info"%}}
 ATN and NTN symbols are preview listed but untraded:
