@@ -295,7 +295,7 @@ See concept [Accountability and fault detection](/concepts/accountability/) and 
 
 ### Consequences for stake redemption
 
-Bonding stake to a validator enters the staker in to a risk mutualization model shared with the validator, i.e. if the validator is penalized then the stake delegator may lose stake as consequence. This risk is realized when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
+Bonding stake to a validator enters the staker in to a risk mutualization model shared with the validator, i.e. if the validator is penalised then the stake delegator may lose stake as consequence. This risk is realised when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
 
 As described in [Liquid Newton](/concepts/staking/#liquid-newton), a conversion rate between Liquid Newton and Newton is maintained by the protocol's tokenomics to ensure that a validator's Liquid Newton tokens remain 1:1 fungible. As consequence, a staker can redeem staked Newton in full _unless_ there has been a slashing event. In this circumstance, the stake redemption will be affected. 
 
