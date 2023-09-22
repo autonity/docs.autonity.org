@@ -70,17 +70,6 @@ Genesis configuration file JSON objects:
 | `mixHash` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. Used for: (a) compatibility with 3rd party Ethereum tools that expect the field, (b) an internal code check by the Autonity Protocol before a block is accepted during consensus; blocks without this hash are rejected. | A 256-bit hash as a Hex encoded string, set to: `0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365` |
 | `alloc` | An array of accounts to be assigned `Auton` on chain initialisation. Contract accounts for deployment at genesis can also be specified. | See [`alloc` object](#alloc-object) definition |
 
-
-### JSON data structures
-Genesis configuration file JSON objects:
-
-- [config](#config-object)
-- [config.autonity](#configautonity-object)
-- [config.autonity.validators object](#configautonityvalidators-object)
-- [config.oracle object](#configoracle-object)
-- [alloc object](#alloc-object)
-- [alloc.account object](#allocaccount-object)
-
 #### config object
 
 |Parameter|Description|Value|
@@ -111,7 +100,7 @@ Genesis configuration file JSON objects:
 | `operator` | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) | EOA account address |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
-##### config.autonity.validators object
+#### config.autonity.validators object
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
@@ -143,73 +132,6 @@ Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 
 #### config.asm.stabilization object
 
 Configuration of the Stabilization mechanism's Collateralized Debt Position (CDP).
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set to 5%, `50_000_000_000_000_000` |
-| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set to 1.8, `1_800_000_000_000_000_000` |
-| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set to 2, `2_000_000_000_000_000_000` |
-| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` |
-| `targetPrice` | The ACU value of 1 unit of debt. | Set to 1, `1_000_000_000_000_000_000` |
-
-#### config.asm.supplyControl object
-
-Configuration of the Stabilization mechanism's initial Auton supply.
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `initialAllocation` | The initial allocation of Auton to the ASM. | Value is specific to network configuration. |
-
-
-#### config.accountability object
-
-Object structure for the Accountability and Fault Detection (AFD) protocol configuration at genesis.
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set to `600` |
-| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set to `1000` (10%) |
-| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set to `2000` (20%) |
-| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set to `800` (8%) |
-| `historyFactor` | The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty | Set to `500` (5%) |
-| `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set to `2` |
-| `slashingRatePrecision` | The division precision used as the denominator when computing the slashing amount of a penalty | Set to `10000` |
-
-#### config.oracle object
-
-Object structure for the oracle network at genesis.
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs retrieved by the oracle for (a) FX price data, and (b) ATN and NTN price data. Set to `["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","SEK/USD","ATN/USD","NTN/USD"]` |
-| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. Set to `30` for initiating a new oracle voting round at 30-block intervals |
-
-
-#### config.asm object
-
-Configuration of the Auton Stabilisation Mechanism (ASM).
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `acu` | Object structure for the ASM's Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
-| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
-| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
-
-#### config.asm.acu object
-
-Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 free-floating fiat currencies.
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set to `["AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "USD/USD", "SEK/USD"]` |
-| `quantities` | The basket quantity corresponding to each symbol. | Set to `[21_300,18_700,14_300,10_400,1_760_000,18_000,141_000]` |
-| `scale` | The scale used to represent the basket `quantities` and ACU value. | Set to `5` |
-
-#### config.asm.stabilization object
-
-Configuration of the Stabilization mechanism's Collateralised Debt Position (CDP).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|

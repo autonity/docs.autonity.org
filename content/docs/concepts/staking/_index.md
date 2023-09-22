@@ -266,21 +266,22 @@ Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbondi
 
 - _at the end of the epoch in which the unbonding request was issued_: the validator's total bonded stake (and consequently [voting power](/glossary/#voting-power) decreases by the unbonded amount when the unbonding is applied at the end of the epoch,
 
-- _at the end of the epoch in which the unbonding period expires_: NTN for the unbonding stake amount are released to the delegator.
+- _on expiry of the unbonding period_: NTN for the unbonding stake amount are released to the delegator at the end of the unbonding period.
 
 {{< alert title="Example" >}}
 Alice sends an `unbond()` tx at time `T`, a block in an epoch. The tx is processed at `T` and an `UnbondingRequest` object for the necessary voting power change is created. At `T+1` the [unbonding period](/glossary/#unbonding-period) begins.
 
-The unbonding request is tracked in memory for application at the end of the epoch in which the unbonding period falls. At this point, `T-U`, the staking transition is applied - actual unbonding is executed at `T+1` + `unbondingPeriod` + remainder of the `epoch` in which the `unbondingPeriod` expires.
+The unbonding request is tracked in memory for application and:
 
-At this block point Newton redemption (i.e. 'release') occurs:
+- at the end of the epoch in which `T` was processed the validator's bonded stake amount and voting power is reduced:
+  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated),
+  - the amount of stake to reduce the unbonding pool by and Alice's share of the unbonding pool is calculated,
+  - the amount of Newton bonded to the validator is reduced by the unbonding amount, consequently reducing the validator's voting power.
 
-- the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated),
-- the amount of stake to reduce the unbonding pool by and Alice's share of the unbonding pool is calculated,
-- the amount of Newton bonded to the validator is reduced by the unbonding amount,
-- due Newton is minted to Alice's Newton account.
+- on expiry of the unbonding period (`T+1` + `unbonding period`) Newton redemption (i.e. 'release') occurs when at that block height:
+  - due Newton is minted to Alice's Newton account.
 
-Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and `T-U`.
+Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and `T+1` + `unbonding period`.
 {{< /alert >}}
 
 ## Slashing
@@ -297,7 +298,7 @@ See concept [Accountability and fault detection](/concepts/accountability/) and 
 
 ### Consequences for stake redemption
 
-Bonding stake to a validator enters the staker in to a risk mutualization model shared with the validator, i.e. if the validator is penalised then the stake delegator may lose stake as consequence. This risk is realised when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
+Bonding stake to a validator enters the staker in to a risk mutualization model shared with the validator, i.e. if the validator is penalized then the stake delegator may lose stake as consequence. This risk is realized when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
 
 As described in [Liquid Newton](/concepts/staking/#liquid-newton), a conversion rate between Liquid Newton and Newton is maintained by the protocol's tokenomics to ensure that a validator's Liquid Newton tokens remain 1:1 fungible. As consequence, a staker can redeem staked Newton in full _unless_ there has been a slashing event. In this circumstance, the stake redemption will be affected. 
 
