@@ -100,9 +100,9 @@ Genesis configuration file JSON objects:
 |---------|-----------|-----|
 | `abi` | The abi of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 |`bytecode`| The EVM bytecode of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivises validators at genesis when transaction volumes are low | Set to: `500000000` |
+| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivizes validators at genesis when transaction volumes are low | Set to: `500000000` |
 | `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Commonly known as 'block time' or 'block interval' | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
-| `unbondingPeriod` | The number of blocks bonded stake must wait before Liquid Newton can be redeemed for Newton after processing a stake redeem transaction. The `unbondingPeriod` must be longer than an `epochPeriod` | Value is specific to network configuration. For a production environment a number of blocks to span 1 week to 1 month would be typical to enable Byzantine behaviour detection. For a local devnet supporting rapid testing a value of `120` could be appropriate|
+| `unbondingPeriod` | The number of blocks bonded stake must wait after processing a stake unbond transaction before Newton is redeemed to the stake delegator. The `unbondingPeriod` must be longer than an `epochPeriod` | Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of `120` could be appropriate|
 | `epochPeriod` | The number of blocks in an epoch. The `epochPeriod` must be shorter than the `unbonding` period | Value is specific to network configuration. For a local devnet supporting rapid testing a value of `30` could be appropriate |
 | `treasury` | The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. Ethereum format address. | Value is specific to network configuration |
 | `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Value is specific to network configuration. For example, a setting of `10000000000000000` = 1% |
@@ -142,7 +142,7 @@ Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 
 
 #### config.asm.stabilization object
 
-Configuration of the Stabilization mechanism's Collateralised Debt Position (CDP).
+Configuration of the Stabilization mechanism's Collateralized Debt Position (CDP).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
