@@ -1967,7 +1967,7 @@ The [unbonding period](/glossary/#unbonding-period) begins the next block. The `
   - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake,
   - the amount of stake to reduce the unbonding pool by and the delegator's share of the unbonding pool is calculated,
   - the amount of Newton bonded to the validator is reduced by the unbonding amount.
-- on expiry of the unbonding period:
+- at the end of the epoch in which the unbonding period expires:
   - Newton redemption occurs and due Newton is minted to the staker’s Newton account.
 
 {{< alert title="Warning" color="warning" >}}

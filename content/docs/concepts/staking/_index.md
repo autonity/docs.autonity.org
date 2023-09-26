@@ -266,22 +266,22 @@ Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbondi
 
 - _at the end of the epoch in which the unbonding request was issued_: the validator's total bonded stake (and consequently [voting power](/glossary/#voting-power) decreases by the unbonded amount when the unbonding is applied at the end of the epoch,
 
-- _on expiry of the unbonding period_: NTN for the unbonding stake amount are released to the delegator at the end of the unbonding period.
+- _at the end of the epoch in which the unbonding period expires_: NTN for the unbonding stake amount are released to the delegator.
 
 {{< alert title="Example" >}}
 Alice sends an `unbond()` tx at time `T`, a block in an epoch. The tx is processed at `T` and an `UnbondingRequest` object for the necessary voting power change is created. At `T+1` the [unbonding period](/glossary/#unbonding-period) begins.
 
-The unbonding request is tracked in memory for application and:
+The unbonding request is tracked in memory for application and at the end of the epoch:
 
-- at the end of the epoch in which `T` was processed the validator's bonded stake amount and voting power is reduced:
+- in which `T` was processed the validator's bonded stake amount and voting power is reduced:
   - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated),
   - the amount of stake to reduce the unbonding pool by and Alice's share of the unbonding pool is calculated,
   - the amount of Newton bonded to the validator is reduced by the unbonding amount, consequently reducing the validator's voting power.
 
-- on expiry of the unbonding period (`T+1` + `unbonding period`) Newton redemption (i.e. 'release') occurs when at that block height:
+- in which the unbonding period (`T+1` + `unbonding period`) expires Newton redemption (i.e. 'release') occurs:
   - due Newton is minted to Alice's Newton account.
 
-Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and `T+1` + `unbonding period`.
+Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and the end of the epoch in which the `unbonding period` expires.
 {{< /alert >}}
 
 ## Slashing
