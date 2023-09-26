@@ -63,7 +63,7 @@ aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f deposit amo
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --abi Stabilization.abi deposit 1000000000000000000 | aut tx sign - | aut tx send -
+aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f deposit 1000000000000000000 | aut tx sign - | aut tx send -
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -189,6 +189,7 @@ The payment is allocated to first cover outstanding interest debt on the CDP, an
 | Field | Datatype | Description |
 | --| --| --|
 | `msg.value` | `uint256` | The payment amount |
+
 
 #### Response
 
@@ -759,8 +760,8 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmoun
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount "0x1f790c60D974F5A8f88558CA90F743a71F009641" 1695300701
-0
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
+300012369185855391
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -783,9 +784,6 @@ The function tests liquidatibility by calling [`underCollateralized()`](/referen
 | Field | Datatype | Description |
 | --| --| --|
 | `account` | `address` | The CDP account address |
-<!--
-| `timestamp` | `uint` | The timestamp at which the CDP liquidatability is being queried |
--->
 
 #### Response
 
@@ -799,7 +797,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -807,7 +805,8 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
+false
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -865,7 +864,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -873,7 +872,8 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
+10019717700000000000
 {{< /tab >}}
 {{< /tabpane >}}
 
