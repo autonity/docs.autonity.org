@@ -100,7 +100,6 @@ If plugins for external data sources or the symbols for which oracle server prov
         -oracle_key_file="/autoracle/oracle.key" \
         -oracle_key_password="<PWD>" \
         -oracle_autonity_ws_url="<WS_ADDRESS>" \
-        -oracle_symbols="<SYMBOLS>" \
         -oracle_plugin_dir="/usr/local/bin/plugins/" \
         -oracle_plugin_conf="/autoracle/plugins-conf.yml"
    ```
@@ -109,8 +108,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    - `<ORACLE_KEYFILE>` specifies the path to your oracle server key file. E.g. `../aut/keystore/oracle.key`
    - `<PLUGINS_CONF_FILE>` is the path to the oracle server configuration file `plugins-conf.yml`. E.g. `(pwd)/plugins-conf.yml`.
    - `<PWD>` is the password to your oracle server key file
-   - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network)   
-   - `<SYMBOLS>` is the set of currency pair symbols the oracle server is providing data for, i.e. `AUD-USD,CAD-USD,SEK-USD,EUR-USD,GBP-USD,JPY-USD,ATN-USD,NTN-USD`. 
+   - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network). 
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
 
@@ -122,14 +120,14 @@ AOS requires an accessible `ws/wss` AGC endpoint. If you are also running AGC in
 On running the Docker you should see something like:
 
    ```
- 	2023/09/07 10:38:46
+ 	2023/09/26 10:04:53 
 
 
- 	Running autonity oracle server v0.0.2
-	with symbols: AUD-USD,CAD-USD,SEK-USD,EUR-USD,GBP-USD,JPY-USD,ATN-USD,NTN-USD
-	and plugin directory: /usr/local/bin/plugins/
- 	by connecting to L1 node: ws://127.0.0.1:8546
- 	on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
+        Running autonity oracle server v0.1.2
+        with symbols: AUD-USD,CAD-USD,EUR-USD,GBP-USD,JPY-USD,SEK-USD,ATN-USD,NTN-USD,NTN-ATN
+        and plugin directory: ./build/bin/plugins/
+        by connecting to L1 node: ws://127.0.0.1:8546
+        on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D 
    ```
 
 {{< alert title="Important Notes" >}}
@@ -142,12 +140,6 @@ On running the Docker you should see something like:
 
 Naturally, the above command line can be tailored to suit a specific deployment. See the docker documentation for the complete list of Docker options.
 
-
-<!--
-## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
-
-TODO
--->
 
 ## Configure plugins
 
