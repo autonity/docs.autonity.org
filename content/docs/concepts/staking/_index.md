@@ -109,7 +109,7 @@ Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absor
 
 Slashing priority is simply:
 
-- [self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted. If the validator has unbonding stake, then the unbonding stake is slashed first before bonded stake.
+- [self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted. If the validator has self-unbonding stake, then the unbonding stake is slashed first before bonded stake.
 - [delegated](/glossary/#delegated) stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available. If the delegator has unbonding stake, then the unbonding stake and bonded stake are slashed _pro rata_ with equal priority.
 
 In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator liquid newton has a uniform risk profile.
@@ -296,7 +296,6 @@ The unbonding request is tracked in memory for application and at the end of the
   - due Newton is minted to Alice's Newton account.
 
 Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and the end of the epoch in which the `unbonding period` expires.
-
 {{< /alert >}}
 
 ## Slashing
