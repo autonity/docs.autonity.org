@@ -91,7 +91,7 @@ Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absor
 
 Slashing priority is simply:
 
-- [self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted. If the validator has unbonding stake, then the unbonding stake is slashed first before bonded stake.
+- [self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted. If the validator has self-unbonding stake, then the unbonding stake is slashed first before bonded stake.
 - [delegated](/glossary/#delegated) stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available. If the delegator has unbonding stake, then the unbonding stake and bonded stake are slashed _pro rata_ with equal priority.
 
 In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator liquid newton has a uniform risk profile.
@@ -207,7 +207,12 @@ Stake remains at risk during the unbonding period; it is locked and in a non-tra
 
 The duration of the unbonding period is set at genesis by the `unbondingPeriod` parameter, see the [Protocol](/reference/protocol) parameter reference. The setting can be changed by governance calling the [`setUnbondingPeriod()`](/reference/api/aut/op-prot/#setunbondingperiod) function.
 
-For example, an unbonding scenario with an epoch period of 30 blocks, an unbonding period of 120 blocks, and an unbonding request issued at block 15 in the epoch. The unbonding request is processed immediately and tracked in memory. The unbonding period expires at block 135. The unbonding is executed at the end of the epoch in which the unbonding period falls, block 150: the validator's voting power is reduced and due Newton is returned to the staker.
+{{< alert title="Example" >}}
+In an unbonding scenario with an epoch period of 30 blocks, an unbonding period of 120 blocks, and an unbonding request issued at block 15 in the epoch. At block 15 the unbonding request is processed and then tracked in memory. At the end of that epoch, block 30, the validator's voting power is reduced and the unbonded amount is added to the unbonding pool. The unbonding period expires at block 135. At the end of the epoch in which the unbonding period falls, block 150, due Newton is returned to the stake delegator.
+
+Stake remains at risk during the unbonding period. The amount of Newton returned to the delegator may be less than the original unbonded amount if the validator has been slashed between submitting the unbond request at block 15 and Newton redemption at block 150.
+{{< /alert >}}
+
 
 ## Staking transitions
 
@@ -261,23 +266,23 @@ Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbondi
 
 - _at the end of the epoch in which the unbonding request was issued_: the validator's total bonded stake (and consequently [voting power](/glossary/#voting-power) decreases by the unbonded amount when the unbonding is applied at the end of the epoch,
 
-- _on expiry of the unbonding period_: NTN for the unbonding stake amount are released to the delegator at the end of the unbonding period.
+- _at the end of the epoch in which the unbonding period expires_: NTN for the unbonding stake amount are released to the delegator.
 
 
 {{< alert title="Example" >}}
 Alice sends an `unbond()` tx at time `T`, a block in an epoch. The tx is processed at `T` and an `UnbondingRequest` object for the necessary voting power change is created. At `T+1` the [unbonding period](/glossary/#unbonding-period) begins.
 
-The unbonding request is tracked in memory for application and:
+The unbonding request is tracked in memory for application and at the end of the epoch:
 
-- at the end of the epoch in which `T` was processed the validator's bonded stake amount and voting power is reduced:
+- in which `T` was processed the validator's bonded stake amount and voting power is reduced:
   - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated),
   - the amount of stake to reduce the unbonding pool by and Alice's share of the unbonding pool is calculated,
   - the amount of Newton bonded to the validator is reduced by the unbonding amount, consequently reducing the validator's voting power.
 
-- on expiry of the unbonding period (`T+1` + `unbonding period`) Newton redemption (i.e. 'release') occurs when at that block height:
+- in which the unbonding period (`T+1` + `unbonding period`) expires Newton redemption (i.e. 'release') occurs:
   - due Newton is minted to Alice's Newton account.
 
-Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and `T+1` + `unbonding period`.
+Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and the end of the epoch in which the `unbonding period` expires.
 {{< /alert >}}
 
 ## Slashing
