@@ -106,7 +106,7 @@ The Stabilization Contract maintains an _Internal Balance Sheet_ ledger of CDP d
 - `principal`: the principal debt outstanding as of `timestamp`.
 - `interest`: the interest debt that is due at the `timestamp`.
 
-Stabilization functions by dynamically adjusting CDP incentives.
+The stabilization mechanism operates by dynamically adjusting CDP incentives.
 
 Users post Collateral Token to borrow ATN against collateral at the Borrow Rate. The Auton Borrow Rate goes up (down) depending on whether ATN/ACU is below (above) the target exchange rate for ATN/ACU to:
 
