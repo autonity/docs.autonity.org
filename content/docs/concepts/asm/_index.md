@@ -97,9 +97,7 @@ Public functions to return the total supply of Auton and the amount of Auton ava
 
 #### Stabilization
 
-The Stabilization Contract maintains a ledger of CDPs and calls the Supply Control Contract to mint and burn Auton as collateral token is deposited or withdrawn and borrowing repaid.
-
-The Stabilization Contract maintains an _Internal Balance Sheet_ ledger of CDP debt, recording for each CDP:
+The Stabilization Contract maintains a record of CDPs and calls the Supply Control Contract to mint and burn Auton as collateral token is deposited or withdrawn and borrowing repaid. For each CDP, the Stabilization Contract records:
 
 - `timestamp`: the timestamp of the last borrow or repayment.
 - `collateral`: the collateral deposited with the Stabilization Contract.
