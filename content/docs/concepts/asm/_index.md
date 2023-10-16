@@ -11,7 +11,7 @@ description: >
 
 This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. It details the elements comprising the mechanism, the functions the mechanism provides to compute and maintain a stable price for [Auton (ATN)](/glossary/#auton), and the lifecycle for Auton and [Newton (NTN)](/glossary/#newton) supply.
 
-For Auton stabilization control Autonity implements a [CDP](/glossary/#cdp)-based stabilization mechanism. Users take out CDP's, depositing Collateral Token (NTN) to borrow Auton at interest. As CDP's are taken out and repaid Collateral Token (NTN) and ATN are removed and returned to circulation, bringing equilibrium to supply and demand.
+For Auton stabilization control Autonity implements a [CDP](/glossary/#cdp)-based stabilization mechanism. Users take out CDPs, depositing Collateral Token (NTN) to borrow Auton at interest. As CDPs are taken out and repaid Collateral Token (NTN) and ATN are removed and returned to circulation, bringing equilibrium to supply and demand.
 
 CDP are maintained according to collateralization and liquidation ratios that set debt to collateral ratio to keep a CDP in good health. Auton is minted and burned as CDP's pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
 
