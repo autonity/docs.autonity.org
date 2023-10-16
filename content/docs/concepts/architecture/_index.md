@@ -218,7 +218,7 @@ Consensus committee membership is computed by the Autonity Protocol Contract; se
 
 The contract implementing the Auton Currency Unit (ACU) element of the Auton Stability Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
 
-The contract provides primitives for computing the ACU value and managing the basket currency symbols and quantities (i.e. weighting). The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for the basket, the quantities of those currencies in the basket, and the scale of precision for the ACU value. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
+The contract provides primitives for computing the ACU value and managing the basket currency symbols and quantities (i.e. weighting). It stores [protocol parameters](/reference/protocol/) that specify the currency pairs for the basket, the quantities of those currencies in the basket, and the scale of precision for the ACU value. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
 
 Contract functions for returning ACU value, basket symbols, and basket quantities can be called by all participants.  Function calls to govern (i.e. manage) the basket composition and value scale are restricted to the governance `operator` account.
 
