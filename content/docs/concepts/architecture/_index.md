@@ -258,7 +258,7 @@ The contract implementing the CDP-based stabilization mechanism for the Auton. A
 
 The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
 
-Contract functions can be called by all participants to:
+Contract functions can be called by:
 
 - By CDP owners to take out CDP's to borrow Auton, withdraw collateral, and repay CDP's.
 - By prospective CDP owners to determine borrowing limits  and collateral level requirements
