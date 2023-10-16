@@ -185,7 +185,7 @@ ACU value is kept current by protocol recomputing the value at the end of each o
 
 #### CDP
 
-The CDP functions to manage Auton borrowing and stabilize Auton price by adjusting the CDP borrowing cost. CDP's are operated within strict parameterisation constraints:
+The CDP functions to manage Auton borrowing and stabilize Auton price by adjusting the CDP borrowing cost. CDP's are operated within strict parameterization constraints:
 
 - CDP Ownership:
   - A borrower (CDP Owner) can have only `1` open CDP at a time.
