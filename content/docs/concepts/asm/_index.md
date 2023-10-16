@@ -113,7 +113,7 @@ Users post Collateral Token to borrow ATN against collateral at the Borrow Rate.
   - Increase ATN borrowing (more supply) when ATN/ACU is above target
   - Decrease ATN borrowing (less supply) when ATN/ACU is below target.
 
-CDP collateral token is currently restricted to the Autonity staking token NTN. A next generation of the ASM will also accept LNTN as collateral. In this future iteration, stakers who post LNTN collateral will continue to receive their staking awards, eliminating opportunity cost distortions. I.e. lending NTN collateral introduces an opportunity cost of paying interest and losing opportunity to earn staking rewards if bonded.
+CDP collateral token is currently restricted to the Autonity staking token NTN but may be extended to other protocol assets.
 
 Modifying the stabilization configuration for CDP collateral and debt thresholds is restricted to the governance account. See the Governance and Protocol Only Reference, [`setLiquidationRatio()`](/reference/api/aut/op-prot/#setliquidationratio-asm-stabilization-contract), [`setMinCollateralizationRatio()`](/reference/api/aut/op-prot/#setmincollateralizationratio-asm-stabilization-contract), and [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract).
 
