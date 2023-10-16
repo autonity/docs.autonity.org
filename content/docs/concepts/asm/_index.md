@@ -13,7 +13,7 @@ This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm)
 
 For Auton stabilization control Autonity implements a [CDP](/glossary/#cdp)-based stabilization mechanism. Users take out CDPs, depositing Collateral Token (NTN) to borrow Auton at interest. As CDPs are taken out and repaid Collateral Token (NTN) and ATN are removed and returned to circulation, bringing equilibrium to supply and demand.
 
-CDP are maintained according to collateralization and liquidation ratios that set debt to collateral ratio to keep a CDP in good health. Auton is minted and burned as CDP's pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
+CDP are maintained according to collateralization and liquidation ratios that set debt to collateral ratio to keep a CDP in good health. Auton is minted and burned as CDPs pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
 
 Elasticity in supply and demand for Auton is absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
 
