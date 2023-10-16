@@ -21,7 +21,7 @@ Elasticity in supply and demand for Auton is absorbed by dynamically adjusting C
 
 The ASM functions with two identities for cryptographic security: the CDP owner and the stabilization protocol contract.
 
-Stabilization Contract calls to mint and burn Auton as CDP's are interacted with to borrow and repay Auton are  restricted to the Stabilization Contract address, the '`stabilizer`' protocol address.
+Stabilization Contract calls to mint and burn Auton as CDPs are interacted with to borrow and repay Auton are  restricted to the Stabilization Contract address, the '`stabilizer`' protocol address.
 
 ### CDP identifiers
 
