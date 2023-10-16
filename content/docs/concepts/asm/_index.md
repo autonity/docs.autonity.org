@@ -11,9 +11,9 @@ description: >
 
 This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. It details the elements comprising the mechanism, the functions the mechanism provides to compute and maintain a stable price for [Auton (ATN)](/glossary/#auton), and the lifecycle for Auton and [Newton (NTN)](/glossary/#newton) supply.
 
-For Auton stabilization control Autonity implements a [CDP](/glossary/#cdp)-based stabilization mechanism. Users take out CDP's, depositing Collateral Token (NTN) to borrow Auton at interest. As CDP's are taken out and repaid Collateral Token (NTN) and ATN are removed and returned to circulation, bringing equilibrium to supply and demand.
+For Auton stabilization control Autonity implements a [CDP](/glossary/#cdp)-based stabilization mechanism. Users take out CDPs, depositing Collateral Token (NTN) to borrow Auton at interest. As CDPs are taken out and repaid Collateral Token (NTN) and ATN are removed and returned to circulation, bringing equilibrium to supply and demand.
 
-CDP are maintained according to collateralization and liquidation ratios that set debt to collateral ratio to keep a CDP in good health. Auton is minted and burned as CDP's pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
+CDP are maintained according to collateralization and liquidation ratios that set debt to collateral ratio to keep a CDP in good health. Auton is minted and burned as CDPs pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
 
 Elasticity in supply and demand for Auton is absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
 
@@ -21,7 +21,7 @@ Elasticity in supply and demand for Auton is absorbed by dynamically adjusting C
 
 The ASM functions with two identities for cryptographic security: the CDP owner and the stabilization protocol contract.
 
-Stabilization Contract calls to mint and burn Auton as CDP's are interacted with to borrow and repay Auton are  restricted to the Stabilization Contract address, the '`stabilizer`' protocol address.
+Stabilization Contract calls to mint and burn Auton as CDPs are interacted with to borrow and repay Auton are  restricted to the Stabilization Contract address, the '`stabilizer`' protocol address.
 
 ### CDP identifiers
 
@@ -97,23 +97,21 @@ Public functions to return the total supply of Auton and the amount of Auton ava
 
 #### Stabilization
 
-The Stabilization Contract maintains a ledger of CDPs and calls the Supply Control Contract to mint and burn Auton as collateral token is deposited or withdrawn and borrowing repaid.
-
-The Stabilization Contract maintains an _Internal Balance Sheet_ ledger of CDP debt, recording for each CDP:
+The Stabilization Contract maintains a record of CDPs and calls the Supply Control Contract to mint and burn Auton as collateral token is deposited or withdrawn and borrowing repaid. For each CDP, the Stabilization Contract records:
 
 - `timestamp`: the timestamp of the last borrow or repayment.
 - `collateral`: the collateral deposited with the Stabilization Contract.
 - `principal`: the principal debt outstanding as of `timestamp`.
 - `interest`: the interest debt that is due at the `timestamp`.
 
-Stabilization functions by dynamically adjusting CDP incentives.
+The stabilization mechanism operates by dynamically adjusting CDP incentives.
 
 Users post Collateral Token to borrow ATN against collateral at the Borrow Rate. The Auton Borrow Rate goes up (down) depending on whether ATN/ACU is below (above) the target exchange rate for ATN/ACU to:
 
   - Increase ATN borrowing (more supply) when ATN/ACU is above target
   - Decrease ATN borrowing (less supply) when ATN/ACU is below target.
 
-CDP collateral token is currently restricted to the Autonity staking token NTN. A next generation of the ASM will also accept LNTN as collateral. In this future iteration, stakers who post LNTN collateral will continue to receive their staking awards, eliminating opportunity cost distortions. I.e. lending NTN collateral introduces an opportunity cost of paying interest and losing opportunity to earn staking rewards if bonded.
+CDP collateral token is currently restricted to the Autonity staking token NTN but may be extended to other protocol assets.
 
 Modifying the stabilization configuration for CDP collateral and debt thresholds is restricted to the governance account. See the Governance and Protocol Only Reference, [`setLiquidationRatio()`](/reference/api/aut/op-prot/#setliquidationratio-asm-stabilization-contract), [`setMinCollateralizationRatio()`](/reference/api/aut/op-prot/#setmincollateralizationratio-asm-stabilization-contract), and [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract).
 
@@ -161,10 +159,6 @@ Auton borrowing is collateralized by depositing collateral token into a CDP. The
 
 Autonity's native protocol asset [Newton (NTN)](/concepts/protocol-assets/newton/) is used as the collateral token.
 
-{{% alert title="Info" %}}
-A future iteration of ASM will enable the use of [Liquid Newton (LNTN)](/concepts/protocol-assets/liquid-newton/) as collateral token.
-{{% /alert %}}
-
 #### Exchange rate price data
 ASM sources price data via Autonity's [oracle network](/concepts/oracle-network/), retrieving the data on-chain by contract interactions with the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
 
@@ -185,7 +179,7 @@ ACU value is kept current by protocol recomputing the value at the end of each o
 
 #### CDP
 
-The CDP functions to manage Auton borrowing and stabilize Auton price by adjusting the CDP borrowing cost. CDP's are operated within strict parameterisation constraints:
+The CDP functions to manage Auton borrowing and stabilize Auton price by adjusting the CDP borrowing cost. CDP's are operated within strict parameterization constraints:
 
 - CDP Ownership:
   - A borrower (CDP Owner) can have only `1` open CDP at a time.

@@ -39,9 +39,9 @@ The protocol mechanism used to maintain Auton price stability. The _Stabilizatio
 
 
 ## Collateralised Debt Position (CDP) {#cdp}
-A [smart contract](/glossary/#smart-contract) based lending mechanism where collateral is deposited and locked in a smart contract to borrow another token-based asset. CDP's operate subject to collateral requirements and may be liquidated if the lender fails to maintain, i.e. breaches, the collateral conditions of the CDP.
+A [smart contract](/glossary/#smart-contract) based lending mechanism where collateral is deposited and locked in a smart contract to borrow another token-based asset. CDPs operate subject to collateral requirements and may be liquidated if the lender fails to maintain, i.e. breaches, the collateral conditions of the CDP.
 
-CDP's are used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) to borrow [Auton](/glossary/#auton) against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
+CDPs are used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) to borrow [Auton](/glossary/#auton) against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
 
 ## Autonity Go Client (AGC)
 Autonity Go Client is main client software for accessing and participating in an Autonity network. AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
