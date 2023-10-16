@@ -161,10 +161,6 @@ Auton borrowing is collateralized by depositing collateral token into a CDP. The
 
 Autonity's native protocol asset [Newton (NTN)](/concepts/protocol-assets/newton/) is used as the collateral token.
 
-{{% alert title="Info" %}}
-A future iteration of ASM will enable the use of [Liquid Newton (LNTN)](/concepts/protocol-assets/liquid-newton/) as collateral token.
-{{% /alert %}}
-
 #### Exchange rate price data
 ASM sources price data via Autonity's [oracle network](/concepts/oracle-network/), retrieving the data on-chain by contract interactions with the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
 
