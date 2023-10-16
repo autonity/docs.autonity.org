@@ -260,9 +260,9 @@ The contract provides primitives for stabilization configuration, CDP calculatio
 
 Contract functions can be called by:
 
-- By CDP owners to take out CDP's to borrow Auton, withdraw collateral, and repay CDP's.
+- By CDP owners to take out CDPs to borrow Auton, withdraw collateral, and repay CDPs.
 - By prospective CDP owners to determine borrowing limits  and collateral level requirements
-- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDP's.
+- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDPs.
 - To view CDP data and retrieve stabilization configuration settings from system state.
 
 Function calls to govern (i.e. manage) the stabilization configuration are restricted to the governance `operator` account.
