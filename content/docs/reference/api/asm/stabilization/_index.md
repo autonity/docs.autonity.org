@@ -222,6 +222,52 @@ aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value 1 r
 
 
 ## CDP Liquidator 
+
+### isLiquidatable
+
+Determines if a CDP is liquidatable at the block height of the call.
+
+Constraint checks are applied:
+
+- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
+ 
+
+{{< alert title="Info" >}}
+The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
+{{< /alert >}}
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `account` | `address` | The CDP account address |
+
+#### Response
+
+The function returns a `Boolean` flag indicating if the CDP is liquidatable (`True`) or not (`False`).
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
+false
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ### liquidate
 
 Liquidates a CDP that is undercollateralized.
@@ -318,69 +364,41 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 {{< /tabpane >}}
 
 
-### debtAmount
+### borrowLimit
 
-Calculates the current debt amount outstanding for a CDP at the block height of the call.
-
+Calculates the maximum amount of Auton that can be borrowed for the given amount of Collateral Token.
+    
 Constraint checks are applied:
 
-- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested).
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `account` | `address` | The CDP account address to liquidate |
-| `timestamp` | `uint` | the timestamp to value the debt. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-
-#### Response
-
-The function returns the debt amount as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
-300012369185855391
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-### isLiquidatable
-
-Determines if a CDP is liquidatable at the block height of the call.
-
-Constraint checks are applied:
-
-- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
- 
+- invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
 
 {{< alert title="Info" >}}
-The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
+The borrowing limit amount is calculated by `(collateral * price * targetPrice) / (mcr * SCALE_FACTOR)`.
+
+Where:
+
+- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
+- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
 {{< /alert >}}
 
 #### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
-| `account` | `address` | The CDP account address |
+| `collateral` | `uint256` | Amount of Collateral Token backing the debt |
+| `price` | `uint256` | The price of Collateral Token in Auton |
+| `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
+| `mcr` | `uint256` | The minimum collateralization ratio |
+
+{{< alert title="Info" >}}
+For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
+
+The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
+{{< /alert >}}
 
 #### Response
 
-The function returns a `Boolean` flag indicating if the CDP is liquidatable (`True`) or not (`False`).
+The function returns the maximum amount of Auton that can be borrowed as an `uint256` integer value.
 
 #### Event
 
@@ -390,7 +408,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -398,10 +416,11 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquida
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
-false
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
+19633000000000000000
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 ### collateralPrice
 
@@ -470,41 +489,25 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collatera
 {{< /tab >}}
 {{< /tabpane >}}
 
-### borrowLimit
 
-Calculates the maximum amount of Auton that can be borrowed for the given amount of Collateral Token.
-    
+### debtAmount
+
+Calculates the current debt amount outstanding for a CDP at the block height of the call.
+
 Constraint checks are applied:
 
-- invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
-
-{{< alert title="Info" >}}
-The borrowing limit amount is calculated by `(collateral * price * targetPrice) / (mcr * SCALE_FACTOR)`.
-
-Where:
-
-- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
-- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-{{< /alert >}}
+- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested).
 
 #### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
-| `collateral` | `uint256` | Amount of Collateral Token backing the debt |
-| `price` | `uint256` | The price of Collateral Token in Auton |
-| `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
-| `mcr` | `uint256` | The minimum collateralization ratio |
-
-{{< alert title="Info" >}}
-For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-
-The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+| `account` | `address` | the CDP account address |
+| `timestamp` | `uint` | the timestamp to value the debt. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 
 #### Response
 
-The function returns the maximum amount of Auton that can be borrowed as an `uint256` integer value.
+The function returns the debt amount as an `uint256` integer value.
 
 #### Event
 
@@ -514,7 +517,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -522,10 +525,58 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLim
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
-19633000000000000000
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
+300012369185855391
 {{< /tab >}}
 {{< /tabpane >}}
+
+
+### interestDue
+
+Calculates the interest due for a given amount of debt.
+
+Constraint checks are applied:
+
+- invalid parameter: the `timeBorrow` argument is not greater than the `timeDue` argument value.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `debt` | `uint256` | The debt amount |
+| `rate` | `uint256` | The borrow interest rate |
+| `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
+| `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
+
+{{< alert title="Info" >}}
+For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
+{{< /alert >}}
+  
+#### Response
+
+The function returns the amount of interest due as an `uint256` integer value.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
+4118044981651418
+{{< /tab >}}
+{{< /tabpane >}}
+
 
 ### minimumCollateral
 
@@ -578,51 +629,6 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCo
 {{< /tab >}}
 {{< /tabpane >}}
 
-### interestDue
-
-Calculates the interest due for a given amount of debt.
-
-Constraint checks are applied:
-
-- invalid parameter: the `timeBorrow` argument is not greater than the `timeDue` argument value.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `debt` | `uint256` | The debt amount |
-| `rate` | `uint256` | The borrow interest rate |
-| `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-| `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-
-{{< alert title="Info" >}}
-For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-{{< /alert >}}
-  
-#### Response
-
-The function returns the amount of interest due as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
-4118044981651418
-{{< /tab >}}
-{{< /tabpane >}}
 
 ### underCollateralized
 

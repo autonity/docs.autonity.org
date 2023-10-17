@@ -83,9 +83,14 @@ Determine how much collateral token (NTN) you will need to deposit for the amoun
 
 Query for the minimum collateral amount by calling the [`minimumCollateral()`](/reference/api/asm/stabilization/#minimumcollateral) function of the Stabilization Contract using the `aut contract call` command.  Pass in parameters for:
 
-- `principal` - the amount of ATN to borrow, specified in `ton`, Autonity's equivalent of `wei`
-- `price` - set to the collateral price returned in Step 1.
-- `mcr` - the minimum collateralization ratio set for the ASM at genesis. Set to `2000000000000000000` (i.e. 2). (For the default value set for `mcr` see [Reference, Genesis, ASM stabilization config `minCollateralizationRatio`](/reference/genesis/#configasmstabilization-object)).
+- `<PRINCIPAL>` - the amount of ATN to borrow, specified in `ton`, Autonity's equivalent of `wei`
+- `<PRICE>` - set to the collateral price returned in Step 1.
+- `<MCR>` - the minimum collateralization ratio set for the ASM at genesis. Set to `2000000000000000000` (i.e. 2). (For the default value set for `mcr` see [Reference, Genesis, ASM stabilization config `minCollateralizationRatio`](/reference/genesis/#configasmstabilization-object)).
+
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral <PRINCIPAL> <PRICE> <MCR>
+```
 
 In this example 1.75 ATN is set as the principal
 ```bash
@@ -107,10 +112,15 @@ Determine the maximum amount of Auton (ATN) that can be borrowed for a given amo
 
 Query for the borrowing limit by calling the [`borrowLimit()`](/reference/api/asm/stabilization/#borrowlimit) function of the Stabilization Contract using the `aut contract call` command.  Pass in parameters for:
 
-- `collateral` - the amount of collateral token deposited to back the debt
-- `price` - the collateral token price. Set as for Step 2 above
-- `targetPrice`	- the [ACU](/concepts/asm/#acu) value of 1 unit of debt set for the ASM at genesis. Set to `1000000000000000000` (i.e. 1). (For the default value set for `targetPrice` see [Reference, Genesis, ASM stabilization config `minCollateralizationRatio`](/reference/genesis/#configasmstabilization-object)).
-- `mcr` - the minimum collateralization ratio. Set as for Step 2 above.
+- `<COLLATERAL>` - the amount of collateral token deposited to back the debt
+- `<PRICE>` - the collateral token price. Set as for Step 2 above
+- `<TARGETPRICE>`	- the [ACU](/concepts/asm/#acu) value of 1 unit of debt set for the ASM at genesis. Set to `1000000000000000000` (i.e. 1). (For the default value set for `targetPrice` see [Reference, Genesis, ASM stabilization config `minCollateralizationRatio`](/reference/genesis/#configasmstabilization-object)).
+- `<MCR>` - the minimum collateralization ratio. Set as for Step 2 above.
+
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit <COLLATERAL> <PRICE> <TARGETPRICE> <MCR>
+```
 
 In this example the `0.35...` NTN value returned by the other method is set as the collateral token amount.
 
@@ -125,6 +135,36 @@ Returning:
 ```
 
 At the given collateral price, `1.749999999999999997` ATN can be borrowed for deposited collateral token of `0.350321307696993528` NTN.
+
+
+### Step 3. Calculate borrowing interest
+
+Determine the interest that will charged on the borrowed Auton over time.
+
+Query for the borrowing costs by calling the [`interestDue()`](http://localhost:1313/reference/api/asm/stabilization/#interestdue) function of the Stabilization Contract using the `aut contract call` command. Pass in parameters for:
+  
+  - `<DEBT>`: the amount of Auton you want to borrow
+  - `<RATE>`: the borrow interest rate. For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object). Set to 5%, `50000000000000000`
+  - `<TIMEBORROW>`: the time point at which you will take out the borrowing. The timestamp is provided as a [Unix time](/glossary/#unix-time) value
+  - `<TIMEDUE>`: the time point at which you will repay the borrowing, to specify the time point at which the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value.
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue <DEBT> <RATE> <TIMEBORROW> <TIMEDUE>
+```
+
+In this example interest for borrowing 1.75 ATN over the calendar month of October is requested.
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1750000000000000000 50000000000000000 1696114800 1698710400
+```
+
+Returning:
+
+```bash
+7216608464428718
+```
+
+Borrowing interest costs over the 31 day period are `7216608464428718` [`ton`](/glossary/#ton), or `0.007216608464428718` ATN.
 
 ## Approve the Stabilization Contract as a collateral token spender
 
@@ -206,7 +246,6 @@ In this example 0.75 NTN is deposited:
 
 ```bash
 aut contract tx --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f deposit 750000000000000000 | aut tx sign - | aut tx send -
-
 ```
 
 Optionally, verify the deposit has succeeded and the CDP opened by calling the Stabilization Contract [`accounts()`](/reference/api/asm/stabilization/#accounts) function to return an array of open CDP's. The account address you used to submit the transaction will be included in the array of [CDP identifier](/concepts/asm/#cdp-identifiers) addresses returned.
@@ -239,7 +278,33 @@ aut contract tx --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDca
 
 ## Manage your CDP
 
-### repay
+### Get current CDP debt amount
+
+The debt of a CDP consists of the Auton borrowed (the 'principal') and accrued interest due charged at the borrow interest rate.
+
+To determine the current debt owed on a CDP call [`debtAmount()`](/reference/api/asm/stabilization/#debtamount)function of the Stabilization Contract using the `aut contract call` command.
+
+1. Call `debtAmount()` passing in parameters for:
+
+  - `<ACCOUNT>`: the CDP account address
+  - `<TIMESTAMP>`: the timestamp at which you want to  value the debt. The timestamp is provided as a [Unix time](/glossary/#unix-time) value.
+
+  ```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount <ACCOUNT> <TIMESTAMP>
+```
+  
+  The call will return the total amount owed on the CDP, `debt + accrued interest`.
+  
+   is returned as an integer value in [`ton`](/glossary/#ton), Autonity's equivalent of Ethereum's `wei`.
+
+In this example the debt amount is returned as `1.75...` ATN at time point October 17 2023 14:16:37 GMT:
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa 1697552197
+1750217362321414404
+```
+
+### Repay borrowing
 
 Repay an amount of borrowed Auton by submitting a transaction to the [`repay()`](/reference/api/asm/stabilization/#repay) function of the Stabilization Contract using the `aut contract tx` command.  Pass in parameters for:
 
@@ -256,7 +321,15 @@ aut contract tx --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDca
 
 ```
 
-### withdraw
+{{% alert title="Note" %}}
+A repayment can be a partial or full repayment of the borrowed amount.
+
+If you want to repay all borrowed ATN in a CDP and clear the debt position completely, then slightly overpay - this covers accrued interest and the protocol will return any surplus payment to your account immediately.
+
+For example, you are repaying the entire debt and call [`interestDue()`](http://localhost:1313/reference/api/asm/stabilization/#interestdue) and [`debtAmount()`](/reference/api/asm/stabilization/#debtamount) to determine the amount owed. You then make a repayment for that exact amount. In the time interval before the [`repay()`](/reference/api/asm/stabilization/#repay) transaction is submitted a `dust` amount of interest can then accrue. In this scenario, overpayment will settle that interest due and surplus ATN from the repayment is returned.
+{{% /alert %}}
+
+### Withdraw collateral
 
 Withdraw an amount of deposited collateral token by submitting a transaction to the [`withdraw()`](/reference/api/asm/stabilization/#withdraw) function of the Stabilization Contract using the `aut contract tx` command.  Pass in parameters for:
 
