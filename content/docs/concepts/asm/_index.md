@@ -52,7 +52,7 @@ The ASM is composed of 3 system elements implemented as smart contract logic: AC
 
 #### ACU
 
-The [Auton Currency Unit (ACU)](/glossary/#acu) is a currency basket from which an index value is computed. This index value is then used as the _stabilization target_ for Auton price.
+The [Auton Currency Unit (ACU)](/glossary/#acu) is a currency basket from which an index value is computed. This index value is then used as the _stabilization target_ for Auton price, see _[Stabilization](/concepts/asm/#stabilization)_.
 
 The ACU currency basket is composed of 7 free-floating currencies:
 
@@ -66,27 +66,30 @@ The ACU currency basket is composed of 7 free-floating currencies:
 
 Each currency's quantity in the basket is computed to provide a currency basket with minimal total variance with respect to its underlying currencies. The index value then has minimal volatility with respect to variance from individual currency fluctuations.
 
-ACU is used as the _stabilization target_ for Auton price, see _[Stabilization](/concepts/asm/#stabilization)_.
+The index value of ACU can be computed at any time in terms of exchange rates. The index value is computed from price data for each of the basket currencies. Price data is sourced from off-chain by the validator [oracle network](/concepts/oracle-network/) and retrieved from the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) on-chain.
 
-The value of ACU can be computed at any time in terms of exchange rates. ACU is computed based on the end-of-day time for the most recent 11 calendar years of data for each currency in the basket.
-
-{{% alert title="Info" %}}
-A 365 calendar day is used, end-of-day is 17:00 GMT. Price data is sourced from off-chain by the validator [oracle network](/concepts/oracle-network/) and retrieved from the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) on-chain.
-{{% /alert %}}
-
-USD is used as the numeraire over the data. The quantity of each currency in the basket is then computed based on a weighting that aims to minimize its variance with respect to the basket and using an initial target value of 1 USD for the total value of the basket. Basket quantities fixed over time. The value of ACU at any time can be computed in terms of exchange rates.
-
-To illustrate supposing the ACU is computed at 17:00 GMT today:
-
-- Collect end-of-day (17:00 GMT) data for each ACU constituent currency for the preceding 11 calendar years to today.
-- Compute minimization, weights, and basket quantities using the data
-- Compute the ACU value for today using the data.
-
-When the computed weights are determined to no longer be optimal, they are updated. The "recompute time" is then the close of the most recent calendar day in the past and again based on the preceding 11 years of calendar data from that time point the new basket quantities are computed.
+The value is recomputed at the end of each [oracle voting round](/concepts/oracle-network/#voting-rounds) after new price data for the basket currencies has been computed by the [oracle network](/concepts/oracle-network/).
 
 Public functions can be called to return the ACU value, the currency pair symbols in the basket, and the basket quantities, see [ACU Contract Interface](/reference/api/asm/acu/).
 
 Modifying the currency basket is restricted to the governance account. See the Governance and Protocol Only Reference, [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract).
+
+<!--
+
+{{% alert title="A note on ACU basket quantities" color="info" %}}
+The quantity of each currency in the basket is computed based on the end-of-day time for the most recent 11 calendar years of rate data for each currency. A 365 calendar day is used, end-of-day is 17:00 GMT.
+
+USD is used as the numeraire over the data. The quantity of each currency in the basket is then computed based on a weighting that aims to minimize its variance with respect to the basket and using an initial target value of 1 USD for the total value of the basket. Basket quantities fixed over time. The value of ACU at any time can be computed in terms of exchange rates.
+
+When the computed weights are determined to no longer be optimal, the basket quantities are recomputed. The "recompute time" is then the close of the most recent calendar day in the past and again based on the preceding 11 years of calendar data from that time point.
+
+The new basket quantities are computed by:
+
+- Collecting end-of-day (17:00 GMT) data for each ACU constituent currency for the preceding 11 calendar years to today.
+- Compute minimization, weights, and basket quantities using the data.
+{{% /alert %}}
+
+-->
 
 #### Supply control
 
