@@ -54,6 +54,7 @@ As prerequisite to opening a CDP, verify your borrowing limit.  This is done bas
 
 - collateral price
 - amount of collateral to be deposited
+- amount of interest to pay on the borrowing
 
 ### Step 1. Get collateral price
 
@@ -76,7 +77,6 @@ Next, determine your borrowing limits. There are two ways to do this:
 - [By Auton borrowing amount](/#minimum-collateral), to calculate the amount of collateral token that must be deposited to borrow a stated amount of Auton (ATN). Call `minimumCollateral()`.
 - [By collateral token amount](/#borrow-limit), to calculate the amount of Auton that can be borrowed for a stated amount of collateral token (NTN). Call `borrowLimit()`.
 
-
 #### By amount of Auton to be borrowed {#minimum-collateral}
 
 Determine how much collateral token (NTN) you will need to deposit for the amount of auton (ATN) you want to borrow.
@@ -84,7 +84,7 @@ Determine how much collateral token (NTN) you will need to deposit for the amoun
 Query for the minimum collateral amount by calling the [`minimumCollateral()`](/reference/api/asm/stabilization/#minimumcollateral) function of the Stabilization Contract using the `aut contract call` command.  Pass in parameters for:
 
 - `<PRINCIPAL>` - the amount of ATN to borrow, specified in `ton`, Autonity's equivalent of `wei`
-- `<PRICE>` - set to the collateral price returned in Step 1.
+- `<PRICE>` - set to the collateral price returned in [Step 1](/cdp/open-cdp/#step-1-get-collateral-price).
 - `<MCR>` - the minimum collateralization ratio set for the ASM at genesis. Set to `2000000000000000000` (i.e. 2). (For the default value set for `mcr` see [Reference, Genesis, ASM stabilization config `minCollateralizationRatio`](/reference/genesis/#configasmstabilization-object)).
 
 
@@ -113,9 +113,9 @@ Determine the maximum amount of Auton (ATN) that can be borrowed for a given amo
 Query for the borrowing limit by calling the [`borrowLimit()`](/reference/api/asm/stabilization/#borrowlimit) function of the Stabilization Contract using the `aut contract call` command.  Pass in parameters for:
 
 - `<COLLATERAL>` - the amount of collateral token deposited to back the debt
-- `<PRICE>` - the collateral token price. Set as for Step 2 above
-- `<TARGETPRICE>`	- the [ACU](/concepts/asm/#acu) value of 1 unit of debt set for the ASM at genesis. Set to `1000000000000000000` (i.e. 1). (For the default value set for `targetPrice` see [Reference, Genesis, ASM stabilization config `minCollateralizationRatio`](/reference/genesis/#configasmstabilization-object)).
-- `<MCR>` - the minimum collateralization ratio. Set as for Step 2 above.
+- `<PRICE>` - the collateral token price. Set as for the  preceding [example](/cdp/open-cdp/#minimum-collateral).
+- `<TARGETPRICE>` - the [ACU](/concepts/asm/#acu) value of 1 unit of debt set for the ASM at genesis. Set to `1000000000000000000` (i.e. 1). (For the default value set for `targetPrice` see [Reference, Genesis, ASM stabilization config `minCollateralizationRatio`](/reference/genesis/#configasmstabilization-object)).
+- `<MCR>` - the minimum collateralization ratio. Set as for the preceding [example](/cdp/open-cdp/#minimum-collateral).
 
 
 ```bash
@@ -165,6 +165,63 @@ Returning:
 ```
 
 Borrowing interest costs over the 31 day period are `7216608464428718` [`ton`](/glossary/#ton), or `0.007216608464428718` ATN.
+
+### Step 4. Determine collateral requirements
+
+Finally, for ongoing management of your CDP you need to maintain a sufficient collateral buffer to manage the risk of the CDP entering a liquidatable state. Factors that could lead to a CDP becoming liquidatable include collateral withdrawals, increased principal borrowing, accrued interest increasing the debt, or collateral-to-Auton price fluctuation.
+
+{{< alert title="Info" >}}
+If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
+{{< /alert >}}
+
+To mitigate this risk you can run different collateralization, debt, and price scenarios to simulate liquidation risk and determine how much collateral you post for your borrowing.
+
+To support this simulation you can use the [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized) function of the Stabilization Contract.  Use the `aut contract call` command to do this, passing in parameters:
+
+- `<COLLATERAL>`: the amount of collateral backing the debt
+- `<PRICE>`: the price of the collateral in Auton. The actual price can be retrieved by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice). For how to do this see [Step 1. Get collateral price](/cdp/open-cdp/#step-1-get-collateral-price).
+- `<DEBT>`: the debt amount
+- `<LIQUIDATIONRATIO>`: the liquidation ratio  set for the ASM at genesis. Set to `1800000000000000000` (i.e. 1.8). (For the default value set for `liquidationRatio` see [Reference, Genesis, ASM stabilization config `liquidationRatio`](/reference/genesis/#configasmstabilization-object)).
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized <COLLATERAL> <PRICE> <DEBT> <LIQUIDATIONRATIO>
+```
+
+In this example, values for borrowing 1.75 ATN per other Steps in this example are used for the parameterisation: 
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 350321307696993528 9990828200000000000 1750000000000000000 1800000000000000000
+```
+
+Returning:
+
+```bash
+false
+```
+
+If the borrowing amount is increased from 1.75 to 1.95 ATN, then the position becomes under collateralized:
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 350321307696993528 9990828200000000000 1950000000000000000 1800000000000000000
+```
+
+Returning:
+
+```bash
+true
+```
+
+However, if collateral is increased from `350321307696993528` to `352000000000000000`, then the position is no longer under collateralized:
+
+
+```bash
+aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 352000000000000000 9990828200000000000 1950000000000000000 1800000000000000000
+```
+Returning:
+
+```bash
+false
+```
 
 ## Approve the Stabilization Contract as a collateral token spender
 
@@ -293,9 +350,7 @@ To determine the current debt owed on a CDP call [`debtAmount()`](/reference/api
 aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount <ACCOUNT> <TIMESTAMP>
 ```
   
-  The call will return the total amount owed on the CDP, `debt + accrued interest`.
-  
-   is returned as an integer value in [`ton`](/glossary/#ton), Autonity's equivalent of Ethereum's `wei`.
+  The call will return the total amount owed on the CDP, `debt + accrued interest`. The result is returned as an integer value in [`ton`](/glossary/#ton), Autonity's equivalent of Ethereum's `wei`.
 
 In this example the debt amount is returned as `1.75...` ATN at time point October 17 2023 14:16:37 GMT:
 

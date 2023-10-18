@@ -135,7 +135,7 @@ Configuration of the Stabilization mechanism's Collateralised Debt Position (CDP
 |Parameter|Description|Value|
 |---------|-----------|-----|
 | `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set to 5%, `50_000_000_000_000_000` |
-| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. Set to 1.8, | `1_800_000_000_000_000_000` |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set to 1.8, `1_800_000_000_000_000_000` |
 | `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set to 2, `2_000_000_000_000_000_000` |
 | `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` |
 | `targetPrice` | The ACU value of 1 unit of debt. | Set to 1, `1_000_000_000_000_000_000` |
