@@ -108,14 +108,47 @@ The `cdps` getter function definition can be found in the `Stabilization.abi` fi
 {{< /alert >}}
 
 
-The auto-generated `cdps` method can be called using the `aut contract call` command. Pass in parameter:
+{{< alert title="Known issue" color="warning" >}}
+The `cdps` function cannot currently be called from `aut` using the `aut contract call` command. This is a known issue logged as an `autonity.py` GitHub issue [AssertionError on returning tuple
+#37](https://github.com/autonity/autonity.py/issues/37). 
+{{< /alert >}}
 
-  - `<ACCOUNT>`: the CDP account address
+The auto-generated `cdps` method can be called to return the CDP data, simply passing in the CDP account address as the parameter.
 
-```bash
-aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f cdps <ACCOUNT>
+This can be done using a simple `web3.py` script using the `web3.eth.contract` module to call the `cdps` function. Where:
+
+  - `<RPC_ENDPOINT>`: is the HTTP address for the node endpoint being called
+  - `<ACCOUNT>`: is the [CDP account address](/concepts/asm/#cdp-identifiers) identifier.
+
+
+```python
+
+from web3 import Web3, HTTPProvider
+import json
+
+with open("Stabilization.abi") as f:
+	abi = info_json = json.load(f)
+
+
+w3 = Web3(HTTPProvider('<RPC_ENDPOINT>'))
+
+stabilizationContractAddress = "0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f"
+contract_instance = w3.eth.contract(address=stabilizationContractAddress, abi=abi)
+
+# read state: call the cdps function passing in the CDP identifier address <ACCOUNT>:
+
+print(contract_instance.functions.cdps("<ACCOUNT>").call())
+
 ```
 
+
+For example, for the CDP account `0x1f790c60D974F5A8f88558CA90F743a71F009641` it returns:
+
+
+```bash
+% python3 aut_cdps.py
+[1695737259, 410000024269118276, 300010815663118114, 0]
+```
 
 #### Get CDP debt amount {#get-debt-amount}
 
@@ -146,7 +179,15 @@ Returning:
 
 ## Liquidate a CDP
 
+To liquidate a CDP in a liquidatable state submit a `liquidate` transaction to the [`liquidate()`](/reference/api/asm/stabilization/#liquidate) function of the Stabilization Contract using the `aut contract call` command. Pass in parameter:
 
-- liquidate - `liquidate()`
+  - `<ACCOUNT>`: the CDP account address to liquidate
+  - `<AMOUNT>`: the payment amount, sufficient to repay the outstanding debt of the CDP
 
-### Step 1. Liquidate CDP
+```bash
+aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value <AMOUNT> liquidate <ACCOUNT>
+```
+
+The transaction will revert if the CDP is not liquidatable or the payment is insufficient to repay the debt.
+
+On success, the CDP's collateral token and any surplus Auton remaining from the payment are transferred to your account.
