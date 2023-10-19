@@ -11,7 +11,13 @@ description: >
 
 This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. The Auton Stabilization Mechanism provides functions to compute the target value for the Auton [Auton (ATN)](/glossary/#auton) and methods to drive the Auton's actual market price towards the target through the supply of the Auton and [Newton (NTN)](/glossary/#newton).
 
-Autonity implements a Collateralized Debt Position or [CDP](/glossary/#cdp)-based stabilization mechanism. Auton tokens are minted and burned exclusively as a result of changing collateralized debt positions. Users take out CDPs, depositing collateral in the form of Newtons (NTN) to borrow Auton at interest. When a CDP is repaid by depositing ATN to the ASM's smart contract, the NTN collateral is removed and returned to circulation. CDPs are created with defined collateralization and liquidation ratios which limit the risk that the debt cannot be adequately covered by the sale of the collateral.
+Autonity implements a Collateralized Debt Position or [CDP](/glossary/#cdp)-based stabilization mechanism. Auton tokens are minted and burned exclusively as a result of changing collateralized debt positions. 
+
+Autons are minted when users take out CDPs. Users deposit collateral in the form of Newtons (NTN) to borrow Auton at interest. 
+
+Autons are burned when a CDP is repaid by depositing ATN to the ASM's smart contract. The NTN collateral is removed and returned to circulation. 
+
+CDPs are created with defined collateralization and liquidation ratios which limit the risk that the debt cannot be adequately covered by the sale of the collateral.
 
 Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
 
