@@ -9,13 +9,17 @@ description: >
 
 ## Overview
 
-This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. It details the elements comprising the mechanism, the functions the mechanism provides to compute and maintain a stable price for [Auton (ATN)](/glossary/#auton), and the lifecycle for Auton and [Newton (NTN)](/glossary/#newton) supply.
+This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. The Auton Stabilization Mechanism provides functions to compute the target value for the Auton [Auton (ATN)](/glossary/#auton) and methods to drive the Auton's actual market price towards the target through the supply of the Auton and [Newton (NTN)](/glossary/#newton).
 
-For Auton stabilization control Autonity implements a [CDP](/glossary/#cdp)-based stabilization mechanism. Users take out CDPs, depositing Collateral Token (NTN) to borrow Auton at interest. As CDPs are taken out and repaid Collateral Token (NTN) and ATN are removed and returned to circulation, bringing equilibrium to supply and demand.
+Autonity implements a Collateralized Debt Position or [CDP](/glossary/#cdp)-based stabilization mechanism. Auton tokens are minted and burned exclusively as a result of changing collateralized debt positions. 
 
-CDP are maintained according to collateralization and liquidation ratios that set debt to collateral ratio to keep a CDP in good health. Auton is minted and burned as CDPs pass through their lifecycle, i.e. are taken out, repaid, withdrawn, and liquidated.
+Autons are minted when users take out CDPs. Users deposit collateral in the form of Newtons (NTN) to borrow Auton at interest. 
 
-Elasticity in supply and demand for Auton is absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
+Autons are burned when a CDP is repaid by depositing ATN to the ASM's smart contract. The NTN collateral is removed and returned to circulation. 
+
+CDPs are created with defined collateralization and liquidation ratios which limit the risk that the debt cannot be adequately covered by the sale of the collateral.
+
+Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
 
 ## ASM identifiers and accounts
 
@@ -27,7 +31,7 @@ Stabilization Contract calls to mint and burn Auton as CDPs are interacted with 
 
 The CDP owner's account address is used as a unique identifier for the CDP itself as well as the CDP owner.
 
-The identity is in the form of an ethereum format account address and is used to:
+The identity is in the form of an Ethereum formatted account address and is used to:
 
 - unambiguously identify the CDP on-chain
 - by the CDP owner as the `msg.sender` address in all CDP interactions: to open, repay debt, and withdraw collateral from the CDP
