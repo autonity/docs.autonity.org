@@ -131,11 +131,7 @@ Rule infraction _severity_ has two key influences:
 - determining if a new _fault_ is created or not, conditional on the _offending validator_ not having an existing _fault_ with a _severity_ `>=` to that of the candidate new _fault_
 - determining the amount of the slashing applied
 
-Slashing amount is calculated by a number of parameters, including _severity_. 
-
-For the severity taxonomy see [Rule severity](/concepts/accountability/#rule-severity).
-
-For slashing calculation and parameters see [Slashing](/concepts/accountability/#slashing).
+The slashing amount is calculated from a number of parameters, including _severity_. For slashing calculation and parameters see [Slashing](/concepts/accountability/#slashing). For the severity taxonomy see [Rule severity](/concepts/accountability/#rule-severity).
 
 {{% alert title="Note" %}}
 In certain cases, a validator can be slashed for committing a fault in an epoch more than once. For example:
