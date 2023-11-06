@@ -103,7 +103,7 @@ As rewards are distributed, due fees are deducted from fee revenue by the protoc
 
 - Protocol treasury fee. A percentage of staking rewards is deducted for community funding. The fee goes to the Autonity Treasury account (See below), sent at epoch end when the epoch rewards are distributed to committee validators. The percentage value is set at genesis.  See `treasuryFee` parameter of the `config.autonity` object in the [Protocol](/reference/protocol#configautonity-object) section.
 
-- Validator commission fees. The percentage commission rate charged by a validator to stakers delegating to the validator; essentially, the validator's service fee for providing a staking service to delegators. The fee is deducted from the validator's portion of the fee revenue before staking rewards are apportioned to the stake delegators _pro rata_ to their share of bonded stake. The percentage value is set at validator registration. See `delegationRate` parameter of the `config.autonity` object in the [Protocol](/reference/protocol#configautonity-object) section.
+- Validator commission fees. The percentage commission rate charged by a validator to stakers delegating to the validator; essentially, the validator's service fee for providing a staking service to delegators. The fee is deducted from the validator's portion of the fee revenue before staking rewards are apportioned to the stake delegators _pro rata_ to their share of bonded stake. The percentage value is set at validator registration. See the `delegationRate` parameter of the `config.autonity` object in the [Protocol](/reference/protocol#configautonity-object) section.
 
 The remaining fee revenue is then distributed to stake delegators. 
 
