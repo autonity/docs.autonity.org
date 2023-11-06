@@ -33,7 +33,7 @@ Autonity extends Ethereum at three logical layers:
 
 The Autonity Protocol Contracts are deployed by the node when it is initialised and run for the first time.
 
-### Protocol contract account addresses
+### Protocol contract addresses
 The protocol contract account addresses are computed at contract creation according to the standard Ethereum protocol rules for contract account creation when deploying a contract: a function of the [deployer](/reference/api/aut/#deployer) address, and the count of transactions sent from that account: the account `nonce`.
 
 These values are constant and predictable:
