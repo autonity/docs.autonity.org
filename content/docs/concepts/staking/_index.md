@@ -28,7 +28,7 @@ Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penal
 Autonity implements a liquid staking model, bringing benefits of:
 
 - Capital efficiency: rewards from staking combined with the liquidity benefits of bonded stake that is transferable
-- Composability: liquid stake tokens can be used in other protocols (e.g., as collateral).
+- Composability: liquid stake tokens can be used in other protocols (e.g., as collateral)
 
 ### Liquid Newton
 
