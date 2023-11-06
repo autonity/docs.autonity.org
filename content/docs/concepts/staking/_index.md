@@ -142,7 +142,7 @@ The validator operator's account address. The `treasury` is used as the account:
   - Receiving [staking rewards](/concepts/staking/#staking-rewards) from the protocol's reward distribution mechanism for distribution to the validator's stake delegators.
   - Receiving [slashing rewards](/concepts/accountability/#slashing-rewards) distributed by the [accountability and fault detection protocol](/concepts/accountability/) for reporting provable faults committed by an offending validator failing to follow consensus rules.
 
-See `treasury` parameter of the `config.autonity.validators` object in the [Protocol](/reference/protocol#configautonityvalidators-object) parameter reference.
+See the `treasury` parameter of the `config.autonity.validators` object in the [Protocol](/reference/protocol#configautonityvalidators-object) parameter reference.
 
 ### Autonity treasury account
 
