@@ -329,9 +329,9 @@ There are two aspects to the economics of slashing: slashing penalties for _offe
 
 The economic loss to validators and their delegators from slashing penalties can arise due to:
 
-- stake token: the _offending_ validator stake is slashed for the penalty amount, taken at epoch end from [self-bonded](/glossary/#self-bonded) then [delegated](/glossary/#delegated) stake according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. The amount of stake token slashed varies according to the severity of the fault committed and the slashing factors applied.
-- staking rewards: the _offending_ validator staking rewards earned if a member of the consensus committee in the epoch when the slashing penalty is applied are lost. The forfeited staking rewards are distributed to the _reporting_ validator.
-- future staking rewards: if the slashing penalty applies [jailing](/glossary/#jailing) for the fault, then the _offending_ validator is excluded from consensus committee selection and so the opportunity to earn staking rewards as a committee member while in a `jailed` state.
+- stake token: The _offending validator_ stake is slashed for the penalty amount, taken at epoch end from [self-bonded](/glossary/#self-bonded) then [delegated](/glossary/#delegated) stake according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. The amount of stake token slashed varies according to the severity of the fault committed and the slashing factors applied.
+- staking rewards: The _offending validator_ staking rewards earned if a member of the consensus committee in the epoch when the slashing penalty is applied are lost. The forfeited staking rewards are distributed to the _reporting validator_.
+- future staking rewards: If the slashing penalty applies [jailing](/glossary/#jailing) for the fault, then the _offending validator_ is excluded from consensus committee selection and so the opportunity to earn staking rewards as a committee member while in a `jailed` state.
 
 {{% alert title="Note" %}}
 After the expiry of the [jailing period](/glossary/#jail-period) the validator can reactivate itself to resume an `active` state and once again become eligible for committee selection.
