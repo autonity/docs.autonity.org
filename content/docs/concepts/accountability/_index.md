@@ -188,15 +188,18 @@ Slashing is applied as part of the state finalization function. As the last bloc
 
 ### Slashing protocol configuration
 
-Slashing protocol parameter settings:
+Accountability protocol parameters are set by default to:
 
-- _slashing rate precision_ = `10_000`, the division precision used as the denominator when computing the slashing amount of a penalty
-- _innocence proof submission window_ = `600`, the number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an `accusation`.
-- _base slashing rate low_ = `1000` (10%), base slashing rate for a fault of _Low_ severity 
-- _base slashing rate mid_ = `2000` (20%), base slashing rate for a fault of _Mid_ severity
-- _collusion factor_ = `800` (8%), the percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty
-- _history factor_ = `500` (5%), the percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty
-- _jail factor_ = `2`, the number of epochs used as a factor when computing the jail period of an offending validator.
+
+| Protocol parameter | Description | Value |
+|:--:|:--|:--:|
+| _slashing rate precision_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` |
+| _innocence proof submission window_ | the number of blocks within which an accused _offending validator_ can submit a proof of innocence on-chain refuting an `accusation` | `600` |
+| _base slashing rate low_ | the base slashing rate for a fault of _Low_ severity | `1000` (10%) |
+| _base slashing rate mid_ | the base slashing rate for a fault of _Mid_ severity | `2000` (20%) |
+| _collusion factor_ | the percentage applied as a  multiplicand to the total number of slashable offences committed by all validators during an epoch when computing the slashing amount of a penalty | `800` (8%) |
+| _history factor_ | the percentage applied as a multiplicant to the proven fault count of an individual _offending validator_ when computing the slashing amount of a penalty | `500` (5%) |
+| _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of an _offending validator_ when computing it's jail period | `2` |
 
 ### Autonity slashing amount calculation
 
