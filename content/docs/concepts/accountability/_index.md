@@ -141,7 +141,7 @@ For slashing calculation and parameters see [Slashing](/concepts/accountability/
 In certain cases, a validator can be slashed for committing a fault in an epoch more than once. For example:
 
 - **Epoch `n`**: _offending_ validator slashed for fault committed in epoch `n`
-- **Epoch `n+1`**: new _faults_ are reported for the _offending_ validator: (1) one for the current **epoch `n+1`**; (2) one for **epoch `n`** with a higher _severity_ than the _fault_ already slashed in **epoch `n`**.
+- **Epoch `n+1`**: new _faults_ are reported for the _offending_ validator: (1) one for the current **epoch `n+1`**; (2) one for **epoch `n`** with a higher _severity_ than the _fault_ already slashed in **epoch `n`**
 - The _offending_ validator has two slashings applied applied in **epoch `n+1`**:
   - for epoch `n+1`
   - for epoch `n`.
