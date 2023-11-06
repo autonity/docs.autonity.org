@@ -127,7 +127,7 @@ The protocol makes use of different accounts for fee revenue collection and dist
 
 ### Staker account
 
-The `account` address submitting a bond or unbonding request. A staker can bond stake across as many validators as it chooses. The `msg.sender` address of the request is (a) the account that receives the staker's due share of staking reward entitlements, and (b) determines if the stake is [delegated](/glossary/#delegated) or [self-bonded](/glossary/#self-bonded):
+The `account` address submitting a bond or unbonding request. A staker can bond stake across as many validators as it chooses. The `msg.sender` address of the request is the account that receives the staker's due share of staking reward entitlements, and determines if the stake is [delegated](/glossary/#delegated) or [self-bonded](/glossary/#self-bonded):
 
 - [delegated](/glossary/#delegated): `msg.sender` = any network [account](/glossary/#account) _except_ the validator `treasury` account
 - [self-bonded](/glossary/#self-bonded): `msg.sender` = [validator `treasury` account](/concepts/staking/#validator-treasury-account)
