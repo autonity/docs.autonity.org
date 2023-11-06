@@ -238,15 +238,16 @@ To learn more about PAS, see the section on [Penalty-Absorbing Stake (PAS)](/con
 
 ### Accountability rules
 
-Accountability rules are applied to detect faults in the three Tendermint consensus round phases *propose*, *prevote*, *precommit*. Rules are detailed in the table below.
+Accountability rules are applied to detect faults in the three Tendermint consensus round phases *propose*, *prevote*, and *precommit*.
+
+The table below lists each of the rule defined in the AFD rule engine, identified by a unique Rule ID.
 
 {{% alert title="Info" color="info"%}}
-In the table:
+The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tendermint consensus phases:
 
-- Rule ID: is the unique identifier for the Rule defined in the AFD rule engine. ID prefixes correspond to Tendermint consensus phases:
-  - `P`: *propose*
-  - `PV`: *prevote*
-  - `C`: *precommit*
+- `P`: *propose*
+- `PV`: *prevote*
+- `C`: *precommit*
 {{% /alert %}}
 
 | Rule ID | Description |
