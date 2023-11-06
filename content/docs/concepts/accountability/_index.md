@@ -308,17 +308,17 @@ See distinction between _direct_ and _promoted_ in [Faults](/concepts/accountabi
 
 | Field | Datatype | Description |
 | --| --| --|
-| `chunks` | `uint8` | counter of the number of chunks in the accountability event (for oversize accountability event) |
-| `chunkId` | `uint8` | chunk index to construct the oversize accountability event |
-| `eventType` | `EventType` | the accountability event type, one of: `FaultProof` (proven misbehaviour), `Accusation` (pending accusation), `InnocenceProof` (proven innocence) |
-| `rule` | `Rule` | the identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. Enumerated values are defined for each AFD Rule ID. |
-| `reporter` | `address` | the node address of the validator that reported this accountability event |
-| `offender` | `address` | the node address of the validator accused of the accountability event |
-| `rawProof` | `bytes` | the `rlp` encoded bytes of the accountability proof object |
-| `block` | `uint256` | the number of the block at which the accountability event occurred. Assigned during event handling by internal processing of raw proof data |
-| `epoch` | `uint256` | the identifier of the epoch in which the accountability event `block` occurred. Assigned during event handling by internal processing of raw proof data |
-| `reportingBlock` | `uint256` | the number of the block at which the accountability event was verified. Assigned during event handling by internal processing of raw proof data|
-| `messageHash` | `uint256` | hash of the main evidence for the accountability event. Assigned during event handling by internal processing of raw proof data |
+| `chunks` | `uint8` | Counter for the number of chunks in the accountability event (for oversize accountability event). |
+| `chunkId` | `uint8` | Chunk index to construct the oversize accountability event. |
+| `eventType` | `EventType` | The accountability event type, one of: `FaultProof` (proven misbehaviour), `Accusation` (pending accusation), or `InnocenceProof` (proven innocence). |
+| `rule` | `Rule` | The identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. Enumerated values are defined for each AFD Rule ID. |
+| `reporter` | `address` | The node address of the validator that reported this accountability event. |
+| `offender` | `address` | The node address of the validator accused of the accountability event. |
+| `rawProof` | `bytes` | The `rlp` encoded bytes of the accountability proof object. |
+| `block` | `uint256` | The block number in which the accountability event occurred. Assigned during event handling by internal processing of raw proof data. |
+| `epoch` | `uint256` | The epoch identifier in which the accountability event `block` occurred. Assigned during event handling by internal processing of raw proof data. |
+| `reportingBlock` | `uint256` | The number of the block at which the accountability event was verified. Assigned during event handling by internal processing of raw proof data. |
+| `messageHash` | `uint256` | Hash of the main evidence for the accountability event. Assigned during event handling by internal processing of raw proof data. |
 
 
 ## Slashing economics
