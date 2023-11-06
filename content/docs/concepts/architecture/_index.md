@@ -29,7 +29,7 @@ Autonity extends Ethereum at three logical layers:
 - Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
 - Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
 
-## Application layer: protocol contracts
+## Protocol contracts
 
 The Autonity Protocol Contracts are deployed by the node when it is initialised and run for the first time.
 
