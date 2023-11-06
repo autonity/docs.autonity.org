@@ -191,7 +191,7 @@ The sequence of lifecycle events for an accountability event is:
 
 ## Slashing
 
-Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending_ validator's own slashing history. For parameters see [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) beneath.
+Slashing penalties are computed by the protocol and applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate, as well as slashing factors including the total number of slashable offences committed in the epoch and the individual _offending validator's_ own slashing history. For parameters see [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) beneath.
 
 Slashing is applied as part of the state finalisation function. As the last block of an epoch is finalized, AFD will apply slashing for proven _faults_ to validator stake, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake  according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
 
