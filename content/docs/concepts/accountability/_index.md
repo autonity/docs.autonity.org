@@ -257,10 +257,10 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 | `C` - `C1` | Precommit step related consensus rule infraction. |
 | `InvalidProposal` | Proposer has proposed a block that fails blockchain validation |
 | `InvalidProposer` | Proposer of a block proposal is not the committee's elected Proposer. |
-| `Equivocation` | Validator has sent conflicting messages during a consensus round: a committee member sending multiple prevotes/precommits for different values, a  proposer has broadcast conflicting block proposals to different committee members. |
-| `InvalidRoundStep` | Consensus round message contains invalid round number or step |
-| `WrongValidRound` | Consensus round message contains wrong valid round number |
-| `GarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded |
+| `Equivocation` | Validator has sent conflicting messages during a consensus round: a committee member sending multiple prevotes/precommits for different values, or a proposer has broadcast conflicting block proposals to different committee members. |
+| `InvalidRoundStep` | Consensus round message contains invalid round number or step. |
+| `WrongValidRound` | Consensus round message contains wrong valid round number. |
+| `GarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded. |
 
 ### Rule severity
 
