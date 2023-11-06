@@ -45,7 +45,7 @@ As consequence, the Liquid Newton minted is subject to any accountability and om
 - If at the time of bonding a validator's [delegated](/glossary/#delegated) stake amount _has not_ been reduced by a stake slashing event, then Liquid Newton is minted `1:1` for the [delegated](/glossary/#delegated) Newton staked.
 - However, if the validator's existing [delegated](/glossary/#delegated) stake amount is less than the supply of issued Liquid Newton, then Liquid Newton is minted in proportion to the validator's [delegated](/glossary/#delegated) stake remaining, resulting in a `>1:1` issuance of Liquid Newton for Newton staked.
 
-This tokenomic mechanism ensures that a validator's Liquid Newton tokens remain fungible as they are issued over time: the amount of Liquid Newton issued on bonding has value matching that of the Newton being bonded.
+This tokenomic mechanism ensures that a validator's Liquid Newton tokens remain fungible as they are issued over time: the amount of Liquid Newton issued on bonding has a value matching that of the Newton being bonded.
 
 The Liquid Newton has staking reward entitlement rights, is freely transferable, and represents the Liquid Newton holder's share of the total stake bonded to the validator (i.e. the holder's share of the validator's Liquid Newton pool).
 
