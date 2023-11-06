@@ -1546,7 +1546,7 @@ Returns a `Validator` object consisting of:
 | `liquidSupply` | `uint256` | the total amount of Liquid Newton in circulation |
 | `registrationBlock` | `uint256` | the block number in which the registration of the validator was committed to state|
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
-| `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends. (The validator can be re-activated after this block height.) |
+| `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height) |
 | `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
 | `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
 
