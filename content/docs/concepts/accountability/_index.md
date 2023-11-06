@@ -209,7 +209,7 @@ Slashing protocol parameter settings:
 
 ### Autonity slashing amount calculation
 
-The slashing amount to fine for the fault is computed based on slashing factors: base rate from fault severity, validator reputation (the validator’s proven fault count), count of offences committed in the epoch, slashing rate precision.
+The slashing amount applied to a fault is computed based on the following slashing factors: base rate from fault severity, validator reputation (the validator’s proven fault count), count of offences committed in the epoch, and slashing rate precision.
 
 - Inputs:
   - [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) parameters, and,
