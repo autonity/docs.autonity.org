@@ -230,7 +230,7 @@ The slashing amount to fine for the fault is computed based on slashing factors:
 
 Slashing penalties for accountability events are applied according to Autonity's [_penalty-absorbing stake_](/glossary/#penalty-absorbing-stake-pas) model. 
 
-The _offending_ validator's own [self-bonded](/glossary/#self-bonded) stake is slashed in priority to [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
+The _offending validator's_ own [self-bonded](/glossary/#self-bonded) stake is slashed in priority to any [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
 
 To learn more about PAS, see the concept Staking, [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 
