@@ -935,7 +935,6 @@ Based on the verification outcome, constraint checks are applied:
 
   - if `FaultProof`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch.
-    <!-- - the validator has not already been slashed for a fault with a higher severity in the proof's epoch. -->
 
   - if `Accusation`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch
