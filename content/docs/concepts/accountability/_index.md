@@ -11,7 +11,7 @@ description: >
 
 This section describes the Autonity accountability and fault detection protocol, the role of validators in submitting and verifying accountability event proofs (fault, accusation, innocence), the lifecycle for fault accountability and detection, and slashing.
 
-Autonity implements an _accountability and fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behaviour while participating in block proposal and voting. Failure to adhere to these rules is a _rule infraction_.
+Autonity implements an _accountability and fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behavior while participating in block proposal and voting. Failure to adhere to these rules is a _rule infraction_.
 
 Proven rule infractions are reported as _faults_ and slashing makes faults _accountable_. Faults are _detected_ by validators and submitted on chain as _accountability events_ providing proof of misbehavior. Proofs are derived from consensus messaging between validators during consensus rounds and submitted on-chain to the Accountability Contract.
 
@@ -224,7 +224,7 @@ Depending upon fault severity, a slashing penalty may apply validator jailing to
 
 Slashing penalties for accountability events are applied according to Autonity's [_penalty-absorbing stake_](/glossary/#penalty-absorbing-stake-pas) model. 
 
-The _offending validator's_ own [self-bonded](/glossary/#self-bonded) stake is slashed in priority to any [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
+The _offending validator's_ own [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
 
 To learn more about PAS, see the section on [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) in [Staking](/concepts/staking).
 
@@ -270,7 +270,7 @@ Future releases will introduce an offence scale range.
 
 ### Event handling
 
-Accountability _events_ are submitted to the system by validator's submitting proofs of behaviour from consensus messaging on-chain. See [`handleEvent()`](/reference/api/aut/op-prot/#handleevent-accountability-contract) for a description of event handling logic.
+Accountability _events_ are submitted on-chain by validator's submitting proofs of behavior from consensus messaging. See [`handleEvent()`](/reference/api/aut/op-prot/#handleevent-accountability-contract) for a description of event handling logic.
 
 ### Event types
 
@@ -280,7 +280,7 @@ There are three accountability _event_ types in AFD:
 | --| --| 
 | `Accusation` | an _accusation_ of a committee member validator failing to adhere to, or violating, a consensus rule submitted by another validator committee member |
 | `InnocenceProof` | a _proof of innocence_ from an _accusation_ submitted by the accused committee member, which refute and cancel the _accusation_ if the proof is valid |
-| `FaultProof` | a misbehaviour _fault_ |
+| `FaultProof` | a misbehavior _fault_ |
 
 {{% alert title="Note" %}}
 See distinction between _direct_ and _promoted_ in [Faults](/concepts/accountability/#faults) above.
@@ -292,9 +292,9 @@ See distinction between _direct_ and _promoted_ in [Faults](/concepts/accountabi
 
 | Field | Datatype | Description |
 | --| --| --|
-| `chunks` | `uint8` | Counter for the number of chunks in the accountability event (for oversize accountability event). |
-| `chunkId` | `uint8` | Chunk index to construct the oversize accountability event. |
-| `eventType` | `EventType` | The accountability event type, one of: `FaultProof` (proven misbehaviour), `Accusation` (pending accusation), or `InnocenceProof` (proven innocence). |
+| `chunks` | `uint8` | Counter for the number of chunks in an oversize accountability event. (Large events are chunked into smaller segments with ID's and stored in a map; see  [`handleEvent()`](/reference/api/aut/op-prot/#handleevent-accountability-contract)). |
+| `chunkId` | `uint8` | Chunk index to construct an oversize accountability event. |
+| `eventType` | `EventType` | The accountability event type, one of: `FaultProof` (proven misbehavior), `Accusation` (pending accusation), or `InnocenceProof` (proven innocence). |
 | `rule` | `Rule` | The identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. Enumerated values are defined for each AFD Rule ID. |
 | `reporter` | `address` | The node address of the validator that reported this accountability event. |
 | `offender` | `address` | The node address of the validator accused of the accountability event. |
