@@ -86,7 +86,7 @@ Slashing priority is simply:
 In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator Liquid Newton has a uniform risk profile.
 
 {{% alert title="Note" %}}
-Self-bonding stake by a validator puts "skin in the game" and is a public commitment to the operational integrity of a validator node by a validator operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
+By self-bonding stake, a validator puts "skin in the game" because this constitutes a public commitment to the operational integrity of the validator node by its operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
 {{% /alert %}}
 
 ## Staking rewards
