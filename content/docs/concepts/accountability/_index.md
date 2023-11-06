@@ -232,7 +232,7 @@ Slashing penalties for accountability events are applied according to Autonity's
 
 The _offending validator's_ own [self-bonded](/glossary/#self-bonded) stake is slashed in priority to any [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events.
 
-To learn more about PAS, see the concept Staking, [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
+To learn more about PAS, see the section on [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) in [Staking](/concepts/staking).
 
 ## Rules
 
