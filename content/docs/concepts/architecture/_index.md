@@ -153,8 +153,6 @@ The contract stores static [slashing protocol configuration parameters](/concept
 - Determine if a validator is slashable
 - Submit accountability events.
 
-Function calls to compute accountability each block and apply slashing penalties at epoch end are restricted to protocol.
-
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/accountability/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
 
