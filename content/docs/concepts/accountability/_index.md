@@ -296,7 +296,7 @@ There are three accountability _event_ types in AFD:
 | --| --| 
 | `Accusation` | an _accusation_ of a committee member validator failing to adhere to or violating a consensus rule submitted by another validator committee member |
 | `InnocenceProof` | a proof of _innocence_ from an _accusation_ submitted by the accused validator committee member, refuting and cancelling the _accusation_ if valid |
-| `FaultProof` | a misbehaviour _fault_. |
+| `FaultProof` | a misbehaviour _fault_ |
 
 {{% alert title="Note" %}}
 See distinction between _direct_ and _promoted_ in [Faults](/concepts/accountability/#faults) above.
