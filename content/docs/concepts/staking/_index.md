@@ -97,7 +97,7 @@ Staking rewards are a distribution of fee revenue entitlement to all holders of 
 For more detail on EIP 1559 and the distinction between _base fee_ and _priority fee_, see [Transaction fees](/concepts/system-model/#transaction-fees) in the System model.
 {{% /alert %}}
 
-Staking rewards are collected by protocol and accumulate in a protocol account as blocks are processed throughout a block epoch. The fees are out of circulation until epoch end, at which point the protocol distributes them to validator committee members. Rewards are then distributed to validator self-bonded and delegated stake holders _pro rata_ to their share of the validator's total bonded stake. After this distribution, the rewards become _claimable_ by stake delegators. Delegators then [claim rewards](/concepts/staking/#claiming-rewards) in a "pull" model, at the frequency they choose. 
+Staking rewards are collected by the protocol and accumulate in a protocol account as blocks are processed throughout a block epoch. The fees are out of circulation until epoch end, at which point the protocol distributes them to validator committee members. Rewards are then distributed to validator self-bonded and delegated stake holders _pro rata_ to their share of the validator's total bonded stake. After this distribution, the rewards become _claimable_ by stake delegators. Delegators then [claim rewards](/concepts/staking/#claiming-rewards) in a "pull" model, at the frequency they choose. 
 
 As rewards are distributed, due fees are deducted from fee revenue by the protocol:
 
