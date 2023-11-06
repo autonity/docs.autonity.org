@@ -135,8 +135,8 @@ Eligible validators are included in the committee selection algorithm. The algor
 
 A validator may be found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of failing to adhere to consensus rules when a member of the consensus committee. In this case, depending on the type of fault committed, a validator may as part of the slashing penalty:
 
-- be transitioned by protocol from an `active` to a `jailed` state and debarred from selection to the consensus committee member for a '[jail period](/glossary/#jail-period)' measured in block.
-- suffer stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee.
+- be transitioned by protocol from an `active` to a `jailed` state and debarred from selection to the consensus committee member for a '[jail period](/glossary/#jail-period)' measured in block
+- suffer stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee
 
 To get out of jail, the validator simply [reactivates their validator](/concepts/validator/#validator-re-activation) after expiry of the [jail period](/glossary/#jail-period). Returned to an `active` state, the validator is again eligible for selection to the consensus committee.
 
