@@ -34,7 +34,7 @@ Autonity implements a liquid staking model, bringing benefits of:
 
 Liquid Newton is minted for [delegated](/glossary/#delegated) Newton stake bonded to a validator. On registration each validator has an ERC20 Liquid Newton contract created and deployed autonomously by the Autonity Protocol Contract (which maintains a registry of all Liquid Newton token contracts deployed).
 
-It is important to note that stake bonded by the validator operator to its own validator - [self-bonded](/glossary/#self-bonded) stake - does _not_ result in minting of Liquid Newton. This is because of the [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model.
+It is important to note that stake bonded by the validator operator to its own validator - [self-bonded](/glossary/#self-bonded) stake - does _not_ result in minting of Liquid Newton. This is part of Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model.
 
 Liquid Newton is validator-specific because there is a separate ERC20 token for each registered validator. Liquid Newton for a given validator is fungible, but Liquid Newton tokens of different validators are _not_ fungible with each other.
 
