@@ -86,7 +86,7 @@ To check if an _offending_ validator has a _pending accusation_, a _reporting_ v
 
 #### Innocence
 
-An _innocence_ is a claim refuting an _accusation_ for an accusable rule infraction. An _innocence_ is made by an _offending_ validator to prove innocence from a _pending accusation_ against it. Claims of _innocence_ are made by submitting _proof_ of innocence on-chain as an event of type `Innocence`. If successful, a proof of innocence cancels the _pending accusation_.
+An _offending validator_ can present a claim of _innocence_ to refute a _pending accusation_ for an accusable rule infraction. Claims of _innocence_ are made by submitting an _innocence proof_ on-chain as an event of type `InnocenceProof`. If successful, the proof of _innocence_ cancels the _pending accusation_.
 
 The _offending_ validator has a limited time window to submit a _proof of innocence_, otherwise, the _accusation_ may be _promoted_ to a _fault_ and be slashable at the end of epoch.
 
