@@ -42,8 +42,6 @@ Run `autoracle --help` to view the options:
 | `-oracle_plugin_conf` | The path to the data source plugins YAML configuration file `plugins-conf.yml` | `./build/bin/plugins/plugins- conf.yml` | Yes |
 
 
->>>>>>> 170df0d (Edit Reference CLI, AOS - editorial, add cli flag for oracle_pluugin_conf)
-
 
 | ORACLE SERVER OPTIONS: | Description | Default | Required? |
 |:--|:--|:--|:--|
