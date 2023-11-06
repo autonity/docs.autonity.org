@@ -59,7 +59,7 @@ For example, if a validator had suffered a slashing penalty equivalent to 1% of 
 Liquid Newton has fundamental operations for:
 
 - Transfer: the holder can transfer ownership by sending to another network participant.
-  - Upon receipt of liquid newton the holder becomes a delegator to the associated validator, and has a claim to some staked newton.
+  - Upon receipt of Liquid Newton the holder becomes a delegator to the associated validator, and has a claim to some staked Newton.
 - Redemption by unbonding: the holder can unbond stake from a validator and redeem for Newton stake token at any time subject to the unbonding period set for the chain. On unbonding:
   - Liquid Newton is burned for [delegated](/glossary/#delegated) stake unbonding
   - the bonded stake remains locked for the duration of an [unbonding period](/glossary/#unbonding-period) during which it is not transferrable and remains subject to any [slashing penalties](/glossary/#slashing-penalty) applied to the validator in that period. 
