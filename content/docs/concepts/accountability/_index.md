@@ -167,27 +167,27 @@ The protocol **does not** automatically revert validator state from `jailed` to 
 
 ### Accountability event lifecycle
 
-Accountability event lifecycle management comprises: accountability event submission on-chain, event handling on-chain, accusations, innocence, fault promotion, slashing.
+Accountability event lifecycle management comprises: accountability event submission on-chain, event handling on-chain, accusations, innocence, fault promotion, and slashing.
 
  Rule infractions can be:
 
-- directly submitted as a _fault_ proof by a _reporting_ validator
+- directly submitted as a _fault_ proof by a _reporting validator_
 - promoted from accusations where they are:
-  - reported as an _accusation_, submitted by a _reporting_ validator against an _offending_ validator
-  - eventually defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
-  - if not defended, promoted to _fault_ by the protocol once the innocence window has expired.
+  - reported as an _accusation_, submitted by a _reporting validator_ against an _offending validator_
+  - eventually defended by an _innocence proof_, submitted by the _offending validator_ within a proof submission window measured in blocks
+  - if not defended, promoted to _fault_ by the protocol once the innocence window has expired
 
 
 The sequence of lifecycle events for an accountability event is:
 
-- Detected by validator and submitted on-chain. An accountability event is detected by AFD protocol and submitted on-chain by a validator.
-- Event handling. The event is verified and according to its event type:
-  - `FaultProof`: recorded if the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch. Else, discarded.
-  - `Accusation`: recorded if the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch, and, the validator does not already have a pending accusation. Else, discarded.
-  - `InnocenceProof`: recorded and corresponding `Accusation` it defends against deleted if: the validator has an associated pending accusation being processed, and, the innocence proof and associated accusation proof have matching: rule identifiers, block number, message hash. Else, discarded
+- Detected by validator and submitted on-chain. An accountability event is detected by the AFD protocol and submitted on-chain by a validator.
+- Event handling. The event is first verified and then further action is taken based on the event type:
+  - `FaultProof`: If the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch, the event is recorded. Else, discarded.
+  - `Accusation`: If the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch, and the validator does not already have a pending accusation, then the event is recorded. Else, discarded.
+  - `InnocenceProof`: If the validator has an associated pending accusation being processed, and the innocence proof and associated accusation proof have matching rule identifiers, block number, and message hash, then the event is recorded and the corresponding `Accusation` is deleted. Else, discarded.
 - Fault promotion. Each block until epoch end, protocol attempt to promote `Accusations` to new `FaultProofs`: promoted if the proof innocence window has expired, and, the severity is greater than the severity of a fault in the offending validator's slashing history for the epoch. Else, discarded.
 - Queued for slashing. Accountability `FaultProof` events are queued until slashing end of epoch when: for each offending validator with one or more proven faults, a slashing penalty is applied for the `FaultProof` with the highest severity for its fault epoch.
-- Validator jailing: validators may be [jailed](/concepts/accountability/#jail) as part of slashing for a fault. The validator’s node transitions from `active` to a `jailed` state and will only resume an `active` state when `re-activated` by the validator operator after the [jail period](/glossary/#jail-period) expires.
+- Validator jailing. Validators may be [jailed](/concepts/accountability/#jail) as part of slashing for a fault. The validator’s node transitions from `active` to a `jailed` state and will only resume an `active` state when `re-activated` by the validator operator after the [jail period](/glossary/#jail-period) expires.
 
 ## Slashing
 
