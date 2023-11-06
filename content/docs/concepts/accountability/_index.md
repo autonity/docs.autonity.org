@@ -19,7 +19,7 @@ It is important to note that AFD runs alongside Autonity's Tendermint proof of s
 
 AFD functions by submitting, verifying, and processing accountability event proofs by epoch. Rule infractions can be:
 
-- directly submitted as a _fault_ proof by a _reporting_ validator
+- directly submitted as a _fault_ proof by a _reporting validator_
 - promoted from accusations, which in turns are:
   - reported as an _accusation_, submitted by a _reporting_ validator against an _offending_ validator
   - eventually defended by an _innocence_ proof, submitted by the _offending_ validator within a proof submission window measured in blocks
