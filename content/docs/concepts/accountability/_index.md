@@ -90,7 +90,7 @@ An _offending validator_ can present a claim of _innocence_ to refute a _pending
 
 The _offending_ validator has a limited time window to submit a _proof of innocence_, otherwise, the _accusation_ may be _promoted_ to a _fault_ and be slashable at the end of epoch.
 
-An _innocence_ must be submitted within an _innocence proof submission window_ to be accepted, a designated number of blocks set as a protocol parameter. The window begins at the block height number at which the _accusation_ was reported.
+An _innocence_ claim must be submitted within an _innocence proof submission window_ to be accepted, a designated number of blocks set as a protocol parameter. The window begins at the block height number at which the _accusation_ was reported.
 
 If the _innocence_ is successfully verified, then the _accusation_ queue is checked and the corresponding _accusation_ is cancelled. The _pending accusation_ state is cleared and a _reporting_ validator is now able to submit a _new accusation_ against the _offending_ validator.
 <!--
