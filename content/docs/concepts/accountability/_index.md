@@ -106,15 +106,11 @@ As noted under [Accusations](/concepts/accountability/#accusations) above, a val
 
 #### Faults 
 
-A _fault_ is a proven consensus rule infraction in an epoch. A _fault_ is created by:
+A _fault_ is a proven consensus rule infraction in an epoch. A _fault_ is created in one of two ways:
 
-- **direct submission**: a _reporting_ validator submits a _fault proof_ on-chain.  Directly submitted faults:
-  - does not offer possibility of defence
-  - are unforgeable evidence of rule infraction
+- **Directly**: A _fault proof_ is submitted on-chain directly by a _reporting validator_. This method of fault reporting is reserved for rule infractions that rely on unforgeable evidence. It does not offer the possibility of defense.
 
-- **_promotion_ of an _accusation_**:
-  - offers the possibility of defence by submission of an _innocence_ proof
-  - promotion to _fault_ requires the _accusation_ to have a higher _severity_ than any _fault_ the _offending_ validator has for the epoch.
+- **Promotion**: A _pending accusation_ is automatically promoted to a _fault_ after expiry of the _innocence proof submission window_ without a successfully verified _innocence_ claim. This method offers the possibility of defense by submission of an _innocence proof_.
 
 {{% alert title="Note" %}}
 Unlike _accusations_ where an accusation must be made within a `<= 256` block window of the rule infraction, there is no _window_ constraint for direct _fault_ submissions.
