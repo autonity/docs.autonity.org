@@ -336,7 +336,7 @@ The economic loss to validators and their delegators from slashing penalties can
 {{% alert title="Note" %}}
 After the expiry of the [jailing period](/glossary/#jail-period) the validator can reactivate itself to resume an `active` state and once again become eligible for committee selection.
 
-Note that the _offending_ validator will remain in a `jailed` state even after jail period expiry _until_ the validator operator [re-activates](/concepts/validator/#validator-re-activation) by calling the [`activateValidator()`](/reference/api/aut/#activatevalidator) function.
+Note that the _offending validator_ will remain in a `jailed` state even after jail period expiry _until_ the validator operator [re-activates](/concepts/validator/#validator-re-activation) by calling the [`activateValidator()`](/reference/api/aut/#activatevalidator) function.
 {{% /alert %}}
 
 ### Slashing rewards
