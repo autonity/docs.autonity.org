@@ -83,7 +83,7 @@ Slashing priority is simply:
 - [Self-bonded](/glossary/#self-bonded) stake is slashed as a first priority until exhausted. If the validator has unbonding stake, then the unbonding stake is slashed before bonded stake.
 - [Delegated](/glossary/#delegated) stake is slashed as a second priority when the slashing amount exceeds the amount of self-bonded stake available. If the delegator has unbonding stake, then the unbonding stake and bonded stake are slashed _pro rata_ with equal priority.
 
-In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator liquid newton has a uniform risk profile.
+In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator Liquid Newton has a uniform risk profile.
 
 {{% alert title="Note" %}}
 Self-bonding stake by a validator puts "skin in the game" and is a public commitment to the operational integrity of a validator node by a validator operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
