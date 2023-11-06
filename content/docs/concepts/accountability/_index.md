@@ -124,7 +124,7 @@ After successful [handling and verification](/reference/api/aut/op-prot/#handlee
 
 #### Slashing and severity
 
-The AFD protocol will only apply slashing to an _offending_ validator once for epoch, only slashing the reported _fault_ with the highest _severity_ in an epoch. Note that a validator can still be slashed for multiple offenses at the end of an epoch, if the sanctioned faults were committed in past distinct epochs.
+The AFD protocol will only apply slashing to an _offending validator_ once for epoch, only slashing the reported _fault_ with the highest _severity_ in an epoch. Note that a validator can still be slashed for multiple offenses at the end of an epoch, if the sanctioned faults were committed in past distinct epochs.
 
 Rule infraction _severity_ has two key influences:
 
