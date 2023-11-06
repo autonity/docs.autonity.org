@@ -340,7 +340,8 @@ Note that the _offending validator_ will remain in a `jailed` state even after j
 {{% /alert %}}
 
 ### Slashing rewards
-Slashing rewards are provided by forfeiture of an _offending_ validator's staking rewards.
+
+Slashing rewards are provided by forfeiture of an _offending validator's_ staking rewards.
 
 Slashing rewards are distributed for reporting provable faults committed by an _offending_ validator to the _reporting_ validator. Rewards are only distributed to the *last* reporter of a slashing penalty applied to an _offending_ validator in an epoch. Reward revenue is determined by the _offender's_ share of the stake active ([voting power](/glossary/#voting-power)) in the committee at the time the slashing penalty is applied.
 
