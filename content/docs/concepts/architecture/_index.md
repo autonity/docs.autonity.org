@@ -89,7 +89,7 @@ The Autonity Protocol Contract manages state finalization, maintaining [system s
   - applying [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
   - applying pending [validator commission rate changes](/concepts/validator/#validator-commission-rate-change)
   - [selecting of a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
-  - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection).
+  - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection)
 - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) for the [computation of median price data](/concepts/architecture/#median-price-computation) at the end of an oracle voting round.
 
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
