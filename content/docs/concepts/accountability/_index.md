@@ -323,7 +323,7 @@ See distinction between _direct_ and _promoted_ in [Faults](/concepts/accountabi
 
 ## Slashing economics
 
-Slashing economics have facets: slashing penalties, slashing rewards for reporting validators. <!--, and transaction fee refund for the last accepted new accusation of an epoch.-->
+There are two aspects to the economics of slashing: slashing penalties for _offending validators_ and slashing rewards for _reporting validators_.
 
 ### Slashing penalties
 
