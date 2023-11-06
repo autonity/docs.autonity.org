@@ -70,7 +70,7 @@ After successful [handling and verification](/reference/api/aut/op-prot/#handlee
 
 There are protocol constraints on when an _accusation_ can be made. A _reporting_ validator can only submit an _accusation_ _proof_ if:
 
-- the _offending_ validator:
+- the _offending validator_:
   - has not been already punished in the epoch for which the new _accusation_ is being made for an offence with a higher severity.
   - is not currently already accused of committing a rule infraction, i.e. there is a _pending accusation_. In this case, a _new accusation_ cannot be made until expiry of the _innocence proof window_. This creates a _deadline_ measured in block height before which a new `accusation` cannot be submitted.
 - it is within the _accusation window_:
