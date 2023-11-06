@@ -98,7 +98,7 @@ To check if a _new accusation_ has been made against it, an _offending_ validato
 
 - subscribes to `NewAccusation` events where it is the offender, retrieves the accountability event ID and queries the `Events` data structure to retrieve the _pending accusation_ against it.
 -->
-After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _innocence_ on-chain an `InnocenceProven` event is emitted logging: _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, and `0` indicating there are no pending accusations against the validator.
+After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _innocence_ claim on-chain, an `InnocenceProven` event is emitted that logs: _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, and `0` indicating there are no pending accusations against the validator.
 
 {{% alert title="Note" %}}
 As noted under [Accusations](/concepts/accountability/#accusations) above, a validator with a _pending accusation_ is not accusable because protocol has to wait to determine if the _pending accusation_ has been defended or, if not, promoted to a fault. Until then, protocol cannot determine if the _offending_ validator has committed a rule infraction with a higher _severity_ or not in the epoch.
