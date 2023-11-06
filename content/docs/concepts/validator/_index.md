@@ -243,7 +243,7 @@ The validator is registered and eligible for selection to the consensus committe
 
 ## Validator jailing
 
-A validator can be jailed by protocol as a penalty for failing to adhere to consensus rules when a member of the consensus committee. If a slashing penalty imposes [jailing](/glossary/#jailing), this will be applied at epoch end when the penalty is processed. 
+A validator can be jailed by protocol as a penalty for failing to adhere to consensus rules when serving as a member of the consensus committee. If a slashing penalty imposes [jailing](/glossary/#jailing), this will be applied at epoch end when the penalty is processed. 
 
 In this state:
 
