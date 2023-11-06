@@ -137,16 +137,11 @@ The slashing amount is calculated from a number of parameters, including _severi
 
 #### Jail
 
-Jailing is a protocol action that excludes a validator from selection to the consensus committee for a period of time measured in blocks.
+Jailing is a protocol action that excludes a validator from selection to the consensus committee for a period of time measured in blocks known as a _jail period_.
 
 Jailing may be applied as part of a slashing penalty depending on the _severity_ of the _fault_ being _slashed_. Jailing changes a validator's state from `active` to `jailed`. Validators in a `jailed` state are barred from [consensus committee selection](/concepts/consensus/committee/#committee-member-selection).
 
-The validator's jail release block number is computed by `current block number + jail factor * proven fault count * epoch period` where:
-
-- `current block number`: the block number at the time of computation (i.e. the last block of an epoch when slashing is applied)
-- `jail factor`: a multiplier measured as a number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration)
-- `proven fault count`: the number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history
-- [`epoch period`](/glossary/#epoch-period): The period of time for which a consensus committee is elected, defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration)
+The validator's jail release block number is computed based on its proven fault history as described in [Jail period calculation](/concepts/accountability/#jail-period-calculation).
 
 After expiry of the jail period a validator may get out of jail by [re-activating](/concepts/validator/#validator-re-activation) to revert to an `active` state and resume [eligibility for consensus committee selection](/concepts/validator/#eligibility-for-selection-to-consensus-committee).
 
@@ -182,9 +177,9 @@ The sequence of lifecycle events for an accountability event is:
 
 ## Slashing
 
-Slashing penalties are computed by the protocol and applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate, as well as slashing factors including the total number of slashable offences committed in the epoch and the individual _offending validator's_ own slashing history. For parameters see [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) beneath.
+Slashing penalties are computed by the protocol and applied for proven faults at epoch end. The penalty severity is computed based on slashing protocol parameter configuration, the _offending validator's_ own slashing history, and the total number of slashable offences committed in the epoch by all validators.
 
-Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, AFD will apply slashing for proven _faults_ to validator stake, slashing [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stake according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model.
+Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, AFD will apply slashing for proven _faults_ to validator stake, slashing stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing.
 
 ### Slashing protocol configuration
 
@@ -193,32 +188,37 @@ Accountability protocol parameters are set by default to:
 
 | Protocol parameter | Description | Value |
 |:--:|:--|:--:|
-| _slashing rate precision_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` |
-| _innocence proof submission window_ | the number of blocks within which an accused _offending validator_ can submit a proof of innocence on-chain refuting an `accusation` | `600` |
+| _innocence proof submission window_ | the number of blocks within which an accused _offending validator_ can submit a proof of innocence on-chain refuting an `accusation` | `100` |
 | _base slashing rate low_ | the base slashing rate for a fault of _Low_ severity | `1000` (10%) |
 | _base slashing rate mid_ | the base slashing rate for a fault of _Mid_ severity | `2000` (20%) |
-| _collusion factor_ | the percentage applied as a  multiplicand to the total number of slashable offences committed by all validators during an epoch when computing the slashing amount of a penalty | `800` (8%) |
-| _history factor_ | the percentage applied as a multiplicant to the proven fault count of an individual _offending validator_ when computing the slashing amount of a penalty | `500` (5%) |
-| _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of an _offending validator_ when computing it's jail period | `2` |
+| _collusion factor_ | the percentage applied as a  multiplicand to the total number of slashable offences committed by all validators during an epoch when computing the slashing amount of a penalty | `500` (5%) |
+| _history factor_ | the percentage applied as a multiplicant to the proven fault count of an individual _offending validator_ when computing the slashing amount of a penalty | `750` (7.5%) |
+| _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of an _offending validator_ when computing it's jail period | `48` (1 day at 30 mins epochs)|
+| _slashing rate precision_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` |
 
-### Autonity slashing amount calculation
+### Slashing amount calculation
 
-The slashing amount applied to a fault is computed based on the following slashing factors: base rate from fault severity, validator reputation (the validator’s proven fault count), count of offences committed in the epoch, and slashing rate precision.
+The economic cost of a stake slashing is calculated by applying  a _slashing rate_ to a validator's bonded stake to compute a _slashing amount_.
 
-- Inputs:
-  - [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) parameters, and,
-  - `base rate`: assigned the [rule severity](/concepts/accountability/#rule-severity) of the rule broken by the fault event
-  - `history`: assigned the count of proven faults committed by the offending validator
-  - `epoch offences count`: assigned the count of proven faults created by all validators in the epoch
-- `slashing rate` is computed:
-  - `base rate + epoch offences count * collusion factor + history * history factor`.
-- `slashing amount` of the fine is computed:
-  - `(slashing rate * validator bonded stake)/slashing rate precision`
-- the slashing is enforced by:
-  - the slashed amount of NTN stake token is subtracted from the validator’s bonded stake and transferred to the Autonity Protocol global `treasury` account for community funding
-  - the slashing fine is applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model
-  - the `jail period` of the validator is computed to determine the validator's jail release block number: `current block number + jail factor * history * epoch period`.
-- the validator state is updated: (a) the self-bonded and total staked amounts, (b) the slashing amount is added to the validator's `totalSlashed` amount.
+The _slashing rate_ is calculated by the formula `base rate + epoch offences count * collusion factor + history * history factor` where:
+
+- `base rate`: is determined by the [severity](/concepts/accountability/#rule-severity) of the rule infraction
+- `epoch offences count`: is the count of proven faults created by all validators in the epoch, which is used as evidence of collusion
+- `history`: is the count of proven faults committed by the offending validator since it first registered
+- `collusion factor` and `history factor`: are used to compute a percentage of individual and total validator offence counts to supplement the `base rate` and scale the slashing rate according to the individual validator history and evidence of general validator collusion in the current epoch.
+
+The _slashing amount_ is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate precision`, applying the computed _slashing rate_ as a multiplier to the validator's bonded stake amount divided by the [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) _slashing rate precision_.
+
+The slashing fine is then applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model: [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake. The validator state is updated: (a) the self-bonded and total staked amounts adjusted, (b) the slashing amount is added to the validator's `totalSlashed` counter. The slashed NTN stake token is then transferred to the Autonity Protocol global `treasury` account for community funding.
+
+### Jail period calculation
+
+Depending upon fault severity, a slashing penalty may apply validator jailing to bar the validator from committee selection for a number of blocks known as a `jail period`. The jail release block number is computed by the formula `current block number + jail factor * history * epoch period` where:
+
+- `current block number`: The block number at the time of computation (i.e. the last block of an epoch when slashing is applied).
+- `jail factor`: A multiplier measured as a number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration).
+- `history`: The number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history over time.
+- [`epoch period`](/glossary/#epoch-period): The period of time for which a consensus committee is elected. This is defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
 
 ### Penalty-Absorbing Stake (PAS) 
 
