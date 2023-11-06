@@ -148,7 +148,7 @@ In certain cases, a validator can be slashed for committing a fault in an epoch 
 
 Jailing is a protocol action that excludes a validator from selection to the consensus committee for a period of time measured in blocks.
 
-Jailing may be applied as part of a slashing penalty depending on the _severity_ of the _fault_ being _slashed_. Jailing changes a validator's state from `active` to `jailed`. Validators in a `jailed` state are debarred from [consensus committee selection](/concepts/consensus/committee/#committee-member-selection).
+Jailing may be applied as part of a slashing penalty depending on the _severity_ of the _fault_ being _slashed_. Jailing changes a validator's state from `active` to `jailed`. Validators in a `jailed` state are barred from [consensus committee selection](/concepts/consensus/committee/#committee-member-selection).
 
 The jail period is computed by `current block number + jail factor * proven fault count * epoch period` where:
 
