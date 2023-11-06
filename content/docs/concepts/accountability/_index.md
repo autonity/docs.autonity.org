@@ -327,7 +327,7 @@ There are two aspects to the economics of slashing: slashing penalties for _offe
 
 ### Slashing penalties
 
-Economic loss to validators and their delegators from penalties is multi-dimensional:
+The economic loss to validators and their delegators from slashing penalties can arise due to:
 
 - stake token: the _offending_ validator stake is slashed for the penalty amount, taken at epoch end from [self-bonded](/glossary/#self-bonded) then [delegated](/glossary/#delegated) stake according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. The amount of stake token slashed varies according to the severity of the fault committed and the slashing factors applied.
 - staking rewards: the _offending_ validator staking rewards earned if a member of the consensus committee in the epoch when the slashing penalty is applied are lost. The forfeited staking rewards are distributed to the _reporting_ validator.
