@@ -185,15 +185,14 @@ Slashing is applied as part of the state finalization function. As the last bloc
 
 Accountability protocol parameters are set by default to:
 
-
 | Protocol parameter | Description | Value |
 |:--:|:--|:--:|
 | _innocence proof submission window_ | the number of blocks within which an accused _offending validator_ can submit a proof of innocence on-chain refuting an `accusation` | `100` |
 | _base slashing rate low_ | the base slashing rate for a fault of _Low_ severity | `1000` (10%) |
 | _base slashing rate mid_ | the base slashing rate for a fault of _Mid_ severity | `2000` (20%) |
-| _collusion factor_ | the percentage applied as a  multiplicand to the total number of slashable offences committed by all validators during an epoch when computing the slashing amount of a penalty | `500` (5%) |
-| _history factor_ | the percentage applied as a multiplicant to the proven fault count of an individual _offending validator_ when computing the slashing amount of a penalty | `750` (7.5%) |
-| _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of an _offending validator_ when computing it's jail period | `48` (1 day at 30 mins epochs)|
+| _collusion factor_ | a factor that measures the number of validators committing slashable offences in the same epoch. The factor is applied as a multiplicand to the total number of slashable offences committed in the epoch when computing the slashing amount of a penalty | `500` (5%) |
+| _history factor_ | a factor that measures the number of proven faults committed by a validator since registration. The factor is applied as a multiplicand to that proven fault count when computing the slashing amount of a penalty | `750` (7.5%) |
+| _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of a validator. The factor is applied when computing the jail period of an _offending validator_ | `48` (1 day at 30 mins epochs)|
 | _slashing rate precision_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` |
 
 ### Slashing amount calculation
