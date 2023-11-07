@@ -326,22 +326,22 @@ Note that the _offending validator_ will remain in a `jailed` state even after j
 
 Slashing rewards are provided by forfeiture of an _offending validator's_ staking rewards.
 
-Slashing rewards are distributed for reporting provable faults committed by an _offending_ validator to the _reporting_ validator. Rewards are only distributed to the *last* reporter of a slashing penalty applied to an _offending_ validator in an epoch. Reward revenue is determined by the _offender's_ share of the stake active ([voting power](/glossary/#voting-power)) in the committee at the time the slashing penalty is applied.
+Slashing rewards are distributed for reporting provable faults committed by an _offending validator_ to the _reporting validator_. Rewards are only distributed to the *last* reporter of a slashing penalty applied to an _offending validator_ in an epoch. Reward revenue is determined by the offender's share of the stake active ([voting power](/glossary/#voting-power)) in the committee at the time the slashing penalty is applied.
 
-Slashing rewards earned by a _reporting_ validator are conditional on:
+Slashing rewards earned by a _reporting validator_ are conditional on:
 
-- the _offending_ validator being a member of the consensus committee in the epoch when the slashing penalty is applied
-- the _offending_ validator's share of the [voting power](/glossary/#voting-power) in the committee, as staking rewards are distributed _pro rata_ to voting power
-- the slashable offence reported by the _reporting_ validator is the last slashing penalty applied to an _offending_ validator in an epoch. If multiple slashing events are committed by the same _offending_ validator during the same epoch, then rewards are only distributed to the last _reporter_.
+- The _offending validator_ being a member of the consensus committee in the epoch when the slashing penalty is applied
+- The _offending validator's_ share of the [voting power](/glossary/#voting-power) in the committee, as staking rewards are distributed _pro rata_ to voting power
+- The slashable offence reported by the _reporting validator_ is the last slashing penalty applied to an _offending validator_ in an epoch. If multiple slashing events are committed by the same _offending validator_ during the same epoch, then rewards are only distributed to the last _reporter_.
 
-Slashing rewards are distributed to the _reporting_ validator at epoch end.
+Slashing rewards are distributed to the _reporting validator_ at epoch end.
 
 {{% alert title="Note" %}}
-The protocol distributes rewards for reporting provable faults committed by an _offending_ validator to the _reporting_ validator.
+The protocol distributes rewards for reporting provable faults committed by an _offending validator_ to the _reporting_ validator.
 
-If multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.
+If multiple slashing events are committed by the same _offending validator_ during the same epoch, then rewards are only distributed to the last reporter.
 
-If the distribution of rewards to the _reporting_ validator’s `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol `treasury` account for community funds.
+If the distribution of rewards to the _reporting validator’s_ `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol `treasury` account for community funds.
 {{% /alert %}}
 <!--
 ### Transaction fee refund
