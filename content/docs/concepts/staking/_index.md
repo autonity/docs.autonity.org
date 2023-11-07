@@ -105,7 +105,7 @@ The remaining fee revenue is then distributed to stake delegators.
 
 The _priority fee_ reward is distributed to the validator proposing the block each block.
 
-Stake delegation rewards are distributed to validator committee members at each block epoch end, at which point they become claimable by stake delegators.
+Stake delegation rewards are distributed to validator committee members at the end of each epoch. On finalization of the last block in the epoch rewards become claimable by stake delegators.
 
 ### Claiming rewards
 
