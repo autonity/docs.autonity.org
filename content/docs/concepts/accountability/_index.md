@@ -338,11 +338,11 @@ Slashing rewards earned by a _reporting validator_ are conditional on:
 Slashing rewards are distributed to the _reporting validator_ at epoch end.
 
 {{% alert title="Note" %}}
-The protocol distributes rewards for reporting provable faults committed by an _offending_ validator to the _reporting_ validator.
+The protocol distributes rewards for reporting provable faults committed by an _offending validator_ to the _reporting_ validator.
 
-If multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.
+If multiple slashing events are committed by the same _offending validator_ during the same epoch, then rewards are only distributed to the last reporter.
 
-If the distribution of rewards to the _reporting_ validator’s `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol `treasury` account for community funds.
+If the distribution of rewards to the _reporting validator’s_ `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol `treasury` account for community funds.
 {{% /alert %}}
 <!--
 ### Transaction fee refund
