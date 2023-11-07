@@ -791,35 +791,23 @@ On successful reward distribution the function emits:
 
 The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
 
-- On each block, tries to [promote accusations](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. Accusations without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous faults already committed by the validator in the current epoch.
+- On each block, tries to [promote `Accusations`](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. `Accusations` without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous fault already committed by the validator in the current epoch.
 
 {{% alert title="Note" %}}
-Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
+A validator can, of course, have more than one fault proven against it in an epoch. For example, a first fault is proven and then another fault for a higher severity is proven. Note that the protocol will only apply an accountability slashing to a validator for the fault with the highest severity committed in an epoch.
 {{% /alert %}}
 
 - On epoch end, [performs slashing tasks](/reference/api/aut/op-prot/#perform-slashing-tasks).
 
 #### promote guilty accusations
 
-For each accusation the protocol:
+`Accusations` are placed into an `accusation` queue stored in memory. For each `Accusation` in the queue, the protocol checks if the proof submission window for the `Accusation` has expired and, if so, it attempts to promote the `Accusation` into a misbehaviour fault. If a fault with a higher severity than the `Accusation` already exists for the epoch, then the `Accusation` is dropped. Otherwise, a new `FaultProof` is created from the `Accusation` and the slashing history of the validator is updated to record this as the highest severity fault committed in the epoch.
 
-- checks the proof submission window for an accusation has expired and if so then attempts to promote the accusation into a misbehaviour fault:
-- if a fault with a higher severity than the accusation for the epoch already exists, the accusation is dropped
-- else, a new fault is created from the accusation and the slashing history of the validator is updated to record the new fault severity.
+The function takes each `Accusation` proof from the accusations queue and:
 
-How it works:
-
-- Accusations are placed into the `accusation` queue stored in memory. 
-- as the function executes it takes each `Accusation` proof from the accusations queue and:
-  - checks if the sum of the block number at which the accusation was reported and the number of blocks in the proof innocence window is greater than the current block number (`_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number`):
-  <!-- - if greater than, then the `InnocenceProof` submission is considered stale and ignored, and the function continues to the next `InnocenceProof` in the queue is tested. -->
-  - if less than, accusation remains
-  - if greater than, the accusation is removed from the queue (i.e. deleted) and its fault severity is determined. The function checks the slashing history of the validator to determine if the validator already has a proven offence (i.e. a `FaultProof`) with a severity `>=` to the `Accusation`'s reported fault:
-    - if true, then the `Accusation` is skipped: a `FaultProof` with a higher severity has already been reported during the epoch
-    - if false, then:
-      - the validator's slashing history is updated to record the severity of the accusation, so the history records the highest fault severity applied to the validator during the epoch
-      - a new `FaultProof` is created for the validator and added to the slashing queue
-      - a `FaultProof` event is emitted logging the event.
+- Checks if the proof innocence window has closed. If the window is still open, the `Accusation`  remains in the queue. If the window has closed (the sum of the block number at which the `Accusation` was reported and the number of blocks in the proof innocence window is greater than the current block number (`_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number`)), then the `Accusation` is removed from the queue (i.e. deleted) to determine if the `Accusation's` should be promoted to a fault.
+- Tries to promote the `Accusation` to a fault or discards. The slashing history of the validator is checked to see if the validator already has a proven offence (i.e. a `FaultProof`) for the epoch with a severity `>=` to the `Accusation`. If true, then the `Accusation` is skipped as a `FaultProof` with a higher severity has already been reported during the epoch. If false, then the validator's slashing history is updated to record the new fault as the highest severity for the epoch. A new `FaultProof` is created for the validator and added to the slashing queue.
+- A `FaultProof` event is emitted logging the event.
 
 The reported validator will be silenced and slashed for the fault at the end of the current epoch.
 
@@ -827,35 +815,21 @@ The reported validator will be silenced and slashed for the fault at the end of 
 
 For each fault the protocol performs slashing over faulty validators at the end of an epoch.
 
-How it works:
+The function checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue, to quantify validator collusion. It then applies slashing for each fault in the slashing queue:
 
-- checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue. This serves the purpose of quantifying collusion.
-- applies slashing for each fault in the slashing queue:
-  - computes the slashing rate to apply, taking into account the number of fault offences committed in the epoch,
-  - applies slashing to the offending validator's stake,
-  - adds the reporting validators' to the array of reward beneficiaries that will receive rewards for offence reporting,
-- rewards are then distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator self-bonded and delegated stakeholders receive a share of the rewards _pro rata_ to their bonded stake amount. If the rewards transfer to the validator `treasury` account fails, then the rewards are sent to the Autonity Protocol's community `treasury` account.
+- Computes the slashing. The slashing rate and amount are computed taking into account the number of fault offences committed in the epoch by the offending validator and all validators globally. The slashing amount is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate precision`.
+- Applies the slashing penalty. Slashing is applied to the offending validator's stake, subtracting the slashing amount from the validator's bonded stake according to the protocol's [Penalty Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model ([self-bonded](/glossary/#self-bonded) stake before [delegated](/glossary/#delegated) stake)
+- Computes the jail period of the offending validator. The jail period is calculated by the formula `current block number + jail factor * proven offence fault count * epoch period`, and sets the validator's jail release block number. The validator state is set to `jailed`. 
+- Updates validator history and bonded stake amounts. The validator's proven fault counter is incremented by `1` to record the slashing occurrence in the validator's reputational slashing history. Bonded stake amounts are adjusted for the slashing amount and the slashed stake token are transferred to the Autonity Protocol global `treasury` account for community funding.
+- Updates global slashing state. The pending slashing fault queue is reset ready for the next epoch, and the reporting validator is added to the array of reward beneficiaries that will receive rewards for offence reporting
+- A `SlashingEvent` event is emitted for each validator that has been slashed.
 
-
-How it works to apply slashing for each fault in the slashing queue. The function:
-
-- adds the validator reporting the offence to the list of beneficiaries that will receive rewards for offence reporting
-- computes the slashing rate to apply based on slashing factors: base rate from fault severity, validator reputation (the validator's proven fault count), count of offences committed in the epoch, slashing rate precision.
-- computes the slashing amount to apply: `(slashing rate * validator bonded stake)/slashing rate precision`
-- computes the slashing, subtracting the slashing amount from the validator's bonded stake and transferring the fined amount of NTN stake token from the validator to the Autonity Contract Account address.
-    - the slashing fine is applied according to the protocol's Penalty Absorbing Stake (PAS) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
-- increments the validator's proven fault counter by `1` to record the slashing occurrence in the validator's reputational slashing history
-- computes the jail period of the offending validator - `current block number + jail factor * proven offence fault count * epoch period` - and sets the validator's jail release block number
-- updates the validator's state and transfers the slashed stake token funds to the Autonity Protocol global `treasury` account for community funds use
-- Emit a `SlashingEvent` event for each validator that has been slashed.
-- Resets the pending slashing task queue ready for the next epoch.
+Rewards for fault reporting are distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stakeholders receive a share of the rewards _pro rata_ to their bonded stake amount. If the rewards transfer to the validator `treasury` account fails, then the rewards are sent to the Autonity Protocol's community `treasury` account.
 
 {{% alert title="Note" %}}
-Protocol adjusts the slashing rate according to the total number of fault offences committed in an epoch across all validators.
+The protocol adjusts the slashing rate according to the total number of fault offences committed in an epoch across all validators.
 
 This mechanism applies a dynamic slashing rate mitigating collusion risk by Byzantine agents in an epoch.
-
-If the distribution of rewards to the reporting validator's `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol treasury account for community funds.
 {{% /alert %}}    
 
 #### Parameters
@@ -872,8 +846,8 @@ None.
 
 The function emits events:
 
-- on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`.
-- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`.
+- on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`
+- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`
 
 
 ###  finalize (Oracle Contract)
