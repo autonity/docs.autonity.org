@@ -407,50 +407,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-###  upgradeContract
-
-The `upgradeContract` method is used as part of the Autonity Protocol Contract upgrade process. 
-
-The method is called by the governance account (i.e. `operator`) to provide the compiled EVM bytecode and Contract ABI of the new Autonity Protocol Contract. The method appends to the contract storage buffer (i.e. fills with) the new contract bytecode and abi.
-
-The method:
-
-- assigns the argument data to protocol parameters `newContractBytecode` and `newContractAbi`
-- sets the `contractUpgradeReady` state variable to `true`. 
-
-The default value of `newContractBytecode` and  `newContractAbi` is `""` and `contractUpgradeReady` is `false` when the Autonity Protocol Contract is deployed. If the `bytecode` is not empty, then a contract upgrade is triggered automatically by protocol. The contract upgrade is then applied at epoch end in the last block's finalisation phase: if `contractUpgradeReady` = `true`, then a `completeContractUpgrade()` method is called by  protocol to update the bytecode of the Autonity Protocol Contract.
-
-The new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion`](/reference/api/aut/#getversion) method.
-
-See also the function [`getNewContract`](/reference/api/aut/#getnewcontract).
-    
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --| 
-| `_bytecode` | `bytes` | the EVM bytecode compiled from the new Autonity Protocol Contract's source Solidity. Assigned to protocol parameter `bytecode` |
-| `_abi` | `string` | the Application Binary Interface (ABI) of the new Autonity Protocol Contract as a JSON representation. Assigned to protocol parameter `contractAbi`  |
-
-#### Response
-
-The method returns a boolean flag `contractUpgradeReady`, set to `true` if an Autonity Protocol Contract upgrade is available.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
-autonity.upgradeContract(_bytecode, _abi).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_upgradeContract", "params":[_bytecode, _abi, _version]}
-{{< /tab >}}
-{{< /tabpane >}}
--->
 
 ## Protocol only
 
