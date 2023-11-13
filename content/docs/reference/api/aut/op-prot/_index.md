@@ -41,15 +41,6 @@ aut protocol burn [OPTIONS] AMOUNT ACCOUNT
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.burn(_addr, _amount).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_burn, "params":[_addr, _amount]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -61,42 +52,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.burn('0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4',1).send({from: myAddress, gas: gas})
-{
-  blockHash: '0x11d2d38328b3846c1b7df1a8873475881a4047a328e08716281b6766cd2ce618',
-  blockNumber: 6295,
-  contractAddress: null,
-  cumulativeGasUsed: 36801,
-  effectiveGasPrice: 3000000000,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 36801,
-  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xe7cf2d9a5e29f3eee71206194d65dd474a36984fd373b669f0df47e8ced9c3ed',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {
-    BurnedStake: {
-      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
-      blockNumber: 6295,
-      transactionHash: '0xe7cf2d9a5e29f3eee71206194d65dd474a36984fd373b669f0df47e8ced9c3ed',
-      transactionIndex: 0,
-      blockHash: '0x11d2d38328b3846c1b7df1a8873475881a4047a328e08716281b6766cd2ce618',
-      logIndex: 0,
-      removed: false,
-      id: 'log_5c08294b',
-      returnValues: [Result],
-      event: 'BurnedStake',
-      signature: '0x5024dbeedf0c06664c9bd7be836915730c955e936972c020683dadf11d5488a3',
-      raw: [Object]
-    }
-  }
-}
-{{< /tab >}}
--->
 
 ###  mint
 
@@ -129,15 +84,6 @@ aut protocol mint [OPTIONS] AMOUNT RECIPIENT
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.mint(_addr, _amount).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_mint", "params":[_addr, _amount]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -149,43 +95,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.mint('0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4',1).send({from: myAddress, gas: gas})
-{
-  blockHash: '0x1e7f80a9af5cfc370ff2531c3e506c5b24529ea8041f20d1af69f8eee454ecab',
-  blockNumber: 4675,
-  contractAddress: null,
-  cumulativeGasUsed: 36599,
-  effectiveGasPrice: 3000000000,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 36599,
-  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xe15f0eb1ca93ea114073dee6850823f07e874771a2feb596f73a7265dec1e3fc',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {
-    MintedStake: {
-      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
-      blockNumber: 4675,
-      transactionHash: '0xe15f0eb1ca93ea114073dee6850823f07e874771a2feb596f73a7265dec1e3fc',
-      transactionIndex: 0,
-      blockHash: '0x1e7f80a9af5cfc370ff2531c3e506c5b24529ea8041f20d1af69f8eee454ecab',
-      logIndex: 0,
-      removed: false,
-      id: 'log_4e240327',
-      returnValues: [Result],
-      event: 'MintedStake',
-      signature: '0x48490b4407bb949b708ec5f514b4167f08f4969baaf78d53b05028adf369bfcf',
-      raw: [Object]
-    }
-  }
-}
-{{< /tab >}}
--->
 
 ###  setCommitteeSize
 
@@ -211,14 +120,6 @@ aut protocol set-committee-size [OPTIONS] COMMITTEE_SIZE
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setCommitteeSize(_size).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setCommitteeSize", "params":[_size]}
-{{< /tab >}}
--->
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -230,27 +131,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setCommitteeSize(50).send({from: myAddress, gas: gas})
-{
-  blockHash: '0x56ba4e58d52a3297345c31ad437d44a4dd018f4498ffbf1fee27bf80ee03182b',
-  blockNumber: 6379,
-  contractAddress: null,
-  cumulativeGasUsed: 28941,
-  effectiveGasPrice: 3000000000,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 28941,
-  logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xf14a9ea24e7e27ea4e3453aa87aa0375dabb57743f5fa945e835552b593b6447',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {}
-}
-{{< /tab >}}
--->
 
 ###  setEpochPeriod
 
@@ -286,15 +166,6 @@ aut protocol set-epoch-period [OPTIONS] EPOCH_PERIOD
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setEpochPeriod(_period).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setEpochPeriod", "params":[_period]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -306,27 +177,7 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setEpochPeriod(1000).send({from: myAddress, gas: gas})
-{
-  blockHash: '0x97ae21f4c5622d0542501657a6d1135d71f58411021e0f6a3cb688fe522ebe2d',
-  blockNumber: 6705,
-  contractAddress: null,
-  cumulativeGasUsed: 26108,
-  effectiveGasPrice: 3000000000,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 26108,
-  logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0x223f5481d30fffef094fb66e549eb6c9f14dd228cfcd187717b527fcd4cdafcd',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {}
-}
-{{< /tab >}}
--->
+
 ###  setMinimumBaseFee
 
 Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in `attoton`. 
@@ -355,15 +206,6 @@ aut protocol set-minimum-base-fee [OPTIONS] base-fee
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setMinimumBaseFee(_price).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setMinimumBaseFee", "params":[_price]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -375,42 +217,7 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setMinimumBaseFee(50000000).send({from: myAddress, gas: gas})
-{
-  blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
-  blockNumber: 7247,
-  contractAddress: null,
-  cumulativeGasUsed: 30100,
-  effectiveGasPrice: 2500247492,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 30100,
-  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {
-    MinimumBaseFeeUpdated: {
-      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
-      blockNumber: 7247,
-      transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
-      transactionIndex: 0,
-      blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
-      logIndex: 0,
-      removed: false,
-      id: 'log_2f1e2457',
-      returnValues: [Result],
-      event: 'MinimumBaseFeeUpdated',
-      signature: '0x1f4d2fc7529047a5bd96d3229bfea127fd18b7748f13586e097c69fccd389128',
-      raw: [Object]
-    }
-  }
-}
-{{< /tab >}}
--->
+
 ###  setOperatorAccount
 
 Sets a new governance account address as the value of the `operatorAccount` protocol parameter for the Autonity Protocol Contract and Autonity Oracle Contract.
@@ -435,15 +242,6 @@ aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setOperatorAccount(_account).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setOperatorAccount", "params":[_account]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -454,12 +252,6 @@ Enter passphrase (or CTRL-d to exit):
 0xee513f48b4ad4cd24cfc5bb0fe0c1402a5e03ae030b6c73824bae253f56efd51
 {{< /tab >}}
 {{< /tabpane >}}
-
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setOperatorAccount('0x11a87b260dd85ff7189d848fd44b28cc8505fa9c').send({from: myAddress, gas: gas})
-{{< /tab >}}
--->
 
 
 ### setSymbols (Oracle Contract)
@@ -530,15 +322,6 @@ aut protocol set-treasury-account [OPTIONS] treasury-address
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setTreasuryAccount(_account).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setTreasuryAccount", "params":[_account]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -548,14 +331,8 @@ $ aut protocol set-treasury-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 |
 Enter passphrase (or CTRL-d to exit): 
 0xffe8725f6988668700896f335ecb5db75bb48c9dfb7caef90acecef85d0a2520
 {{< /tab >}}
-
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setTreasuryAccount('0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4').send({from: myAddress, gas: gas})
-{{< /tab >}}
--->
 
 ### setTreasuryFee
 
@@ -581,15 +358,6 @@ aut protocol set-treasury-fee [OPTIONS] TREASURY-FEE
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setTreasuryFee(_treasuryFee).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setTreasuryFee", "params":[_treasuryFee]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -601,11 +369,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setTreasuryFee(100000000).send({from:myAddress,gas:gas})
-{{< /tab >}}
--->
 
 ###  setUnbondingPeriod
 
@@ -633,15 +396,6 @@ aut protocol set-unbonding-period [OPTIONS] UNBONDING_PERIOD
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setUnbondingPeriod(_period)).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setUnbondingPeriod", "params":[_period]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -652,12 +406,6 @@ Enter passphrase (or CTRL-d to exit):
 0x1057bf2525ee910b393ea8d54d0ec9b362355e5dbeb14235ed5eba92750a4bdd
 {{< /tab >}}
 {{< /tabpane >}}
-
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setUnbondingPeriod(1000).send({from: myAddress, gas: gas})
-{{< /tab >}}
--->
 
 <!--
 ###  upgradeContract
@@ -687,7 +435,6 @@ See also the function [`getNewContract`](/reference/api/aut/#getnewcontract).
 #### Response
 
 The method returns a boolean flag `contractUpgradeReady`, set to `true` if an Autonity Protocol Contract upgrade is available.
-
 
 #### Event
 
@@ -748,10 +495,6 @@ Returns the amount of stake token bonded to the new consensus committee members 
 The block finalisation function, invoked each block after processing every transaction within it. The function:
 
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
-
-<!-- - adds the `amount` parameter value to the `epochReward` protocol parameter -->
-<!--     - sets `epochReward` to `0` -->
-
 - tests if the block number is the last epoch block number (equal to `lastEpochBlock + epochPeriod` config) and if so sets the `epochEnded` boolean variable to `true` or `false` accordingly
 - invokes the Accountability Contract [`finalize`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
 - then, if `epochEnded` is `true`:
