@@ -243,8 +243,8 @@ $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a8
 Delegates an amount of Newton stake token to a designated validator.
 On successful processing of the method call:
 
-- the bonded Newton amount is locked in the `msg.Sender`'s Newton account
-- a bonding object for the necessary voting power change is created and tracked in memory until applied at epoch end. At that block point, if the `msg.Sender` is a stake delegator account then Liquid Newton will be minted to the delegator for the bonded stake amount
+- The bonded Newton amount is locked in the `msg.Sender`'s Newton account.
+- A bonding object for the necessary voting power change is created and tracked in memory until applied at epoch end. At that block point, if the `msg.Sender` is a stake delegator account then Liquid Newton will be minted to the delegator for the bonded stake amount.
 
 Constraint checks:
 
