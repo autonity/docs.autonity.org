@@ -13,7 +13,7 @@ This section describes the Autonity accountability and fault detection protocol,
 
 Autonity implements an _accountability and fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behavior while participating in block proposal and voting. Failure to adhere to these rules is a _rule infraction_.
 
-Proven rule infractions are reported as _faults_ and slashing makes faults _accountable_. Faults are _detected_ by validators and submitted on chain as _accountability events_ providing proof of misbehavior. Proofs are derived from consensus messaging between validators during consensus rounds and submitted on-chain to the Accountability Contract.
+Proven rule infractions are reported as _faults_ and slashing makes faults _accountable_. Faults are _detected_ by validators and submitted on chain as _accountability events_ providing proof of misbehavior. Proofs are derived from cryptographically signed messages broadcast between committee members during Tendermint consensus rounds as validators propose, prevote, and precommit blocks (see the concept description [Consensus round and internal state](/concepts/consensus/pos/#consensus-round-and-internal-state)). The proofs are then submitted on-chain to the Accountability Contract.
 
 It is important to note that AFD runs alongside Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
 
