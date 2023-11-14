@@ -25,6 +25,7 @@ The RPC calls to configured data source might have different network protocols, 
 Oracle server is stateless and does not maintain an off-chain database. L1 price aggregation is computed by the server in memory. Price report transactions submitted to the Oracle Contract on-chain are committed to the Autonity network's ledger and persisted in world state. See also [System model](/concepts/system-model/) and the [Ledger object](/concepts/system-model/#the-ledger-object). 
 
 ### Data adaptors - plugin architecture
+
 Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
 
 The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) during runtime. Detection of new or updated plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
@@ -33,6 +34,7 @@ The oracle server scans and load plugins from the `/plugins` directory (see how 
 
 - Adding new plugins. To add an adaptor for a new data source, place the new plugin into the oracle server's `/plugins` directory. The oracle server auto-discovers and manages it. There are no other operations required from the operator.
 - Replace or upgrade running plugins. To replace a (running) data adaptor plugin with a new version, just replace the binary in the `/plugins` directory. The oracle server auto-discovers the new version by checking the modification time of the binary and manages the plugin replacement itself. There are no other operations required from the operator.
+
 
 #### Oracle data providers
 
@@ -57,12 +59,15 @@ Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch
 {{% /alert %}}
 
 #### Developing data plugins
+
 Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
 
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
 
+
 ### Oracle server lifecycle
+
 Oracle server lifecycle management is an adjunct of validator operations and comprises software installation and the configuration and (optionally) development of adaptors for data to data sources for currency pair price data.
 
 The sequence of lifecycle events for an oracle server is:
@@ -73,6 +78,7 @@ The sequence of lifecycle events for an oracle server is:
 3. Selection to consensus committee. Assuming stake bonded to validator and if selected to the consensus committee, the validator (a) participates in block validation, (b) participates in oracle voting rounds by oracle server submitting oracle vote transactions to the oracle contract with cryptographic commits and reveals of price report submissions.
 4. Runtime plugin management. The validator operator manages and updates data source plugins in accordance with currency pair changes and own operational requirements.
 
+
 ### Interfaces
 
 The oracle server provides interfaces for:
@@ -82,6 +88,7 @@ The oracle server provides interfaces for:
 
 The oracle server scans and load plugins from the plugin directory during runtime. Detection of new or changed plugins is dynamic;
 no shutdown of the oracle client is required to detect and apply the change.
+
 <!--
 TODO
 - RPC calls from the Autonity Utility Tool `aut`. `aut` provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.

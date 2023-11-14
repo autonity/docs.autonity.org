@@ -40,7 +40,7 @@ docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name a
 where:
 
   - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
-  - `<ORACLE_KEY_PATH>`: is the path to the private key file of the oracle server key. (For creating this key How to [Run Autonity Oracle Server](/oracle/run-oracle/).)
+  - `<ORACLE_KEY_PATH>`: is the path to the private key file of the oracle server key. (For creating this key see How to [Run Autonity Oracle Server](/oracle/run-oracle/).)
   - `<TREASURY_ACCOUNT_ADDRESS>`: is the account address you will use to operate the validator and receive commission revenue rewards to (i.e. the address you are using to submit the registration transaction from the local machine).
 
 You should see something like this:
@@ -110,35 +110,17 @@ Make a note of this identifier.
 ### Step 3. Submit the registration transaction
 
 {{< alert title="Important Note" >}}
-The `aut validator register` command does not currently support registering a validator with oracle.
-
-This step illustrates using the Autonity Contract’s generated ABI and the `aut` tool’s `contract tx` command to call the Autonity Contract address `0xBd770416a3345F91E4B34576cb804a576fa48EB1`. See `aut contract tx --help`.
-
-Commands assumes the path to the ABI file has been set in `aut`’s configuration file `.autrc`. The `Autonity.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/Autonity.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
-
-The commands given in this step assume that your `.autrc` configuration file specifies:
-
-- `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.
-- `contract_abi' = <path>` entry pointing to the `Autonity.abi` file.
-{{< /alert >}}
-
-```bash
-aut contract tx --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 registerValidator <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -
-```
-<!--
-{{< alert title="Important Note" >}}
 The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator register` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
 {{< /alert >}}
 
 ```bash
-aut validator register <ENODE_URL> `<ORACLE_ADDRESS>` <PROOF> | aut tx sign - | aut tx send -
+aut validator register <ENODE> <ORACLE> <PROOF> | aut tx sign - | aut tx send -
 ```
--->
 
 where:
 
-- `<ENODE_URL>`: the enode url returned in Step 2.
-- `<ORACLE_ADDRESS>`: the oracle server account address.
+- `<ENODE>`: the enode url returned in Step 2.
+- `<ORACLE>`: the oracle server account address.
 - `<PROOF>`: the proof of node ownership generated in Step 1.
 
 Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/concepts/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.

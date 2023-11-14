@@ -1,6 +1,7 @@
 ---
 title: "Oracle Contract Interface"
 linkTitle: "Oracle Contract Interface"
+weight: 30
 
 description: >
   Autonity Oracle Contract functions
@@ -31,7 +32,6 @@ The precision is the multiplier applied to price data points before aggregation 
 For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the on-chain aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
 
 {{< /card >}}
-
 
 ### Parameters
 
@@ -117,7 +117,6 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
 {{< /alert >}}
 
-
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -130,8 +129,8 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundD
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "BTCUSD"
-{"round": 1809, "price": 272694800000, "timestamp": 1684418293, "status": 0}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "SEK-USD"
+{"round": 1809, "price": 899334, "timestamp": 1694668219, "status": 0}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -157,7 +156,6 @@ None.
 | --| --| --|
 | `symbols` | `string` array | a comma-separated list of the currency pair symbols for which price reports are generated |
 
-
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -170,8 +168,8 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbol
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbols               
-["NTN/USD", "NTN/AUD", "NTN/CAD", "NTN/EUR", "NTN/GBP", "NTN/JPY", "NTN/SEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbols
+["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD"]
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -205,7 +203,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePe
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
-60
+30
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -225,7 +223,6 @@ None.
 | Field | Datatype | Description |
 | --| --| --|
 | `address` | `address` array | a comma-separated list of the oracle addresses for the current Oracle Voter set |
-
 
 ### Usage
 
@@ -280,15 +277,7 @@ This can easily be converted to a human-readable form, for example:
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "BTCUSD"
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "BTCUSD"
-{"round": 1809, "price": 272694800000, "timestamp": 1684418293, "status": 0}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK/USD"
+{"round": 47631, "price": 963459, "timestamp": 1688390007, "status": 0}
 {{< /tab >}}
 {{< /tabpane >}}

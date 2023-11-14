@@ -85,7 +85,7 @@ Autonity implements Tendermint BFT consensus, an asynchronous consensus protocol
 Data committed to state by arguments to a smart contract deployed on the blockchain. 'calldata' is accessed by the Solidity `.call()` function. Calldata is non-executable - it is [state](/glossary/#system-state) not [smart contract](/glossary/#smart-contract) [bytecode](/glossary/#bytecode).
 
 ## consensus
-The computational process by which [system state](/glossary/#system-state) is agreed and replicated by [validator](/glossary/#validator) nodes in a distributed system. Autonity implements a Proof of Stake based [consensus algorithm](/glossary/#consensus-algorithm).
+The computational process by which [system state](/glossary/#system-state) is agreed and replicated by [validator](/glossary/#validator) nodes in a distributed system. Autonity implements a [Proof of Stake (PoS)](/glossary/#proof-of-stake-pos) based [consensus algorithm](/glossary/#consensus-algorithm).
 
 ## consensus algorithm
 An algorithm used by distributed systems to ensure that peer nodes have consistent state with resilience to computer network or Byzantine behaviour. See [Byzantine-fault tolerance](/glossary/#byzantine-fault-tolerance-bft).
@@ -93,7 +93,7 @@ An algorithm used by distributed systems to ensure that peer nodes have consiste
 ## consensus committee
 The set of [validator](/glossary/#validator) nodes participating in the consensus protocol for a [block](/glossary/#block) [epoch period](/glossary/#epoch-period). The committee is responsible for proposing new blocks, voting on block proposals to affirm the validity of proposed blocks and decide if committed to state, and notifying new blocks to peer nodes to replicate the new state.
 
-A new consensus committee is selected at every block epoch in an autonomous process executed by the Autonity Protocol. The selection algorithm ranks registered validators according to the amount of their bonded stake, selecting those with the highest stake to fill the available committee member slots. Ranking by stake serves to maximise the amount of stake securing the network in an epoch.
+A new consensus committee is selected at every block epoch in an autonomous process executed by Autonity's [Proof of Stake (PoS)](/glossary/#proof-of-stake-pos) consensus protocol. The selection algorithm ranks registered validators according to the amount of their bonded stake, selecting those with the highest stake to fill the available committee member slots. Ranking by stake serves to maximise the amount of stake securing the network in an epoch.
 
 ## cryptocurrency
 A digital currency that provides a medium of exchange in a decentralised computer network. The record of transactions in the crypto(graphic) currency is verified and recorded in the network’s distributed ledger using cryptography.
@@ -109,11 +109,18 @@ An off-chain data feed service that provides data to a [blockchain](/glossary/#b
 ## decentralised application (dApp)
 A software application deployed on to a blockchain p2p network. A dApp interacts with one or more smart contracts and is typically a combination of those contract(s) and a frontend for using that contract. The frontend graphical user interface (GUI) is typically built out using JavaScript, HTML, CSS technologies. User interactions with a dApp are by transactions and calls submitted to a network [peer](/glossary/#peer)'s JSON RPC API using the web3.js library. Interactions may be mediated by a user via a GUI or application-level interactions.
 
-## delegate
+## delegation
 The process of bonding stake token to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder).
 
+See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, and [delegation rate](/glossary/#delegation-rate).
+
+## delegated
+Stake token bonded to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder). Delegated stake earns [staking rewards](/glossary/#staking-rewards) and the staker is minted [Liquid Newton](/glossary/#liquid-newton) for the [Newton](/glossary/#newton) stake token  bonded. The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) can be any network account *except* the validator `treasury` account.
+
+Stake delegation transactions submitted from the validator `treasury` account result in [self-bonded](/glossary/#self-bonded) stake.
+
 ## delegation rate
-The percentage commission of earned [staking rewards](/glossary/#staking-rewards) that a [validator](/glossary/#validator) charges as a commission on [delegated](/glossary/#delegate) stake.
+The percentage commission of earned [staking rewards](/glossary/#staking-rewards) that a [validator](/glossary/#validator) charges as a commission on [delegated](/glossary/#delegation) stake.
 
 ## enode
 The unique identifier of a node in the form of a URI. It provides the network address of a node on an Autonity network, giving the  network location of the node client for p2p networking.
@@ -145,11 +152,17 @@ The JSON-formatted genesis configuration file that contains the data necessary t
 ## incentivisation scheme
 A cryptoeconomic mechanism where economic penalties are applied for incorrect actions or state transitions by network participants, enforced by cryptographic proofs of state or action.
 
+## jailing
+A protocol action that excludes a validator from selection to the [consensus committee](/glossary/#consensus-committee) for a designated period of time as a [slashing penalty](/glossary/#slashing-penalty). See [jail period](/glossary#jail-period).
+
+## jail period
+The period of time for which a validator is debarred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
+
 ## key pair
 A pair of public and private cryptography keys used for signing and encryption. The private key is used to produce signatures that are publicly verifiable using the public key. The public key may also be used to encrypt messages intended for the private key holder who can decrypt them using the private key.
 
 ## Liquid Newton
-The liquid token representing [Newton](/glossary/#newton) stake token  bonded (i.e. [delegated](/glossary/#delegate)) to a validator in an Autonity Network. Unlike bonded Newton, Liquid Newton is transferrable and the holder receives due staking rewards. See also  [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/).
+The liquid token representing [Newton](/glossary/#newton) stake token  [bonded](/glossary/#bond) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Unlike bonded [Newton](/glossary/#newton), Liquid Newton is transferrable and the holder receives due staking rewards. See also [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/).
 
 ## liquid staking
 A staking model in which funds staked to a Proof of Stake network have a liquid representation of staked assets in the form of a token. For Autonity's liquid staking model see [Staking, Liquid staking](/concepts/staking/#liquid-staking).
@@ -168,7 +181,7 @@ A cryptocurrency that is inherent to a decentralised computer network.
 Autonity tokenomics have the native coin [Auton](/glossary/#auton) and ERC20 tokens [Newton](/glossary/#newton) and [Liquid Newton](/glossary/#liquid-newton).
 
 ## Newton
-The stake token used to stake an [Autonity network](/glossary/#autonity-network). Once staked Newton is staked it is locked and only redeemable by [unbonding](/glossary/#unbond) after an [unbonding period](/glossary/#unbonding-period). Newton can be in three states (bonded, unbonded, unbonding) as described in [Protocol assets, Newton](/concepts/protocol-assets/newton/).
+The stake token used to stake an [Autonity network](/glossary/#autonity-network). Once Newton is staked it is locked and only redeemable by [unbonding](/glossary/#unbond) after an [unbonding period](/glossary/#unbonding-period). Newton can be in three states (bonded, unbonded, unbonding) as described in [Protocol assets, Newton](/concepts/protocol-assets/newton/). See [Proof of Stake (PoS)](/glossary/#proof-of-stake-pos). 
 
 ## node
 A participant running the Autonity Go Client software and able to connect to an Autonity network. See [peer](/glossary/#peer) [mesh network](/glossary/#mesh-network), [peer-to-peer network](/glossary/#peer-to-peer-network-p2p).
@@ -190,23 +203,46 @@ A [node](/glossary/#node) which is currently connected to other nodes in a [peer
 ## peer-to-peer network (p2p)
 A distributed systems architecture in which the systems' resources are pooled and shared across nodes that are peers of the network.
 
+## Penalty-Absorbing Stake (PAS)
+A stake [slashing](/glossary/#slashing) model whereby [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.
+
+In the PAS model self-bonded stake absorbs any slashing penalties before they are applied pro-rata to the remaining delegated stake.
+
 ## permissionless network
 A peer-to-peer network where access is open and public. Any node can connect to the network and become a [peer](/glossary/#peer).
 
+## Proof of Stake (PoS)
+A [consensus algorithm](/glossary/#consensus-algorithm) where the blockchain is secured by economic value through [bonding](/glossary/#bond) [stake token](/glossary/#stake-token) to [validators](/glossary/#validator). [Consensus committee](/glossary/#consensus-committee) members are chosen by a [selection mechanism](/concepts/consensus/committee/#committee-member-selection) that maximises the amount of stake backing the committee and so the economic value securing the network.
+
+If the protocol determines that a validator has failed to follow consensus rules, [slashing penalties](/glossary/#slashing-penalty) are applied according to Autonity's [accountability and fault detection protocol](/concepts/accountability/). 
+
 ## self-bonded
-Stake token bonded to a [validator](/glossary/#validator) where the validator is the [stakeholder](/glossary/#stakeholder).
+Stake token bonded to a [validator](/glossary/#validator) where the validator is the [stakeholder](/glossary/#stakeholder). The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) is the validator `treasury` account.
+
+Self-bonded stake earns [staking rewards](/glossary/#staking-rewards), but unlike [delegated](/glossary/#delegated) stake does not have [Liquid Newton](/glossary/#liquid-newton) minted for the [Newton](/glossary/#newton) stake token bonded. 
+
+## slashing
+A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
+
+## slashing penalty
+An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: stake [slashing](/glossary/#slashing), stake freezing, [jailing](/glossary/#jailing).
 
 ## smart contract
 The program code for encoding and executing decentralised application logic in the [EVM](/glossary/#ethereum-virtual-machine-evm). Smart contracts are written in a higher level programming language such as 'Solidity' and compiled to [bytecode](/glossary/#bytecode) for execution in the EVM. A smart contract stores the application's state.
 
+## stake token
+The token used as economic value to secure a blockchain in [Proof of Stake (PoS)](/glossary/#proof-of-stake-pos) consensus.
+
+Autonity's stake token is [Newton](/glossary/#newton).
+    
 ## stakeholder
 A network participant that holds an amount of the [Newton](/glossary/#newton) stake token.
 
 ## staking
-The process by which stake is delegated to a validator node in a Proof of Stake (PoS) blockchain. Validators with bonded stake participate in transaction validation if a member of the consensus committee. Stake can be [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegate).
+The process by which stake is delegated to a validator node in a Proof of Stake (PoS) blockchain. Validators with bonded stake participate in transaction validation if a member of the consensus committee. Stake can be [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegated).
 
 ## staking rewards
-Revenue earned by bonded stake when it is actively securing the network during consensus. Only stake bonded to members of the current consensus committee earns staking rewards.
+Revenue earned for stake [delegation](/glossary/#delegation) by bonded stake actively securing the network during consensus. Only stake delegated to members of the current consensus committee earns staking rewards.
 
 ## staking wallet account
 The [account](/glossary/#account) used by a [stakeholder](/glossary/#stakeholder) for stake delegation. This is the account address used to submit transactions for operations to:
@@ -217,12 +253,6 @@ The [account](/glossary/#account) used by a [stakeholder](/glossary/#stakeholder
 
 ## state database
 The local data store of a node used to persist the node’s local copy of [system state](/glossary/#system-state).
-
-## slashing
-A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
-
-## slashing penalty
-An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: slashing, freezing stake.
 
 ## system state
 The computational state of an Autonity system. State is  computed according to the [Autonity Protocol](/glossary/#autonity-protocol). System state is stored as key-value pairs, mapping between account [addresses](/glossary/#address) and [account states](/glossary#account-state) in Ethereum's modified Merkle Patricia trie data structure (See [Merkle Patricia Tree, Ethereum Developer docs <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/)).
@@ -248,14 +278,14 @@ A [participant](/glossary/#participant) [node](/glossary/#node) that has registe
 
 ## voting period
 
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [round](/glossary/#voting-round).
+The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [voting round](/glossary/#voting-round).
+
+## voting power
+The amount of stake [delegated](/glossary/#delegate) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
 
 ## voting round
 
 An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
-
-## voting power
-The amount of stake [delegated](/glossary/#delegate) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
 
 ## wallet
 A software application that provides functionality for a system user to access and manage their [accounts](/glossary/#account).

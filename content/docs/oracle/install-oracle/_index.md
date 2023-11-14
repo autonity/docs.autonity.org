@@ -234,7 +234,6 @@ For how to do this, see [Developing data plugins](/concepts/oracle-network/#deve
 You can now [configure and launch the oracle server](/oracle/run-oracle/#run-binary).
 {{% /pageinfo %}}
 
-
 ------------------------------------------------
 
 If you need help, you can chat to us on Autonity [Discord Server](https://discord.gg/autonity)!

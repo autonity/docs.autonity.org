@@ -2,11 +2,9 @@
 ---
 title: "Codebase "
 linkTitle: "Codebase"
-
 description: >
   Golang documentation of the codebase 
 ---
-
 
 Autonity is a fork of Geth.
 

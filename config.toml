@@ -37,6 +37,9 @@ navbar_logo = true
     [markup.goldmark.renderer]
       unsafe = true
 
+  [markup.tableOfContents]
+    endLevel = 4
+    
 [params.plausible]
   enable = true  # Whether to enable plausible tracking
   domain = "docs.autonity.org"  # Plausible "domain" name/id in your dashboard

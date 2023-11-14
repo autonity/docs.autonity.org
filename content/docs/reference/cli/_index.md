@@ -2,11 +2,9 @@
 ---
 title: "Autonity Command-line"
 linkTitle: "Autonity Command-line"
-
 description: >
   Command-line options and facilities of the Autonity Go Client and Oracle Server
 ---
-
 
 ## Command-line facilities
 

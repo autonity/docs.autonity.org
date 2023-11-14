@@ -113,7 +113,6 @@ To exemplify oracle frequency of new median price data publication from genesis 
 If an oracle fails to vote in a round, or the reveal does not match the past commit, then the oracle voter is recorded as submitting an invalid price for the round.
 {{% /alert %}}
 
-
 ### Currency pair management
 
 The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see [`config.autonity.oracle`](/reference/genesis/#configautonityoracle-object) object.
@@ -140,7 +139,6 @@ Primary consumers of oracle data are:
 - Auton Stabilisation Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
 
-
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
 
@@ -155,7 +153,3 @@ The validator is registered and eligible for selection to the consensus committe
 {{% alert title="Note" %}}
 Note that oracle vote transactions are limited to 1 each Round. This prevents the refund funding a spam attack vector in a Byzantine behaviour scenario. Once 1 vote transaction from an oracle account has been successfully processed, any further vote transactions from that oracle account during the round are reverted.
 {{% /alert %}}
-
-
-
-
