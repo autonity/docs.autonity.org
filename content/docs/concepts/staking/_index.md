@@ -27,14 +27,14 @@ Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penal
 
 Autonity implements a liquid staking model, bringing benefits of:
 
-- Capital efficiency: rewards from staking combined with the liquidity benefits of bonded stake that is transferable.
-- Composability: liquid stake tokens can be used in other protocols (e.g., as collateral).
+- Capital efficiency: rewards from staking combined with the liquidity benefits of bonded stake that is transferable
+- Composability: liquid stake tokens can be used in other protocols (e.g., as collateral)
 
 ### Liquid Newton
 
 Liquid Newton is minted for [delegated](/glossary/#delegated) Newton stake bonded to a validator. On registration each validator has an ERC20 Liquid Newton contract created and deployed autonomously by the Autonity Protocol Contract (which maintains a registry of all Liquid Newton token contracts deployed).
 
-It is important to note that stake bonded by the validator operator to its own validator - [self-bonded](/glossary/#self-bonded) stake - does _not_ result in minting of Liquid Newton. This is because of the [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model.
+It is important to note that stake bonded by the validator operator to its own validator - [self-bonded](/glossary/#self-bonded) stake - does _not_ result in minting of Liquid Newton. This is part of Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model.
 
 Liquid Newton is validator-specific because there is a separate ERC20 token for each registered validator. Liquid Newton for a given validator is fungible, but Liquid Newton tokens of different validators are _not_ fungible with each other.
 
@@ -43,9 +43,9 @@ When [delegated](/glossary/#delegated) stake is bonded to a validator, Liquid Ne
 As consequence, the Liquid Newton minted is subject to any accountability and omissions penalties applied to the validator resulting in a stake slashing event:
 
 - If at the time of bonding a validator's [delegated](/glossary/#delegated) stake amount _has not_ been reduced by a stake slashing event, then Liquid Newton is minted `1:1` for the [delegated](/glossary/#delegated) Newton staked.
-- However, if the validator's existing [delegated](/glossary/#delegated) stake amount is less than the supply of issued Liquid Newton, then Liquid Newton is minted in proportion to the validator's [delegated](/glossary/#delegated) stake remaining, resulting in a `>1:1` issuance of Liquid Newton for Newton staked
+- However, if the validator's existing [delegated](/glossary/#delegated) stake amount is less than the supply of issued Liquid Newton, then Liquid Newton is minted in proportion to the validator's [delegated](/glossary/#delegated) stake remaining, resulting in a `>1:1` issuance of Liquid Newton for Newton staked.
 
-This tokenomic mechanism ensures that a validator's Liquid Newton tokens remain fungible as they are issued over time: the amount of Liquid Newton issued on bonding has value matching that of the Newton being bonded.
+This tokenomic mechanism ensures that a validator's Liquid Newton tokens remain fungible as they are issued over time: the amount of Liquid Newton issued on bonding has a value matching that of the Newton being bonded.
 
 The Liquid Newton has staking reward entitlement rights, is freely transferable, and represents the Liquid Newton holder's share of the total stake bonded to the validator (i.e. the holder's share of the validator's Liquid Newton pool).
 
@@ -56,37 +56,31 @@ For example, if a validator had suffered a slashing penalty equivalent to 1% of 
 
 ### Fundamental operations
 
-Liquid Newton has fundamental operations for:
+Liquid Newton has fundamental operations to _transfer ownership_ and _redeem_ for Newton stake token.
 
-- Transfer: the holder can transfer ownership by sending to another network participant.
-  - Upon receipt of liquid newton the holder becomes a delegator to the associated validator, and has a claim to some staked newton.
-- Redemption by unbonding: the holder can unbond stake from a validator and redeem for Newton stake token at any time subject to the unbonding period set for the chain. On unbonding:
-  - Liquid Newton is burned for [delegated](/glossary/#delegated) stake unbonding
-  - the bonded stake remains locked for the duration of an [unbonding period](/glossary/#unbonding-period) during which it is not transferrable and remains subject to any [slashing penalties](/glossary/#slashing-penalty) applied to the validator in that period. 
-  
-Stake redemption takes place at the end of the epoch in which the unbonding period falls. At this point the validator's stake pool is reduced by the unbonded amount and Newton is returned to the staker.
+The Liquid Newton holder can transfer ownership of the token by sending to another network participant using the Liquid Newton contract's ERC20 `transfer()` function. Upon receipt of Liquid Newton the holder becomes a delegator to the associated validator and has a claim to staked Newton.
 
+Redemption of Liquid Newton for Newton stake token is by unbonding. The Liquid Newton holder can unbond stake from a validator and redeem Newton at any time subject to the unbonding period set for the chain. On unbonding the bonded stake remains locked for the duration of an [unbonding period](/glossary/#unbonding-period) during which it is not transferrable and remains subject to any [slashing penalties](/glossary/#slashing-penalty) applied to the validator in that period. Stake redemption takes place at the end of the epoch in which the unbonding period falls. At this point the validator's stake pool is reduced by the unbonded amount and Newton is returned to the staker.
+ 
 {{% alert title="Note" %}}It's important to note that Liquid Newton is validator-specific and as such is not 1:1 fungible with Liquid Newton bonded to a different validator. A validator may or may not have had [slashing penalties](/glossary/#slashing-penalty) applied and the redemption value of Liquid Newton may vary across validators according to their fault slashing history.{{% /alert %}}
 
 ### Transferring Liquid Newton
 
-For details on how to transfer Liquid Newton from a stake delegation to another account, see:
-
-- How to [Transfer Liquid Newton](/delegators/transfer-lntn/).
+For how to transfer Liquid Newton from a stake delegation to another account see the guide [Transfer Liquid Newton](/delegators/transfer-lntn/).
 
 ## Penalty-Absorbing Stake (PAS)
 
-Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absorbing-stake-pas) model where validator [self-bonded](/glossary/#self-bonded) stake is slashed in priority to [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.
+Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absorbing-stake-pas) model where a validator's [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.
 
 Slashing priority is simply:
 
-- [self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted. If the validator has unbonding stake, then the unbonding stake is slashed first before bonded stake.
-- [delegated](/glossary/#delegated) stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available. If the delegator has unbonding stake, then the unbonding stake and bonded stake are slashed _pro rata_ with equal priority.
+- [Self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted. If the validator has unbonding stake, then the unbonding stake is slashed before bonded stake.
+- [Delegated](/glossary/#delegated) stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available. If the delegator has unbonding stake, then the unbonding stake and bonded stake are slashed _pro rata_ with equal priority.
 
-In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator liquid newton has a uniform risk profile.
+In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator Liquid Newton has a uniform risk profile.
 
 {{% alert title="Note" %}}
-Self-bonding stake by a validator puts "skin in the game" and is a public commitment to the operational integrity of a validator node by a validator operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
+By self-bonding stake, a validator puts "skin in the game" because this constitutes a public commitment to the operational integrity of the validator node by its operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
 {{% /alert %}}
 
 ## Staking rewards
@@ -97,21 +91,21 @@ Staking rewards are a distribution of fee revenue entitlement to all holders of 
 For more detail on EIP 1559 and the distinction between _base fee_ and _priority fee_, see [Transaction fees](/concepts/system-model/#transaction-fees) in the System model.
 {{% /alert %}}
 
-Staking rewards are collected by protocol and accumulate in a protocol account as blocks are processed throughout a block epoch. The fees are out of circulation until epoch end, at which point the protocol distributes them to validator committee members. Rewards are then distributed to validator self-bonded and delegated stake holders _pro rata_ to their share of the validator's total bonded stake. After this distribution, the rewards become _claimable_ by stake delegators. Delegators then [claim rewards](/concepts/staking/#claiming-rewards) in a "pull" model, at the frequency they choose. 
+Staking rewards are collected by the protocol and accumulate in a protocol account as blocks are processed throughout a block epoch. The fees are out of circulation until epoch end, at which point the protocol distributes them to validator committee members. Rewards are then distributed to validator self-bonded and delegated stake holders _pro rata_ to their share of the validator's total bonded stake. After this distribution, the rewards become _claimable_ by stake delegators. Delegators then [claim rewards](/concepts/staking/#claiming-rewards) in a "pull" model, at the frequency they choose. 
 
 As rewards are distributed, due fees are deducted from fee revenue by the protocol:
 
 - Protocol treasury fee. A percentage of staking rewards is deducted for community funding. The fee goes to the Autonity Treasury account (See below), sent at epoch end when the epoch rewards are distributed to committee validators. The percentage value is set at genesis.  See `treasuryFee` parameter of the `config.autonity` object in the [Protocol](/reference/protocol#configautonity-object) section.
 
-- Validator commission fees. The percentage commission rate charged by a validator to stakers delegating to the validator; essentially, the validator's service fee for providing a staking service to delegators. The fee is deducted from the validator's portion of the fee revenue before staking rewards are apportioned to the stake delegators _pro rata_ to their share of bonded stake. The percentage value is set at validator registration. See `delegationRate` parameter of the `config.autonity` object in the [Protocol](/reference/protocol#configautonity-object) section.
+- Validator commission fees. The percentage commission rate charged by a validator to stakers delegating to the validator; essentially, the validator's service fee for providing a staking service to delegators. The fee is deducted from the validator's portion of the fee revenue before staking rewards are apportioned to the stake delegators _pro rata_ to their share of bonded stake. The percentage value is set at validator registration. See the `delegationRate` parameter of the `config.autonity` object in the [Protocol](/reference/protocol#configautonity-object) section.
 
 The remaining fee revenue is then distributed to stake delegators. 
 
 ### Reward distribution
 
-The _priority fee_ reward is distributed to the validator proposing the block each block.
+The _priority fee_ reward is distributed to the validator proposing a block when the block is finalized.
 
-Stake delegation rewards are distributed to validator committee members at each block epoch end, at which point they become claimable by stake delegators.
+Stake delegation rewards are distributed to validator committee members at the end of each epoch. On finalization of the last block in the epoch rewards become claimable by stake delegators.
 
 ### Claiming rewards
 
@@ -127,10 +121,12 @@ The protocol makes use of different accounts for fee revenue collection and dist
 
 ### Staker account
 
-The `account` address submitting a bond or unbonding request. A staker can bond stake across as many validators as it chooses. The `msg.sender` address of the request is (a) the account that receives the staker's due share of staking reward entitlements, and (b) determines if the stake is [delegated](/glossary/#delegated) or [self-bonded](/glossary/#self-bonded):
+The `account` address submitting a bond or unbonding request. A staker can bond stake across as many validators as it chooses. The `msg.sender` address of the request is the account that receives the staker's due share of staking reward entitlements, and determines if the stake is [delegated](/glossary/#delegated) or [self-bonded](/glossary/#self-bonded):
 
-- [delegated](/glossary/#delegated): `msg.sender` = any network [account](/glossary/#account) _except_ the validator `treasury` account
-- [self-bonded](/glossary/#self-bonded): `msg.sender` = [validator `treasury` account](/concepts/staking/#validator-treasury-account)
+| Stake Delegation Type | Sending Address |
+|:--|:--|
+| [delegated](/glossary/#delegated) | `msg.sender` can be any network [account](/glossary/#account) _except_ the validator `treasury` account |
+| [self-bonded](/glossary/#self-bonded) | `msg.sender` is a [validator `treasury` account](/concepts/staking/#validator-treasury-account) |
 
 ### Validator treasury account
 
@@ -138,11 +134,10 @@ The validator operator's account address. The `treasury` is used as the account:
 
 - Identifying the validator operator entity itself.
 - For submitting transactions to protocol contracts to register and operate the validator's [node](/concepts/client/) and [oracle server](/concepts/oracle-server/).
-- The `treasury` account for:
-  - Receiving [staking rewards](/concepts/staking/#staking-rewards) from the protocol's reward distribution mechanism for distribution to the validator's stake delegators.
-  - Receiving [slashing rewards](/concepts/accountability/#slashing-rewards) distributed by the [accountability and fault detection protocol](/concepts/accountability/) for reporting provable faults committed by an offending validator failing to follow consensus rules.
+- Receiving [staking rewards](/concepts/staking/#staking-rewards) from the protocol's reward distribution mechanism for distribution to the validator's stake delegators.
+- Receiving [slashing rewards](/concepts/accountability/#slashing-rewards) distributed by the [accountability and fault detection protocol](/concepts/accountability/) for reporting provable faults committed by an offending validator failing to follow consensus rules.
 
-See `treasury` parameter of the `config.autonity.validators` object in the [Protocol](/reference/protocol#configautonityvalidators-object) parameter reference.
+See the `treasury` parameter of the `config.autonity.validators` object in the [Protocol](/reference/protocol#configautonityvalidators-object) parameter reference.
 
 ### Autonity treasury account
 
@@ -230,7 +225,7 @@ See [Bonding](/concepts/staking/#bonding) above.
 
 Stake is unbonded from a validator through an unbonding operation. Unbonding is subject to an [unbonding period](/concepts/staking/#unbondingperiod) during which it remains locked. The unbonding period applies irrespective of whether the nominated validator is a member of the consensus committee or not. 
 
-Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalised. On processing the transaction the bonded stake token moves from `bonded` to the intermediate state of `unbonding`. The stake is still locked during the unbonding period. The unbonding request is captured and tracked in memory and the staking transition is applied at the end of the epoch in which the unbonding period expires: unbonding is applied, reducing the validator’s bonded stake amount and so applying the voting power change to the validator.
+Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalised. On processing the transaction the bonded stake token moves from `bonded` to the intermediate state of `unbonding` and is locked during the unbonding period. If the unbonding is for [delegated](/glossary/#delegated) stake, then the associated Liquid Newton is burned so that it is no longer transferable. The unbonding request is captured and tracked in memory and the staking transition is applied at the end of the epoch in which the unbonding period expires: unbonding is applied, reducing the validator’s bonded stake amount and so applying the voting power change to the validator.
 
 {{< alert title="Example" >}}
 Alice sends an `unbond()` tx at time `T`, a block in an epoch. Liquid Newton is burned at `T` and unbonding begins in the next block, `T+1`. The unbonding request is tracked in memory for application at the end of the epoch in which the unbonding period falls. At this point, the validator's bonded stake is reduced and Newton is unlocked and redeemed to Alice. Actual unbonding is then executed at `T+1` + `unbondingPeriod` + remainder of the epoch in which the `unbondingPeriod` expires.

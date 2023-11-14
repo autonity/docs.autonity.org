@@ -29,11 +29,12 @@ Autonity extends Ethereum at three logical layers:
 - Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
 - Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
 
-## Application layer: protocol contracts
+## Protocol contracts
 
 The Autonity Protocol Contracts are deployed by the node when it is initialised and run for the first time.
 
-### Protocol contract account addresses
+### Protocol contract addresses
+
 The protocol contract account addresses are computed at contract creation according to the standard Ethereum protocol rules for contract account creation when deploying a contract: a function of the [deployer](/reference/api/aut/#deployer) address, and the count of transactions sent from that account: the account `nonce`.
 
 These values are constant and predictable:
@@ -42,7 +43,6 @@ These values are constant and predictable:
 - the account nonce increments  by `1` linear to the order of deployment, beginning at `0`.
 
 Consequently, the Autonity Protocol Contract addresses for a network are deterministic and will always be the same.
-
 
 The order of deployment and computed addresses is:
 
@@ -54,7 +54,6 @@ The order of deployment and computed addresses is:
 | `3` | ACU Contract | `0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA` |
 | `4` | Supply Control Contract | `0x47c5e40890bcE4a473A49D7501808b9633F29782` |
 | `5` | Stabilization Contract | `0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f` |
-
 
 ### Autonity Protocol Contract
 The contract implementing much of the Autonity protocol extensions, including primitives for governance, staking, validators, consensus committee selection, and staking reward distribution.
@@ -92,7 +91,7 @@ The Autonity Protocol Contract manages state finalization, maintaining [system s
   - applying [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
   - applying pending [validator commission rate changes](/concepts/validator/#validator-commission-rate-change)
   - [selecting of a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
-  - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection).
+  - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection)
 - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) for the [computation of median price data](/concepts/architecture/#median-price-computation) at the end of an oracle voting round.
 
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
@@ -160,15 +159,13 @@ Function calls to compute accountability each block and apply slashing penalties
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/accountability/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
-
 #### Accountability event handling
 The Autonity Accountability Contract implements logic for handling accountability events submitted by committee members on-chain:
 
-- Accusations and proofs of innocence:
-  - accusations of misbehaviour to a committee member failing to follow consensus rules correctly.
-  - proofs of innocence submitted in defence against accusations. They must be presented within the constraints of a innocence window measured in blocks to be valid. An accusation successfully defended gets deleted.
-  - promotion of accusations to faults where feasible after expiry of the innocence window.
-- Faults - direct submission of unforgeable faults. They lead to slashing without possibility of being defended by proof of innocence.
+- Accusations of misbehaviour for a committee member failing to follow consensus rules correctly.
+- Proofs of innocence submitted in defence against accusations. They must be presented within the constraints of a innocence window measured in blocks to be valid. An accusation successfully defended gets deleted.
+- Promotion of accusations to faults where feasible after expiry of the innocence window.
+- Direct submission of unforgeable faults. They lead to slashing without possibility of being defended by proof of innocence.
 
 #### Slashing penalty computation
 
@@ -179,7 +176,6 @@ The Autonity Accountability Contract manages the computation of slashing penalti
 
 To learn more about the concept see [Accountability and fault detection](/concepts/accountability/).
 
-
 ### Autonity Oracle Contract
 The contract implementing the Oracle protocol extensions, including primitives for computing median price data, and managing the set of currency pairs for which Autonity provides price data.
 
@@ -188,7 +184,6 @@ The contract stores [protocol parameters](/reference/protocol/) that specify the
 Contract functions for returning price data, currency pairs provided, and the oracle network voters can be called by all participants.  Function calls to govern (i.e. manage) the set of currency pairs provided by the oracle are restricted to the governance `operator` account.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Oracle Contract Interface](/reference/api/oracle/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
-
 
 #### Median price computation
 
@@ -206,7 +201,6 @@ The Autonity Oracle Contract implements logic to manage submission of price data
 
 - Set oracle voters based on validators in the consensus committee and update the voter set as the consensus committee is re-selected at the end of an epoch.
 - Manage oracle voting rounds, triggering the initiation of a new voting period at the end of a round.
-
 
 #### Voter selection
 
@@ -287,7 +281,6 @@ The Autonity Stabilization Contract implements logic for a liquidator to:
 - Liquidate a CDP that is undercollateralized.
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
-
 
 ## Consensus layer
 

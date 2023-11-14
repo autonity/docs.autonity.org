@@ -84,7 +84,6 @@ Fields inherited from Ethereum:
 - `mixHash`, a 256-bit hash which, combined with the nonce, proves that a sufficient amount of computation has been carried out on this block
 - `nonce`, a 64-bit value which, combined with the mixHash, proves that a sufficient amount of computation has been carried out on this block
 - `number`, a scalar value equal to the number of ancestor blocks. The genesis block has a number of zero.
-<!-- - `ommersHash`, unused. -->
 - `parentHash`, the Keccak 256-bit hash of the parent block’s header.
 - `receiptsRoot`, the Keccak 256-bit hash of the root node of the trie structure populated with the receipts of each transaction in the transactions list portion of the block
 - `sha3Uncles`, the SHA3 hash of the uncle parents of the block. This always has the value '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'

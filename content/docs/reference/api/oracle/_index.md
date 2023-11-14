@@ -19,6 +19,7 @@ Usage and Examples illustrate using the Oracle Contract's generated ABI and the 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Oracle.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./common/acdefault/generated/Oracle.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 {{% /pageinfo %}}
 
+
 ## getPrecision
 
 Returns the precision to be used with price reports
@@ -32,7 +33,6 @@ The precision is the multiplier applied to price data points before aggregation 
 For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the on-chain aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
 
 {{< /card >}}
-
 
 ### Parameters
 
@@ -93,7 +93,6 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
 {{< /tab >}}
 {{< /tabpane >}}
 
->>>>>>> 349a2f3 (Edit API Reference for Oracle Contract setSymbols)
 
 ## getRoundData
 
@@ -118,7 +117,6 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 {{< alert title="Note" >}}
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
 {{< /alert >}}
-
 
 ### Usage
 
@@ -158,7 +156,6 @@ None.
 | Field | Datatype | Description |
 | --| --| --|
 | `symbols` | `string` array | a comma-separated list of the currency pair symbols for which price reports are generated |
-
 
 ### Usage
 
@@ -284,12 +281,11 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRou
 {{< /tab >}}
 {{< /tabpane >}}
 
-
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK-USD"
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK/USD"
 {"round": 47631, "price": 963459, "timestamp": 1688390007, "status": 0}
 {{< /tab >}}
 {{< /tabpane >}}

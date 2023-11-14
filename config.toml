@@ -39,8 +39,6 @@ navbar_logo = true
 
   [markup.tableOfContents]
     endLevel = 4
-#   ordered = false
-#   startLevel = 2
     
 [params.plausible]
   enable = true  # Whether to enable plausible tracking

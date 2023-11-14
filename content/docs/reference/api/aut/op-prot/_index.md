@@ -41,15 +41,6 @@ aut protocol burn [OPTIONS] AMOUNT ACCOUNT
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.burn(_addr, _amount).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_burn, "params":[_addr, _amount]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -61,42 +52,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.burn('0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4',1).send({from: myAddress, gas: gas})
-{
-  blockHash: '0x11d2d38328b3846c1b7df1a8873475881a4047a328e08716281b6766cd2ce618',
-  blockNumber: 6295,
-  contractAddress: null,
-  cumulativeGasUsed: 36801,
-  effectiveGasPrice: 3000000000,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 36801,
-  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xe7cf2d9a5e29f3eee71206194d65dd474a36984fd373b669f0df47e8ced9c3ed',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {
-    BurnedStake: {
-      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
-      blockNumber: 6295,
-      transactionHash: '0xe7cf2d9a5e29f3eee71206194d65dd474a36984fd373b669f0df47e8ced9c3ed',
-      transactionIndex: 0,
-      blockHash: '0x11d2d38328b3846c1b7df1a8873475881a4047a328e08716281b6766cd2ce618',
-      logIndex: 0,
-      removed: false,
-      id: 'log_5c08294b',
-      returnValues: [Result],
-      event: 'BurnedStake',
-      signature: '0x5024dbeedf0c06664c9bd7be836915730c955e936972c020683dadf11d5488a3',
-      raw: [Object]
-    }
-  }
-}
-{{< /tab >}}
--->
 
 ###  mint
 
@@ -129,15 +84,6 @@ aut protocol mint [OPTIONS] AMOUNT RECIPIENT
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.mint(_addr, _amount).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_mint", "params":[_addr, _amount]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -148,44 +94,6 @@ Enter passphrase (or CTRL-d to exit):
 0xbd9e604372cc922c4594b0fce94919f933734e29b0043c5af3c4a7774ed99ad7
 {{< /tab >}}
 {{< /tabpane >}}
-
-
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.mint('0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4',1).send({from: myAddress, gas: gas})
-{
-  blockHash: '0x1e7f80a9af5cfc370ff2531c3e506c5b24529ea8041f20d1af69f8eee454ecab',
-  blockNumber: 4675,
-  contractAddress: null,
-  cumulativeGasUsed: 36599,
-  effectiveGasPrice: 3000000000,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 36599,
-  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xe15f0eb1ca93ea114073dee6850823f07e874771a2feb596f73a7265dec1e3fc',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {
-    MintedStake: {
-      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
-      blockNumber: 4675,
-      transactionHash: '0xe15f0eb1ca93ea114073dee6850823f07e874771a2feb596f73a7265dec1e3fc',
-      transactionIndex: 0,
-      blockHash: '0x1e7f80a9af5cfc370ff2531c3e506c5b24529ea8041f20d1af69f8eee454ecab',
-      logIndex: 0,
-      removed: false,
-      id: 'log_4e240327',
-      returnValues: [Result],
-      event: 'MintedStake',
-      signature: '0x48490b4407bb949b708ec5f514b4167f08f4969baaf78d53b05028adf369bfcf',
-      raw: [Object]
-    }
-  }
-}
-{{< /tab >}}
--->
 
 
 ###  modifyBasket (ACU Contract)
@@ -303,14 +211,6 @@ aut protocol set-committee-size [OPTIONS] COMMITTEE_SIZE
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setCommitteeSize(_size).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setCommitteeSize", "params":[_size]}
-{{< /tab >}}
--->
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -322,27 +222,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setCommitteeSize(50).send({from: myAddress, gas: gas})
-{
-  blockHash: '0x56ba4e58d52a3297345c31ad437d44a4dd018f4498ffbf1fee27bf80ee03182b',
-  blockNumber: 6379,
-  contractAddress: null,
-  cumulativeGasUsed: 28941,
-  effectiveGasPrice: 3000000000,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 28941,
-  logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xf14a9ea24e7e27ea4e3453aa87aa0375dabb57743f5fa945e835552b593b6447',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {}
-}
-{{< /tab >}}
--->
 
 ###  setEpochPeriod
 
@@ -370,6 +249,10 @@ The updated parameter can be retrieved from state by a call to the [`epochPeriod
 
 On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
+#### Event
+
+On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
+
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -377,15 +260,6 @@ On a successful call the function emits an `EpochPeriodUpdated` event, logging: 
 aut protocol set-epoch-period [OPTIONS] EPOCH_PERIOD
 {{< /tab >}}
 {{< /tabpane >}}
-
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setEpochPeriod(_period).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setEpochPeriod", "params":[_period]}
-{{< /tab >}}
--->
 
 #### Example
 
@@ -398,27 +272,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setEpochPeriod(1000).send({from: myAddress, gas: gas})
-{
-  blockHash: '0x97ae21f4c5622d0542501657a6d1135d71f58411021e0f6a3cb688fe522ebe2d',
-  blockNumber: 6705,
-  contractAddress: null,
-  cumulativeGasUsed: 26108,
-  effectiveGasPrice: 3000000000,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 26108,
-  logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0x223f5481d30fffef094fb66e549eb6c9f14dd228cfcd187717b527fcd4cdafcd',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {}
-}
-{{< /tab >}}
--->
 
 ###  setLiquidationRatio (ASM Stabilization Contract)
 
@@ -535,7 +388,6 @@ None.
 {{< /tabpane >}}
 
 
-
 ###  setMinimumBaseFee
 
 Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in [`ton`](/glossary/#ton). 
@@ -564,15 +416,6 @@ aut protocol set-minimum-base-fee [OPTIONS] base-fee
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setMinimumBaseFee(_price).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setMinimumBaseFee", "params":[_price]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -584,42 +427,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setMinimumBaseFee(50000000).send({from: myAddress, gas: gas})
-{
-  blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
-  blockNumber: 7247,
-  contractAddress: null,
-  cumulativeGasUsed: 30100,
-  effectiveGasPrice: 2500247492,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 30100,
-  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {
-    MinimumBaseFeeUpdated: {
-      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
-      blockNumber: 7247,
-      transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
-      transactionIndex: 0,
-      blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
-      logIndex: 0,
-      removed: false,
-      id: 'log_2f1e2457',
-      returnValues: [Result],
-      event: 'MinimumBaseFeeUpdated',
-      signature: '0x1f4d2fc7529047a5bd96d3229bfea127fd18b7748f13586e097c69fccd389128',
-      raw: [Object]
-    }
-  }
-}
-{{< /tab >}}
--->
 
 ###  setOperatorAccount
 
@@ -630,7 +437,6 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
 - [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
-       
 
 #### Parameters
    
@@ -652,15 +458,6 @@ aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setOperatorAccount(_account).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setOperatorAccount", "params":[_account]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -672,11 +469,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setOperatorAccount('0x11a87b260dd85ff7189d848fd44b28cc8505fa9c').send({from: myAddress, gas: gas})
-{{< /tab >}}
--->
 
 ###  setOracleContract
 
@@ -824,7 +616,6 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbol
 {{< /tab >}}
 {{< /tabpane >}}
 
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -858,15 +649,6 @@ aut protocol set-treasury-account [OPTIONS] treasury-address
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setTreasuryAccount(_account).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setTreasuryAccount", "params":[_account]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -876,14 +658,8 @@ $ aut protocol set-treasury-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 |
 Enter passphrase (or CTRL-d to exit): 
 0xffe8725f6988668700896f335ecb5db75bb48c9dfb7caef90acecef85d0a2520
 {{< /tab >}}
-
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setTreasuryAccount('0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4').send({from: myAddress, gas: gas})
-{{< /tab >}}
--->
 
 ### setTreasuryFee
 
@@ -909,15 +685,6 @@ aut protocol set-treasury-fee [OPTIONS] TREASURY-FEE
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setTreasuryFee(_treasuryFee).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setTreasuryFee", "params":[_treasuryFee]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -929,11 +696,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setTreasuryFee(100000000).send({from:myAddress,gas:gas})
-{{< /tab >}}
--->
 
 ###  setUnbondingPeriod
 
@@ -961,15 +723,6 @@ aut protocol set-unbonding-period [OPTIONS] UNBONDING_PERIOD
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setUnbondingPeriod(_period)).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setUnbondingPeriod", "params":[_period]}
-{{< /tab >}}
--->
-
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -981,56 +734,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setUnbondingPeriod(1000).send({from: myAddress, gas: gas})
-{{< /tab >}}
--->
-
-<!--
-###  upgradeContract
-
-The `upgradeContract` method is used as part of the Autonity Protocol Contract upgrade process. 
-
-The method is called by the governance account (i.e. `operator`) to provide the compiled EVM bytecode and Contract ABI of the new Autonity Protocol Contract. The method appends to the contract storage buffer (i.e. fills with) the new contract bytecode and abi.
-
-The method:
-
-- assigns the argument data to protocol parameters `newContractBytecode` and `newContractAbi`
-- sets the `contractUpgradeReady` state variable to `true`. 
-
-The default value of `newContractBytecode` and  `newContractAbi` is `""` and `contractUpgradeReady` is `false` when the Autonity Protocol Contract is deployed. If the `bytecode` is not empty, then a contract upgrade is triggered automatically by protocol. The contract upgrade is then applied at epoch end in the last block's finalisation phase: if `contractUpgradeReady` = `true`, then a `completeContractUpgrade()` method is called by  protocol to update the bytecode of the Autonity Protocol Contract.
-
-The new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.
-
-See also the function [`getNewContract()`](/reference/api/aut/#getnewcontract).
-    
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --| 
-| `_bytecode` | `bytes` | the EVM bytecode compiled from the new Autonity Protocol Contract's source Solidity. Assigned to protocol parameter `bytecode` |
-| `_abi` | `string` | the Application Binary Interface (ABI) of the new Autonity Protocol Contract as a JSON representation. Assigned to protocol parameter `contractAbi`  |
-
-#### Response
-
-The method returns a boolean flag `contractUpgradeReady`, set to `true` if an Autonity Protocol Contract upgrade is available.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
-autonity.upgradeContract(_bytecode, _abi).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_upgradeContract", "params":[_bytecode, _abi, _version]}
-{{< /tab >}}
-{{< /tabpane >}}
--->
 
 ## Protocol only
 
@@ -1098,17 +801,14 @@ The new committee enode URL's can be retrieved from state by calling the [`getCo
 
 Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake()`](/reference/api/aut/#epochtotalbondedstake) method.
 
+
 ###  finalize
 
 The block finalisation function, invoked each block after processing every transaction within it. The function:
 
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
-
-<!-- - adds the `amount` parameter value to the `epochReward` protocol parameter -->
-<!--     - sets `epochReward` to `0` -->
-
 - tests if the block number is the last epoch block number (equal to `lastEpochBlock + epochPeriod` config) and if so sets the `epochEnded` boolean variable to `true` or `false` accordingly
-- invokes the Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
+- invokes the Accountability Contract [`finalize`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
 - then, if `epochEnded` is `true`:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
@@ -1118,10 +818,7 @@ The block finalisation function, invoked each block after processing every trans
     - assigns the `lastEpochBlock` state variable the value of the current block number
     - increments the `epochID` by `1`
     - emits a `NewEpoch` event logging the `epochID` of the new epoch
-- invokes the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to check it is the end of a voting round and if so:
-  - calculate the median price of [currency pairs](/glossary/#currency-pair)
-  - re-set oracle voters and parameters ready for the next oracle voting round.
-- then, if the oracle has computed data and started a new voting round (`newRound` is `true`), invokes the ACU Contract [`update()`](/reference/api/aut/op-prot/#update-acu-contract) function to recompute the ACU value using the new price data.
+- invokes the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
 
 #### Parameters
 
@@ -1143,39 +840,28 @@ On successful reward distribution the function emits:
 - a `Rewarded` event for each staking reward distribution, logging: recipient address `addr` and reward amount `amount`.
 - a `NewEpoch` event signalling the beginning of a new epoch, logging: unique identifier for the new epoch `epochID`.
 
+
 ###  finalize (Accountability Contract)
 
-The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
+The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
 
-- On each block, tries to [promote accusations](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. Accusations without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous faults already committed by the validator in the current epoch.
+- On each block, tries to [promote `Accusations`](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. `Accusations` without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous fault already committed by the validator in the current epoch.
 
 {{% alert title="Note" %}}
-Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
+A validator can, of course, have more than one fault proven against it in an epoch. For example, a first fault is proven and then another fault for a higher severity is proven. Note that the protocol will only apply an accountability slashing to a validator for the fault with the highest severity committed in an epoch.
 {{% /alert %}}
 
 - On epoch end, [performs slashing tasks](/reference/api/aut/op-prot/#perform-slashing-tasks).
 
 #### promote guilty accusations
 
-For each accusation the protocol:
+`Accusations` are placed into an `accusation` queue stored in memory. For each `Accusation` in the queue, the protocol checks if the proof submission window for the `Accusation` has expired and, if so, it attempts to promote the `Accusation` into a misbehaviour fault. If a fault with a higher severity than the `Accusation` already exists for the epoch, then the `Accusation` is dropped. Otherwise, a new `FaultProof` is created from the `Accusation` and the slashing history of the validator is updated to record this as the highest severity fault committed in the epoch.
 
-- checks the proof submission window for an accusation has expired and if so then attempts to promote the accusation into a misbehaviour fault:
-- if a fault with a higher severity than the accusation for the epoch already exists, the accusation is dropped
-- else, a new fault is created from the accusation and the slashing history of the validator is updated to record the new fault severity.
+The function takes each `Accusation` proof from the accusations queue and:
 
-How it works:
-
-- Accusations are placed into the `accusation` queue stored in memory. 
-- as the function executes it takes each `Accusation` proof from the accusations queue and:
-  - checks if the sum of the block number at which the accusation was reported and the number of blocks in the proof innocence window is greater than the current block number (`_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number`):
-  <!-- - if greater than, then the `InnocenceProof` submission is considered stale and ignored, and the function continues to the next `InnocenceProof` in the queue is tested. -->
-  - if less than, accusation remains
-  - if greater than, the accusation is removed from the queue (i.e. deleted) and its fault severity is determined. The function checks the slashing history of the validator to determine if the validator already has a proven offence (i.e. a `FaultProof`) with a severity `>=` to the `Accusation`'s reported fault:
-    - if true, then the `Accusation` is skipped: a `FaultProof` with a higher severity has already been reported during the epoch
-    - if false, then:
-      - the validator's slashing history is updated to record the severity of the accusation, so the history records the highest fault severity applied to the validator during the epoch
-      - a new `FaultProof` is created for the validator and added to the slashing queue
-      - a `FaultProof` event is emitted logging the event.
+- Checks if the proof innocence window has closed. If the window is still open, the `Accusation`  remains in the queue. If the window has closed (the sum of the block number at which the `Accusation` was reported and the number of blocks in the proof innocence window is greater than the current block number (`_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW > block.number`)), then the `Accusation` is removed from the queue (i.e. deleted) to determine if the `Accusation's` should be promoted to a fault.
+- Tries to promote the `Accusation` to a fault or discards. The slashing history of the validator is checked to see if the validator already has a proven offence (i.e. a `FaultProof`) for the epoch with a severity `>=` to the `Accusation`. If true, then the `Accusation` is skipped as a `FaultProof` with a higher severity has already been reported during the epoch. If false, then the validator's slashing history is updated to record the new fault as the highest severity for the epoch. A new `FaultProof` is created for the validator and added to the slashing queue.
+- A `FaultProof` event is emitted logging the event.
 
 The reported validator will be silenced and slashed for the fault at the end of the current epoch.
 
@@ -1183,35 +869,22 @@ The reported validator will be silenced and slashed for the fault at the end of 
 
 For each fault the protocol performs slashing over faulty validators at the end of an epoch.
 
-How it works:
+The function checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue, to quantify validator collusion. It then applies slashing for each fault in the slashing queue:
 
-- checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue. This serves the purpose of quantifying collusion.
-- applies slashing for each fault in the slashing queue:
-  - computes the slashing rate to apply, taking into account the number of fault offences committed in the epoch,
-  - applies slashing to the offending validator's stake,
-  - adds the reporting validators' to the array of reward beneficiaries that will receive rewards for offence reporting,
-- rewards are then distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator self-bonded and delegated stakeholders receive a share of the rewards _pro rata_ to their bonded stake amount. If the rewards transfer to the validator `treasury` account fails, then the rewards are sent to the Autonity Protocol's community `treasury` account.
+- Computes the slashing. The slashing rate and amount are computed taking into account the number of fault offences committed in the epoch by the offending validator and all validators globally. The slashing amount is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate precision`.
+- Applies the slashing penalty. Slashing is applied to the offending validator's stake, subtracting the slashing amount from the validator's bonded stake according to the protocol's [Penalty Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model ([self-bonded](/glossary/#self-bonded) stake before [delegated](/glossary/#delegated) stake)
+- Computes the jail period of the offending validator. The jail period is calculated by the formula `current block number + jail factor * proven offence fault count * epoch period`, and sets the validator's jail release block number. The validator state is set to `jailed`. 
+- Updates validator history and bonded stake amounts. The validator's proven fault counter is incremented by `1` to record the slashing occurrence in the validator's reputational slashing history. Bonded stake amounts are adjusted for the slashing amount and the slashed stake token are transferred to the Autonity Protocol global `treasury` account for community funding.
+- Updates global slashing state. The pending slashing fault queue is reset ready for the next epoch, and the reporting validator is added to the array of reward beneficiaries that will receive rewards for offence reporting
+- A `SlashingEvent` event is emitted for each validator that has been slashed.
 
-How it works to apply slashing for each fault in the slashing queue. The function:
-
-- adds the validator reporting the offence to the list of beneficiaries that will receive rewards for offence reporting
-- computes the slashing rate to apply based on slashing factors: base rate from fault severity, validator reputation (the validator's proven fault count), count of offences committed in the epoch, slashing rate precision.
-- computes the slashing amount to apply: `(slashing rate * validator bonded stake)/slashing rate precision`
-- computes the slashing, subtracting the slashing amount from the validator's bonded stake and transferring the fined amount of NTN stake token from the validator to the Autonity Contract Account address.
-    - the slashing fine is applied according to the protocol's Penalty Absorbing Stake (PAS) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
-- increments the validator's proven fault counter by `1` to record the slashing occurrence in the validator's reputational slashing history
-- computes the jail period of the offending validator - `current block number + jail factor * proven offence fault count * epoch period` - and sets the validator's jail release block number
-- updates the validator's state and transfers the slashed stake token funds to the Autonity Protocol global `treasury` account for community funds use
-- Emit a `SlashingEvent` event for each validator that has been slashed.
-- Resets the pending slashing task queue ready for the next epoch.
+Rewards for fault reporting are distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stakeholders receive a share of the rewards _pro rata_ to their bonded stake amount. If the rewards transfer to the validator `treasury` account fails, then the rewards are sent to the Autonity Protocol's community `treasury` account.
 
 {{% alert title="Note" %}}
-Protocol adjusts the slashing rate according to the total number of fault offences committed in an epoch across all validators.
+The protocol adjusts the slashing rate according to the total number of fault offences committed in an epoch across all validators.
 
 This mechanism applies a dynamic slashing rate mitigating collusion risk by Byzantine agents in an epoch.
-
-If the distribution of rewards to the reporting validator's `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol treasury account for community funds.
-{{% /alert %}}   
+{{% /alert %}}    
 
 #### Parameters
 
@@ -1227,8 +900,8 @@ None.
 
 The function emits events:
 
-- on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`.
-- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`.
+- on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`
+- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`
 
 
 ###  finalize (Oracle Contract)
@@ -1290,11 +963,9 @@ Based on the verification outcome, constraint checks are applied:
 
   - if `FaultProof`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch.
-    <!-- - the validator has not already been slashed for a fault with a higher severity in the proof's epoch. -->
-
+  
   - if `Accusation`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch
-    <!-- - the validator has not already been slashed for a fault with a higher severity in the proof's epoch. -->
     - the validator does not have a pending accusation being processed.
 
   - if `InnocenceProof`, then:
@@ -1362,6 +1033,7 @@ On success the function emits events for handling of:
 - Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
+
 
 ###  mint (Supply Control Contract)
 

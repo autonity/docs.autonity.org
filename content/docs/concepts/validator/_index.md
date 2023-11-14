@@ -31,10 +31,9 @@ It has responsibilities to:
 
 As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour by stake [slashing](/concepts/staking/#slashing) and penalty mechanisms implemented by an [accountability and fault detection protocol](/concepts/accountability/). Consensus committee members are incentivised by [staking rewards](/concepts/staking/#staking-rewards), receiving a share of the transaction fee revenue earned for each block of transactions committed to system state, _pro rata_ to their share of bonded stake securing the system in that block. Consensus committee members are incentivised to report Byzantine behaviour by other committee members by [slashing rewards](/concepts/accountability/#slashing-rewards) for reporting accountability faults resulting in a penalty.
 
-
 ### Validator prerequisites 
 
-To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
+To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to Autonity [full node](/concepts/client/) software.
 
 Prerequisites for becoming a validator node operator are:
 
@@ -111,11 +110,7 @@ The sequence of lifecycle events for a validator is:
 3. Register as a validator. The validator's node is registered as a validator by the submission of registration parameters.
 4. Stake bonding. Stake is bonded to the validator, either by the validator itself or by delegation from a stake token holder. Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the committee selection process.
 5. Selection to consensus committee. In the last block of an epoch, the committee selection process is run and a validator may be selected to the consensus committee for the next epoch. Whilst a member of the consensus committee it is responsible for participating in (a) block validation, proposing and voting on new blocks, and (b) oracle price data submission and voting.
-6. Jailed for accountability fault. If a validator is found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of failing to adhere to consensus rules when a member of the consensus committee, then:
-	
-	1. [Jailing](/glossary/#jailing) for a computed number of blocks (a '[jail period](/glossary/#jail-period)') may be applied as part of a slashing penalty. Jailing transitions a validator’s state from `active` to `jailed`.
-	2. A validator in a `jailed` state is debarred from consensus committee selection.
-	3. At the end of the [jail period](/glossary/#jail-period), the validator operator must re-activate the validator node to (a) transition to an `active` state and so get out of jail, (b) resume eligibility for selection to the consensus committee.
+6. Jailed for accountability fault. If a validator is found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of failing to adhere to consensus rules as a member of the consensus committee, then it may enter a `jailed` state. In this state the validator is [jailed and excluded from consensus committee selection](/concepts/validator/#jailing-and-exclusion-from-consensus-committee) for a computed [jail period](/glossary/#jail-period). After expiry of the jail period the validator may be reactivated to resume an `active` state.
 7. Pause as a validator. The validator's node enters a `paused` state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until reactivated. Stake is _not_ automatically unbonded.
 8. Reactivate as a validator. The validator's node transitions from a `paused` or `jailed` state to resume an `active` state in which it is eligible for inclusion in the committee selection process.
 
@@ -133,12 +128,13 @@ Eligible validators are included in the committee selection algorithm. The algor
 
 ### Jailing and exclusion from consensus committee
 
-A validator may be found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of failing to adhere to consensus rules when a member of the consensus committee. In this case, depending on the type of fault committed, a validator may as part of the slashing penalty:
+A validator may be found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of failing to adhere to consensus rules when a member of the consensus committee. In this case, depending on the type of fault committed, [jailing](/glossary/#jailing) for a computed number of blocks (a '[jail period](/glossary/#jail-period)') may be applied as part of a slashing penalty. On jailing the validator:
 
-- be transitioned by protocol from an `active` to a `jailed` state and debarred from selection to the consensus committee member for a '[jail period](/glossary/#jail-period)' measured in block.
-- suffer stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee.
+- is transitioned by protocol from an `active` to a `jailed` state
+- is barred from consensus committee selection until the [jail period](/glossary/#jail-period) has expired and the validator has been reactivated to an `active` state
+- suffer stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee
 
-To get out of jail, the validator simply [reactivates their validator](/concepts/validator/#validator-re-activation) after expiry of the [jail period](/glossary/#jail-period). Returned to an `active` state, the validator is again eligible for selection to the consensus committee.
+To get out of jail at the end of the [jail period](/glossary/#jail-period), the validator operator must [reactivate their validator node](/concepts/validator/#validator-re-activation) to (a) transition to an `active` state, and (b) resume eligibility for selection to the consensus committee.
 
 ## Stake bonding and delegation
 
@@ -188,8 +184,7 @@ Staking reward revenue potential is determined by the frequency with which a val
 -  The amount of transaction revenue earned from transactions included in blocks committed when the validator is a member of the committee.
 -  The validator's commission rate. The percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator's stake delegators. The rate can be any value in the range `0 - 100%`. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate - see [Validator commission rate change](/concepts/validator/#validator-commission-rate-change) on this page.
 
-Bonded stake may be slashed and/or staking rewards may be reduced or forfeited by slashing penalties applied to the validator for accountable faults <!-- accountability and omissions failures-->. The extent of the fine varies according to the severity of the fault committed. See Concept [accountability and fault detection protocol](/concepts/accountability/) and [slashing economics](/concepts/accountability/#slashing-economics).
-
+Bonded stake may be slashed and/or staking rewards may be reduced or forfeited by slashing penalties applied to the validator for accountable faults. The extent of the fine varies according to the severity of the fault committed. See Concept [accountability and fault detection protocol](/concepts/accountability/) and [slashing economics](/concepts/accountability/#slashing-economics).
 
 ## Validator registration
 A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:
@@ -244,7 +239,7 @@ The validator is registered and eligible for selection to the consensus committe
 
 ## Validator jailing
 
-A validator can be jailed by protocol as a penalty for failing to adhere to consensus rules when a member of the consensus committee. If a slashing penalty imposes [jailing](/glossary/#jailing), this will be applied at epoch end when the penalty is processed. 
+A validator can be jailed by protocol as a penalty for failing to adhere to consensus rules when serving as a member of the consensus committee. If a slashing penalty imposes [jailing](/glossary/#jailing), this will be applied at epoch end when the penalty is processed. 
 
 In this state:
 

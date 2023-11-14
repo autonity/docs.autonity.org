@@ -124,7 +124,7 @@ A software application deployed on to a blockchain p2p network. A dApp interacts
 ## delegation
 The process of bonding stake token to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder).
 
-See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, [delegation rate](/glossary/#delegation-rate).
+See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, and [delegation rate](/glossary/#delegation-rate).
 
 ## delegated
 Stake token bonded to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder). Delegated stake earns [staking rewards](/glossary/#staking-rewards) and the staker is minted [Liquid Newton](/glossary/#liquid-newton) for the [Newton](/glossary/#newton) stake token  bonded. The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) can be any network account *except* the validator `treasury` account.
@@ -275,7 +275,6 @@ The computational state of an Autonity system. State is  computed according to t
 ## ton
 The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 ton (10^18). The ton is Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [gigaton](/glossary/#gigaton).
 
-
 ## transaction fee mechanism (TFM)
 The protocol mechanism for pricing the cost of processing a transaction on a blockchain.
 
@@ -297,11 +296,7 @@ A [participant](/glossary/#participant) [node](/glossary/#node) that has registe
 
 ## voting period
 
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [round](/glossary/#voting-round).
-
-## voting round
-
-An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
+The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [voting round](/glossary/#voting-round).
 
 ## voting power
 The amount of stake bonded by [delegation](/glossary/#delegation) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
