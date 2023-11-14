@@ -36,13 +36,32 @@ For launching a local Autonity network, genesis configuration and bootnodes need
 
 ### Genesis configuration file
 
+#### JSON data structures
+
+Genesis configuration file JSON objects:
+
+- [genesis file](#genesis-file-object)
+- [config](#config-object)
+- [config.autonity](#configautonity-object)
+- [config.autonity.validators](#configautonityvalidators-object)
+- [config.asm](#configasm-object)
+- [config.asm.acu](#configasmacu-object)
+- [config.asm.stabilization](#configasmstabilization-object)
+- [config.asm.supplyControl](#configasmsupplycontrol-object)
+- [config.accountability](#configaccountability-object)
+- [config.oracle](#configoracle-object)
+- [alloc](#alloc-object)
+- [alloc.account object](#allocaccount-object)
+
+#### Genesis file object
+
 | Parameter | Description | Value |
 |-----------|-------------|-------|
 | `config` | Configuration variables for the Autonity Network blockchain | See [`config` object](#config-object) |
 | `nonce` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. | Set to `0` (`0x0` in hexadecimal) |
 | `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0` the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP) <i class='fas fa-external-link-alt'></i>](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
 | `baseFee` | The base gas price for computing a transaction on an Autonity network after genesis. The base fee is adjusted per the [EIP 1559 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-1559) fee market mechanism. See Concepts, [EIP 1559 Transaction fee mechanism (TFM)](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm)| Set to: `15000000000` |
-| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. Denominated in `attoton`. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `30000000` |
+| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. Denominated in [`ton`](/glossary/#ton). The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `30000000` |
 | `difficulty` | Derived from Ethereum where it sets the difficulty for Ethereum's Ethash Proof of Work consensus. For Autonity's implementation of Tendermint BFT Proof of Stake consensus this must be assigned `0`. | Set to `0` (`0x0`) |
 | `coinbase` | Maintained for backward compatibility reasons in the EVM. Unused by the Autonity Protocol. Ethereum format address. | Set to `0x0000000000000000000000000000000000000000` |
 | `number ` | A value equal to the number of ancestor blocks. At genesis there are no ancestor blocks and it is assigned the value `0` | Set to `0` (`0x0`) |
@@ -51,23 +70,15 @@ For launching a local Autonity network, genesis configuration and bootnodes need
 | `mixHash` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. Used for: (a) compatibility with 3rd party Ethereum tools that expect the field, (b) an internal code check by the Autonity Protocol before a block is accepted during consensus; blocks without this hash are rejected. | A 256-bit hash as a Hex encoded string, set to: `0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365` |
 | `alloc` | An array of accounts to be assigned `Auton` on chain initialisation. Contract accounts for deployment at genesis can also be specified. | See [`alloc` object](#alloc-object) definition |
 
-### JSON data structures
-Genesis configuration file JSON objects:
-
-- [config](#config-object)
-- [config.autonity](#configautonity-object)
-- [config.autonity.validators object](#configautonityvalidators-object)
-- [config.autonity.oracle object](#configautonityoracle-object)
-- [alloc object](#alloc-object)
-- [alloc.account object](#allocaccount-object)
-
 #### config object
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
 | `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
-
+| `accountability` | Autonity Accountability and Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
+| `asm` | Auton Stability Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
+| `oracle` | Auton Stability Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
 
 #### config.autonity object
 
@@ -87,9 +98,8 @@ Genesis configuration file JSON objects:
 | `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `21` could be appropriate |
 | `operator` | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) | EOA account address |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
-| `oracle` | Object structure for a validator's oracle server at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
-##### config.autonity.validators object
+#### config.autonity.validators object
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
@@ -98,14 +108,72 @@ Genesis configuration file JSON objects:
 | `oracleAddress` | The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address. | The Oracle Server's account address |
 | `bondedStake` | The amount of stake bonded to the validator node at genesis. Denominated in Newton. Positive integer for stake amount | Value is specific to validator's stake at genesis |
 
-##### config.autonity.oracle object
+#### config.asm object
+
+Configuration of the Auton Stabilization Mechanism (ASM).
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `acu` | Object structure for the ASM's Auton Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
+| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
+| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
+
+#### config.asm.acu object
+
+Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 free-floating fiat currencies.
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set to `["AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "USD/USD", "SEK/USD"]` |
+| `quantities` | The basket quantity corresponding to each symbol. | Set to `[21_300,18_700,14_300,10_400,1_760_000,18_000,141_000]` |
+| `scale` | The scale used to represent the basket `quantities` and ACU value. | Set to `5` |
+
+#### config.asm.stabilization object
+
+Configuration of the Stabilization mechanism's Collateralised Debt Position (CDP).
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set to 5%, `50_000_000_000_000_000` |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set to 1.8, `1_800_000_000_000_000_000` |
+| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set to 2, `2_000_000_000_000_000_000` |
+| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` |
+| `targetPrice` | The ACU value of 1 unit of debt. | Set to 1, `1_000_000_000_000_000_000` |
+
+#### config.asm.supplyControl object
+
+Configuration of the Stabilization mechanism's initial Auton supply.
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `initialAllocation` | The initial allocation of Auton to the ASM. | Value is specific to network configuration. |
+
+
+#### config.accountability object
+
+Object structure for the Accountability and Fault Detection (AFD) protocol configuration at genesis.
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set to `600` |
+| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set to `1000` (10%) |
+| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set to `2000` (20%) |
+| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set to `800` (8%) |
+| `historyFactor` | The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty | Set to `500` (5%) |
+| `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set to `2` |
+| `slashingRatePrecision` | The division precision used as the denominator when computing the slashing amount of a penalty | Set to `10000` |
+
+#### config.oracle object
+
+Object structure for the oracle network at genesis.
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
 |`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. For example, `"AUD/USD","JPY/USD","GBP/USD",..` |
-| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. For example, set to `30` for initiating a new oracle voting round at 30-block intervals |
+| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs retrieved by the oracle for (a) FX price data, and (b) ATN and NTN price data. Set to `["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","SEK/USD","ATN/USD","NTN/USD"]` |
+| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. Set to `30` for initiating a new oracle voting round at 30-block intervals |
+
 
 #### alloc object
 
@@ -115,7 +183,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 |---------|-----------|-----|
 | `alloc` | An array of accounts objects to be created on the network at genesis. These can be EOA or contract accounts | See [`alloc.account` object](#alloc-object) definition |
 
-##### alloc.account object
+#### alloc.account object
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
@@ -125,7 +193,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 | `alloc.ADDRESS.storage` | The key-value pair for the contract bytecode storage space if a contract account _ADDRESS_ | k-v pairs for contract storage |
 
 
-### Example `genesis.json`
+#### Example `genesis.json`
 
 ```javascript
 {
@@ -180,7 +248,33 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
         }
       ]
     },
-    "oracle": {
+    "asm": {
+      "acu" : {
+        "symbols" : ["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","USD/USD","SEK/USD"],
+        "quantities" : [21_300, 18_700, 14_300, 10_400, 1_760_000, 18_000, 141_000],
+        "scale" : 5
+      },
+      "stabilization":{
+        "borrowInterestRate" : 50_000_000_000_000_000,
+        "liquidationRatio": 1_800_000_000_000_000_000,
+        "minCollateralizationRatio": 2_000_000_000_000_000_000,
+        "minDebtRequirement"  : 1_000_000,
+        "targetPrice" : 1_000_000_000_000_000_000
+      },
+      "supplyControl" : {
+        "initialAllocation": 1000
+      }
+    },
+    "accountability": {
+         "innocenceProofSubmissionWindow": 600,
+         "baseSlashingRateLow": 1000,
+         "baseSlashingRateMid": 2000,
+         "collusionFactor": 800,
+         "historyFactor": 500,
+         "jailFactor": 2,
+         "slashingRatePrecision": 10000
+       },
+     "oracle": {
       "symbols":[
             "AUD/USD",
             "CAD/USD",
@@ -255,7 +349,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 | `enode` | An array of [enode url](/glossary/#enode) addresses for the network bootnodes | The node's enode URL |
 
 
-### Example `static-nodes.json`
+#### Example `static-nodes.json`
 
 ```javascript
 [

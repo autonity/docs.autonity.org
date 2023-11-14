@@ -200,7 +200,6 @@ Using `aut` you can return the account balance for an ERC20 token contract accou
 | --| --| --|
 | `amount` | `uint256` | the amount of unbonded Newton token held by the account |
 
-
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -369,7 +368,7 @@ Returns a `Config` object consisting of:
 | `accountabilityContract` | `address` | the address of the Autonity Accountability Contract |
 | `oracleContract` | `address` | the address of the Autonity Oracle Contract |
 | `treasuryFee` | `uint256` | the percentage of staking rewards deducted from staking rewards and sent to the Autonity Treasury account for community funding before staking rewards are distributed |
-| `minBaseFee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [attoton](/glossary/#attoton) |
+| `minBaseFee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
 | `delegationRate` | `uint256` | the percentage of staking rewards deducted by validators as a commission from delegated stake |
 | `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
 | `unbondingPeriod` | `uint256` | the period of time for which bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction, defined as a number of blocks |
@@ -559,7 +558,7 @@ aut protocol epoch-total-bonded-stake [OPTIONS]
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol epoch-total-bonded-stake --rpc-endpoint https://rpc1.piccadilly.autonity.org
+aut protocol epoch-total-bonded-stake --rpc-endpoint https://rpc1.piccadilly.autonity.org
 61338
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -567,6 +566,38 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {"jsonrpc":"2.0","id":1,"result":61338}
 {{< /tab >}}
 {{< /tabpane >}}
+
+
+## getBlockPeriod
+
+Returns the block period from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `blockPeriod` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
 
 ##  getBondingReq
 
@@ -748,7 +779,7 @@ aut protocol get-committee-enodes [OPTIONS]
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol get-committee-enodes -r https://rpc1.bakerloo.autonity.org
+aut protocol get-committee-enodes -r https://rpc1.bakerloo.autonity.org
 ['enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303', 'enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303', 'enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303', 'enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308', 'enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309', 'enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310', 'enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303', 'enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303', 'enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303']
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -797,6 +828,129 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
         "id":1500
 }'
 {"jsonrpc":"2.0","id":1,"result":1}
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+## getEpochPeriod
+
+Returns the epoch period from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+## getEpochFromBlock
+
+Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_block` | `uint256` | the input block number |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochID` | `uint256` | the identifier of the epoch in which the block was committed to state |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+
+{{< tab header="RPC" >}}
+{"method": "aut_getEpochFromBlock", "params":[_block]}
+{{< /tab >}}
+{{< /tabpane >}}
+
+<!--
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+-->
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+
+{{< tab header="RPC" >}}
+curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+        "jsonrpc":"2.0",
+        "method":"aut_getEpochFromBlock",
+        "params":[1900],
+        "id":1500
+}'
+{"jsonrpc":"2.0","id":1,"result":1}
+{{< /tab >}}
+{{< /tabpane >}}
+
+<!--
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+-->
+
+## getLastEpochBlock
+
+Returns the last epoch's end block height.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `lastEpochBlock` | `uint256` | the number of the last block in the previous epoch |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -859,7 +1013,7 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `minBaseFee` | `uint256` | the minimum price per unit of gas, denominated in [attoton](/glossary/#attoton) |
+| `minBaseFee` | `uint256` | the minimum price per unit of gas, denominated in [ton](/glossary/#ton) |
 
 ### Usage
 
@@ -967,12 +1121,49 @@ aut protocol get-operator [OPTIONS]
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol get-operator -r https://rpc1.bakerloo.autonity.org/
+aut protocol get-operator -r https://rpc1.bakerloo.autonity.org/
 0x293039dDC627B1dF9562380c0E5377848F94325A
 {{< /tab >}}
 {{< tab header="RPC" >}}
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getOperator", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x293039dDC627B1dF9562380c0E5377848F94325A"}
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+## getOracle
+
+Returns the address of the Autonity Oracle Contract.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `address` | the oracle contract account address |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< tab header="RPC" >}}
+
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1011,7 +1202,7 @@ aut protocol get-proposer [OPTIONS] HEIGHT ROUND
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol get-proposer -r https://rpc1.bakerloo.autonity.org/ 4576868 0
+aut protocol get-proposer -r https://rpc1.bakerloo.autonity.org/ 4576868 0
 0x0c7dC2aB00c7b5934EDA097a8585f56367A94dA4
 {{< /tab >}}
 {{< tab header="RPC" >}}
@@ -1024,6 +1215,38 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
         "id":1
 }'
 {"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+## getUnbondingPeriod
+
+Returns the unbonding period from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `unbondingPeriod` | `uint256` | the period of time for which bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction, defined as a number of blocks |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1434,6 +1657,7 @@ LNTN-4
 {{< /tab >}}
 {{< /tabpane >}}
 
+
 ## pauseValidator
 
 Changes the state of a registered validator on an Autonity Network from `active` to `paused`. (A paused validator can be re-activated by calling the  [`activateValidator`](/reference/api/aut/#activatevalidator) method.)
@@ -1781,7 +2005,6 @@ Constraint checks:
 - the caller's account balance is `>= amount`
 
 Using `aut` you can transfer from an ERC20 token contract account, e.g. a Liquid Newton account.
-
 
 ### Parameters
 

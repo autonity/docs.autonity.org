@@ -2,7 +2,7 @@
 ---
 title: "Oracle network"
 linkTitle: "Oracle network"
-weight: 4
+weight: 5
 description: >
   Autonity oracle network: the role of oracles, the functions they perform, and their lifecycle
 ---

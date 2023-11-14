@@ -2,7 +2,7 @@
 ---
 title: "Consensus "
 linkTitle: "Consensus"
-weight: 4
+weight: 3
 description: >
   Consensus mechanism - overview, core concepts and features
 ---

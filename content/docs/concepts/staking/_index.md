@@ -2,7 +2,7 @@
 ---
 title: "Staking "
 linkTitle: "Staking"
-weight: 6
+weight: 8
 description: >
   Autonity's Liquid Staking and Penalty-Absorbing Stake (PAS) model, staking and staking rewards, temporal constraints governing staking transitions, and economic penalties for Byzantine behaviour.
 ---
@@ -19,7 +19,7 @@ Staking is open - any network participant is able to purchase stake token and bo
 Staking rewards are distributed to [delegated](/glossary/#delegated) stake that is actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
 
 {{% alert title="Note" %}}
-Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of Liquid Newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and slashing rewards. See [validator economics](/concepts/validator/#validator-economics).
+Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and slashing rewards. See [validator economics](/concepts/validator/#validator-economics).
 {{% /alert %}}
 
 
@@ -61,7 +61,7 @@ Liquid Newton has fundamental operations to _transfer ownership_ and _redeem_ fo
 The Liquid Newton holder can transfer ownership of the token by sending to another network participant using the Liquid Newton contract's ERC20 `transfer()` function. Upon receipt of Liquid Newton the holder becomes a delegator to the associated validator and has a claim to staked Newton.
 
 Redemption of Liquid Newton for Newton stake token is by unbonding. The Liquid Newton holder can unbond stake from a validator and redeem Newton at any time subject to the unbonding period set for the chain. On unbonding the bonded stake remains locked for the duration of an [unbonding period](/glossary/#unbonding-period) during which it is not transferrable and remains subject to any [slashing penalties](/glossary/#slashing-penalty) applied to the validator in that period. Stake redemption takes place at the end of the epoch in which the unbonding period falls. At this point the validator's stake pool is reduced by the unbonded amount and Newton is returned to the staker.
-
+ 
 {{% alert title="Note" %}}It's important to note that Liquid Newton is validator-specific and as such is not 1:1 fungible with Liquid Newton bonded to a different validator. A validator may or may not have had [slashing penalties](/glossary/#slashing-penalty) applied and the redemption value of Liquid Newton may vary across validators according to their fault slashing history.{{% /alert %}}
 
 ### Transferring Liquid Newton

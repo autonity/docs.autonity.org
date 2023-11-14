@@ -1,7 +1,7 @@
 ---
 title: "Validator "
 linkTitle: "Validator"
-weight: 5
+weight: 7
 description: >
   The role of validators, the functions they perform, and their lifecycle
 ---
@@ -42,7 +42,6 @@ Prerequisites for becoming a validator node operator are:
 - A [treasury account](/concepts/validator/#treasury-account). An EOA account that is the validator node operator's online identity and which:
   - Is the `msg.sender()` account used by the operator to submit state affecting transactions that govern the [validator lifecycle](/concepts/validator/#validator-lifecycle).
   - Will receive the validator's share of [staking rewards](/concepts/staking/#staking-rewards).
-
 
 ## Validator identity, accounts and keypairs
 The validator makes use of different accounts and private/public [key pairs](/glossary/#key-pair) for validator lifecycle management (registration, pausing, reactivation), validator identity, staking rewards, consensus participation and cryptographic security. 

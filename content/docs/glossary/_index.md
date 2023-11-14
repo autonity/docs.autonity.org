@@ -25,11 +25,23 @@ A part of [system state](/glossary/#system-state) that is specific to an [accoun
 ## address{#address}
 A 64 character hex string providing the unique identifier of an [account](/glossary/#account).
 
-## attoton
-The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 attoton (10^18). Attoton is effectively Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [nanoton](/glossary/#nanoton).
-
 ## Auton
 A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/concepts/protocol-assets/auton/).
+
+## Auton Currency Unit (ACU) {#acu}
+A base-invariant, volatility-minimised index based on a currency basket of 7 free-floating fiat currencies.
+
+The ACU is the _Stabilization Target_ for [Auton](/glossary/#auton) price stability used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm). 
+
+
+## Auton Stabilization Mechanism (ASM) {#asm}
+The protocol mechanism used to maintain Auton price stability. The _Stabilization Mechanism_ is [CDP](/glossary/#cdp), [Auton](/glossary/#auton) borrowed against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
+
+
+## Collateralised Debt Position (CDP) {#cdp}
+A [smart contract](/glossary/#smart-contract) based lending mechanism where collateral is deposited and locked in a smart contract to borrow another token-based asset. CDPs operate subject to collateral requirements and may be liquidated if the lender fails to maintain, i.e. breaches, the collateral conditions of the CDP.
+
+CDPs are used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) to borrow [Auton](/glossary/#auton) against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
 
 ## Autonity Go Client (AGC)
 Autonity Go Client is main client software for accessing and participating in an Autonity network. AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
@@ -49,7 +61,7 @@ Providing [oracle](/glossary/#data-oracle) reference data is a validator respons
 For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
 
 ## Autonity Protocol
-A generalisation of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic [finality](/glossary/#finality), an [oracle protocol](/glossary/#oracle-protocol), and [liquid staking](/glossary/#liquid-staking).
+A generalization of the Ethereum Protocol modified to incorporate proof-of-stake based Tendermint consensus, native tokenomics, deterministic [finality](/glossary/#finality), an [oracle protocol](/glossary/#oracle-protocol), and [liquid staking](/glossary/#liquid-staking).
 
 The Autonity Protocol uses Ethereum’s EVM-based state transition function. State transition is by transaction, the transaction associated with an economic cost for computation, and transactions affecting [system state](/glossary/#system-state)).
 
@@ -149,7 +161,10 @@ The genesis state is provided in the [genesis state file](/glossary/#genesis-sta
 ## genesis state file
 The JSON-formatted genesis configuration file that contains the data necessary to generate the genesis block of an Autonity network. Typically called `genesis.json` but can be given any custom name.
 
-## incentivisation scheme
+## gigaton
+The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to denominate Autonity gas prices. 1 `gigaton` = 1,000,000,000 [ton](/glossary/#ton). The Autonity equivalent of wei is [ton](/glossary/#ton) and of gwei gigaton.
+
+## incentivization scheme
 A cryptoeconomic mechanism where economic penalties are applied for incorrect actions or state transitions by network participants, enforced by cryptographic proofs of state or action.
 
 ## jailing
@@ -172,9 +187,6 @@ A network topology where each node is connected to one or more other network nod
 
 In a _full mesh topology_ each node is directly connected to every other node. In a _partial mesh topology_ a node is directly connected to a subset of the other network nodes only.
 
-## nanoton
-The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to denominate Autonity gas prices. 1 `nanoton` = 1,000,000,000 [attoton](/glossary/#attoton). The Autonity equivalent of wei is [attoton](/glossary/#attoton) and of gwei nanoton.
-
 ## native coin
 A cryptocurrency that is inherent to a decentralised computer network.
 
@@ -188,6 +200,9 @@ A participant running the Autonity Go Client software and able to connect to an 
 
 ## oracle network
 The network of validator-operated oracles that submits price data from off-chain external data providers on-chain and votes on agreeing an aggregated median price data according to an [oracle protocol](/glossary/#oracle-protocol).
+
+## oracle protocol
+The logic and rules governing the calculation of median price data by the [oracle network](/glossary/#oracle-network). The protocol has off- and on-chain operations. Price data is collected from external data providers by [oracle servers](/glossary/#autonity-oracle-server-aos) run by validator operators and submitted on-chain to an oracle [contract](/glossary/#smart-contract). The oracle contract computes aggregate median price data for those currency pairs; consensus committee members vote to agree the median prices by consensus in [voting rounds](/glossary/#voting-round).
 
 ## oracle protocol
 The logic and rules governing the calculation of median price data by the [oracle network](/glossary/#oracle-network). The protocol has off- and on-chain operations. Price data is collected from external data providers by [oracle servers](/glossary/#autonity-oracle-server-aos) run by validator operators and submitted on-chain to an oracle [contract](/glossary/#smart-contract). The oracle contract computes aggregate median price data for those currency pairs; consensus committee members vote to agree the median prices by consensus in [voting rounds](/glossary/#voting-round).
@@ -257,6 +272,9 @@ The local data store of a node used to persist the node’s local copy of [syste
 ## system state
 The computational state of an Autonity system. State is  computed according to the [Autonity Protocol](/glossary/#autonity-protocol). System state is stored as key-value pairs, mapping between account [addresses](/glossary/#address) and [account states](/glossary#account-state) in Ethereum's modified Merkle Patricia trie data structure (See [Merkle Patricia Tree, Ethereum Developer docs <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/)).
 
+## ton
+The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 ton (10^18). The ton is Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [gigaton](/glossary/#gigaton).
+
 ## transaction fee mechanism (TFM)
 The protocol mechanism for pricing the cost of processing a transaction on a blockchain.
 
@@ -271,7 +289,7 @@ The period of time for which bonded stake remains locked after processing an unb
 Proof of Stake consensus places constraints on the minimum length of the unbonding period. It must be long enough to allow the detection and reporting of consensus faults by validators, and not short enough to  allow unbonding before a [slashing penalty](/glossary/#slashing-penalty) can be applied. As such it is a security property of the network.
 
 ## Unix time
-The Unix OS system for representing a point in time as a timestamp. Time is measured as the number of seconds since the Unix Epoch began - 1st January 1970 at 00:00:00 UTC. Unix time is used for Autonity timestamps.
+The Unix OS system for representing a point in time as a timestamp. Time is measured as the number of seconds since the Unix Epoch began - 1st January 1970 at 00:00:00 UTC. Unix time is used for Autonity timestamps. For detail and format see [Unix time <i class='fas fa-external-link-alt'></i>](https://en.wikipedia.org/wiki/Unix_time).
 
 ## validator
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
@@ -281,7 +299,7 @@ A [participant](/glossary/#participant) [node](/glossary/#node) that has registe
 The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [voting round](/glossary/#voting-round).
 
 ## voting power
-The amount of stake [delegated](/glossary/#delegate) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
+The amount of stake bonded by [delegation](/glossary/#delegation) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
 
 ## voting round
 
@@ -291,4 +309,4 @@ An Autonity network's configured [voting period](/glossary/#voting-period) for c
 A software application that provides functionality for a system user to access and manage their [accounts](/glossary/#account).
 
 ## wei
-The smallest denomination of Ethereum's `ether` native cryptocurrency. 1 `ether` = 1,000,000,000,000,000,000 wei (10^18). In Ethereum gas prices are denominated in gwei - giga wei (10^9), 1 gwei = 1,000,000,000 wei. The Autonity equivalent of wei is [attoton](/glossary/#attoton) and of gwei [nanoton](/glossary/#nanoton).
+The smallest denomination of Ethereum's `ether` native cryptocurrency. 1 `ether` = 1,000,000,000,000,000,000 wei (10^18). In Ethereum gas prices are denominated in gwei - giga wei (10^9), 1 gwei = 1,000,000,000 wei. The Autonity equivalent of wei is [ton](/glossary/#ton) and of gwei [gigaton](/glossary/#gigaton).

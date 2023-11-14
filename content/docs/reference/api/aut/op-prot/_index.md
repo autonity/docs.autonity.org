@@ -25,9 +25,9 @@ Burns the specified amount of Newton stake token from an account. When `x` amoun
 
 No response object is returned on successful execution of the method call.
 
-The new Newton balance of the account can be retrieved from state by calling the [`balanceOf`](/reference/api/aut/#balanceof) method.
+The new Newton balance of the account can be retrieved from state by calling the [`balanceOf()`](/reference/api/aut/#balanceof) method.
 
-The new total supply of Newton in circulation can be retrieved from state by calling the [`totalSupply`](/reference/api/aut/#totalsupply) method.
+The new total supply of Newton in circulation can be retrieved from state by calling the [`totalSupply()`](/reference/api/aut/#totalsupply) method.
 
 #### Event
 
@@ -45,7 +45,7 @@ aut protocol burn [OPTIONS] AMOUNT ACCOUNT
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut protocol burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3e86062cca9fa263acb7076f8287117e9ee2c5570e0f4e4bd2ff4db21895796e
@@ -68,9 +68,9 @@ Mints new stake token and adds it to the recipient's account balance. When `x` a
 
 No response object is returned on successful execution of the method call.
 
-The new Newton balance of the recipient account can be retrieved from state by calling the [`balanceOf`](/reference/api/aut/#balanceof) method.
+The new Newton balance of the recipient account can be retrieved from state by calling the [`balanceOf()`](/reference/api/aut/#balanceof) method.
 
-The new total supply of newton in circulation can be retrieved from state by calling the [`totalSupply`](/reference/api/aut/#totalsupply) method.
+The new total supply of newton in circulation can be retrieved from state by calling the [`totalSupply()`](/reference/api/aut/#totalsupply) method.
 
 #### Event
 
@@ -88,10 +88,101 @@ aut protocol mint [OPTIONS] AMOUNT RECIPIENT
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut protocol mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xbd9e604372cc922c4594b0fce94919f933734e29b0043c5af3c4a7774ed99ad7
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  modifyBasket (ACU Contract)
+
+Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbols_` | `string` | the symbols used to retrieve prices |
+| `quantities_` | `uint256` | the basket quantity corresponding to each symbol |
+| `scale_` | `uint256` | the scale for quantities and the ACU value |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+
+###  setAccountabilityContract
+
+Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Accountability Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setAcuContract
+
+Sets a new value for the [ASM Auton Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the ACU Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -110,7 +201,7 @@ Sets a new value for the `committeeSize` protocol parameter.
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by calling the [`getMaxCommitteeSize`](/reference/api/aut/#getmaxcommitteesize) method.
+The updated parameter can be retrieved from state by calling the [`getMaxCommitteeSize()`](/reference/api/aut/#getmaxcommitteesize) method.
 
 #### Usage
 
@@ -152,7 +243,11 @@ Constraint checks are applied:
 
 No response object is returned on successful execution of the call.
 
-The updated parameter can be retrieved from state by a call to the [`epochPeriod`](/reference/api/aut/#epochperiod) public variable.
+The updated parameter can be retrieved from state by a call to the [`epochPeriod()`](/reference/api/aut/#epochperiod) public variable.
+
+#### Event
+
+On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
 #### Event
 
@@ -178,21 +273,136 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
+###  setLiquidationRatio (ASM Stabilization Contract)
+
+Sets a new value for the `liquidationRatio` protocol parameter in the ASM Stabilization Contract configuration. 
+    
+Constraint checks are applied:
+
+- the ratio must be less than the minimum collateralization ratio parameter.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `ratio` | `uint256` | an integer value specifying the liquidation ratio for ASM CDP's |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setMinCollateralizationRatio (ASM Stabilization Contract)
+
+Sets a new value for the `minCollateralizationRatio` protocol parameter in the ASM Stabilization Contract configuration
+    
+Constraint checks are applied:
+
+- the ratio must be a positive value
+- the ratio must be greater than the liquidation ratio
+- minimum collateralization ratio parameter.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `ratio` | `uint256` | a positive integer value specifying the minimum collateralization ratio for ASM CDP's |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setMinDebtRequirement (ASM Stabilization Contract)
+
+Sets a new value for the `minDebtRequirement` protocol parameter in the ASM Stabilization Contract configuration. 
+            
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `amount` | `uint256` |  an integer value specifying the minimum debt requirement for ASM CDP's |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
 ###  setMinimumBaseFee
 
-Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in `attoton`. 
+Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in [`ton`](/glossary/#ton). 
 
 #### Parameters
    
 | Field | Datatype | Description |
 | --| --| --| 
-| `_price` | `uint256` | a positive integer value for the minimum gas price, denominated in `attoton` |
+| `_price` | `uint256` | a positive integer value for the minimum gas price, denominated in [`ton`](/glossary/#ton) |
 
 #### Response
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by calling the [`getMinimumBaseFee`](/reference/api/aut/#getminimumbasefee) method.
+The updated parameter can be retrieved from state by calling the [`getMinimumBaseFee()`](/reference/api/aut/#getminimumbasefee) method.
 
 #### Event
 
@@ -210,7 +420,7 @@ aut protocol set-minimum-base-fee [OPTIONS] base-fee
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol set-minimum-base-fee 50000000 | aut tx sign - | aut tx send -
+aut protocol set-minimum-base-fee 50000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x4d1abc6881f63d7856b3b2d6f0b9865a4a9c2b1378dd824e36e9ac194fd8da52
@@ -220,7 +430,13 @@ Enter passphrase (or CTRL-d to exit):
 
 ###  setOperatorAccount
 
-Sets a new governance account address as the value of the `operatorAccount` protocol parameter for the Autonity Protocol Contract and Autonity Oracle Contract.
+Sets a new governance account address as the protocol parameter for the [Autonity Protocol Contracts](/concepts/architecture/#application-layer-protocol-contracts):
+
+- [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract)
+- [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract)
+- [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
+- [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
+- [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
 
 #### Parameters
    
@@ -232,7 +448,7 @@ Sets a new governance account address as the value of the `operatorAccount` prot
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to the [`operatorAccount`](/reference/api/aut/#operatoraccount) public variable.
+The updated parameter can be retrieved from state by a call to the [`operatorAccount()`](/reference/api/aut/#operatoraccount) public variable.
 
 #### Usage
 
@@ -246,10 +462,121 @@ aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut protocol set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut protocol set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xee513f48b4ad4cd24cfc5bb0fe0c1402a5e03ae030b6c73824bae253f56efd51
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setOracleContract
+
+Sets a new value for the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) address.
+
+The Oracle Contract is called by the [Autonity Protocol Contracts](/concepts/architecture/#application-layer-protocol-contracts):
+
+- [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract)
+- [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
+- [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address` | `address` | the ethereum formatted address of the Oracle Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setStabilizationContract
+
+Sets a new value for the [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Stabilization Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setSupplyControlContract
+
+Sets a new value for the [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract) address.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `supplyControl` | `address` |  the ethereum formatted address of the Supply Control Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -410,7 +737,35 @@ Enter passphrase (or CTRL-d to exit):
 
 ## Protocol only
 
-Functions with the `onlyProtocol` access constraint can only be invoked by the Autonity protocol itself.
+Functions with protocol contract access constraints can only be invoked by the Autonity protocol itself:
+
+- Autonity Protocol Contract: for state finalization and committee selection
+- Autonity Stabilization Contract: for Auton mint and burn.
+
+###  burn (Supply Control Contract)
+
+The Auton burn function, called by the Stabilization Contract to burn Auton while processing a CDP repayment. 
+
+Burns the specified amount of Auton, taking it out of circulation.
+
+Constraint checks are applied:
+
+- the caller is the `stabilizer` account, the Stabilization Contract address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `amount ` | `uint256` | a non-zero integer value for the value amount being burned, denominated in Auton |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `Burn` event, logging: `value`, the amount of Auton burned.
+
 
 ###  computeCommittee
 
@@ -446,6 +801,7 @@ The new committee enode URL's can be retrieved from state by calling the [`getCo
 
 Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake()`](/reference/api/aut/#epochtotalbondedstake) method.
 
+
 ###  finalize
 
 The block finalisation function, invoked each block after processing every transaction within it. The function:
@@ -457,7 +813,7 @@ The block finalisation function, invoked each block after processing every trans
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
     - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
-    - selects the consensus committee for the following epoch, invoking the [`computeCommittee`](/reference/api/aut/op-prot/#computecommittee) function
+    - selects the consensus committee for the following epoch, invoking the [`computeCommittee()`](/reference/api/aut/op-prot/#computecommittee) function
     - sets oracle voters for the following epoch, invoking the Oracle Contract `setVoters` function
     - assigns the `lastEpochBlock` state variable the value of the current block number
     - increments the `epochID` by `1`
@@ -466,9 +822,7 @@ The block finalisation function, invoked each block after processing every trans
 
 #### Parameters
 
-| Field | Datatype | Description |
-| --| --| --| 
-| `amount` | `uint256` | the amount of transaction fees collected for the block |
+None.
 
 #### Response
 
@@ -477,7 +831,7 @@ The block finalisation function, invoked each block after processing every trans
 | `contractUpgradeReady` | `bool` | Set to `true` if an Autonity Protocol Contract upgrade is available |
 | `committee`| `CommitteeMember[]` array | the consensus committee that approved the block, each `CommitteeMember` struct recording the validator's account address (`_addr`) and bonded stake amount (`votingPower`)|
 
-{{% alert title="Note" %}}If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion`](/reference/api/aut/#getversion) method.{{% /alert %}}
+{{% alert title="Note" %}}If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.{{% /alert %}}
 
 #### Event
 
@@ -485,6 +839,7 @@ On successful reward distribution the function emits:
 
 - a `Rewarded` event for each staking reward distribution, logging: recipient address `addr` and reward amount `amount`.
 - a `NewEpoch` event signalling the beginning of a new epoch, logging: unique identifier for the new epoch `epochID`.
+
 
 ###  finalize (Accountability Contract)
 
@@ -551,9 +906,9 @@ The function emits events:
 
 ###  finalize (Oracle Contract)
 
-The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
+The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
-- executes the Oracle Contract's Level 2 aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
+- executes the Oracle Contract's on-chain aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
 - checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
 - resets the `lastRoundBlock` to the current `block.number`
 - increments the `round` counter by `1`
@@ -565,7 +920,7 @@ None.
 
 #### Response
 
-None.
+Returns `true` if there is a new voting round and new symbol prices are available, `false` if not.
 
 #### Event
 
@@ -608,7 +963,7 @@ Based on the verification outcome, constraint checks are applied:
 
   - if `FaultProof`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch.
-
+  
   - if `Accusation`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch
     - the validator does not have a pending accusation being processed.
@@ -678,3 +1033,62 @@ On success the function emits events for handling of:
 - Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
+
+
+###  mint (Supply Control Contract)
+
+The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
+
+Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
+
+Constraint checks are applied:
+
+- the caller is the `stabilizer` account, the Stabilization Contract address
+- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
+- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
+
+
+###  update (ACU Contract)
+
+The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+
+- it retrieves the latest prices from the Oracle Contract (i.e. the latest round data)
+- checks price data completeness:
+  - if latest prices have been returned for all symbols in the ACU currency basket, then:
+    - computes the ACU index value
+    - resets the `round` to the index number of the oracle voting round that computed the retrieved latest prices.
+    - returns status of `true` to the calling Autonity Protocol Contract
+  - else if one or more prices are unavailable from the Oracle, it will not compute the ACU value for that round, and returns status of `false` to the calling Autonity Protocol Contract.
+
+#### Parameters
+
+None.
+
+#### Response
+
+None.
+
+#### Event
+
+On success the function emits an `Updated` event for the new ACU value, logging: `block.number`, `block.timestamp`, oracle voting round number `round`, and the ACU index value calculated `_value`.

@@ -2,7 +2,6 @@
 title: "Accountability Contract Interface"
 linkTitle: "Accountability Contract Interface"
 weight: 40
-
 description: >
   Autonity Accountability Contract functions
 ---
@@ -220,5 +219,3 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValida
 []
 {{< /tab >}}
 {{< /tabpane >}}
-
-

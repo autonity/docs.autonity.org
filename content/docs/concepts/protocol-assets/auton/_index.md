@@ -11,3 +11,19 @@ Auton is the [native coin](/glossary/#native-coin) of an account on an Autonity 
 
 - Auton is the protocol's unit-of-account for pricing gas fees and all accounts must send auton with their transactions for paying gas fees.
 - A stabilisation mechanism works to minimise the market volatility of the auton's exchange value vis-a-vis major fiat currencies, making auton a useful asset with which to compose other use-cases built on top of the Autonity blockchain.
+
+The unit measures of Auton and their correspondence to Ether are in the table beneath.
+
+## Unit Measures of Auton
+
+Unit measures - Autonity and Ethereum correspondences
+
+| Power | Number Name | Autonity Name | Ethereum Name|
+|--|--|--|--|
+| 10<sup>18</sup> | quintillion | auton | ether |
+| 10<sup>15</sup> | quadrillion | petaton (pton) | milliether (finney) |
+| 10<sup>12</sup> | trillion | teraton (tton) | microether (szabo) |
+| 10<sup>9</sup> | billion | gigaton (gton) | nanoether (gwei) |
+| 10<sup>6</sup> | million | megaton (mton) | picoether (mwei) |
+| 10<sup>3</sup> | thousand | kiloton (kton) | femtoether (kwei) |
+| 10<sup>0</sup> | one | ton | wei |

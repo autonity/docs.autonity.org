@@ -48,9 +48,8 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
     autoracle \
         -oracle_key_file="<KEYFILE>" \
         -oracle_key_password="<PWD>" \
-        -oracle_autonity_ws_url="<WS_ADDRESS>" 
+        -oracle_autonity_ws_url="<WS_ADDRESS>"
         -oracle_plugin_conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml" ;
-        
     ```
 
    where:
@@ -119,14 +118,15 @@ Additional data adaptors for any external data source can be developed using the
 
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
-  
+
+
 <!--
-## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
+## Run Autonity Oracle Server as Docker image {#run-docker}
 
 TODO
 -->
-<!--
-## Run Autonity Oracle Server as Docker image {#run-docker}
+<!--  
+## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
 
 TODO
 -->

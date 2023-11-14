@@ -1,8 +1,7 @@
 
 ---
-title: "Accountability and fault detection"
-linkTitle: "Accountability and fault detection"
-weight: 6
+title: "Accountability and fault detection (AFD)"
+linkTitle: "Accountability and fault detection (AFD)"
 description: >
   Autonity's Accountability Fault Detection model -- reporting mechanism, temporal constraints, and economics for reporting offences and penalties for Byzantine behavior.
 ---
@@ -235,7 +234,7 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 | `PN` - `PO` | Propose step related consensus rule infraction. | 
 | `PVN` - `PVO` - `PVO12` - `PVO3` | Prevote step related consensus rule infraction. |
 | `C` - `C1` | Precommit step related consensus rule infraction. |
-| `InvalidProposal` | Proposer has proposed a block that fails blockchain validation |
+| `InvalidProposal` | Proposer has proposed a block that fails blockchain validation. |
 | `InvalidProposer` | Proposer of a block proposal is not the committee's elected Proposer. |
 | `Equivocation` | Validator has sent conflicting messages during a consensus round: a committee member sending multiple prevotes/precommits for different values, or a proposer has broadcast conflicting block proposals to different committee members. |
 | `InvalidRoundStep` | Consensus round message contains invalid round number or step. |
@@ -289,7 +288,6 @@ See distinction between _direct_ and _promoted_ in [Faults](/concepts/accountabi
 | `epoch` | `uint256` | The epoch identifier in which the accountability event `block` occurred. Assigned during event handling by internal processing of raw proof data. |
 | `reportingBlock` | `uint256` | The number of the block at which the accountability event was verified. Assigned during event handling by internal processing of raw proof data. |
 | `messageHash` | `uint256` | Hash of the main evidence for the accountability event. Assigned during event handling by internal processing of raw proof data. |
-
 
 ## Slashing economics
 

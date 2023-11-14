@@ -114,13 +114,13 @@ The commands given in this step assume that your `.autrc` configuration file con
 {{< /alert >}}
 
 ```bash
-aut validator register <ENODE> <ORACLE> <PROOF> | aut tx sign - | aut tx send -
+aut validator register <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -
 ```
 
 where:
 
-- `<ENODE>`: the enode url returned in Step 2.
-- `<ORACLE>`: the oracle server account address.
+- `<ENODE_URL>`: the enode url returned in Step 2.
+- `<ORACLE_ADDRESS>`: the oracle server account address.
 - `<PROOF>`: the proof of node ownership generated in Step 1.
 
 Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/concepts/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.
@@ -143,7 +143,7 @@ Check your configuration as described in the "Important Note" at the start of th
 
 ### Step 4. Confirm registration
 
-Confirm that the validator has been registered by checking that its identifier appears in the validator list:
+Confirm that the validator has been registered by checking that its identifier (noted in Step 2) appears in the validator list:
 ```bash
 aut validator list
 ```
