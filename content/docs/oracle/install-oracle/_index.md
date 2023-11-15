@@ -123,7 +123,7 @@ You can now [configure and launch Autonity Oracle Server](/oracle/run-oracle/#ru
 ## Installing the Docker image {#install-docker}
 
 {{< alert title="Note" >}}
-Follow the official Docker documentation to [install Docker <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/) onto the host machine and [follow the post-installation steps <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/) to customise for your environment.
+Follow the official Docker documentation to [install Docker <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/) onto the host machine and [follow the post-installation steps <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/) to customize for your environment.
 
 By default Docker needs to be run with `sudo`. To avoid using root privileges in the terminal (and error messages if you forget to use `sudo`), consider following the step to [Manage Docker as a non-root user <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 
@@ -183,7 +183,7 @@ sudo systemctl restart docker
 4. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
 
     ```bash
-    docker images --digests ghcr.io/autonity/autonity
+    docker images --digests ghcr.io/autonity/autonity-oracle
     REPOSITORY                               TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
     ghcr.io/autonity/autonity                latest    sha256:0eb561ce19ed3617038b022db89586f40abb9580cb0c4cd5f28a7ce74728a3d4   3375da450343   3 weeks ago    51.7MB
     ```
@@ -193,7 +193,7 @@ sudo systemctl restart docker
 You can verify the setup of the image and version using Docker:
 
 ```bash
-$ docker run --rm ghcr.io/autonity/autonity:latest version
+$ docker run --rm ghcr.io/autonity/autonity-oracle:latest version
 ```
 ```
 Autonity
@@ -231,7 +231,7 @@ The output above will vary depending on the version of the Autonity Oracle Serve
 
 ## Installing data source plugins {#install-plugin}
 
-Oracle server will need to provide price data for FX and ATN and NTN currency pairs utilised in the Auton Stabilization Mechanism.
+Oracle server will need to provide price data for FX and ATN and NTN currency pairs utilized in the Auton Stabilization Mechanism.
 
 A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
 
