@@ -216,76 +216,6 @@ None.
 {{< /tabpane >}}
 
 
-###  setAccountabilityContract
-
-Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `_address ` | `address` | the ethereum formatted address of the Accountability Contract |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-###  setAcuContract
-
-Sets a new value for the [ASM Auton Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `_address ` | `address` | the ethereum formatted address of the ACU Contract |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
 ###  setCommitteeSize
 
 Sets a new value for the `committeeSize` protocol parameter. 
@@ -976,6 +906,13 @@ After distribution, the reporting validator is removed from the `beneficiaries` 
 | --| --| --|
 | `_validator` | `address` | the address of the validator node being slashed |
 
+#### Response
+
+None.
+
+#### Event
+
+None.
 
 ###  finalize
 

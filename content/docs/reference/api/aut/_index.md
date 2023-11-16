@@ -808,121 +808,6 @@ None.
 {{< /tabpane >}}
 
 
-
-
-## getEpochPeriod
-
-Returns the epoch period from the protocol configuration.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-## getEpochFromBlock
-
-Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
-
-### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_block` | `uint256` | the input block number |
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `epochID` | `uint256` | the identifier of the epoch in which the block was committed to state |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-
-{{< tab header="RPC" >}}
-{"method": "aut_getEpochFromBlock", "params":[_block]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-<!--
-{{< tab header="aut" >}}
-
-{{< /tab >}}
--->
-
-
-## getEpochFromBlock
-
-Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
-
-### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_block` | `uint256` | the input block number |
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `epochID` | `uint256` | the identifier of the epoch in which the block was committed to state |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-
-{{< tab header="RPC" >}}
-{"method": "aut_getEpochFromBlock", "params":[_block]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-
-{{< tab header="RPC" >}}
-curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
---header 'Content-Type: application/json' \
---data-raw '{
-        "jsonrpc":"2.0",
-        "method":"aut_getEpochFromBlock",
-        "params":[1900],
-        "id":1500
-}'
-{"jsonrpc":"2.0","id":1,"result":1}
-{{< /tab >}}
-{{< /tabpane >}}
-
-<!--
-{{< tab header="aut" >}}
-
-{{< /tab >}}
--->
-
-
 ## getLastEpochBlock
 
 Returns the number of the last block in the preceding epoch at the block height of the call.
@@ -1154,46 +1039,6 @@ None.
 {{< tab header="aut" >}}
 
 {{< /tab >}}
-
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-
-
-## getOracle
-
-Returns the address of the Autonity Oracle Contract.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `address` | the oracle contract account address |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
 {{< tab header="RPC" >}}
 
 {{< /tab >}}
@@ -1210,7 +1055,6 @@ None.
 
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 
 ##  getProposer
