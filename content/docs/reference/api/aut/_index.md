@@ -594,16 +594,17 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+{{< tab header="RPC" >}}
+{"method": "aut_getBlockPeriod", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+{{< tab header="RPC" >}}
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getBlockPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":1}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -753,7 +754,6 @@ Returns the unique identifier of the epoch block epoch associated with a block a
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-
 {{< tab header="RPC" >}}
 {"method": "aut_getEpochFromBlock", "params":[_block]}
 {{< /tab >}}
@@ -794,18 +794,20 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+{{< tab header="RPC" >}}
+{"method": "aut_getEpochPeriod", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+{{< tab header="RPC" >}}
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getEpochPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":1800}
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 
 ## getLastEpochBlock
@@ -1036,23 +1038,17 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
 {{< tab header="RPC" >}}
-
+{"method": "aut_getOracle", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
 {{< tab header="RPC" >}}
-
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getOracle", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d"}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1126,16 +1122,17 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+{{< tab header="RPC" >}}
+{"method": "aut_getUnbondingPeriod", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+{{< tab header="RPC" >}}
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getUnbondingPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":21600}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1374,7 +1371,7 @@ To return the `name` for an ERC20 (e.g. a Liquid Newton token) token contract sp
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut token name -r https://rpc1.piccadilly.autonity.org --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
+$ aut token name --rpc-endpoint https://rpc1.piccadilly.autonity.org --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
 LNTN-4
 {{< /tab >}}
 {{< /tabpane >}}
@@ -1495,7 +1492,7 @@ On a successful call the function emits a `RegisteredValidator` event, logging: 
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut validator register [OPTIONS] ENODE PROOF
+aut validator register [OPTIONS] ENODE ORACLE PROOF
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1503,7 +1500,7 @@ aut validator register [OPTIONS] ENODE PROOF
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut validator register --rpc-endpoint https://rpc1.piccadilly.autonity.org enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb8a6b8ad408a18bf66266b9d03dd9aa26c902a4ac02eb465d205c0c58b6f5063963fc752806f2681287a915@51.89.151.55:30303 0xc68fcac6ba8e9f565ab3c1be1a08571f1f0740d6fe1093741276a8327e8c096e4abda696773050e14b94385cb9c0f175a422efed9c24bc1d88803bcd508c50ce0170591627ab24883e9be5465bc1fa8c3514e095389edbc44846bf6bfab6b8d6be07a534c2fbaa07f5d96ced57eb0296b592dc73fad3b8df5d8072b5d213a4a0e401 | aut tx sign - | aut tx send -
+aut validator register enode://a3b821f89d8ea172421dedacdb00e76d8d6a929e4c5ff3c2b30ec84144a7405698ce30ba2ed482770ad2df94d050311b350c036d7f2cef3c9ef32be3f635d62e@51.89.151.55:30303 0xFd91928d58Af4AFbD78C96821D3147ef1f517072 0x62a44f56a617520ebc7c73414df7b8ae5b8133ebdbc0715d66ca0522fe26788873c7e774ed8a7702e16311e6ee8f149c4ef70cfb261fbdd3d375401375209a3000a5189e8d50880faf97ad42501375b216b89304c3fd4acf548a1d7fd7136e74771791422819134e2e3fbf720c35652d8c163e3d4f22c798a3c648958f7abcda2c00 | aut tx sign - | aut tx send -
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1530,17 +1527,20 @@ None.
 {{< tab header="aut" >}}
 aut token symbol [OPTIONS]
 {{< /tab >}}
+{{< tab header="RPC" >}}
+{"method":"aut_symbol", "params":[]}
+{{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut token symbol --ntn -r https://rpc1.piccadilly.autonity.org
+$ aut token symbol --ntn --rpc-endpoint https://rpc1.piccadilly.autonity.org
 NTN
 {{< /tab >}}
 {{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_symbol", "params":[], "id":1}'
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_symbol", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"NTN"}
 {{< /tab >}}
 {{< /tabpane >}}
