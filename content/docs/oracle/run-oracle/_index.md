@@ -35,9 +35,17 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
 1. Enter your working directory for the oracle server.
 
-2. Configure data source plugins. Navigate to the `config` sub-directory of your installation (default: `./build/bin/config`) and edit the `plugins-conf.yml` file to add an entry for each plugin you are configuring. For how to [configure plugins](/oracle/run-oracle/#configure-plugins) see [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file).
+2. Create and edit your oracle server config file `plugins-conf.yml` to specify the `name` and `key` for each plugins you are using.
 
-3. (Optional) Add your own data source plugin(s). If you have developed your own FX plugins, (a) add sub-directory(ies) containing the plugin source code to the `plugins` sub-directory of your installation; (b) add config entry(ies) to the `plugin-conf.yml` file.
+   ```bash
+   touch plugins-conf.yml
+   ```
+
+   {{< alert title="Info" >}}
+   A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
+   {{< /alert >}}
+
+   Edit `plugins-conf.yml` to [configure plugins](/oracle/run-oracle/#configure-plugins) for data sources. See [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) for how to do this.
 
 3. (Optional) Add your own data source plugin(s). If you have developed your own FX plugins, (a) add sub-directory(ies) containing the plugin source code to the `plugins` sub-directory of your installation; (b) add config entry(ies) to the `plugins-conf.yml` file. 
  
@@ -85,8 +93,12 @@ If plugins for external data sources or the symbols for which oracle server prov
    touch plugins-conf.yml
    ```
 
-   Edit `plugins-conf.yml` to [configure plugins](/oracle/run-oracle/#configure-plugins), see [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file).
+   {{< alert title="Info" >}}
+   A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
+   {{< /alert >}}
 
+   Edit `plugins-conf.yml` to [configure plugins](/oracle/run-oracle/#configure-plugins) for data sources. See [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) for how to do this.
+   
 3. Set the Docker configuration and the arguments for running Autonity Oracle Server and connecting to the Autonity Go Client it is serving.
 
    ```bash
@@ -106,12 +118,11 @@ If plugins for external data sources or the symbols for which oracle server prov
 
    where:
    - `<ORACLE_KEYFILE>` specifies the path to your oracle server key file. E.g. `../aut/keystore/oracle.key`
-   - `<PLUGINS_CONF_FILE>` is the path to the oracle server configuration file `plugins-conf.yml`. E.g. `(pwd)/plugins-conf.yml`.
+   - `<PLUGINS_CONF_FILE>` is the path to the oracle server configuration file `plugins-conf.yml`. E.g. `./plugins-conf.yml`.
    - `<PWD>` is the password to your oracle server key file
    - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network). 
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
-
 
 {{< alert title="Info" >}}
 AOS requires an accessible `ws/wss` AGC endpoint. If you are also running AGC in docker and facing issues in connecting AOS to it, then see docker docs [Networking <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/network/).  
