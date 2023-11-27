@@ -45,7 +45,7 @@ The private key is used:
 
 The public key is used:
 
-- To derive an ethereum format account that is then used to identify the oracle server. See [oracle identifier](#oracle-identifier).
+- To derive an ethereum format account that is then used to identify the oracle server. See [oracle identifier](/concepts/oracle-network/#oracle-identifier).
 - As the `msg.Sender` address used by the oracle server to submit transactions for oracle price report submissions by function call to the Oracle Contract on-chain.
 
 ### Oracle identifier
@@ -115,7 +115,7 @@ If an oracle fails to vote in a round, or the reveal does not match the past com
 
 ### Currency pair management
 
-The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see `[config.autonity.oracle](/reference/genesis/#configautonityoracle-object)` object.
+The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see [`config.oracle`](/reference/genesis/#configoracle-object) object.
 
 The currency pair symbols set for a network can be returned by a contract call using the [getSymbols()](/reference/api/oracle/#getsymbols) function.
 
@@ -136,7 +136,7 @@ To exemplify:
 ## Data adaptors - plugin architecture
 Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
 
-The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/validators/install-oracle/) oracle server) directory during runtime. Detection of new or changed plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
+The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) directory during runtime. Detection of new or changed plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
 
 ### Runtime plugin management
 
