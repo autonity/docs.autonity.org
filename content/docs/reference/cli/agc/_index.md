@@ -25,6 +25,8 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `genNodeKey` | An option to generate a node key is added |
 | NETWORKING OPTIONS: ||
 | `--netrestrict` | Netrestrict functionality is modified in the client to allow for dynamic trusted peers. Netrestrict now supports a dynamic validator set and sentry node architecture: trusted but netrestricted nodes can connect, enabling a sentry node architecture for trusted consensus committee validator enode urls |
+| `--oraclekey` |  An option for the Autonity Oracle Server account key file is added. Validator nodes on an Autonity network must run the oracle binary to participate in the oracle network. |
+| `--oraclekeyhex` |  An option for the Autonity Oracle Server account key as hex (for testing) is added |
 | MINER OPTIONS: ||
 | `miner.etherbase ` | The option for setting the address for receiving block mining rewards is removed. Autonity implements a protocol mechanism for distributing staking rewards |
 | `miner.gasprice` | The default value for the minimum gas price for mining a transaction is changed from '1000000000' to '500000000' |
@@ -37,8 +39,6 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | ALIASED (deprecated) OPTIONS: ||
 | `--miner.gastarget` and `--nousb`| The options are deprecated and will be removed in the future |
 | MISC OPTIONS: ||
-| `--oraclekey` |  Autonity Oracle Server account key file. Validator nodes on an Autonity network must run the oracle binary to participate in the oracle network. |
-| `--oraclekeyhex` |  Autonity Oracle Server account key as hex (for testing) |
 | `--writeaddress` | An option to write out the node's public key on stdout is added |
 | `--dev` | A developer mode option to create an ephemeral proof-of-stake network with a pre-funded developer account, mining enabled |
 | `--dev.gaslimit` | An option to set the initial block gas limit (default: 30000000) for the developer mode network |
@@ -53,7 +53,6 @@ Run `autonity --help` to view the options:
 _Autonity is a Geth fork and command-line options are inherited from Geth. The Geth docs [Command-line Options <i class='fas fa-external-link-alt'></i>](https://geth.ethereum.org/docs/fundamentals/command-line-options) are kept in synch with the current stable version of Geth. The Command-line Options inherited from Geth reflect the Geth version from which Autonity is forked. For Autonity's Geth base version see Reference [Codebase](/reference/codebase/)._
 {{% /pageinfo %}}
 
-
 ```
 NAME:
    autonity - the autonity command line interface
@@ -64,7 +63,7 @@ USAGE:
    autonity [options] [command] [command options] [arguments...]
    
 VERSION:
-   0.11.0-internal-8f09bec1-20230502
+   0.12.2
    
 COMMANDS:
    account                            Manage accounts
@@ -188,6 +187,8 @@ NETWORKING OPTIONS:
   --netrestrict value                 Restricts network communication to the given IP networks (CIDR masks)
   --nodekey value                     P2P node key file
   --nodekeyhex value                  P2P node key as hex (for testing)
+  --oraclekey value                   oracle account key file
+  --oraclekeyhex value                oracle account key as hex (for testing)
   
 MINER OPTIONS:
   --mine                              Enable mining
@@ -247,8 +248,6 @@ MISC OPTIONS:
   --snapshot                          Enables snapshot-database mode (default = enable)
   --bloomfilter.size value            Megabytes of memory allocated to bloom-filter for pruning (default: 2048)
   --help, -h                          show help
-  --oraclekey value                   oracle account key file
-  --oraclekeyhex value                oracle account key as hex (for testing)
   --writeaddress                      writes out the node's public key on stdout
   --dev                               Ephemeral proof-of-stake network with a pre-funded developer account, mining enabled
   --dev.gaslimit value                Initial block gas limit (default: 30000000)
