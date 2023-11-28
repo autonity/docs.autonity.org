@@ -53,7 +53,7 @@ The principal message primitives of the networking communication layer are:
 
 Autonity inherits Ethereum's state model, ledger trie structures, and transaction state machine. Per Ethereum the state of the system incrementally evolves from genesis state as blocks are decided and appended to the ledger, each individual transaction forming a valid arc between state transitions to an account. The world (or global) state of the system comprises the mapping between accounts and their states, recorded in the distributed ledger maintained by participants. Per Ethereum, a participant can compute the current world state of each account on the system at any time by using the ledger and EVM, and applying in order the sequence of transactions from genesis block to current block height.
 
-At network genesis the ledger state comprises the [Autonity Protocol](/glossary/#autonity-protocol) contracts (Protocol Contract, Oracle Contract) and the genesis block state as set in the [genesis configuration file](/reference/genesis/). The genesis block contains the initial set of participant validators and smart contracts, both with their states. The initial smart contracts are: Autonity Protocol Contract, Autonity Oracle Contract, genesis validator _liquid newton_ contracts, and optionally additional contracts deployed using the `alloc` structure in the genesis file. Initial smart contract state is Autonity Protocol and Oracle Contract parameterisation and genesis validator _liquid newton_ contract bonded stake.
+At network genesis the ledger state comprises the Autonity [Protocol Contracts](/concepts/architecture/#protocol-contracts) and the genesis block state as set in the [genesis configuration file](/reference/genesis/). The genesis block contains the initial set of participant validators and smart contracts, both with their states. The initial smart contracts are: Autonity Protocol Contract, Autonity Oracle Contract, genesis validator _liquid newton_ contracts, and optionally additional contracts deployed using the `alloc` structure in the genesis file. Initial smart contract state is Autonity Protocol and Oracle Contract parameterisation and genesis validator _liquid newton_ contract bonded stake.
 
 
 ### The Ledger Object
@@ -84,10 +84,6 @@ Fields inherited from Ethereum:
 - `mixHash`, a 256-bit hash which, combined with the nonce, proves that a sufficient amount of computation has been carried out on this block
 - `nonce`, a 64-bit value which, combined with the mixHash, proves that a sufficient amount of computation has been carried out on this block
 - `number`, a scalar value equal to the number of ancestor blocks. The genesis block has a number of zero.
-<<<<<<< HEAD
-=======
-<!-- - `ommersHash`, unused. -->
->>>>>>> c1c0c4f (Edit Concept System model for accountability feature)
 - `parentHash`, the Keccak 256-bit hash of the parent block’s header.
 - `receiptsRoot`, the Keccak 256-bit hash of the root node of the trie structure populated with the receipts of each transaction in the transactions list portion of the block
 - `sha3Uncles`, the SHA3 hash of the uncle parents of the block. This always has the value '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
