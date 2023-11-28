@@ -45,6 +45,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
    A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
    {{< /alert >}}
 
+
    Edit `plugins-conf.yml` to [configure plugins](/oracle/run-oracle/#configure-plugins) for data sources. See [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) for how to do this.
 
 3. (Optional) Add your own data source plugin(s). If you have developed your own FX plugins, (a) add sub-directory(ies) containing the plugin source code to the `plugins` sub-directory of your installation; (b) add config entry(ies) to the `plugins-conf.yml` file. 
@@ -56,10 +57,10 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
     ``` bash
     autoracle \
-        -oracle_key_file="<ORACLE_KEYFILE>" \
-        -oracle_key_password="<PWD>" \
-        -oracle_autonity_ws_url="<WS_ADDRESS>"
-        -oracle_plugin_conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml" ;
+        -key.file="<ORACLE_KEYFILE>" \
+        -key.password="<PWD>" \
+        -ws="<WS_ADDRESS>"
+        -plugin.conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml" ;
     ```
 
    where:
@@ -67,14 +68,14 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
    - `<ORACLE_KEYFILE>` specifies the path to your oracle server key file, e.g. `../aut/keystore/oracle.key`
    - `<PWD>` is the password to your oracle server key file
    - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network)
-   - `<PLUGINS_CONF_FILE>` is the path to the plugins YAML configuration file `plugins-conf.yml` (defaults to `./build/bin/plugins/plugins-conf.yml`).
+   - `<PLUGINS_CONF_FILE>` is the path to the plugins YAML configuration file `plugins-conf.yml` (defaults to `./plugins-conf.yml`).
 
-Oracle server will connect to external data sources using the providers in the `/plugins` subdirectory and begin submitting price reports to the connected node.
+Oracle server will connect to external data sources using the providers in the `./plugins` subdirectory and begin submitting price reports to the connected node.
 
 {{< alert title="Info" >}}
-See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/#usage) for all available flags. Options can be set as system environment variables or directly in the terminal.
+See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/#usage) for all available command-line option flags. Configuration can be set using system environment variables or directly in the terminal as console flags. See the oracle server's GitHub repo [README, Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle#configuration) section for more detail.
 
-By default oracle server will use data source providers packaged in the server release `/plugins` subdirectory.
+By default oracle server will use data source providers packaged in the server release `./plugins` subdirectory.
 
 New plugins are configured by simply adding the binary code to the `/plugins` directory. See [Installing data source plugins](/oracle/install-oracle/#install-plugin).
 
@@ -109,11 +110,11 @@ If plugins for external data sources or the symbols for which oracle server prov
         --name oracle-server \
         --rm \
         ghcr.io/autonity/autonity-oracle:latest \
-        -oracle_key_file="/autoracle/oracle.key" \
-        -oracle_key_password="<PWD>" \
-        -oracle_autonity_ws_url="<WS_ADDRESS>" \
-        -oracle_plugin_dir="/usr/local/bin/plugins/" \
-        -oracle_plugin_conf="/autoracle/plugins-conf.yml"
+        -key.file="/autoracle/oracle.key" \
+        -key.password="<PWD>" \
+        -ws="<WS_ADDRESS>" \
+        -plugin.dir="/usr/local/bin/plugins/" \
+        -plugin.conf="/autoracle/plugins-conf.yml"
    ```
 
    where:
@@ -203,61 +204,6 @@ Additional data adaptors for any external data source can be developed using the
 
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
-
-
-## Run Autonity Oracle Server as Docker image {#run-docker}
-
-- Ensure that the Autonity Oracle Server [Docker image](/oracle/install-oracle/#install-docker) has been installed.
-
-1. Enter your working directory for autonity oracle server.
-
-2. Edit your oracle server config file `plugins-conf.yml` to specify the `name` and `key` for each plugins you are using. 
-3. Set the Docker configuration and the arguments for running Autonity Oracle Server and connecting to the Autonity Go Client it is serving.
-
-   ```bash
-   docker run \
-        -t -i \
-        --volume $<PATH_TO_ORACLE_KEY_FILE>:/autoracle/oracle.key \
-        --volume $<PATH_TO_PLUGINS_FILE>:/autoracle/plugins-conf.yml \
-        --name oracle-server \
-        --rm \
-        ghcr.io/clearmatics/autonity-oracle:v0.1.1-a2d406f \
-        -oracle_key_file="/autoracle/oracle.key" \
-        -oracle_plugin_dir="/usr/local/bin/plugins/" \
-        -oracle_key_password="<PASSWORD>" \
-        -oracle_autonity_ws_url="<NODE_URL>" \
-        -oracle_plugin_conf="/autoracle/plugins-conf.yml"
-   ```
-
-   where:
-   - `<PATH_TO_ORACLE_KEY_FILE>` is the path to the location of the oracle server encrypted key file. E.g. `(pwd)/keystore/oracle.key`.
-   - `<PATH_TO_PLUGINS_FILE>` is the path to the oracle server configuration file `plugins-conf.yml`. E.g. `(pwd)/plugins-conf.yml`.
-   - `<PASSWORD>` is the password for the oracle server encrypted key file
-   - `<NODE_URL>` is the WS endpoint URL for the Autonity Go Client the oracle server is connecting to.
-
-   See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
-
-On running the Docker you should see something like:
-
-   ```
- 	2023/09/06 15:14:45
-
-
- 	Running autonity oracle client v0.0.2
-	with symbols: AUD-USD,CAD-USD,EUR-USD,GBP-USD,JPY-USD,SEK-USD,ATN-USD,NTN-USD,NTN-ATN
-	and plugin diretory: /usr/local/bin/plugins/
- 	by connnecting to L1 node: ws://127.0.0.1:8546
- 	on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
-   ```
-
-{{< alert title="Important Notes" >}}
-- Note that all flags after the image name are passed to the Autonity Oracle Server in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
-- The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
-
-- The `--publish` flag causes incoming connections to the localhost to be forwarded to the container.
-{{< /alert >}}
-
-Naturally, the above command line can be tailored to suit a specific deployment. See the docker documentation for the complete list of Docker options.
 
 
 ## Stopping the Autonity Oracle Server

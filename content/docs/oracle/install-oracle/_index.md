@@ -103,7 +103,7 @@ The following should be installed in order to build the Autonity Oracle Server:
 
     ```bash
     cd autonity-oracle
-    make
+    make autoracle
     ```
     
     This will build the executable (`./build/bin/autoracle`) and create a subdirectory containing data source plugins packaged in the release (`./build/bin/plugins/`).
@@ -156,16 +156,7 @@ sudo systemctl restart docker
     mkdir autonity-oracle && cd autonity-oracle
     ```
    
-2. Add a config file for the oracle server::
-    ```bash
-    touch plugins-conf.yml
-    ```
-
-{{< alert title="Note" >}}
-   Alternatively you can download a template config file from the Releases archive.  Download the Oracle Server Release archive and unpack as described in Steps 1-3 in [Installing the pre-compiled executable](/oracle/install-oracle/#install-binary). Copy the `plugins-conf.yml` file into your working directory. 
-   {{< /alert >}}
-
-3. Pull the Autonity Oracle Server image from the GitHub Container Registry:
+2. Pull the Autonity Oracle Server image from the GitHub Container Registry:
     ```bash
     docker pull ghcr.io/autonity/autonity-oracle:latest
     ```
@@ -180,7 +171,7 @@ sudo systemctl restart docker
 
 <!-- TODO: UPDATE to autonity-oracle:latest
 
-4. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
+3. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
 
     ```bash
     docker images --digests ghcr.io/autonity/autonity-oracle
@@ -222,7 +213,7 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ ./autoracle version
 ```
 ```
-v0.1.2
+v0.1.3
 ```
 
 {{< alert title="Note" >}}
