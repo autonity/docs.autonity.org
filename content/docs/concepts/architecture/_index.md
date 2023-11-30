@@ -19,13 +19,14 @@ Autonity inherits from Ethereum:
 
 Autonity extends Ethereum at three logical layers:
 
-- Protocol smart contracts:
+- Protocol smart contracts: the Autonity protocol is deployed in part via protocol smart contracts:
+
 	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, and staking rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
 	- **Accountability Contract** implementing protocol primitives for accountability and fault detection, enforcing adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules by committee members, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model.
 	- **Autonity Oracle Contract** implementing protocol primitives for computing median price data from external price data and managing the set of currency pairs for which Autonity's [oracle network](/concepts/oracle-network/) provides price data.
 	
-	Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
+	Autonity Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
 - Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
 - Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
@@ -58,9 +59,9 @@ The order of deployment and computed addresses is:
 | `5` | Stabilization Contract | `0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f` |
 
 ### Autonity Protocol Contract
-The contract implementing much of the Autonity protocol extensions, including primitives for governance, staking, validators, consensus committee selection, and staking reward distribution.
+The contract implements many of the Autonity protocol extensions, including primitives for governance, staking, validators, consensus committee selection, and staking reward distribution.
 
-The contract stores [protocol parameters](/reference/protocol/) that specify economic, consensus, and governance settings of an Autonity network. Protocol parameters are initialised at network [genesis](/reference/genesis/) in the genesis state provided by the client's config for connecting to public Autonity networks, or a custom [genesis configuration file](/reference/genesis/#genesis-configuration-file) if running a local development network.
+The contract stores [protocol parameters](/reference/protocol/) that specify the economic, consensus, and governance settings of an Autonity network. Protocol parameters are initialised at network [genesis](/reference/genesis/) in the genesis state provided by the client's config for connecting to public Autonity networks, or a custom [genesis configuration file](/reference/genesis/#genesis-configuration-file) if running a local development network.
 
 Many of the Autonity Protocol Contract functions can be called by all participants, such as those for bonding and unbonding stake, and for reading protocol parameters.  Some functions are restricted to the governance `operator` account, such as those related to governance of network parameters.
 
@@ -99,14 +100,13 @@ The Autonity Protocol Contract manages state finalization, maintaining [system s
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
 #### Staking
-
 The Autonity Protocol Contract manages liquid staking,  maintaining the ledger of _newton_ stake token in the system and triggering the deployment of validator-specific _liquid newton_ contracts. The contract implements logic to:
 
 - Maintain the ledger of _newton_ stake token in the system, implementing the ERC20 token contract interface.
 - Facilitate liquid staking by triggering the deployment of validator-specific _liquid newton_ ERC20 contracts as validators are registered on the system.
-- Provide stake holders operations to bond and unbond stake from validators, managing _newton_ staking transitions and _liquid newton_ emission and redemption.
-- Provide stake holders standard ERC20 token operations for accessing the _newton_ stake token ledger and metadata.
-- Manage staking transitions, tracking bond and unbond requests until staking transitions are applied at epoch end.
+- Provide stakeholders operations to bond and unbond stake from validators, managing _newton_ staking transitions and _liquid newton_ emission and redemption.
+- Provide stakeholders standard ERC20 token operations for accessing the _newton_ stake token ledger and metadata.
+- Manage staking transitions, tracking bond and unbond requests until staking transitions are applied at the end of the epoch.
 - Trigger application of stake slashing penalties, calling the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) which applies stake slashing at epoch end for accountable faults.
 
 To learn more about the concept see [Staking](/concepts/staking/).
@@ -123,7 +123,7 @@ To learn more about the concept see [Validators](/concepts/validator/).
 #### Committee selection
 Computing the committee is a protocol only function. As the last block of an epoch is finalized, this function is executed to determine the committee for the following epoch.
 
-The committee is selected from the registered validators maintained in system state by the Autonity contract. Validators are ranked by bonded stake amount, those with the highest stake being selected to the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members that voted to approve the block.
+The committee is selected from the registered validators maintained in the system state by the Autonity contract. Validators are ranked by bonded stake, with those having the highest stake being selected for the available committee membership slots. This stake weighting maximises the amount of stake securing the system in each new committee. Each block header records the consensus committee members who voted to approve the block.
 
 To learn more about the concept see [Consensus](/concepts/consensus/) and  [Committee](/concepts/consensus/committee/).
 
@@ -133,8 +133,8 @@ Validators and stake delegators are incentivised by the distribution of staking 
 
 Rewards accumulate from transaction fees collected by the transaction fee mechanism as blocks are finalized by the committee:
 
-- Block _priority fees_ are distributed to block proposers at block interval.
-- Block _base fees_ are added to the rewards pool and distributed at epoch end.
+- Block _priority fees_ are distributed to block proposers at time intervals matching block generation times.
+- Block _base fees_ are added to the rewards pool and distributed at the end of the epoch.
 
 The rewards pool is held in a protocol account until reward distribution occurs as the final block of an epoch is committed to state. Consensus committee members are rewarded proportionally to their share of the bonded stake (the 'voting power') securing the committee.
 
@@ -296,7 +296,7 @@ To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/
 
 The append of new blocks to the ledger with immediate finality is managed by the Proof-of-Stake based Tendermint BFT consensus mechanism. It enables dynamic committee selection and maximises stake securing the system by a stake-weighted algorithm for committee selection.
 
-Individual blocks are proposed and agreed in a Tendermint consensus instance, where the process is dynamically repeated as new blocks are finalized. Consensus instances are computed by the consensus committee, a subset of validators whose bonded stake secures the network against Byzantine or malicious behaviour by committee members.
+Individual blocks are proposed and agreed upon in a Tendermint consensus instance, where the process is dynamically repeated as new blocks are finalized. Consensus instances are computed by the consensus committee, a subset of validators whose bonded stake secures the network against Byzantine or malicious behaviour by committee members.
 
 Committee selection is dynamic and stake-based, with a new committee elected for each [epoch](/glossary/#epoch-period). The physical length of an epoch is set as a number of blocks appended to the ledger, and so the temporal duration of an epoch is dependent upon the minimum block period or '[time interval](/glossary/#block-period)' at which blocks are generated by the protocol and appended to the ledger. This interval provides consistent block production to the chain and adherence to the interval is a block validity constraint. Both epoch length and block period are protocol parameters. The number of consensus instances executed in an epoch may be equal to or greater than the number of blocks in the epoch: a consensus round may timeout and fail to complete.
 
@@ -313,10 +313,10 @@ Autonity uses a [fully connected network topology](/glossary/#mesh-network) with
 
 Each participant maintains a current record of peers in the network, updated as new participants join or leave the system. Participants establish an authenticated connection with one another over TCP by the RLPx transport protocol. At the application-level, Autonity extends the Ethereum wire protocol for message broadcast to:
 
-- Add message types for consensus and state synchronisation exchanged by committee members during Tendermint consensus rounds for block proposal, prevote, and precommit.
-- Generate cryptographically signed 'seals' for validator messages sent during consensus rounds. Seals are included in the [block header](/concepts/system-model/#block-header) as a cryptographic proof of the validator quorum that agreed the block. There are two types of seal:
+- Add message types for consensus and state synchronisation exchanged by committee members during Tendermint consensus rounds for block proposal, prevote, and pre-commit.
+- Generate cryptographically signed 'seals' for validator messages sent during consensus rounds. Seals are included in the [block header](/concepts/system-model/#block-header) as cryptographic proof of the validator quorum that agreed on the block. There are two types of seal:
     - A proposer seal, seal of the committee member proposing the block
-    - A committed seal, aggregated seal of the committee members that voted and agreed on the block
+    - A committed seal, an aggregated seal of the committee members that voted and agreed on the block
 - Provide reliable broadcast logic and duplicate message send prevention under an [eventually synchronous model](/concepts/system-model/#networking) to guarantee the liveness property of consensus messaging in the wire protocol.
 
 To learn more about the concept, see [Networking](/concepts/system-model/#networking) in the System model.
