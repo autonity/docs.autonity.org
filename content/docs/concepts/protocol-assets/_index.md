@@ -2,7 +2,7 @@
 ---
 title: "Protocol assets "
 linkTitle: "Protocol assets"
-weight: 7
+weight: 11
 description: >
   Protocol assets - Auton, Newton, and Liquid Newton
 ---

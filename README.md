@@ -1,6 +1,6 @@
 # docs.autonity.org
 
-Documentation for the Autonity Go Client (AGC), the reference implementation of the Autonity blockchain protocol. 
+Documentation for the Autonity Go Client (AGC), the reference implementation of the Autonity blockchain protocol.
 
 ## Build Instructions
 
@@ -15,8 +15,10 @@ Setup:
 
 Usage:
 
-* Run `make serve` (or just `make`) to serve the site in Hugo's local webserver.
-* Review the [`Makefile`](Makefile) and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details.
+- Run `make serve` (or just `make`) to serve the site in Hugo's local webserver.
+- Review the [`Makefile`](Makefile) and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details.
+
+You can view the style specimen by viewing the [`specimen`](./content/docs/styleguide.md) file. The file can only be viewed locally by typing `hugo server -D` to include drafts when building and going to
 
 ## Contributing
 
