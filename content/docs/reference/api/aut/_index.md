@@ -1793,7 +1793,7 @@ If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance 
 This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 {{< /alert >}}
 
-On successful processing of the method call an `UnbondingRequest` object for the necessary voting power change is created:
+On successful processing of the method call, an `UnbondingRequest` object for the necessary voting power change is created:
 
 | Field | Datatype | Description |
 | --| --| --|
