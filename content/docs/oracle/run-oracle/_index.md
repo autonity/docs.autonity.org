@@ -108,9 +108,9 @@ If plugins for external data sources or the symbols for which oracle server prov
         -t -i \
         --volume $<ORACLE_KEYFILE>:/autoracle/oracle.key \
         --volume $<PATH_TO_PLUGINS_FILE>:/autoracle/plugins-conf.yml \
-        --name oracle-server \
+        --name <ORACLE_CONTAINER_NAME> \
         --rm \
-        ghcr.io/autonity/autonity-oracle:latest \
+        <DOCKER_IMAGE>:latest \
         -key.file="/autoracle/oracle.key" \
         -key.password="<PWD>" \
         -ws="<WS_ADDRESS>" \
@@ -119,6 +119,9 @@ If plugins for external data sources or the symbols for which oracle server prov
    ```
 
    where:
+   
+   - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, i.e. `oracle-server-bakerloo` or `oracle-server-piccadilly`
+   - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle-bakerloo` or `ghcr.io/autonity/autonity-oracle-piccadilly`
    - `<ORACLE_KEYFILE>` specifies the path to your oracle server key file. E.g. `../aut/keystore/oracle.key`
    - `<PLUGINS_CONF_FILE>` is the path to the oracle server configuration file `plugins-conf.yml`. E.g. `./plugins-conf.yml`.
    - `<PWD>` is the password to your oracle server key file

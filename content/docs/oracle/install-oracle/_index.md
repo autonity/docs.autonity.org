@@ -156,9 +156,18 @@ sudo systemctl restart docker
     mkdir autonity-oracle && cd autonity-oracle
     ```
    
-2. Pull the Autonity Oracle Server image from the GitHub Container Registry:
+2. Pull the Autonity Oracle Server image from the GitHub Container Registry.
+   
+   If you are deploying to the Bakerloo Testnet:
+   
     ```bash
-    docker pull ghcr.io/autonity/autonity-oracle:latest
+    docker pull ghcr.io/autonity/autonity-oracle-bakerloo:latest
+    ```
+   
+   If you are deploying to the Piccadilly Testnet:
+   
+    ```bash
+    docker pull ghcr.io/autonity/autonity-oracle-piccadilly:latest
     ```
 
    (where `latest` can be replaced with another version)
@@ -213,7 +222,7 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ ./autoracle version
 ```
 ```
-v0.1.3
+v0.1.4
 ```
 
 {{< alert title="Note" >}}
@@ -227,11 +236,11 @@ Oracle server will need to provide price data for FX and ATN and NTN currency pa
 A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
 
 - Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
-- Simulator plugin: for simulated ATN and NTN data for testnet purposes. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
+- Simulator plugin: for simulated ATN and NTN data. You need to install and run this plugin if you are deploying to Bakerloo Testnet, or for your own local testnet purposes. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
 
-The plugins are included pre-built as part of oracle server Docker image and pre-built executable.
+The plugins are built by the `make` process when building from source. The plugins are included pre-built as part of oracle server Docker image and the pre-built executable.
 
-If installing by building from source, you will also need to build and install the Simulator plugin if you want to use it for testnet:
+If installing by building from source, you will also need to build and install the Simulator plugin if you want to use it for Bakerloo Testnet or your own local testnet:
 
 1. Run `make simulator`.
 
