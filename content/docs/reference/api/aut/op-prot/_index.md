@@ -96,35 +96,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
-###  mint (Supply Control Contract)
-
-The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
-
-The protocol calls the function using by the `stabilizer` account, the Stabilization Contract address
-The recipient cannot be the `stabilizer` account or the `0` zero address. The minted `amount` cannot be equal to `0` or greater than the Supply Control Contract's available auton `balance`.
-    
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `recipient ` | `address` | the recipient account address |
-| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
-
-The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
-
-#### Event
-
-On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
-
-
 ###  modifyBasket (ACU Contract)
 
 Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
