@@ -30,7 +30,7 @@ Before transferring LNTN, verify your liquid newton holdings and the liquid newt
 	You should see something like beneath. In this example, the calling account has staked a single validator whose identifier address `0xA9F070101236476fe077F4A058C0C22E81b8A6C9 ` and has a liquid newton holding of `9901`:
     
     ```bash
-    aut account lnew-balances
+    aut account lntn-balances
     {
     	"0xA9F070101236476fe077F4A058C0C22E81b8A6C9": 9901
     }
