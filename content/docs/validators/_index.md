@@ -6,7 +6,7 @@ description: >
     Instructions for setting up and operating a validator node.
 ---
 
-A node on the Autonity network can be registered to become a [Validator](/concepts/validator/), making it eligible for selection into the [consensus committee](/concepts/consensus/committee/) to earn rewards for proposing and finalising blocks.
+A node on the Autonity network can be registered to become a [Validator](/concepts/validator/), making it eligible for selection into the [consensus committee](/concepts/consensus/committee/) to earn rewards for proposing and finalizing blocks.
 
 Validator nodes participate in the oracle protocol when members of the consensus committee. Accordingly, to operate a validator node, the Autonity Oracle Server must also be installed and configured to collect data from one or more external data sources.
 
