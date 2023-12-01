@@ -35,7 +35,7 @@ The ACU is the _Stabilization Target_ for [Auton](/glossary/#auton) price stabil
 
 
 ## Auton Stabilization Mechanism (ASM) {#asm}
-The protocol mechanism used to maintain Auton price stability. The _Stabilization Mechanism_ is [CDP](/glossary/#cdp), [Auton](/glossary/#auton) borrowed against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
+The protocol mechanism used to maintain Auton price stability. The _Stabilization Mechanism_ is [CDP](/glossary/#cdp), [Auton](/glossary/#auton) borrowed against [Newton](/glossary/#newton) collateral.
 
 
 ## Collateralised Debt Position (CDP) {#cdp}
@@ -57,6 +57,8 @@ Autonity network peers are connected in a full [mesh network](/glossary/#mesh-ne
 Autonity Oracle Server (AOS) is software for participating in the [Autonity oracle network](/glossary/#autonity-oracle-network). AOS retrieves exchange rate data for [currency pairs](/glossary/#currency-pair) from data providers, consolidates these data points into a standardised report, and submits to the Autonity Protocol's oracle contract on-chain via the AOS operator's [validator](/glossary/#validator) [node](/glossary/#node). Submitted data reports are then aggregated by the oracle contract which uses a voting mechanism to provide exchange rate reference data agreed by consensus.
 
 Providing [oracle](/glossary/#data-oracle) reference data is a validator responsibility. [Validator](/glossary/#validator) node operators must operate an AOS connected to their validator [node](/glossary/#autonity-go-client-agc).
+
+For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
 
 For AOS features see Concept [Oracle Server](/concepts/oracle-server/).
 
@@ -113,7 +115,7 @@ A digital currency that provides a medium of exchange in a decentralised compute
 ## currency pair
 Two currencies valued against one another with a quotation and pricing structure based on quoting one currency against the other. A currency pair consists of a base currency (listed first) and a quote currency (listed second). The currency pair expresses the amount of quote currency required to buy one unit of the base currency.
 
-For example, in the currency pair `JPY/USD 0.0074`, `1` Japanese Yen will trade for `0.0074` US dollars.
+For example, in the currency pair `JPY-USD 0.0074`, `1` Japanese Yen will trade for `0.0074` US dollars.
 
 ## data oracle
 An off-chain data feed service that provides data to a [blockchain](/glossary/#blockchain). An oracle data service is considered a secure and reliable source of information on the blockchain and may be used in on-chain logic execution. For example, a price data feed. See also [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas)

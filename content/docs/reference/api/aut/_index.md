@@ -577,6 +577,7 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
+
 ## getBlockPeriod
 
 Returns the block period from the protocol configuration.
@@ -807,7 +808,6 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {"jsonrpc":"2.0","id":1,"result":1800}
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 
 ## getLastEpochBlock
@@ -1326,7 +1326,6 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 {{< /tabpane >}}
 
 
-
 ## name
 
 Returns the name of the Newton stake token as a human-readable string. Set as contract metadata to the value of `Newton`.
@@ -1785,6 +1784,7 @@ If the validator has a [slashing](/concepts/accountability/#slashing) event befo
 See Concept [Accountability and fault detection (AFD)](/concepts/accountability/) for Autonity's slashing mechanism.
 {{< /alert >}}
 
+{{< /alert >}}
 Constraint checks are applied. The  `validator` address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is `<=` to the `msg.sender`'s bonded stake amount. For delegated stake this is done by checking the `msg.Sender`'s Liquid Newton balance is `>=` to the requested amount, and for self-bonded stake this is done by checking the validator's `selfBondedStake` balance is`>=` to the requested unbonding amount.
 
 {{< alert title="Note" >}}

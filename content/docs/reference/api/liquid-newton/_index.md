@@ -61,7 +61,6 @@ aut contract call --address lockedBalanceOf delegator
 {{< /tab >}}
 {{< /tabpane >}}
 
-
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}

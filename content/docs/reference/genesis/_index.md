@@ -70,6 +70,7 @@ Genesis configuration file JSON objects:
 | `mixHash` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. Used for: (a) compatibility with 3rd party Ethereum tools that expect the field, (b) an internal code check by the Autonity Protocol before a block is accepted during consensus; blocks without this hash are rejected. | A 256-bit hash as a Hex encoded string, set to: `0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365` |
 | `alloc` | An array of accounts to be assigned `Auton` on chain initialisation. Contract accounts for deployment at genesis can also be specified. | See [`alloc` object](#alloc-object) definition |
 
+
 #### config object
 
 |Parameter|Description|Value|
@@ -77,8 +78,8 @@ Genesis configuration file JSON objects:
 | `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
 | `accountability` | Autonity Accountability and Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
-| `asm` | Auton Stability Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
-| `oracle` | Auton Stability Mechanism configuration parameters | See [`config.oracle` object](#configoracle-object) |
+| `asm` | Auton Stabilization Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
+| `oracle` | Oracle protocol configuration parameters | See [`config.oracle` object](#configoracle-object) |
 
 
 #### config.autonity object
@@ -125,7 +126,7 @@ Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set to `["AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "USD/USD", "SEK/USD"]` |
+| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "USD-USD", "SEK-USD"]` |
 | `quantities` | The basket quantity corresponding to each symbol. | Set to `[21_300,18_700,14_300,10_400,1_760_000,18_000,141_000]` |
 | `scale` | The scale used to represent the basket `quantities` and ACU value. | Set to `5` |
 
@@ -149,6 +150,19 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 |---------|-----------|-----|
 | `initialAllocation` | The initial allocation of Auton to the ASM. | Value is specific to network configuration. |
 
+#### config.accountability object
+
+Object structure for the Accountability and Fault Detection (AFD) protocol configuration at genesis.
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set to `600` |
+| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set to `1000` (10%) |
+| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set to `2000` (20%) |
+| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set to `800` (8%) |
+| `historyFactor` | The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty | Set to `500` (5%) |
+| `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set to `2` |
+| `slashingRatePrecision` | The division precision used as the denominator when computing the slashing amount of a penalty | Set to `10000` |
 
 #### config.accountability object
 
@@ -172,8 +186,8 @@ Object structure for the oracle network at genesis.
 |---------|-----------|-----|
 |`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs retrieved by the oracle for (a) FX price data, and (b) ATN and NTN price data. Set to `["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","SEK/USD","ATN/USD","NTN/USD"]` |
-| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. Set to `30` for initiating a new oracle voting round at 30-block intervals |
+| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set to `'"AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","SEK-USD","ATN-USD","NTN-USD","NTN-ATN"'` |
+| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. For example, set to `30` for initiating a new oracle voting round at 30-block intervals |
 
 
 #### alloc object
@@ -251,7 +265,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     },
     "asm": {
       "acu" : {
-        "symbols" : ["AUD/USD","CAD/USD","EUR/USD","GBP/USD","JPY/USD","USD/USD","SEK/USD"],
+        "symbols" : ["AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","USD-USD","SEK-USD"],
         "quantities" : [21_300, 18_700, 14_300, 10_400, 1_760_000, 18_000, 141_000],
         "scale" : 5
       },
@@ -277,14 +291,14 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
        },
      "oracle": {
       "symbols":[
-            "AUD/USD",
-            "CAD/USD",
-            "EUR/USD",
-            "GBP/USD",
-            "JPY/USD",
-            "SEK/USD",
-            "ATN/USD",
-            "NTN/USD",
+            "AUD-USD",
+            "CAD-USD",
+            "EUR-USD",
+            "GBP-USD",
+            "JPY-USD",
+            "SEK-USD",
+            "ATN-USD",
+            "NTN-USD",
          ],
       "votePeriod": 30
     }

@@ -96,6 +96,127 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tabpane >}}
 
 
+###  mint (Supply Control Contract)
+
+The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
+
+The protocol calls the function using by the `stabilizer` account, the Stabilization Contract address
+The recipient cannot be the `stabilizer` account or the `0` zero address. The minted `amount` cannot be equal to `0` or greater than the Supply Control Contract's available auton `balance`.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
+
+
+###  modifyBasket (ACU Contract)
+
+Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbols_` | `string` | the symbols used to retrieve prices |
+| `quantities_` | `uint256` | the basket quantity corresponding to each symbol |
+| `scale_` | `uint256` | the scale for quantities and the ACU value |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+
+###  setAccountabilityContract
+
+Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Accountability Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+###  setAcuContract
+
+Sets a new value for the [ASM Auton Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the ACU Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+#### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+
+{{< /tab >}}
+{{< /tabpane >}}
+
+
+
 ###  modifyBasket (ACU Contract)
 
 Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
@@ -664,12 +785,12 @@ None.
 #### Event
 
 On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective  `round+1`.
-        
+
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["_symbol"]
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -678,7 +799,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbol
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "NTN-ATN"]
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -885,14 +1006,42 @@ None.
 
 None.
 
+### distributeRewards (Accountability Contract)
+
+The Accountability Contract reward distribution function, called at epoch finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). 
+
+The function:
+
+- distributes rewards for reporting provable faults committed by an offending validator to the reporting validator.
+- if multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.
+- if funds can't be transferred to the reporter's `treasury` account, then rewards go to the autonity protocol `treasury` account for community funds (see also [Protocol Parameters](/reference/protocol/#parameters) Reference).
+
+After distribution, the reporting validator is removed from the `beneficiaries` array.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validator` | `address` | the address of the validator node being slashed |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
 ###  finalize
 
 The block finalisation function, invoked each block after processing every transaction within it. The function:
 
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
+
 - tests if the block number is the last epoch block number (equal to `lastEpochBlock + epochPeriod` config) and if so sets the `epochEnded` boolean variable to `true` or `false` accordingly
 - invokes the Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
 - then, if `epochEnded` is `true`:
+
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
     - applies any staking transitions - pending bonding and unbonding requests tracked in `BondingRequest` and `UnbondingRequest` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
@@ -928,7 +1077,7 @@ On successful reward distribution the function emits:
 
 ###  finalize (Accountability Contract)
 
-The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
+The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the epoch, then:
 
 - On each block, tries to [promote `Accusations`](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. `Accusations` without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous fault already committed by the validator in the current epoch.
 
@@ -985,8 +1134,8 @@ None.
 
 The function emits events:
 
-- on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`
-- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`
+- on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`.
+- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`.
 
 
 ###  finalize (Oracle Contract)
@@ -1048,9 +1197,10 @@ Based on the verification outcome, constraint checks are applied:
 
   - if `FaultProof`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch.
-  
+
   - if `Accusation`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch
+    <!-- - the validator has not already been slashed for a fault with a higher severity in the proof's epoch. -->
     - the validator does not have a pending accusation being processed.
 
   - if `InnocenceProof`, then:
@@ -1122,39 +1272,6 @@ On success the function emits events for handling of:
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
 
-###  mint (Supply Control Contract)
-
-The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
-
-Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
-
-Constraint checks are applied:
-
-- the caller is the `stabilizer` account, the Stabilization Contract address
-- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
-- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
-    
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `recipient ` | `address` | the recipient account address |
-| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
-
-The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
-
-#### Event
-
-On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
-
 
 ###  mint (Supply Control Contract)
 
@@ -1166,9 +1283,9 @@ Constraint checks are applied:
 
 - the caller is the `stabilizer` account, the Stabilization Contract address
 - invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
-- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
+- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available Auton `balance`.
     
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
+When `x` amount of Auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
         
 #### Parameters
    
@@ -1192,7 +1309,7 @@ On a successful call the function emits a `Mint` event, logging: `recipient`, `a
 
 ###  update (ACU Contract)
 
-The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+The Auton Currency Unit (ACU) Contract finalization function, called once per Oracle voting round as part of the state finalization function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
 
 - it retrieves the latest prices from the Oracle Contract (i.e. the latest round data)
 - checks price data completeness:
@@ -1213,3 +1330,4 @@ None.
 #### Event
 
 On success the function emits an `Updated` event for the new ACU value, logging: `block.number`, `block.timestamp`, oracle voting round number `round`, and the ACU index value calculated `_value`.
+

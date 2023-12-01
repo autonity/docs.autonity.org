@@ -1,4 +1,3 @@
-
 ---
 title: "Oracle network"
 linkTitle: "Oracle network"
@@ -11,7 +10,7 @@ description: >
 
 This section describes the oracle protocol, the role of validators in providing and agreeing median price data, and the lifecycle for oracle voting and currency pair management.
 
-Autonity provides consensus-computed median price data for selected currency pairs as an L1 platform feature. The submission of price data for aggregation and voting is a validator responsibility and executed according to an _oracle protocol_. As consequence, validator nodes form an _oracle network_. When serving as a member of the [consensus committee](/glossary/#consensus-committee), validators must submit raw price data reports for currency pairs on-chain, and participate in the oracle protocol to agree an aggregated median price for the submitted price data in discrete _voting rounds_ using a _commit and reveal_ protocol. As voting rounds complete, the aggregated median price data computed and provided by the Autonity network is updated. As [epoch](/glossary/#epoch)'s end the set of oracle voters changes to accord with new consensus committee membership.
+Autonity provides consensus-computed median price data for selected currency pairs as an L1 platform feature. The submission of price data for aggregation and voting is a validator responsibility and executed according to an _oracle protocol_. As consequence, validator nodes form an _oracle network_. When serving as a member of the [consensus committee](/glossary/#consensus-committee), validators must submit raw price data reports for currency pairs on-chain, and participate in the oracle protocol to agree an aggregated median price for the submitted price data in discrete _voting rounds_ using a _commit and reveal_ protocol. As voting rounds complete, the aggregated median price data computed and provided by the Autonity network is updated. As an [epoch](/glossary/#epoch) ends the set of oracle voters changes to accord with new consensus committee membership.
 
 In the oracle protocol a validator has responsibilities to:
 
@@ -45,7 +44,7 @@ The private key is used:
 
 The public key is used:
 
-- To derive an ethereum format account that is then used to identify the oracle server. See [oracle identifier](#oracle-identifier).
+- To derive an ethereum format account that is then used to identify the oracle server. See [oracle identifier](/concepts/oracle-network/#oracle-identifier).
 - As the `msg.Sender` address used by the oracle server to submit transactions for oracle price report submissions by function call to the Oracle Contract on-chain.
 
 ### Oracle identifier
@@ -103,7 +102,7 @@ To exemplify oracle frequency of new median price data publication from genesis 
 |Time (Block Height) | Event|
 |:----:|:-----|
 |`Genesis` | Network genesis; initiation of first oracle voting round: `R1` |
-|`Block 1...30`| Oracle voters submit price report vote, providing _commit_; _reveal_ and _salt_ null. |
+|`Block 1...29`| Oracle voters submit price report vote, providing _commit_; _reveal_ and _salt_ null. |
 |`Block 30`| `R1` voting round ends. No previous round so no _commits_ to _reveal_ and no valid price submissions for median price computation for `R1`. New Round event emitted for `R2`. |
 |`Block 31`| New Round begins: `R2` |
 |`Block 31...60`| Oracle voters submit price report vote, providing _commit_ for `R2`; _reveal_ and _salt_ for `R1`. |
@@ -115,11 +114,11 @@ If an oracle fails to vote in a round, or the reveal does not match the past com
 
 ### Currency pair management
 
-The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see [`config.autonity.oracle`](/reference/genesis/#configautonityoracle-object) object.
+The currency pair symbols for which the oracle network provides price data is set at network genesis in the [genesis configuration file](/reference/genesis/#genesis-configuration-file) in the `symbols` field; see [`config.oracle`](/reference/genesis/#configoracle-object) object.
 
-The currency pair symbols set for a network can be returned by a contract call using the [`getSymbols()`](/reference/api/oracle/#getsymbols) function.
+The currency pair symbols set for a network can be returned by a contract call using the [getSymbols()](/reference/api/oracle/#getsymbols) function.
 
-The pairs can be updated post-genesis by a governance-only function, [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
+The pairs can be updated post-genesis by a governance-only function, `[setSymbols()](/reference/api/aut/op-prot/#setsymbols-oracle-contract).
 
 Note that if currency pair symbols are changed there is a 2-round delay in applying the change after the symbol update round. This is because of the [commit and reveal](/concepts/oracle-network/#commit-and-reveal) process for submitting and revealing price reports: oracles send commits for the new symbols in "symbol updated round + 1" and reveals for the new symbols in "symbol updated round + 2".
 
@@ -132,32 +131,13 @@ To exemplify:
 |`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
 |`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
 
-
-## Data adaptors - plugin architecture
-Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
-
-The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) during runtime. Detection of new or updated plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
-
-### Runtime plugin management
-
-- Adding new plugins. To add an adaptor for a new data source, place the new plugin into the oracle server's `/plugins` directory. The oracle server auto-discovers and manages it. There are no other operations required from the operator.
-- Replace or upgrade running plugins. To replace a (running) data adaptor plugin with a new version, just replace the binary in the `/plugins` directory. The oracle server auto-discovers the new version by checking the modification time of the binary and manages the plugin replacement itself. There are no other operations required from the operator.
-
-To exemplify:
-
-|Time (Block Height) | Event|
-|:----:|:-----|
-|`Genesis` | Symbols set in network genesis configuration. |
-|`Round n` - symbol updated round| Governance operation to update symbols. `setSymbols` function called and a `NewSymbols` event is emitted logging the _new_ currency pair symbols and the round number at which oracles must begin providing price report submissions for the new symbol set - i.e. current round +1. Oracles provide `commits` and `reveals` for the _old_ pre-update symbol set. |
-|`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set. |
-|`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set. |
-
 ## Oracle data consumers
 
 Primary consumers of oracle data are:
 
-- Auton Stabilisation Mechanism
+- Auton Stabilization Mechanism
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
+
 
 ## Oracle economics
 Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.

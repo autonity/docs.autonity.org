@@ -38,7 +38,7 @@ To operate as a validator node, the operator must operate Autonity [oracle serve
 Prerequisites for becoming a validator node operator are:
 
 - A [validator enode URL](/concepts/validator/#validator-enode-url). A node joined to the network.
-- An [oracle server](/concepts/oracle-server/) configured to collect external price data from off-chain data providers, and connected to the operator's validator node for on-chain submission of price reports.
+- An [oracle server](/concepts/oracle-network/) configured to collect external price data from off-chain data providers, and connected to the operator's validator node for on-chain submission of price reports.
 - A [treasury account](/concepts/validator/#treasury-account). An EOA account that is the validator node operator's online identity and which:
   - Is the `msg.sender()` account used by the operator to submit state affecting transactions that govern the [validator lifecycle](/concepts/validator/#validator-lifecycle).
   - Will receive the validator's share of [staking rewards](/concepts/staking/#staking-rewards).
@@ -189,6 +189,7 @@ Staking reward revenue potential is determined by the frequency with which a val
 -  The validator's commission rate. The percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator's stake delegators. The rate can be any value in the range `0 - 100%`. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate - see [Validator commission rate change](/concepts/validator/#validator-commission-rate-change) on this page.
 
 Bonded stake may be slashed and/or staking rewards may be reduced or forfeited by slashing penalties applied to the validator for accountable faults. The extent of the fine varies according to the severity of the fault committed. See Concept [accountability and fault detection protocol](/concepts/accountability/) and [slashing economics](/concepts/accountability/#slashing-economics).
+
 
 ## Validator registration
 A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:
