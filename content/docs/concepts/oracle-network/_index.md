@@ -147,10 +147,10 @@ To exemplify:
 
 |Time (Block Height) | Event|
 |:----:|:-----|
-|`Genesis` | Symbols set in network genesis configuration |
-|`Round n` - symbol updated round| Governance operation to update symbols. `setSymbols` function called and a `NewSymbols` event is emitted logging the _new_ currency pair symbols and the round number at which oracles must begin providing price report submissions for the new symbol set - i.e. current round +1. Oracles provide `commits` and `reveals` for the _old_ pre-update symbol set.|
-|`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
-|`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
+|`Genesis` | Symbols set in network genesis configuration. |
+|`Round n` - symbol updated round| Governance operation to update symbols. `setSymbols` function called and a `NewSymbols` event is emitted logging the _new_ currency pair symbols and the round number at which oracles must begin providing price report submissions for the new symbol set - i.e. current round +1. Oracles provide `commits` and `reveals` for the _old_ pre-update symbol set. |
+|`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set. |
+|`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set. |
 
 ## Oracle data consumers
 
