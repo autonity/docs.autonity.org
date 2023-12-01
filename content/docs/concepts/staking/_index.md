@@ -224,8 +224,8 @@ In Autonity's [AFD](/concepts/accountability/) protocol, slashable faults are li
 
 As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to [slashing](/concepts/staking/#slashing) penalties:
 
-- Newton whilst locked in [states](/concepts/protocol-assets/newton/) `bonded` and `unbonding`.
-- Liquid Newton in [states](/concepts/protocol-assets/liquid-newton/) `locked` and `unlocked`.
+- Newton whilst locked in [states](/concepts/protocol-assets/newton/) `bonded` and `unbonding`
+- Liquid Newton in [states](/concepts/protocol-assets/liquid-newton/) `locked` and `unlocked`
 
 Whilst stake is unbonding the protocol tracks the relative ownership of stake in the delegated and self-bonded unbonding pools via a "share" mechanism so that the PAS slashing priority may be correctly applied to the unbonding stake and the correct amount of delegated or self-bonded stake be released at the end of the unbonding period.
 
