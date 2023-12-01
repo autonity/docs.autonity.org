@@ -97,7 +97,7 @@ aut validator unbond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut t
 ```
 
 {{< alert title="Note" >}}
-If you are a validator operator unbonding [self-bonded](/glossary/#self-bonded) stake, then the amount specifies Newton stake token. Otherwise if you are unbonding [delegated](/glossary/#delegated) stake the amount is specifying Liquid Newton.
+If you are a validator operator unbonding [self-bonded](/glossary/#self-bonded) stake, then the amount specifies Newton stake token. Otherwise, if you are unbonding [delegated](/glossary/#delegated) stake, then the amount is specifying Liquid Newton.
 
 Like bonding requests, unbonding does not complete immediately.  The unbonding request will only be effective after the unbonding period, rounded to the next epoch. Newton will then be returned to the caller.  See the [staking section](/concepts/staking/) for further details.
 
