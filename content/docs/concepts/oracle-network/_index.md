@@ -132,26 +132,6 @@ To exemplify:
 |`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
 |`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
 
-
-## Data adaptors - plugin architecture
-Oracle server provides a standard interface for data adaptors pulling data from external data providers. Any party can build a new plugin implementing this interface and so provide an adaptor for any data source on demand.
-
-The oracle server scans and load plugins from the `/plugins` directory (see how to [install](/oracle/install-oracle/) oracle server) during runtime. Detection of new or updated plugins is dynamic; no shutdown of the oracle client is required to detect and apply the change.
-
-### Runtime plugin management
-
-- Adding new plugins. To add an adaptor for a new data source, place the new plugin into the oracle server's `/plugins` directory. The oracle server auto-discovers and manages it. There are no other operations required from the operator.
-- Replace or upgrade running plugins. To replace a (running) data adaptor plugin with a new version, just replace the binary in the `/plugins` directory. The oracle server auto-discovers the new version by checking the modification time of the binary and manages the plugin replacement itself. There are no other operations required from the operator.
-
-To exemplify:
-
-|Time (Block Height) | Event|
-|:----:|:-----|
-|`Genesis` | Symbols set in network genesis configuration. |
-|`Round n` - symbol updated round| Governance operation to update symbols. `setSymbols` function called and a `NewSymbols` event is emitted logging the _new_ currency pair symbols and the round number at which oracles must begin providing price report submissions for the new symbol set - i.e. current round +1. Oracles provide `commits` and `reveals` for the _old_ pre-update symbol set. |
-|`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set. |
-|`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set. |
-
 ## Oracle data consumers
 
 Primary consumers of oracle data are:
