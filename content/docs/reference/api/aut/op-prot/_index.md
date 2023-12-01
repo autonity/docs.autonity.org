@@ -216,98 +216,6 @@ None.
 {{< /tabpane >}}
 
 
-
-###  modifyBasket (ACU Contract)
-
-Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `symbols_` | `string` | the symbols used to retrieve prices |
-| `quantities_` | `uint256` | the basket quantity corresponding to each symbol |
-| `scale_` | `uint256` | the scale for quantities and the ACU value |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-
-###  setAccountabilityContract
-
-Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `_address ` | `address` | the ethereum formatted address of the Accountability Contract |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-###  setAcuContract
-
-Sets a new value for the [ASM Auton Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `_address ` | `address` | the ethereum formatted address of the ACU Contract |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-#### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
 ###  setCommitteeSize
 
 Sets a new value for the `committeeSize` protocol parameter. 
@@ -1006,31 +914,6 @@ None.
 
 None.
 
-### distributeRewards (Accountability Contract)
-
-The Accountability Contract reward distribution function, called at epoch finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). 
-
-The function:
-
-- distributes rewards for reporting provable faults committed by an offending validator to the reporting validator.
-- if multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.
-- if funds can't be transferred to the reporter's `treasury` account, then rewards go to the autonity protocol `treasury` account for community funds (see also [Protocol Parameters](/reference/protocol/#parameters) Reference).
-
-After distribution, the reporting validator is removed from the `beneficiaries` array.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_validator` | `address` | the address of the validator node being slashed |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
 
 ###  finalize
 
