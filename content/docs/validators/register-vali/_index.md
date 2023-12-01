@@ -13,7 +13,7 @@ To register a validator you need:
 - A [running instance of the Autonity Go Client](/node-operators/) running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on its WebSocket port.  This will be the node to be registered as a validator.
 - A [running instance of the Autonity Oracle Server](/oracle/) running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your  validator node's WebSocket port.
 - A configured instance of [`aut`](/account-holders/setup-aut/).
-- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that that will also receive the validator's share of staking rewards.
+- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that will also receive the validator's share of staking rewards.
 
 {{< alert title="Note" >}}
 See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.
