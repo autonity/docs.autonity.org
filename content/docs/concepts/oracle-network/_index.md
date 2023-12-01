@@ -131,7 +131,6 @@ To exemplify:
 |`Round n+1`| Oracles submit `commits` for the _new_ symbol set and `reveals` for the _old_ symbol set |
 |`Round n+2`| Oracles submit `commits` and `reveals` for the _new_ symbol set  |
 
-
 ## Oracle data consumers
 
 Primary consumers of oracle data are:

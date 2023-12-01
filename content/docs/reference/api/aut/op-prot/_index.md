@@ -370,10 +370,6 @@ The updated parameter can be retrieved from state by a call to the [`epochPeriod
 
 On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
-#### Event
-
-On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
-
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -509,6 +505,7 @@ None.
 {{< /tabpane >}}
 
 
+
 ###  setMinimumBaseFee
 
 Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in [`ton`](/glossary/#ton). 
@@ -603,6 +600,7 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
 - [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
+
 
 #### Parameters
    
@@ -786,7 +784,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective `round+1`.
+On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective  `round+1`.
 
 #### Usage
 
@@ -795,6 +793,7 @@ On a successful call the function emits a `NewSymbols` event, logging: a string 
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["_symbol"]
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 #### Example
 
@@ -981,6 +980,31 @@ The new committee enode URL's can be retrieved from state by calling the [`getCo
 
 Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake()`](/reference/api/aut/#epochtotalbondedstake) method.
 
+### distributeRewards (Accountability Contract)
+
+The Accountability Contract reward distribution function, called at epoch finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). 
+
+The function:
+
+- distributes rewards for reporting provable faults committed by an offending validator to the reporting validator.
+- if multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.
+- if funds can't be transferred to the reporter's `treasury` account, then rewards go to the autonity protocol `treasury` account for community funds (see also [Protocol Parameters](/reference/protocol/#parameters) Reference).
+
+After distribution, the reporting validator is removed from the `beneficiaries` array.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validator` | `address` | the address of the validator node being slashed |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
 
 ### distributeRewards (Accountability Contract)
 
@@ -1029,7 +1053,6 @@ The block finalisation function, invoked each block after processing every trans
   - calculate the median price of [currency pairs](/glossary/#currency-pair)
   - re-set oracle voters and parameters ready for the next oracle voting round.
 - then, if the oracle has computed data and started a new voting round (`newRound` is `true`), invokes the ACU Contract [`update()`](/reference/api/aut/op-prot/#update-acu-contract) function to recompute the ACU value using the new price data.
-
 
 #### Parameters
 
@@ -1260,43 +1283,9 @@ Constraint checks are applied:
 
 - the caller is the `stabilizer` account, the Stabilization Contract address
 - invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
-- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
+- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available Auton `balance`.
     
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `recipient ` | `address` | the recipient account address |
-| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
-
-The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
-
-#### Event
-
-On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
-
-
-###  mint (Supply Control Contract)
-
-The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
-
-Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
-
-Constraint checks are applied:
-
-- the caller is the `stabilizer` account, the Stabilization Contract address
-- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
-- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
-    
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
+When `x` amount of Auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
         
 #### Parameters
    

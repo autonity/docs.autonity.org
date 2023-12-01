@@ -810,130 +810,6 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
-
-## getLastEpochBlock
-
-Returns the number of the last block in the preceding epoch at the block height of the call.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `lastEpochBlock` | `uint256` | the number of the last block in the preceding epoch |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol get-last-epoch-block [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method":"aut_getLastEpochBlock", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-$ aut protocol get-last-epoch-block -r https://rpc1.piccadilly.autonity.org
-12981684
-{{< /tab >}}
-{{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getLastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":12981684}
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-
-## getEpochPeriod
-
-Returns the epoch period from the protocol configuration.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-## getEpochFromBlock
-
-Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
-
-### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_block` | `uint256` | the input block number |
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `epochID` | `uint256` | the identifier of the epoch in which the block was committed to state |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-
-{{< tab header="RPC" >}}
-{"method": "aut_getEpochFromBlock", "params":[_block]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-<!--
-{{< tab header="aut" >}}
-
-{{< /tab >}}
--->
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-
-{{< tab header="RPC" >}}
-curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
---header 'Content-Type: application/json' \
---data-raw '{
-        "jsonrpc":"2.0",
-        "method":"aut_getEpochFromBlock",
-        "params":[1900],
-        "id":1500
-}'
-{"jsonrpc":"2.0","id":1,"result":1}
-{{< /tab >}}
-{{< /tabpane >}}
-
-<!--
-{{< tab header="aut" >}}
-
-{{< /tab >}}
--->
-
-
 ## getLastEpochBlock
 
 Returns the number of the last block in the preceding epoch at the block height of the call.
@@ -1177,45 +1053,6 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {{< /tabpane >}}
 
 
-
-## getOracle
-
-Returns the address of the Autonity Oracle Contract.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `address` | the oracle contract account address |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< tab header="RPC" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
 ##  getProposer
 
 Returns the address of the consensus committee member proposing a new block for a specified block height and consensus round.
@@ -1265,6 +1102,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
 {{< /tab >}}
 {{< /tabpane >}}
+
 
 
 ## getUnbondingPeriod
@@ -1333,7 +1171,7 @@ Returns a `Validator` object consisting of:
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
 | `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height) |
 | `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
-| `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
+| `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
 
 ### Usage
 
@@ -1352,10 +1190,10 @@ aut validator info [OPTIONS]
 {{< tab header="aut" >}}
 $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
 {
-  "treasury": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "node_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "oracle_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "enode": "enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303",
+  "treasury": "0x61EE7d3244642E5f6D654416a098DEabFBF5306e",
+  "node_address": "0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C",
+  "oracle_address": "0x9b844631B7279576330B9B822bE79266696fF8C2",
+  "enode": "enode://b2748268c31ebab8603058335bb4bed062e05b9ceaa3562f69868a01d1038a84136fc587fb913e1cb8ce821f1eb0bf9879e3249f18adcd39f1211a104ceb57a9@35.197.223.249:30303",
   "commission_rate": 1000,
   "bonded_stake": 10000000000000000000000,
   "unbonding_stake": 0,
@@ -1619,6 +1457,7 @@ On method execution a `Validator` object data structure is constructed in memory
 | `jailReleaseBlock` | `uint256` | Set to `0`. (The block number at which a validator jail period applied for an accountability or omission fault ends.) |
 | `provableFaultCount` | `uint256` | Set to `0`. (Counter recording the number of times the validator has been penalised for accountability and omission faults.) |
 | `ValidatorState` | `state` | Set to `active`. |
+
 
 Constraint checks are applied:
 
@@ -1945,13 +1784,6 @@ If the validator has a [slashing](/concepts/accountability/#slashing) event befo
 See Concept [Accountability and fault detection (AFD)](/concepts/accountability/) for Autonity's slashing mechanism.
 {{< /alert >}}
 
-{{< alert title="Warning" color="warning">}}
-The unbonding request will only be effective after the unbonding period, rounded to the next epoch.
-
-If the validator has a [slashing](/concepts/accountability/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
-
-See Concept [Accountability and fault detection (AFD)](/concepts/accountability/) for Autonity's slashing mechanism.
-
 {{< /alert >}}
 Constraint checks are applied. The  `validator` address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is `<=` to the `msg.sender`'s bonded stake amount. For delegated stake this is done by checking the `msg.Sender`'s Liquid Newton balance is `>=` to the requested amount, and for self-bonded stake this is done by checking the validator's `selfBondedStake` balance is`>=` to the requested unbonding amount.
 
@@ -1961,7 +1793,7 @@ If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance 
 This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 {{< /alert >}}
 
-On successful processing of the method call an `UnbondingRequest` object for the necessary voting power change is created:
+On successful processing of the method call, an `UnbondingRequest` object for the necessary voting power change is created:
 
 | Field | Datatype | Description |
 | --| --| --|
@@ -1973,11 +1805,12 @@ On successful processing of the method call an `UnbondingRequest` object for the
 | `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
 | `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
 
-The [unbonding period](/glossary/#unbonding-period) begins the next block. The `UnbondingRequest` is tracked in memory until applied at the end of the epoch in which the unbonding period expires and at that block point Newton redemption (i.e. 'release') occurs:
+The [unbonding period](/glossary/#unbonding-period) begins in the next block. The `UnbondingRequest` is tracked in memory. At the end of the epoch in which the unbond request was processed:
+  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake
+  - calculation of the amount of stake to deduct from the unbonding pool, as well as the delegator's share of the unbonding pool
+  - the amount of Newton bonded to the validator is reduced by the unbonding amount
 
-- the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake,
-- the amount of stake to reduce the unbonding pool by and the delegator's share of the unbonding pool is calculated,
-- the amount of Newton bonded to the validator is reduced by the unbonding amount,
+Then, at the end of the epoch in which the unbonding period expires Newton redemption occurs and the Newton that is due is minted to the staker's Newton account.
 
 {{< alert title="Warning" color="warning" >}}
 The amount of Newton released may be less than the unbonded amount if the validator has been slashed.
