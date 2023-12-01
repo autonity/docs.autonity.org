@@ -131,11 +131,6 @@ TODO
 
 TODO
 -->
-<!--  
-## Run Autonity Oracle Server as Linux daemon service {#run-daemon}
-
-TO DO
--->
 
 ## Stopping the Autonity Oracle Server
 
