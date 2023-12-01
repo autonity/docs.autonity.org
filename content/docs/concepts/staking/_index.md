@@ -220,7 +220,7 @@ Staking transitions are changes to stake bonded to validators caused by stake bo
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end, staking transitions are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures. They can be read by listening for and viewing `NewBondingRequest` and `NewUnbondingRequest` events emitted by the [`bond()`](/reference/api/aut/#bond) and [`unbond()`](/reference/api/aut/#unbond) functions of the Autonity Protocol Contract.
 
-In Autonity's [AFD](/concepts/accountability/) protocol, slashable faults are likewise processed throughout an epoch and any changes to delegated stake caused by stake slashing are applied to unbonding and bonded stake at epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model before staking transitions are applied. 
+In Autonity's [AFD](/concepts/accountability/) protocol, slashable faults are likewise processed throughout an epoch. Any changes to delegated stake that are caused by stake slashing are applied to unbonding and bonded stake at the epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. This takes place before staking transitions are applied. 
 
 As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to [slashing](/concepts/staking/#slashing) penalties:
 
