@@ -209,7 +209,7 @@ Stake remains at risk during the unbonding period; it is locked and in a non-tra
 The duration of the unbonding period is set at genesis by the `unbondingPeriod` parameter, see the [Protocol](/reference/protocol) parameter reference. The setting can be changed by governance calling the [`setUnbondingPeriod()`](/reference/api/aut/op-prot/#setunbondingperiod) function.
 
 {{< alert title="Example" >}}
-In an unbonding scenario with an epoch period of 30 blocks, an unbonding period of 120 blocks, and an unbonding request issued at block 15 in the epoch. At block 15 the unbonding request is processed and then tracked in memory. At the end of that epoch, block 30, the validator's voting power is reduced and the unbonded amount is added to the unbonding pool. The unbonding period expires at block 135. At the end of the epoch in which the unbonding period falls, block 150, due Newton is returned to the stake delegator.
+In an unbonding scenario with an epoch period of 30 blocks, an unbonding period of 120 blocks, and an unbonding request issued at block 15 in the epoch. At block 15 the unbonding request is processed and then tracked in memory. At the end of that epoch, block 30, the validator's voting power is reduced and the unbonded amount is added to the unbonding pool. The unbonding period expires at block 135. At the end of the epoch in which the unbonding period falls, block 150, the Newton that is due is returned to the stake delegator.
 
 Stake remains at risk during the unbonding period. The amount of Newton returned to the delegator may be less than the original unbonded amount if the validator has been slashed between submitting the unbond request at block 15 and Newton redemption at block 150.
 {{< /alert >}}
