@@ -260,7 +260,7 @@ See [Bonding](/concepts/staking/#bonding) above.
 
 Stake is unbonded from a validator through an unbonding operation. Unbonding is subject to an [unbonding period](/concepts/staking/#unbondingperiod) during which it remains locked. The unbonding period applies irrespective of whether the nominated validator is a member of the consensus committee or not. 
 
-Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalized. On processing the transaction the bonded stake token moves from `bonded` to the intermediate state of `unbonding`. The stake is still locked during the unbonding period. The unbonding request is captured and tracked in memory. The staking transition is applied in two steps:
+Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalized. On processing the transaction, the bonded stake token moves from `bonded` to the intermediate state of `unbonding`. The stake is still locked during the unbonding period. The unbonding request is captured and tracked in memory. The staking transition is applied in two steps:
 
 - _at the end of the epoch in which the unbonding request was issued_: the validator's total bonded stake (and consequently [voting power](/glossary/#voting-power) decreases by the unbonded amount when the unbonding is applied at the end of the epoch,
 
