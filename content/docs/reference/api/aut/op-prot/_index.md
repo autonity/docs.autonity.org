@@ -249,10 +249,6 @@ The updated parameter can be retrieved from state by a call to the [`epochPeriod
 
 On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
 
-#### Event
-
-On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
-
 #### Usage
 
 {{< tabpane langEqualsHeader=true >}}
@@ -388,6 +384,7 @@ None.
 {{< /tabpane >}}
 
 
+
 ###  setMinimumBaseFee
 
 Sets a new value for the `minBaseFee` protocol parameter. The value is denominated in [`ton`](/glossary/#ton). 
@@ -416,6 +413,15 @@ aut protocol set-minimum-base-fee [OPTIONS] base-fee
 {{< /tab >}}
 {{< /tabpane >}}
 
+<!--
+{{< tab header="NodeJS Console" >}}
+autonity.setMinimumBaseFee(_price).send()
+{{< /tab >}}
+{{< tab header="RPC" >}}
+{"method": "aut_setMinimumBaseFee", "params":[_price]}
+{{< /tab >}}
+-->
+
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -427,6 +433,42 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
+<!--
+{{< tab header="NodeJS Console" >}}
+> autonity.setMinimumBaseFee(50000000).send({from: myAddress, gas: gas})
+{
+  blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
+  blockNumber: 7247,
+  contractAddress: null,
+  cumulativeGasUsed: 30100,
+  effectiveGasPrice: 2500247492,
+  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
+  gasUsed: 30100,
+  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
+  status: true,
+  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
+  transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
+  transactionIndex: 0,
+  type: '0x2',
+  events: {
+    MinimumBaseFeeUpdated: {
+      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
+      blockNumber: 7247,
+      transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
+      transactionIndex: 0,
+      blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
+      logIndex: 0,
+      removed: false,
+      id: 'log_2f1e2457',
+      returnValues: [Result],
+      event: 'MinimumBaseFeeUpdated',
+      signature: '0x1f4d2fc7529047a5bd96d3229bfea127fd18b7748f13586e097c69fccd389128',
+      raw: [Object]
+    }
+  }
+}
+{{< /tab >}}
+-->
 
 ###  setOperatorAccount
 
@@ -437,6 +479,7 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
 - [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
+
 
 #### Parameters
    
@@ -458,6 +501,15 @@ aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
+<!--
+{{< tab header="NodeJS Console" >}}
+autonity.setOperatorAccount(_account).send()
+{{< /tab >}}
+{{< tab header="RPC" >}}
+{"method": "aut_setOperatorAccount", "params":[_account]}
+{{< /tab >}}
+-->
+
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
@@ -469,6 +521,11 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
+<!--
+{{< tab header="NodeJS Console" >}}
+> autonity.setOperatorAccount('0x11a87b260dd85ff7189d848fd44b28cc8505fa9c').send({from: myAddress, gas: gas})
+{{< /tab >}}
+-->
 
 ###  setOracleContract
 
@@ -606,7 +663,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective `round+1`.
+On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective  `round+1`.
         
 #### Usage
 
@@ -616,11 +673,12 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbol
 {{< /tab >}}
 {{< /tabpane >}}
 
+
 #### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["NTN/USD", "NTN/AUD", "NTN/CAD", "NTN/EUR", "NTN/GBP", "NTN/JPY", "NTNSEK", "AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ["AUD/USD", "CAD/USD", "EUR/USD", "GBP/USD", "JPY/USD", "SEK/USD", "ATN/USD", "NTN/ATN"]
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -744,7 +802,7 @@ Functions with protocol contract access constraints can only be invoked by the A
 
 ###  burn (Supply Control Contract)
 
-The Auton burn function, called by the Stabilization Contract to burn Auton while processing a CDP repayment. 
+The Auton burn function, called by the Stabilization Contract `stabilizer` account address to burn Auton while processing a CDP repayment. 
 
 Burns the specified amount of Auton, taking it out of circulation.
 
@@ -801,6 +859,31 @@ The new committee enode URL's can be retrieved from state by calling the [`getCo
 
 Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the [`epochTotalBondedStake()`](/reference/api/aut/#epochtotalbondedstake) method.
 
+### distributeRewards (Accountability Contract)
+
+The Accountability Contract reward distribution function, called at epoch finalisation as part of the state finalisation function [`finalize`](/reference/api/aut/op-prot/#finalize). 
+
+The function:
+
+- distributes rewards for reporting provable faults committed by an offending validator to the reporting validator.
+- if multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.
+- if funds can't be transferred to the reporter's `treasury` account, then rewards go to the autonity protocol `treasury` account for community funds (see also [Protocol Parameters](/reference/protocol/#parameters) Reference).
+
+After distribution, the reporting validator is removed from the `beneficiaries` array.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validator` | `address` | the address of the validator node being slashed |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
 
 ###  finalize
 
@@ -808,17 +891,19 @@ The block finalisation function, invoked each block after processing every trans
 
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
 - tests if the block number is the last epoch block number (equal to `lastEpochBlock + epochPeriod` config) and if so sets the `epochEnded` boolean variable to `true` or `false` accordingly
-- invokes the Accountability Contract [`finalize`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
+- invokes the Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
 - then, if `epochEnded` is `true`:
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
-    - applies any staking transitions - pending bonding and unbonding requests tracked in `Staking` data structures in memory
+    - applies any staking transitions - pending bonding and unbonding requests tracked in `BondingRequest` and `UnbondingRequest` data structures in memory
     - applies any validator commission rate changes - pending rate change requests tracked in `CommissionRateChangeRequest` data structures in memory
     - selects the consensus committee for the following epoch, invoking the [`computeCommittee()`](/reference/api/aut/op-prot/#computecommittee) function
-    - sets oracle voters for the following epoch, invoking the Oracle Contract `setVoters` function
     - assigns the `lastEpochBlock` state variable the value of the current block number
     - increments the `epochID` by `1`
     - emits a `NewEpoch` event logging the `epochID` of the new epoch
-- invokes the Oracle Contract [`finalize`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to calculate the median price of [currency pairs](/glossary/#currency-pair) and re-set oracle voters and parameters ready for the next oracle voting round.
+- invokes the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) function, triggering the Oracle Contract to check it is the end of a voting round and if so:
+  - calculate the median price of [currency pairs](/glossary/#currency-pair)
+  - re-set oracle voters and parameters ready for the next oracle voting round.
+- then, if the oracle has computed data and started a new voting round (`newRound` is `true`), invokes the ACU Contract [`update()`](/reference/api/aut/op-prot/#update-acu-contract) function to recompute the ACU value using the new price data.
 
 #### Parameters
 
@@ -1000,6 +1085,7 @@ Then, depending on event type:
   - The accusation queue is checked and the associated accusation is removed.
   - The validator's pending accusation is reset to `0`, indicating the validator has no pending accusations (so a new accusation can now be submitted against the validator).
 
+
 #### Parameters
 
 | Field | Datatype | Description |
@@ -1021,6 +1107,8 @@ On proof submission an `_event` object data structure is constructed in memory, 
 | `epoch` | `uint256` | the identifier of the epoch in which the accountability event occurred. Assigned by protocol after proof verification. |
 | `reportingBlock` | `uint256` | the number of the block at which the accountability event was reported. Assigned by protocol after proof verification. |
 | `messageHash` | `uint256` | hash of the main evidence for the accountability event. Assigned by protocol after proof verification. |
+| `_validator` | `address` | the address of the validator node being slashed |
+
 
 #### Response
 
@@ -1033,6 +1121,39 @@ On success the function emits events for handling of:
 - Fault proof: a `NewFaultProof` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Accusation proof: a `NewAccusation` event, logging: round `_offender` validator address, `_severity` of the fault, and `_eventId`.
 - Innocence proof: an `InnocenceProven` event, logging: `_offender` validator address, `0` indicating there are no pending accusations against the validator.
+
+###  mint (Supply Control Contract)
+
+The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
+
+Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
+
+Constraint checks are applied:
+
+- the caller is the `stabilizer` account, the Stabilization Contract address
+- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
+- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
+    
+When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `recipient ` | `address` | the recipient account address |
+| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
+
+The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
+
+#### Event
+
+On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
 
 
 ###  mint (Supply Control Contract)

@@ -33,7 +33,7 @@ As an entity contributing bonded stake to secure the network a validator active 
 
 ### Validator prerequisites 
 
-To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to Autonity [full node](/concepts/client/) software.
+To operate as a validator node, the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
 
 Prerequisites for becoming a validator node operator are:
 
@@ -114,6 +114,7 @@ The sequence of lifecycle events for a validator is:
 7. Pause as a validator. The validator's node enters a `paused` state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until reactivated. Stake is _not_ automatically unbonded.
 8. Reactivate as a validator. The validator's node transitions from a `paused` or `jailed` state to resume an `active` state in which it is eligible for inclusion in the committee selection process.
 
+
 Validator registration can take place at genesis initialisation or after genesis. In the genesis scenario, event steps 1-4 happen automatically as the network is initialised and the validator is included in the genesis run of the committee selection process. After genesis, all lifecycle steps are discrete and initiated by the validator node operator entity. 
 
 
@@ -132,7 +133,7 @@ A validator may be found guilty by the [accountability and fault detection proto
 
 - is transitioned by protocol from an `active` to a `jailed` state
 - is barred from consensus committee selection until the [jail period](/glossary/#jail-period) has expired and the validator has been reactivated to an `active` state
-- suffer stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee
+- suffers stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee
 
 To get out of jail at the end of the [jail period](/glossary/#jail-period), the validator operator must [reactivate their validator node](/concepts/validator/#validator-re-activation) to (a) transition to an `active` state, and (b) resume eligibility for selection to the consensus committee.
 
@@ -146,7 +147,7 @@ In this model:
 
 - [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas): [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake, ensuring the validator has "skin in the game" and incentivising reliable and honest validator operations and behaviour.
 - [Liquid staking](/concepts/staking/#liquid-staking): [delegated](/glossary/#delegated) stake has [Liquid Newton](/concepts/protocol-assets/liquid-newton/) minted to the staker in proportion to the amount of Newton staked to a validator.
-- 
+
 {{% alert title="Note" %}}
 Note that:
   - [Liquid Newton](/concepts/protocol-assets/liquid-newton/) is **not** minted for [self-bonded](/glossary/#self-bonded) stake. For rationale see [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
@@ -158,9 +159,11 @@ Account addresses owning liquid newton and receiving staking reward revenue are:
 - EOA accounts that have bonded [delegated](/glossary/#delegated) stake to a validator node, or have been recipients of a liquid newton transfer.
 - Contract accounts that have been recipients of a liquid newton transfer from an EOA or a contract account.
 
+For clarity, these are the `msgSender()` addresses of the account submitting `registerValidator()` and `bond()` transactions to the Autonity Network.
+
 Autonity implements an 'active epoch' staking model, applying staking transitions for bonding and unbonding at the end of each block epoch.
 
-Stake is bonded and redeemed by Newton holders submitting transaction requests to the Autonity Protocol Contract. These requests are recorded in state on submission as `Staking` data structures in the Autonity Protocol Contract state, but there is a temporal delay in effect. Voting power cannot change mid-epoch and so staking transitions are applied at epoch end before the next committee selection is run.
+Stake is bonded and redeemed by Newton holders submitting transaction requests to the Autonity Protocol Contract. These requests are recorded in state on submission as `BondingRequest` and `UnbondingRequest` data structures in the Autonity Protocol Contract state, but there is a temporal delay in effect. Voting power cannot change mid-epoch and so staking transitions are applied at epoch end before the next committee selection is run.
 
 Stake is bonded by submitting a bonding request transaction to the `bond()` function and redeemed by the converse, to the `unbond()` function. In the bonding scenario, liquid newton is minted for [delegated](/glossary/#delegated) stake and the Validator's total bonded stake amount updated in the final block of the epoch. Stake redemption by contrast is an incremental process: liquid newton for [delegated](/glossary/#delegated) stake is burned immediately on processing of the `unbond()` function call, the validator's total bonded stake amount is updated at epoch end, the newton is issued (i.e. minted) to the staker at the end of the unbonding period. If the unbonding request is included in block `T`, then actual unbonding is then executed at `T` + `unbondingPeriod` + remainder of the epoch in which the unbonding period falls. At this point, the staker's due newton is minted to them.
 
@@ -175,6 +178,7 @@ Staking reward revenue is proportionate to the validator's share of the stake ac
 - Commission charged on [delegated](/glossary/#delegated) stake per the delegation rate they charge as commission.
 - The priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
 - [Slashing rewards](/concepts/accountability/#slashing-rewards) earned for reporting slashed faults in the [accountability and fault detection](/concepts/accountability/) protocol.
+
 
 Staking reward revenue potential is determined by the frequency with which a validator is an active member of the consensus committee. This is driven by:
 

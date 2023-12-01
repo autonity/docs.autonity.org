@@ -2,6 +2,7 @@
 ---
 title: "Accountability and fault detection (AFD)"
 linkTitle: "Accountability and fault detection (AFD)"
+weight: 9
 description: >
   Autonity's Accountability Fault Detection model -- reporting mechanism, temporal constraints, and economics for reporting offences and penalties for Byzantine behavior.
 ---
@@ -47,7 +48,6 @@ As a consensus committee member the validator may play the roles in the table be
 | _committee member_ | as a validator in the consensus committee executing Autonity's consensus protocol and for AFD handling and processing accountability events, maintaining system state for accountability events, and computing and applying slashing penalties |
 
 The economic impact of the AFD protocol on a validator depends on their role.
-
 
 | Role | Economic impact |
 |:--|:--|
@@ -150,6 +150,11 @@ The protocol **does not** automatically revert validator state from `jailed` to 
 
 Accountability event lifecycle management comprises: accountability event submission on-chain, event handling on-chain, accusations, innocence, fault promotion, and slashing. Rule infractions are detected by validators and submitted on-chain. As noted under [Protocol Primitives](/concepts/accountability/#protocol-primitives) above, [Faults](/concepts/accountability/#faults) may be directly submitted as `FaultProofs` or promoted from `Accusations`.
 
+ Rule infractions can be directly submitted as a _fault_ proof by a _reporting validator_ or promoted from an accusation. In the latter case, they they are promoted when:
+  - reported as an _accusation_, submitted by a _reporting validator_ against an _offending validator_
+  - eventually defended by an _innocence_ proof, submitted by the _offending validator_ within a proof submission window measured in blocks
+  - if not defended, promoted to _fault_ by the protocol once the innocence window has expired.
+
 The sequence of lifecycle events for an accountability event is:
 
 - An accountability event is detected by the AFD protocol and submitted on-chain by a _reporting validator_.
@@ -227,6 +232,7 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 - `P`: *propose*
 - `PV`: *prevote*
 - `C`: *precommit*
+
 {{% /alert %}}
 
 | Rule ID | Description |
@@ -317,8 +323,7 @@ Slashing rewards are distributed for reporting provable faults committed by an _
 
 Slashing rewards earned by a _reporting validator_ are conditional on the _offending validator_ being a member of the consensus committee in the epoch when the slashing penalty is applied. If multiple slashing events are committed by the same _offending validator_ during the same epoch, then rewards are only distributed to the last _reporter_ for the last slashing penalty applied to an _offending validator_ in the epoch.
 
-Staking rewards earned by the _offending validator_ for the epoch are distributed to the _reporting validator_
-at epoch end. 
+Staking rewards earned by the _offending validator_ for the epoch are distributed to the _reporting validator_ at epoch end.
 
 {{% alert title="Note" %}}
 The protocol distributes rewards for reporting provable faults committed by an _offending validator_ to the _reporting_ validator.
@@ -338,4 +343,3 @@ The fees for submitting a new accusation may be refunded to the _reporting_ vali
 Note the validator can determine if a detected fault is accusable by calling the [`canAccuse()`](/reference/api/accountability/#canaccuse) and [`canSlash()`](/reference/api/accountability/#canslash) contract functions.
 {{% /alert %}}
 -->
-

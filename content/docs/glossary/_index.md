@@ -121,15 +121,15 @@ An off-chain data feed service that provides data to a [blockchain](/glossary/#b
 ## decentralised application (dApp)
 A software application deployed on to a blockchain p2p network. A dApp interacts with one or more smart contracts and is typically a combination of those contract(s) and a frontend for using that contract. The frontend graphical user interface (GUI) is typically built out using JavaScript, HTML, CSS technologies. User interactions with a dApp are by transactions and calls submitted to a network [peer](/glossary/#peer)'s JSON RPC API using the web3.js library. Interactions may be mediated by a user via a GUI or application-level interactions.
 
-## delegation
-The process of bonding stake token to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder).
-
-See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, and [delegation rate](/glossary/#delegation-rate).
-
 ## delegated
 Stake token bonded to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder). Delegated stake earns [staking rewards](/glossary/#staking-rewards) and the staker is minted [Liquid Newton](/glossary/#liquid-newton) for the [Newton](/glossary/#newton) stake token  bonded. The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) can be any network account *except* the validator `treasury` account.
 
 Stake delegation transactions submitted from the validator `treasury` account result in [self-bonded](/glossary/#self-bonded) stake.
+
+## delegation
+The process of bonding stake token to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder).
+
+See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, and [delegation rate](/glossary/#delegation-rate).
 
 ## delegation rate
 The percentage commission of earned [staking rewards](/glossary/#staking-rewards) that a [validator](/glossary/#validator) charges as a commission on [delegated](/glossary/#delegation) stake.
@@ -171,13 +171,13 @@ A cryptoeconomic mechanism where economic penalties are applied for incorrect ac
 A protocol action that excludes a validator from selection to the [consensus committee](/glossary/#consensus-committee) for a designated period of time as a [slashing penalty](/glossary/#slashing-penalty). See [jail period](/glossary#jail-period).
 
 ## jail period
-The period of time for which a validator is debarred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
+The period of time for which a validator is barred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
 
 ## key pair
 A pair of public and private cryptography keys used for signing and encryption. The private key is used to produce signatures that are publicly verifiable using the public key. The public key may also be used to encrypt messages intended for the private key holder who can decrypt them using the private key.
 
 ## Liquid Newton
-The liquid token representing [Newton](/glossary/#newton) stake token  [bonded](/glossary/#bond) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Unlike bonded [Newton](/glossary/#newton), Liquid Newton is transferrable and the holder receives due staking rewards. See also [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/).
+The liquid token representing [Newton](/glossary/#newton) stake token [delegated](/glossary/#delegated) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Unlike bonded [Newton](/glossary/#newton), Liquid Newton is transferrable and the holder receives due staking rewards. See also [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/).
 
 ## liquid staking
 A staking model in which funds staked to a Proof of Stake network have a liquid representation of staked assets in the form of a token. For Autonity's liquid staking model see [Staking, Liquid staking](/concepts/staking/#liquid-staking).
@@ -201,11 +201,9 @@ A participant running the Autonity Go Client software and able to connect to an 
 ## oracle network
 The network of validator-operated oracles that submits price data from off-chain external data providers on-chain and votes on agreeing an aggregated median price data according to an [oracle protocol](/glossary/#oracle-protocol).
 
-## oracle protocol
-The logic and rules governing the calculation of median price data by the [oracle network](/glossary/#oracle-network). The protocol has off- and on-chain operations. Price data is collected from external data providers by [oracle servers](/glossary/#autonity-oracle-server-aos) run by validator operators and submitted on-chain to an oracle [contract](/glossary/#smart-contract). The oracle contract computes aggregate median price data for those currency pairs; consensus committee members vote to agree the median prices by consensus in [voting rounds](/glossary/#voting-round).
+The set of [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas) instances run by [validators](/glossary#validator) [nodes](/glossary/#node) logically forms an "Autonity oracle network".
 
-## oracle protocol
-The logic and rules governing the calculation of median price data by the [oracle network](/glossary/#oracle-network). The protocol has off- and on-chain operations. Price data is collected from external data providers by [oracle servers](/glossary/#autonity-oracle-server-aos) run by validator operators and submitted on-chain to an oracle [contract](/glossary/#smart-contract). The oracle contract computes aggregate median price data for those currency pairs; consensus committee members vote to agree the median prices by consensus in [voting rounds](/glossary/#voting-round).
+Median price data is computed by protocol in [voting rounds](/glossary/#voting-round).
 
 ## participant
 A [peer](/glossary/#peer) [node](/glossary/#node) that is currently connected to other nodes in an Autonity network.
@@ -235,6 +233,8 @@ If the protocol determines that a validator has failed to follow consensus rules
 Stake token bonded to a [validator](/glossary/#validator) where the validator is the [stakeholder](/glossary/#stakeholder). The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) is the validator `treasury` account.
 
 Self-bonded stake earns [staking rewards](/glossary/#staking-rewards), but unlike [delegated](/glossary/#delegated) stake does not have [Liquid Newton](/glossary/#liquid-newton) minted for the [Newton](/glossary/#newton) stake token bonded. 
+
+Stake delegation transactions submitted from other stakeholder accounts result in [delegated](/glossary/#delegated) stake.
 
 ## slashing
 A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
@@ -294,15 +294,16 @@ The Unix OS system for representing a point in time as a timestamp. Time is meas
 ## validator
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
 
-## voting period
+## vote period
+An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation) by the oracle network.
 
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit price data reports and an aggregated median price is computed for the [currency pair](/glossary/#currency-pair) provided an Autonity network provides a median price. See [voting round](/glossary/#voting-round).
+## voting period
+The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit and vote on price data reports to agree an aggregated data price for the [currency pair](/glossary/#currency-pair) symbols for which an Autonity network provides a median price. See [vote period](/glossary/#vote-period).
 
 ## voting power
 The amount of stake bonded by [delegation](/glossary/#delegation) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
 
 ## voting round
-
 An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
 
 ## wallet

@@ -48,8 +48,9 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
     autoracle \
         -oracle_key_file="<KEYFILE>" \
         -oracle_key_password="<PWD>" \
-        -oracle_autonity_ws_url="<WS_ADDRESS>"
-        -oracle_plugin_conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml" ;
+        -oracle_autonity_ws_url="<WS_ADDRESS>" \
+        -oracle_plugin_conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml" \
+   ;
     ```
 
    where:

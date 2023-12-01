@@ -2,7 +2,6 @@
 title: "Accountability Contract Interface"
 linkTitle: "Accountability Contract Interface"
 weight: 40
-description: >
   Autonity Accountability Contract functions
 ---
 
@@ -25,6 +24,15 @@ Called by a reporting validator to determine if (a) an offending validator can b
 
 Returns (a) a boolean flag specifying if the validator is accusable or not, and, (b) the number of blocks remaining in the innocence proof submission window before a new `Accusation` proof can be be submitted on-chain.
 
+{{% alert title="Note" %}}
+A reporting validator can only submit an accusation against an offending validator if the offending validator:
+
+- has not already been slashed in the epoch in which the accusation is being made for an offence with a higher severity. Slashing history is checked to determine this.
+- is not currently already under accusation. In this case, a new accusation cannot be made until expiry of the innocence window during which an accused validator is able to submit an `Innocence` proof refuting the accusation. This creates a _deadline_ before which a new `Accusation` proof cannot be submitted. Pending validator accusations are checked to determine this.
+
+Accusations do not automatically cause slashing. The _innocence proof window_ is measured in blocks and gives the accused offending validator a window to detect an accusation and prove innocence by submitting an `Innocence` proof on-chain. If the offending validator already has an accusation pending, the accountability protocol determines the offender is not currently accusable. Protocol has to wait to determine if the accusation has been defended or, if not, promoted to a fault. Until then, it cannot determine if the offending validator has committed a rule infraction with a higher severity or not.
+{{% /alert %}}
+
 ### Parameters
 
 | Field | Datatype | Description |
@@ -41,6 +49,7 @@ Returns (a) a boolean flag specifying if the validator is accusable or not, and,
 | `_deadline` | `uint256` | the number of blocks before the validator becomes accusable. Returns (a) a `non zero` value indicating the block height at which a pending accusation's innocence window expires, or, (b) `0` indicating that there is no pending innocence window expiry |
 
 ### Usage
+
 <!--
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
@@ -99,6 +108,7 @@ The method returns a `boolean` flag specifying whether the reported infraction i
 {{< /tab >}}
 {{< /tabpane >}}
 -->
+
 {{% alert title="Info" %}}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
 {{% /alert %}}
@@ -112,6 +122,7 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 {{< /tab >}}
 {{< /tabpane >}}
 -->
+
 {{% alert title="Info" %}}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
 {{% /alert %}}
@@ -119,11 +130,7 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 
 ## getValidatorAccusation
 
-Returns a pending accusation event reported for a validator. The method response may be empty if there is not a pending accusation for the address argument provided.
-
-{{% alert title="Info" color="info"%}}
-This function is only used for development testing.
-{{% /alert %}}
+Returns the most recent pending accusation reported for a validator. The method response may be empty if there is no associated validator accusation event object for the address argument provided.
 
 ### Parameters
 
@@ -148,7 +155,6 @@ Returns an `Event` object of type `Accusation` consisting of:
 | `epoch` | `uint256` | identifier of the epoch in which the accountability event occurred |
 | `reportingBlock` | `uint256` | block number at which the accountability event was reported |
 | `messageHash` | `uint256` | hash of the main evidence for the accountability event |
-
 
 ### Usage
 
@@ -202,6 +208,7 @@ Returns an array of `Event` object(s) of type `FaultProof` consisting of:
 | `epoch` | `uint256` | identifier of the epoch in which the accountability event occurred |
 | `reportingBlock` | `uint256` | block number at which the accountability event was reported |
 | `messageHash` | `uint256` | hash of the main evidence for the accountability event |
+
 
 ### Usage
 

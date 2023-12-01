@@ -97,6 +97,7 @@ The Autonity Protocol Contract manages state finalization, maintaining [system s
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
 #### Staking
+
 The Autonity Protocol Contract manages liquid staking,  maintaining the ledger of _newton_ stake token in the system and triggering the deployment of validator-specific _liquid newton_ contracts. The contract implements logic to:
 
 - Maintain the ledger of _newton_ stake token in the system, implementing the ERC20 token contract interface.
@@ -177,6 +178,7 @@ The Autonity Accountability Contract manages the computation of slashing penalti
 To learn more about the concept see [Accountability and fault detection](/concepts/accountability/).
 
 ### Autonity Oracle Contract
+
 The contract implementing the Oracle protocol extensions, including primitives for computing median price data, and managing the set of currency pairs for which Autonity provides price data.
 
 The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for which the oracle provides median price data and the interval over which an oracle round for submitting and voting on price data runs, measured in blocks. Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
@@ -184,6 +186,7 @@ The contract stores [protocol parameters](/reference/protocol/) that specify the
 Contract functions for returning price data, currency pairs provided, and the oracle network voters can be called by all participants.  Function calls to govern (i.e. manage) the set of currency pairs provided by the oracle are restricted to the governance `operator` account.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Oracle Contract Interface](/reference/api/oracle/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
+
 
 #### Median price computation
 
@@ -197,10 +200,11 @@ To learn more about the concept see [Oracle network](/concepts/oracle-network/).
 
 #### Voting rounds
 
-The Autonity Oracle Contract implements logic to manage submission of price data reports and calculation of median price over [voting rounds](/glossary/#voting-round) by protocol-only functions:
+The Autonity Oracle Contract implements logic to manage submission of price data reports and calculation of median price over [voting rounds](/glossary/#voting-round) by protocol only functions:
 
 - Set oracle voters based on validators in the consensus committee and update the voter set as the consensus committee is re-selected at the end of an epoch.
 - Manage oracle voting rounds, triggering the initiation of a new voting period at the end of a round.
+
 
 #### Voter selection
 
@@ -208,9 +212,10 @@ Participation in the oracle protocol is a validator responsibility and validator
 
 Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
 
+
 ### ASM ACU Contract
 
-The contract implementing the Auton Currency Unit (ACU) element of the Auton Stability Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
+The contract implementing the Auton Currency Unit (ACU) element of the Auton Stabilization Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
 
 The contract provides primitives for computing the ACU value and managing the basket currency symbols and quantities (i.e. weighting). It stores [protocol parameters](/reference/protocol/) that specify the currency pairs for the basket, the quantities of those currencies in the basket, and the scale of precision for the ACU value. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
 
@@ -248,15 +253,15 @@ To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/
 
 ### ASM Stabilization Contract
 
-The contract implementing the CDP-based stabilization mechanism for the Auton. Auton is borrowed against Collateral Token using a Collateralized Debt Position (CDP) mechanism. The Stabilization Contract manages CDPs throughout the lifecycle, from initial borrowing through repayment and liquidation scenarios. Collateral Token is deposited into a CDP to borrow Auton. Auton is brought in and out of circulation on an Autonity network as CDPs are opened and closed.
+The contract implementing the CDP-based stabilization mechanism for the Auton. Auton is borrowed against Collateral Token using a Collateralized Debt Position (CDP) mechanism. The Stabilization Contract manages CDP's throughout the lifecycle, from initial borrowing through repayment and liquidation scenarios. Collateral Token is deposited into a CDP to borrow Auton. Auton is brought in and out of circulation on an Autonity network as CDP's are opened and closed.
 
 The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
 
-Contract functions can be called by:
+Contract functions can be called by all participants to:
 
-- By CDP owners to take out CDPs to borrow Auton, withdraw collateral, and repay CDPs.
-- By prospective CDP owners to determine borrowing limits  and collateral level requirements
-- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDPs.
+- By CDP owners to take out CDP's to borrow Auton, withdraw collateral, and repay CDP's.
+- By prospective CDP owners to determine borrowing limits  and collateral level requirements.
+- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDP's.
 - To view CDP data and retrieve stabilization configuration settings from system state.
 
 Function calls to govern (i.e. manage) the stabilization configuration are restricted to the governance `operator` account.
@@ -281,6 +286,7 @@ The Autonity Stabilization Contract implements logic for a liquidator to:
 - Liquidate a CDP that is undercollateralized.
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+
 
 ## Consensus layer
 

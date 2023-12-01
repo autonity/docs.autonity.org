@@ -239,23 +239,31 @@ $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a8
 
 ## bond
 
-Delegates an amount of Newton stake token to a designated validator.
-On successful processing of the method call:
-
-- The bonded Newton amount is locked in the `msg.Sender`'s Newton account.
-- A bonding object for the necessary voting power change is created and tracked in memory until applied at epoch end. At that block point, if the `msg.Sender` is a stake delegator account then Liquid Newton will be minted to the delegator for the bonded stake amount.
+Delegates an amount of Newton stake token to a designated validator. If the delegator's `msg.Sender` address is the validator `treasury` account then the stake is self-bonded and no Liquid Newton will be issued.
 
 Constraint checks:
 
 - the `validator` address is registered as a validator
-- the `validator` state is `active`. A bonding operation submitted to a validator in `paused` state will revert
-- the `amount` is a positive integer value > 0
-- the Newton balance of the account submitting  the `bond()` method call has a Newton balance >= to the `amount` being bonded
+- the `validator` state is `active`. A bonding operation submitted to a validator in `paused` or `jailed` state will revert
+- the `amount` is a positive integer value `> 0`
+- the Newton balance of the account submitting  the `bond()` method call has a Newton balance`>=` to the `amount` being bonded.
+
+On successful processing of the method call:
+
+- the bonded Newton amount is locked in the `msg.Sender`'s Newton account
+- a `BondingRequest` object for the necessary voting power change is created:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `delegator` | `address payable` | account address of the account bonding stake |
+| `delegatee` | `address` | validator identifier account address of the validator to which stake is being bonded |
+| `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
+| `requestBlock` | `uint256` | the block number at which a bonding transaction was committed |
+
+The `BondingRequest` is tracked in memory until applied at epoch end. At that block point, if the stake delegation is [delegated](/glossary/#delegated) and not [self-bonded](/glossary/#self-bonded), then Liquid Newton will be minted to the delegator for the bonded stake amount.
 
 {{< alert title="Note" >}}
-If `msg.Sender` is the validator `treasury` account, then Liquid Newton is not minted for the bonded stake amount.
-
-This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
+Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 {{< /alert >}}
 
 ### Parameters
@@ -269,10 +277,11 @@ This is because Liquid Newton is *not* issued for self-bonded stake. See Concept
 
 No response object is returned on successful execution of the method call.
 
-The pending voting power change is tracked in memory until applied and can be returned by calling:
+The pending voting power change is tracked in memory until applied.
 
-- the [`headBondingID`](/reference/api/aut/#headbondingid) method to return the ID of the pending bonding request, and
-- the [`getBondingReq`](/reference/api/aut/#getbondingreq) method to return metadata including the start block when the bonding will be applied.
+### Event
+
+On a successful call the function emits a `NewBondingRequest` event, logging: `validator` address, `delegator` address, `selfBonded` (boolean), `amount` bonded.
 
 ### Usage
 
@@ -286,7 +295,7 @@ aut validator bond [OPTIONS] AMOUNT
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut validator bond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 1 | aut tx sign - | aut tx send -
+aut validator bond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xaa3705ef2d38cf2d98925660e6ca55de8948e8a075e7ee9edf6be7fa540ffe51
@@ -341,7 +350,7 @@ aut validator change-commission-rate [OPTIONS] RATE
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut validator change-commission-rate --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 900 | aut tx sign - | aut tx send -
+aut validator change-commission-rate --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 900 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x7a4c6bb2e19eb8a4a160723b07eeb538e835db512541621aef0062cd9e1e15f2
@@ -585,83 +594,20 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+{{< tab header="RPC" >}}
+{"method": "aut_getBlockPeriod", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-##  getBondingReq
-
-Returns an array of pending bonding request within a requested block range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
-
-The array range is specified by a start and end index using the bonding request identifier. Bonding identifiers can be returned by calling:
-
-- [tailBondingID](/reference/api/aut/#tailbondingid) to return the ID of the last processed bonding request,
-- [headBondingID](/reference/api/aut/#headbondingid) to return the ID of the last received pending bonding request.
-
-### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `startID` | `uint256` | the bonding identifier specifying the start index of the array |
-| `lastID` | `uint256` | the bonding identifier specifying the end index of the array |
-
-### Response
-
-Returns a `_results` array of `Staking` objects, each object consisting of:
-
-| Field | Datatype | Description |
-| --| --| --|
-| `delegator` | `address payable` | account address of the account bonding stake |
-| `delegatee` | `address` | validator identifier account address of the validator to which stake is being bonded |
-| `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
-| `startBlock` | `uint256` | the block number at which a bonding transaction was committed. Only applicable to bonding staking transitions |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol get-unbonding-req [OPTIONS] START END
-{{< /tab >}}
 {{< tab header="RPC" >}}
-{"method": "aut_getBondingReq", "params":[startID, lastID]}
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getBlockPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":1}
 {{< /tab >}}
 {{< /tabpane >}}
 
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-$ aut protocol get-unbonding-req -r https://rpc1.piccadilly.autonity.org 0 2
-[
-  {
-    "delegator": "0x75474aC55768fAb6fE092191eea8016b955072F5",
-    "delegatee": "0x32F3493Ef14c28419a98Ff20dE8A033cf9e6aB97",
-    "amount": 10000,
-    "start_block": 0
-  },
-  {
-    "delegator": "0x821BC352E77D885906B47001863f75e15C114f70",
-    "delegatee": "0x31870f96212787D181B3B2771F58AF2BeD0019Aa",
-    "amount": 10000,
-    "start_block": 0
-  }
-]
-{{< /tab >}}
-{{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getBondingReq", "params":[0,1], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":[{"delegator":"0x3e08fec6abaf669bd8da54abee30b2b8b5024013","delegatee":"0x4b7275d5f5292c3027a16e0eb891d75a0ef39cc7","amount":10000,"startBlock":0}]}
-{{< /tab >}}
-{{< /tabpane >}}
 
 ##  getCommittee
 
@@ -808,7 +754,6 @@ Returns the unique identifier of the epoch block epoch associated with a block a
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-
 {{< tab header="RPC" >}}
 {"method": "aut_getEpochFromBlock", "params":[_block]}
 {{< /tab >}}
@@ -849,108 +794,53 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+{{< tab header="RPC" >}}
+{"method": "aut_getEpochPeriod", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-## getEpochFromBlock
-
-Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
-
-### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_block` | `uint256` | the input block number |
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `epochID` | `uint256` | the identifier of the epoch in which the block was committed to state |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-
 {{< tab header="RPC" >}}
-{"method": "aut_getEpochFromBlock", "params":[_block]}
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getEpochPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":1800}
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="aut" >}}
 
-{{< /tab >}}
--->
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-
-{{< tab header="RPC" >}}
-curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
---header 'Content-Type: application/json' \
---data-raw '{
-        "jsonrpc":"2.0",
-        "method":"aut_getEpochFromBlock",
-        "params":[1900],
-        "id":1500
-}'
-{"jsonrpc":"2.0","id":1,"result":1}
-{{< /tab >}}
-{{< /tabpane >}}
-
-<!--
-{{< tab header="aut" >}}
-
-{{< /tab >}}
--->
 
 ## getLastEpochBlock
 
-Returns the last epoch's end block height.
-
-### Parameters
-
-None.
+Returns the number of the last block in the preceding epoch at the block height of the call.
 
 ### Response
 
 | Field | Datatype | Description |
 | --| --| --|
-| `lastEpochBlock` | `uint256` | the number of the last block in the previous epoch |
+| `lastEpochBlock` | `uint256` | the number of the last block in the preceding epoch |
 
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut protocol get-last-epoch-block [OPTIONS]
 {{< /tab >}}
 {{< tab header="RPC" >}}
-
+{"method":"aut_getLastEpochBlock", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
-
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+$ aut protocol get-last-epoch-block -r https://rpc1.piccadilly.autonity.org
+12981684
 {{< /tab >}}
 {{< tab header="RPC" >}}
-
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getLastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":12981684}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1148,22 +1038,17 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
 {{< tab header="RPC" >}}
-
+{"method": "aut_getOracle", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
 {{< tab header="RPC" >}}
-
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getOracle", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d"}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1219,6 +1104,7 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {{< /tabpane >}}
 
 
+
 ## getUnbondingPeriod
 
 Returns the unbonding period from the protocol configuration.
@@ -1236,77 +1122,17 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-##  getUnbondingReq
-
-Returns an array of pending unbonding requests within a requested block range. Staking transitions are maintained in memory until voting power changes are applied at epoch end before selection of the next consensus committee.
-
-The array range is specified by a start and end index using the unbonding request identifier. Unbonding identifiers can be returned by calling:
-
-- [tailUnbondingID](/reference/api/aut/#tailunbondingid) to return the ID of the last processed unbonding request,
-- [headUnbondingID](/reference/api/aut/#headunbondingid) to return the ID of the last received pending unbonding request.
-
-### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `startID` | `uint256` | the unbonding identifier specifying the start index of the array |
-| `lastID` | `uint256` | the unbonding identifier specifying the last index of the array |
-
-
-### Response
-
-Returns a `_results` array of `Staking` objects, each object consisting of:
-
-| Field | Datatype | Description |
-| --| --| --|
-| `delegator` | `address payable` | account address of the account bonding stake |
-| `delegatee` | `address` | validator identifier account address of the validator to which stake is being bonded |
-| `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
-| `startBlock` | `uint256` | the block number at which an unbonding transaction was committed and from which the unbonding period begins. Only applicable to unbonding staking transitions |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol get-unbonding-req [OPTIONS] START END
-{{< /tab >}}
 {{< tab header="RPC" >}}
-{"method": "aut_getUnbondingReq", "params":[startID, lastID]}
+{"method": "aut_getUnbondingPeriod", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-$ aut protocol get-unbonding-req --rpc-endpoint https://rpc1.piccadilly.autonity.org 0 1
-[
-  {
-    "delegator": "0xB17b5DD3fD63c736e538172A640ab0510E608a80",
-    "delegatee": "0x32F3493Ef14c28419a98Ff20dE8A033cf9e6aB97",
-    "amount": 11,
-    "start_block": 486499
-  }
-]
-{{< /tab >}}
 {{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getUnbondingReq", "params":[0,1], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":[{"delegator":"0xb17b5dd3fd63c736e538172a640ab0510e608a80","delegatee":"0x32f3493ef14c28419a98ff20de8a033cf9e6ab97","amount":11,"startBlock":486499}]}
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getUnbondingPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":21600}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1333,14 +1159,19 @@ Returns a `Validator` object consisting of:
 | `enode` | `string` | the enode url of the validator node |
 | `commissionRate` | `uint256` | the percentage commission that the validator will charge on staking rewards from delegated stake |
 | `bondedStake` | `uint256` | the total amount of delegated and self-bonded stake that has been bonded to the validator |
+| `unbondingStake` | `uint256` | the total amount of NTN in the unbonding staking pool |
+| `unbondingShares` | `uint256` | the total amount of shares issued for the unbonding staking pool |
 | `selfBondedStake` | `uint256` | the total amount of 'self-bonded' stake that has been bonded to the validator by the validator operator |
+| `selfUnbondingStake` | `uint256` | the total amount of NTN in the self-unbonding staking pool |
+| `selfUnbondingShares` | `uint256` | the total amount of shares in the self-unbonding staking pool |
+| `selfUnbondingStakeLocked` | `uint256` | the total amount of NTN in the self-unbonding staking pool that is locked pending unbonding |
 | `liquidContract` | `Liquid` | the address of the validator's Liquid Newton contract |
 | `liquidSupply` | `uint256` | the total amount of Liquid Newton in circulation |
 | `registrationBlock` | `uint256` | the block number in which the registration of the validator was committed to state|
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
 | `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height) |
 | `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
-| `ValidatorState` | `state` | the state of the validator, an enumerated type with values: `active`, `paused`, `jailed` |
+| `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `active`, `paused`, `jailed` |
 
 ### Usage
 
@@ -1357,24 +1188,31 @@ aut validator info [OPTIONS]
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1
+$ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
 {
-  "treasury": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "node_address": "0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1",
-  "oracle_address": "0x400d5cd23a6cd7d660aeaf313e9ee15e635f3eaa",
-  "enode": "enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@35.205.16.40:30303",
+  "treasury": "0x61EE7d3244642E5f6D654416a098DEabFBF5306e",
+  "node_address": "0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C",
+  "oracle_address": "0x9b844631B7279576330B9B822bE79266696fF8C2",
+  "enode": "enode://b2748268c31ebab8603058335bb4bed062e05b9ceaa3562f69868a01d1038a84136fc587fb913e1cb8ce821f1eb0bf9879e3249f18adcd39f1211a104ceb57a9@35.197.223.249:30303",
   "commission_rate": 1000,
-  "bonded_stake": 52,
+  "bonded_stake": 10000000000000000000000,
+  "unbonding_stake": 0,
+  "unbonding_shares": 0,
+  "self_bonded_stake": 10000000000000000000000,
+  "self_unbonding_stake": 0,
+  "self_unbonding_shares": 0,
+  "liquid_contract": "0x0000000000000000000000000000000000000000",
+  "liquid_supply": 1397840815523076466699159265359708166239426845751,
+  "registration_block": 0,
   "total_slashed": 0,
-  "liquid_contract": "0xF8060D5D9FBbAF99fF63E37C2118343001558a60",
-  "liquid_supply": 52,
-  "registration_block": 6734993,
+  "jail_release_block": 0,
+  "provable_fault_count": 0,
   "state": 0
 }
 {{< /tab >}}
 {{< tab header="RPC" >}}
-$ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0xaB471b6F6E59dfD81ba9988f0D0B6950C5c3FEC1"], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":{"treasury":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","nodeAddress":"0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","oracleAddress":"0x400d5cd23a6cd7d660aeaf313e9ee15e635f3eaa","enode":"enode://87e1a4e04544ce628c3b26fbffbefa355f6cbd2c285dd07a8906f32711f06e9a6b759e257182ad06b1714c2c6dfb2f95850bdfee2e8dd90938dd3c5fa92b00a6@34.22.252.187:30303","commissionRate":1000,"bondedStake":0,"totalSlashed":0,"liquidContract":"0xf39e7f3b0bde2a349c13b49c082e20c93038429d","liquidSupply":0,"registrationBlock":649760,"state":0}}
+$ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c"], "id":1}'
+{"jsonrpc":"2.0","id":1,"result":{"treasury":"0x61ee7d3244642e5f6d654416a098deabfbf5306e","nodeAddress":"0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c","oracleAddress":"0x9b844631b7279576330b9b822be79266696ff8c2","enode":"enode://b2748268c31ebab8603058335bb4bed062e05b9ceaa3562f69868a01d1038a84136fc587fb913e1cb8ce821f1eb0bf9879e3249f18adcd39f1211a104ceb57a9@35.197.223.249:30303","commissionRate":1000,"bondedStake":10000000000000000000000,"unbondingStake":0,"unbondingShares":0,"selfBondedStake":10000000000000000000000,"selfUnbondingStake":0,"selfUnbondingShares":0,"selfUnbondingStakeLocked":0,"liquidContract":"0xf4d9599afd90b5038b18e3b551bc21a97ed21c37","liquidSupply":0,"registrationBlock":0,"totalSlashed":0,"jailReleaseBlock":0,"provableFaultCount":0,"state":0}}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1488,125 +1326,6 @@ curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: appli
 {{< /tabpane >}}
 
 
-## headBondingID
-
-Returns the index identifier of the last received bonding request tracked in Autonity Protocol contract memory.
-
-The 'tail' and 'head' bonding IDs are indexes used to specify the set of bonding requests to apply when computed. `tailBondingID` is the last processed bonding request and `headBondingID` is the last received request. The Autonity Protocol contract processes bonding requests at the end of each epoch from `tailBondingID` to `headBondingID - 1`.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `uint256 ` | the index identifier of the last received bonding request |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol head-bonding-id [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method":"aut_headBondingID", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-$ aut protocol head-bonding-id -r https://rpc1.piccadilly.autonity.org/
-139
-{{< /tab >}}
-{{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_headBondingID", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":139}
-{{< /tab >}}
-{{< /tabpane >}}
-
-## headUnbondingID
-
-Returns the index identifier of the last received unbonding request tracked in Autonity Protocol contract memory.
-
-The 'tail' and 'head' unbonding IDs are indexes used to specify the set of unbonding requests to apply when computed. `tailUnbondingID` is the last processed unbonding request and `headUnbondingID` is the last received request. The Autonity Protocol contract processes unbonding request at the end of the epoch in which the unbonding period expires from `tailUnbondingID` to `headUnbondingID - 1`.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `uint256` | the index identifier of the last received unbonding request |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol head-unbonding-id [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method":"aut_headUnbondingID", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol head-unbonding-id -r https://rpc1.piccadilly.autonity.org/
-48
-{{< /tab >}}
-{{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_headUnbondingID", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":48}
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-## lastEpochBlock
-
-Returns the number of the last block in the preceding epoch at the block height of the call.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `uint256` | the number of the last block in the preceding epoch |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol get-last-epoch-block [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method":"aut_lastEpochBlock", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-$ aut protocol get-last-epoch-block -r https://rpc1.piccadilly.autonity.org
-12981684
-{{< /tab >}}
-{{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_lastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":12981684}
-{{< /tab >}}
-{{< /tabpane >}}
-
 
 ## name
 
@@ -1652,7 +1371,7 @@ To return the `name` for an ERC20 (e.g. a Liquid Newton token) token contract sp
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut token name -r https://rpc1.piccadilly.autonity.org --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
+$ aut token name --rpc-endpoint https://rpc1.piccadilly.autonity.org --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
 LNTN-4
 {{< /tab >}}
 {{< /tabpane >}}
@@ -1672,7 +1391,7 @@ Constraint checks are applied:
 - the `msg.sender` address of the transaction is equal to the validator's `treasury` address
 - the validator state must be `active`
 
-Validator pausing is executed on transaction commit. New stake delegations are reverted from submission of the pausing transaction. Exclusion of the validator from the consensus commmittee selection algorithm takes effect at epoch end (i.e. the 'effective block').
+Validator pausing is executed on transaction commit. New stake delegations are reverted from submission of the pausing transaction. Exclusion of the validator from the consensus committee selection algorithm takes effect at epoch end (i.e. the 'effective block').
 
 ### Parameters
 
@@ -1726,7 +1445,12 @@ On method execution a `Validator` object data structure is constructed in memory
 | `enode`| `string` | Assigned the value of the `_enode` argument to the method call |
 | `commissionRate` | | Assigned the value of the `delegationRate` parameter in the genesis configuration file |
 | `bondedStake` | `uint256` | Set to `0`. There is no stake bonded to the newly registered validator at this point. |
-| `selfBondedStake ` | `uint256` | Set to `0`. There is no self-bonded  stake to the newly registered validator at this point |
+| `unbondingStake` | `uint256` | Set to `0`. There is no stake in the unbonding staking pool at this point |
+| `unbondingShares` | `uint256` | Set to `0`. There are no  shares issued for the unbonding staking pool at this point |
+| `selfBondedStake ` | `uint256` | Set to `0`. There is no self-bonded stake to the newly registered validator at this point |
+| `selfUnbondingStake` | `uint256` | Set to `0`. There is no stake in the self-unbonding staking pool at this point |
+| `selfUnbondingShares` | `uint256` | Set to `0`. There are no  shares issued for the self-unbonding staking pool at this point |
+| `selfUnbondingStakeLocked` | `uint256` | Set to `0`. There is no stake in the self-unbonding staking pool at this point that is locked pending unbonding |
 | `liquidContract` | `address` | Set to the contract address of the newly registered validator's Liquid Newton Contract |
 | `liquidSupply` | `uint256` | Set to `0`. There is no liquid token supply until stake is bonded to the newly registered validator |
 | `registrationBlock` | `uint256` | Set to current block number (the number of the block that the register validator transaction will be committed in) |
@@ -1734,6 +1458,7 @@ On method execution a `Validator` object data structure is constructed in memory
 | `jailReleaseBlock` | `uint256` | Set to `0`. (The block number at which a validator jail period applied for an accountability or omission fault ends.) |
 | `provableFaultCount` | `uint256` | Set to `0`. (Counter recording the number of times the validator has been penalised for accountability and omission faults.) |
 | `ValidatorState` | `state` | Set to `active`. |
+
 
 Constraint checks are applied:
 
@@ -1767,7 +1492,7 @@ On a successful call the function emits a `RegisteredValidator` event, logging: 
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut validator register [OPTIONS] ENODE PROOF
+aut validator register [OPTIONS] ENODE ORACLE PROOF
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1775,7 +1500,7 @@ aut validator register [OPTIONS] ENODE PROOF
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-aut validator register --rpc-endpoint https://rpc1.piccadilly.autonity.org enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb8a6b8ad408a18bf66266b9d03dd9aa26c902a4ac02eb465d205c0c58b6f5063963fc752806f2681287a915@51.89.151.55:30303 0xc68fcac6ba8e9f565ab3c1be1a08571f1f0740d6fe1093741276a8327e8c096e4abda696773050e14b94385cb9c0f175a422efed9c24bc1d88803bcd508c50ce0170591627ab24883e9be5465bc1fa8c3514e095389edbc44846bf6bfab6b8d6be07a534c2fbaa07f5d96ced57eb0296b592dc73fad3b8df5d8072b5d213a4a0e401 | aut tx sign - | aut tx send -
+aut validator register enode://a3b821f89d8ea172421dedacdb00e76d8d6a929e4c5ff3c2b30ec84144a7405698ce30ba2ed482770ad2df94d050311b350c036d7f2cef3c9ef32be3f635d62e@51.89.151.55:30303 0xFd91928d58Af4AFbD78C96821D3147ef1f517072 0x62a44f56a617520ebc7c73414df7b8ae5b8133ebdbc0715d66ca0522fe26788873c7e774ed8a7702e16311e6ee8f149c4ef70cfb261fbdd3d375401375209a3000a5189e8d50880faf97ad42501375b216b89304c3fd4acf548a1d7fd7136e74771791422819134e2e3fbf720c35652d8c163e3d4f22c798a3c648958f7abcda2c00 | aut tx sign - | aut tx send -
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -1802,17 +1527,20 @@ None.
 {{< tab header="aut" >}}
 aut token symbol [OPTIONS]
 {{< /tab >}}
+{{< tab header="RPC" >}}
+{"method":"aut_symbol", "params":[]}
+{{< /tab >}}
 {{< /tabpane >}}
 
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-$ aut token symbol --ntn -r https://rpc1.piccadilly.autonity.org
+$ aut token symbol --ntn --rpc-endpoint https://rpc1.piccadilly.autonity.org
 NTN
 {{< /tab >}}
 {{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_symbol", "params":[], "id":1}'
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_symbol", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"NTN"}
 {{< /tab >}}
 {{< /tabpane >}}
@@ -1825,84 +1553,6 @@ $ aut token symbol --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37
 LNTN-0
 {{< /tab >}}
 {{< /tabpane >}}
-
-## tailBondingID
-
-Returns the index identifier of the last processed bonding request.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `uint256` | the unique tail identifier of the pending bonding request |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol tail-bonding-id [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method":"aut_tailBondingID", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-$ aut protocol tail-bonding-id --rpc-endpoint https://rpc1.piccadilly.autonity.org
-139
-{{< /tab >}}
-{{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_tailBondingID", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":139}
-{{< /tab >}}
-{{< /tabpane >}}
-
-
-## tailUnbondingID
-
-Returns the index identifier of the last processed unbonding request.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `uint256` | the unique tail identifier of the pending unbonding request |
-
-### Usage
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut protocol tail-unbonding-id [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method":"aut_tailUnbondingID", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
-
-### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-$ aut protocol tail-unbonding-id --rpc-endpoint https://rpc1.piccadilly.autonity.org
-48
-{{< /tab >}}
-{{< tab header="RPC" >}}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_tailUnbondingID", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":48}
-{{< /tab >}}
-{{< /tabpane >}}
-
 
 ## totalRedistributed
 
@@ -2123,13 +1773,17 @@ Enter passphrase (or CTRL-d to exit):
 
 ## unbond
 
-Unbonds an amount of Liquid Newton stake token from a designated validator.
+Unbonds an amount of bonded stake from a designated validator.
 
-On successful processing of the method call:
+The amount specifies Newton stake token if the delegator is unbonding [self-bonded](/glossary/#self-bonded) stake, else Liquid Newton if [delegated](/glossary/#delegated) stake is being unbonded.
 
-- the designated amount of Liquid Newton amount is burnt if the stake being unbonded is _delegated_ and *not* _self-bonded_ stake, 
-- the unbonding period begins,
-- an unbonding object for the necessary voting power change is created and tracked in memory until applied at the end of the epoch in which the unbonding period expires. At that block point Newton redemption occurs and due Newton is minted to the staker's Newton account.
+{{< alert title="Warning" color="warning">}}
+The unbonding request will only be effective after the unbonding period, rounded to the next epoch.
+
+If the validator has a [slashing](/concepts/accountability/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
+
+See Concept [Accountability and fault detection (AFD)](/concepts/accountability/) for Autonity's slashing mechanism.
+{{< /alert >}}
 
 Constraint checks are applied. The  `validator` address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is `<=` to the `msg.sender`'s bonded stake amount. For delegated stake this is done by checking the `msg.Sender`'s Liquid Newton balance is `>=` to the requested amount, and for self-bonded stake this is done by checking the validator's `selfBondedStake` balance is`>=` to the requested unbonding amount.
 
@@ -2139,21 +1793,47 @@ If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance 
 This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
 {{< /alert >}}
 
+On successful processing of the method call, an `UnbondingRequest` object for the necessary voting power change is created:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `delegator` | `address payable` | account address of the account unbonding stake |
+| `delegatee` | `address` | validator identifier account address of the validator from which stake is being unbonded |
+| `amount` | `uint256` | the amount of stake being unbonded from the `delegatee` account. It records the amount unbound in (a) Newton stake token for [self-bonded](/glossary/#self-bonded) stake, or (b) Liquid Newton for [delegated](/glossary/#delegated) stake  |
+| `unbondingShare` | `uint256` | the amount of shares issued for the unbonding staking pool that the unbonding amount represents |
+| `requestBlock` | `uint256` | the block number at which an unbonding transaction was committed and from which the unbonding period begins |
+| `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
+| `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
+
+The [unbonding period](/glossary/#unbonding-period) begins in the next block. The `UnbondingRequest` is tracked in memory. At the end of the epoch in which the unbond request was processed:
+  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake
+  - calculation of the amount of stake to deduct from the unbonding pool, as well as the delegator's share of the unbonding pool
+  - the amount of Newton bonded to the validator is reduced by the unbonding amount
+
+Then, at the end of the epoch in which the unbonding period expires Newton redemption occurs and the Newton that is due is minted to the staker's Newton account.
+
+{{< alert title="Warning" color="warning" >}}
+The amount of Newton released may be less than the unbonded amount if the validator has been slashed.
+{{< /alert >}}
+
+- due Newton is minted to the delegator's Newton account.
+
 ### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
 | `_validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address |
-| `amount` | `uint256` | the amount of Liquid Newton to be unbonded from the validator |
+| `amount` | `uint256` | the amount of stake to be unbonded from the validator. Depending on the `msg.Sender` address the amount is for: (a) Newton stake token if the `msg.Sender` is the validator `treasury` and the unbond request is for [self-bonded](/glossary/#self-bonded) stake, or (b) Liquid Newton and the unbond request is for [delegated](/glossary/#delegated) stake |
 
 ### Response
 
 No response object is returned on successful execution of the method call.
 
-The pending voting power change is tracked in memory until applied and can be returned by calling:
+The pending voting power change is tracked in memory until applied.
 
-- the [`tailUnbondingID`](/reference/api/aut/#tailunbondingid) method to return the ID of the unbonding request, and
-- the [`getUnbondingReq`](/reference/api/aut/#getunbondingreq) method to return metadata including the start block when the unbonding will be applied.
+### Event
+
+On a successful call the function emits a `NewUnbondingRequest` event, logging: `validator` address, `delegator` address, `selfBonded` (boolean), `amount` unbonded.
 
 ### Usage
 

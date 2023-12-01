@@ -64,7 +64,7 @@ Query for current collateral price calling the [`collateralPrice()`](/reference/
 aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
 ```
 
-The current collateral price is returned. For example:
+The current collateral price is returned denominated in `ton`, Autonity’s equivalent of `wei`. For example:
 
 ```bash
 9990828200000000000
