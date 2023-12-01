@@ -227,7 +227,7 @@ As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid New
 - Newton whilst locked in [states](/concepts/protocol-assets/newton/) `bonded` and `unbonding`
 - Liquid Newton in [states](/concepts/protocol-assets/liquid-newton/) `locked` and `unlocked`
 
-Whilst stake is unbonding the protocol tracks the relative ownership of stake in the delegated and self-bonded unbonding pools via a "share" mechanism so that the PAS slashing priority may be correctly applied to the unbonding stake and the correct amount of delegated or self-bonded stake be released at the end of the unbonding period.
+Whilst stake is unbonding, the protocol tracks the relative ownership of stake in the delegated and self-bonded unbonding pools via a "share" mechanism, so that the PAS slashing priority may be correctly applied to the unbonding stake, and the correct amount of delegated or self-bonded stake may be released at the end of the unbonding period.
 
 {{< alert title="Info" >}}
 Metadata providing the total amount of shares and unbonding stake is returned as part of the response when querying for a validator. See the [`getValidator()`](/reference/api/aut/#getvalidator) response object which contains fields for:
