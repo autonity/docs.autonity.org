@@ -269,15 +269,12 @@ Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbondi
 {{< alert title="Example" >}}
 Alice sends an `unbond()` tx at time `T`, a block in an epoch. The tx is processed at `T` and an `UnbondingRequest` object for the necessary voting power change is created. At `T+1` the [unbonding period](/glossary/#unbonding-period) begins.
 
-The unbonding request is tracked in memory for application and at the end of the epoch:
+The unbonding request is tracked in memory for application at the end of the epoch in which `T` was processed, when the validator's bonded stake amount and voting power is reduced as follows:
+  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated)
+  - the amount of stake to reduce the unbonding pool by and Alice's share of the unbonding pool is calculated
+  - the amount of Newton bonded to the validator is reduced by the unbonding amount, consequently reducing the validator's voting power
 
-- in which `T` was processed the validator's bonded stake amount and voting power is reduced:
-  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated),
-  - the amount of stake to reduce the unbonding pool by and Alice's share of the unbonding pool is calculated,
-  - the amount of Newton bonded to the validator is reduced by the unbonding amount, consequently reducing the validator's voting power.
-
-- in which the unbonding period (`T+1` + `unbonding period`) expires Newton redemption (i.e. 'release') occurs:
-  - due Newton is minted to Alice's Newton account.
+Then, at the end of the epoch in which the unbonding period (`T+1` + `unbonding period`) expires, Newton redemption (i.e. 'release') occurs and the Newton that is due is minted to Alice's Newton account.
 
 Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and the end of the epoch in which the `unbonding period` expires.
 {{< /alert >}}
