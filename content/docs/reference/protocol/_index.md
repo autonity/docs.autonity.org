@@ -33,7 +33,3 @@ Autonity Protocol parameters specify economic, consensus, temporal, and governan
 | ASM Stabilization `minDebtRequirement` | the minimum amount of debt required to maintain a CDP | See [`config.asm.stabilization object`](/reference/genesis/#configasmstabilization-object) | See  [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract) |
 | ASM Stabilization `oracle` contract address | the Autonity Oracle Contract address | See Concept Architecture and [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) | See [`setOracle()`](/reference/api/aut/op-prot/#setoracle-asm-stabilization-contract) |
 | ASM Stabilization `supplyControl` contract address | the ASM Supply Control Contract address | See Concept Architecture and [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract) | See [`setSupplyControl()`](/reference/api/aut/op-prot/#setsupplycontrol-asm-stabilization-contract) |
-
-<!-- 
-| Protocol Contract upgrade: `bytecode`, `abi`  | Autonity Protocol Contract is provided as part of the codebase. An upgraded contract can be specified at or post genesis | To specify an upgraded contract at initialisation, see [`config.autonity.bytecode`](/reference/genesis/#configautonity-object) and [`config.autonity.abi`](/reference/genesis/#configautonity-object) | See [`upgradeContract()`](/reference/api/aut/op-prot/#upgradecontract) |
--->
