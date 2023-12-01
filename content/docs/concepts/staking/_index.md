@@ -262,9 +262,9 @@ Stake is unbonded from a validator through an unbonding operation. Unbonding is 
 
 Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbonding can begin as soon as the unbond transaction request has been finalized. On processing the transaction, the bonded stake token moves from `bonded` to the intermediate state of `unbonding`. The stake is still locked during the unbonding period. The unbonding request is captured and tracked in memory. The staking transition is applied in two steps:
 
-- _at the end of the epoch in which the unbonding request was issued_: the validator's total bonded stake (and consequently [voting power](/glossary/#voting-power) decreases by the unbonded amount when the unbonding is applied at the end of the epoch,
+- _at the end of the epoch in which the unbonding request was issued_: the validator's total bonded stake (and consequently [voting power](/glossary/#voting-power) decreases by the unbonded amount when the unbonding is applied at the end of the epoch
 
-- _at the end of the epoch in which the unbonding period expires_: NTN for the unbonding stake amount are released to the delegator.
+- _at the end of the epoch in which the unbonding period expires_: NTN for the unbonding stake amount are released to the delegator
 
 {{< alert title="Example" >}}
 Alice sends an `unbond()` tx at time `T`, a block in an epoch. The tx is processed at `T` and an `UnbondingRequest` object for the necessary voting power change is created. At `T+1` the [unbonding period](/glossary/#unbonding-period) begins.
