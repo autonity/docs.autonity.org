@@ -232,8 +232,8 @@ Whilst stake is unbonding, the protocol tracks the relative ownership of stake i
 {{< alert title="Info" >}}
 Metadata providing the total amount of shares and unbonding stake is returned as part of the response when querying for a validator. See the [`getValidator()`](/reference/api/aut/#getvalidator) response object which contains fields for:
 
-- Delegated stake unbonding pool: `unbondingStake` and `unbondingShares`
-- Self-bonded unbonding pool: `selfUnbondingStake` and `selfUnbondingShares`.
+- delegated stake unbonding pool: `unbondingStake` and `unbondingShares`
+- self-bonded unbonding pool: `selfUnbondingStake` and `selfUnbondingShares`
 
 The shares and unbonding stake amounts for each unbonding request are stored in the `UnbondingRequest` object. See the `NewUnbondingRequest` event emitted by the [`unbond()`](/reference/api/aut/#unbond) for the object fields.
 {{< /alert >}}
