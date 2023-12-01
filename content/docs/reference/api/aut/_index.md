@@ -1805,14 +1805,12 @@ On successful processing of the method call an `UnbondingRequest` object for the
 | `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
 | `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
 
-The [unbonding period](/glossary/#unbonding-period) begins the next block. The `UnbondingRequest` is tracked in memory and applied:
+The [unbonding period](/glossary/#unbonding-period) begins in the next block. The `UnbondingRequest` is tracked in memory. At the end of the epoch in which the unbond request was processed:
+  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake
+  - calculation of the amount of stake to deduct from the unbonding pool, as well as the delegator's share of the unbonding pool
+  - the amount of Newton bonded to the validator is reduced by the unbonding amount
 
-- at the end of the epoch in which the unbond request was processed:
-  - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated) and *not* [self-bonded](/glossary/#self-bonded) stake,
-  - the amount of stake to reduce the unbonding pool by and the delegator's share of the unbonding pool is calculated,
-  - the amount of Newton bonded to the validator is reduced by the unbonding amount.
-- at the end of the epoch in which the unbonding period expires:
-  - Newton redemption occurs and due Newton is minted to the staker’s Newton account.
+Then, at the end of the epoch in which the unbonding period expires Newton redemption occurs and the Newton that is due is minted to the staker's Newton account.
 
 {{< alert title="Warning" color="warning" >}}
 The amount of Newton released may be less than the unbonded amount if the validator has been slashed.
