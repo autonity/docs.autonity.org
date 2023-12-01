@@ -84,24 +84,6 @@ In the PAS model self-bonded stake has a different risk profile to delegated sta
 By self-bonding stake, a validator puts "skin in the game" because this constitutes a public commitment to the operational integrity of the validator node by its operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
 {{% /alert %}}
 
-
-
-## Penalty-Absorbing Stake (PAS)
-
-Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absorbing-stake-pas) model where validator [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.
-
-Slashing priority is simply:
-
-- [Self-bonded](/glossary/#self-bonded) stake is slashed as first priority until exhausted. If the validator has self-unbonding stake, then the unbonding stake is slashed first before bonded stake.
-- [Delegated](/glossary/#delegated) stake is slashed as second priority when the slashing amount exceeds the amount of self-bonded stake available. If the delegator has unbonding stake, then the unbonding stake and bonded stake are slashed _pro rata_ with equal priority.
-
-In the PAS model self-bonded stake has a different risk profile to delegated stake _because it provides loss absorbing capital in the case of a slashing event_. For this reason, Liquid Newton is only minted for delegated stake to ensure validator liquid newton has a uniform risk profile.
-
-{{% alert title="Note" %}}
-Self-bonding stake by a validator puts "skin in the game" and is a public commitment to the operational integrity of a validator node by a validator operator. Potential stake delegators can use the amount of self-bonded stake of a validator as a decision factor when conducting due diligence before staking.
-{{% /alert %}}
-
-
 ## Staking rewards
 
 Staking rewards are a distribution of fee revenue entitlement to all holders of bonded stake actively backing consensus. Reward distribution takes place _pro-rata_ to the share of total stake bonded to validators in the consensus committee. The fee revenue comes from the _base fees_ charged for computing transactions included in blocks committed to the system ledger. The optional _priority fee_ of a transaction is not included in the rewards pool but awarded to the block proposer according to the EIP 1559 transaction fee mechanism.
