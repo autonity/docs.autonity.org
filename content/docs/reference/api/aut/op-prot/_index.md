@@ -1156,40 +1156,6 @@ The new total supply of auton available for minting can be retrieved from state 
 On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
 
 
-###  mint (Supply Control Contract)
-
-The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
-
-Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation. 
-
-Constraint checks are applied:
-
-- the caller is the `stabilizer` account, the Stabilization Contract address
-- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
-- invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available auton `balance`.
-    
-When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `recipient ` | `address` | the recipient account address |
-| `amount ` | `uint256` | amount of Auton to mint (non-zero) |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The new Auton balance of the recipient account can be returned from state using `aut` to [Get the auton balance](/account-holders/submit-trans-aut/#get-auton-balance).
-
-The new total supply of auton available for minting can be retrieved from state by calling the [`availableSupply()`](/reference/api/asm/supplycontrol/#availablesupply) method.
-
-#### Event
-
-On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
-
-
 ###  update (ACU Contract)
 
 The Auton Currency Unit (ACU) Contract finalisation function, called once per Oracle voting round as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
