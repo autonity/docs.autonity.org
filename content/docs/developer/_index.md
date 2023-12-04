@@ -2,7 +2,7 @@
 ---
 title: "Development with Autonity"
 linkTitle: "Development"
-weight: 60
+weight: 90
 description: >
   Start developing on the Autonity network, spin up a local development testnet and deploy contracts.
 draft: false

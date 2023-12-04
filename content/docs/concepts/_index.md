@@ -1,7 +1,7 @@
 ---
 title: "Concepts"
 linkTitle: "Concepts"
-weight: 80
+weight: 10
 description: >
   Core concepts of Autonity Protocol
 ---
