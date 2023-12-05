@@ -42,6 +42,8 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
    ```
 
    {{< alert title="Info" >}}
+   If you have built from source, then a sample `plugins-conf.yml` config file can be found in `/build/bin/plugins`.
+   
    A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
    {{< /alert >}}
 
@@ -60,8 +62,9 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
         -key.file="<ORACLE_KEYFILE>" \
         -key.password="<PWD>" \
         -ws="<WS_ADDRESS>" \
-        -plugin.conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml"
-   ;
+        -plugin.conf="<PLUGINS_CONFIG_FILE>/plugins-conf.yml" \
+        -plugin.dir="./build/bin/plugins" \
+        ;
     ```
 
    where:
@@ -198,10 +201,18 @@ An example minimal entry could be:
 
 If you are connecting to Bakerloo testnet an ATN and NTN Simulator is deployed and available to provide simulated data for testnet use.  
 
-To connect to this simulator as a data source, just edit your `plugins-conf.yml` file add an entry for the simulator:
+To connect to this simulator as a data source, you need to add the `sim_plugin` to your `/plugins` directory and edit your config file to point to the Bakerloo ATN and NTN data simulator.
+
+The `sim_plugin` is built when running `make` to a test directory. Just copy the file to the plugins directory:
+
+```bash
+cp e2e_test/plugins/simulator_plugins/sim_plugin build/bin/plugins/sim_plugin
+```
+
+Secondly, just edit your `plugins-conf.yml` file to add an entry for the Bakerloo simulator data source:
 
 ```yaml
-- name: simulator_plugin
+- name: sim_plugin
   endpoint: simfeed.bakerloo.autonity.org
   scheme: https
 ```
