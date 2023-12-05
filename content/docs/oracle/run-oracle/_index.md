@@ -196,12 +196,15 @@ An example minimal entry could be:
 
 ### ATN and NTN data simulator plugin
 
-No additional configuration is required for the testnet ATN and NTN Simulator built when [installing oracle server data source plugins](/oracle/install-oracle/#install-plugin).
+If you are connecting to Bakerloo testnet an ATN and NTN Simulator is deployed and available to provide simulated data for testnet use.  
 
-{{< alert title="Info" color="info">}}
-The `Simulator_plugin` default configuration will connect to a simulated price feed for `NTN-USD`, `ATN-USD` and `NTN-ATN` at https://simfeed.bakerloo.autonity.org/api/v3/ticker/price.
-{{< /alert >}}
+To connect to this simulator as a data source, just edit your `plugins-conf.yml` file add an entry for the simulator:
 
+```yaml
+- name: simulator_plugin
+  endpoint: simfeed.bakerloo.autonity.org
+  scheme: https
+```
 
 ### Develop plugins
 Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
