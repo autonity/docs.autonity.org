@@ -17,7 +17,7 @@ Bakerloo is for participants interested in:
 
 |**Field**|**Input**|
 |------|----------|
-|Network Name|`Autonity Bakerloo Testnet`|
+|Network Name|`Autonity Bakerloo (Barada) Testnet`|
 |New RPC URL|`https://rpc1.bakerloo.autonity.org`|
 |ChainID |`65010001`|
 |Symbol|`ATN`|
@@ -48,7 +48,7 @@ The network's genesis configuration is:
 |  | `enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308` |
 |  | `enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309` |
 |  | `enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310` |
-| `config.oracle.symbols`       | `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD"]`        |
+| `config.oracle.symbols`       | `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "ATN-NTN"]`        |
 | `config.oracle.votePeriod`       | `30` (30 blocks)       |
 
 Note:
@@ -64,7 +64,7 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Bakerloo network is built using this Autonity Release: [v0.12.1 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.12.1)
+- The current iteration of the Bakerloo network is built using this Autonity Release: [v0.12.2 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.12.2)
 
 - The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
