@@ -21,7 +21,7 @@ Piccadilly is for participants interested in:
 
 |**Field**|**Input**|
 |------|----------|
-|Network Name|`Autonity Piccadilly Testnet`|
+|Network Name|`Autonity Piccadilly (Barada) Testnet`|
 |New RPC URL|`https://rpc1.piccadilly.autonity.org/`|
 |ChainID |`65100001`|
 |Symbol|`ATN`|
@@ -68,7 +68,7 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.12.1 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.12.1)
+- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.12.2 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.12.2)
 
 - The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
