@@ -34,7 +34,7 @@ autonity genOwnershipProof --nodekey <NODE_KEY_PATH> --oraclekey <ORACLE_KEY_PAT
 If you are running the Autonity Go Client in a docker container, setup as described in the [Run Autonity section](../../node-operators/run-aut#run-docker) (i.e. with the `autonity-chaindata` directory mapped to a host directory of the same name), the proof can be generated as follows:
 
 ```bash
-docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --name autonity-proof --rm ghcr.io/autonity/autonity:latest genOwnershipProof --nodekey ./autonity-chaindata/autonity/nodekey --oraclekey <ORACLE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
+docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --volume <ORACLE_KEY_PATH>:/oracle.key --name autonity-proof --rm ghcr.io/autonity/autonity:latest genOwnershipProof --nodekey ./autonity-chaindata/autonity/nodekey --oraclekey oracle.key <TREASURY_ACCOUNT_ADDRESS>
 ```
 
 where:

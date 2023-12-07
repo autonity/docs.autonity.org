@@ -128,7 +128,7 @@ sudo systemctl restart docker
     ```bash
     docker images --digests ghcr.io/autonity/autonity
     REPOSITORY                               TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
-    ghcr.io/autonity/autonity                latest    sha256:0eb561ce19ed3617038b022db89586f40abb9580cb0c4cd5f28a7ce74728a3d4   3375da450343   3 weeks ago    51.7MB
+    ghcr.io/autonity/autonity                latest    sha256:7298a5fb9834b8cc281b81df1153fcf2f955a292bf3bd5e5d3eb3f80b52f0727   3375da450343   3 weeks ago    54.4MB
     ```
 
 {{% pageinfo %}}
@@ -172,7 +172,7 @@ The following should be installed in order to build the Autonity Go Client:
 You should now be able to execute the `autonity` command.  Verify your installation by executing `autonity version` to return the client version and executable build details:
 
 ```bash
-$ ./autonity version
+./autonity version
 ```
 ```
 Autonity
@@ -190,7 +190,7 @@ GOROOT=/usr/local/go
 If using Docker, the setup of the image can be verified with:
 
 ```bash
-$ docker run --rm ghcr.io/autonity/autonity:latest version
+docker run --rm ghcr.io/autonity/autonity:latest version
 ```
 ```
 Autonity
