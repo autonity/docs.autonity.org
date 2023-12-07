@@ -16,10 +16,10 @@ For full details and to report any issues, see the [`aut` repository <i class='f
 A working Python install with the `pip` tool is required.
 {{< /alert >}}
 
-In general, the tool can be installed using [pipx <i class='fas fa-external-link-alt'></i>](https://github.com/pypa/pipx).
+The tool can be installed using [pipx <i class='fas fa-external-link-alt'></i>](https://github.com/pypa/pipx). To get the latest release run:
 
 ```bash
-pipx install git+https://github.com/autonity/aut
+pipx install --force https://github.com/autonity/aut/releases/download/v0.3.0.dev2/aut-0.3.0.dev2-py3-none-any.whl
 ```
 
 {{< alert title="Note" >}}
@@ -29,8 +29,7 @@ If you are experiencing errors such as:
 ImportError: cannot import name 'NodeAddress' from 'autonity.validator'
 ```
 
-Please upgrade your `aut`` tool using `pipx install --force https://github.com/autonity/aut/releases/download/v0.3.0.dev2/aut-0.3.0.dev2-py3-none-any.whl'`
-
+You are using an earlier version of `aut`. Please upgrade your `aut` tool to use the latest release using the installation command above.
 
 It is highly recommended to also follow the [instructions in the repository <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) to set up command-line completion.
 {{< /alert >}}
