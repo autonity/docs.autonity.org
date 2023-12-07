@@ -29,7 +29,7 @@ If you are experiencing errors such as:
 ImportError: cannot import name 'NodeAddress' from 'autonity.validator'
 ```
 
-Please upgrade your `aut`` tool using `pipx install --force 'https://github.com/autonity/aut/releases/download/v0.3.0.dev1/aut-0.3.0.dev1-py3-none-any.whl'`
+Please upgrade your `aut`` tool using `pipx install --force https://github.com/autonity/aut/releases/download/v0.3.0.dev2/aut-0.3.0.dev2-py3-none-any.whl'`
 
 
 It is highly recommended to also follow the [instructions in the repository <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) to set up command-line completion.
