@@ -152,16 +152,22 @@ The following should be installed in order to build the Autonity Go Client:
     git clone git@github.com:autonity/autonity.git
     ```
 
-2. Enter the `autonity` directory and build autonity:
+
+2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
 
     ```bash
-    cd autonity
+    git checkout tags/v0.12.2 -b v0.12.2
+    ```
+
+3. Build autonity:
+
+    ```bash
     make autonity
     ```
 
     (The `cmd` utilities, including the Clef account management tool, can be built using `make all`.)
 
-3. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
+4. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
 
     ```bash
     sudo cp build/bin/autonity /usr/local/bin/autonity
@@ -176,13 +182,15 @@ $ ./autonity version
 ```
 ```
 Autonity
-Version: 0.10.1
+Version: 0.12.2
+Git Commit: 2495b37ae4aacc6505f6287cafe19cfbb0b7f17b
+Git Commit Date: 20231128
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.18.2
+Go Version: go1.20.4
 Operating System: linux
 GOPATH=
-GOROOT=/usr/local/go
+GOROOT=
 ```
 
 <!-- TODO: Check this works -->
@@ -192,6 +200,7 @@ If using Docker, the setup of the image can be verified with:
 ```bash
 $ docker run --rm ghcr.io/autonity/autonity:latest version
 ```
+
 ```
 Autonity
 Version: 0.10.1
