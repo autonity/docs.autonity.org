@@ -172,7 +172,7 @@ The following should be installed in order to build the Autonity Go Client:
 You should now be able to execute the `autonity` command.  Verify your installation by executing `autonity version` to return the client version and executable build details:
 
 ```bash
-./autonity version
+$ ./autonity version
 ```
 ```
 Autonity
@@ -190,7 +190,7 @@ GOROOT=/usr/local/go
 If using Docker, the setup of the image can be verified with:
 
 ```bash
-docker run --rm ghcr.io/autonity/autonity:latest version
+$ docker run --rm ghcr.io/autonity/autonity:latest version
 ```
 ```
 Autonity
