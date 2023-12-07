@@ -225,6 +225,15 @@ $ ./autoracle version
 v0.1.4
 ```
 
+If using Docker, the setup of the Bakerloo image can be verified with:
+
+```bash
+docker run --rm ghcr.io/autonity/autonity-oracle-bakerloo:latest version 
+```
+```
+v0.1.4
+```
+
 {{< alert title="Note" >}}
 The output above will vary depending on the version of the Autonity Oracle Server you have installed.  Confirm that the "Version" field is consistent with the version you expect.
 {{< /alert >}}

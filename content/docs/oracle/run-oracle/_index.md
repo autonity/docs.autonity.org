@@ -123,17 +123,18 @@ If plugins for external data sources or the symbols for which oracle server prov
 
    where:
    
-   - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, i.e. `oracle-server-bakerloo` or `oracle-server-piccadilly`
-   - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle-bakerloo` or `ghcr.io/autonity/autonity-oracle-piccadilly`
    - `<ORACLE_KEYFILE>` specifies the path to your oracle server key file. E.g. `../aut/keystore/oracle.key`
    - `<PLUGINS_CONF_FILE>` is the path to the oracle server configuration file `plugins-conf.yml`. E.g. `./plugins-conf.yml`.
+   - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, i.e. `oracle-server-bakerloo` or `oracle-server-piccadilly`
+   - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle-bakerloo` or `ghcr.io/autonity/autonity-oracle-piccadilly`
    - `<PWD>` is the password to your oracle server key file
-   - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network). 
+   - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node (e.g. "ws://172.17.0.2:8546", see [install Autonity, networks](/node-operators/install-aut/#network)). 
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
 
 {{< alert title="Info" >}}
-AOS requires an accessible `ws/wss` AGC endpoint. If you are also running AGC in docker and facing issues in connecting AOS to it, then see docker docs [Networking <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/network/).  
+AOS requires an accessible `ws/wss` AGC endpoint. If you are also running AGC in docker and facing issues in connecting AOS to it, please execute the following command to correctly identify the IP address required for the `<WS_ADDRESS>`: `docker inspect -f '{{.NetworkSettings.IPAddress}}' <container_id_or_name>`
+   
 {{< /alert >}}
  
 On running the Docker you should see something like:
