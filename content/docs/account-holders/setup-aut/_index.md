@@ -19,7 +19,7 @@ A working Python install with the `pip` tool is required.
 The tool can be installed using [pipx <i class='fas fa-external-link-alt'></i>](https://github.com/pypa/pipx). To get the latest release run:
 
 ```bash
-pipx install --force https://github.com/autonity/aut/releases/download/v0.3.0.dev2/aut-0.3.0.dev2-py3-none-any.whl
+pipx install --force https://github.com/autonity/aut/releases/download/v0.3.0.dev3/aut-0.3.0.dev3-py3-none-any.whl
 ```
 
 {{< alert title="Note" >}}
