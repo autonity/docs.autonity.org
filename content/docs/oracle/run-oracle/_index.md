@@ -108,7 +108,7 @@ If plugins for external data sources or the symbols for which oracle server prov
 
    ```bash
    docker run \
-        -t -i \
+        -t -i -d \
         --volume $<ORACLE_KEYFILE>:/autoracle/oracle.key \
         --volume $<PATH_TO_PLUGINS_FILE>:/autoracle/plugins-conf.yml \
         --name <ORACLE_CONTAINER_NAME> \
