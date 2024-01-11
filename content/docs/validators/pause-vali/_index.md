@@ -16,7 +16,6 @@ description: >
 See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and [validator pausing](/concepts/validator/#validator-pausing).
 
 Note that the pause and reactivation of a validator will become effective at the end of the current epoch (i.e. the epoch in which the transaction is processed). The change in validator state is applied before the committee is selected for the following epoch is selected, ensuring that the validator is either ignored (if paused) or included (if reactivated).
-
 {{< /alert >}}
 
 ## Pause as a validator
