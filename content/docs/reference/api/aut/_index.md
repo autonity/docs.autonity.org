@@ -234,7 +234,9 @@ $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a8
 {{< /tab >}}
 {{< /tabpane >}}
 
-{{< alert title="Info" >}}All Liquid Newton balances for an account can be returned in one call using the `aut` command `aut account lntn-balances [OPTIONS] ACCOUNT`.{{< /alert >}}
+{{< alert title="Info" >}}
+All Liquid Newton balances for an account can be returned in one call using the `aut` command `aut account lntn-balances [OPTIONS] ACCOUNT`.
+{{< /alert >}}
 
 
 ## bond
@@ -372,18 +374,21 @@ Returns a `Config` object consisting of:
 
 | Field | Datatype | Description |
 | --| --| --|
-| `operatorAccount` | `address` | the address of the Autonity governance account |
-| `treasuryAccount` | `address payable` | the address of the Autonity Treasury account for community funds |
-| `accountabilityContract` | `address` | the address of the Autonity Accountability Contract |
-| `oracleContract` | `address` | the address of the Autonity Oracle Contract |
 | `treasuryFee` | `uint256` | the percentage of staking rewards deducted from staking rewards and sent to the Autonity Treasury account for community funding before staking rewards are distributed |
 | `minBaseFee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
 | `delegationRate` | `uint256` | the percentage of staking rewards deducted by validators as a commission from delegated stake |
-| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
 | `unbondingPeriod` | `uint256` | the period of time for which bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction, defined as a number of blocks |
+| `treasuryAccount` | `address payable` | the address of the Autonity Treasury account for community funds |
+| `accountabilityContract` | `address` | the address of the Autonity Accountability Contract |
+| `oracleContract` | `address` | the address of the Autonity Oracle Contract |
+| `acuContract` | `address` | the address of the Autonity ASM ACU Contract |
+| `supplyControlContract` | `address` | the address of the Autonity ASM Supply Control Contract |
+| `stabilizationContract` | `address` | the address of the Autonity ASM Stabilization Contract |
+| `operatorAccount` | `address` | the address of the Autonity governance account |
+| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
+| `blockPeriod` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
 | `committeeSize` | `uint256` | the maximum number of validators that may be members of a consensus committee on the network |
 | `contractVersion` | `uint256 ` | the version number of the Autonity Protocol Contract. An integer value set by default to `1` and incremented by `1` on contract upgrade |
-| `blockPeriod` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
 
 ### Usage
 
@@ -402,21 +407,32 @@ aut protocol config [OPTIONS]
 {{< tab header="aut" >}}
 $ aut protocol config -r https://rpc1.piccadilly.autonity.org
 {
-  "operator_account": "0xd32C0812Fa1296F082671D5Be4CbB6bEeedC2397",
-  "treasury_account": "0xF74c34Fed10cD9518293634C6f7C12638a808Ad5",
-  "treasury_fee": 10000000000000000,
-  "min_basefee": 500000000,
-  "delegation_rate": 1000,
-  "epoch_period": 1800,
-  "unbonding_period": 21600,
-  "committee_size": 100,
-  "contract_version": 1,
-  "block_period": 1
+  "policy": {
+    "treasury_fee": 10000000000000000,
+    "min_basefee": 500000000,
+    "delegation_rate": 1000,
+    "unbonding_period": 21600,
+    "treasury_account": "0xF74c34Fed10cD9518293634C6f7C12638a808Ad5"
+  },
+  "contracts": {
+    "accountability_contract": "0x5a443704dd4B594B382c22a083e2BD3090A6feF3",
+    "oracle_contract": "0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D",
+    "acu_contract": "0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA",
+    "supply_control_contract": "0x47c5e40890bcE4a473A49D7501808b9633F29782",
+    "stabilization_contract": "0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f"
+  },
+  "protocol": {
+    "operator_account": "0xd32C0812Fa1296F082671D5Be4CbB6bEeedC2397",
+    "epoch_period": 1800,
+    "block_period": 1,
+    "committee_size": 100
+  },
+  "contract_version": 1
 }
 {{< /tab >}}
 {{< tab header="RPC" >}}
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_config", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":["0xd32c0812fa1296f082671d5be4cbb6beeedc2397","0xf74c34fed10cd9518293634c6f7c12638a808ad5",10000000000000000,500000000,1000,1800,21600,100,1,1]}
+{"jsonrpc":"2.0","id":1,"result":[{"treasuryFee":10000000000000000,"minBaseFee":500000000,"delegationRate":1000,"unbondingPeriod":21600,"treasuryAccount":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"},{"accountabilityContract":"0x5a443704dd4b594b382c22a083e2bd3090a6fef3","oracleContract":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d","acuContract":"0x8be503bcded90ed42eff31f56199399b2b0154ca","supplyControlContract":"0x47c5e40890bce4a473a49d7501808b9633f29782","stabilizationContract":"0x29b2440db4a256b0c1e6d3b4cdcaa68e2440a08f"},{"operatorAccount":"0xd32c0812fa1296f082671d5be4cbb6beeedc2397","epochPeriod":1800,"blockPeriod":1,"committeeSize":100},1]}
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -595,6 +611,9 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-block-period [OPTIONS]
+{{< /tab >}}
 {{< tab header="RPC" >}}
 {"method": "aut_getBlockPeriod", "params":[]}
 {{< /tab >}}
@@ -603,6 +622,10 @@ None.
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-block-period --rpc-endpoint https://rpc1.piccadilly.autonity.org
+1
+{{< /tab >}}
 {{< tab header="RPC" >}}
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getBlockPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1}
@@ -755,6 +778,9 @@ Returns the unique identifier of the epoch block epoch associated with a block a
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-epoch-from-block [OPTIONS] BLOCK
+{{< /tab >}}
 {{< tab header="RPC" >}}
 {"method": "aut_getEpochFromBlock", "params":[_block]}
 {{< /tab >}}
@@ -763,7 +789,10 @@ Returns the unique identifier of the epoch block epoch associated with a block a
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
-
+{{< tab header="aut" >}}
+aut protocol get-epoch-from-block --rpc-endpoint https://rpc1.piccadilly.autonity.org 3293857
+1829
+{{< /tab >}}
 {{< tab header="RPC" >}}
 curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 --header 'Content-Type: application/json' \
@@ -795,6 +824,9 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-epoch-period [OPTIONS]
+{{< /tab >}}
 {{< tab header="RPC" >}}
 {"method": "aut_getEpochPeriod", "params":[]}
 {{< /tab >}}
@@ -803,6 +835,10 @@ None.
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-epoch-period --rpc-endpoint https://rpc1.piccadilly.autonity.org
+1800
+{{< /tab >}}
 {{< tab header="RPC" >}}
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getEpochPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1800}
@@ -1104,6 +1140,82 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 {{< /tabpane >}}
 
 
+## getTreasuryAccount
+
+Returns the address of the Autonity treasury account.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `address` | the Autonity treasury account address |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-treasury-account [OPTIONS]
+{{< /tab >}}
+{{< tab header="RPC" >}}
+{"method":"aut_getTreasuryAccount", "params":[]}
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-treasury-account -r https://rpc1.piccadilly.autonity.org/
+0xF74c34Fed10cD9518293634C6f7C12638a808Ad5
+{{< /tab >}}
+{{< tab header="RPC" >}}
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryAccount", "params":[], "id":1}'
+{"jsonrpc":"2.0","id":1,"result":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"}
+{{< /tab >}}
+{{< /tabpane >}}
+
+## getTreasuryFee
+
+Returns the percentage of staking rewards deducted from staking rewards by the protocol. Treasury fees ared sent to the Autonity Treasury account for community funding before staking rewards are distributed.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `treasuryFee` | `uint256` | the Autonity treasury account address. The value is returned in `10^18` format. |
+
+### Usage
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-treasury-fee [OPTIONS]
+{{< /tab >}}
+{{< tab header="RPC" >}}
+{"method":"aut_getTreasuryFee", "params":[]}
+{{< /tab >}}
+{{< /tabpane >}}
+
+### Example
+
+{{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-treasury-fee -r https://rpc1.piccadilly.autonity.org/
+10000000000000000
+{{< /tab >}}
+{{< tab header="RPC" >}}
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryFee", "params":[], "id":1}'
+{"jsonrpc":"2.0","id":1,"result":10000000000000000}
+{{< /tab >}}
+{{< /tabpane >}}
+
 
 ## getUnbondingPeriod
 
@@ -1122,6 +1234,9 @@ None.
 ### Usage
 
 {{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-unbonding-period [OPTIONS]
+{{< /tab >}}
 {{< tab header="RPC" >}}
 {"method": "aut_getUnbondingPeriod", "params":[]}
 {{< /tab >}}
@@ -1130,6 +1245,10 @@ None.
 ### Example
 
 {{< tabpane langEqualsHeader=true >}}
+{{< tab header="aut" >}}
+aut protocol get-unbonding-period -r https://rpc1.piccadilly.autonity.org/
+21600
+{{< /tab >}}
 {{< tab header="RPC" >}}
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getUnbondingPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":21600}
@@ -1243,6 +1362,11 @@ aut validator list [OPTIONS]
 {"method": "aut_getValidators", "params":[]}
 {{< /tab >}}
 {{< /tabpane >}}
+
+
+{{< alert title="Info" >}}
+`getValidators` can also be called using the `aut` command `aut protocol get-validators`.
+{{< /alert >}}
 
 ### Example
 
