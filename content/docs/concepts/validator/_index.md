@@ -312,7 +312,7 @@ The process is:
 
 - The validator operator entity submits an activate request transaction to the Autonity Protocol Public APIs, calling the [`activateValidator()`](/reference/api/aut/#activatevalidator) function, submitting the transaction from the account used to register the validator (validator `treasury` account) and passing in the validator identifier address.
 - Transaction processed and committed to state:
-   - The validator's state is changed from `paused` to `active`.
+   - The validator's state is changed from its inactive state (`paused` or `jailed`) to `active`.
    - An `ActivatedValidator` event is emitted detailing: validator operator entity treasury address, validator identifier address, effective block height at which re-activation takes effect: projected block number for epoch end.
 
 The validator is active, able to accept new stake delegations, and once again eligible for selection to the consensus committee.
