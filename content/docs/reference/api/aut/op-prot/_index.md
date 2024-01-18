@@ -124,6 +124,13 @@ The new total supply of auton available for minting can be retrieved from state 
 
 On a successful call the function emits a `Mint` event, logging: `recipient`, `amount`.
 
+#### Usage
+
+{{< alert title="Info" >}}
+The ASM Supply Control Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+{{< /alert >}}
 
 ###  modifyBasket (ACU Contract)
 
@@ -144,6 +151,14 @@ None.
 #### Event
 
 None.
+
+#### Usage
+
+{{< alert title="Info" >}}
+The ASM ACU Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+{{< /alert >}}
 
 
 ###  setAccountabilityContract
@@ -168,15 +183,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+aut protocol set-accountability-contract [OPTIONS] CONTRACT-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -203,15 +210,7 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
+aut protocol set-acu-contract [OPTIONS] CONTRACT-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
@@ -322,19 +321,11 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+{{< alert title="Info" >}}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+{{< /alert >}}
 
 
 ###  setMinCollateralizationRatio (ASM Stabilization Contract)
@@ -363,19 +354,11 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+{{< alert title="Info" >}}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+{{< /alert >}}
 
 
 ###  setMinDebtRequirement (ASM Stabilization Contract)
@@ -398,20 +381,11 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+{{< alert title="Info" >}}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
-{{< /tab >}}
-{{< /tabpane >}}
-
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
-
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+{{< /alert >}}
 
 
 ###  setMinimumBaseFee
@@ -442,14 +416,6 @@ aut protocol set-minimum-base-fee [OPTIONS] base-fee
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setMinimumBaseFee(_price).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setMinimumBaseFee", "params":[_price]}
-{{< /tab >}}
--->
 
 #### Example
 
@@ -462,42 +428,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setMinimumBaseFee(50000000).send({from: myAddress, gas: gas})
-{
-  blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
-  blockNumber: 7247,
-  contractAddress: null,
-  cumulativeGasUsed: 30100,
-  effectiveGasPrice: 2500247492,
-  from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c',
-  gasUsed: 30100,
-  logsBloom: '0x00004000000000000000000000020000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-  status: true,
-  to: '0xbd770416a3345f91e4b34576cb804a576fa48eb1',
-  transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
-  transactionIndex: 0,
-  type: '0x2',
-  events: {
-    MinimumBaseFeeUpdated: {
-      address: '0xBd770416a3345F91E4B34576cb804a576fa48EB1',
-      blockNumber: 7247,
-      transactionHash: '0xe102af7ad981f3e370a84c86669d8d309ab82c955a492d613904bef48a0babe0',
-      transactionIndex: 0,
-      blockHash: '0xb72f0acd971378eb60a011527b412f5f9d5ce096a42c2674b6b670967378ce5e',
-      logIndex: 0,
-      removed: false,
-      id: 'log_2f1e2457',
-      returnValues: [Result],
-      event: 'MinimumBaseFeeUpdated',
-      signature: '0x1f4d2fc7529047a5bd96d3229bfea127fd18b7748f13586e097c69fccd389128',
-      raw: [Object]
-    }
-  }
-}
-{{< /tab >}}
--->
 
 ###  setOperatorAccount
 
@@ -530,14 +460,6 @@ aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-autonity.setOperatorAccount(_account).send()
-{{< /tab >}}
-{{< tab header="RPC" >}}
-{"method": "aut_setOperatorAccount", "params":[_account]}
-{{< /tab >}}
--->
 
 #### Example
 
@@ -550,11 +472,6 @@ Enter passphrase (or CTRL-d to exit):
 {{< /tab >}}
 {{< /tabpane >}}
 
-<!--
-{{< tab header="NodeJS Console" >}}
-> autonity.setOperatorAccount('0x11a87b260dd85ff7189d848fd44b28cc8505fa9c').send({from: myAddress, gas: gas})
-{{< /tab >}}
--->
 
 ###  setOracleContract
 
@@ -584,17 +501,10 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut protocol set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
 
 
 ###  setStabilizationContract
@@ -619,17 +529,10 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut protocol set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
 
 
 ###  setSupplyControlContract
@@ -654,17 +557,10 @@ None.
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
-
+aut protocol set-supply-control-contract [OPTIONS] CONTRACT-ADDRESS
 {{< /tab >}}
 {{< /tabpane >}}
 
-#### Example
-
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
 
 
 ### setSymbols (Oracle Contract)
@@ -1083,7 +979,6 @@ Based on the verification outcome, constraint checks are applied:
 
   - if `Accusation`, then:
     - the severity of the fault event is greater than the severity of the offender's current slashing history for the epoch
-    <!-- - the validator has not already been slashed for a fault with a higher severity in the proof's epoch. -->
     - the validator does not have a pending accusation being processed.
 
   - if `InnocenceProof`, then:
