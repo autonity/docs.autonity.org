@@ -20,7 +20,7 @@ Note that the pause and reactivation of a validator will become effective at the
 
 ## Pause as a validator
 
-1. To pause a validator from active to a paused, inactive state, use the `validator` command `pause`. Specify:
+1. To pause a validator from an `active` to a `paused`, inactive state, use the `validator` command `pause`. Specify:
 
 	- `--validator`: `<VALIDATOR_IDENTIFIER_ADDRESS>` of the validator node you are pausing.
 
@@ -65,7 +65,7 @@ Note that the pause and reactivation of a validator will become effective at the
 
 ## Re-activate a validator
 
-1. To resume a validator from a paused to an active state, use the `validator` command `activate`. Specify:
+1. To resume a validator from an inactive state (`paused` or `jailed`) to an `active` state, use the `validator` command `activate`. Specify:
 
 	- `--validator`: `<VALIDATOR_IDENTIFIER_ADDRESS>` of the validator node you are pausing.
 
