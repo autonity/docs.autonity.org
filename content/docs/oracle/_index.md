@@ -8,4 +8,4 @@ description: >
 
 To operate and [run a validator](/validators/) node, the Autonity Oracle Server must also be installed and configured to collect data from one or more external data sources.
 
-The steps here describe how to install and run the oracle server, configure external data sources, and configure the server to connect to your validator node. This guide assumes a [running validator node and connected `aut`](/validators/).
+The steps here describe how to install and run the oracle server, configure external data sources, and configure the server to connect to your validator node. This guide assumes a [running node and connected `aut`](/node-operators/).
