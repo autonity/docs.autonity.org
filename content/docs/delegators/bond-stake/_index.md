@@ -8,6 +8,14 @@ description: >
 
 See the [staking section](/concepts/staking/) to understand the concepts behind bonding and unbonding.
 
+{{< alert title="Note" >}}
+You can only bond stake to a validator that is in an `active` state at the time of the bonding request. Bonding requests to a validator in a `paused`, `jailed`, or `jailbound` state will revert. This constraint ensures stake can only be delegated to validators in a state eligible for selection to the consensus committee, maximising the amount of bonded stake available to secure the network.
+
+You can determine the state of a validator using the `aut validator info` command; if the validator is `active` the `state` field has the value of `0`.
+
+No such state constraint applies to unbonding. You are able to unbond stake from a validator in any state, i.e. `0`: active, `1`: paused, `2`: jailed, `3`: jailbound.
+{{< /alert >}}
+
 ## Prerequisites
 
 - A running instance of [`aut` <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
@@ -85,7 +93,11 @@ aut validator bond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx 
 {{< alert title="Note" >}}
 Bonding requests are not processed until the end of the current epoch.  The Newton to be bonded will be deducted from your balance, but your [liquid newton balance](/delegators/transfer-lntn) will not be affected until the epoch end.
 
-(Pending and historical bonding requests can be discovered by listening for `NewBondingRequest` events emitted by the [bond()](/reference/api/aut/#bond) function.)
+(Pending and historical bonding requests can be discovered by listening for [`NewBondingRequest`](/reference/api/aut/#event-2) events emitted by the [bond()](/reference/api/aut/#bond) function.)
+{{< /alert >}}
+
+{{< alert title="Info" color="info">}}
+Remember to verify your chosen validator is in an active state before attempting to bond stake to it. I.e. when you call `aut validator info` it returns  `"state": 0`. If you attempt to bond stake to a validator in an inactive state, then the transaction will revert and a [`BondingRejected`](/reference/api/aut/#event-2) event is emitted by the [bond()](/reference/api/aut/#bond) function.
 {{< /alert >}}
 
 ## Unbond Newton from validator

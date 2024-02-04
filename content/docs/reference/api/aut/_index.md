@@ -246,7 +246,7 @@ Delegates an amount of Newton stake token to a designated validator. If the dele
 Constraint checks:
 
 - the `validator` address is registered as a validator
-- the `validator` state is `active`. A bonding operation submitted to a validator in `paused` or `jailed` state will revert
+- the `validator` state is `active`. A bonding operation submitted to a validator in a `paused`, `jailed` or `jailbound` state will revert
 - the `amount` is a positive integer value `> 0`
 - the Newton balance of the account submitting  the `bond()` method call has a Newton balance`>=` to the `amount` being bonded.
 
@@ -283,7 +283,10 @@ The pending voting power change is tracked in memory until applied.
 
 ### Event
 
-On a successful call the function emits a `NewBondingRequest` event, logging: `validator` address, `delegator` address, `selfBonded` (boolean), `amount` bonded.
+The function emits events:
+
+- on success, a `NewBondingRequest` event, logging: `validator` address, `delegator` address, `selfBonded` (boolean), `amount` bonded.
+- on revert, a `BondingRejected` event, logging: `delegator` address, `delegatee` address, `amount` bonded, validator `state`.
 
 ### Usage
 
@@ -1288,9 +1291,9 @@ Returns a `Validator` object consisting of:
 | `liquidSupply` | `uint256` | the total amount of Liquid Newton in circulation |
 | `registrationBlock` | `uint256` | the block number in which the registration of the validator was committed to state|
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
-| `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height) |
+| `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height). Set to `0` when the validator is in an active or jailbound state |
 | `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
-| `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `0`: active, `1`: paused, `2`: jailed |
+| `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `0`: active, `1`: paused, `2`: jailed, `3`: jailbound |
 
 ### Usage
 

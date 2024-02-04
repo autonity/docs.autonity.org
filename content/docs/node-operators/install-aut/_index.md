@@ -173,6 +173,19 @@ The following should be installed in order to build the Autonity Go Client:
     sudo cp build/bin/autonity /usr/local/bin/autonity
     ```
 
+### Troubleshooting
+
+Errors of the form
+```bash
+Caught SIGILL in blst_cgo_init, consult <blst>/bindings/go/README.md.
+```
+can be resolved by running `make clean` before running `make` to build Autonity:
+
+```bash
+make clean
+make all
+```
+
 ## Verify the installation {#verify}
 
 You should now be able to execute the `autonity` command.  Verify your installation by executing `autonity version` to return the client version and executable build details:

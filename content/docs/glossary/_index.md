@@ -170,10 +170,16 @@ The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to 
 A cryptoeconomic mechanism where economic penalties are applied for incorrect actions or state transitions by network participants, enforced by cryptographic proofs of state or action.
 
 ## jailing
-A protocol action that excludes a validator from selection to the [consensus committee](/glossary/#consensus-committee) for a designated period of time as a [slashing penalty](/glossary/#slashing-penalty). See [jail period](/glossary#jail-period).
+A protocol action that excludes a validator from selection to the [consensus committee](/glossary/#consensus-committee) for a designated period of time as a [slashing penalty](/glossary/#slashing-penalty). Jailing may be temporary or permanent. See [jail period](/glossary#jail-period) and [jailbound](/glossary#jailbound) .
+
+
+## jailbound
+A state in which a validator is permanently barred from selection to the consensus committee. A validator may only enter a jailbound state if a 100% [slashing penalty](/glossary/#slashing-penalty) is applied.
 
 ## jail period
-The period of time for which a validator is barred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
+The period of time for which a validator is temporarily barred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
+
+The block height marking the end of a validator's jail period is recorded in validator state as a non-zero value in the  [`jailReleaseBlock`](/reference/api/aut/#response-26) property.
 
 ## key pair
 A pair of public and private cryptography keys used for signing and encryption. The private key is used to produce signatures that are publicly verifiable using the public key. The public key may also be used to encrypt messages intended for the private key holder who can decrypt them using the private key.

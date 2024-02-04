@@ -233,7 +233,9 @@ Alice sends `bond()` tx at time `T`, a block in an epoch. Newton is locked at `T
 
 Staking rewards are earned when a nominated validator is a consensus committee member. Bonding across more than one validator is allowed. The committee size is limited and staking rewards are limited to the number of validators in the current committee for the epoch.
 
-{{< alert title="Note" >}}Stake can only be bonded to a registered validator in an `active` state. A bonding request to a validator in a `paused` state will revert. See [Validator pausing](/concepts/validator/#validator-pausing) and [Validator lifecycle](/concepts/validator/#validator-lifecycle).{{< /alert >}}
+{{< alert title="Note" >}}
+Stake can only be bonded to a registered validator in an `active` state. A bonding request to an inactive validator (i.e. one in a `paused`, `jailed`, or `jailbound` state will revert). See [Validator pausing](/concepts/validator/#validator-pausing), [Validator jailing](/concepts/validator/#validator-jailing), and [Validator lifecycle](/concepts/validator/#validator-lifecycle).
+{{< /alert >}}
 
 ### Delegation
 

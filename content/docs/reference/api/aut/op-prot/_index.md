@@ -767,7 +767,7 @@ The consensus committee variables maintained in persistent storage are deleted a
 Constraint checks:
 
 - `validatorList.length > 0`. A committee cannot be selected without registered validators.
-- `ValidatorState.enabled`. Validators must have a state of enabled to be included in the selection algorithm.
+- `ValidatorState = 0` (i.e. active). Validators must be in an active state to be included in the selection algorithm (validators in a paused, jailed, or jailbound state are excluded).
 - `bondedStake > 0`. Validators must have a non-zero amount of bonded stake to be included in the selection algorithm.
 
 #### Parameters
