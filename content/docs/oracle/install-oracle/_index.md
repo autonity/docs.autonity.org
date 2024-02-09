@@ -99,15 +99,27 @@ The following should be installed in order to build the Autonity Oracle Server:
     git clone git@github.com:autonity/autonity-oracle.git
     ```
 
-2. Enter the `autonity-oracle` directory and build autonity oracle server:
+2. Enter the `autonity-oracle` directory and build autonity oracle server.     ```
+    
+    This will build the executable (`./build/bin/autoracle`) and create a subdirectory containing data source plugins packaged in the release (`./build/bin/plugins/`).
 
+
+    Adjust the `make` command according to the testnet you are connecting to.
+
+    If connecting to Piccadilly Testnet, run:
+    
     ```bash
     cd autonity-oracle
     make autoracle
     ```
     
-    This will build the executable (`./build/bin/autoracle`) and create a subdirectory containing data source plugins packaged in the release (`./build/bin/plugins/`).
-
+    If connecting to Bakerloo Testnet, run:
+    
+    ```bash
+    cd autonity-oracle
+    make autoracle-bakerloo
+    ```
+    
 4. (Optional) Add data source plugins. Navigate to the `plugins` sub-directory of your working directory and add sub-directories for additional plugins you are installing. See [Installing data source plugins](/oracle/install-oracle/#install-plugin).
 
 5. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH`:
@@ -222,16 +234,16 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ ./autoracle version
 ```
 ```
-v0.1.4
+v0.1.6
 ```
 
 If using Docker, the setup of the Bakerloo image can be verified with:
 
 ```bash
-docker run --rm ghcr.io/autonity/autonity-oracle-bakerloo:latest version 
+docker run --rm ghcr.io/autonity/autonity-oracle:latest version 
 ```
 ```
-v0.1.4
+v0.1.6
 ```
 
 {{< alert title="Note" >}}
@@ -245,24 +257,21 @@ Oracle server will need to provide price data for FX and ATN and NTN currency pa
 A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
 
 - Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
-- Simulator plugin: for simulated ATN and NTN data. You need to install and run this plugin if you are deploying to Bakerloo Testnet, or for your own local testnet purposes. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
+- ATN and NTN plugins:
+  - For connecting to Piccadilly Testnet. See the `pcgc_cax` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). This provides ATN and NTN data from the Centralized Auton Exchange deployed to Piccadilly for the Piccadilly Circus Games Competition. See [game.autonity.org<i class='fas fa-external-link-alt'></i>](https:game.autonity.org).
+  - For connecting to Bakerloo Testnet. See the `sim_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins/simulator_plugin). This provides simulated ATN and NTN data. 
 
 The plugins are built by the `make` process when building from source. The plugins are included pre-built as part of oracle server Docker image and the pre-built executable.
 
-If installing by building from source, you will also need to build and install the Simulator plugin if you want to use it for Bakerloo Testnet or your own local testnet:
-
-1. Run `make simulator`.
-
-This will build the `simulator_plugin` in the `/plugins` directory.
-
-The FX plugins in the `/plugins` directory are built when running `make autoracle`.
+If installing by building from source, run the make command appropriate for the Testnet you are connecting to as described in [Build from source code](/oracle/install-oracle/#install-source). You can view the built plugins in the directory `./build/bin/plugins`. 
 
 {{% alert title="Note"%}}
+The Simulator plugin is built when building from source for Bakerloo Testnet. You can also build the Simulator plugin independently by running the command `make simulator`. This will build the `sim_plugin` in the `/plugins` directory. A local testnet could be a scenario for setting up and using a simulator.
+
 If you have developed your own plugins for external data sources using the oracle server's plugin template architecture, then you will need to build them and add to the `/plugins` directory.
 
-For how to do this, see [Developing data plugins](/concepts/oracle-network/#developing-data-plugins).
+For how to do this, see [Developing data plugins](/concepts/oracle-server/#developing-data-plugins).
 {{% /alert %}}
-
 
 ## Next steps {#next}
 
