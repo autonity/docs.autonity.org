@@ -128,7 +128,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    docker run \
         -t -i \
         --volume $<ORACLE_KEYFILE>:/autoracle/oracle.key \
-        --volume $<PATH_TO_PLUGINS_FILE>:/autoracle/plugins-conf.yml \
+        --volume $<PLUGINS_CONF_FILE>:/autoracle/plugins-conf.yml \
         --name <ORACLE_CONTAINER_NAME> \
         --rm \
         <DOCKER_IMAGE>:latest \
@@ -191,7 +191,7 @@ A basic set of data adaptor plugins for sourcing this data is provided out the b
 ### Set up plugins config file
 To configure FX data source plugins edit the `plugins_conf.yml` file to add a config entry for each plugin.  The oracle server release contains out-the-box plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
 
-Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle#configuration) section to view the supported FX endpoint providers.
+Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section to view the supported FX endpoint providers.
 
 For each FX endpoint configured:
 
@@ -220,15 +220,7 @@ An example minimal entry could be:
 
 If you are connecting to Bakerloo testnet an ATN and NTN Simulator is deployed and available to provide simulated data for testnet use.  
 
-To connect to this simulator as a data source, you need to add the `sim_plugin` to your `/plugins` directory and edit your config file to point to the Bakerloo ATN and NTN data simulator.
-
-The `sim_plugin` is built when running `make` to a test directory. Just copy the file to the plugins directory:
-
-```bash
-cp e2e_test/plugins/simulator_plugins/sim_plugin build/bin/plugins/sim_plugin
-```
-
-Secondly, just edit your `plugins-conf.yml` file to add an entry for the Bakerloo simulator data source:
+To connect to this simulator as a data source, you need to edit your `plugins-conf.yml` config file to point to the Bakerloo ATN and NTN data simulator. Just add an entry for the Bakerloo simulator data source:
 
 ```yaml
 - name: sim_plugin
@@ -236,11 +228,23 @@ Secondly, just edit your `plugins-conf.yml` file to add an entry for the Bakerlo
   scheme: https
 ```
 
+{{< alert title="Info" color="info" >}}
+The `sim_plugin` is built and added to the plugins directory when building from source running the `make autoracle-bakerloo` command.
+
+When running `make` on oracle server the simulator plugin is also built to a test directory. So if you didn't run the Bakerloo-specific make command you can still get the plugin by just copying the file to the plugins directory:
+
+```bash
+cp e2e_test/plugins/simulator_plugins/sim_plugin build/bin/plugins/sim_plugin
+```
+
+The simulator can also be built independently by running the `make simulator` command.
+{{< /alert >}}
+
 ### Develop plugins
 Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
 
 - Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
-- Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
+- Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/plugins/README.md).
 
 
 ## Stopping the Autonity Oracle Server
