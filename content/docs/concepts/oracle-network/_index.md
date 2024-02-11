@@ -79,7 +79,11 @@ The commit and reveal scheme is applied for security in price voting and results
 
 ### Voting rounds
 
-To coordinate the submission of source price data reports and computation of median price in the oracle network, oracle voting on median price computation takes place in [voting rounds](/glossary/#voting-round) run over a fixed duration of blocks, the [voting period](/glossary/#voting-period) (the duration in blocks of which is set as the [protocol parameter](/reference/protocol/) `votePeriod`). In the last block of each [vote period](/glossary/#voting-period) the Oracle contract issues a `NewRound` event. The round event provides a tuple of round ID, block number, block timestamp, and vote period, which tells the oracle server that on the round with that ID a price report for that timestamp is required for submission by the oracle server. The  block number indicates the block height at which the new round begins, while the vote period is the length measured in blocks of the new round. The oracle server uses the metadata to estimate and manage data sampling for submission to the new round, submitting price data as close as possible to the required timestamp.
+To coordinate the submission of source price data reports and computation of median price in the oracle network, oracle voting on median price computation takes place in [voting rounds](/glossary/#voting-round) run over a fixed duration of blocks, the [voting period](/glossary/#voting-period) (the duration in blocks of which is set as the [protocol parameter](/reference/protocol/) `votePeriod`).
+
+In the last block of each [vote period](/glossary/#voting-period) the Oracle contract issues a `NewRound` event. The round event provides a tuple of round ID, block number, block timestamp, and vote period, which tells the oracle server that on the round with that ID a price report for that timestamp is required for submission by the oracle server. The  block number indicates the block height at which the new round begins, while the vote period is the length measured in blocks of the new round.
+
+The oracle server uses the metadata to estimate and manage data sampling for submission to the new round. The oracle server initiates a _data sampling window_ 5 seconds before the required timestamp. It pre samples data from its configured data sources throughout the window range, then submits a price data report - i.e. 'vote' - as close as possible to the required timestamp.
 
 ### Voter selection
 

@@ -46,7 +46,7 @@ Primary data providers for oracle data are:
 A basic set of data adaptor plugins for sourcing this price data is provided out the box with oracle server for testnet pre-Mainnet:
 
 - Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
-- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `simulator_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
+- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `sim_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
 
 {{% alert title="Info" color="info"%}}
 ATN and NTN symbols are preview listed but untraded:
