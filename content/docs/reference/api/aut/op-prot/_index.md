@@ -886,8 +886,8 @@ The function checks the total number of faults committed by **all**  validators 
 
 - Computes the slashing. The slashing rate and amount are computed taking into account the number of fault offences committed in the epoch by the offending validator and all validators globally. The slashing amount is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate precision`.
 - Applies the slashing penalty. Slashing is applied to the offending validator's stake, subtracting the slashing amount from the validator's bonded stake according to the protocol's [Penalty Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model ([self-bonded](/glossary/#self-bonded) stake before [delegated](/glossary/#delegated) stake)
-- Computes the jail period of the offending validator. The jail period is calculated by the formula `current block number + jail factor * proven offence fault count * epoch period`, and sets the validator's jail release block number. The validator state is set to `jailed`. 
-- Updates validator history and bonded stake amounts. The validator's proven fault counter is incremented by `1` to record the slashing occurrence in the validator's reputational slashing history. Bonded stake amounts are adjusted for the slashing amount and the slashed stake token are transferred to the Autonity Protocol global `treasury` account for community funding.
+- Computes the jail period of the offending validator. If the validator stake slashing is 100% of bonded stake, permanent validator jailing is applied and the validator state is set to `jailbound`. Else, jailing is temporary and a jail period is calculated, using the formula `current block number + jail factor * proven offence fault count * epoch period` to compute a jail release block number. The validator state is set to `jailed`.
+- Updates validator state. The validator's proven fault counter is incremented by `1` to record the slashing occurrence in the validator's reputational slashing history. The jail release block number is recorded, set to the computed value if `jailed` or set to `0` if `jailbound`. Bonded stake amounts are adjusted for the slashing amount and the slashed stake token are transferred to the Autonity Protocol global `treasury` account for community funding.
 - Updates global slashing state. The pending slashing fault queue is reset ready for the next epoch, and the reporting validator is added to the array of reward beneficiaries that will receive rewards for offence reporting
 - A `SlashingEvent` event is emitted for each validator that has been slashed.
 
@@ -914,7 +914,7 @@ None.
 The function emits events:
 
 - on submission of a fault proof, a `NewFaultProof` event, logging: `_offender`, `_severity`, `_id`.
-- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`.
+- after a successful slashing, a `SlashingEvent` logging: `_val.nodeAddress`, `_slashingAmount`, `_val.jailReleaseBlock`, `isJailbound`.
 
 
 ###  finalize (Oracle Contract)

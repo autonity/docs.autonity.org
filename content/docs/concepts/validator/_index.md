@@ -135,13 +135,11 @@ Eligible validators are included in the committee selection algorithm. The algor
 
 ### Jailing and exclusion from consensus committee
 
-A validator may be found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of failing to adhere to consensus rules when a member of the consensus committee. In this case, depending on the type of fault committed, [jailing](/glossary/#jailing) for a computed number of blocks (a '[jail period](/glossary/#jail-period)') may be applied as part of a slashing penalty. On jailing the validator:
+A validator may be found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of failing to adhere to consensus rules when a member of the consensus committee. In this case, depending on the type of fault committed, [jailing](/glossary/#jailing) for a computed number of blocks may be applied as part of a slashing penalty.
 
-- is transitioned by protocol from an `active` to a `jailed` state
-- is barred from consensus committee selection until the [jail period](/glossary/#jail-period) has expired and the validator has been reactivated to an `active` state
-- suffers stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and/or loss of  [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee
+On entering a jailed state a validator is ignored by the consensus committee selection algorithm and cannot be elected as a consensus committee member. The duration of validator jailing may be *temporary* or *permanent* depending on how serious the committed accountability fault has been.  If *temporary*, the validator enters a `jailed` state. If permanent, the validator enters a `jailbound` state.
 
-To get out of jail at the end of the [jail period](/glossary/#jail-period), the validator operator must [reactivate their validator node](/concepts/validator/#validator-re-activation) to (a) transition to an `active` state, and (b) resume eligibility for selection to the consensus committee.
+For further detail see [Validator jailing](/concepts/validator/#validator-jailing) on this page.
 
 ## Stake bonding and delegation
 
@@ -248,31 +246,35 @@ The validator is registered and eligible for selection to the consensus committe
 
 {{% alert title="Note" %}}Note that registration after genesis allows a validator to register with zero bonded stake. The validator bonds stake after registration to become eligible for committee selection.{{% /alert %}}
 
+## Validator accountability
+
+Validators may be held accountable by the [Accountability and fault detection protocol (AFD)](/concepts/accountability/) for failing to adhere to consensus rules when a member of the consensus committee.
+
+Depending on the severity of the accountability fault committed, a validator may suffer: stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, the loss of [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee, and [validator jailing](/concepts/validator/#validator-jailing).
+
+Accountability is applied at the end of each epoch when the [AFD protocol](/concepts/accountability/) processes slashable faults and for each offending validator:
+
+- Computes the [slashing amount](/concepts/accountability/#autonity-slashing-amount-calculation) and [jailing](/glossary/#jailing) punishment, a count of blocks for which the validator is 'in jail' and excluded from selection to the consensus committee.
+- Applies the slashing amount fine.
+- Applies [validator jailing](/concepts/validator/#validator-jailing) if applicable, changing the validator's state from `active` to one of `jailed` or `jailbound`.
+- Emits a `SlashingEvent` event detailing: validator identifier address, slashing amount, jail release block: the block number at which the jail period expires or `0` if the validator is permanently jailed and in a `jailbound` state.
+
 ## Validator jailing
 
 A validator can be jailed by protocol as a penalty for failing to adhere to consensus rules when serving as a member of the consensus committee. If a slashing penalty imposes [jailing](/glossary/#jailing), this will be applied at epoch end when the penalty is processed. 
 
-In this state:
+On jailing the validator is transitioned by protocol from an `active` to a `jailed` or `jailbound` state. Jailing is either temporary or permanent:
 
-- It is ignored by the committee selection algorithm run at the epoch end.
-- New stake delegations are not accepted.
-- The information that the validator is being jailed and barred from active validator duty is visible to delegators.
+- On temporary jailing the validator enters a `jailed` state and is *impermanently* jailed for a number of blocks, the [jail period](/glossary/#jail-period). To get out of jail and resume an active state, the validator operator must [reactivate their validator](/concepts/validator/#validator-re-activation). This can be done at any point after expiry of the [jail period](/glossary/#jail-period). Returned to an `active` state, the validator is again eligible for selection to the consensus committee.
+ 
+- On permanent jailing the validator enters a `jailbound` state and is *permanently* jailed. It becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of a fault with a 100% stake slashing penalty as a member of the consensus committee.
 
 Note that:
 
-- Pending stake delegation requests (bonding, unbonding) submitted _before_ the jailing are still applied.
+- On jailing a validator is ignored by the committee selection algorithm run at the epoch end.
+- New stake delegation transactions bonding stake are reverted until the validator resumes an `active` state. Pending stake delegation requests (bonding, unbonding) submitted _before_ a jailing event are still applied.
 - The Validator's Liquid Newton remains transferrable and redeemable for Newton while the validator is jailed.
-
-At end of epoch the [accountability and fault detection protocol](/concepts/accountability/) processes slashable faults and for each offending validator:
-
-- Computes the [slashing amount](/concepts/accountability/#autonity-slashing-amount-calculation) and [jail period](/glossary/#jail-period), the count of blocks for which the validator is 'in jail' and excluded from selection to the consensus committee.
-- Applies the slashing amount fine.
-- Changes the validator's state from `active` to `jailed`.
-- A `SlashingEvent` event is emitted detailing: validator identifier address, slashing amount, jail release block: the block number at which the jail period expires.
-
-The validator is jailed and ignored by the committee selection algorithm. Stake delegation transactions bonding stake are reverted until the validator resumes an `active` state.
-
-To get out of jail and resume an active state, the validator must [reactivate their validator](/concepts/validator/#validator-re-activation). This can be done at any point after expiry of the [jail period](/glossary/#jail-period). Returned to an `active` state, the validator is again eligible for selection to the consensus committee.
+- The information that the validator is being jailed and barred from active validator duty is visible to delegators.
 
 
 ## Validator pausing

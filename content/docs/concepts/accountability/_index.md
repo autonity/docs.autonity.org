@@ -128,19 +128,19 @@ The slashing amount is calculated from a number of parameters, including _severi
 
 #### Jail
 
-Jailing is a protocol action that excludes a validator from selection to the consensus committee for a period of time measured in blocks known as a _jail period_.
+Jailing is a protocol action that excludes a validator from [consensus committee selection](/concepts/consensus/committee/#committee-member-selection). Jailing may be applied as part of a slashing penalty depending on the _severity_ of the _fault_ being _slashed_.
 
-Jailing may be applied as part of a slashing penalty depending on the _severity_ of the _fault_ being _slashed_. Jailing changes a validator's state from `active` to `jailed`. Validators in a `jailed` state are barred from [consensus committee selection](/concepts/consensus/committee/#committee-member-selection).
+Jailing transitions the _offending validator_ from an `active` to a `jailed` or `jailbound` state. Jailing is either *temporary* or *permanent*:
 
-The validator's jail release block number is computed based on its proven fault history as described in [Jail period calculation](/concepts/accountability/#jail-period-calculation).
-
-After expiry of the jail period a validator may get out of jail by [re-activating](/concepts/validator/#validator-re-activation) to revert to an `active` state and resume [eligibility for consensus committee selection](/concepts/validator/#eligibility-for-selection-to-consensus-committee).
+On *temporary* jailing the validator enters a `jailed` state and is *impermanently* jailed for a number of blocks, the [jail period](/glossary/#jail-period). The validator's jail release block number is computed based on its proven fault history as described in [Jail period calculation](/concepts/accountability/#jail-period-calculation). After expiry of the jail period a validator may get out of jail by [re-activating](/concepts/validator/#validator-re-activation) to revert to an `active` state and resume [eligibility for consensus committee selection](/concepts/validator/#eligibility-for-selection-to-consensus-committee).
 
 {{% alert title="Note" %}}
-Validators **must** manually [re-activate](/concepts/validator/#validator-re-activation) to get out of jail.
+The _offending validator_ will remain in a `jailed` state even after jail period expiry.  The validator operator _must_ manually [re-activate](/concepts/validator/#validator-re-activation) by calling the [`activateValidator()`](/reference/api/aut/#activatevalidator) function to get out of jail.
 
 The protocol **does not** automatically revert validator state from `jailed` to `active` at the jail release block number. 
 {{% /alert %}}
+
+On *permanent* jailing the validator enters a `jailbound` state and is *permanently* jailed. It becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of a fault with a 100% stake slashing penalty as a member of the consensus committee.
 
 ### Accountability event lifecycle
 
@@ -200,12 +200,16 @@ The slashing fine is then applied to validator bonded stake according to the pro
 
 ### Jail period calculation
 
-Depending upon fault severity, a slashing penalty may apply validator jailing to bar the validator from committee selection for a number of blocks known as a `jail period`. The jail release block number is computed by the formula `current block number + jail factor * history * epoch period` where:
+Depending upon fault severity, a slashing penalty may apply *temporary* or *permanent* validator jailing.
+
+If *temporary*, jailing will bar the validator from committee selection for a number of blocks known as a `jail period`. The jail release block number is computed by the formula `current block number + jail factor * history * epoch period` where:
 
 - `current block number`: The block number at the time of computation (i.e. the last block of an epoch when slashing is applied).
 - `jail factor`: A multiplier measured as a number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration).
 - `history`: The number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history over time.
 - [`epoch period`](/glossary/#epoch-period): The period of time for which a consensus committee is elected. This is defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
+
+If *permanent*, the validator becomes [jailbound](/glossary/#jailbound) and there i sno jail release block. Permanent jailing is only applied in the case where a validator suffers 100% stake slashing as a member of the consensus committee.
 
 ### Penalty-Absorbing Stake (PAS) 
 
@@ -306,11 +310,6 @@ The economic loss to validators and their delegators from slashing penalties cov
 | Loss of current epoch staking rewards | The _offending validator_ loses staking rewards earned if a member of the consensus committee in the epoch when the slashing penalty is applied. The forfeited staking rewards are distributed to the _reporting validator_. |
 | Loss of future staking rewards | If the slashing penalty applies [jailing](/glossary/#jailing) for the fault, then the _offending validator_ loses the opportunity to earn future staking rewards as a committee member until it resumes an `active` state. |
 
-{{% alert title="Note" %}}
-Jailing transitions the _offending validator_ to a `jailed` state in which it is excluded from consensus committee selection. After the expiry of the [jailing period](/glossary/#jail-period) the validator can reactivate itself to resume an `active` state and resume eligible for committee selection.
-
-Note that the _offending validator_ will remain in a `jailed` state even after jail period expiry _until_ the validator operator [re-activates](/concepts/validator/#validator-re-activation) by calling the [`activateValidator()`](/reference/api/aut/#activatevalidator) function.
-{{% /alert %}}
 
 ### Slashing rewards
 
