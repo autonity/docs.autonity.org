@@ -24,7 +24,7 @@ This guide uses the Truffle development environment and JavaScript framework to 
 npm i truffle
 ```
 
-{{< alert title="Info" >}}Specifying the `-g ` flag to install Truffle globally will let you use it for future projects without installing in multiple places.:::
+::: {.callout-note title="Note" collapse="false"}Specifying the `-g ` flag to install Truffle globally will let you use it for future projects without installing in multiple places.:::
 
 2. Create a working directory and initialise the project with `npm`:
 

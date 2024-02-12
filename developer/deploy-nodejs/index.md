@@ -95,7 +95,7 @@ async function main(){
 main()
 ```
 	
-{{< alert title="How it works" >}}
+::: {.callout-note title="How it works" collapse="false"}
 The arguments used to deploy the ERC20 token are set within the `deployTokens` function.
 
 This script uses the prebuilt json file `ERC20PresetFixedSupply.json` of the smart contract from the OpenZeppelin node module.

@@ -4,7 +4,7 @@ description: >
   How to run Autonity in your own environment on Linux Ubuntu OS
 ---
 
-{{< alert title="Prerequisites" >}}
+::: {.callout-note title="Prerequisites" collapse="false"}
 - Ensure that the host machine meets the [minimum requirements](/node-operators/install-aut/#requirements)
 :::
 
@@ -90,7 +90,7 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 
    See the [Autonity command-line reference](/reference/cli) for the full set of available flags.
 
-{{< alert title="Important Notes" >}}
+::: {.callout-note title="Note" collapse="false"}
 - Note that all flags after the image name are passed to the Autonity Go Client in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
 - The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
 - The hosts `autonity-chaindata` directory is mounted in the container (via the `--volume` option).  All working data will be saved in this directory and therefore persisted even when the temporary container is removed.

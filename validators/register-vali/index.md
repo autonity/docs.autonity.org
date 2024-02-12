@@ -107,7 +107,7 @@ Make a note of this identifier.
 
 ### Step 3. Submit the registration transaction
 
-{{< alert title="Important Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator register` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
 :::
 

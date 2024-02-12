@@ -24,7 +24,7 @@ Deposit Collateral Token to a CDP using the ERC20 allowance mechanism.
 
 Before calling this function, the CDP owner must approve the Stabilization contract to spend Collateral Token on their behalf for the full amount to be deposited.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 You can approve the Stabilization Contract as a spender of Newton Collateral Token using the `aut` command `aut token approve [OPTIONS] SPENDER AMOUNT`.
 :::
 
@@ -201,7 +201,7 @@ On a successful call the function emits a `Repay` event, logging: `msg.sender`, 
 
 #### Usage
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 Use the `aut tx` command, specifying the Stabilization Contract address as the `RECIPIENT` address.
 :::
 
@@ -231,7 +231,7 @@ Constraint checks are applied:
 - good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
  
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
 :::
 
@@ -371,7 +371,7 @@ Constraint checks are applied:
 
 - invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The borrowing limit amount is calculated by `(collateral * price * targetPrice) / (mcr * SCALE_FACTOR)`.
 
 Where:
@@ -389,7 +389,7 @@ Where:
 | `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
@@ -431,7 +431,7 @@ Constraint checks are applied:
 
 - price unavailable: the Oracle Contract is providing data computed in the oracle network's last completed voting round.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
 :::
 
@@ -441,7 +441,7 @@ On method execution, state is inspected to retrieve:
 
 - the latest computed Collateral Token price data and the Oracle Contract scale precision from the Oracle Contract.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The function converts the Collateral Token price retrieved from the Oracle Contract to `SCALE` decimals used by the Stabilisation Contract.
 
 Conversion is conditional upon the difference between the Stabilisation Contract and Oracle Contract scale and precision:
@@ -547,7 +547,7 @@ Constraint checks are applied:
 | `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 | `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 :::
   
@@ -585,7 +585,7 @@ Constraint checks are applied:
 
 - invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The minimum collateral amount is calculated by `(principal * mcr) / price`.
 :::
 
@@ -597,7 +597,7 @@ The minimum collateral amount is calculated by `(principal * mcr) / price`.
 | `price` | `uint256` | The price of Collateral Token in Auton |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
@@ -639,7 +639,7 @@ Constraint checks are applied:
 
 If the CDP is under collateralized, then it can be liquidated - see [`liquidate()`](/reference/api/asm/stabilization/#liquidate).
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
 :::
 
@@ -652,7 +652,7 @@ If a debt position is under collateralized or not is determined by calculating `
 | `debt` | `uint256` | The debt amount |
 | `liquidationRatio` | `uint256` | The liquidation ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
@@ -774,7 +774,7 @@ Constraint checks are applied:
 - good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
  
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
 :::
 
@@ -819,7 +819,7 @@ Constraint checks are applied:
 
 - price unavailable: the Oracle Contract is providing data computed in the oracle network's last completed voting round.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
 :::
 
@@ -829,7 +829,7 @@ On method execution, state is inspected to retrieve:
 
 - the latest computed Collateral Token price data and the Oracle Contract scale precision from the Oracle Contract.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The function converts the Collateral Token price retrieved from the Oracle Contract to `SCALE` decimals used by the Stabilisation Contract.
 
 Conversion is conditional upon the difference between the Stabilisation Contract and Oracle Contract scale and precision:
@@ -884,7 +884,7 @@ Constraint checks are applied:
 
 - invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The borrowing limit amount is calculated by `(collateral * price * targetPrice) / (mcr * SCALE_FACTOR)`.
 
 Where:
@@ -902,7 +902,7 @@ Where:
 | `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
@@ -941,7 +941,7 @@ Constraint checks are applied:
 
 - invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The minimum collateral amount is calculated by `(principal * mcr) / price`.
 :::
 
@@ -953,7 +953,7 @@ The minimum collateral amount is calculated by `(principal * mcr) / price`.
 | `price` | `uint256` | The price of Collateral Token in Auton |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
@@ -1001,7 +1001,7 @@ Constraint checks are applied:
 | `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 | `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 :::
   
@@ -1040,7 +1040,7 @@ Constraint checks are applied:
 
 If the CDP is under collateralized, then it can be liquidated - see [`liquidate()`](/reference/api/asm/stabilization/#liquidate).
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
 :::
 
@@ -1053,7 +1053,7 @@ If a debt position is under collateralized or not is determined by calculating `
 | `debt` | `uint256` | The debt amount |
 | `liquidationRatio` | `uint256` | The liquidation ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
@@ -1175,7 +1175,7 @@ Constraint checks are applied:
 - good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
  
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
 :::
 
@@ -1222,7 +1222,7 @@ Constraint checks are applied:
 
 - price unavailable: the Oracle Contract is providing data computed in the oracle network's last completed voting round.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
 :::
 
@@ -1232,7 +1232,7 @@ On method execution, state is inspected to retrieve:
 
 - the latest computed Collateral Token price data and the Oracle Contract scale precision from the Oracle Contract.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The function converts the Collateral Token price retrieved from the Oracle Contract to `SCALE` decimals used by the Stabilisation Contract.
 
 Conversion is conditional upon the difference between the Stabilisation Contract and Oracle Contract scale and precision:
@@ -1286,7 +1286,7 @@ Constraint checks are applied:
 
 - invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The borrowing limit amount is calculated by `(collateral * price * targetPrice) / (mcr * SCALE_FACTOR)`.
 
 Where:
@@ -1304,7 +1304,7 @@ Where:
 | `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
@@ -1343,7 +1343,7 @@ Constraint checks are applied:
 
 - invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The minimum collateral amount is calculated by `(principal * mcr) / price`.
 :::
 
@@ -1355,7 +1355,7 @@ The minimum collateral amount is calculated by `(principal * mcr) / price`.
 | `price` | `uint256` | The price of Collateral Token in Auton |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
@@ -1403,7 +1403,7 @@ Constraint checks are applied:
 | `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 | `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 :::
   
@@ -1442,7 +1442,7 @@ Constraint checks are applied:
 
 If the CDP is under collateralized, then it can be liquidated - see [`liquidate()`](/reference/api/asm/stabilization/#liquidate).
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
 :::
 
@@ -1455,7 +1455,7 @@ If a debt position is under collateralized or not is determined by calculating `
 | `debt` | `uint256` | The debt amount |
 | `liquidationRatio` | `uint256` | The liquidation ratio |
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).

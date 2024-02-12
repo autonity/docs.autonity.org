@@ -89,7 +89,7 @@ By default Docker needs to be run with `sudo`. To avoid using root privileges in
 Consider also [configuring Docker to start on boot <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot).
 :::
 
-{{< alert title="Optional but recommended" >}}
+::: {.callout-note title="Optional but Recommended" collapse="false"}
 
 To limit the size of the log files, add the following to the file `/etc/docker/daemon.json` (create it if it does not exist):
 
@@ -135,7 +135,7 @@ You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker)
 
 ## Build from source code {#install-source}
 
-{{< alert title="Prerequisites" >}}
+::: {.callout-note title="Prerequisites" collapse="false"}
 The following should be installed in order to build the Autonity Go Client:
 - **Git** Follow the official GitHub documentation to [install git <i class='fas fa-external-link-alt'></i>](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
 - **Golang** (version 1.15 or later) - [https://golang.org/dl <i class='fas fa-external-link-alt'></i>](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)

@@ -4,7 +4,7 @@ description: >
   How to run Autonity Oracle Server in your own environment on Linux Ubuntu OS
 ---
 
-{{< alert title="Prerequisites" >}}
+::: {.callout-note title="Prerequisites" collapse="false"}
 - Ensure that the host machine meets the [minimum requirements](/oracle/install-oracle/#requirements)
 - A [running instance of an Autonity Go Client](/validators/) running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on its WebSocket port. This will be registered as a validator node and oracle server will be configured to connect to it.
 - A configured instance of [`aut`](/account-holders/setup-aut/).
@@ -34,7 +34,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
 2. Configure the data plugins. Edit your oracle server data plugins config file `plugins-conf.yml` to specify the plugins configuration. The file can be found in the `/autonity-oracle/config` sub-directory. Edit `plugins-conf.yml` to specify the `name` and `key` for each plugins you are using. For how to do this see the [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) section on this page.
 
-   {{< alert title="Info" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
    :::
 
@@ -42,7 +42,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
  
 4. Configure the oracle server. Edit your oracle server config file `oracle-server.config` to specify the oracle server configuration. The file can be found in the `/autonity-oracle/config` sub-directory. For how to do this see the [Set up oracle server config file](/oracle/run-oracle/#set-up-oracle-server-config-file) section on this page.
    
-   {{< alert title="Info" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    A [sample `oracle-server.config` file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
    :::
    
@@ -66,11 +66,11 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
        on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
     ```
 
-{{< alert title="Info" color="info">}}
+::: {.callout-note title="Note" collapse="false"}
 The oracle server configuration can also be set as system environment variables or directly in the terminal as console flags.  For how to do this see the page section [Setup using command line flags or system env variables](/oracle/run-oracle/#setup-using-command-line-flags-or-system-env-variables).
 :::
 
-{{< alert title="Note on plugin runtime management" >}}
+::: {.callout-note title="Note" collapse="false"}
 New or updated plugins are configured by simply adding the binary code to the configured plugins directory (`plugin.dir`). See [Installing data source plugins](/oracle/install-oracle/#install-plugin) for more detail.
 
 If plugins for external data sources or the symbols for which oracle server provides price data are changed while oracle server is running, changes are auto-detected and applied. Oracle server does **not** need to be re-started.
@@ -89,7 +89,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    touch plugins-conf.yml
    ```
 
-   {{< alert title="Info" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
    :::
 
@@ -101,7 +101,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    touch oracle-server.config
    ```
    
-   {{< alert title="Info" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    A [sample `oracle-server.config` file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
    :::
    
@@ -131,12 +131,12 @@ If plugins for external data sources or the symbols for which oracle server prov
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
 
-   {{< alert title="Info" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    AOS requires an accessible `ws/wss` AGC endpoint. If you are also running AGC in docker and facing issues in connecting AOS to it, please execute the following command to correctly identify the IP address required for the `<WS_ADDRESS>`: `docker inspect -f '{{.NetworkSettings.IPAddress}}' <container_id_or_name>`
    :::
 
 
-   {{< alert title="Important Notes" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    - The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
 
    - The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
@@ -230,7 +230,7 @@ For example, to start oracle server specifying command line flags when running t
    - `<PWD>` is the password to your oracle server key file
    - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node, e.g. "ws://172.17.0.2:8546", see [install Autonity, networks](/node-operators/install-aut/#network)). 
    
-   {{< alert title="Important Notes" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    - Note that all flags after the image name are passed to the Autonity Oracle Server in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
    - The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
    - The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
@@ -278,7 +278,7 @@ An example minimal entry could be:
   key: 5490e15565e741129788f6100e022ec5
 ```
    
-{{< alert title="Important Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 The optional fields should be set as needed to fit the service level agreed with your rate provider.
 :::
 
@@ -295,7 +295,7 @@ To connect to this simulator as a data source, you need to edit your `plugins-co
   scheme: https
 ```
 
-{{< alert title="Info" color="info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The `sim_plugin` is built and added to the plugins directory when building from source running the `make autoracle-bakerloo` command.
 
 When running `make` on oracle server the simulator plugin is also built to a test directory. So if you didn't run the Bakerloo-specific make command you can still get the plugin by just copying the file to the plugins directory:

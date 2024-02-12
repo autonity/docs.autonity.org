@@ -94,7 +94,7 @@ Bonding requests are not processed until the end of the current epoch.  The Newt
 (Pending and historical bonding requests can be discovered by listening for [`NewBondingRequest`](/reference/api/aut/#event-2) events emitted by the [bond()](/reference/api/aut/#bond) function.)
 :::
 
-{{< alert title="Info" color="info">}}
+::: {.callout-note title="Note" collapse="false"}
 Remember to verify your chosen validator is in an active state before attempting to bond stake to it. I.e. when you call `aut validator info` it returns  `"state": 0`. If you attempt to bond stake to a validator in an inactive state, then the transaction will revert and a [`BondingRejected`](/reference/api/aut/#event-2) event is emitted by the [bond()](/reference/api/aut/#bond) function.
 :::
 

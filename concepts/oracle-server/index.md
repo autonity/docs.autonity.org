@@ -53,7 +53,7 @@ ATN and NTN symbols are preview listed but untraded:
 - https://www.coingecko.com/en/coins/newton
 
 Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch.
-{{% /alert %}}
+:::
 
 #### Developing data plugins
 

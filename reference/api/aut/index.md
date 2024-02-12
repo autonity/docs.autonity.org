@@ -232,7 +232,7 @@ $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a8
 {{< /tab >}}
 {{< /tabpane >}}
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 All Liquid Newton balances for an account can be returned in one call using the `aut` command `aut account lntn-balances [OPTIONS] ACCOUNT`.
 :::
 
@@ -1365,7 +1365,7 @@ aut validator list [OPTIONS]
 {{< /tabpane >}}
 
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 `getValidators` can also be called using the `aut` command `aut protocol get-validators`.
 :::
 

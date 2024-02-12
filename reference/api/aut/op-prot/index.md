@@ -125,7 +125,7 @@ On a successful call the function emits a `Mint` event, logging: `recipient`, `a
 
 #### Usage
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The ASM Supply Control Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
@@ -153,7 +153,7 @@ None.
 
 #### Usage
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The ASM ACU Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
@@ -320,7 +320,7 @@ None.
 
 #### Usage
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
@@ -353,7 +353,7 @@ None.
 
 #### Usage
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
@@ -380,7 +380,7 @@ None.
 
 #### Usage
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.

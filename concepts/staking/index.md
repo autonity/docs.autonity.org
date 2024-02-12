@@ -188,7 +188,7 @@ Stake remains at risk during the unbonding period; it is locked and in a non-tra
 
 The duration of the unbonding period is set at genesis by the `unbondingPeriod` parameter, see the [Protocol](/reference/protocol) parameter reference. The setting can be changed by governance calling the [`setUnbondingPeriod()`](/reference/api/aut/op-prot/#setunbondingperiod) function.
 
-{{< alert title="Example" >}}
+::: {.callout-note title="Note" collapse="false"}
 
 In an unbonding scenario with an epoch period of 30 blocks, an unbonding period of 120 blocks, and an unbonding request issued at block 15 in the epoch. At block 15 the unbonding request is processed and then tracked in memory. At the end of that epoch, block 30, the validator's voting power is reduced and the unbonded amount is added to the unbonding pool. The unbonding period expires at block 135. At the end of the epoch in which the unbonding period falls, block 150, the Newton that is due is returned to the stake delegator.
 
@@ -210,7 +210,7 @@ As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid New
 
 Whilst stake is unbonding, the protocol tracks the relative ownership of stake in the delegated and self-bonded unbonding pools via a "share" mechanism, so that the PAS slashing priority may be correctly applied to the unbonding stake, and the correct amount of delegated or self-bonded stake may be released at the end of the unbonding period.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 Metadata providing the total amount of shares and unbonding stake is returned as part of the response when querying for a validator. See the [`getValidator()`](/reference/api/aut/#getvalidator) response object which contains fields for:
 
 - delegated stake unbonding pool: `unbondingStake` and `unbondingShares`
@@ -225,7 +225,7 @@ Stake token is bonded to an active validator through a bonding operation. Once b
 
 On bonding Newton, the stake token is locked on execution of the `bond()` function and Liquid Newton is minted for [delegated](/glossary/#delegated) stake. Minting Liquid Newton is an autonomous protocol-only function. The resulting voting power change is tracked and the staking transition is applied at epoch end. From this point the stake is actively bonded and able to earn staking rewards. Note that a bond allocation cannot be changed after submission and before the bonding is applied at epoch end.
 
-{{< alert title="Example" >}}
+::: {.callout-note title="Note" collapse="false"}
 Alice sends `bond()` tx at time `T`, a block in an epoch. Newton is locked at `T`. The bonding request is tracked in memory for application at the end of the epoch. At this point, the validator's bonded stake is increased, and Liquid Newton is issued to Alice in the validator’s Liquid Newton ERC20 contract. Actual bonding is then executed at `T` + remainder of the epoch. Liquid Newton issuance is delayed and not tradable while bonding is pending.
 :::
 
@@ -249,7 +249,7 @@ Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbondi
 
 - _at the end of the epoch in which the unbonding period expires_: NTN for the unbonding stake amount are released to the delegator
 
-{{< alert title="Example" >}}
+::: {.callout-note title="Note" collapse="false"}
 Alice submits an `unbond()` tx that is processed and included in a block at time `T`, where an `UnbondingRequest` object for the necessary voting power change is also created. At `T+1`, the [unbonding period](/glossary/#unbonding-period) begins.
 
 The unbonding request is tracked in memory for application at the end of the epoch in which `T` was processed, when the validator's bonded stake amount and voting power is reduced as follows:
