@@ -52,8 +52,7 @@ This will prompt you to create a new private key file, encrypted using a passwor
 
 The new account keystore file will by default be saved to the `keystore` folder `~/.autonity/keystore`, the client's default data directory location for databases and keystore. A custom directory can be specified using the `--keystore` flag.
 
-::: {.callout-note title="Note" collapse="false"}
-The keystore password could be passed into the run command as a parameter using the `--password` flag. For example, as raw text or by providing the path to a file containing it. If the `--keystore` path flag is not set, then by default Autonity saves the key to the host machine's home directory (`$HOME`) in `/home/<YOUR_USERNAME>/.autonity/keystore/`.:::
+::: {.callout-note title="Note" collapse="false"}The keystore password could be passed into the run command as a parameter using the `--password` flag. For example, as raw text or by providing the path to a file containing it. If the `--keystore` path flag is not set, then by default Autonity saves the key to the host machine's home directory (`$HOME`) in `/home/<YOUR_USERNAME>/.autonity/keystore/`.:::
 
 Run the `list` command to view the account address and keystore location. You will see something like this:
 

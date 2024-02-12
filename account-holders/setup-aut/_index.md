@@ -9,9 +9,9 @@ For full details and to report any issues, see the [`aut` repository <i class='f
 
 ## Installation {#install}
 
-::: {.callout-note title="State of the Games" collapse="false"}>}}
+::: {.callout-note title="Prerequisites" collapse="false"}
 A working Python install with the `pip` tool is required.
-{{< /alert >}}
+:::
 
 The tool can be installed using [pipx <i class='fas fa-external-link-alt'></i>](https://github.com/pypa/pipx). To get the latest release run:
 
@@ -19,7 +19,6 @@ The tool can be installed using [pipx <i class='fas fa-external-link-alt'></i>](
 pipx install --force git+https://github.com/autonity/aut
 ```
 
-::: {.callout-note title="Note" collapse="false"}
 If you are experiencing errors such as:
 
 ```
@@ -29,7 +28,6 @@ ImportError: cannot import name 'NodeAddress' from 'autonity.validator'
 You are using an earlier version of `aut`. Please upgrade your `aut` tool to use the latest release using the installation command above.
 
 It is highly recommended to also follow the [instructions in the repository <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) to set up command-line completion.
-:::
 
 ## Configuration using the `.autrc` file {#configure}
 
@@ -67,7 +65,7 @@ aut node info
 }
 ```
 
-::: {.callout-note title="Note" collapse="false"}
+::: {.callout-note title="State of the Games" collapse="false"}
 The output above may vary depending on the version of the Autonity Go Client you are connected to.
 :::
 

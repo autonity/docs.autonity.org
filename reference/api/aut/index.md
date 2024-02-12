@@ -1901,13 +1901,13 @@ Unbonds an amount of bonded stake from a designated validator.
 
 The amount specifies Newton stake token if the delegator is unbonding [self-bonded](/glossary/#self-bonded) stake, else Liquid Newton if [delegated](/glossary/#delegated) stake is being unbonded.
 
-{{< alert title="Warning" color="warning">}}
+::: {.callout-important title="Warning" collapse="false"}
 The unbonding request will only be effective after the unbonding period, rounded to the next epoch.
 
 If the validator has a [slashing](/concepts/accountability/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
 
 See Concept [Accountability and fault detection (AFD)](/concepts/accountability/) for Autonity's slashing mechanism.
-{{< /alert >}}
+:::
 
 Constraint checks are applied. The  `validator` address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is `<=` to the `msg.sender`'s bonded stake amount. For delegated stake this is done by checking the `msg.Sender`'s Liquid Newton balance is `>=` to the requested amount, and for self-bonded stake this is done by checking the validator's `selfBondedStake` balance is`>=` to the requested unbonding amount.
 
@@ -1936,9 +1936,9 @@ The [unbonding period](/glossary/#unbonding-period) begins in the next block. Th
 
 Then, at the end of the epoch in which the unbonding period expires Newton redemption occurs and the Newton that is due is minted to the staker's Newton account.
 
-{{< alert title="Warning" color="warning" >}}
+::: {.callout-important title="Warning" collapse="false"}
 The amount of Newton released may be less than the unbonded amount if the validator has been slashed.
-{{< /alert >}}
+:::
 
 - due Newton is minted to the delegator's Newton account.
 

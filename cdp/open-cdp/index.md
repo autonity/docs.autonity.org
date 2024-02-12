@@ -168,9 +168,9 @@ Borrowing interest costs over the 31 day period are `7216608464428718` [`ton`](/
 
 Finally, for ongoing management of your CDP you need to maintain a sufficient collateral buffer to manage the risk of the CDP entering a liquidatable state. Factors that could lead to a CDP becoming liquidatable include collateral withdrawals, increased principal borrowing, accrued interest increasing the debt, or collateral-to-Auton price fluctuation.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
-{{< /alert >}}
+:::
 
 To mitigate this risk you can run different collateralization, debt, and price scenarios to simulate liquidation risk and determine how much collateral you post for your borrowing.
 

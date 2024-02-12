@@ -53,7 +53,8 @@ Navigate to your Autonity NodeJS Console install directory and initialise a cons
 ./console ws://<IP-ADDRESS>:8546
 ```
 
-{{< alert title="Note" >}}If the transport is over WebSockets or WebSockets Secure will depend on your node setup. For connecting to a public node WebSockets Secure (`wss`) is advised.{{< /alert >}}
+::: {.callout-note title="Note" collapse="false"}
+If the transport is over WebSockets or WebSockets Secure will depend on your node setup. For connecting to a public node WebSockets Secure (`wss`) is advised.:::
 
 Once connected, you can check whether the wallet is unlocked with the command:
 ```javascript
@@ -66,7 +67,9 @@ web3.personal.unlockAccount("0x2B0...","passphrase",5)
 ```
 The first parameter is the address of the account you want to unlock, while the second parameter is the passphrase you choose at account creation. The last parameter is optional and represents the number of seconds your wallet will stay unlocked. Once the timer expires, your wallet will automatically lock. See https://geth.ethereum.org/docs/rpc/ns-personal#personal_unlockaccount for additional informations.
 
-{{< alert title="Warning" color="warning" >}}The `unlockAccount` function will send your password in clear to the node. Make sure that your connection is properly secured (e.g. Using `wss` instead of `ws`). {{< /alert >}}
+::: {.callout-important title="Warning" collapse="false"}
+The `unlockAccount` function will send your password in clear to the node. Make sure that your connection is properly secured (e.g. Using `wss` instead of `ws`).
+:::
 
 You can then send transactions without specifying gas:
 ```javascript

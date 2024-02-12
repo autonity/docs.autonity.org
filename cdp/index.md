@@ -9,6 +9,6 @@ The steps here describe interactions with the CDP-based [Auton Stabilization Mec
 - CDP owners to [open and manage a CDP](/cdp/open-cdp/) to borrow Auton having deposited collateral token
 - CDP liquidators to identify and [liquidate a CDP](/cdp/liquidate-cdp/) in a liquidatable state.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 See the [Auton Stabilization Mechanism (ASM)](/concepts/asm/) section for an explanation of the ASM concept and how the mechanism functions.
-{{< /alert >}}
+:::

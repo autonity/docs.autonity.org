@@ -93,23 +93,23 @@ As described in the Concept page for ASM [Stabilization](/concepts/asm/#stabiliz
 - `principal`: the principal debt outstanding as of `timestamp`.
 - `interest`: the interest debt that is due at the `timestamp`.
 
-{{< alert title="Note" color="warning">}}
+::: {.callout-important title="Warning" collapse="false"}
 The important data point is the `collateral` amount value as this gives you the economic benefit of liquidating the CDP. 
 
 The other data should be ignored. The `timestamp` reflects the time point that the CDP was last borrowed from or repaid to so the `principal` and `interest` data is out of date. To get the _current CDP debt amount_ due you will need to call [`debtAmount()`](/reference/api/asm/stabilization/#debtamount), which is done in the next step [Get CDP debt amount](/cdp/liquidate-cdp/#get-debt-amount).
-{{< /alert >}}
+:::
 
 CDP state is maintained in memory as a public mapping `cdps` and may be inspected by calling the getter function automatically generated for it when the Stabilization Contract is compiled.
 
-{{< alert title="Info" >}}
+::: {.callout-note title="Note" collapse="false"}
 The `cdps` getter function definition can be found in the `Stabilization.abi` file by searching for `"name": "cdps"`.
-{{< /alert >}}
+:::
 
 
-{{< alert title="Known issue" color="warning" >}}
+::: {.callout-note title="Note" collapse="false"}
 The `cdps` function cannot currently be called from `aut` using the `aut contract call` command. This is a known issue logged as an `autonity.py` GitHub issue [AssertionError on returning tuple
 #37](https://github.com/autonity/autonity.py/issues/37). 
-{{< /alert >}}
+:::
 
 The auto-generated `cdps` method can be called to return the CDP data, simply passing in the CDP account address as the parameter.
 
