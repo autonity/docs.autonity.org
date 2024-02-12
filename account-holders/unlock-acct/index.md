@@ -1,7 +1,5 @@
 ---
 title: "Unlock an account"
-linkTitle: "Unlock an account"
-weight: 50
 description: >
  How to unlock and re-lock an account for signing and sending transactions
 draft: true

@@ -1,7 +1,5 @@
 ---
 title: "Networks"
-linkTitle: "Networks"
-weight: 20
 description: >
   Publicly available Autonity networks
 ---

@@ -1,8 +1,6 @@
 
 ---
 title: "Auton Stabilization Mechanism (ASM)"
-linkTitle: "Auton Stabilization Mechanism (ASM)"
-weight: 10
 description: >
   Auton Stabilization Mechanism: elements, the functions they perform, and the lifecycle for Auton and Newton supply.
 ---

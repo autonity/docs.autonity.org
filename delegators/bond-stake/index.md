@@ -1,7 +1,5 @@
 ---
 title: "Bond and unbond stake"
-linkTitle: "Bond and unbond stake"
-weight: 80
 description: >
   How to bond and unbond stake to validators in an Autonity network
 ---

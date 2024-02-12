@@ -1,8 +1,6 @@
 
 ---
 title: "Architecture "
-linkTitle: "Architecture"
-weight: 1
 description: >
   Architecture of Autonity - protocol primitives and system model layers
 ---

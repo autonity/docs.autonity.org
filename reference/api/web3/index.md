@@ -1,7 +1,5 @@
 ---
 title: "Web3 Namespace "
-linkTitle: "Web3 Namespace"
-weight: 50
 
 description: >
   Ethereum Web3 APIs 

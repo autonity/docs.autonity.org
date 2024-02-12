@@ -1,7 +1,6 @@
 
 ---
 title: "Genesis"
-linkTitle: "Genesis"
 
 description: >
   Setting genesis configuration for an Autonity Go Client

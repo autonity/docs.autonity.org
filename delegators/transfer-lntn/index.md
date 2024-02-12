@@ -1,7 +1,5 @@
 ---
 title: "Transfer Liquid Newton"
-linkTitle: "Transfer Liquid Newton"
-weight: 110
 description: >
   How to view your Liquid Newton holding and send Liquid Newton to another account using `aut`
 ---

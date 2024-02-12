@@ -1,7 +1,5 @@
 ---
 title: "Utility tools "
-linkTitle: "Utility tools"
-weight: 1000
 description: >
   Tools for interacting with the Autonity Go Client and an Autonity Network
 draft: true

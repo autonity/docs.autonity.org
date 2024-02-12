@@ -1,7 +1,6 @@
 
 ---
 title: "Protocol Parameters"
-linkTitle: "Protocol Parameters"
 
 description: >
   Autonity protocol parameters - definitions, genesis configuration, update mechanism if modifiable 

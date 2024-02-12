@@ -1,7 +1,5 @@
 ---
 title: "Submit a transaction from Autonity NodeJS Console"
-linkTitle: "Submit a transaction from Autonity NodeJS Console"
-weight: 60
 description: >
   How to submit transactions to an Autonity network using the NodeJS interface to the RPC API's
 draft: true

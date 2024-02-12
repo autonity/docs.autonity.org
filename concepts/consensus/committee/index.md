@@ -1,8 +1,6 @@
 
 ---
 title: "Consensus Committee"
-linkTitle: "Consensus Committee"
-weight: 2
 description: >
   The role of the consensus committee on the Autonity network - eligibility, selection, and mechanism
 ---

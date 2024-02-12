@@ -1,8 +1,6 @@
 
 ---
 title: "Auton "
-linkTitle: "Auton"
-weight: 1
 description: >
   Auton - low-volatility utility coin
 ---

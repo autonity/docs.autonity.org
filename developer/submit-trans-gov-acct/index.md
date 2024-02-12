@@ -1,7 +1,5 @@
 ---
 title: "Submit a governance transaction from Autonity Utility Tool (aut)"
-linkTitle: "Submit a governance transaction from Autonity Utility Tool (aut)"
-weight: 110
 description: >
   How to call operator only functions as the governance account using `aut`, the Python3 interface to the RPC API’s
 

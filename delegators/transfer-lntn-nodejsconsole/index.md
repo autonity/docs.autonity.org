@@ -1,7 +1,5 @@
 ---
 title: "Transfer Liquid Newton using NodeJS Console"
-linkTitle: "Transfer Liquid Newton using NodeJS Console"
-weight: 110
 description: >
   How to view your Liquid Newton holding and send Liquid Newton to another account using Autonity NodeJS Console
 draft: true

@@ -1,7 +1,5 @@
 ---
 title: "ACU Contract Interface"
-linkTitle: "ACU Contract Interface"
-weight: 10
 
 description: >
   Auton Currency Unit Contract functions

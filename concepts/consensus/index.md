@@ -1,8 +1,6 @@
 
 ---
 title: "Consensus "
-linkTitle: "Consensus"
-weight: 3
 description: >
   Consensus mechanism - overview, core concepts and features
 ---

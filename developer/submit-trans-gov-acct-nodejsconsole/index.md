@@ -1,7 +1,5 @@
 ---
 title: "Submit governance transaction from Autonity NodeJS Console"
-linkTitle: "Submit governance transaction from Autonity NodeJS Console"
-weight: 110
 description: >
   How to call operator only functions as the governance account using the NodeJS interface to the RPC API's
 draft: true

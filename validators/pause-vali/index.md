@@ -1,7 +1,5 @@
 ---
 title: "Pause and reactivate a Validator"
-linkTitle: "Pause and Reactivate Validator"
-weight: 20
 description: >
   How to pause an active Validator, and reactivate a paused validator node.
 ---

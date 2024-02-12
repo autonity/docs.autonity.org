@@ -1,7 +1,5 @@
 ---
 title: "ASM Contract Interface"
-linkTitle: "ASM Contract Interface"
-weight: 10
 
 description: >
   Auton Stabilization Mechanism Contract functions

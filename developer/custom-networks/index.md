@@ -1,7 +1,5 @@
 ---
 title: "Setting up custom networks"
-linkTitle: "Custom Network"
-weight: 200
 description: >
   Custom Autonity networks
 draft: false

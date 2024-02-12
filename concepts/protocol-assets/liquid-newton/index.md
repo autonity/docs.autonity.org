@@ -1,8 +1,6 @@
 
 ---
 title: "Liquid Newton"
-linkTitle: "Liquid Newton"
-weight: 3
 description: >
   Liquid Newton - liquid staking asset
 ---

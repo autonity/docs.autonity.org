@@ -1,7 +1,5 @@
 ---
 title: "Claim Staking Rewards"
-linkTitle: "Claim Staking Rewards"
-weight: 100
 description: >
   How to view and claim available staking rewards using `aut`
 ---

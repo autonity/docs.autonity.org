@@ -1,7 +1,5 @@
 ---
 title: "Styleguide"
-linkTitle: "Styleguide"
-weight: 6
 description: >
   Style guide for Autonity documentation
 draft: true

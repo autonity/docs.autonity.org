@@ -1,8 +1,6 @@
 
 ---
 title: "FAQ "
-linkTitle: "FAQ"
-weight: 5
 description: >
   Frequently Asked Questions
 draft: true

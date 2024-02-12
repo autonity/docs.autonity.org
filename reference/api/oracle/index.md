@@ -1,7 +1,5 @@
 ---
 title: "Oracle Contract Interface"
-linkTitle: "Oracle Contract Interface"
-weight: 30
 description: >
   Autonity Oracle Contract functions
 ---

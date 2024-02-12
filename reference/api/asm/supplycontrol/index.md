@@ -1,7 +1,5 @@
 ---
 title: "Supply Control Contract Interface"
-linkTitle: "Supply Control Contract Interface"
-weight: 20
 
 description: >
   Supply Control Contract functions

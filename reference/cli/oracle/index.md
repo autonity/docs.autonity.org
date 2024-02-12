@@ -1,7 +1,5 @@
 ---
 title: "Autonity Oracle Server Command-line"
-linkTitle: "Autonity Oracle Server Command-line"
-weight: 20
 description: >
   Command-line options and facilities of the Autonity Oracle Server
 ---

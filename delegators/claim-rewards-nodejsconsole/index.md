@@ -1,7 +1,5 @@
 ---
 title: "Claim Staking Rewards using NodeJS Console"
-linkTitle: "Claim Staking Rewards using NodeJS Console"
-weight: 100
 description: >
   How to view and claim available staking rewards using Autonity NodeJS Console
 draft: true

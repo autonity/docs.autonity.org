@@ -1,8 +1,6 @@
 
 ---
 title: "Protocol assets "
-linkTitle: "Protocol assets"
-weight: 11
 description: >
   Protocol assets - Auton, Newton, and Liquid Newton
 ---

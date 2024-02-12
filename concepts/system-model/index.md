@@ -1,8 +1,6 @@
 
 ---
 title: "System model "
-linkTitle: "System model"
-weight: 2
 description: >
   Autonity system model - participant nodes, blockchain primitives, transactions and fees 
 ---

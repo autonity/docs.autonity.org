@@ -1,7 +1,5 @@
 ---
 title: "Stabilization Contract Interface"
-linkTitle: "Stabilization Contract Interface"
-weight: 30
 
 description: >
   Stabilization Contract functions

@@ -1,7 +1,5 @@
 ---
 title: "Autonity Oracle Server (AOS)"
-linkTitle: "Autonity Oracle Server (AOS)"
-weight: 6
 description: >
   Oracle server software features
 ---

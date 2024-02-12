@@ -1,6 +1,5 @@
 ---
 title: "Governance and Protocol Only Reference"
-linkTitle: "Governance and Protocol Only Reference"
 
 description: >
   Autonity Protocol Contract functions callable by governance operator and by protocol only 

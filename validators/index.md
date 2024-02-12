@@ -1,7 +1,5 @@
 ---
 title: "Running a Validator"
-linkTitle: "Running a Validator"
-weight: 60
 description: >
     Instructions for setting up and operating a validator node.
 ---

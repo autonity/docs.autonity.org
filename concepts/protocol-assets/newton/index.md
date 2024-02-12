@@ -1,8 +1,6 @@
 
 ---
 title: "Newton "
-linkTitle: "Newton"
-weight: 2
 description: >
   Newton - token for staking and securing the network
 ---

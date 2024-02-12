@@ -1,7 +1,5 @@
 ---
 title: "Open and manage a CDP"
-linkTitle: "Open and manage a CDP"
-weight: 10
 description: >
   How to use a CDP to borrow Auton in the Auton Stabilization Mechanism.
 ---

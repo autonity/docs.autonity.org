@@ -1,8 +1,6 @@
 
 ---
 title: "Glossary "
-linkTitle: "Glossary"
-weight: 110
 description: >
   Definitions of terminology and concepts used in the documentation
 

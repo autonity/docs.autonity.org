@@ -1,6 +1,5 @@
 ---
 title: "Concepts"
-weight: 10
 description: >
   Core concepts of Autonity Protocol
 ---

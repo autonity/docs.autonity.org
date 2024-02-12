@@ -1,7 +1,5 @@
 ---
 title: "Deploy smart contracts to an Autonity network with node.js"
-linkTitle: "Deploy smart contracts with node.js"
-weight: 170
 description: >
   How to deploy smart contracts to an Autonity network using `node.js` and JavaScript, with an ERC20 token contract as an example
 draft: true

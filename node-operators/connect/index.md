@@ -1,7 +1,5 @@
 ---
 title: "Connecting to your Node"
-linkTitle: "Connecting to your node"
-weight: 30
 description: >
    Configure the Autonity Utility Tool `aut` to connect to your node and perform some simple queries.
 ---

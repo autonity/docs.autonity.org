@@ -1,7 +1,5 @@
 ---
 title: "Run Autonity Oracle Server"
-linkTitle: "Run Autonity Oracle Server"
-weight: 20
 description: >
   How to run Autonity Oracle Server in your own environment on Linux Ubuntu OS
 ---

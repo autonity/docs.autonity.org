@@ -1,7 +1,5 @@
 ---
 title: "Install Autonity in your environment"
-linkTitle: "Install Autonity"
-weight: 10
 description: >
   How to install an Autonity Go Client node on your host machine.
 ---

@@ -1,7 +1,5 @@
 ---
 title: "Running a Node"
-linkTitle: "Running a Node"
-weight: 40
 description: >
   How to setup and operate an Autonity Go Client node on an Autonity testnet
 ---

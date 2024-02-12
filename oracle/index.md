@@ -1,7 +1,5 @@
 ---
 title: "Running an Oracle Server"
-linkTitle: "Running an Oracle Server"
-weight: 50
 description: >
     Instructions for setting up and operating an oracle server and configuring to provide data to a validator node.
 ---

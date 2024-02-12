@@ -1,7 +1,5 @@
 ---
 title: "Run Autonity"
-linkTitle: "Run Autonity"
-weight: 20
 description: >
   How to run Autonity in your own environment on Linux Ubuntu OS
 ---

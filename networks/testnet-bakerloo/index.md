@@ -1,7 +1,5 @@
 ---
 title: "Bakerloo Testnet"
-linkTitle: "Bakerloo Testnet"
-weight: 1
 description: >
  The _stable_ public Testnet running the current or an earlier version of the Autonity protocol
 ---

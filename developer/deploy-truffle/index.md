@@ -1,7 +1,5 @@
 ---
 title: "Deploy smart contracts to an Autonity network with Truffle"
-linkTitle: "Deploy smart contracts with Truffle"
-weight: 180
 description: >
   How to deploy smart contracts to an Autonity network using Truffle, with an ERC20 token contract as an example
 draft: true

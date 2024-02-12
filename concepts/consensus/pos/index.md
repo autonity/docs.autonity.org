@@ -1,8 +1,6 @@
 
 ---
 title: "Tendermint BFT consensus"
-linkTitle: "Tendermint BFT"
-weight: 1
 description: >
   Tendermint BFT in Autonity
 ---

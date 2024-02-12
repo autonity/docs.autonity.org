@@ -1,7 +1,5 @@
 ---
 title: "Piccadilly Testnet"
-linkTitle: "Piccadilly Testnet"
-weight: 2
 description: >
   The _bleeding-edge_ public Testnet running the latest deployable version of the Autonity protocol
 ---

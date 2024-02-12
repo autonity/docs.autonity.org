@@ -1,7 +1,5 @@
 ---
 title: "Set up node monitoring"
-linkTitle: "Setup node monitoring"
-weight: 40
 description: >
    How to setup node monitoring infrastructure for an Autonity Go Client node using Telegraf, InfluxDB v2.x and Grafana run in Docker containers
 ---
