@@ -15,6 +15,7 @@ glob("**/*.md", function (err, files) {
     console.error("Error while finding files:", err);
   } else {
     files.forEach(function (file) {
+        console.log(file)
       // Read the file
       fs.readFile(file, 'utf8', function (err, data) {
         if (err) {
