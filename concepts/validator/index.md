@@ -85,7 +85,9 @@ The identity is created as an ethereum format account address, derived on regist
 
 Note that the identifier is the validator _node's_ on-chain identity and is distinct from the treasury account which is the validator _operator's_ account. 
 
-::: {.callout-note title="Note" collapse="false"}An account address rather than the PUBKEY of the [enode](/glossary/#enode) url is used to make use of the address datatype in function calls.:::
+::: {.callout-note title="Note" collapse="false"}
+An account address rather than the PUBKEY of the [enode](/glossary/#enode) url is used to make use of the address datatype in function calls.
+:::
 
 ### Treasury account
 
@@ -242,7 +244,9 @@ After genesis the process is:
 
 The validator is registered and eligible for selection to the consensus committee.
 
-::: {.callout-note title="Note" collapse="false"}Note that registration after genesis allows a validator to register with zero bonded stake. The validator bonds stake after registration to become eligible for committee selection.:::
+::: {.callout-note title="Note" collapse="false"}
+Note that registration after genesis allows a validator to register with zero bonded stake. The validator bonds stake after registration to become eligible for committee selection.
+:::
 
 ## Validator accountability
 
@@ -300,7 +304,9 @@ The process is:
 
 The validator is paused and ignored by the committee selection algorithm. Stake delegation transactions bonding stake are reverted until the validator resumes an `active` state.
 
-::: {.callout-note title="Note" collapse="false"}Pausing has no impact on unbonding constraints. For example, if a validator pauses at time `T` and a staker immediately detects the `PausedValidator` event and submits an unbond transaction at time `T+1`, the unbonding period begins to count at `T+1`. Unbonding is then executed at `T+1 + unbondingPeriod + remainder of the epoch` in which `unbondingPeriod` falls.:::
+::: {.callout-note title="Note" collapse="false"}
+Pausing has no impact on unbonding constraints. For example, if a validator pauses at time `T` and a staker immediately detects the `PausedValidator` event and submits an unbond transaction at time `T+1`, the unbonding period begins to count at `T+1`. Unbonding is then executed at `T+1 + unbondingPeriod + remainder of the epoch` in which `unbondingPeriod` falls.
+:::
 
 ## Validator re-activation
 

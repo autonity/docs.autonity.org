@@ -18,6 +18,8 @@ To fund an account with testnet funds go to the Autonity Faucet. This provides a
 
 3. Input the total value of auton you need. 
 
-::: {.callout-note title="Note" collapse="false"}Faucet requests are capped at 1,000.:::
+::: {.callout-note title="Note" collapse="false"}
+Faucet requests are capped at 1,000.
+:::
 
 4. Click the `Go` button to submit the funding request. The auton will be sent to your account in approximately 10 seconds.

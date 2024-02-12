@@ -37,7 +37,9 @@ Confirm account password:
 0x0592486A2491F653484Dac709b91331AF7Cb7c87  keystore/alice.key
 ```
 
-::: {.callout-note title="Note" collapse="false"}To see all options available for account creation, run `aut account new --help`.  See also `aut account list` for working with key-stores.:::
+::: {.callout-note title="Note" collapse="false"}
+To see all options available for account creation, run `aut account new --help`.  See also `aut account list` for working with key-stores.
+:::
 
 <!--
 ## Create account using client binary
@@ -53,7 +55,8 @@ This will prompt you to create a new private key file, encrypted using a passwor
 The new account keystore file will by default be saved to the `keystore` folder `~/.autonity/keystore`, the client's default data directory location for databases and keystore. A custom directory can be specified using the `--keystore` flag.
 
 ::: {.callout-note title="Note" collapse="false"}
-The keystore password could be passed into the run command as a parameter using the `--password` flag. For example, as raw text or by providing the path to a file containing it. If the `--keystore` path flag is not set, then by default Autonity saves the key to the host machine's home directory (`$HOME`) in `/home/<YOUR_USERNAME>/.autonity/keystore/`.:::
+The keystore password could be passed into the run command as a parameter using the `--password` flag. For example, as raw text or by providing the path to a file containing it. If the `--keystore` path flag is not set, then by default Autonity saves the key to the host machine's home directory (`$HOME`) in `/home/<YOUR_USERNAME>/.autonity/keystore/`.
+:::
 
 Run the `list` command to view the account address and keystore location. You will see something like this:
 
@@ -90,7 +93,9 @@ The file contents should contain something similar to:
  }
 ```
 
-::: {.callout-note title="Note" collapse="false"}The address displayed and in the keystore file is not prepended with the string `0x` - the `0x` is formatting but should always be prefixed so the address is a 42 hex string character length 160-bit (20 characters) code per the Yellow Paper (For more information on the 160-bit address identifier of an account, see the Ethereum Yellow Paper, [Appendix F. Signing Transactions](https://ethereum.github.io/yellowpaper/paper.pdf).:::
+::: {.callout-note title="Note" collapse="false"}
+The address displayed and in the keystore file is not prepended with the string `0x` - the `0x` is formatting but should always be prefixed so the address is a 42 hex string character length 160-bit (20 characters) code per the Yellow Paper (For more information on the 160-bit address identifier of an account, see the Ethereum Yellow Paper, [Appendix F. Signing Transactions](https://ethereum.github.io/yellowpaper/paper.pdf).
+:::
 
 ## Create account using Clef
 

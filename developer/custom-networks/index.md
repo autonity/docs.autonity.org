@@ -11,7 +11,9 @@ To connect your node to a custom Autonity network, you will need the network's:
 
   See [Local Autonity Network configuration](/reference/genesis/#local-autonity-network-configuration) in the [Genesis](/reference/genesis/) reference for how to create these files.
 
-::: {.callout-note title="Note" collapse="false"}Note that the client provides command-line flag options for connecting to public Autonity testnets: `--bakerloo` and `--piccadilly`. The node will not run if you specify both genesis and bootnodes for a custom network **and** a testnet flag. The client will create a genesis block for the custom network's genesis configuration and the node's local store will then have an incompatible genesis with the testnet.:::
+::: {.callout-note title="Note" collapse="false"}
+Note that the client provides command-line flag options for connecting to public Autonity testnets: `--bakerloo` and `--piccadilly`. The node will not run if you specify both genesis and bootnodes for a custom network **and** a testnet flag. The client will create a genesis block for the custom network's genesis configuration and the node's local store will then have an incompatible genesis with the testnet.
+:::
 
 1. Install Autonity in a working directory and create an `autonity-chaindata` sub-directory as described in [Running a node, Install Autonity](/node-operators/install-aut/).
 

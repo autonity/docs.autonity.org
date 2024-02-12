@@ -61,7 +61,9 @@ The Liquid Newton holder can transfer ownership of the token by sending to anoth
 
 Redemption of Liquid Newton for Newton stake token is by unbonding. The Liquid Newton holder can unbond stake from a validator and redeem Newton at any time subject to the unbonding period set for the chain. On unbonding the bonded stake remains locked for the duration of an [unbonding period](/glossary/#unbonding-period) during which it is not transferrable and remains subject to any [slashing penalties](/glossary/#slashing-penalty) applied to the validator in that period. Stake redemption takes place at the end of the epoch in which the unbonding period falls. At this point the validator's stake pool is reduced by the unbonded amount and Newton is returned to the staker.
  
-::: {.callout-note title="Note" collapse="false"}It's important to note that Liquid Newton is validator-specific and as such is not 1:1 fungible with Liquid Newton bonded to a different validator. A validator may or may not have had [slashing penalties](/glossary/#slashing-penalty) applied and the redemption value of Liquid Newton may vary across validators according to their fault slashing history.:::
+::: {.callout-note title="Note" collapse="false"}
+It's important to note that Liquid Newton is validator-specific and as such is not 1:1 fungible with Liquid Newton bonded to a different validator. A validator may or may not have had [slashing penalties](/glossary/#slashing-penalty) applied and the redemption value of Liquid Newton may vary across validators according to their fault slashing history.
+:::
 
 ### Transferring Liquid Newton
 
@@ -176,9 +178,11 @@ At each epoch rollover there is an evaluation of the bonded stake. As the last b
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is applied at epoch end.  
 
-::: {.callout-note title="Note" collapse="false"}Consensus [committee member selection](/concepts/consensus/committee/#committee-member-selection) takes place at epoch end for computation and transactional efficiency.
+::: {.callout-note title="Note" collapse="false"}
+Consensus [committee member selection](/concepts/consensus/committee/#committee-member-selection) takes place at epoch end for computation and transactional efficiency.
 
-Further, in an interoperability scenario where state is shared across chains, rather than submit a state proof of a new validator set every block, we only need to send a checkpoint of the validator set every epoch.:::
+Further, in an interoperability scenario where state is shared across chains, rather than submit a state proof of a new validator set every block, we only need to send a checkpoint of the validator set every epoch.
+:::
 
 ### unbondingPeriod
 
@@ -301,4 +305,6 @@ To exemplify redemption in this scenario for a validator `V`:
 |`T+3`|Unbond Event|100 LNTN||125|80|100|
 |`T+4`|Unbond Event|125 LNTN||0|100|0|
 
-::: {.callout-note title="Note" collapse="false"}In a trading context, if 100 Liquid Newton is purchased after this slashing event, then on redemption 80 Newton would be received. If the market price for Liquid Newton has dropped you would be purchasing it at a discount.:::
+::: {.callout-note title="Note" collapse="false"}
+In a trading context, if 100 Liquid Newton is purchased after this slashing event, then on redemption 80 Newton would be received. If the market price for Liquid Newton has dropped you would be purchasing it at a discount.
+:::

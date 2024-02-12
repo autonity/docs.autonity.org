@@ -49,7 +49,9 @@ Initialise and setup the Status Keycard ready for use with the Autonity client.
 	```
 	The `INFO` messages should report card found and connected to.
 
-	::: {.callout-note title="Tip" collapse="false"}If you get a bash permission denied error, then this indicates you do not have execution privileges for the keycard binary. Login as sudo and run `chmod u+x keycard` to grant execution privilege over the binary. If you run `ls -la` in your installation directory `keycard` should show your `/usr/` has `rwx` and not just `rw` permissions.:::
+	::: {.callout-note title="Tip" collapse="false"}
+	If you get a bash permission denied error, then this indicates you do not have execution privileges for the keycard binary. Login as sudo and run `chmod u+x keycard` to grant execution privilege over the binary. If you run `ls -la` in your installation directory `keycard` should show your `/usr/` has `rwx` and not just `rw` permissions.
+	:::
 
 	Follow the instructions in the [keycard-cli](https://github.com/status-im/keycard-cli/) repository's README [Usage](https://github.com/status-im/keycard-cli#usage) section to:
 

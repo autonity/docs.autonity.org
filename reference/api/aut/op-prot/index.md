@@ -868,7 +868,9 @@ None.
 | `contractUpgradeReady` | `bool` | Set to `true` if an Autonity Protocol Contract upgrade is available |
 | `committee`| `CommitteeMember[]` array | the consensus committee that approved the block, each `CommitteeMember` struct recording the validator's account address (`_addr`) and bonded stake amount (`votingPower`)|
 
-::: {.callout-note title="Note" collapse="false"}If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.:::
+::: {.callout-note title="Note" collapse="false"}
+If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.
+:::
 
 #### Event
 

@@ -83,7 +83,8 @@ Genesis configuration file JSON objects:
 
 #### config.autonity object
 
-::: {.callout-note title="Note" collapse="false"}In current state the `operator` governance account is an EOA. It could be assigned to a smart contract address. For example, in the case the blockchain is DAO-governed.:::
+::: {.callout-note title="Note" collapse="false"}
+In current state the `operator` governance account is an EOA. It could be assigned to a smart contract address. For example, in the case the blockchain is DAO-governed.:::
 
 |Parameter|Description|Value|
 |---------|-----------|-----|

@@ -24,7 +24,9 @@ To unlock an account for signing transactions, Autonity currently allows users t
   - Sign by importing the private key of an account using the JavaScript CLI Autonity NodeJS Console as a local wallet:
     - Uses the Node JS Console to sign before sending.
 
-  ::: {.callout-note title="Note" collapse="false"}Both of these unlock approaches have pros and cons, which are outlined in following sections.:::
+  ::: {.callout-note title="Note" collapse="false"}
+  Both of these unlock approaches have pros and cons, which are outlined in following sections.
+  :::
 
 
 ## Sign using `aut`
@@ -54,7 +56,8 @@ Navigate to your Autonity NodeJS Console install directory and initialise a cons
 ```
 
 ::: {.callout-note title="Note" collapse="false"}
-If the transport is over WebSockets or WebSockets Secure will depend on your node setup. For connecting to a public node WebSockets Secure (`wss`) is advised.:::
+If the transport is over WebSockets or WebSockets Secure will depend on your node setup. For connecting to a public node WebSockets Secure (`wss`) is advised.
+:::
 
 Once connected, you can check whether the wallet is unlocked with the command:
 ```javascript
@@ -76,7 +79,8 @@ You can then send transactions without specifying gas:
 web3.eth.sendTransaction({from:address1,to:address2,value:5})
 ```
 
-::: {.callout-important title="Warning" collapse="false"} Leaving an account unlocked on a node can pose a security threat, as it implies that whoever can access the node will be able to send transactions on your behalf.:::
+::: {.callout-important title="Warning" collapse="false"} Leaving an account unlocked on a node can pose a security threat, as it implies that whoever can access the node will be able to send transactions on your behalf.
+:::
 
 ## Sign by unlocking an account in the Autonity NodeJS Console
 
