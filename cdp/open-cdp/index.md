@@ -16,7 +16,7 @@ To open a CDP and borrow ATN you need:
 
 - A running instance of [`aut` <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
 
-{{% pageinfo %}}
+{{pageinfo}}
 The guide uses the `aut contract call` and `aut contract tx` commands for contract interactions.
 
 `aut contract` usage requires that you specify the [ABI](/glossary/#application-binary-interface-abi) file and the protocol contract address of the contract being called. To complete the guide you will need to call 2 protocol contracts:
@@ -44,7 +44,7 @@ contract_address = 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f
 ```
 
 The guide assumes the ABI files are in the directory from which the `aut` command is run.
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 ## Determine borrowing limit
 

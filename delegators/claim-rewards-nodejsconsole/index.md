@@ -161,9 +161,9 @@ Rewards can be claimed individually or collectively.
 Note that claiming rewards is a state-affecting transaction that incurs gas costs. After claiming rewards, the user's Auton balance will only increase by _amount of rewards claimed - claim transaction cost_. Fees should not be claimed until the gain outweighs the cost! The gas cost of a claim transaction can be calculated simply as _gas used by transaction * gas price per unit of gas_.
 
 
-{{% pageinfo %}}
+{{pageinfo}}
 See the Reference Node JS Console Staking management functions reference
 
 and the How to [Transfer Liquid Newton](/delegators/transfer-lntn/)
 
-{{% /pageinfo %}}
+{{/pageinfo}}

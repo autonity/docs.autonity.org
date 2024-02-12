@@ -69,7 +69,7 @@ validator=0x9fd408Bdb83Be1c8504Ff13eBcCe7f490DCCC2cF
 to your `.autrc` file.
 :::
 
-{{% pageinfo %}}
+{{pageinfo}}
 As described in [Committee member selection](/concepts/consensus/committee/#committee-member-selection) the set of validators in the consensus committee is changed at every block epoch. [Voting power changes](/concepts/consensus/committee/#voting-power-changes) caused by bonding and unbonding stake to a validator are applied at the end of an epoch before the committee selection algorithm for the next epoch's committee is run.
 
 To get the validators in the current consensus committee use the `protocol` command `get-committee` to call:
@@ -77,7 +77,7 @@ To get the validators in the current consensus committee use the `protocol` comm
 ```bash
 aut protocol get-committee
 ```
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 
 ## Bond Newton to validator

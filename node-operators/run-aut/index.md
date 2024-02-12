@@ -104,9 +104,9 @@ Naturally, the above command line can be tailored to suit a specific deployment.
 
 To shutdown the node, press `CTRL-C` and wait for it to exit.
 
-{{% pageinfo %}}
+{{pageinfo}}
 Now you can now [connect to your node using `aut`](/node-operators/connect/) from your _local_ machine.
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 ## Migrating an Autonity Go Client
 

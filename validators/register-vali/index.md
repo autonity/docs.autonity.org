@@ -161,6 +161,6 @@ aut validator info --validator 0x49454f01a8F1Fbab21785a57114Ed955212006be
 
 and check that the information is as expected for your validator.
 
-{{% pageinfo %}}
+{{pageinfo}}
 To self-bond stake to your validator node, submit a bond transaction from the account used to submit the registration transaction - i.e. the validator's treasury account address. For how to  do this see the how to [Bond stake](/delegators/bond-stake/).
-{{% /pageinfo %}}
+{{/pageinfo}}

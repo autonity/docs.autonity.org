@@ -75,9 +75,9 @@ The description here covers only the basic network setup. Especially in a produc
     sudo cp -r autoracle /usr/local/bin/autoracle
     ```
 
-{{% pageinfo %}}
+{{pageinfo}}
 You can now [configure and launch Autonity Oracle Server](/oracle/run-oracle/#run-binary).
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 
 ## Build from source code {#install-source}
@@ -126,9 +126,9 @@ The following should be installed in order to build the Autonity Oracle Server:
     sudo cp build/bin/autoracle /usr/local/bin/autoracle
     ```
 
-{{% pageinfo %}}
+{{pageinfo}}
 You can now [configure and launch Autonity Oracle Server](/oracle/run-oracle/#run-binary).
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 ## Installing the Docker image {#install-docker}
 
@@ -218,9 +218,9 @@ GOROOT=/usr/local/go
 
 (Optional) Add data source plugins. Navigate to the plugins sub-directory of your working directory and add sub-directories for additional plugins you are installing.
 
-{{% pageinfo %}}
+{{pageinfo}}
 You can now [configure and launch oracle server](/oracle/run-oracle/#run-docker).
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 
 ## Verify the installation {#verify}
@@ -272,9 +272,9 @@ For how to do this, see [Developing data plugins](/concepts/oracle-server/#devel
 
 ## Next steps {#next}
 
-{{% pageinfo %}}
+{{pageinfo}}
 You can now [configure and launch the oracle server](/oracle/run-oracle/#run-binary).
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 
 ------------------------------------------------

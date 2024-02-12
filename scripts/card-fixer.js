@@ -7,8 +7,8 @@ const glob = require('glob');
 //{{% /pageinfo %}}
 const patternCardStart = /{{%\s*pageinfo\s*%}}/g;
 const patternCardEnd = /{{%\s*\/pageinfo\s*%}}/g; 
-const cardEndReplacement = '</p></div></div>';
-
+const cardEndReplacement = '{{/pageinfo}}';
+const cardStartReplacement = '{{pageinfo}}'
 // Find all .md files in the current directory and its subdirectories
 glob("**/*.md", function (err, files) {
   if (err) {
@@ -23,10 +23,7 @@ glob("**/*.md", function (err, files) {
         } else {
           // Replace all occurrences of the patterns with the replacements
           let newData = data
-            .replace(patternCardStart, function (match, p1) {
-                return `<div class="card mb-4"><div class="card-body"><p class="card-text">`;
-              //return `<div class="card mb-4"><div class="card-body"><h5 class="card-title">${p1}</h5><p class="card-text">`;
-            })
+            .replace(patternCardStart,cardStartReplacement)
             .replace(patternCardEnd, cardEndReplacement)
             
           // Write the new data back to the file

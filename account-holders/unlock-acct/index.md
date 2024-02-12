@@ -111,7 +111,7 @@ You can now send a transaction using:
 web3.eth.sendTransaction({from:myAddress,to:myAddress,value:5,gas:gas})
 ```
 
-{{% pageinfo %}}
+{{pageinfo}}
 The current block base fee can be obtained by querying the latest block header:
 ```javascript
 web3.eth.getBlock(await web3.eth.getBlockNumber())
@@ -122,4 +122,4 @@ web3.eth.getBlock(await web3.eth.getBlockNumber())
 ```
 
 If you need to decrypt the private key from an Ethereum keystore file, see the how to [Create an account, Decrypting the private key](/account-holders/create-acct/#decrypting-the-private-key).
-{{% /pageinfo %}}
+{{/pageinfo}}

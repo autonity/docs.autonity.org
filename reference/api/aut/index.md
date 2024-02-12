@@ -10,9 +10,9 @@ Interface for interacting with Autonity Contract functions using:
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 - JSON-RPC methods to submit calls to inspect state.
 
-{{% pageinfo %}}
+{{pageinfo}}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 ## activateValidator
 

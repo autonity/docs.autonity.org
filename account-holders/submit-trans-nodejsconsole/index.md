@@ -24,7 +24,7 @@ Navigate to your Autonity NodeJS Console install directory  and initialise a con
 
 Here are some examples of using `web3` and `autonity` namespaces to transfer value between accounts and call Autonity Protocol Contract ERC20 functionality from the console. In the following examples we will specify the gas parameter, but it can be superfluous depending on how you [unlocked your account](/account-holders/unlock-acct).
 
-{{% pageinfo %}}
+{{pageinfo}}
 The current block base fee can be obtained by querying the latest block header:
 ```javascript
 web3.eth.getBlock(await web3.eth.getBlockNumber())
@@ -33,7 +33,7 @@ web3.eth.getBlock(await web3.eth.getBlockNumber())
 ...
 }
 ```
-{{% /pageinfo %}}
+{{/pageinfo}}
 
 For parameter definitions and usage see the Reference [Autonity Interfaces](/reference/api/).
 
