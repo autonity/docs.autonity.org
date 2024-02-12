@@ -7,8 +7,9 @@ const glob = require('glob');
 const tabPattern = /{{<\s*tab\s+header="([^"]+)"\s*>}}([\s\S]*?){{<\s*\/tab\s*>}}/g;
 
 // Replacement format
-const startReplacement = header => `::: {.panel-tabset}\n## ${header}\n`;
-const endReplacement = ':::';
+//const startReplacement = header => `::: {.panel-tabset}\n## ${header}\n`;
+const startReplacement = header => `::: {.panel-tabset}\n## bash\n`;
+const endReplacement = '\n:::';
 
 // Find all .md files in the current directory and its subdirectories
 glob("**/*.md", function (err, files) {

@@ -14,15 +14,15 @@ const glob = require('glob');
 //{{% /pageinfo %}}
 const tabOpen = /{{<\s*tabpane langEqualsHeader=true\s*}}/g;
 const tabClose = /{{<\s*\/pageinfo\s*>}}/g; 
-const endReplacement = ':::';
-const startReplacement = '::: {.panel-tabset}';
+const endReplacement = '';
+const startReplacement = '';
 // Find all .md files in the current directory and its subdirectories
 glob("**/*.md", function (err, files) {
   if (err) {
     console.error("Error while finding files:", err);
   } else {
     files.forEach(function (file) {
-        console.log(file)
+        
       // Read the file
       fs.readFile(file, 'utf8', function (err, data) {
         if (err) {
