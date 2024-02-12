@@ -24,7 +24,8 @@ glob("**/*.md", function (err, files) {
           // Replace all occurrences of the patterns with the replacements
           let newData = data
             .replace(patternCardStart, function (match, p1) {
-              return `<div class="card mb-4"><div class="card-body"><h5 class="card-title">${p1}</h5><p class="card-text">`;
+                return `<div class="card mb-4"><div class="card-body"><p class="card-text">`;
+              //return `<div class="card mb-4"><div class="card-body"><h5 class="card-title">${p1}</h5><p class="card-text">`;
             })
             .replace(patternCardEnd, cardEndReplacement)
             
