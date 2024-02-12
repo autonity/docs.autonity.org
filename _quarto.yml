@@ -17,45 +17,16 @@ website:
     type: overlay
   sidebar: 
    contents:
-    - statistics/leaderboard.md
-    - statistics/markets.md
-    - auto: round-4
-    - section: "Getting started"
+    - overview/index.md
+    - section: "Concepts"
       contents:
-      - getting-started/quick-start.md
-      - getting-started/register.md
-      - getting-started/exchange-cax.md
-      - getting-started/exchange-dax.md
-    - section: "Python Recipes"
-      contents:
-      - recipes/starter_recipes.ipynb
-      - recipes/staking_recipes.ipynb
-      - recipes/cax_recipes.ipynb
-      - recipes/dax_recipes.ipynb
-      - recipes/cdp_recipes.ipynb
-    - section: "Hall of fame"
-      contents:
-      - winners/round-1/index.md
-      - winners/round-2/index.md
-      - winners/round-3/index.md 
-    - section: "Awards Submission"
-      contents:
-      - auto: "awards/**"      
-    - section: "Resources"
-      contents:
-      - auto: rules
-      - auto: "resources/**"      
-      - password-reset.md
-      - email-reset.md
-    - section: "Archive"
-      contents:
-      - auto: "archive/**"
+      - auto: "concepts/**"   
     
    style: docked
    collapse-level: 2
   navbar:  
     background: dark
-    logo: "_assets/images/autonity-logo.svg"
+    logo: "_assets/images/logo-autonity.svg"
   page-footer:
     left:
       - icon: github

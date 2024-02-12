@@ -61,7 +61,7 @@ $font-size-root: 0.95rem;
 
 /*-- scss:rules --*/
 body {
-    font-family: 'Noto Sans';
+    font-family: proxima nova,sans-serif;
 }
 
 a {
@@ -102,6 +102,14 @@ h5 {
 
 .navbar-dark {
     background-color: #000000;
+}
+
+.navbar-dark .navbar-brand {
+    color: #ffffff;
+}
+
+.navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
+    color: #ffffff;
 }
 
 .notice {
