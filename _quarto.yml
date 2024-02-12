@@ -45,7 +45,26 @@ website:
       - "validators/register-vali/index.md"
       - "validators/pause-vali/index.md"
       - "validators/change-commission-rate/index.md"
-      
+    - section: "Staking"
+      contents:
+      - "delegators/bond-stake/index.md"
+      - "delegators/claim-rewards/index.md"
+      - "delegators/transfer-lntn/index.md"
+    - section: "Borrowing by CDP in the ASM"
+      contents: 
+      - "cdp/open-cdp/index.md"
+      - "cdp/liquidate-cdp/index.md"
+    - section: "Development"
+      contents:
+      - "developer/submit-trans-gov-acct/index.md"
+      - "developer/deploy-brownie/index.md"
+      - "developer/custom-networks/index.md"
+    - section: "Reference"
+      contents:
+      - auto: rules
+      - auto: "reference/**"            
+    - "glossary/index.md"      
+    - "issues/index.md"      
    style: docked
    collapse-level: 2
   navbar:  
