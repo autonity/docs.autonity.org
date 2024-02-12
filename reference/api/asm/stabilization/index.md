@@ -51,19 +51,21 @@ On a successful call the function emits a `Deposit` event, logging: `msg.sender`
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f deposit amount
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --abi Stabilization.abi deposit 1000000000000000000 | aut tx sign - | aut tx send -
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### withdraw
@@ -101,19 +103,21 @@ On a successful call the function emits a `Withdraw` event, logging: `msg.sender
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f withdraw amount
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f withdraw 1000000000000000000 | aut tx sign - | aut tx send -
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### borrow
 
@@ -150,19 +154,21 @@ On a successful call the function emits a `Borrow` event, logging: `msg.sender`,
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrow amount
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrow 1000000000000000000 | aut tx sign - | aut tx send -
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### repay
@@ -205,19 +211,21 @@ On a successful call the function emits a `Repay` event, logging: `msg.sender`, 
 Use the `aut tx` command, specifying the Stabilization Contract address as the `RECIPIENT` address.
 :::
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value amount repay
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value 1 repay | aut tx sign - | aut tx send -
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## CDP Liquidator 
@@ -251,20 +259,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
 false
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ## CDP Liquidator 
 ### liquidate
@@ -308,19 +318,21 @@ On a successful call the function emits a `Liquidate ` event, logging: `account`
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value amount liquidate account
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value 2500000000000000000 liquidate 0x1f790c60D974F5A8f88558CA90F743a71F009641 | aut tx sign - | aut tx send -
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## CDP View functions
@@ -347,20 +359,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 ["0x1f790c60D974F5A8f88558CA90F743a71F009641"]
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### borrowLimit
@@ -405,20 +419,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
 19633000000000000000
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### collateralPrice
@@ -473,20 +489,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
 10019717700000000000
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### debtAmount
@@ -514,20 +532,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
 300012369185855391
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### interestDue
@@ -561,20 +581,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
 4118044981651418
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### minimumCollateral
@@ -613,20 +635,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal price mcr
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000000 9672000000000000000 2000000000000000000
 206782464846980976
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### underCollateralized
@@ -668,20 +692,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized collateral price debt liquidationRatio
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 206782464846980976 9672000000000000000 1000000000000000000 1800000000000000000
 false
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## CDP View functions
@@ -708,20 +734,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 ["0x1f790c60D974F5A8f88558CA90F743a71F009641"]
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### debtAmount
@@ -749,20 +777,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
 300012369185855391
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### isLiquidatable
@@ -794,20 +824,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
 false
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### collateralPrice
 
@@ -861,20 +893,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
 10019717700000000000
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### borrowLimit
 
@@ -918,20 +952,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
 19633000000000000000
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### minimumCollateral
 
@@ -969,20 +1005,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal price mcr
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000000 9672000000000000000 2000000000000000000
 206782464846980976
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### interestDue
 
@@ -1015,20 +1053,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
 4118044981651418
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### underCollateralized
 
@@ -1069,20 +1109,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized collateral price debt liquidationRatio
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 206782464846980976 9672000000000000000 1000000000000000000 1800000000000000000
 false
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## CDP View functions
@@ -1109,20 +1151,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 ["0x1f790c60D974F5A8f88558CA90F743a71F009641"]
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### debtAmount
@@ -1150,20 +1194,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount "0x1f790c60D974F5A8f88558CA90F743a71F009641" 1695300701
 0
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### isLiquidatable
@@ -1198,19 +1244,21 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+
+:::
+
 
 ### collateralPrice
 
@@ -1264,19 +1312,21 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+
+:::
+
 
 ### borrowLimit
 
@@ -1320,20 +1370,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
 19633000000000000000
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### minimumCollateral
 
@@ -1371,20 +1423,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal price mcr
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000000 9672000000000000000 2000000000000000000
 206782464846980976
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### interestDue
 
@@ -1417,20 +1471,22 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
 4118044981651418
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### underCollateralized
 
@@ -1471,17 +1527,19 @@ None.
 
 #### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized collateral price debt liquidationRatio
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 #### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 206782464846980976 9672000000000000000 1000000000000000000 1800000000000000000
 false
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+

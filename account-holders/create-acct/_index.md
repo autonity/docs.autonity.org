@@ -37,7 +37,8 @@ Confirm account password:
 0x0592486A2491F653484Dac709b91331AF7Cb7c87  keystore/alice.key
 ```
 
-::: {.callout-note title="Note" collapse="false"}To see all options available for account creation, run `aut account new --help`.  See also `aut account list` for working with key-stores.:::
+::: {.callout-note title="Note" collapse="false"}To see all options available for account creation, run `aut account new --help`.  See also `aut account list` for working with key-stores.
+:::
 
 <!--
 ## Create account using client binary

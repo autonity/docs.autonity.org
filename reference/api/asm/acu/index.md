@@ -33,20 +33,22 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
 98410
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ## symbols
 
@@ -64,20 +66,22 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
 ["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "USD-USD", "SEK-USD"]
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ## quantities
 
@@ -95,17 +99,19 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
 [21300, 18700, 14300, 10400, 1760000, 18000, 141000]
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+

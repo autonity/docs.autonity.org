@@ -25,10 +25,9 @@ The precision is set as a constant to the integer value `10000000`.
 
 The precision is the multiplier applied to price data points before aggregation and calculation of a median price for symbols by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
 
-{{< card header="Example" title="Conversion to decimal places" subtitle="" footer="" >}}
-
+::: {.callout-note title="Conversion to decimal places" collapse="false"}
 For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the L2 aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
-{{< /card >}}
+:::
 
 
 ### Parameters
@@ -43,20 +42,22 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecision
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecision
 10000000
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getRound
@@ -75,20 +76,22 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
 1809
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getRoundData
@@ -118,20 +121,22 @@ Note that median price calculation happens when the last block of a round is fin
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData _round _symbol
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "SEK-USD"
 {"round": 1809, "price": 899334, "timestamp": 1694668219, "status": 0}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getSymbols
@@ -158,20 +163,22 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbols
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbols
 ["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD"]
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getVotePeriod
@@ -192,20 +199,22 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
 30
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getVoters
@@ -227,20 +236,22 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters   
 ["0xf8D8c4818Fd21B4be57a0ACD619fdD88ec7A858c", "0xd4d2874450a21f1Bf5E1C12260773d8716b526B8", "0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03"]
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## latestRoundData
@@ -264,29 +275,30 @@ If the last oracle voting round failed to successfully compute a new median pric
 | `_p.timestamp` | `string` | the timestamp of the block height at which the returned price was calculated; the  timestamp is in Unix Timestamp format |
 | `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in `round-1`, represented by a value of `1` (SUCCESS) or `0` (FAILURE).  If a price was not successfully calculated, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
 
-{{< card header="Example" title="Converting Unix Timestamp format to a human-readable form" subtitle="" footer="" >}}
-
+::: {.callout-note title="Note" collapse="false"}
 Unix time represents time as an integer value recording the number of seconds since 1 January 1970 00:00:00 UTC.
 
 This can easily be converted to a human-readable form, for example:
 
 - programmatically, using the Python `datetime` library `fromtimestamp()` function
 - on the web, using online converters like https://www.unixtimestamp.com/index.php <i class='fas fa-external-link-alt'></i>.
-{{< /card >}}
+:::
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData _symbol
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK-USD"
 {"round": 47631, "price": 963459, "timestamp": 1688390007, "status": 0}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+

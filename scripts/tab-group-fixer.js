@@ -1,10 +1,4 @@
 
-
-// {{< tab header="aut" >}}
-// aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
-// {{< /tab >}}
-
-
 // Import the required modules
 const fs = require('fs');
 const path = require('path');

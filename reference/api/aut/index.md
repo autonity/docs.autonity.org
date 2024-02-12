@@ -49,23 +49,25 @@ On a successful call the function emits an `ActivatedValidator` event, logging: 
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator activate --validator _address
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator activate --validator 0x49454f01a8F1Fbab21785a57114Ed955212006be | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 
 0x0849c0307bc446bb3fbb61b5c1518847574356aedb0b986248158d36f1eb2a5b
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## allowance
@@ -89,38 +91,43 @@ Using `aut` you can return the allowance for an ERC20 token contract account, e.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token allowance [OPTIONS] OWNER
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_allowance", "params":["owner", "spender"]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
 To return a spender's allowance for a Newton stake token account specify the `--ntn` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token allowance --ntn 0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
 100.000000000000000000
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_allowance", "params":["0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C","0xD9B99BAe9E9550A6Ac2F74bA7DdE483a4462C548"], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":100}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 To return a spender's allowance for an ERC20 contract token (e.g. Liquid Newton) account specify the `--token` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token allowance --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37  0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
 1000.000000000000000000
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ## approve
 
@@ -150,35 +157,38 @@ On a successful call the function emits an `Approval` event, logging: `owner`, `
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token approve [OPTIONS] SPENDER AMOUNT
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
 To approve a spender for a Newton stake token account specify the `--ntn` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token approve --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 100 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x715749a9aed398da7f25e66767c2ed9d3cd00c02f7306453949b9203b9a034a6
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 To approve a spender for an ERC20 contract token (e.g. Liquid Newton) account specify the `--token` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token approve --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xa20ae3a75009fb967ed53897b980e6e88dd580fada133c08071183b5b452ca2c
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ##  balanceOf
 
@@ -200,37 +210,42 @@ Using `aut` you can return the account balance for an ERC20 token contract accou
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token balance-of [OPTIONS] ACCOUNT
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_balanceOf", "params":["_addr"]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
 To return the Newton stake token balance for an account specify the `--ntn` option:
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token balance-of --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
 1000.000000000000000000
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_balanceOf", "params":["0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4"], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1000}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 To return an ERC20 contract token (e.g. Liquid Newton) balance for an account specify the `--token` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a87b260dd85ff7189d848fd44b28cc8505fa9c
 999.000000000000000000
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ::: {.callout-note title="Note" collapse="false"}
 All Liquid Newton balances for an account can be returned in one call using the `aut` command `aut account lntn-balances [OPTIONS] ACCOUNT`.
@@ -288,22 +303,24 @@ The function emits events:
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator bond [OPTIONS] AMOUNT
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator bond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xaa3705ef2d38cf2d98925660e6ca55de8948e8a075e7ee9edf6be7fa540ffe51
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## changeCommissionRate
@@ -343,22 +360,24 @@ On a successful call the function emits a `CommissionRateChange` event, logging:
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator change-commission-rate [OPTIONS] RATE
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator change-commission-rate --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 900 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x7a4c6bb2e19eb8a4a160723b07eeb538e835db512541621aef0062cd9e1e15f2
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## config
@@ -393,19 +412,22 @@ Returns a `Config` object consisting of:
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol config [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_config", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol config -r https://rpc1.piccadilly.autonity.org
 {
   "policy": {
@@ -430,12 +452,13 @@ $ aut protocol config -r https://rpc1.piccadilly.autonity.org
   },
   "contract_version": 1
 }
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_config", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":[{"treasuryFee":10000000000000000,"minBaseFee":500000000,"delegationRate":1000,"unbondingPeriod":21600,"treasuryAccount":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"},{"accountabilityContract":"0x5a443704dd4b594b382c22a083e2bd3090a6fef3","oracleContract":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d","acuContract":"0x8be503bcded90ed42eff31f56199399b2b0154ca","supplyControlContract":"0x47c5e40890bce4a473a49d7501808b9633f29782","stabilizationContract":"0x29b2440db4a256b0c1e6d3b4cdcaa68e2440a08f"},{"operatorAccount":"0xd32c0812fa1296f082671d5be4cbb6beeedc2397","epochPeriod":1800,"blockPeriod":1,"committeeSize":100},1]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## deployer
@@ -454,27 +477,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol deployer [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_deployer", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol deployer --rpc-endpoint https://rpc1.piccadilly.autonity.org
 0x0000000000000000000000000000000000000000
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_deployer", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x0000000000000000000000000000000000000000"}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## epochID
@@ -493,27 +520,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol epoch-id [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_epochID", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol epoch-id --rpc-endpoint https://rpc1.bakerloo.autonity.org
 7371
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_epochID", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":7371}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## epochReward
@@ -532,27 +563,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol epoch-reward [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_epochReward", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol epoch-reward --rpc-endpoint https://rpc1.piccadilly.autonity.org
 121166000000000
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_epochReward", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":121166000000000}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## epochTotalBondedStake
@@ -571,27 +606,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol epoch-total-bonded-stake [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_epochTotalBondedStake", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol epoch-total-bonded-stake --rpc-endpoint https://rpc1.piccadilly.autonity.org
 61338
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_epochTotalBondedStake", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":61338}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 
@@ -611,27 +650,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-block-period [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getBlockPeriod", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-block-period --rpc-endpoint https://rpc1.piccadilly.autonity.org
 1
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getBlockPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  getCommittee
@@ -657,19 +700,22 @@ Returns a `committee` array of `CommitteeMember` objects, each object consisting
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-committee [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getCommittee", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol get-committee -r https://rpc1.bakerloo.autonity.org
 [
   {
@@ -709,12 +755,13 @@ $ aut protocol get-committee -r https://rpc1.bakerloo.autonity.org
     "voting_power": 10005
   }
 ]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":[{"addr":"0x4b7275d5f5292c3027a16e0eb891d75a0ef39cc7","votingPower":10000},{"addr":"0x5e08564ee99e96e690e9b25591191ae0c78351a3","votingPower":10000},{"addr":"0x33bf54630991f0a1a23b9f102873b3b54c4b94b3","votingPower":10000},{"addr":"0x1ae9b1b3207195430a36d82fc0bda1f857d0aa72","votingPower":10000},{"addr":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4","votingPower":10000},{"addr":"0xf5a48b1df2a3a616adb92e57d6ce36e17c3c2a0b","votingPower":10000},{"addr":"0x5fe87ee4f61da6e640aec02ce818cdcd30b8cb13","votingPower":10000},{"addr":"0xebf9dd85cc99a15f1afb78a6a7cb28a9103e9a12","votingPower":10000},{"addr":"0x9f26942a9710099a7f2b4b64e53522bb16d2af7d","votingPower":10005}]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  getCommitteeEnodes
@@ -737,27 +784,31 @@ Returns a `committeeNodes` list of committee member enode URL addresses consisti
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-committee-enodes [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getCommitteeEnodes", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-committee-enodes -r https://rpc1.bakerloo.autonity.org
 ['enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303', 'enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303', 'enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303', 'enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308', 'enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309', 'enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310', 'enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303', 'enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303', 'enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303']
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommitteeEnodes", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":["enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303","enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303","enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303","enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308","enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309","enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310","enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303","enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303","enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303"]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getEpochFromBlock
@@ -778,23 +829,27 @@ Returns the unique identifier of the epoch block epoch associated with a block a
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-epoch-from-block [OPTIONS] BLOCK
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getEpochFromBlock", "params":[_block]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-epoch-from-block --rpc-endpoint https://rpc1.piccadilly.autonity.org 3293857
 1829
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -804,8 +859,8 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
         "id":1500
 }'
 {"jsonrpc":"2.0","id":1,"result":1}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getEpochPeriod
@@ -824,27 +879,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-epoch-period [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getEpochPeriod", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-epoch-period --rpc-endpoint https://rpc1.piccadilly.autonity.org
 1800
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getEpochPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1800}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getLastEpochBlock
@@ -859,27 +918,31 @@ Returns the number of the last block in the preceding epoch at the block height 
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-last-epoch-block [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_getLastEpochBlock", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol get-last-epoch-block -r https://rpc1.piccadilly.autonity.org
 12981684
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getLastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":12981684}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  getMaxCommitteeSize
@@ -898,23 +961,27 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-max-committee-size [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getMaxCommitteeSize", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol get-max-committee-size --rpc-endpoint https://rpc1.bakerloo.autonity.org/
 50
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -924,8 +991,8 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
         "id":1
 }'
 {"jsonrpc":"2.0","id":1,"result":50}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  getMinimumBaseFee
@@ -944,23 +1011,27 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-minimum-base-fee [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getMinimumBaseFee", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol get-minimum-base-fee --rpc-endpoint https://rpc1.bakerloo.autonity.org/
 500000000
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -971,8 +1042,8 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 }'
 
 {"jsonrpc":"2.0","id":1,"result":500000000}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  getNewContract
@@ -996,16 +1067,18 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="RPC" >}}
+
+::: {.panel-tabset}
+## bash
 {"method": "aut_getNewContract", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="RPC" >}}
+
+::: {.panel-tabset}
+## bash
 curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -1015,8 +1088,8 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
         "id":1
 }'
 {"jsonrpc":"2.0","id":1,"result":["",""]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getOperator
@@ -1035,27 +1108,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-operator [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_getOperator", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-operator -r https://rpc1.bakerloo.autonity.org/
 0x293039dDC627B1dF9562380c0E5377848F94325A
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getOperator", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x293039dDC627B1dF9562380c0E5377848F94325A"}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getOracle
@@ -1074,20 +1151,22 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="RPC" >}}
+
+::: {.panel-tabset}
+## bash
 {"method": "aut_getOracle", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="RPC" >}}
+
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getOracle", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d"}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  getProposer
@@ -1111,23 +1190,27 @@ The proposer is selected from the committee via weighted random sampling, with s
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-proposer [OPTIONS] HEIGHT ROUND
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getProposer", "params":[height, round]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-proposer -r https://rpc1.bakerloo.autonity.org/ 4576868 0
 0x0c7dC2aB00c7b5934EDA097a8585f56367A94dA4
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -1137,8 +1220,8 @@ curl --location --request GET 'https://rpc1.bakerloo.autonity.org/' \
         "id":1
 }'
 {"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getTreasuryAccount
@@ -1157,27 +1240,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-treasury-account [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_getTreasuryAccount", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-treasury-account -r https://rpc1.piccadilly.autonity.org/
 0xF74c34Fed10cD9518293634C6f7C12638a808Ad5
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryAccount", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ## getTreasuryFee
 
@@ -1195,27 +1282,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-treasury-fee [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_getTreasuryFee", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-treasury-fee -r https://rpc1.piccadilly.autonity.org/
 10000000000000000
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryFee", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":10000000000000000}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getUnbondingPeriod
@@ -1234,27 +1325,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-unbonding-period [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getUnbondingPeriod", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-unbonding-period -r https://rpc1.piccadilly.autonity.org/
 21600
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_getUnbondingPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":21600}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## getValidator
@@ -1295,19 +1390,22 @@ Returns a `Validator` object consisting of:
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator info [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getValidator", "params":[_addr]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
 {
   "treasury": "0x61EE7d3244642E5f6D654416a098DEabFBF5306e",
@@ -1329,12 +1427,13 @@ $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --valid
   "provable_fault_count": 0,
   "state": 0
 }
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 $ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c"], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":{"treasury":"0x61ee7d3244642e5f6d654416a098deabfbf5306e","nodeAddress":"0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c","oracleAddress":"0x9b844631b7279576330b9b822be79266696ff8c2","enode":"enode://b2748268c31ebab8603058335bb4bed062e05b9ceaa3562f69868a01d1038a84136fc587fb913e1cb8ce821f1eb0bf9879e3249f18adcd39f1211a104ceb57a9@35.197.223.249:30303","commissionRate":1000,"bondedStake":10000000000000000000000,"unbondingStake":0,"unbondingShares":0,"selfBondedStake":10000000000000000000000,"selfUnbondingStake":0,"selfUnbondingShares":0,"selfUnbondingStakeLocked":0,"liquidContract":"0xf4d9599afd90b5038b18e3b551bc21a97ed21c37","liquidSupply":0,"registrationBlock":0,"totalSlashed":0,"jailReleaseBlock":0,"provableFaultCount":0,"state":0}}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  getValidators
@@ -1355,14 +1454,16 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator list [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getValidators", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ::: {.callout-note title="Note" collapse="false"}
@@ -1371,8 +1472,9 @@ aut validator list [OPTIONS]
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut validator list --rpc-endpoint https://rpc1.piccadilly.autonity.org
 0x32F3493Ef14c28419a98Ff20dE8A033cf9e6aB97
 0x31870f96212787D181B3B2771F58AF2BeD0019Aa
@@ -1402,12 +1504,13 @@ $ aut validator list --rpc-endpoint https://rpc1.piccadilly.autonity.org
 0xE9Ce74FBA6F04345516c9a3028292a1d62A409B3
 0x9f793D2c7E1D5a72A020281F383bfc5e3086AcA9
 0xde5aeb71cc4Aaa99cf6a23F68bFfDdDD7e8231Fe
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 $ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidators", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":["0x32f3493ef14c28419a98ff20de8a033cf9e6ab97","0x31870f96212787d181b3b2771f58af2bed0019aa","0x6ebb5a45728be7cd9fe9c007add1e8b3daff6b3b","0xac245af88265e72881cd9d21efb9ddc32e174b69","0x36288c1f8c990fd66a1c5040a61d6f3ecf3a49c1","0xb3a3808c698d82790ac52a42c05e4bcb3dfcd3db","0x467d99ea9dacc495e6d1174b8f3dd20ddd531335","0xa940eb48368324e2032b97723be487505981edce","0xba35a25badb802cb3c0702e0e2df392e00511ca2","0x1114fe559b302403bb3a89806bc08f7fa5299e99","0x9fd408bdb83be1c8504ff13ebcce7f490dccc2cf","0xe03d1de3a2fb5fec85041655f218f18c9d4dac55","0x52b89afa0d1dee274bb5e4395ee102aafbf372ea","0x914d06dbaaa3c51085692f59230769eaa32f3a94","0xfae912badb5e0db5ec0116fe6552e8d6bdb4e82b","0x7fc0ae4918c0d8eaa1a259fa455b32a2ceb58ea4","0x82b6eaca5014dca39b3a37d68c246f1466b15aa9","0xe4ece2266ea7b7468ad3e381d08c962641b567f2","0xcd46183d0075116175c62dcde568f2e0c4736597","0xcd50c31356fddbd9e704cf58751a0ed2b178d8b0","0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","0xeb25090aa0fd5c940f87a172aaf62413eb625b63","0x2af517e6edf3c01f8256e609122f004457024e67","0x9d458e21b15c0c1a95db65c5fae639d1477ce4dc","0x724e26894a5fcf0233fdc5849aaf0fbb2dd5b0e8","0xe9ce74fba6f04345516c9a3028292a1d62a409b3","0x9f793d2c7e1d5a72a020281f383bfc5e3086aca9","0xde5aeb71cc4aaa99cf6a23f68bffdddd7e8231fe"]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  getVersion
@@ -1428,27 +1531,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol get-version [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_getVersion", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol get-version -r https://rpc1.piccadilly.autonity.org/8545/
 1
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getVersion", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## name
@@ -1469,36 +1576,41 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token name [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_name", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token name --ntn -r https://rpc1.piccadilly.autonity.org
 Newton
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"method":"aut_name", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"Newton"}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 To return the `name` for an ERC20 (e.g. a Liquid Newton token) token contract specify the `--token` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token name --rpc-endpoint https://rpc1.piccadilly.autonity.org --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
 LNTN-4
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## pauseValidator
@@ -1535,22 +1647,24 @@ On a successful call the function emits a `PausedValidator` event, logging: `val
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator pause [OPTIONS]
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator pause --validator 0x49454f01a8F1Fbab21785a57114Ed955212006be | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x942328bea54a0096ca9b2fb88acd337c883f7923c2ef6b8290a340c5baec2d20
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## registerValidator
@@ -1614,19 +1728,21 @@ On a successful call the function emits a `RegisteredValidator` event, logging: 
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator register [OPTIONS] ENODE ORACLE PROOF
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator register enode://a3b821f89d8ea172421dedacdb00e76d8d6a929e4c5ff3c2b30ec84144a7405698ce30ba2ed482770ad2df94d050311b350c036d7f2cef3c9ef32be3f635d62e@51.89.151.55:30303 0xFd91928d58Af4AFbD78C96821D3147ef1f517072 0x62a44f56a617520ebc7c73414df7b8ae5b8133ebdbc0715d66ca0522fe26788873c7e774ed8a7702e16311e6ee8f149c4ef70cfb261fbdd3d375401375209a3000a5189e8d50880faf97ad42501375b216b89304c3fd4acf548a1d7fd7136e74771791422819134e2e3fbf720c35652d8c163e3d4f22c798a3c648958f7abcda2c00 | aut tx sign - | aut tx send -
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## symbol
@@ -1647,36 +1763,41 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token symbol [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_symbol", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token symbol --ntn --rpc-endpoint https://rpc1.piccadilly.autonity.org
 NTN
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_symbol", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"NTN"}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 To return the `symbol` for an ERC20 (e.g. a Liquid Newton token) token contract specify the `--token` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token symbol --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37
 LNTN-0
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ## totalRedistributed
 
@@ -1694,27 +1815,31 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut protocol total-redistributed [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method":"aut_totalRedistributed", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut protocol total-redistributed -r https://rpc1.piccadilly.autonity.org
 47981813599875371606
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_totalRedistributed", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":47981813599875371606}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## totalSupply
@@ -1735,38 +1860,43 @@ None.
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token total-supply [OPTIONS]
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 {"method": "aut_totalSupply", "params":[]}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
 To return total supply for the Newton stake token specify the `--ntn` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token total-supply --ntn -r https://rpc1.piccadilly.autonity.org
 63402
-{{< /tab >}}
-{{< tab header="RPC" >}}
+:::
+::: {.panel-tabset}
+## bash
 curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_totalSupply", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":63402}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 To return the total supply for an ERC20 contract token (e.g. Liquid Newton) specify the `--token` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token total-supply --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37   -r https://rpc1.piccadilly.autonity.org
 10087
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## transfer
@@ -1797,35 +1927,38 @@ On a successful call the function emits a `Transfer` event, logging: `msg.sender
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token transfer [OPTIONS] RECIPIENT AMOUNT
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
 To transfer an amount of Newton stake token to a recipient specify the `--ntn` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token transfer --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 1| aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x17092d181653c4f13642698233966010a83a39f34846f65cef7dc860ad13644d
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the `--token` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token transfer --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 10 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x2d78e64d82d1e54aeb487c4c10834dc3a1e17fabbd1f5775a2d72c6390db7b26
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ##  transferFrom
@@ -1864,35 +1997,38 @@ On a successful call the function emits:
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut token transfer-from [OPTIONS] SPENDER RECIPIENT AMOUNT
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
 To transfer an amount of Newton stake token to a recipient specify the `--ntn` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token transfer-from --ntn --from 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 0x11a87b260dd85ff7189d848fd44b28cc8505fa9c 0xbf2f718f948de541123f3e0a06a9100ee1df128c 1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x2d277f8eee73d900f3cb3994796cfbb4ddef22ca78870344bf910bbd1b64f22c
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the `--token` option:
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut token transfer-from --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37  --from 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 0x11a87b260dd85ff7189d848fd44b28cc8505fa9c 0xbf2f718f948de541123f3e0a06a9100ee1df128c 1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x64a88723d7dd99e026029db531b6415e6e7a19fe131395059742065fcfe6575c
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ## unbond
@@ -1961,19 +2097,21 @@ On a successful call the function emits a `NewUnbondingRequest` event, logging: 
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut validator unbond [OPTIONS] AMOUNT
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 $ aut validator unbond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9  1 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3ac340e33f5ddfdab04ffe85ce4b564986b2f1a877720cb79bc9d31c11c8f318
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+

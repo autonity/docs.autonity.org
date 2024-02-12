@@ -472,17 +472,19 @@ Displays a formatted list of `Validator` object data for each registered validat
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 vals()
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 > vals()
 
 __________________________Validator 0__________________________
@@ -511,8 +513,8 @@ state:               0
 
 __________________________Validator 2__________________________
 ...
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 
@@ -542,17 +544,19 @@ Then, a table showing stake delegations sorted by validator index:
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 wal('account')
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 > wal('0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C')
 
     __________________________Staking Wallet__________________________
@@ -566,8 +570,8 @@ wal('account')
 	│    1    │ '0x45998C7d6341CD32256E9eeEdd9865450d4aCB18' │  '150'  │ '29094266920200'   │
 	│    2    │ '0xe32d53E4d077F7ADE8CDB6Ff3Cf857Be40Ab1516' │   '0'   │        '0'         │
 	│    3    │ '0xAbbA1C48341755558E85A01e293Db94179dF9bcd' │   '0'   │        '0'         │
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ## `rclm` _Claim staking rewards_
 Claims staking rewards for a specified staking delegation.
@@ -588,16 +592,18 @@ Displays the validator and staker addresses, the amount of claimable rewards fro
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 rclm('account','validator')
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 > rclm('0x11a87b260dd85ff7189d848fd44b28cc8505fa9c','0x07d872935972Aa0848d0cec9c67b270E5291D7e8')
     validator:      0x07d872935972Aa0848d0cec9c67b270E5291D7e8
     staker:         0x11a87b260dd85ff7189d848fd44b28cc8505fa9c
@@ -618,8 +624,8 @@ rclm('account','validator')
   		type: '0x2',
   		events: {}
 	}
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ## `rclm_a` _Claim all staking rewards_
 Claims staking rewards for all of the sender's stake delegations.
@@ -640,16 +646,18 @@ Displays a listing of each validator you have delegated to, your claimable rewar
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 rclm_a('account')
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 > rclm_a('0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C')
     validator:          0x07d872935972Aa0848d0cec9c67b270E5291D7e8
     claimable reward:   213928433236770
@@ -659,8 +667,8 @@ rclm_a('account')
 
 
     total claimed:        243022700156970
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 
 
@@ -688,16 +696,18 @@ On a successful call the function emits a Transfer event, logging: `msg.sender`,
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 lsend({'from','to','val',value})
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="NodeJS Console" >}}
+
+::: {.panel-tabset}
+## bash
 > lsend({from: '0x11a87b260dd85ff7189d848fd44b28cc8505fa9c', to: '0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4', val: '0x45998C7d6341CD32256E9eeEdd9865450d4aCB18', value: 100})
 Sending 100 LNTN - Validator 0x45998C7d6341CD32256E9eeEdd9865450d4aCB18
 {
@@ -731,5 +741,5 @@ Sending 100 LNTN - Validator 0x45998C7d6341CD32256E9eeEdd9865450d4aCB18
     }
   }
 }
-{{< /tab >}}
-{{< /tabpane >}}
+:::
+
