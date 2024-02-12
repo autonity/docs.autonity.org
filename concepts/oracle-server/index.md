@@ -46,7 +46,7 @@ A basic set of data adaptor plugins for sourcing this price data is provided out
 - Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
 - Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `sim_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
 
-{{% alert title="Info" color="info"%}}
+::: {.callout-note title="Info" collapse="false"}
 ATN and NTN symbols are preview listed but untraded:
 
 - https://www.coingecko.com/en/coins/auton

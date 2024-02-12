@@ -111,9 +111,9 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 | `_p.timestamp` | `string` | the timestamp of the block height at which the returned price was calculated; the  timestamp is in Unix Timestamp format |
 | `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in the requested `round`; value of `0` (FAILURE) or `1` (SUCCESS). If a price was not successfully calculated in the requested `round`, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
-{{< /alert >}}
+:::
 
 
 ### Usage

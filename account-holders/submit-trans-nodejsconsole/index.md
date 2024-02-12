@@ -18,7 +18,7 @@ Navigate to your Autonity NodeJS Console install directory  and initialise a con
 ./console ws://<IP-ADDRESS>:8546
 ```
 
-{{% alert title="Note" %}}If the transport is over WebSockets or WebSockets Secure will depend on your node setup. For connecting to a public node WebSockets Secure (`wss`) is advised.{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"}If the transport is over WebSockets or WebSockets Secure will depend on your node setup. For connecting to a public node WebSockets Secure (`wss`) is advised.:::
 
 ## Examples
 

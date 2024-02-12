@@ -9,7 +9,7 @@ description: >
 - A [running instance of an Autonity Go Client](/validators/) running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on its WebSocket port. This will be registered as a validator node and oracle server will be configured to connect to it.
 - A configured instance of [`aut`](/account-holders/setup-aut/).
 - Auton (ATN) to seed-fund your oracle server account.
-{{< /alert >}}
+:::
 
 To run Autonity Oracle Server you will need to generate a keyfile for your oracle server account and seed-fund it, configure plugin(s) for external data sources, set the oracle server configuration, and connect to your Autonity Go Client node. Autonity Oracle Server will initialise, connect to the data sources and node, and then begin to submit price reports to your connected node.
 
@@ -36,7 +36,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
    {{< alert title="Info" >}}
    A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
-   {{< /alert >}}
+   :::
 
 3. (Optional) Add your own data source plugin(s). If you have developed your own FX plugins, (a) add sub-directory(ies) containing the plugin source code to the `plugins` sub-directory of your installation; (b) add config entry(ies) to the `plugins-conf.yml` file. 
  
@@ -44,7 +44,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
    
    {{< alert title="Info" >}}
    A [sample `oracle-server.config` file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
-   {{< /alert >}}
+   :::
    
 5. Start oracle server:
 
@@ -68,13 +68,13 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
 {{< alert title="Info" color="info">}}
 The oracle server configuration can also be set as system environment variables or directly in the terminal as console flags.  For how to do this see the page section [Setup using command line flags or system env variables](/oracle/run-oracle/#setup-using-command-line-flags-or-system-env-variables).
-{{< /alert >}}
+:::
 
 {{< alert title="Note on plugin runtime management" >}}
 New or updated plugins are configured by simply adding the binary code to the configured plugins directory (`plugin.dir`). See [Installing data source plugins](/oracle/install-oracle/#install-plugin) for more detail.
 
 If plugins for external data sources or the symbols for which oracle server provides price data are changed while oracle server is running, changes are auto-detected and applied. Oracle server does **not** need to be re-started.
-{{< /alert >}}
+:::
 
 
 ## Run Autonity Oracle Server as Docker image {#run-docker}
@@ -91,7 +91,7 @@ If plugins for external data sources or the symbols for which oracle server prov
 
    {{< alert title="Info" >}}
    A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
-   {{< /alert >}}
+   :::
 
    Edit `plugins-conf.yml` to [configure plugins](/oracle/run-oracle/#configure-plugins) for data sources. See [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) for how to do this.
 
@@ -103,7 +103,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    
    {{< alert title="Info" >}}
    A [sample `oracle-server.config` file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
-   {{< /alert >}}
+   :::
    
    Edit `oracle-server.config` to specify the oracle server configuration. See [Set up oracle server config file](/oracle/run-oracle/#set-up-oracle-server-config-file) for how to do this.
 
@@ -133,14 +133,14 @@ If plugins for external data sources or the symbols for which oracle server prov
 
    {{< alert title="Info" >}}
    AOS requires an accessible `ws/wss` AGC endpoint. If you are also running AGC in docker and facing issues in connecting AOS to it, please execute the following command to correctly identify the IP address required for the `<WS_ADDRESS>`: `docker inspect -f '{{.NetworkSettings.IPAddress}}' <container_id_or_name>`
-   {{< /alert >}}
+   :::
 
 
    {{< alert title="Important Notes" >}}
    - The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
 
    - The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
-   {{< /alert >}}
+   :::
 
    Naturally, the above command line can be tailored to suit a specific deployment. See the docker documentation for the complete list of Docker options.
 
@@ -234,7 +234,7 @@ For example, to start oracle server specifying command line flags when running t
    - Note that all flags after the image name are passed to the Autonity Oracle Server in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
    - The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
    - The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
-   {{< /alert >}}
+   :::
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) or the oracle server's GitHub repo [README, Configuration of oracle server <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [CLI flags <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#cli-flags) for the full set of available flags.
 
@@ -280,7 +280,7 @@ An example minimal entry could be:
    
 {{< alert title="Important Note" >}}
 The optional fields should be set as needed to fit the service level agreed with your rate provider.
-{{< /alert >}}
+:::
 
 
 ### ATN and NTN data simulator plugin
@@ -305,7 +305,7 @@ cp e2e_test/plugins/simulator_plugins/sim_plugin build/bin/plugins/sim_plugin
 ```
 
 The simulator can also be built independently by running the `make simulator` command.
-{{< /alert >}}
+:::
 
 ### Develop plugins
 Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:

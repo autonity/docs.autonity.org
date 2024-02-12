@@ -374,13 +374,13 @@ aut contract tx --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDca
 
 ```
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 A repayment can be a partial or full repayment of the borrowed amount.
 
 If you want to repay all borrowed ATN in a CDP and clear the debt position completely, then slightly overpay - this covers accrued interest and the protocol will return any surplus payment to your account immediately.
 
 For example, you are repaying the entire debt and call [`interestDue()`](http://localhost:1313/reference/api/asm/stabilization/#interestdue) and [`debtAmount()`](/reference/api/asm/stabilization/#debtamount) to determine the amount owed. You then make a repayment for that exact amount. In the time interval before the [`repay()`](/reference/api/asm/stabilization/#repay) transaction is submitted a `dust` amount of interest can then accrue. In this scenario, overpayment will settle that interest due and surplus ATN from the repayment is returned.
-{{% /alert %}}
+:::
 
 ### Withdraw collateral
 

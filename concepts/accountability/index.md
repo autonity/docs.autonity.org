@@ -64,9 +64,9 @@ An _accusation_ is a claim that a consensus committee member has failed to parti
 
 Accusations do not automatically cause slashing, as an _innocence proof window_ measured in blocks gives the accused _offending validator_ a window to detect an _accusation_ and prove _innocence_ by submitting an _innocence_ proof on-chain.
 
-{{% alert title="A note on why a new accusation cannot be submitted until the innocence window has expired" %}}
+::: {.callout-note title="A note on why a new accusation cannot be submitted until the innocence window has expired" collapse="false"}
 If the _offending validator_ already has an _accusation_ pending, the accountability protocol determines the offender is not currently accusable. This is because the protocol has to wait to determine if the pending _accusation_ has been defended or, if not, promoted to a _fault_. Until then, it cannot determine if the offending validator has committed a rule infraction with a higher severity than the new candidate _accusation_ in the epoch or not.
-{{% /alert %}}
+:::
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _accusation_ on-chain, a `NewAccusation` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
@@ -100,11 +100,11 @@ In the direct submission method a _fault proof_ is submitted on-chain directly b
 
 A _pending accusation_ can be automatically *promoted* to a _fault_ after expiry of an _innocence proof submission window_. This method offers the possibility of defence by submission of an _innocence proof_. If the _offending validator_ has not submitted a successfully verified _innocence_ claim within the window, and a _fault_ with a higher _severity_ for the epoch has not already been proven against the _offending validator_ during that epoch, then the _accusation_ is promoted to a _fault_. 
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 Unlike _accusations_ where an accusation must be made within a `<= 256` block window of the rule infraction, there is no _window_ constraint for direct _fault_ submissions.
 
 A direct fault proof can be reported at any time.
-{{% /alert %}}
+:::
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of a directly submitted _fault_ on-chain, a `NewFaultProof` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
 
@@ -112,13 +112,13 @@ After successful [handling and verification](/reference/api/aut/op-prot/#handlee
 
 The AFD protocol will apply slashing to an _offending validator_ for the _fault_ with the highest _severity_ reported in an epoch. A validator can only be slashed more than once in an epoch in the case where faults committed in _different_ epochs are reported and applied in the _same_ epoch.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 In certain cases, a validator can be slashed for committing a fault in an epoch more than once. For example:
 
 - **Epoch `n`**: The _offending validator_ is slashed for a fault committed in epoch `n`.
 - **Epoch `n+1`**: New _faults_ are reported for the _offending validator_: (1) one for the current **epoch `n+1`**; (2) one for **epoch `n`** with a higher _severity_ than the _fault_ already slashed in **epoch `n`**.
 - **Slashing applied in epoch `n+1`**: The _offending validator_ is slashed twice: (a) once for the fault committed in epoch `n+1`, and (2) once for the fault committed in epoch `n`.
-{{% /alert %}}
+:::
 
 Rule infraction _severity_ has two key influences. Firstly, it will determine if a new _fault_ is created or not. New fault creation is conditional on whether the _offending validator_ already has an existing _fault_ with a _severity_ `>=` to that of the candidate new _fault_ for the epoch. Secondly, _severity_ will determine the amount of the slashing applied.
 
@@ -132,11 +132,11 @@ Jailing transitions the _offending validator_ from an `active` to a `jailed` or 
 
 On *temporary* jailing the validator enters a `jailed` state and is *impermanently* jailed for a number of blocks, the [jail period](/glossary/#jail-period). The validator's jail release block number is computed based on its proven fault history as described in [Jail period calculation](/concepts/accountability/#jail-period-calculation). After expiry of the jail period a validator may get out of jail by [re-activating](/concepts/validator/#validator-re-activation) to revert to an `active` state and resume [eligibility for consensus committee selection](/concepts/validator/#eligibility-for-selection-to-consensus-committee).
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 The _offending validator_ will remain in a `jailed` state even after jail period expiry.  The validator operator _must_ manually [re-activate](/concepts/validator/#validator-re-activation) by calling the [`activateValidator()`](/reference/api/aut/#activatevalidator) function to get out of jail.
 
 The protocol **does not** automatically revert validator state from `jailed` to `active` at the jail release block number. 
-{{% /alert %}}
+:::
 
 On *permanent* jailing the validator enters a `jailbound` state and is *permanently* jailed. It becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the [accountability and fault detection protocol](/concepts/accountability/) of a fault with a 100% stake slashing penalty as a member of the consensus committee.
 
@@ -225,14 +225,14 @@ Accountability rules are applied to detect faults in the three Tendermint consen
 
 The table below lists each of the rules defined in the AFD rule engine, identified by a unique Rule ID.
 
-{{% alert title="Info" color="info"%}}
+::: {.callout-note title="Info" collapse="false"}
 The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tendermint consensus phases:
 
 - `P`: *propose*
 - `PV`: *prevote*
 - `C`: *precommit*
 
-{{% /alert %}}
+:::
 
 | Rule ID | Description |
 | --| --|
@@ -250,11 +250,11 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 
 Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 In this release all offences are treated as `Mid` severity.
 
 Future releases will introduce an offence scale range. 
-{{% /alert %}}
+:::
 
 ## Events
 
@@ -272,9 +272,9 @@ There are three accountability _event_ types in AFD:
 | `InnocenceProof` | a _proof of innocence_ from an _accusation_ submitted by the accused committee member, which refutes and cancels the _accusation_ if the proof is valid |
 | `FaultProof` | a misbehavior _fault_ |
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 See distinction between _direct_ and _promoted_ in [Faults](/concepts/accountability/#faults) above.
-{{% /alert %}}
+:::
 
 ### Event structure
 
@@ -319,20 +319,20 @@ Slashing rewards earned by a _reporting validator_ are conditional on the _offen
 
 Staking rewards earned by the _offending validator_ for the epoch are distributed to the _reporting validator_ at epoch end.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 The protocol distributes rewards for reporting provable faults committed by an _offending validator_ to the _reporting_ validator.
 
 If multiple slashing events are committed by the same _offending validator_ during the same epoch, then rewards are only distributed to the last reporter.
 
 If the distribution of rewards to the _reporting validator’s_ `treasury` account fails, then the slashing rewards are sent to the Autonity Protocol `treasury` account for community funds.
-{{% /alert %}}
+:::
 
 <!--
 ### Transaction fee refund
 
 The fees for submitting a new accusation may be refunded to the _reporting_ validator if the accusation is the last new accusation submitted in an epoch.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 Note the validator can determine if a detected fault is accusable by calling the [`canAccuse()`](/reference/api/accountability/#canaccuse) and [`canSlash()`](/reference/api/accountability/#canslash) contract functions.
-{{% /alert %}}
+:::
 -->

@@ -14,9 +14,9 @@ The Autonity Go Client can be installed in several ways:
 
 We assume that the Autonity Go Client will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _local_ machine will be used for creating transactions and queries which are then sent to the Autonity Go Client on the _host_ via the RPC endpoint.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 Client source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/).
-{{< /alert >}}
+:::
 
 ## Requirements
 
@@ -50,9 +50,9 @@ The description here covers only the basic network setup. Especially in a produc
 
 ## Installing the pre-compiled executable {#install-binary}
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
   A Linux OS running on AMD64 architecture is required to run the pre-compiled executable.
-{{< /alert >}}
+:::
 
 1. Navigate to the Autonity [Releases <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases) Archive and download the latest stable release version of the client `autonity-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
 
@@ -81,13 +81,13 @@ You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary)
 
 ## Installing the Docker image {#install-docker}
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 Follow the official Docker documentation to [install Docker <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/) onto the host machine and [follow the post-installation steps <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/) to customise for your environment.
 
 By default Docker needs to be run with `sudo`. To avoid using root privileges in the terminal (and error messages if you forget to use `sudo`), consider following the step to [Manage Docker as a non-root user <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 
 Consider also [configuring Docker to start on boot <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot).
-{{< /alert >}}
+:::
 
 {{< alert title="Optional but recommended" >}}
 
@@ -108,7 +108,7 @@ Restart the Docker service to ensure the change is reflected:
 ``` bash
 sudo systemctl restart docker
 ```
-{{< /alert >}}
+:::
 
 1. Pull the Autonity Go Client image from the Github Container Registry:
     ```bash
@@ -117,9 +117,9 @@ sudo systemctl restart docker
 
    (where `latest` can be replaced with another version)
 
-   {{< alert title="Note" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry <i class='fas fa-external-link-alt'></i>](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
-   {{< /alert >}}
+   :::
 
 1. Verify the authenticity of the Autonity Docker images against the official [image digests <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/pkgs/container/autonity/versions):
 
@@ -141,7 +141,7 @@ The following should be installed in order to build the Autonity Go Client:
 - **Golang** (version 1.15 or later) - [https://golang.org/dl <i class='fas fa-external-link-alt'></i>](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
 - **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
 - [**GNU Make** <i class='fas fa-external-link-alt'></i>](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
-{{< /alert >}}
+:::
 
 
 1. Clone/Copy the Autonity repo:
@@ -223,9 +223,9 @@ GOPATH=
 GOROOT=/usr/local/go
 ```
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 The output above will vary depending on the version of the Autonity Go Client you have installed.  Confirm that the "Version" field is consistent with the version you expect.
-{{< /alert >}}
+:::
 
 ## Next steps {#next}
 

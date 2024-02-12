@@ -22,7 +22,7 @@ Called by a reporting validator to determine if (a) an offending validator can b
 
 Returns (a) a boolean flag specifying if the validator is accusable or not, and, (b) the number of blocks remaining in the innocence proof submission window before a new `Accusation` proof can be be submitted on-chain.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 A reporting validator can only submit an accusation against an offending validator if the offending validator:
 
 - has not already been slashed in the epoch in which the accusation is being made for an offence with a higher severity. Slashing history is checked to determine this.
@@ -30,7 +30,7 @@ A reporting validator can only submit an accusation against an offending validat
 
 Accusations do not automatically cause slashing. The _innocence proof window_ is measured in blocks and gives the accused offending validator a window to detect an accusation and prove innocence by submitting an `Innocence` proof on-chain. If the offending validator already has an accusation pending, the accountability protocol determines the offender is not currently accusable. Protocol has to wait to determine if the accusation has been defended or, if not, promoted to a fault. Until then, it cannot determine if the offending validator has committed a rule infraction with a higher severity or not.
 
-{{% /alert %}}
+:::
 
 ### Parameters
 
@@ -56,9 +56,9 @@ Accusations do not automatically cause slashing. The _innocence proof window_ is
 {{< /tab >}}
 {{< /tabpane >}}
 -->
-{{% alert title="Info" %}}
+::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-{{% /alert %}}
+:::
 
 ### Example
 
@@ -69,9 +69,9 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 {{< /tab >}}
 {{< /tabpane >}}
 -->
-{{% alert title="Info" %}}
+::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-{{% /alert %}}
+:::
 
 
 ## canSlash
@@ -80,11 +80,11 @@ Called by a reporting validator to determine if the infraction of a protocol rul
 
 Returns true if the severity of the reported rule infraction is higher than that of any already reported.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
 
 If the severity of the rule infraction reported is higher than any infraction faults committed by the offending validator in the current epoch, then it can lead to a slashing until a rule infraction with a higher severity is reported.
-{{% /alert %}}
+:::
 
 ### Parameters
 
@@ -108,9 +108,9 @@ The method returns a `boolean` flag specifying whether the reported infraction i
 {{< /tabpane >}}
 -->
 
-{{% alert title="Info" %}}
+::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-{{% /alert %}}
+:::
 
 ### Example
 
@@ -122,9 +122,9 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 {{< /tabpane >}}
 -->
 
-{{% alert title="Info" %}}
+::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-{{% /alert %}}
+:::
 
 
 ## canSlash
@@ -133,11 +133,11 @@ Called by a reporting validator to determine if the infraction of a protocol rul
 
 Returns true if the severity of the reported rule infraction is higher than that of any already reported.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
 
 If the severity of the rule infraction reported is higher than any infraction faults committed by the offending validator in the current epoch, then it can lead to a slashing until a rule infraction with a higher severity is reported.
-{{% /alert %}}
+:::
 
 ### Parameters
 
@@ -174,9 +174,9 @@ Returns an `Event` object of type `Accusation` consisting of:
 {{< /tab >}}
 {{< /tabpane >}}
 -->
-{{% alert title="Info" %}}
+::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-{{% /alert %}}
+:::
 
 ### Example
 
@@ -187,9 +187,9 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 {{< /tab >}}
 {{< /tabpane >}}
 -->
-{{% alert title="Info" %}}
+::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-{{% /alert %}}
+:::
 
 
 ## getValidatorAccusation
@@ -229,9 +229,9 @@ Returns an `Event` object of type `Accusation` consisting of:
 {{< /tab >}}
 {{< /tabpane >}}
 -->
-{{% alert title="Info" %}}
+::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-{{% /alert %}}
+:::
 
 ### Example
 
@@ -242,9 +242,9 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 {{< /tab >}}
 {{< /tabpane >}}
 -->
-{{% alert title="Info" %}}
+::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-{{% /alert %}}
+:::
 
 
 ## getValidatorFaults

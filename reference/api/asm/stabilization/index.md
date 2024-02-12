@@ -26,7 +26,7 @@ Before calling this function, the CDP owner must approve the Stabilization contr
 
 {{< alert title="Info" >}}
 You can approve the Stabilization Contract as a spender of Newton Collateral Token using the `aut` command `aut token approve [OPTIONS] SPENDER AMOUNT`.
-{{< /alert >}}
+:::
 
 Constraint checks are applied:
 
@@ -203,7 +203,7 @@ On a successful call the function emits a `Repay` event, logging: `msg.sender`, 
 
 {{< alert title="Info" >}}
 Use the `aut tx` command, specifying the Stabilization Contract address as the `RECIPIENT` address.
-{{< /alert >}}
+:::
 
 {{< tabpane langEqualsHeader=true >}}
 {{< tab header="aut" >}}
@@ -233,7 +233,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -378,7 +378,7 @@ Where:
 
 - `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
 - `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -393,7 +393,7 @@ Where:
 For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 
@@ -433,7 +433,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
-{{< /alert >}}
+:::
 
 - invalid price: the `price` returned by the Oracle Contract is not equal to `0`.
 
@@ -455,7 +455,7 @@ Where:
 - `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
 - `price` is the aggregated median price for Collateral Token calculated by the Oracle Contract (returned by calling [`latestRoundData()`](/reference/api/oracle/#latestrounddata)).
 - `precision` is the Oracle Contract setting for the multiplier applied to submitted data price reports before calculation of an aggregated median price for a symbol (returned by calling [`getPrecision()`](/reference/api/oracle/#getprecision)).
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -549,7 +549,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-{{< /alert >}}
+:::
   
 #### Response
 
@@ -587,7 +587,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 The minimum collateral amount is calculated by `(principal * mcr) / price`.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -601,7 +601,7 @@ The minimum collateral amount is calculated by `(principal * mcr) / price`.
 For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 
@@ -641,7 +641,7 @@ If the CDP is under collateralized, then it can be liquidated - see [`liquidate(
 
 {{< alert title="Info" >}}
 If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -656,7 +656,7 @@ If a debt position is under collateralized or not is determined by calculating `
 For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 
@@ -776,7 +776,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -821,7 +821,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
-{{< /alert >}}
+:::
 
 - invalid price: the `price` returned by the Oracle Contract is not equal to `0`.
 
@@ -843,7 +843,7 @@ Where:
 - `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
 - `price` is the aggregated median price for Collateral Token calculated by the Oracle Contract (returned by calling [`latestRoundData()`](/reference/api/oracle/#latestrounddata)).
 - `precision` is the Oracle Contract setting for the multiplier applied to submitted data price reports before calculation of an aggregated median price for a symbol (returned by calling [`getPrecision()`](/reference/api/oracle/#getprecision)).
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -891,7 +891,7 @@ Where:
 
 - `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
 - `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -906,7 +906,7 @@ Where:
 For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 
@@ -943,7 +943,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 The minimum collateral amount is calculated by `(principal * mcr) / price`.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -957,7 +957,7 @@ The minimum collateral amount is calculated by `(principal * mcr) / price`.
 For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 
@@ -1003,7 +1003,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-{{< /alert >}}
+:::
   
 #### Response
 
@@ -1042,7 +1042,7 @@ If the CDP is under collateralized, then it can be liquidated - see [`liquidate(
 
 {{< alert title="Info" >}}
 If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -1057,7 +1057,7 @@ If a debt position is under collateralized or not is determined by calculating `
 For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 
@@ -1177,7 +1177,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -1224,7 +1224,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
-{{< /alert >}}
+:::
 
 - invalid price: the `price` returned by the Oracle Contract is not equal to `0`.
 
@@ -1246,7 +1246,7 @@ Where:
 - `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
 - `price` is the aggregated median price for Collateral Token calculated by the Oracle Contract (returned by calling [`latestRoundData()`](/reference/api/oracle/#latestrounddata)).
 - `precision` is the Oracle Contract setting for the multiplier applied to submitted data price reports before calculation of an aggregated median price for a symbol (returned by calling [`getPrecision()`](/reference/api/oracle/#getprecision)).
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -1293,7 +1293,7 @@ Where:
 
 - `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
 - `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -1308,7 +1308,7 @@ Where:
 For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 
@@ -1345,7 +1345,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 The minimum collateral amount is calculated by `(principal * mcr) / price`.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -1359,7 +1359,7 @@ The minimum collateral amount is calculated by `(principal * mcr) / price`.
 For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 
@@ -1405,7 +1405,7 @@ Constraint checks are applied:
 
 {{< alert title="Info" >}}
 For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-{{< /alert >}}
+:::
   
 #### Response
 
@@ -1444,7 +1444,7 @@ If the CDP is under collateralized, then it can be liquidated - see [`liquidate(
 
 {{< alert title="Info" >}}
 If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
-{{< /alert >}}
+:::
 
 #### Parameters
 
@@ -1459,7 +1459,7 @@ If a debt position is under collateralized or not is determined by calculating `
 For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
 The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-{{< /alert >}}
+:::
 
 #### Response
 

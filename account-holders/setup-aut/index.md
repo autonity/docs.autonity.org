@@ -11,7 +11,7 @@ For full details and to report any issues, see the [`aut` repository <i class='f
 
 ::: {.callout-note title="State of the Games" collapse="false"}>}}
 A working Python install with the `pip` tool is required.
-{{< /alert >}}
+:::
 
 The tool can be installed using [pipx <i class='fas fa-external-link-alt'></i>](https://github.com/pypa/pipx). To get the latest release run:
 

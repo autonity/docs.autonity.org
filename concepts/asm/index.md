@@ -78,7 +78,7 @@ Modifying the currency basket is restricted to the governance account. See the G
 
 <!--
 
-{{% alert title="A note on ACU basket quantities" color="info" %}}
+::: {.callout-note title="A note on ACU basket quantities" collapse="false"}
 The quantity of each currency in the basket is computed based on the end-of-day time for the most recent 11 calendar years of rate data for each currency. A 365 calendar day is used, end-of-day is 17:00 GMT.
 
 USD is used as the numeraire over the data. The quantity of each currency in the basket is then computed based on a weighting that aims to minimize its variance with respect to the basket and using an initial target value of 1 USD for the total value of the basket. Basket quantities fixed over time. The value of ACU at any time can be computed in terms of exchange rates.
@@ -89,7 +89,7 @@ The new basket quantities are computed by:
 
 - Collecting end-of-day (17:00 GMT) data for each ACU constituent currency for the preceding 11 calendar years to today.
 - Compute minimization, weights, and basket quantities using the data.
-{{% /alert %}}
+:::
 
 -->
 

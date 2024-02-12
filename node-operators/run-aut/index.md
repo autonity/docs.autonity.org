@@ -6,7 +6,7 @@ description: >
 
 {{< alert title="Prerequisites" >}}
 - Ensure that the host machine meets the [minimum requirements](/node-operators/install-aut/#requirements)
-{{< /alert >}}
+:::
 
 ## Run Autonity (binary or source code install) {#run-binary}
 
@@ -96,7 +96,7 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 - The hosts `autonity-chaindata` directory is mounted in the container (via the `--volume` option).  All working data will be saved in this directory and therefore persisted even when the temporary container is removed.
 - The same `autonity-chaindata` directory can thereby be used by both a local binary and the docker image (although not at the same time), allowing administrators to switch between run methods at any time.
 - The `--publish` flag causes incoming connections to the localhost to be forwarded to the container.
-{{< /alert >}}
+:::
 
 Naturally, the above command line can be tailored to suit a specific deployment. See the docker documentation for the complete list of Docker options.
 
@@ -122,14 +122,14 @@ Copy the P2P `nodekey` to a safe location and when reinstalling and running the 
 
 Autonity will detect and use the original `nodekey`. The new node installation will have the same identity as the original.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 If you are running a validator node you need to:
 
 - [pause the validator node](/validators/pause-vali/) **before migration**, and 
 - [reactivate the new validator](/validators/pause-vali/) **after migration**
 
 Be sure to fully decommission the original node installation.
-{{< /alert >}}
+:::
 
 ------------------------------------------------
 

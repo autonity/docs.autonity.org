@@ -12,9 +12,9 @@ It is assumed that you have setup `aut` and have an [account](/account-holders/c
 
 The approach taken in this guide is to run the Autonity Go Client on a dedicated _host_ machine (a VPS or other host that is _always-on_ and persistently available).  Transactions and queries are expected to be created (and signed) on a distinct _local_ machine, and then sent to the Autonity Go Client running on the _host_ via the RPC endpoint.  This setup may be adjusted to suit each specific deployment.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 This guide is intended for use on _testnets_ (see [Networks](/networks/)), on which there is no real-world value at stake.  A production setup will likely have requirements not covered by this guide, such as node availability and security.  For example, the configuration outlined here exposes an unencrypted `http` RPC end-point. For production an operator may wish to configure authentication and encryption (for example using a reverse-proxy such as NGINX).
-{{< /alert >}}
+:::
 
 Further information about Autonity [concepts](/concepts/) and [terminology](/glossary/) are available in this documentation.
 

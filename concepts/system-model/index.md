@@ -45,7 +45,7 @@ The principal message primitives of the networking communication layer are:
 - Block announcement: notification of a new block sent by consensus committee members.
 - Consensus, Tendermint consensus messages sent by and forwarded between committee members during consensus rounds.
 
-{{% alert title="Note" %}}Transaction calls execute against local state and are not broadcast to the network, per standard Ethereum.{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"}Transaction calls execute against local state and are not broadcast to the network, per standard Ethereum.:::
 
 ## System state
 
@@ -99,7 +99,7 @@ New Autonity Fields:
 - `proposerSeal`, the block proposer's signed block proposal
 - `round`, a scalar value corresponding to the number of consensus rounds initiated for the block. Initial value of `0`.
 
-{{% alert title="Note" %}}If you want to determine how many validators voted for a block with regard to the total committee membership, check if there is a delta between the count of seals in this block and the committee members in the preceding block.{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"}If you want to determine how many validators voted for a block with regard to the total committee membership, check if there is a delta between the count of seals in this block and the committee members in the preceding block.:::
 
 
 #### Block content
@@ -170,7 +170,7 @@ aut block height | aut block get | jq .
 
 Transactions are standard Ethereum transaction structures. Autonity supports both legacy (type 0) and EIP 1559 (type 2) transaction types. Use of the EIP 1559 type 2 transaction to take advantage of the economic benefits provided by the EIP 1559 fee market mechanism is recommended.
 
-{{% alert title="Note" %}}For an explanation of how specifying gas in transactions differs between legacy and EIP 1559 transaction types, see Ethereum developer docs "Gas and Fees" - [https://ethereum.org/en/developers/docs/gas/ <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/gas/).{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"}For an explanation of how specifying gas in transactions differs between legacy and EIP 1559 transaction types, see Ethereum developer docs "Gas and Fees" - [https://ethereum.org/en/developers/docs/gas/ <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/gas/).:::
 
 Generated and signed by accounts on the network, transactions are submitted to the system via participant node client API's. The client performs standard Ethereum pre-flight checks to the transaction before broadcasting it to the network.
 
@@ -240,7 +240,7 @@ A message call is executed in the EVM at runtime and will:
 - may contain data taken as input by the receiving contract
 
 
-{{% alert title="Note" %}}Although often referred to as an 'internal transaction', a _message call_  is not strictly a transaction. A transaction is always signed. A _message call_ is not because it is initiated by a contract account and not an account held by an external system user, i.e. externally owned account (EOA).{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"}Although often referred to as an 'internal transaction', a _message call_  is not strictly a transaction. A transaction is always signed. A _message call_ is not because it is initiated by a contract account and not an account held by an external system user, i.e. externally owned account (EOA).:::
 
 
 ### Transaction fees

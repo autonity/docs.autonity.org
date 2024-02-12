@@ -234,7 +234,7 @@ $ aut token balance-of --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 0x11a8
 
 {{< alert title="Info" >}}
 All Liquid Newton balances for an account can be returned in one call using the `aut` command `aut account lntn-balances [OPTIONS] ACCOUNT`.
-{{< /alert >}}
+:::
 
 
 ## bond
@@ -262,9 +262,9 @@ On successful processing of the method call:
 
 The `BondingRequest` is tracked in memory until applied at epoch end. At that block point, if the stake delegation is [delegated](/glossary/#delegated) and not [self-bonded](/glossary/#self-bonded), then Liquid Newton will be minted to the delegator for the bonded stake amount.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
-{{< /alert >}}
+:::
 
 ### Parameters
 
@@ -1367,7 +1367,7 @@ aut validator list [OPTIONS]
 
 {{< alert title="Info" >}}
 `getValidators` can also be called using the `aut` command `aut protocol get-validators`.
-{{< /alert >}}
+:::
 
 ### Example
 
@@ -1911,11 +1911,11 @@ See Concept [Accountability and fault detection (AFD)](/concepts/accountability/
 
 Constraint checks are applied. The  `validator` address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is `<=` to the `msg.sender`'s bonded stake amount. For delegated stake this is done by checking the `msg.Sender`'s Liquid Newton balance is `>=` to the requested amount, and for self-bonded stake this is done by checking the validator's `selfBondedStake` balance is`>=` to the requested unbonding amount.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 If `msg.Sender` is the validator `treasury` account, then Liquid Newton balance and supply checks are not required.
 
 This is because Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/concepts/staking/) and [Penalty Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
-{{< /alert >}}
+:::
 
 On successful processing of the method call, an `UnbondingRequest` object for the necessary voting power change is created:
 

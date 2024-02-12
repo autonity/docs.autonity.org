@@ -31,7 +31,7 @@ To submit transactions restricted to the governance account from the Autonity No
     ./console ws://<IP-ADDRESS>:8546
     ```
 
-{{% alert title="Note" %}}If the transport is over WebSockets or WebSockets Secure will depend on your local network setup. If the node you are connecting to is public, then WebSockets Secure (`wss`) is advised.{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"}If the transport is over WebSockets or WebSockets Secure will depend on your local network setup. If the node you are connecting to is public, then WebSockets Secure (`wss`) is advised.:::
 
 2. Unlock the governance account private key in the NodeJS Console. Enter the following in the NodeJS Console, specifying the private key of the governance account:
 

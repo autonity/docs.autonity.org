@@ -13,11 +13,11 @@ To register a validator you need:
 - A configured instance of [`aut`](/account-holders/setup-aut/).
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that will also receive the validator's share of staking rewards.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.
 
 See the [Oracle](/concepts/oracle-server/) section for an explanation of the oracle server.
-{{< /alert >}}
+:::
 
 ## Register as a validator
 
@@ -50,7 +50,7 @@ Signature hex: 0x116f317684203d325732fbdd74632649c60ff9b246e09aced5172a0ab87ed80
 
 This signature hex will be required for the registration.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 The `genOwnershipProof` command options `--nodekey` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument. The `nodekey` file is unencrypted. If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
 
 Autonity's `ethkey` cmd utility can be used to inspect the keystore file and view the account address, public key, and private key after entering your account password:
@@ -62,7 +62,7 @@ Password:
 ```
 To install the `cmd` utilities use `make all` when [building Autonity from source code](/node-operators/install-aut/#install-source).
 
-{{< /alert >}}
+:::
 
 ### Step 2. Determine the validator enode and address
 
@@ -109,7 +109,7 @@ Make a note of this identifier.
 
 {{< alert title="Important Note" >}}
 The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator register` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
-{{< /alert >}}
+:::
 
 ```bash
 aut validator register <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -

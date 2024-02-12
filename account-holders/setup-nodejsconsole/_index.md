@@ -182,7 +182,7 @@ Public access to the `tendermint` namespace module is deprecated and will be rem
 
 The Autonity console is invoked as an interactive shell. Refer to the [Autonity Interfaces](/reference/api) Reference section 'console' entries for guidance on how to call the API from the console.
 
-{{% alert title="Note" %}} Some functions provided by the NodeJS console are asynchronous and they return promises (https://www.w3schools.com/Js/js_promise.asp). For conveniency reasons promises are automatically resolved by the NodeJS console CLI when calling asynchronous functions; however this is not true when performing assigments or nested function calls, in this case the `await` keyword needs to be specified to resolve the promise. Examples: `wallet = await web3.personal.listWallets()`, `web3.eth.getBlock(await web3.eth.getBlockNumber())`{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"} Some functions provided by the NodeJS console are asynchronous and they return promises (https://www.w3schools.com/Js/js_promise.asp). For conveniency reasons promises are automatically resolved by the NodeJS console CLI when calling asynchronous functions; however this is not true when performing assigments or nested function calls, in this case the `await` keyword needs to be specified to resolve the promise. Examples: `wallet = await web3.personal.listWallets()`, `web3.eth.getBlock(await web3.eth.getBlockNumber())`:::
 
 #### `.call()` and `.send()`
 

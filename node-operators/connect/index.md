@@ -16,9 +16,9 @@ rpc_endpoint=http://XX.XX.XX.XX:8545/
 
 where `XX.XX.XX.XX` is the IP address used to connect to your host machine running the Autonity Go Client.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 If you chose to expose the Web Socket end-point of your node, the URL will be of the form `ws://XX.XX.XX.XX:8546/`.
-{{< /alert >}}
+:::
 
 Use the `node info` query to check the connection:
 

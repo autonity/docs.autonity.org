@@ -69,7 +69,7 @@ The following are the steps to successfully demonstrate clef working with Autoni
 
    Clef is now setup and ready to use.
 
-::: {.callout-note title="Note" collapse="false"}The password that you are setting here is not the password for your keystore. It is the password for the clef masterseed, which is used for a variety of functions, including storing keystores passwords. It is strongly suggested to choose a strong password, different from the keystore one.:::
+:::{.callout-note title="Note" collapse="false"}The password that you are setting here is not the password for your keystore. It is the password for the clef masterseed, which is used for a variety of functions, including storing keystores passwords. It is strongly suggested to choose a strong password, different from the keystore one.:::
 
 
 ## Use Clef with the Autonity client

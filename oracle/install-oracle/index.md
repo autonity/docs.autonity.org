@@ -14,9 +14,9 @@ The Autonity Oracle Server can be installed in several ways:
 
 We assume that the Autonity Oracle Server will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _host_ machine will be used for Autonity Go Client the oracle serves via the WSS endpoint.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 Autonity Oracle Server source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle).
-{{< /alert >}}
+:::
 
 ## Requirements
 
@@ -38,18 +38,18 @@ A public-facing internet connection with static IP is required.  Incoming traffi
 
 * `TCP 8546` to make WebSocket RPC connections to the node.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 
 Your validator node's [installation](/node-operators/install-aut/#network) must also allow traffic on your validator node's port `TCP 8546` to allow the Oracle Server's WebSocket RPC connection to the node.
-{{< /alert >}}
+:::
 
 The description here covers only the basic network setup. Especially in a production setting, administrators should consider further security measures based on their situation.
 
 ## Installing the pre-compiled executable {#install-binary}
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
   A Linux OS running on AMD64 architecture is required to run the pre-compiled executable.
-{{< /alert >}}
+:::
 
 1. Navigate to the Autonity Oracle Server [Releases <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/releases) Archive and download the latest stable release version of the Autonity Oracle Server `autoracle-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
 
@@ -88,7 +88,7 @@ The following should be installed in order to build the Autonity Oracle Server:
 - **Golang** (version 1.19.3 or later) - [https://golang.org/dl <i class='fas fa-external-link-alt'></i>](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
 - **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
 - [**GNU Make** <i class='fas fa-external-link-alt'></i>](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
-{{< /alert >}}
+:::
 
 
 1. Clone/Copy the Autonity Oracle Server repo:
@@ -132,13 +132,13 @@ You can now [configure and launch Autonity Oracle Server](/oracle/run-oracle/#ru
 
 ## Installing the Docker image {#install-docker}
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 Follow the official Docker documentation to [install Docker <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/) onto the host machine and [follow the post-installation steps <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/) to customize for your environment.
 
 By default Docker needs to be run with `sudo`. To avoid using root privileges in the terminal (and error messages if you forget to use `sudo`), consider following the step to [Manage Docker as a non-root user <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 
 Consider also [configuring Docker to start on boot <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot).
-{{< /alert >}}
+:::
 
 {{< alert title="Optional but recommended" >}}
 
@@ -159,7 +159,7 @@ Restart the Docker service to ensure the change is reflected:
 ``` bash
 sudo systemctl restart docker
 ```
-{{< /alert >}}
+:::
 
 1. Create a working directory and CD to your working directory:
     ```bash
@@ -184,9 +184,9 @@ sudo systemctl restart docker
    
    Note that the data source plugins are included as part of the Docker image at the directory path `/usr/local/bin/plugins`.
 
-   {{< alert title="Note" >}}
+   ::: {.callout-note title="Note" collapse="false"}
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry <i class='fas fa-external-link-alt'></i>](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
-   {{< /alert >}}
+   :::
 
 <!-- TODO: UPDATE to autonity-oracle:latest
 
@@ -244,9 +244,9 @@ docker run --rm ghcr.io/autonity/autonity-oracle:latest version
 v0.1.6
 ```
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 The output above will vary depending on the version of the Autonity Oracle Server you have installed.  Confirm that the "Version" field is consistent with the version you expect.
-{{< /alert >}}
+:::
 
 ## Installing data source plugins {#install-plugin}
 
@@ -263,13 +263,13 @@ The plugins are built by the `make` process when building from source. The plugi
 
 If installing by building from source, run the make command appropriate for the Testnet you are connecting to as described in [Build from source code](/oracle/install-oracle/#install-source). You can view the built plugins in the directory `./build/bin/plugins`. 
 
-{{% alert title="Note"%}}
+::: {.callout-note title="Note" collapse="false"}
 The Simulator plugin is built when building from source for Bakerloo Testnet. You can also build the Simulator plugin independently by running the command `make simulator`. This will build the `sim_plugin` in the `/plugins` directory. A local testnet could be a scenario for setting up and using a simulator.
 
 If you have developed your own plugins for external data sources using the oracle server's plugin template architecture, then you will need to build them and add to the `/plugins` directory.
 
 For how to do this, see [Developing data plugins](/concepts/oracle-server/#developing-data-plugins).
-{{% /alert %}}
+:::
 
 ## Next steps {#next}
 

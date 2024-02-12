@@ -6,13 +6,13 @@ description: >
 
 See the [staking section](/concepts/staking/) to understand the concepts behind bonding and unbonding.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 You can only bond stake to a validator that is in an `active` state at the time of the bonding request. Bonding requests to a validator in a `paused`, `jailed`, or `jailbound` state will revert. This constraint ensures stake can only be delegated to validators in a state eligible for selection to the consensus committee, maximising the amount of bonded stake available to secure the network.
 
 You can determine the state of a validator using the `aut validator info` command; if the validator is `active` the `state` field has the value of `0`.
 
 No such state constraint applies to unbonding. You are able to unbond stake from a validator in any state, i.e. `0`: active, `1`: paused, `2`: jailed, `3`: jailbound.
-{{< /alert >}}
+:::
 
 ## Prerequisites
 
@@ -59,7 +59,7 @@ aut validator info --validator 0x9fd408Bdb83Be1c8504Ff13eBcCe7f490DCCC2cF
 }
 ```
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 If you interact with a specific validator very frequently, you might consider making it the default by adding an entry such as
 
 ```
@@ -67,7 +67,7 @@ validator=0x9fd408Bdb83Be1c8504Ff13eBcCe7f490DCCC2cF
 ```
 
 to your `.autrc` file.
-{{< /alert >}}
+:::
 
 {{% pageinfo %}}
 As described in [Committee member selection](/concepts/consensus/committee/#committee-member-selection) the set of validators in the consensus committee is changed at every block epoch. [Voting power changes](/concepts/consensus/committee/#voting-power-changes) caused by bonding and unbonding stake to a validator are applied at the end of an epoch before the committee selection algorithm for the next epoch's committee is run.
@@ -88,15 +88,15 @@ The `aut validator bond` command creates a transaction that bonds the caller's n
 aut validator bond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx sign - | aut tx send -
 ```
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 Bonding requests are not processed until the end of the current epoch.  The Newton to be bonded will be deducted from your balance, but your [liquid newton balance](/delegators/transfer-lntn) will not be affected until the epoch end.
 
 (Pending and historical bonding requests can be discovered by listening for [`NewBondingRequest`](/reference/api/aut/#event-2) events emitted by the [bond()](/reference/api/aut/#bond) function.)
-{{< /alert >}}
+:::
 
 {{< alert title="Info" color="info">}}
 Remember to verify your chosen validator is in an active state before attempting to bond stake to it. I.e. when you call `aut validator info` it returns  `"state": 0`. If you attempt to bond stake to a validator in an inactive state, then the transaction will revert and a [`BondingRejected`](/reference/api/aut/#event-2) event is emitted by the [bond()](/reference/api/aut/#bond) function.
-{{< /alert >}}
+:::
 
 ## Unbond Newton from validator
 
@@ -106,10 +106,10 @@ The `aut validator unbond` command creates a transaction that unbonds the caller
 aut validator unbond --validator <VALIDATOR_IDENTIFIER_ADDRESS> <AMOUNT> | aut tx sign - | aut tx send -
 ```
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 If you are a validator operator unbonding [self-bonded](/glossary/#self-bonded) stake, then the amount specifies Newton stake token. Otherwise, if you are unbonding [delegated](/glossary/#delegated) stake, then the amount is specifying Liquid Newton.
 
 Like bonding requests, unbonding does not complete immediately.  The unbonding request will only be effective after the unbonding period, rounded to the next epoch. Newton will then be returned to the caller.  See the [staking section](/concepts/staking/) for further details.
 
 (Pending and historical unbonding requests can be discovered by listening for `NewUnbondingRequest` events emitted by the [unbond()](/reference/api/aut/#unbond) function.)
-{{< /alert >}}
+:::

@@ -59,7 +59,7 @@ The public key is used:
 - To verify the signature of consensus level network messages.
 - To derive an ethereum format account that is then used to identify the validator node. See [validator identifier](#validator-identifier).
 
-{{< alert title="Note" >}}The private key can be used by Autonity’s `bootnode` utility to derive the hex string used in the `enode` URL. (See Networking Options  `nodekey` and `nodekeyhex` in [Autonity command-line options](/reference/cli/#usage) and, for reference,  the ethereum stack exchange article [how to produce enode from node key <i class='fas fa-external-link-alt'></i>](https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key).){{< /alert >}}
+::: {.callout-note title="Note" collapse="false"}The private key can be used by Autonity’s `bootnode` utility to derive the hex string used in the `enode` URL. (See Networking Options  `nodekey` and `nodekeyhex` in [Autonity command-line options](/reference/cli/#usage) and, for reference,  the ethereum stack exchange article [how to produce enode from node key <i class='fas fa-external-link-alt'></i>](https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key).):::
 
 
 ### Validator enode URL
@@ -85,7 +85,7 @@ The identity is created as an ethereum format account address, derived on regist
 
 Note that the identifier is the validator _node's_ on-chain identity and is distinct from the treasury account which is the validator _operator's_ account. 
 
-{{< alert title="Note" >}}An account address rather than the PUBKEY of the [enode](/glossary/#enode) url is used to make use of the address datatype in function calls.{{< /alert >}}
+::: {.callout-note title="Note" collapse="false"}An account address rather than the PUBKEY of the [enode](/glossary/#enode) url is used to make use of the address datatype in function calls.:::
 
 ### Treasury account
 
@@ -150,11 +150,11 @@ In this model:
 - [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas): [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake, ensuring the validator has "skin in the game" and incentivising reliable and honest validator operations and behaviour.
 - [Liquid staking](/concepts/staking/#liquid-staking): [delegated](/glossary/#delegated) stake has [Liquid Newton](/concepts/protocol-assets/liquid-newton/) minted to the staker in proportion to the amount of Newton staked to a validator.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 Note that:
   - [Liquid Newton](/concepts/protocol-assets/liquid-newton/) is **not** minted for [self-bonded](/glossary/#self-bonded) stake. For rationale see [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
   - Staking rewards accrue to all bonded stake active in the current consensus committee; [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stakers earn staking rewards _pro rata_ to their share of the validator's total bonded stake.
-{{% /alert %}}
+:::
 
 Account addresses owning liquid newton and receiving staking reward revenue are:
 
@@ -242,7 +242,7 @@ After genesis the process is:
 
 The validator is registered and eligible for selection to the consensus committee.
 
-{{% alert title="Note" %}}Note that registration after genesis allows a validator to register with zero bonded stake. The validator bonds stake after registration to become eligible for committee selection.{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"}Note that registration after genesis allows a validator to register with zero bonded stake. The validator bonds stake after registration to become eligible for committee selection.:::
 
 ## Validator accountability
 
@@ -300,7 +300,7 @@ The process is:
 
 The validator is paused and ignored by the committee selection algorithm. Stake delegation transactions bonding stake are reverted until the validator resumes an `active` state.
 
-{{< alert title="Note" >}}Pausing has no impact on unbonding constraints. For example, if a validator pauses at time `T` and a staker immediately detects the `PausedValidator` event and submits an unbond transaction at time `T+1`, the unbonding period begins to count at `T+1`. Unbonding is then executed at `T+1 + unbondingPeriod + remainder of the epoch` in which `unbondingPeriod` falls.{{< /alert >}}
+::: {.callout-note title="Note" collapse="false"}Pausing has no impact on unbonding constraints. For example, if a validator pauses at time `T` and a staker immediately detects the `PausedValidator` event and submits an unbond transaction at time `T+1`, the unbonding period begins to count at `T+1`. Unbonding is then executed at `T+1 + unbondingPeriod + remainder of the epoch` in which `unbondingPeriod` falls.:::
 
 ## Validator re-activation
 
@@ -337,7 +337,7 @@ The process is:
    - The rate change is applied at the end of the epoch in which the unbonding period expires as the last block of the epoch is finalised.
    - A `CommissionRateChange` event is emitted detailing: validator identifier address, new rate value.
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 A stake delegator can use the `CommissionRateChange` event to listen for upcoming commission rate changes. The effective block of the commission rate change can then be calculated from data points: the `changeCommissionRate` transaction commit block number, and the network `unbondingPeriod` and `epochPeriod` values.
-{{< /alert >}}
+:::
 

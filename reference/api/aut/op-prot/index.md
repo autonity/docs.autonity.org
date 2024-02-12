@@ -129,7 +129,7 @@ On a successful call the function emits a `Mint` event, logging: `recipient`, `a
 The ASM Supply Control Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
-{{< /alert >}}
+:::
 
 ###  modifyBasket (ACU Contract)
 
@@ -157,7 +157,7 @@ None.
 The ASM ACU Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
-{{< /alert >}}
+:::
 
 
 ###  setAccountabilityContract
@@ -324,7 +324,7 @@ None.
 The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
-{{< /alert >}}
+:::
 
 
 ###  setMinCollateralizationRatio (ASM Stabilization Contract)
@@ -357,7 +357,7 @@ None.
 The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
-{{< /alert >}}
+:::
 
 
 ###  setMinDebtRequirement (ASM Stabilization Contract)
@@ -384,7 +384,7 @@ None.
 The ASM Stabilization Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
-{{< /alert >}}
+:::
 
 
 ###  setMinimumBaseFee
@@ -843,7 +843,7 @@ None.
 | `contractUpgradeReady` | `bool` | Set to `true` if an Autonity Protocol Contract upgrade is available |
 | `committee`| `CommitteeMember[]` array | the consensus committee that approved the block, each `CommitteeMember` struct recording the validator's account address (`_addr`) and bonded stake amount (`votingPower`)|
 
-{{% alert title="Note" %}}If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.{{% /alert %}}
+::: {.callout-note title="Note" collapse="false"}If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.:::
 
 #### Event
 
@@ -859,9 +859,9 @@ The Accountability Contract finalisation function, called at each block finalisa
 
 - On each block, tries to [promote `Accusations`](/reference/api/aut/op-prot/#promote-guilty-accusations) without proof of innocence into misconducts. `Accusations` without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous fault already committed by the validator in the current epoch.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 A validator can, of course, have more than one fault proven against it in an epoch. For example, a first fault is proven and then another fault for a higher severity is proven. Note that the protocol will only apply an accountability slashing to a validator for the fault with the highest severity committed in an epoch.
-{{% /alert %}}
+:::
 
 - On epoch end, [performs slashing tasks](/reference/api/aut/op-prot/#perform-slashing-tasks).
 
@@ -892,11 +892,11 @@ The function checks the total number of faults committed by **all**  validators 
 
 Rewards for fault reporting are distributed to the `treasury` account of the reporting validator as the last block of the epoch is finalised. Reporting validator [self-bonded](/glossary/#self-bonded) and [delegated](/glossary/#delegated) stakeholders receive a share of the rewards _pro rata_ to their bonded stake amount. If the rewards transfer to the validator `treasury` account fails, then the rewards are sent to the Autonity Protocol's community `treasury` account.
 
-{{% alert title="Note" %}}
+::: {.callout-note title="Note" collapse="false"}
 The protocol adjusts the slashing rate according to the total number of fault offences committed in an epoch across all validators.
 
 This mechanism applies a dynamic slashing rate mitigating collusion risk by Byzantine agents in an epoch.
-{{% /alert %}}    
+:::    
 
 #### Parameters
 

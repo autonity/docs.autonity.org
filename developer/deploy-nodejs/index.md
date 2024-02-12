@@ -103,7 +103,7 @@ This script uses the prebuilt json file `ERC20PresetFixedSupply.json` of the sma
 The main function in the script makes a `web3` object using the rpc address, and uses that to create a `web3` `wallet` object, which is then used to send transactions.
 
 It then calls the `deployTokens` function, which constructs a `web3` `contract` object, then calls the `send` method of the `contract` object to deploy the smart contract to the blockchain.
-{{< /alert >}}
+:::
 
 ## Deploy the contract
 

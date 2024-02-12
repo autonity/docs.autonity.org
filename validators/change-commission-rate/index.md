@@ -10,7 +10,7 @@ description: >
 - A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
 - Your validator's [`treasury account`](/concepts/validator/#treasury-account) is [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
 
-{{< alert title="Note" >}}See the [Validator economics](/concepts/validator/#validator-economics) section for more information on commission rate and its default setting on an Autonity Network.{{< /alert >}}
+::: {.callout-note title="Note" collapse="false"}See the [Validator economics](/concepts/validator/#validator-economics) section for more information on commission rate and its default setting on an Autonity Network.:::
 
 
 ## Change validator commission rate
@@ -35,9 +35,9 @@ description: >
     0xdbc9a27a2f7b53d9eaa660add917ed61fe7213d1cdd826065d0e7af96674d725
 	```
 
-{{< alert title="Note" >}}
+::: {.callout-note title="Note" collapse="false"}
 Commission rate changes are subject to the same temporal [unbonding period](/concepts/staking/#unbondingperiod) constraint as staking transitions. On commit of the rate change transaction, the unbonding period is tracked and the rate change is applied at the end of the epoch in which the unbonding period expires.
-{{< /alert >}}
+:::
 
 
 2. (Optional) To verify the updated rate, use the `validator` command `info` to submit a call to query for validator metadata. It will return the validator metadata from system state, including the validator status:
