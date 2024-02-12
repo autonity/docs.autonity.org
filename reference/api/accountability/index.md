@@ -167,26 +167,12 @@ Returns an `Event` object of type `Accusation` consisting of:
 
 ### Usage
 
-<!--
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
--->
 ::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
 :::
 
 ### Example
 
-<!--
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-
-{{< /tab >}}
-{{< /tabpane >}}
--->
 ::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
 :::
