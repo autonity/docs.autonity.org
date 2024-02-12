@@ -1,24 +1,54 @@
-# docs.autonity.org
+# Piccadilly Circus Games Competition Website
 
-Documentation for the Autonity Go Client (AGC), the reference implementation of the Autonity blockchain protocol.
+## Getting started
 
-## Build Instructions
-
-Setup:
-
-1. Clone this repository.
-2. [Install the latest Hugo "extended version"](https://gohugo.io/getting-started/installing/)
-   for your OS. If you are on an LTS Linux distro, you may need to use the Hugo
-   snap package or the pre-built binaries to obtain the latest version.
-3. [Install Node.js and `npm`](https://nodejs.org/en/download/package-manager/) for your OS.
-4. Run `make deps` to install Docsy and its dependencies.
+- Download [Quarto](https://quarto.org/)
+- Clone this repository
+- In the root
+``` bash
+quarto render
+```
 
 Usage:
+- Run `quarto preview` to serve the site in Quarto's local webserver
+- Review the [`_quarto.yml`](_quarto.yml) file and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details
 
-- Run `make serve` (or just `make`) to serve the site in Hugo's local webserver.
-- Review the [`Makefile`](Makefile) and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details.
+## Publication workflow
 
-You can view the style specimen by viewing the [`specimen`](./content/docs/styleguide.md) file. The file can only be viewed locally by typing `hugo server -D` to include drafts when building and going to
+The repo is configured to publish:
+
+- on merge to `develop`: to GitHub Pages site https://special-umbrella-26f3274a.pages.github.io/
+- on merge to `staging`: to staging site https://staging.game.autonity.org
+  - Staging site access credentials are in `Bitwarden >> Autonity-org >> PCGC >> staging.game.autonity.org`
+- on merge to `master`: to production site https://game.autonity.org
+
+## Development workflow
+
+- The `master` branch will always have the live production version of the website.
+- A hot-fix to the production site is published by creating a branch from `master` with the hot-fix, and creating a PR.  (Once the hot-fix has been merged, `master` should be merged to `develop` to ensure that the fix is propagated, and that conflicts are resolved in `develop`.)
+- The `develop` branch will always have the WIP next version of the website being prepared.
+- A new version of the production website is published by merging `develop` into `master`.
+
+See the repo Wiki Page [Git Workflow](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow) for [when to `merge` or `rebase` branches when working on `game.autonity.org`](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow#when-to-merge-and-rebase-when-working-on-gameautonityorg) repo.
+
+## Other Piccadilly site resources
+
+For overall site structure, see [Autonity Sitemap](https://ideal-funicular-f02b8485.pages.github.io/autonity-www.html)
+
+* Piccadilly Testnet genesis configuration at https://docs.autonity.org/networks/testnet-piccadilly/#genesis-configuration
+* Structure
+  * Block explorer at https://piccadilly.autonity.org/ -- Blockscout, our standard config
+  * Metrics at https://telemetry.piccadilly.autonity.org -- Grafana
+  * ATN Faucet at https://faucet.autonity.org/
+    * need to discuss further development needs (https://github.com/clearmatics/autonity-launch-plan/issues/60)
+  * Public endpoints: (with standard setup (cloud based firewall, DDOS mitigations etc.):
+      * RPC: https://rpc1.piccadilly.autonity.org:8545
+      * WebSocket: wss://rpc1.piccadilly.autonity.org:8546
+      * GraphQL: https://rpc1.piccadilly.autonity.org:8545/graphql
+      * GraphQL Query UI: https://rpc2.bakerloo.autonity.org/graphql/ui
+  * Website/documentation:
+    * Piccadilly landing page (including the content of this repo): https://autonity.org/network.html
+    * Piccadilly-specific technical documentation: https://docs.autonity.org/networks/testnet-piccadilly/
 
 ## Contributing
 

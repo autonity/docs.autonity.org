@@ -17,7 +17,7 @@ website:
     type: overlay
   sidebar: 
    contents:
-    - overview/index.md
+    - index.md
     - section: "Concepts"
       contents:
       - auto: "concepts/**"   
