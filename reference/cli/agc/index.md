@@ -48,7 +48,7 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 Run `autonity --help` to view the options:
 
 {{pageinfo}}
-_Autonity is a Geth fork and command-line options are inherited from Geth. The Geth docs [Command-line Options <i class='fas fa-external-link-alt'></i>](https://geth.ethereum.org/docs/fundamentals/command-line-options) are kept in synch with the current stable version of Geth. The Command-line Options inherited from Geth reflect the Geth version from which Autonity is forked. For Autonity's Geth base version see Reference [Codebase](/reference/codebase/)._
+_Autonity is a Geth fork and command-line options are inherited from Geth. The Geth docs [Command-line Options](https://geth.ethereum.org/docs/fundamentals/command-line-options) are kept in synch with the current stable version of Geth. The Command-line Options inherited from Geth reflect the Geth version from which Autonity is forked. For Autonity's Geth base version see Reference [Codebase](/reference/codebase/)._
 {{/pageinfo}}
 
 ```

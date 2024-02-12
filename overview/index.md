@@ -23,7 +23,7 @@ Key technical features of the Autonity Protocol are:
 
 ## Technology
 
-Core technology is the [Autonity Go Client (AGC)](/concepts/client/), a fork of the Go Ethereum '[Geth <i class='fas fa-external-link-alt'></i>](https://geth.ethereum.org/)' client, and the [Autonity Oracle Server (AOS)](/concepts/oracle-server/). For the Geth base version of AGC see Reference, [Codebase](/reference/codebase/).
+Core technology is the [Autonity Go Client (AGC)](/concepts/client/), a fork of the Go Ethereum '[Geth](https://geth.ethereum.org/)' client, and the [Autonity Oracle Server (AOS)](/concepts/oracle-server/). For the Geth base version of AGC see Reference, [Codebase](/reference/codebase/).
 
 AGC is the reference implementation of the Autonity Protocol and provides the main client software run by [participant](/glossary/#participant) peer nodes in an Autonity network system - see [Running a Node](/node-operators/). AOS is operated by validator nodes only - see [Running a validator](/validators/).
 

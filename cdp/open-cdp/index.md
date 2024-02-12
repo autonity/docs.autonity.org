@@ -14,7 +14,7 @@ To open a CDP and borrow ATN you need:
   
   Note that this account address will be also be used as the [CDP identifier](/concepts/asm/#cdp-identifiers) account address as well as the [CDP Owner](/concepts/asm/#roles) address used to open and service the CDP.
 
-- A running instance of [`aut` <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
+- A running instance of [`aut`](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
 
 {{pageinfo}}
 The guide uses the `aut contract call` and `aut contract tx` commands for contract interactions.

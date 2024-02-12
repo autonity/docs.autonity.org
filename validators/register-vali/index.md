@@ -51,7 +51,7 @@ Signature hex: 0x116f317684203d325732fbdd74632649c60ff9b246e09aced5172a0ab87ed80
 This signature hex will be required for the registration.
 
 ::: {.callout-note title="Note" collapse="false"}
-The `genOwnershipProof` command options `--nodekey` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument. The `nodekey` file is unencrypted. If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
+The `genOwnershipProof` command options `--nodekey` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument. The `nodekey` file is unencrypted. If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
 
 Autonity's `ethkey` cmd utility can be used to inspect the keystore file and view the account address, public key, and private key after entering your account password:
 

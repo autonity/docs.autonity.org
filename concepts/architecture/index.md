@@ -307,7 +307,7 @@ To learn more about the concept, see [consensus](/concepts/consensus/) and the [
 
 ## Communication Layer
 
-Autonity uses a [fully connected network topology](/glossary/#mesh-network) with peer-to-peer communication based on Ethereum [devp2p <i class='fas fa-external-link-alt'></i>](https://github.com/ethereum/devp2p) network protocols RLPx and wire protocol.
+Autonity uses a [fully connected network topology](/glossary/#mesh-network) with peer-to-peer communication based on Ethereum [devp2p](https://github.com/ethereum/devp2p) network protocols RLPx and wire protocol.
 
 Each participant maintains a current record of peers in the network, updated as new participants join or leave the system. Participants establish an authenticated connection with one another over TCP by the RLPx transport protocol. At the application-level, Autonity extends the Ethereum wire protocol for message broadcast to:
 

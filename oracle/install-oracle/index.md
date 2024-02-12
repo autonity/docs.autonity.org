@@ -51,7 +51,7 @@ The description here covers only the basic network setup. Especially in a produc
   A Linux OS running on AMD64 architecture is required to run the pre-compiled executable.
 :::
 
-1. Navigate to the Autonity Oracle Server [Releases <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/releases) Archive and download the latest stable release version of the Autonity Oracle Server `autoracle-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
+1. Navigate to the Autonity Oracle Server [Releases](https://github.com/autonity/autonity-oracle/releases) Archive and download the latest stable release version of the Autonity Oracle Server `autoracle-linux-amd64-<RELEASE_VERSION>.tar.gz` from the Assets section.
 
 2. Create a working directory for installing Oracle Server. For example:
 
@@ -84,10 +84,10 @@ You can now [configure and launch Autonity Oracle Server](/oracle/run-oracle/#ru
 
 ::: {.callout-note title="Prerequisites" collapse="false"}
 The following should be installed in order to build the Autonity Oracle Server:
-- **Git** Follow the official GitHub documentation to [install git <i class='fas fa-external-link-alt'></i>](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
-- **Golang** (version 1.19.3 or later) - [https://golang.org/dl <i class='fas fa-external-link-alt'></i>](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
+- **Git** Follow the official GitHub documentation to [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
+- **Golang** (version 1.19.3 or later) - [https://golang.org/dl](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
 - **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
-- [**GNU Make** <i class='fas fa-external-link-alt'></i>](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
+- [**GNU Make**](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
 :::
 
 
@@ -133,11 +133,11 @@ You can now [configure and launch Autonity Oracle Server](/oracle/run-oracle/#ru
 ## Installing the Docker image {#install-docker}
 
 ::: {.callout-note title="Note" collapse="false"}
-Follow the official Docker documentation to [install Docker <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/) onto the host machine and [follow the post-installation steps <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/) to customize for your environment.
+Follow the official Docker documentation to [install Docker](https://docs.docker.com/engine/install/) onto the host machine and [follow the post-installation steps](https://docs.docker.com/engine/install/linux-postinstall/) to customize for your environment.
 
-By default Docker needs to be run with `sudo`. To avoid using root privileges in the terminal (and error messages if you forget to use `sudo`), consider following the step to [Manage Docker as a non-root user <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
+By default Docker needs to be run with `sudo`. To avoid using root privileges in the terminal (and error messages if you forget to use `sudo`), consider following the step to [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user).
 
-Consider also [configuring Docker to start on boot <i class='fas fa-external-link-alt'></i>](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot).
+Consider also [configuring Docker to start on boot](https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot).
 :::
 
 ::: {.callout-note title="Optional but recommended" collapse="false"}
@@ -184,12 +184,12 @@ sudo systemctl restart docker
    Note that the data source plugins are included as part of the Docker image at the directory path `/usr/local/bin/plugins`.
 
    ::: {.callout-note title="Note" collapse="false"}
-   For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry <i class='fas fa-external-link-alt'></i>](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+   For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
    :::
 
 <!-- TODO: UPDATE to autonity-oracle:latest
 
-3. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
+3. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
 
     ```bash
     docker images --digests ghcr.io/autonity/autonity-oracle
@@ -253,10 +253,10 @@ Oracle server will need to provide price data for FX and ATN and NTN currency pa
 
 A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
 
-- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
+- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
 - ATN and NTN plugins:
-  - For connecting to Piccadilly Testnet. See the `pcgc_cax` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins). This provides ATN and NTN data from the Centralized Auton Exchange deployed to Piccadilly for the Piccadilly Circus Games Competition. See [game.autonity.org<i class='fas fa-external-link-alt'></i>](https:game.autonity.org).
-  - For connecting to Bakerloo Testnet. See the `sim_plugin` adaptor in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins/simulator_plugin). This provides simulated ATN and NTN data. 
+  - For connecting to Piccadilly Testnet. See the `pcgc_cax` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). This provides ATN and NTN data from the Centralized Auton Exchange deployed to Piccadilly for the Piccadilly Circus Games Competition. See [game.autonity.org](https:game.autonity.org).
+  - For connecting to Bakerloo Testnet. See the `sim_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins/simulator_plugin). This provides simulated ATN and NTN data. 
 
 The plugins are built by the `make` process when building from source. The plugins are included pre-built as part of oracle server Docker image and the pre-built executable.
 

@@ -35,7 +35,7 @@ A committee member participates in Tendermint Consensus instances, voting for an
 
 An Autonity system has a full [mesh network](/glossary/#mesh-network) topology. Each participant is connected to every other participant by a direct TCP/IP connection. This gives a reliable and _eventually synchronous_ channel for message broadcast between peers.
 
-P2P networking protocols are Ethereum [devp2p <i class='fas fa-external-link-alt'></i>](https://github.com/ethereum/devp2p), RLPx as transport to an ethereum wire protocol (eth66) modified to add messages for Tendermint BFT consensus rounds.
+P2P networking protocols are Ethereum [devp2p](https://github.com/ethereum/devp2p), RLPx as transport to an ethereum wire protocol (eth66) modified to add messages for Tendermint BFT consensus rounds.
  
 _Eventual synchrony_ is a model described by a Global Stabilisation Time (GST) and a _Delta_ time. If a message is sent by a participant at time _t, then the message is received by time _max{t,GST} + Delta_, _Delta > 0_ and unknown by all the participants. Client logic verifies if a received message has been sent to a participant before forwarding, preventing duplicate message sends. The Tendermint algorithm assumes that at _GST + Delta_, all the consensus messages sent at GST should have been received by committee members.
 
@@ -56,9 +56,9 @@ At network genesis the ledger state comprises the Autonity [Protocol Contracts](
 
 ### The Ledger Object
 
-Each participant maintains a local copy of the system state in a local ledger object, the participant's state database. Per Ethereum, the blockchain state is persisted as a _directed rooted tree_ using a modified Merkle Patricia tree (trie) structure in RLP serialisation, each tree node linked by a cryptographic hash. (See [Ethereum Yellow Paper <i class='fas fa-external-link-alt'></i>](https://github.com/ethereum/yellowpaper) Appendix B Recurisve Length Prefix, Appendix D Modified Merkle Patricia Tree). 
+Each participant maintains a local copy of the system state in a local ledger object, the participant's state database. Per Ethereum, the blockchain state is persisted as a _directed rooted tree_ using a modified Merkle Patricia tree (trie) structure in RLP serialisation, each tree node linked by a cryptographic hash. (See [Ethereum Yellow Paper](https://github.com/ethereum/yellowpaper) Appendix B Recurisve Length Prefix, Appendix D Modified Merkle Patricia Tree). 
 
-The ledger is an _[append-only <i class='fas fa-external-link-alt'></i>](https://en.wikipedia.org/wiki/Append-only)_ immutable data structure with the property that new data can be appended and existing data is immutable. Blocks are appended to the chain over time at the interval set by the protocol (block period), each block pointing back toward the root, the genesis block. A block once committed is an _[immutable object <i class='fas fa-external-link-alt'></i>](https://en.wikipedia.org/wiki/Immutable_object)_ whose state cannot be changed. It cannot be altered - _cf. [finality](/glossary/#finality)_. Immutability is assured by the cryptographically verifiable tree structure of the ledger object; it allows any previous state to be retrieved and recomputed.
+The ledger is an _[append-only](https://en.wikipedia.org/wiki/Append-only)_ immutable data structure with the property that new data can be appended and existing data is immutable. Blocks are appended to the chain over time at the interval set by the protocol (block period), each block pointing back toward the root, the genesis block. A block once committed is an _[immutable object](https://en.wikipedia.org/wiki/Immutable_object)_ whose state cannot be changed. It cannot be altered - _cf. [finality](/glossary/#finality)_. Immutability is assured by the cryptographically verifiable tree structure of the ledger object; it allows any previous state to be retrieved and recomputed.
 
 Ledger integrity is assured cryptographically by the hash tree, by block validity constraints according to the Autonity Protocol, and by deterministic consensus computation before block commit - i.e. append - to the ledger.
 
@@ -170,7 +170,7 @@ aut block height | aut block get | jq .
 
 Transactions are standard Ethereum transaction structures. Autonity supports both legacy (type 0) and EIP 1559 (type 2) transaction types. Use of the EIP 1559 type 2 transaction to take advantage of the economic benefits provided by the EIP 1559 fee market mechanism is recommended.
 
-::: {.callout-note title="Note" collapse="false"}For an explanation of how specifying gas in transactions differs between legacy and EIP 1559 transaction types, see Ethereum developer docs "Gas and Fees" - [https://ethereum.org/en/developers/docs/gas/ <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/gas/).:::
+::: {.callout-note title="Note" collapse="false"}For an explanation of how specifying gas in transactions differs between legacy and EIP 1559 transaction types, see Ethereum developer docs "Gas and Fees" - [https://ethereum.org/en/developers/docs/gas/](https://ethereum.org/en/developers/docs/gas/).:::
 
 Generated and signed by accounts on the network, transactions are submitted to the system via participant node client API's. The client performs standard Ethereum pre-flight checks to the transaction before broadcasting it to the network.
 
@@ -182,13 +182,13 @@ Transactions are submitted as [requests](/concepts/system-model/#request) over t
 
 #### Request
 
-User interactions with contracts originate in the external environment and are always initiated by an external user - i.e. an EOA. They are received at the Autonity System boundary as an RPC to an Autonity Go Client. Requests adhere to the REST constraints for Web service design and are stateless and self-contained, the JSON-RPC request object containing all necessary parameters. Requests use the [JSON-RPC 2.0 Specification <i class='fas fa-external-link-alt'></i>](https://www.jsonrpc.org/specification) protocol. On-chain contract interactions between smart contracts are by contract logic invoking [message calls](/concepts/system-model/#message-call).
+User interactions with contracts originate in the external environment and are always initiated by an external user - i.e. an EOA. They are received at the Autonity System boundary as an RPC to an Autonity Go Client. Requests adhere to the REST constraints for Web service design and are stateless and self-contained, the JSON-RPC request object containing all necessary parameters. Requests use the [JSON-RPC 2.0 Specification](https://www.jsonrpc.org/specification) protocol. On-chain contract interactions between smart contracts are by contract logic invoking [message calls](/concepts/system-model/#message-call).
 
 #### Transactions and calls
 
 The on-chain operation resulting from a [request](/concepts/system-model/#request) message may be a [transaction](/concepts/system-model/#transaction-1) or a [call](/concepts/system-model/#call-1):
 
-- a write operation executed by a *transaction* passing in parameters. This executes and records transaction outcome in state. It is made by a Web3  'sendTransaction' to a contract function that results in a change to contract state. As such, a *transaction* represents a valid arc between two states (See Ethereum Yellow Paper, [2. The Blockchain Paradigm <i class='fas fa-external-link-alt'></i>](https://ethereum.github.io/yellowpaper/paper.pdf)). A processed transaction is recorded in a block in the distributed ledger
+- a write operation executed by a *transaction* passing in parameters. This executes and records transaction outcome in state. It is made by a Web3  'sendTransaction' to a contract function that results in a change to contract state. As such, a *transaction* represents a valid arc between two states (See Ethereum Yellow Paper, [2. The Blockchain Paradigm](https://ethereum.github.io/yellowpaper/paper.pdf)). A processed transaction is recorded in a block in the distributed ledger
 - a read-only operation executed by a *call* passing in parameters. This simulates an outcome without recording it in state and may be by a Web3 'call' to a contract function that returns a result according to parameters passed in, or by a call to a read-only contract function
 
 While both are signed by the EOA and execute contract functions there are important distinctions:
@@ -202,19 +202,19 @@ While both are signed by the EOA and execute contract functions there are import
 ##### Transaction
 | Computation cost | Execution scope | State-affecting | Synchronicity | Execution guarantee |
 |------------------|-----------------|-----------------|---------------|---------------------|
-| Gas spent per transaction. Legacy type 0 transactions use the `gasPrice` parameter - see [Transactions](/concepts/system-model/#transactions). EIP1559 type 2 transactions use the base fee model - see [Autonity EIP 1559 configuration](/concepts/system-model/#autonity-eip-1559-configuration). See also Ethereum Yellow Paper, [4.2. The Transaction; 5. Gas and Payment <i class='fas fa-external-link-alt'></i>](https://ethereum.github.io/yellowpaper/paper.pdf)) | Propagated and executed across all nodes in the peer-to-peer network | Yes: causes global state transition | Asynchronous: state transition applied on commit to block and dependent upon factors such as `gasPrice` / base fee, the time for which it remains in the pending pool, Autonity System's block mining interval | State transition applied subject to transaction validity being verified by consensus computation. The transaction hash is returned. A subsequent call is required to return the transaction data or, if emitted by the state-affecting function, event data |
+| Gas spent per transaction. Legacy type 0 transactions use the `gasPrice` parameter - see [Transactions](/concepts/system-model/#transactions). EIP1559 type 2 transactions use the base fee model - see [Autonity EIP 1559 configuration](/concepts/system-model/#autonity-eip-1559-configuration). See also Ethereum Yellow Paper, [4.2. The Transaction; 5. Gas and Payment](https://ethereum.github.io/yellowpaper/paper.pdf)) | Propagated and executed across all nodes in the peer-to-peer network | Yes: causes global state transition | Asynchronous: state transition applied on commit to block and dependent upon factors such as `gasPrice` / base fee, the time for which it remains in the pending pool, Autonity System's block mining interval | State transition applied subject to transaction validity being verified by consensus computation. The transaction hash is returned. A subsequent call is required to return the transaction data or, if emitted by the state-affecting function, event data |
 
-For the Ethereum Web3 modules supported by Autonity, see Reference [Autonity Interfaces](/reference/api/web3/). For official Web3 docs, see [https://readthedocs.org/projects/web3js/ <i class='fas fa-external-link-alt'></i>](https://readthedocs.org/projects/web3js/).
+For the Ethereum Web3 modules supported by Autonity, see Reference [Autonity Interfaces](/reference/api/web3/). For official Web3 docs, see [https://readthedocs.org/projects/web3js/](https://readthedocs.org/projects/web3js/).
 
 #### Transaction
 
 Transactions result in a change to a contract's state and:
 
-- have a type (see [EIP 2718 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-2718)) and are legacy (type '0') or EIP 1559 (type '2')
+- have a type (see [EIP 2718](https://eips.ethereum.org/EIPS/eip-2718)) and are legacy (type '0') or EIP 1559 (type '2')
 - are signed by the message sender
 - identify the recipient
 - pass in parameters for the requested function, which may include an `amount` if the transaction is executing a transfer of value, e.g. a 'mint', 'burn' or 'transfer'
-- have a data structure that varies according to their type and have a legacy transaction structure or a type 2 transaction payload ( see [EIP 1559 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-1559#specification) 
+- have a data structure that varies according to their type and have a legacy transaction structure or a type 2 transaction payload ( see [EIP 1559](https://eips.ethereum.org/EIPS/eip-1559#specification) 
 - provide information about the fees the sender is willing to pay for each step in transaction computation and influencing the priority with which the transaction is processed by the participant nodes computing in the Autonity System's decentralised virtual machine
 - return a transaction receipt hash asynchronously on verification of the transaction by consensus computation.
 
@@ -247,7 +247,7 @@ A message call is executed in the EVM at runtime and will:
 
 Fees for processing transactions on an Autonity network are paid in the protocol coin `auton`, the native balance of an Autonity account.
 
-Autonity uses Ethereum's [EIP-1559 <i class='fas fa-external-link-alt'></i>](https://eips.ethereum.org/EIPS/eip-1559) transaction fee mechanism for pricing gas in transaction fee markets
+Autonity uses Ethereum's [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) transaction fee mechanism for pricing gas in transaction fee markets
 
 
 #### EIP 1559 Transaction fee mechanism (TFM)
@@ -293,7 +293,7 @@ The key elements of an Ethereum account are:
 
 - **Private-public key pair:** A private-public key pair is generated by the key generation algorithm of the digital signature scheme used (i.e. ECDSA over secp256k1). The key pair allows the account holder to carry out signing operations with the private key (also referred to as "secret key"). Furthermore, the associated public key allows verification of the various digital signatures generated by account holders, and thus allows to keep the system secure.
 - **Address:** The address is the unique identifier for a user's account on the ledger. It is derived from the account's public key.
-- **Ethereum keystore file:** The Ethereum keystore is the file format for storing and working with encrypted private keys. For a definition of the keystore file format see the Ethereum wiki page [Web3 Secret Storage Definition <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
+- **Ethereum keystore file:** The Ethereum keystore is the file format for storing and working with encrypted private keys. For a definition of the keystore file format see the Ethereum wiki page [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
 
 The steps for creating an account are described in the How To [Create an account](/account-holders/create-acct/).
 
@@ -312,8 +312,8 @@ Contract accounts native to an Autonity system are described in [Autonity Protoc
   
 #### References
 
-- Ethereum uses the Keccak-256 cryptographic hash function developed by the [Keccak Team <i class='fas fa-external-link-alt'></i>](https://keccak.team/keccak.html) - see "[The Keccak SHA-3 Submission <i class='fas fa-external-link-alt'></i>](https://keccak.team/files/Keccak-submission-3.pdf)". This differs slightly to the NIST standardised Sha-3 hash function published as [FIPS 202 <i class='fas fa-external-link-alt'></i>](https://keccak.team/specifications.html#FIPS_202).
-- Elliptic Curve Digital Signature Algorithm (ECDSA) for generating (and verifying) cryptographic signatures over the `secp256k1` Elliptic Curve (EC). See [SEC 2: Recommended Elliptic Curve Domain Parameters <i class='fas fa-external-link-alt'></i>](http://www.secg.org/sec2-v2.pdf).
-- For more information on transaction signing with ECDSA, see the Ethereum Yellow Paper, [Appendix F. Signing Transactions <i class='fas fa-external-link-alt'></i>](https://ethereum.github.io/yellowpaper/paper.pdf).
-- For an overview of EOA vs. Contract account, see Clearmatics "Zeth Protocol Specification", [Section 1.2.1 <i class='fas fa-external-link-alt'></i>](https://raw.githubusercontent.com/clearmatics/zeth-specifications/master/zeth-protocol-specification.pdf).
+- Ethereum uses the Keccak-256 cryptographic hash function developed by the [Keccak Team](https://keccak.team/keccak.html) - see "[The Keccak SHA-3 Submission](https://keccak.team/files/Keccak-submission-3.pdf)". This differs slightly to the NIST standardised Sha-3 hash function published as [FIPS 202](https://keccak.team/specifications.html#FIPS_202).
+- Elliptic Curve Digital Signature Algorithm (ECDSA) for generating (and verifying) cryptographic signatures over the `secp256k1` Elliptic Curve (EC). See [SEC 2: Recommended Elliptic Curve Domain Parameters](http://www.secg.org/sec2-v2.pdf).
+- For more information on transaction signing with ECDSA, see the Ethereum Yellow Paper, [Appendix F. Signing Transactions](https://ethereum.github.io/yellowpaper/paper.pdf).
+- For an overview of EOA vs. Contract account, see Clearmatics "Zeth Protocol Specification", [Section 1.2.1](https://raw.githubusercontent.com/clearmatics/zeth-specifications/master/zeth-protocol-specification.pdf).
 

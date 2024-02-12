@@ -35,7 +35,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 2. Configure the data plugins. Edit your oracle server data plugins config file `plugins-conf.yml` to specify the plugins configuration. The file can be found in the `/autonity-oracle/config` sub-directory. Edit `plugins-conf.yml` to specify the `name` and `key` for each plugins you are using. For how to do this see the [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) section on this page.
 
    ::: {.callout-note title="Note" collapse="false"}
-   A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
+   A [sample `plugins-conf.yml` config file](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
    :::
 
 3. (Optional) Add your own data source plugin(s). If you have developed your own FX plugins, (a) add sub-directory(ies) containing the plugin source code to the `plugins` sub-directory of your installation; (b) add config entry(ies) to the `plugins-conf.yml` file. 
@@ -43,7 +43,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 4. Configure the oracle server. Edit your oracle server config file `oracle-server.config` to specify the oracle server configuration. The file can be found in the `/autonity-oracle/config` sub-directory. For how to do this see the [Set up oracle server config file](/oracle/run-oracle/#set-up-oracle-server-config-file) section on this page.
    
    ::: {.callout-note title="Note" collapse="false"}
-   A [sample `oracle-server.config` file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
+   A [sample `oracle-server.config` file](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
    :::
    
 5. Start oracle server:
@@ -90,7 +90,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    ```
 
    ::: {.callout-note title="Note" collapse="false"}
-   A [sample `plugins-conf.yml` config file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
+   A [sample `plugins-conf.yml` config file](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
    :::
 
    Edit `plugins-conf.yml` to [configure plugins](/oracle/run-oracle/#configure-plugins) for data sources. See [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) for how to do this.
@@ -102,7 +102,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    ```
    
    ::: {.callout-note title="Note" collapse="false"}
-   A [sample `oracle-server.config` file <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
+   A [sample `oracle-server.config` file](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
    :::
    
    Edit `oracle-server.config` to specify the oracle server configuration. See [Set up oracle server config file](/oracle/run-oracle/#set-up-oracle-server-config-file) for how to do this.
@@ -236,16 +236,16 @@ For example, to start oracle server specifying command line flags when running t
    - The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
    :::
 
-   See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) or the oracle server's GitHub repo [README, Configuration of oracle server <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [CLI flags <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#cli-flags) for the full set of available flags.
+   See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) or the oracle server's GitHub repo [README, Configuration of oracle server](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [CLI flags](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#cli-flags) for the full set of available flags.
 
-For how to set the flags as system environment variables see the [README <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [System Environment Variables <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#system-environment-variables).
+For how to set the flags as system environment variables see the [README](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [System Environment Variables](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#system-environment-variables).
 
 
 ## Configure data source plugins
 
 The oracle server will need to provide FX, ATN and NTN currency pairs utilised in the Auton Stabilization Mechanism.
 
-A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet in the `autonity-oracle` GitHub repo [`/plugins` <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins) directory:
+A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet in the `autonity-oracle` GitHub repo [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins) directory:
 
 - Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors. Four forex plugins are currently provided.
 - Simulator plugin: for simulated ATN/NTN data. See the `sim_plugin` adaptor.
@@ -310,8 +310,8 @@ The simulator can also be built independently by running the `make simulator` co
 ### Develop plugins
 Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
 
-- Adaptor code template `template_plugin` in [`/plugins`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/tree/master/plugins).
-- Guide for how _To write a new plugin_ using the template in [`/plugins/README`<i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle/blob/master/plugins/README.md).
+- Adaptor code template `template_plugin` in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins).
+- Guide for how _To write a new plugin_ using the template in [`/plugins/README`](https://github.com/autonity/autonity-oracle/blob/master/plugins/README.md).
 
 
 ## Stopping the Autonity Oracle Server

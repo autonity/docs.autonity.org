@@ -9,7 +9,7 @@ This guide uses Brownie and Python to deploy an ERC20 token contract based on th
 
 ## Setup `brownie`
 
-Using [pipx <i class='fas fa-external-link-alt'></i>](https://github.com/pypa/pipx) or any other python package manager, install brownie:
+Using [pipx](https://github.com/pypa/pipx) or any other python package manager, install brownie:
 ```bash
 pipx install eth-brownie
 ```

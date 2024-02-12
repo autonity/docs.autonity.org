@@ -20,14 +20,14 @@ The steps covered are:
 ## Prerequisites
 
 - An [installation](/node-operators/install-aut/) of Autonity Go Client (AGC), with the `--metrics` and `--pprof` flags enabled.
-- An installation of [Telegraf <i class='fas fa-external-link-alt'></i>](https://www.influxdata.com/time-series-platform/telegraf/) server agent, which will provide the backend service for metrics collection.
+- An installation of [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) server agent, which will provide the backend service for metrics collection.
 - An installation of Docker. See [Get setup, Install Docker](https://docs.autonity.org/node-operators/get-setup/#install-docker) if Docker is not already installed onto the host machine.
 
 Familiarity with monitoring and the basics of the third-party products used in this guide is assumed:
 
-- [Telegraf <i class='fas fa-external-link-alt'></i>](https://www.influxdata.com/time-series-platform/telegraf/) server agent for metrics collection.
-- [InfluxDB V2 <i class='fas fa-external-link-alt'></i>](https://www.influxdata.com/products/influxdb-overview/) time-series data platform.
-- [Grafana <i class='fas fa-external-link-alt'></i>](https://grafana.com/docs/grafana/latest/) observability dashboarding for monitoring and analysing metrics, log data, and application trace data.
+- [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) server agent for metrics collection.
+- [InfluxDB V2](https://www.influxdata.com/products/influxdb-overview/) time-series data platform.
+- [Grafana](https://grafana.com/docs/grafana/latest/) observability dashboarding for monitoring and analysing metrics, log data, and application trace data.
 
 ## Install Influxdb v2 and Grafana
 

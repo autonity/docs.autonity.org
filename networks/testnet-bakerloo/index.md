@@ -21,7 +21,7 @@ Bakerloo is for participants interested in:
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://bakerloo.autonity.org/`|
 
-(The above information can be used to connect an existing client such as [MetaMask <i class='fas fa-external-link-alt'></i>](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
+(The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
 
 ## Genesis configuration
 
@@ -62,13 +62,13 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Bakerloo network is built using this Autonity Release: [v0.12.2 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.12.2)
+- The current iteration of the Bakerloo network is built using this Autonity Release: [v0.12.2](https://github.com/autonity/autonity/releases/tag/v0.12.2)
 
 - The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
 ## Faucet
 
-- Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://faucet.autonity.org/)
+- Faucet for [auton](/concepts/protocol-assets/auton) test funds: [https://faucet.autonity.org/](https://faucet.autonity.org/)
 - There is currently no faucet for [newton](/concepts/protocol-assets/newton), as newton tokens will be made available to network participants in later phases of the testnet.
 
 ## Public endpoints
@@ -80,4 +80,4 @@ Default rate limit on calls to `ws` and `http` public endpoints combined  is 250
 
 ## Block explorer
 
-- BlockScout explorer for searching and viewing ledger data: [https://bakerloo.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://bakerloo.autonity.org/)
+- BlockScout explorer for searching and viewing ledger data: [https://bakerloo.autonity.org/](https://bakerloo.autonity.org/)

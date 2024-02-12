@@ -35,7 +35,7 @@ The selection algorithm:
 
 - Calculates the total voting power of the current consensus committee, summing the voting power of each committee member.
 - Calculates a deterministic seed for selecting the index position of the block proposer from the list of committee members:
-    - The index position is calculated by the [modulo <i class='fas fa-external-link-alt'></i>](https://docs.soliditylang.org/en/latest/types.html#modulo) of an integer value (derived from keccak256 hashing of the proposed block's height and consensus round number) and the total voting power of the committee. I.e. `index = value % total_voting_power`. 
+    - The index position is calculated by the [modulo](https://docs.soliditylang.org/en/latest/types.html#modulo) of an integer value (derived from keccak256 hashing of the proposed block's height and consensus round number) and the total voting power of the committee. I.e. `index = value % total_voting_power`. 
 - Selects the proposer by selecting the committee member at the index position from the committee list.
 
 ## Committee size

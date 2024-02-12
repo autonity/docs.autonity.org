@@ -7,7 +7,7 @@ description: How to submit transactions to an Autonity network using `aut`, the 
 
 To submit transactions to a client node from `aut` you need:
 
-- An installation of [`aut` <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) - see the [howto](/account-holders/setup-aut/) for further help.
+- An installation of [`aut`](https://github.com/autonity/aut) - see the [howto](/account-holders/setup-aut/) for further help.
 
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs.
 

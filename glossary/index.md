@@ -7,7 +7,7 @@ description: >
 ---
 
 ## Application Binary Interface (ABI)
-The binary-level interface between a smart contract and the [Ethereum Virtual Machine (EVM)](/glossary/#ethereum-virtual-machine-evm). The ABI defines the contract interface and is used to call contract functions and for contract-to-contract interactions. The ABI is represented as JSON and compiled to [bytecode](/glossary/#bytecode) for execution in the EVM. See the [Contract ABI Specification <i class='fas fa-external-link-alt'></i>](https://solidity.readthedocs.io/en/develop/abi-spec.html) in Solidity programming language docs for design and specification.
+The binary-level interface between a smart contract and the [Ethereum Virtual Machine (EVM)](/glossary/#ethereum-virtual-machine-evm). The ABI defines the contract interface and is used to call contract functions and for contract-to-contract interactions. The ABI is represented as JSON and compiled to [bytecode](/glossary/#bytecode) for execution in the EVM. See the [Contract ABI Specification](https://solidity.readthedocs.io/en/develop/abi-spec.html) in Solidity programming language docs for design and specification.
 
 ## account
 An account is an object in the blockchain [system state](/glossary/#system-state) identified by a unique [address](/glossary/#account-address). It has an intrinsic balance denominated in the native coin [auton](/glossary/#auton), transaction state, and if a contract account has EVM code and contract state storage.
@@ -137,7 +137,7 @@ The percentage commission of earned [staking rewards](/glossary/#staking-rewards
 ## enode
 The unique identifier of a node in the form of a URI. It provides the network address of a node on an Autonity network, giving the  network location of the node client for p2p networking.
 
-The enode URL is formed according the Ethereum enode url format which is described in the [Ethereum Developers Docs, Networking layer <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/networking-layer/network-addresses/#enode).
+The enode URL is formed according the Ethereum enode url format which is described in the [Ethereum Developers Docs, Networking layer](https://ethereum.org/en/developers/docs/networking-layer/network-addresses/#enode).
 
 ## epoch
 A fixed number (i.e. [epochPeriod](/glossary/#epoch-period)) of consecutive blocks where the validator committee - as recorded in the state of the autonity contract - cannot change.
@@ -276,7 +276,7 @@ The [account](/glossary/#account) used by a [stakeholder](/glossary/#stakeholder
 The local data store of a node used to persist the node’s local copy of [system state](/glossary/#system-state).
 
 ## system state
-The computational state of an Autonity system. State is  computed according to the [Autonity Protocol](/glossary/#autonity-protocol). System state is stored as key-value pairs, mapping between account [addresses](/glossary/#address) and [account states](/glossary#account-state) in Ethereum's modified Merkle Patricia trie data structure (See [Merkle Patricia Tree, Ethereum Developer docs <i class='fas fa-external-link-alt'></i>](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/)).
+The computational state of an Autonity system. State is  computed according to the [Autonity Protocol](/glossary/#autonity-protocol). System state is stored as key-value pairs, mapping between account [addresses](/glossary/#address) and [account states](/glossary#account-state) in Ethereum's modified Merkle Patricia trie data structure (See [Merkle Patricia Tree, Ethereum Developer docs](https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/)).
 
 ## ton
 The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 ton (10^18). The ton is Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [gigaton](/glossary/#gigaton).
@@ -295,7 +295,7 @@ The period of time for which bonded stake remains locked after processing an unb
 Proof of Stake consensus places constraints on the minimum length of the unbonding period. It must be long enough to allow the detection and reporting of consensus faults by validators, and not short enough to  allow unbonding before a [slashing penalty](/glossary/#slashing-penalty) can be applied. As such it is a security property of the network.
 
 ## Unix time
-The Unix OS system for representing a point in time as a timestamp. Time is measured as the number of seconds since the Unix Epoch began - 1st January 1970 at 00:00:00 UTC. Unix time is used for Autonity timestamps. For detail and format see [Unix time <i class='fas fa-external-link-alt'></i>](https://en.wikipedia.org/wiki/Unix_time).
+The Unix OS system for representing a point in time as a timestamp. Time is measured as the number of seconds since the Unix Epoch began - 1st January 1970 at 00:00:00 UTC. Unix time is used for Autonity timestamps. For detail and format see [Unix time](https://en.wikipedia.org/wiki/Unix_time).
 
 ## validator
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).

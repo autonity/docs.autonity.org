@@ -4,12 +4,12 @@ description: >
   The _bleeding-edge_ public Testnet running the latest deployable version of the Autonity protocol
 ---
 
-Piccadilly is a public Testnet running the latest deployable version of the Autonity protocol. It is the testing environment used in the pre-MainNet [Piccadilly Circus Games Competition (PCGC) <i class='fas fa-external-link-alt'></i>](https://game.autonity.org) and may undergo re-genesis with the latest protocol implementation at the end of a game round. 
+Piccadilly is a public Testnet running the latest deployable version of the Autonity protocol. It is the testing environment used in the pre-MainNet [Piccadilly Circus Games Competition (PCGC)](https://game.autonity.org) and may undergo re-genesis with the latest protocol implementation at the end of a game round. 
 
 Piccadilly is for participants interested in:
 
-- Taking part in the [Piccadilly Circus Games Competition <i class='fas fa-external-link-alt'></i>](https://game.autonity.org) and helping to develop the Autonity project.
-- Helping find bugs in Autonity (See the game's [Bug Bounty<i class='fas fa-external-link-alt'></i>](https://game.autonity.org/#tasks--points)).
+- Taking part in the [Piccadilly Circus Games Competition](https://game.autonity.org) and helping to develop the Autonity project.
+- Helping find bugs in Autonity (See the game's [Bug Bounty](https://game.autonity.org/#tasks--points)).
 - Operating node infrastructure.
 - Operating as a validator.
 - Stake delegation.
@@ -25,7 +25,7 @@ Piccadilly is for participants interested in:
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
 
-(The above information can be used to connect an existing client such as [MetaMask <i class='fas fa-external-link-alt'></i>](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
+(The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
 
 ## Genesis configuration
 
@@ -66,13 +66,13 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.12.2 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/releases/tag/v0.12.2)
+- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.12.2](https://github.com/autonity/autonity/releases/tag/v0.12.2)
 
 - The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
 
 ## Faucet
 
-- There is currently no faucet for [auton](/concepts/protocol-assets/auton) or [newton](/concepts/protocol-assets/newton) on Piccadilly. Network participants access testnet auton and newton by participating in the [Piccadilly Circus Games Competition (PCGC) <i class='fas fa-external-link-alt'></i>](https://game.autonity.org).
+- There is currently no faucet for [auton](/concepts/protocol-assets/auton) or [newton](/concepts/protocol-assets/newton) on Piccadilly. Network participants access testnet auton and newton by participating in the [Piccadilly Circus Games Competition (PCGC)](https://game.autonity.org).
 
 ## Public endpoints
 
@@ -83,4 +83,4 @@ Default rate limit on calls to `ws` and `http` public endpoints combined  is 250
 
 ## Block explorer
 
-- BlockScout explorer for searching and viewing ledger data: [https://piccadilly.autonity.org/ <i class='fas fa-external-link-alt'></i>](https://piccadilly.autonity.org/)
+- BlockScout explorer for searching and viewing ledger data: [https://piccadilly.autonity.org/](https://piccadilly.autonity.org/)

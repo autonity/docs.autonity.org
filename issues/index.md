@@ -7,7 +7,7 @@ description: >
 
 ## Snap syncing is not supported for new networks
 
-There is a known issue in the go-ethereum codebase where the default `snap` syncmode is not yet supported for new networks  - see [https://github.com/autonity/autonity/blob/master/eth/handler.go#L196-L200 <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity/blob/master/eth/handler.go#L196-L200).
+There is a known issue in the go-ethereum codebase where the default `snap` syncmode is not yet supported for new networks  - see [https://github.com/autonity/autonity/blob/master/eth/handler.go#L196-L200](https://github.com/autonity/autonity/blob/master/eth/handler.go#L196-L200).
 
 To resolve, for new networks:
 

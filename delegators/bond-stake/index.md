@@ -16,7 +16,7 @@ No such state constraint applies to unbonding. You are able to unbond stake from
 
 ## Prerequisites
 
-- A running instance of [`aut` <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
+- A running instance of [`aut`](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
 - An [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
 - A Newton stake token balance >= to the amount being bonded.
 

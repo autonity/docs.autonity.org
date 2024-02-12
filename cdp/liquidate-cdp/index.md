@@ -8,7 +8,7 @@ description: >
 
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with Auton (to pay for transaction gas costs)
 
-- A running instance of [`aut` <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
+- A running instance of [`aut`](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
 
 {{pageinfo}}
 The guide uses the `aut contract call` and `aut contract tx` commands for contract interactions.
