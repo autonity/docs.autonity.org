@@ -1,0 +1,92 @@
+project:
+  type: website
+  output-dir: docs/
+  preview:
+    port: 3000
+    browser: false
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+website:
+  title: "Autonity Documentation"
+  favicon: "_assets/favicon.svg"
+  google-analytics: ""
+  search:
+    location: navbar
+    type: overlay
+  sidebar: 
+   contents:
+    - statistics/leaderboard.md
+    - statistics/markets.md
+    - auto: round-4
+    - section: "Getting started"
+      contents:
+      - getting-started/quick-start.md
+      - getting-started/register.md
+      - getting-started/exchange-cax.md
+      - getting-started/exchange-dax.md
+    - section: "Python Recipes"
+      contents:
+      - recipes/starter_recipes.ipynb
+      - recipes/staking_recipes.ipynb
+      - recipes/cax_recipes.ipynb
+      - recipes/dax_recipes.ipynb
+      - recipes/cdp_recipes.ipynb
+    - section: "Hall of fame"
+      contents:
+      - winners/round-1/index.md
+      - winners/round-2/index.md
+      - winners/round-3/index.md 
+    - section: "Awards Submission"
+      contents:
+      - auto: "awards/**"      
+    - section: "Resources"
+      contents:
+      - auto: rules
+      - auto: "resources/**"      
+      - password-reset.md
+      - email-reset.md
+    - section: "Archive"
+      contents:
+      - auto: "archive/**"
+    
+   style: docked
+   collapse-level: 2
+  navbar:  
+    background: dark
+    logo: "_assets/images/autonity-logo.svg"
+  page-footer:
+    left:
+      - icon: github
+        href: https://github.com/autonity/
+      - icon: twitter
+        href: https://twitter.com/autonity_
+      - icon: discord
+        href: https://discord.com/invite/autonity
+      - icon: youtube
+        href: https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ
+filters:
+  - _filters/macro-substitution.lua
+  - _filters/page-info.lua
+  - _filters/card-substitution.lua
+format:
+  html:
+    link-external-icon: true
+    link-external-newwindow: true
+    fontcolor: "#333333"
+    smooth-scroll: true
+    theme:
+      light: [cosmo, _theme/theme.scss]
+    code-copy: true
+    code-overflow: wrap
+    css: _assets/css/styles.css
+    toc: true
+    include-in-header:
+      - text: |
+          <link rel="preconnect" href="https://plausible.io">
+          <script defer data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+          <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    template: _templates/autonity-base.html
+    template-partials:
+      - toc.html

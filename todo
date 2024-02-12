@@ -1,0 +1,13 @@
+- do i need the archetypes folder
+
+### Steps
+1. **Init the project** call ` quarto create project website ../` to render the site. Move to necessary root.
+2. **Prepare existing content** delete folders related to hugo, they are:
+    - `archetypes`
+    - `content`
+    - `data`
+    - `layouts`
+    - `static`
+    - `themes`
+3. **Create new content** create the following folders:
+    - _
