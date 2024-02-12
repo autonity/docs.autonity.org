@@ -21,7 +21,31 @@ website:
     - section: "Concepts"
       contents:
       - auto: "concepts/**"   
-    
+    - section: "Networks"
+      contents:
+      - auto: "networks/**"
+    - section: "Accounts"
+      contents:
+      - "account-holders/setup-aut/index.md"
+      - "account-holders/create-acct/index.md"
+      - "account-holders/fund-acct/index.md"
+      - "account-holders/submit-trans-aut/index.md"
+    - section: "Running a Node"
+      contents:
+      - "node-operators/install-aut/index.md"
+      - "node-operators/run-aut/index.md"
+      - "node-operators/connect/index.md"
+      - "node-operators/setup-node-monitoring/index.md"
+    - section: "Running an Oracle Server"
+      contents:
+      - "oracle/install-oracle/index.md"
+      - "oracle/run-oracle/index.md"
+    - section: "Running a Validator"
+      contents:
+      - "validators/register-vali/index.md"
+      - "validators/pause-vali/index.md"
+      - "validators/change-commission-rate/index.md"
+      
    style: docked
    collapse-level: 2
   navbar:  

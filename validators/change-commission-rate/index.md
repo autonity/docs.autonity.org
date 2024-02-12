@@ -10,7 +10,9 @@ description: >
 - A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
 - Your validator's [`treasury account`](/concepts/validator/#treasury-account) is [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
 
-::: {.callout-note title="Note" collapse="false"}See the [Validator economics](/concepts/validator/#validator-economics) section for more information on commission rate and its default setting on an Autonity Network.:::
+::: {.callout-note title="Note" collapse="false"}
+See the [Validator economics](/concepts/validator/#validator-economics) section for more information on commission rate and its default setting on an Autonity Network.
+:::
 
 
 ## Change validator commission rate

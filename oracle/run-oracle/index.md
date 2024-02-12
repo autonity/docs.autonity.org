@@ -253,7 +253,7 @@ A basic set of data adaptor plugins for sourcing this data is provided out the b
 ### Set up plugins config file
 To configure FX data source plugins edit the `plugins_conf.yml` file to add a config entry for each plugin.  The oracle server release contains out-the-box plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
 
-Navigate to the public GitHub repo [autonity-oracle <i class='fas fa-external-link-alt'></i>] (https://github.com/autonity/autonity-oracle) `README.md` [Configuration <i class='fas fa-external-link-alt'></i>](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section to view the supported FX endpoint providers.
+Navigate to the public GitHub repo [autonity-oracle] (https://github.com/autonity/autonity-oracle) `README.md` [Configuration](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section to view the supported FX endpoint providers.
 
 For each FX endpoint configured:
 
