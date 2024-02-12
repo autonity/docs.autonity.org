@@ -1,6 +1,5 @@
 ---
 title: "Accountability Contract Interface"
-  Autonity Accountability Contract functions
 ---
 
 Interface for interacting with Autonity Accountability Contract functions using:
@@ -50,11 +49,11 @@ Accusations do not automatically cause slashing. The _innocence proof window_ is
 ### Usage
 
 <!--
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+:::
+
 -->
 ::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
@@ -63,11 +62,11 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 ### Example
 
 <!--
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+:::
+
 -->
 ::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
@@ -101,11 +100,11 @@ The method returns a `boolean` flag specifying whether the reported infraction i
 ### Usage
 
 <!--
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+:::
+
 -->
 
 ::: {.callout-note title="Note" collapse="false"}
@@ -115,11 +114,11 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 ### Example
 
 <!--
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+:::
+
 -->
 
 ::: {.callout-note title="Note" collapse="false"}
@@ -209,11 +208,11 @@ Returns an `Event` object of type `Accusation` consisting of:
 ### Usage
 
 <!--
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+:::
+
 -->
 ::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
@@ -222,11 +221,11 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 ### Example
 
 <!--
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
 
-{{< /tab >}}
-{{< /tabpane >}}
+::: {.panel-tabset}
+## bash
+:::
+
 -->
 ::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
@@ -262,17 +261,17 @@ Returns an array of `Event` object(s) of type `FaultProof` consisting of:
 
 ### Usage
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults _val
-{{< /tab >}}
-{{< /tabpane >}}
+
+::: {.panel-tabset}
+## bash
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults _val:::
+
 
 ### Example
 
-{{< tabpane langEqualsHeader=true >}}
-{{< tab header="aut" >}}
+
+::: {.panel-tabset}
+## bash
 aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults 0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C
-[]
-{{< /tab >}}
-{{< /tabpane >}}
+[]:::
+
