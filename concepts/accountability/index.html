@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
+    
+
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
+
+
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
+
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.3.361">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <meta name="description" content="Autonity’s Accountability Fault Detection model – reporting mechanism, temporal constraints, and economics for reporting offences and penalties for Byzantine behavior.">
+
+    <title>Autonity Documentation - Accountability and fault detection (AFD)</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        code{white-space: pre-wrap;}
+        span.smallcaps{font-variant: small-caps;}
+        div.columns{display: flex; gap: min(4vw, 1.5em);}
+        div.column{flex: auto; overflow-x: auto;}
+        div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+        ul.task-list{list-style: none;}
+        ul.task-list li input[type="checkbox"] {
+          width: 0.8em;
+          margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+          vertical-align: middle;
+        }
+    </style>
+    
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+        <script id="quarto-search-options" type="application/json">{
+          "location": "navbar",
+          "copy-button": false,
+          "collapse-after": 3,
+          "panel-placement": "end",
+          "type": "overlay",
+          "limit": 20,
+          "language": {
+            "search-no-results-text": "No results",
+            "search-matching-documents-text": "matching documents",
+            "search-copy-link-title": "Copy link to search",
+            "search-hide-matches-text": "Hide additional matches",
+            "search-more-match-text": "more match in this document",
+            "search-more-matches-text": "more matches in this document",
+            "search-clear-button-title": "Clear",
+            "search-detached-cancel-button-title": "Cancel",
+            "search-submit-button-title": "Submit",
+            "search-label": "Search"
+          }
+        }</script>
+        <style>html{ scroll-behavior: smooth; }</style>
+        <link rel="preconnect" href="https://plausible.io">
+        <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+        <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    
+    
+        <link rel="stylesheet" href="../../_assets/css/styles.css">
+    </head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+        <div id="quarto-search-results"></div>
+          <header id="quarto-header" class="headroom fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-dark ">
+              <div class="navbar-container container-fluid">
+              <div class="navbar-brand-container">
+            <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+            <img src="../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+            </a>
+            <a class="navbar-brand" href="../../index.html">
+            <span class="navbar-title">Autonity Documentation</span>
+            </a>
+          </div>
+                <div class="quarto-navbar-tools ms-auto">
+        </div>
+                  <div id="quarto-search" class="" title="Search"></div>
+              </div> <!-- /container-fluid -->
+            </nav>
+          <nav class="quarto-secondary-nav">
+            <div class="container-fluid d-flex">
+              <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+                <i class="bi bi-layout-text-sidebar-reverse"></i>
+              </button>
+              <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../concepts/accountability/index.html">Concepts</a></li><li class="breadcrumb-item"><a href="../../concepts/accountability/index.html">Accountability and fault detection (AFD)</a></li></ol></nav>
+              <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+              </a>
+            </div>
+          </nav>
+        </header>
+        <!-- content -->
+        <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+        <!-- sidebar -->
+          <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+            <div class="sidebar-menu-container"> 
+            <ul class="list-unstyled mt-1">
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Overview</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+         <span class="menu-text">Concepts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link active">
+         <span class="menu-text">Accountability and fault detection (AFD)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server (AOS)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton Stabilization Mechanism (ASM)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Staking</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client (AGC)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/validator/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">System model</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Architecture</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle network</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus Committee</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Tendermint BFT consensus</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol assets</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Newton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+         <span class="menu-text">Networks</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bakerloo Testnet</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Piccadilly Testnet</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+         <span class="menu-text">Accounts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setup the Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Create an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Fund an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a transaction from the Autonity Utility tool (aut)</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+         <span class="menu-text">Running a Node</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Connecting to your Node</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Set up node monitoring</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+         <span class="menu-text">Running an Oracle Server</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity Oracle Server in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity Oracle Server</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+         <span class="menu-text">Running a Validator</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Register as a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Pause and reactivate a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Change Validator Commission Rate</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+         <span class="menu-text">Staking</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bond and unbond stake</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Claim Staking Rewards</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Transfer Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+         <span class="menu-text">Borrowing by CDP in the ASM</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Open and manage a CDP</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquidate a CDP</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+         <span class="menu-text">Development</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a governance transaction from Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Deploy smart contracts to an Autonity network with Brownie</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setting up custom networks</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+         <span class="menu-text">Reference</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/utility-tools/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Utility tools</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Codebase</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol Parameters</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/genesis/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Genesis</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Interfaces</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Web3 Namespace</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Governance and Protocol Only Reference</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ASM Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Stabilization Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ACU Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Supply Control Contract Interface</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Command-line</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client Command-line</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server Command-line</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../glossary/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Glossary</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../issues/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Known issues</span></a>
+          </div>
+        </li>
+            </ul>
+            </div>
+        </nav>
+        <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+        <!-- margin-sidebar -->
+            <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+                <nav id="TOC" role="doc-toc" class="toc-active">
+            <h2 id="toc-title">On this page</h2>
+           
+          <ul>
+          <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+          <ul class="collapse">
+          <li><a href="#accountability-prerequisites" id="toc-accountability-prerequisites" class="nav-link" data-scroll-target="#accountability-prerequisites">Accountability prerequisites</a></li>
+          </ul></li>
+          <li><a href="#accountability-and-fault-detection-protocol" id="toc-accountability-and-fault-detection-protocol" class="nav-link" data-scroll-target="#accountability-and-fault-detection-protocol">Accountability and Fault Detection protocol</a>
+          <ul class="collapse">
+          <li><a href="#roles" id="toc-roles" class="nav-link" data-scroll-target="#roles">Roles</a></li>
+          <li><a href="#protocol-primitives" id="toc-protocol-primitives" class="nav-link" data-scroll-target="#protocol-primitives">Protocol primitives</a></li>
+          <li><a href="#accountability-event-lifecycle" id="toc-accountability-event-lifecycle" class="nav-link" data-scroll-target="#accountability-event-lifecycle">Accountability event lifecycle</a></li>
+          </ul></li>
+          <li><a href="#slashing" id="toc-slashing" class="nav-link" data-scroll-target="#slashing">Slashing</a>
+          <ul class="collapse">
+          <li><a href="#slashing-protocol-configuration" id="toc-slashing-protocol-configuration" class="nav-link" data-scroll-target="#slashing-protocol-configuration">Slashing protocol configuration</a></li>
+          <li><a href="#slashing-amount-calculation" id="toc-slashing-amount-calculation" class="nav-link" data-scroll-target="#slashing-amount-calculation">Slashing amount calculation</a></li>
+          <li><a href="#jail-period-calculation" id="toc-jail-period-calculation" class="nav-link" data-scroll-target="#jail-period-calculation">Jail period calculation</a></li>
+          <li><a href="#penalty-absorbing-stake-pas" id="toc-penalty-absorbing-stake-pas" class="nav-link" data-scroll-target="#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a></li>
+          </ul></li>
+          <li><a href="#rules" id="toc-rules" class="nav-link" data-scroll-target="#rules">Rules</a>
+          <ul class="collapse">
+          <li><a href="#accountability-rules" id="toc-accountability-rules" class="nav-link" data-scroll-target="#accountability-rules">Accountability rules</a></li>
+          <li><a href="#rule-severity" id="toc-rule-severity" class="nav-link" data-scroll-target="#rule-severity">Rule severity</a></li>
+          </ul></li>
+          <li><a href="#events" id="toc-events" class="nav-link" data-scroll-target="#events">Events</a>
+          <ul class="collapse">
+          <li><a href="#event-handling" id="toc-event-handling" class="nav-link" data-scroll-target="#event-handling">Event handling</a></li>
+          <li><a href="#event-types" id="toc-event-types" class="nav-link" data-scroll-target="#event-types">Event types</a></li>
+          <li><a href="#event-structure" id="toc-event-structure" class="nav-link" data-scroll-target="#event-structure">Event structure</a></li>
+          </ul></li>
+          <li><a href="#slashing-economics" id="toc-slashing-economics" class="nav-link" data-scroll-target="#slashing-economics">Slashing economics</a>
+          <ul class="collapse">
+          <li><a href="#slashing-penalties" id="toc-slashing-penalties" class="nav-link" data-scroll-target="#slashing-penalties">Slashing penalties</a></li>
+          <li><a href="#slashing-rewards" id="toc-slashing-rewards" class="nav-link" data-scroll-target="#slashing-rewards">Slashing rewards</a></li>
+          </ul></li>
+          </ul>
+        </nav>
+            </div>
+        <!-- main -->
+        <main class="content" id="quarto-document-content">
+    
+        <header id="title-block-header" class="quarto-title-block default">
+        <div class="quarto-title">
+        <h1 class="title">Accountability and fault detection (AFD)</h1>
+        </div>
+
+        <div>
+          <div class="description">
+            <p>Autonity’s Accountability Fault Detection model – reporting mechanism, temporal constraints, and economics for reporting offences and penalties for Byzantine behavior.</p>
+          </div>
+        </div>
+
+
+        <div class="quarto-title-meta">
+
+            
+          
+            
+          </div>
+          
+
+        </header>    
+            
+    <section id="overview" class="level2">
+    <h2 class="anchored" data-anchor-id="overview">Overview</h2>
+    <p>This section describes the Autonity accountability and fault detection protocol, the role of validators in submitting and verifying accountability event proofs (fault, accusation, innocence), the lifecycle for fault accountability and detection, and slashing.</p>
+    <p>Autonity implements an <em>accountability and fault detection</em> (AFD) protocol for detecting infractions of consensus rules by validators participating in <a href="../../glossary/#consensus">consensus</a> as <a href="../../glossary/#consensus-committee">consensus committee</a> members. <a href="../../glossary/#consensus">Consensus</a> rules govern committee behavior while participating in block proposal and voting. Failure to adhere to these rules is a <em>rule infraction</em>.</p>
+    <p>Proven rule infractions are reported as <em>faults</em> and slashing makes faults <em>accountable</em>. Faults are <em>detected</em> by validators and submitted on chain as <em>accountability events</em> providing proof of misbehavior. Proofs are derived from cryptographically signed messages broadcast between committee members during Tendermint consensus rounds as validators propose, prevote, and precommit blocks (see the concept description <a href="../../concepts/consensus/pos/#consensus-round-and-internal-state">Consensus round and internal state</a>). The proofs are then submitted on-chain to the Accountability Contract.</p>
+    <p>It is important to note that AFD runs alongside Autonity’s Tendermint proof of stake consensus implementation and is <em>fully automated</em>: accountability events are generated and processed by protocol; no manual intervention by validator operators is required.</p>
+    <p>AFD functions by submitting, verifying, and processing accountability event proofs for Rule infractions by epoch. There are two ways for Rule infractions to be created.</p>
+    <p>Rule infractions can be directly submitted as a <em>fault</em> proof by a <em>reporting validator</em>.</p>
+    <p>Rule infractions can also be promoted from <em>accusations</em>. In this case, the Rule infraction is reported as an <em>accusation</em>, submitted by a <em>reporting validator</em> against an <em>offending validator</em>. An <em>accusation</em> may be defended by an <em>innocence</em> proof submitted by the <em>offending validator</em> within a proof submission window measured in blocks. If not defended against, the <em>accusation</em> may be promoted to a <em>fault</em> by the protocol once the innocence window has expired.</p>
+    <p>Slashing penalties are computed by protocol and applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch (collusion) and the individual <em>offending validator’s</em> own slashing history.</p>
+    <p>Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, the Autonity contract will: apply accountability for <em>faults</em> to <em>offending validators</em>, slashing <a href="../../glossary/#self-bonded">self-bonded</a> and <a href="../../glossary/#delegated">delegated</a> stake according to Autonity’s <a href="../../glossary/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a> model.</p>
+    <p>Rewards are paid for reporting a slashable <em>fault</em> at epoch end. The offending_ validator’s_ share of the epoch’s staking rewards is forfeited and paid to the <em>reporting validator</em> <code>treasury</code> account for distribution along with the staking rewards at epoch end.</p>
+    <section id="accountability-prerequisites" class="level3">
+    <h3 class="anchored" data-anchor-id="accountability-prerequisites">Accountability prerequisites</h3>
+    <p>To participate in AFD a <a href="../../glossary/#validator">validator</a> must be a <a href="../../glossary/#consensus-committee">consensus committee</a> member.</p>
+    </section>
+    </section>
+    <section id="accountability-and-fault-detection-protocol" class="level2">
+    <h2 class="anchored" data-anchor-id="accountability-and-fault-detection-protocol">Accountability and Fault Detection protocol</h2>
+    <p>AFD roles, core concepts, and the lifecycle of accountability event processing from accusation to slashing.</p>
+    <section id="roles" class="level3">
+    <h3 class="anchored" data-anchor-id="roles">Roles</h3>
+    <p>As a consensus committee member the validator may play the roles in the table beneath during AFD processing.</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 50%">
+    <col style="width: 50%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th style="text-align: left;">Role</th>
+    <th style="text-align: left;">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: left;"><em>reporting</em></td>
+    <td style="text-align: left;">as the validator reporting a (suspected) rule infraction and submitting new <em>fault proof</em> / <em>accusation</em> on-chain</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;"><em>offending</em></td>
+    <td style="text-align: left;">as the validator committing a suspected rule infraction and being requested to submit <em>innocence</em> proofs on-chain</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: left;"><em>committee member</em></td>
+    <td style="text-align: left;">as a validator in the consensus committee executing Autonity’s consensus protocol and for AFD handling and processing accountability events, maintaining system state for accountability events, and computing and applying slashing penalties</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>The economic impact of the AFD protocol on a validator depends on their role.</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 50%">
+    <col style="width: 50%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th style="text-align: left;">Role</th>
+    <th style="text-align: left;">Economic impact</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: left;"><em>offender</em></td>
+    <td style="text-align: left;">loss of stake, validator reputation, staking reward revenue as the <em>offending validator</em> of a slashed <em>fault</em></td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;"><em>reporting</em></td>
+    <td style="text-align: left;">gain of the <em>offending validator’s</em> protocol rewards as the <em>reporting validator</em> of a slashed <em>fault</em></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>The Autonity community is also a <em>beneficiary</em> of AFD processing as slashed stake tokens will be used for community funds.</p>
+    </section>
+    <section id="protocol-primitives" class="level3">
+    <h3 class="anchored" data-anchor-id="protocol-primitives">Protocol primitives</h3>
+    <p>Essential primitives of AFD are: accusation, innocence, and fault proofs; slashing and severity; jailing.</p>
+    <section id="accusations" class="level4">
+    <h4 class="anchored" data-anchor-id="accusations">Accusations</h4>
+    <p>An <em>accusation</em> is a claim that a consensus committee member has failed to participate correctly in consensus. The protocol only allows a validator to have one pending <em>accusation</em> at a time. New <em>accusations</em> are made by submitting evidence of an accusable rule infraction on-chain as an accountability event of type <code>Accusation</code>.</p>
+    <p>Accusations do not automatically cause slashing, as an <em>innocence proof window</em> measured in blocks gives the accused <em>offending validator</em> a window to detect an <em>accusation</em> and prove <em>innocence</em> by submitting an <em>innocence</em> proof on-chain.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="A note on why a new accusation cannot be submitted until the innocence window has expired">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    A note on why a new accusation cannot be submitted until the innocence window has expired
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>If the <em>offending validator</em> already has an <em>accusation</em> pending, the accountability protocol determines the offender is not currently accusable. This is because the protocol has to wait to determine if the pending <em>accusation</em> has been defended or, if not, promoted to a <em>fault</em>. Until then, it cannot determine if the offending validator has committed a rule infraction with a higher severity than the new candidate <em>accusation</em> in the epoch or not.</p>
+    </div>
+    </div>
+    </div>
+    <p>After successful <a href="../../reference/api/aut/op-prot/#handleevent-accountability-contract">handling and verification</a> of an <em>accusation</em> on-chain, a <code>NewAccusation</code> event is emitted logging the <em>offending</em> <a href="../../concepts/validator/#validator-identifier">validator identifier</a> address, <em>severity</em> of rule infraction, and the event ID.</p>
+    <p>There are protocol constraints on when an <em>accusation</em> can be made. A <em>reporting validator</em> can only submit an <em>accusation</em> against an <em>offending validator</em> within the constraints described in the table beneath.</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th style="text-align: left;">Constraint</th>
+    <th style="text-align: left;">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: left;">A fault with a higher <em>severity</em> has not already been reported for the epoch</td>
+    <td style="text-align: left;">The <em>offending validator</em> does not already have a <em>fault</em> in the current epoch <code>n</code> with a higher severity than the fault of the new <em>accusation</em> being made. If the <em>accusation</em> is for an earlier epoch, e.g.&nbsp;<code>n-1</code>, then the protocol checks that the <em>offending validator</em> has not already been slashed in that epoch for an offence with a higher severity. Slashing history is checked to determine this.</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;">There is not a <em>pending accusation</em></td>
+    <td style="text-align: left;">The <em>offending validator</em> does not already have an <em>accusation</em> for committing a rule infraction in the epoch. If there is a <em>pending accusation</em>, then the accountability protocol has to wait until the <em>innocence proof submission window</em> for the <em>pending accusation</em> expires to determine whether a <em>new accusation</em> can be made or not. This creates a <em>deadline</em> measured in block height <em>before</em> it becomes possible to submit a new <em>accusation</em>. The <em>innocence proof submission window</em> length is set in the <a href="../../concepts/accountability/#slashing-protocol-configuration">slashing protocol configuration</a>.</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: left;">The <em>accusation</em> is being made within a number of blocks after the detected rule infraction</td>
+    <td style="text-align: left;">An accusation must be made within an <em>accusation window</em> that is <code>&lt;= 256</code> blocks after the detected accountability event. This creates a <em>deadline</em> measured in block height <em>after</em> which an <code>accusation</code> cannot be submitted.</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>As each block is finalized, AFD will attempt to promote <em>expired accusations</em> (where the <em>innocence proof submission window</em> has elapsed) to proven <em>faults</em>.</p>
+    </section>
+    <section id="innocence" class="level4">
+    <h4 class="anchored" data-anchor-id="innocence">Innocence</h4>
+    <p>Accusations do not automatically cause slashing. An <em>offending validator</em> can present a claim of <em>innocence</em> to refute a <em>pending accusation</em> for an accusable rule infraction.</p>
+    <p>Claims of <em>innocence</em> are made by submitting an <em>innocence</em> claim on-chain as an event of type <code>InnocenceProof</code>. If successful, the proof of <em>innocence</em> cancels the <em>pending accusation</em>.</p>
+    <p>An <em>innocence</em> claim must be submitted within an <em>innocence proof submission window</em> to be accepted. The window length is measured as a count of blocks set as a parameter in the <a href="../../concepts/accountability/#slashing-protocol-configuration">slashing protocol configuration</a>. The window begins at the block height number at which the <em>accusation</em> was reported and gives the accused validator a window of opportunity to detect if an accusation against it has been made, and if so to defend itself and prove innocence by submitting an <em>innocence</em> claim on-chain. Otherwise, the <em>accusation</em> may be <em>promoted</em> to a <em>fault</em> and become slashable at the end of epoch.</p>
+    <p>If the <em>innocence</em> claim is successfully verified, then the <em>accusation</em> queue is checked and the corresponding <em>accusation</em> is cancelled. The <em>pending accusation</em> state is cleared and a <em>reporting validator</em> is now able to submit a <em>new accusation</em> against the <em>offending validator</em>.</p>
+    <p>After successful <a href="../../reference/api/aut/op-prot/#handleevent-accountability-contract">handling and verification</a> of an <em>innocence</em> claim on-chain, an <code>InnocenceProven</code> event is emitted that logs: <em>offending</em> <a href="../../concepts/validator/#validator-identifier">validator identifier</a> address, and <code>0</code> indicating there are no pending accusations against the validator.</p>
+    </section>
+    <section id="faults" class="level4">
+    <h4 class="anchored" data-anchor-id="faults">Faults</h4>
+    <p>A <em>fault</em> is a proven consensus rule infraction in an epoch. A <em>fault</em> is created <em>directly</em> or by <em>promotion of an accusation</em>.</p>
+    <p>In the direct submission method a <em>fault proof</em> is submitted on-chain directly by a <em>reporting validator</em>. This method of fault reporting is reserved for rule infractions that rely on unforgeable evidence. It does not offer the possibility of defence.</p>
+    <p>A <em>pending accusation</em> can be automatically <em>promoted</em> to a <em>fault</em> after expiry of an <em>innocence proof submission window</em>. This method offers the possibility of defence by submission of an <em>innocence proof</em>. If the <em>offending validator</em> has not submitted a successfully verified <em>innocence</em> claim within the window, and a <em>fault</em> with a higher <em>severity</em> for the epoch has not already been proven against the <em>offending validator</em> during that epoch, then the <em>accusation</em> is promoted to a <em>fault</em>.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>Unlike <em>accusations</em> where an accusation must be made within a <code>&lt;= 256</code> block window of the rule infraction, there is no <em>window</em> constraint for direct <em>fault</em> submissions.</p>
+    <p>A direct fault proof can be reported at any time.</p>
+    </div>
+    </div>
+    </div>
+    <p>After successful <a href="../../reference/api/aut/op-prot/#handleevent-accountability-contract">handling and verification</a> of a directly submitted <em>fault</em> on-chain, a <code>NewFaultProof</code> event is emitted logging the <em>offending</em> <a href="../../concepts/validator/#validator-identifier">validator identifier</a> address, <em>severity</em> of rule infraction, and the event ID.</p>
+    </section>
+    <section id="slashing-and-severity" class="level4">
+    <h4 class="anchored" data-anchor-id="slashing-and-severity">Slashing and severity</h4>
+    <p>The AFD protocol will apply slashing to an <em>offending validator</em> for the <em>fault</em> with the highest <em>severity</em> reported in an epoch. A validator can only be slashed more than once in an epoch in the case where faults committed in <em>different</em> epochs are reported and applied in the <em>same</em> epoch.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>In certain cases, a validator can be slashed for committing a fault in an epoch more than once. For example:</p>
+    <ul>
+    <li><strong>Epoch <code>n</code></strong>: The <em>offending validator</em> is slashed for a fault committed in epoch <code>n</code>.</li>
+    <li><strong>Epoch <code>n+1</code></strong>: New <em>faults</em> are reported for the <em>offending validator</em>: (1) one for the current <strong>epoch <code>n+1</code></strong>; (2) one for <strong>epoch <code>n</code></strong> with a higher <em>severity</em> than the <em>fault</em> already slashed in <strong>epoch <code>n</code></strong>.</li>
+    <li><strong>Slashing applied in epoch <code>n+1</code></strong>: The <em>offending validator</em> is slashed twice: (a) once for the fault committed in epoch <code>n+1</code>, and (2) once for the fault committed in epoch <code>n</code>.</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    <p>Rule infraction <em>severity</em> has two key influences. Firstly, it will determine if a new <em>fault</em> is created or not. New fault creation is conditional on whether the <em>offending validator</em> already has an existing <em>fault</em> with a <em>severity</em> <code>&gt;=</code> to that of the candidate new <em>fault</em> for the epoch. Secondly, <em>severity</em> will determine the amount of the slashing applied.</p>
+    <p>The slashing amount is calculated from a number of parameters, including <em>severity</em>. For slashing calculation and parameters see <a href="../../concepts/accountability/#slashing">Slashing</a>. For the severity taxonomy see <a href="../../concepts/accountability/#rule-severity">Rule severity</a>.</p>
+    </section>
+    <section id="jail" class="level4">
+    <h4 class="anchored" data-anchor-id="jail">Jail</h4>
+    <p>Jailing is a protocol action that excludes a validator from <a href="../../concepts/consensus/committee/#committee-member-selection">consensus committee selection</a>. Jailing may be applied as part of a slashing penalty depending on the <em>severity</em> of the <em>fault</em> being <em>slashed</em>.</p>
+    <p>Jailing transitions the <em>offending validator</em> from an <code>active</code> to a <code>jailed</code> or <code>jailbound</code> state. Jailing is either <em>temporary</em> or <em>permanent</em>:</p>
+    <p>On <em>temporary</em> jailing the validator enters a <code>jailed</code> state and is <em>impermanently</em> jailed for a number of blocks, the <a href="../../glossary/#jail-period">jail period</a>. The validator’s jail release block number is computed based on its proven fault history as described in <a href="../../concepts/accountability/#jail-period-calculation">Jail period calculation</a>. After expiry of the jail period a validator may get out of jail by <a href="../../concepts/validator/#validator-re-activation">re-activating</a> to revert to an <code>active</code> state and resume <a href="../../concepts/validator/#eligibility-for-selection-to-consensus-committee">eligibility for consensus committee selection</a>.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The <em>offending validator</em> will remain in a <code>jailed</code> state even after jail period expiry. The validator operator <em>must</em> manually <a href="../../concepts/validator/#validator-re-activation">re-activate</a> by calling the <a href="../../reference/api/aut/#activatevalidator"><code>activateValidator()</code></a> function to get out of jail.</p>
+    <p>The protocol <strong>does not</strong> automatically revert validator state from <code>jailed</code> to <code>active</code> at the jail release block number.</p>
+    </div>
+    </div>
+    </div>
+    <p>On <em>permanent</em> jailing the validator enters a <code>jailbound</code> state and is <em>permanently</em> jailed. It becomes <a href="../../glossary/#jailbound">jailbound</a> and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the <a href="../../concepts/accountability/">accountability and fault detection protocol</a> of a fault with a 100% stake slashing penalty as a member of the consensus committee.</p>
+    </section>
+    </section>
+    <section id="accountability-event-lifecycle" class="level3">
+    <h3 class="anchored" data-anchor-id="accountability-event-lifecycle">Accountability event lifecycle</h3>
+    <p>Accountability event lifecycle management comprises: accountability event submission on-chain, event handling on-chain, accusations, innocence, fault promotion, and slashing. Rule infractions are detected by validators and submitted on-chain. As noted under <a href="../../concepts/accountability/#protocol-primitives">Protocol Primitives</a> above, <a href="../../concepts/accountability/#faults">Faults</a> may be directly submitted as <code>FaultProofs</code> or promoted from <code>Accusations</code>.</p>
+    <p>Rule infractions can be directly submitted as a <em>fault</em> proof by a <em>reporting validator</em> or promoted from an accusation. In the latter case, they they are promoted when: - reported as an <em>accusation</em>, submitted by a <em>reporting validator</em> against an <em>offending validator</em> - eventually defended by an <em>innocence</em> proof, submitted by the <em>offending validator</em> within a proof submission window measured in blocks - if not defended, promoted to <em>fault</em> by the protocol once the innocence window has expired.</p>
+    <p>The sequence of lifecycle events for an accountability event is:</p>
+    <ul>
+    <li>An accountability event is detected by the AFD protocol and submitted on-chain by a <em>reporting validator</em>.</li>
+    <li>Event handling takes place. The event is verified and processed based on event type:
+    <ul>
+    <li><code>FaultProof</code>: If the severity is greater than the severity of a fault in the <em>offending validator’s</em> slashing history for the epoch, the event is recorded. Else, discarded.</li>
+    <li><code>Accusation</code>: If the severity is greater than the severity of a fault in the offending validator’s slashing history for the epoch, and the validator does not already have a pending accusation, then the event is recorded. Else, it is discarded.</li>
+    <li><code>InnocenceProof</code>: If the innocence proof matches to a pending accusation against an <em>offending validator</em>, then the event is recorded and the corresponding <code>Accusation</code> is deleted. Else, it is discarded.</li>
+    </ul></li>
+    <li>Fault promotion is tried. Each block until epoch end, the protocol attempts to promote <code>Accusations</code> to new <code>FaultProofs</code>. Promotion only takes place if the proof innocence window has expired and the <em>severity</em> is greater than the <em>severity</em> of an existing <em>fault</em> in the <em>offending validator’s</em> slashing history for the epoch. Else, it is discarded.</li>
+    <li>Faults are queued for slashing. Accountability <code>FaultProof</code> events are placed on a slashing queue for slashing at the end of epoch. For each <em>offending validator</em> with one or more proven faults, a slashing penalty is applied for the <code>FaultProof</code> with the highest <em>severity</em> for its fault epoch.</li>
+    <li>Validators are jailed. Validators may be <a href="../../concepts/accountability/#jail">jailed</a> as part of the slashing penalty for a fault. The validator’s node transitions from <code>active</code> to a <code>jailed</code> state and is barred from consensus committee selection. (The validator will only resume an <code>active</code> state when <code>re-activated</code> by the validator operator after the <a href="../../glossary/#jail-period">jail period</a> expires.)</li>
+    </ul>
+    </section>
+    </section>
+    <section id="slashing" class="level2">
+    <h2 class="anchored" data-anchor-id="slashing">Slashing</h2>
+    <p>Slashing penalties are computed by the protocol and applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual <em>offending validator’s</em> own slashing history. For parameters see <a href="../../concepts/accountability/#slashing-protocol-configuration">slashing protocol configuration</a> beneath.</p>
+    <p>Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, AFD will apply slashing for proven <em>faults</em> to validator stake, slashing stake per Autonity’s <a href="../../glossary/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a> model, and applying validator jailing.</p>
+    <section id="slashing-protocol-configuration" class="level3">
+    <h3 class="anchored" data-anchor-id="slashing-protocol-configuration">Slashing protocol configuration</h3>
+    <p>Accountability protocol parameters are set by default to:</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 36%">
+    <col style="width: 27%">
+    <col style="width: 36%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th style="text-align: center;">Protocol parameter</th>
+    <th style="text-align: left;">Description</th>
+    <th style="text-align: center;">Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: center;"><em>innocence proof submission window</em></td>
+    <td style="text-align: left;">the number of blocks within which an accused <em>offending validator</em> can submit a proof of innocence on-chain refuting an <code>accusation</code></td>
+    <td style="text-align: center;"><code>100</code></td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><em>base slashing rate low</em></td>
+    <td style="text-align: left;">the base slashing rate for a fault of <em>Low</em> severity</td>
+    <td style="text-align: center;"><code>1000</code> (10%)</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><em>base slashing rate mid</em></td>
+    <td style="text-align: left;">the base slashing rate for a fault of <em>Mid</em> severity</td>
+    <td style="text-align: center;"><code>2000</code> (20%)</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><em>collusion factor</em></td>
+    <td style="text-align: left;">a factor that measures the number of validators committing slashable offences in the same epoch. The factor is applied as a multiplicand to the total number of slashable offences committed in the epoch when computing the slashing amount of a penalty</td>
+    <td style="text-align: center;"><code>500</code> (5%)</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><em>history factor</em></td>
+    <td style="text-align: left;">a factor that measures the number of proven faults committed by a validator since registration. The factor is applied as a multiplicand to that proven fault count when computing the slashing amount of a penalty</td>
+    <td style="text-align: center;"><code>750</code> (7.5%)</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: center;"><em>jail factor</em></td>
+    <td style="text-align: left;">the number of epochs applied as a multiplier to the proven fault count of a validator. The factor is applied when computing the jail period of an <em>offending validator</em></td>
+    <td style="text-align: center;"><code>48</code> (1 day at 30 mins epochs)</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: center;"><em>slashing rate precision</em></td>
+    <td style="text-align: left;">the division precision used as the denominator when computing the slashing amount of a penalty</td>
+    <td style="text-align: center;"><code>10_000</code></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="slashing-amount-calculation" class="level3">
+    <h3 class="anchored" data-anchor-id="slashing-amount-calculation">Slashing amount calculation</h3>
+    <p>The economic cost of a stake slashing is calculated by applying a <em>slashing rate</em> to a validator’s bonded stake to compute a <em>slashing amount</em>.</p>
+    <p>The <em>slashing rate</em> is calculated by the formula <code>base rate + epoch offences count * collusion factor + history * history factor</code> where:</p>
+    <ul>
+    <li><code>base rate</code>: is determined by the <a href="../../concepts/accountability/#rule-severity">severity</a> of the rule infraction</li>
+    <li><code>epoch offences count</code>: is the count of proven faults created by all validators in the epoch, which is used as evidence of collusion</li>
+    <li><code>history</code>: is the count of proven faults committed by the offending validator since it first registered</li>
+    <li><code>collusion factor</code> and <code>history factor</code>: are used to compute a percentage of individual and total validator offence counts to supplement the <code>base rate</code> and scale the slashing rate according to the individual validator history and evidence of general validator collusion in the current epoch.</li>
+    </ul>
+    <p>The <em>slashing amount</em> is calculated by the formula <code>(slashing rate * validator bonded stake)/slashing rate precision</code>, applying the computed <em>slashing rate</em> as a multiplier to the validator’s bonded stake amount divided by the <a href="../../concepts/accountability/#slashing-protocol-configuration">slashing protocol configuration</a> <em>slashing rate precision</em>.</p>
+    <p>The slashing fine is then applied to validator bonded stake according to the protocol’s <a href="../../concepts/accountability/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a> model: <a href="../../glossary/#self-bonded">self-bonded</a> stake is slashed before <a href="../../glossary/#delegated">delegated</a> stake. The validator state is updated: (a) the self-bonded and total staked amounts adjusted, (b) the slashing amount is added to the validator’s <code>totalSlashed</code> counter. The slashed NTN stake token is then transferred to the Autonity Protocol global <code>treasury</code> account for community funding.</p>
+    </section>
+    <section id="jail-period-calculation" class="level3">
+    <h3 class="anchored" data-anchor-id="jail-period-calculation">Jail period calculation</h3>
+    <p>Depending upon fault severity, a slashing penalty may apply <em>temporary</em> or <em>permanent</em> validator jailing.</p>
+    <p>If <em>temporary</em>, jailing will bar the validator from committee selection for a number of blocks known as a <code>jail period</code>. The jail release block number is computed by the formula <code>current block number + jail factor * history * epoch period</code> where:</p>
+    <ul>
+    <li><code>current block number</code>: The block number at the time of computation (i.e.&nbsp;the last block of an epoch when slashing is applied).</li>
+    <li><code>jail factor</code>: A multiplier measured as a number of epochs, defined as a protocol parameter in the <a href="../../concepts/accountability/#slashing-protocol-configuration">slashing protocol configuration</a>.</li>
+    <li><code>history</code>: The number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator’s slashing history over time.</li>
+    <li><a href="../../glossary/#epoch-period"><code>epoch period</code></a>: The period of time for which a consensus committee is elected. This is defined as a number of blocks in the Autonity network’s <a href="../../reference/protocol/">protocol parameterisation</a> and set in the network’s <a href="../../reference/genesis/#public-autonity-network-configuration">genesis configuration</a>.</li>
+    </ul>
+    <p>If <em>permanent</em>, the validator becomes <a href="../../glossary/#jailbound">jailbound</a> and there i sno jail release block. Permanent jailing is only applied in the case where a validator suffers 100% stake slashing as a member of the consensus committee.</p>
+    </section>
+    <section id="penalty-absorbing-stake-pas" class="level3">
+    <h3 class="anchored" data-anchor-id="penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</h3>
+    <p>Slashing penalties for accountability events are applied according to Autonity’s <a href="../../glossary/#penalty-absorbing-stake-pas"><em>penalty-absorbing stake</em></a> model.</p>
+    <p>The <em>offending validator’s</em> own <a href="../../glossary/#self-bonded">self-bonded</a> stake is slashed before <a href="../../glossary/#delegated">delegated</a> stake when applying slashing penalties for accountability events.</p>
+    <p>To learn more about PAS, see the section on <a href="../../concepts/staking/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a> in <a href="../../concepts/staking">Staking</a>.</p>
+    </section>
+    </section>
+    <section id="rules" class="level2">
+    <h2 class="anchored" data-anchor-id="rules">Rules</h2>
+    <section id="accountability-rules" class="level3">
+    <h3 class="anchored" data-anchor-id="accountability-rules">Accountability rules</h3>
+    <p>Accountability rules are applied to detect faults in the three Tendermint consensus round phases <em>propose</em>, <em>prevote</em>, and <em>precommit</em>.</p>
+    <p>The table below lists each of the rules defined in the AFD rule engine, identified by a unique Rule ID.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Info">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Info
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The ID prefixes <code>P</code>, <code>PV</code>, and <code>C</code> that are used in Rule IDs correspond to Tendermint consensus phases:</p>
+    <ul>
+    <li><code>P</code>: <em>propose</em></li>
+    <li><code>PV</code>: <em>prevote</em></li>
+    <li><code>C</code>: <em>precommit</em></li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    <table class="table">
+    <colgroup>
+    <col style="width: 50%">
+    <col style="width: 50%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Rule ID</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>PN</code> - <code>PO</code></td>
+    <td>Propose step related consensus rule infraction.</td>
+    </tr>
+    <tr class="even">
+    <td><code>PVN</code> - <code>PVO</code> - <code>PVO12</code> - <code>PVO3</code></td>
+    <td>Prevote step related consensus rule infraction.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>C</code> - <code>C1</code></td>
+    <td>Precommit step related consensus rule infraction.</td>
+    </tr>
+    <tr class="even">
+    <td><code>InvalidProposal</code></td>
+    <td>Proposer has proposed a block that fails blockchain validation.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>InvalidProposer</code></td>
+    <td>Proposer of a block proposal is not the committee’s elected Proposer.</td>
+    </tr>
+    <tr class="even">
+    <td><code>Equivocation</code></td>
+    <td>Validator has sent conflicting messages during a consensus round: a committee member sending multiple prevotes/precommits for different values, or a proposer has broadcast conflicting block proposals to different committee members.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>InvalidRoundStep</code></td>
+    <td>Consensus round message contains invalid round number or step.</td>
+    </tr>
+    <tr class="even">
+    <td><code>WrongValidRound</code></td>
+    <td>Consensus round message contains wrong valid round number.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>GarbageMessage</code></td>
+    <td>Consensus round message was signed by sender, but it cannot be decoded.</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="rule-severity" class="level3">
+    <h3 class="anchored" data-anchor-id="rule-severity">Rule severity</h3>
+    <p>Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>In this release all offences are treated as <code>Mid</code> severity.</p>
+    <p>Future releases will introduce an offence scale range.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="events" class="level2">
+    <h2 class="anchored" data-anchor-id="events">Events</h2>
+    <section id="event-handling" class="level3">
+    <h3 class="anchored" data-anchor-id="event-handling">Event handling</h3>
+    <p>Accountability <em>events</em> are submitted on-chain by validator’s submitting proofs of behavior from consensus messaging. See <a href="../../reference/api/aut/op-prot/#handleevent-accountability-contract"><code>handleEvent()</code></a> for a description of event handling logic.</p>
+    </section>
+    <section id="event-types" class="level3">
+    <h3 class="anchored" data-anchor-id="event-types">Event types</h3>
+    <p>There are three accountability <em>event</em> types in AFD:</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 50%">
+    <col style="width: 50%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Event type</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>Accusation</code></td>
+    <td>an <em>accusation</em> of a committee member validator failing to adhere to, or violating, a consensus rule submitted by another validator committee member</td>
+    </tr>
+    <tr class="even">
+    <td><code>InnocenceProof</code></td>
+    <td>a <em>proof of innocence</em> from an <em>accusation</em> submitted by the accused committee member, which refutes and cancels the <em>accusation</em> if the proof is valid</td>
+    </tr>
+    <tr class="odd">
+    <td><code>FaultProof</code></td>
+    <td>a misbehavior <em>fault</em></td>
+    </tr>
+    </tbody>
+    </table>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>See distinction between <em>direct</em> and <em>promoted</em> in <a href="../../concepts/accountability/#faults">Faults</a> above.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="event-structure" class="level3">
+    <h3 class="anchored" data-anchor-id="event-structure">Event structure</h3>
+    <p><code>struct</code> Event:</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>chunks</code></td>
+    <td><code>uint8</code></td>
+    <td>Counter for the number of chunks in an oversize accountability event. (Large events are chunked into smaller segments with ID’s and stored in a map; see <a href="../../reference/api/aut/op-prot/#handleevent-accountability-contract"><code>handleEvent()</code></a>).</td>
+    </tr>
+    <tr class="even">
+    <td><code>chunkId</code></td>
+    <td><code>uint8</code></td>
+    <td>Chunk index to construct an oversize accountability event.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>eventType</code></td>
+    <td><code>EventType</code></td>
+    <td>The accountability event type, one of: <code>FaultProof</code> (proven misbehavior), <code>Accusation</code> (pending accusation), or <code>InnocenceProof</code> (proven innocence).</td>
+    </tr>
+    <tr class="even">
+    <td><code>rule</code></td>
+    <td><code>Rule</code></td>
+    <td>The identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. Enumerated values are defined for each AFD Rule ID.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>reporter</code></td>
+    <td><code>address</code></td>
+    <td>The node address of the validator that reported this accountability event.</td>
+    </tr>
+    <tr class="even">
+    <td><code>offender</code></td>
+    <td><code>address</code></td>
+    <td>The node address of the validator accused of the accountability event.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>rawProof</code></td>
+    <td><code>bytes</code></td>
+    <td>The <code>rlp</code> encoded bytes of the accountability proof object.</td>
+    </tr>
+    <tr class="even">
+    <td><code>block</code></td>
+    <td><code>uint256</code></td>
+    <td>The block number in which the accountability event occurred. Assigned during event handling by internal processing of raw proof data.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>epoch</code></td>
+    <td><code>uint256</code></td>
+    <td>The epoch identifier in which the accountability event <code>block</code> occurred. Assigned during event handling by internal processing of raw proof data.</td>
+    </tr>
+    <tr class="even">
+    <td><code>reportingBlock</code></td>
+    <td><code>uint256</code></td>
+    <td>The number of the block at which the accountability event was verified. Assigned during event handling by internal processing of raw proof data.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>messageHash</code></td>
+    <td><code>uint256</code></td>
+    <td>Hash of the main evidence for the accountability event. Assigned during event handling by internal processing of raw proof data.</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="slashing-economics" class="level2">
+    <h2 class="anchored" data-anchor-id="slashing-economics">Slashing economics</h2>
+    <p>There are two aspects to the economics of slashing: slashing penalties for <em>offending validators</em> and slashing rewards for <em>reporting validators</em>.</p>
+    <section id="slashing-penalties" class="level3">
+    <h3 class="anchored" data-anchor-id="slashing-penalties">Slashing penalties</h3>
+    <p>The economic loss to validators and their delegators from slashing penalties covers stake token and staking rewards.</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th style="text-align: left;">Economic loss</th>
+    <th style="text-align: left;">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td style="text-align: left;">Slashing of stake token</td>
+    <td style="text-align: left;">The <em>offending validator’s</em> bonded stake is slashed for the penalty amount. Slashing is applied at epoch end according to the protocol’s <a href="../../glossary/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a> model. The amount of stake token slashed varies according to the <em>severity</em> of the fault committed and the slashing factors applied.</td>
+    </tr>
+    <tr class="even">
+    <td style="text-align: left;">Loss of current epoch staking rewards</td>
+    <td style="text-align: left;">The <em>offending validator</em> loses staking rewards earned if a member of the consensus committee in the epoch when the slashing penalty is applied. The forfeited staking rewards are distributed to the <em>reporting validator</em>.</td>
+    </tr>
+    <tr class="odd">
+    <td style="text-align: left;">Loss of future staking rewards</td>
+    <td style="text-align: left;">If the slashing penalty applies <a href="../../glossary/#jailing">jailing</a> for the fault, then the <em>offending validator</em> loses the opportunity to earn future staking rewards as a committee member until it resumes an <code>active</code> state.</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="slashing-rewards" class="level3">
+    <h3 class="anchored" data-anchor-id="slashing-rewards">Slashing rewards</h3>
+    <p>Slashing rewards are provided by forfeiture of an <em>offending validator’s</em> staking rewards.</p>
+    <p>Slashing rewards are distributed for reporting provable faults committed by an <em>offending validator</em> to the <em>reporting validator</em>. Rewards are only distributed to the <em>last</em> reporter of a slashing penalty applied to an <em>offending validator</em> in an epoch. Reward revenue is determined by the offender’s share of the stake active (<a href="../../glossary/#voting-power">voting power</a>) in the committee at the time the slashing penalty is applied.</p>
+    <p>Slashing rewards earned by a <em>reporting validator</em> are conditional on the <em>offending validator</em> being a member of the consensus committee in the epoch when the slashing penalty is applied. If multiple slashing events are committed by the same <em>offending validator</em> during the same epoch, then rewards are only distributed to the last <em>reporter</em> for the last slashing penalty applied to an <em>offending validator</em> in the epoch.</p>
+    <p>Staking rewards earned by the <em>offending validator</em> for the epoch are distributed to the <em>reporting validator</em> at epoch end.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The protocol distributes rewards for reporting provable faults committed by an <em>offending validator</em> to the <em>reporting</em> validator.</p>
+    <p>If multiple slashing events are committed by the same <em>offending validator</em> during the same epoch, then rewards are only distributed to the last reporter.</p>
+    <p>If the distribution of rewards to the <em>reporting validator’s</em> <code>treasury</code> account fails, then the slashing rewards are sent to the Autonity Protocol <code>treasury</code> account for community funds.</p>
+    </div>
+    </div>
+    </div>
+    <!--
+    ### Transaction fee refund
+
+    The fees for submitting a new accusation may be refunded to the _reporting_ validator if the accusation is the last new accusation submitted in an epoch.
+
+    ::: {.callout-note title="Note" collapse="false"}
+    Note the validator can determine if a detected fault is accusable by calling the [`canAccuse()`](/reference/api/accountability/#canaccuse) and [`canSlash()`](/reference/api/accountability/#canslash) contract functions.
+    :::
+    -->
+    
+    
+    </section>
+    </section>
+
+        </main> <!-- /main -->
+        <script id="quarto-html-after-body" type="application/javascript">
+        window.document.addEventListener("DOMContentLoaded", function (event) {
+          const toggleBodyColorMode = (bsSheetEl) => {
+            const mode = bsSheetEl.getAttribute("data-mode");
+            const bodyEl = window.document.querySelector("body");
+            if (mode === "dark") {
+              bodyEl.classList.add("quarto-dark");
+              bodyEl.classList.remove("quarto-light");
+            } else {
+              bodyEl.classList.add("quarto-light");
+              bodyEl.classList.remove("quarto-dark");
+            }
+          }
+          const toggleBodyColorPrimary = () => {
+            const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+            if (bsSheetEl) {
+              toggleBodyColorMode(bsSheetEl);
+            }
+          }
+          toggleBodyColorPrimary();  
+          const icon = "";
+          const anchorJS = new window.AnchorJS();
+          anchorJS.options = {
+            placement: 'right',
+            icon: icon
+          };
+          anchorJS.add('.anchored');
+          const isCodeAnnotation = (el) => {
+            for (const clz of el.classList) {
+              if (clz.startsWith('code-annotation-')) {                     
+                return true;
+              }
+            }
+            return false;
+          }
+          const clipboard = new window.ClipboardJS('.code-copy-button', {
+            text: function(trigger) {
+              const codeEl = trigger.previousElementSibling.cloneNode(true);
+              for (const childEl of codeEl.children) {
+                if (isCodeAnnotation(childEl)) {
+                  childEl.remove();
+                }
+              }
+              return codeEl.innerText;
+            }
+          });
+          clipboard.on('success', function(e) {
+            // button target
+            const button = e.trigger;
+            // don't keep focus
+            button.blur();
+            // flash "checked"
+            button.classList.add('code-copy-button-checked');
+            var currentTitle = button.getAttribute("title");
+            button.setAttribute("title", "Copied!");
+            let tooltip;
+            if (window.bootstrap) {
+              button.setAttribute("data-bs-toggle", "tooltip");
+              button.setAttribute("data-bs-placement", "left");
+              button.setAttribute("data-bs-title", "Copied!");
+              tooltip = new bootstrap.Tooltip(button, 
+                { trigger: "manual", 
+                  customClass: "code-copy-button-tooltip",
+                  offset: [0, -8]});
+              tooltip.show();    
+            }
+            setTimeout(function() {
+              if (tooltip) {
+                tooltip.hide();
+                button.removeAttribute("data-bs-title");
+                button.removeAttribute("data-bs-toggle");
+                button.removeAttribute("data-bs-placement");
+              }
+              button.setAttribute("title", currentTitle);
+              button.classList.remove('code-copy-button-checked');
+            }, 1000);
+            // clear code selection
+            e.clearSelection();
+          });
+          function tippyHover(el, contentFn) {
+            const config = {
+              allowHTML: true,
+              content: contentFn,
+              maxWidth: 500,
+              delay: 100,
+              arrow: false,
+              appendTo: function(el) {
+                  return el.parentElement;
+              },
+              interactive: true,
+              interactiveBorder: 10,
+              theme: 'quarto',
+              placement: 'bottom-start'
+            };
+            window.tippy(el, config); 
+          }
+          const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+          for (var i=0; i<noterefs.length; i++) {
+            const ref = noterefs[i];
+            tippyHover(ref, function() {
+              // use id or data attribute instead here
+              let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+              try { href = new URL(href).hash; } catch {}
+              const id = href.replace(/^#\/?/, "");
+              const note = window.document.getElementById(id);
+              return note.innerHTML;
+            });
+          }
+              let selectedAnnoteEl;
+              const selectorForAnnotation = ( cell, annotation) => {
+                let cellAttr = 'data-code-cell="' + cell + '"';
+                let lineAttr = 'data-code-annotation="' +  annotation + '"';
+                const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+                return selector;
+              }
+              const selectCodeLines = (annoteEl) => {
+                const doc = window.document;
+                const targetCell = annoteEl.getAttribute("data-target-cell");
+                const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+                const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+                const lineIds = lines.map((line) => {
+                  return targetCell + "-" + line;
+                })
+                let top = null;
+                let height = null;
+                let parent = null;
+                if (lineIds.length > 0) {
+                    //compute the position of the single el (top and bottom and make a div)
+                    const el = window.document.getElementById(lineIds[0]);
+                    top = el.offsetTop;
+                    height = el.offsetHeight;
+                    parent = el.parentElement.parentElement;
+                  if (lineIds.length > 1) {
+                    const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                    const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                    height = bottom - top;
+                  }
+                  if (top !== null && height !== null && parent !== null) {
+                    // cook up a div (if necessary) and position it 
+                    let div = window.document.getElementById("code-annotation-line-highlight");
+                    if (div === null) {
+                      div = window.document.createElement("div");
+                      div.setAttribute("id", "code-annotation-line-highlight");
+                      div.style.position = 'absolute';
+                      parent.appendChild(div);
+                    }
+                    div.style.top = top - 2 + "px";
+                    div.style.height = height + 4 + "px";
+                    let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                    if (gutterDiv === null) {
+                      gutterDiv = window.document.createElement("div");
+                      gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                      gutterDiv.style.position = 'absolute';
+                      const codeCell = window.document.getElementById(targetCell);
+                      const gutter = codeCell.querySelector('.code-annotation-gutter');
+                      gutter.appendChild(gutterDiv);
+                    }
+                    gutterDiv.style.top = top - 2 + "px";
+                    gutterDiv.style.height = height + 4 + "px";
+                  }
+                  selectedAnnoteEl = annoteEl;
+                }
+              };
+              const unselectCodeLines = () => {
+                const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+                elementsIds.forEach((elId) => {
+                  const div = window.document.getElementById(elId);
+                  if (div) {
+                    div.remove();
+                  }
+                });
+                selectedAnnoteEl = undefined;
+              };
+              // Attach click handler to the DT
+              const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+              for (const annoteDlNode of annoteDls) {
+                annoteDlNode.addEventListener('click', (event) => {
+                  const clickedEl = event.target;
+                  if (clickedEl !== selectedAnnoteEl) {
+                    unselectCodeLines();
+                    const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+                    if (activeEl) {
+                      activeEl.classList.remove('code-annotation-active');
+                    }
+                    selectCodeLines(clickedEl);
+                    clickedEl.classList.add('code-annotation-active');
+                  } else {
+                    // Unselect the line
+                    unselectCodeLines();
+                    clickedEl.classList.remove('code-annotation-active');
+                  }
+                });
+              }
+          const findCites = (el) => {
+            const parentEl = el.parentElement;
+            if (parentEl) {
+              const cites = parentEl.dataset.cites;
+              if (cites) {
+                return {
+                  el,
+                  cites: cites.split(' ')
+                };
+              } else {
+                return findCites(el.parentElement)
+              }
+            } else {
+              return undefined;
+            }
+          };
+          var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+          for (var i=0; i<bibliorefs.length; i++) {
+            const ref = bibliorefs[i];
+            const citeInfo = findCites(ref);
+            if (citeInfo) {
+              tippyHover(citeInfo.el, function() {
+                var popup = window.document.createElement('div');
+                citeInfo.cites.forEach(function(cite) {
+                  var citeDiv = window.document.createElement('div');
+                  citeDiv.classList.add('hanging-indent');
+                  citeDiv.classList.add('csl-entry');
+                  var biblioDiv = window.document.getElementById('ref-' + cite);
+                  if (biblioDiv) {
+                    citeDiv.innerHTML = biblioDiv.innerHTML;
+                  }
+                  popup.appendChild(citeDiv);
+                });
+                return popup.innerHTML;
+              });
+            }
+          }
+            var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+              var filterRegex = new RegExp('/' + window.location.host + '/');
+            var isInternal = (href) => {
+                return filterRegex.test(href) || localhostRegex.test(href);
+            }
+            // Inspect non-navigation links and adorn them if external
+         	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+            for (var i=0; i<links.length; i++) {
+              const link = links[i];
+              if (!isInternal(link.href)) {
+                  // target, if specified
+                  link.setAttribute("target", "_blank");
+                  // default icon
+                  link.classList.add("external");
+              }
+            }
+        });
+        </script>
+        </div> <!-- /content -->
+        <footer class="footer">
+          <div class="nav-footer">
+            <div class="nav-footer-left">
+              <ul class="footer-items list-unstyled">
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://github.com/autonity/">
+              <i class="bi bi-github" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://twitter.com/autonity_">
+              <i class="bi bi-twitter" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://discord.com/invite/autonity">
+              <i class="bi bi-discord" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ">
+              <i class="bi bi-youtube" role="img">
+        </i> 
+            </a>
+          </li>  
+        </ul>
+            </div>   
+            <div class="nav-footer-center">
+              &nbsp;
+            </div>
+            <div class="nav-footer-right">
+              &nbsp;
+            </div>
+          </div>
+        </footer>
+    
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

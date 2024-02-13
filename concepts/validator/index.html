@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
+    
+
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
+
+
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
+
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.3.361">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <meta name="description" content="The role of validators, the functions they perform, and their lifecycle">
+
+    <title>Autonity Documentation - Validator</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        code{white-space: pre-wrap;}
+        span.smallcaps{font-variant: small-caps;}
+        div.columns{display: flex; gap: min(4vw, 1.5em);}
+        div.column{flex: auto; overflow-x: auto;}
+        div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+        ul.task-list{list-style: none;}
+        ul.task-list li input[type="checkbox"] {
+          width: 0.8em;
+          margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+          vertical-align: middle;
+        }
+    </style>
+    
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+        <script id="quarto-search-options" type="application/json">{
+          "location": "navbar",
+          "copy-button": false,
+          "collapse-after": 3,
+          "panel-placement": "end",
+          "type": "overlay",
+          "limit": 20,
+          "language": {
+            "search-no-results-text": "No results",
+            "search-matching-documents-text": "matching documents",
+            "search-copy-link-title": "Copy link to search",
+            "search-hide-matches-text": "Hide additional matches",
+            "search-more-match-text": "more match in this document",
+            "search-more-matches-text": "more matches in this document",
+            "search-clear-button-title": "Clear",
+            "search-detached-cancel-button-title": "Cancel",
+            "search-submit-button-title": "Submit",
+            "search-label": "Search"
+          }
+        }</script>
+        <style>html{ scroll-behavior: smooth; }</style>
+        <link rel="preconnect" href="https://plausible.io">
+        <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+        <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    
+    
+        <link rel="stylesheet" href="../../_assets/css/styles.css">
+    </head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+        <div id="quarto-search-results"></div>
+          <header id="quarto-header" class="headroom fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-dark ">
+              <div class="navbar-container container-fluid">
+              <div class="navbar-brand-container">
+            <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+            <img src="../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+            </a>
+            <a class="navbar-brand" href="../../index.html">
+            <span class="navbar-title">Autonity Documentation</span>
+            </a>
+          </div>
+                <div class="quarto-navbar-tools ms-auto">
+        </div>
+                  <div id="quarto-search" class="" title="Search"></div>
+              </div> <!-- /container-fluid -->
+            </nav>
+          <nav class="quarto-secondary-nav">
+            <div class="container-fluid d-flex">
+              <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+                <i class="bi bi-layout-text-sidebar-reverse"></i>
+              </button>
+              <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../concepts/accountability/index.html">Concepts</a></li><li class="breadcrumb-item"><a href="../../concepts/validator/index.html">Validator</a></li></ol></nav>
+              <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+              </a>
+            </div>
+          </nav>
+        </header>
+        <!-- content -->
+        <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+        <!-- sidebar -->
+          <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+            <div class="sidebar-menu-container"> 
+            <ul class="list-unstyled mt-1">
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Overview</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+         <span class="menu-text">Concepts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability and fault detection (AFD)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server (AOS)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton Stabilization Mechanism (ASM)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Staking</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client (AGC)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/validator/index.html" class="sidebar-item-text sidebar-link active">
+         <span class="menu-text">Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">System model</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Architecture</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle network</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus Committee</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Tendermint BFT consensus</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol assets</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Newton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+         <span class="menu-text">Networks</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bakerloo Testnet</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Piccadilly Testnet</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+         <span class="menu-text">Accounts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setup the Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Create an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Fund an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a transaction from the Autonity Utility tool (aut)</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+         <span class="menu-text">Running a Node</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Connecting to your Node</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Set up node monitoring</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+         <span class="menu-text">Running an Oracle Server</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity Oracle Server in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity Oracle Server</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+         <span class="menu-text">Running a Validator</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Register as a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Pause and reactivate a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Change Validator Commission Rate</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+         <span class="menu-text">Staking</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bond and unbond stake</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Claim Staking Rewards</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Transfer Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+         <span class="menu-text">Borrowing by CDP in the ASM</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Open and manage a CDP</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquidate a CDP</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+         <span class="menu-text">Development</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a governance transaction from Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Deploy smart contracts to an Autonity network with Brownie</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setting up custom networks</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+         <span class="menu-text">Reference</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/utility-tools/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Utility tools</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Codebase</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol Parameters</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/genesis/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Genesis</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Interfaces</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Web3 Namespace</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Governance and Protocol Only Reference</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ASM Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Stabilization Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ACU Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Supply Control Contract Interface</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Command-line</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client Command-line</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server Command-line</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../glossary/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Glossary</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../issues/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Known issues</span></a>
+          </div>
+        </li>
+            </ul>
+            </div>
+        </nav>
+        <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+        <!-- margin-sidebar -->
+            <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+                <nav id="TOC" role="doc-toc" class="toc-active">
+            <h2 id="toc-title">On this page</h2>
+           
+          <ul>
+          <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+          <ul class="collapse">
+          <li><a href="#validator-prerequisites" id="toc-validator-prerequisites" class="nav-link" data-scroll-target="#validator-prerequisites">Validator prerequisites</a></li>
+          </ul></li>
+          <li><a href="#validator-identity-accounts-and-keypairs" id="toc-validator-identity-accounts-and-keypairs" class="nav-link" data-scroll-target="#validator-identity-accounts-and-keypairs">Validator identity, accounts and keypairs</a>
+          <ul class="collapse">
+          <li><a href="#p2p-node-key" id="toc-p2p-node-key" class="nav-link" data-scroll-target="#p2p-node-key">P2P node key</a></li>
+          <li><a href="#validator-enode-url" id="toc-validator-enode-url" class="nav-link" data-scroll-target="#validator-enode-url">Validator enode URL</a></li>
+          <li><a href="#validator-identifier" id="toc-validator-identifier" class="nav-link" data-scroll-target="#validator-identifier">Validator identifier</a></li>
+          <li><a href="#treasury-account" id="toc-treasury-account" class="nav-link" data-scroll-target="#treasury-account">Treasury account</a></li>
+          <li><a href="#oracle-identifier" id="toc-oracle-identifier" class="nav-link" data-scroll-target="#oracle-identifier">Oracle identifier</a></li>
+          </ul></li>
+          <li><a href="#validator-lifecycle" id="toc-validator-lifecycle" class="nav-link" data-scroll-target="#validator-lifecycle">Validator lifecycle</a>
+          <ul class="collapse">
+          <li><a href="#eligibility-for-selection-to-consensus-committee" id="toc-eligibility-for-selection-to-consensus-committee" class="nav-link" data-scroll-target="#eligibility-for-selection-to-consensus-committee">Eligibility for selection to consensus committee</a></li>
+          <li><a href="#jailing-and-exclusion-from-consensus-committee" id="toc-jailing-and-exclusion-from-consensus-committee" class="nav-link" data-scroll-target="#jailing-and-exclusion-from-consensus-committee">Jailing and exclusion from consensus committee</a></li>
+          </ul></li>
+          <li><a href="#stake-bonding-and-delegation" id="toc-stake-bonding-and-delegation" class="nav-link" data-scroll-target="#stake-bonding-and-delegation">Stake bonding and delegation</a></li>
+          <li><a href="#validator-economics" id="toc-validator-economics" class="nav-link" data-scroll-target="#validator-economics">Validator economics</a></li>
+          <li><a href="#validator-registration" id="toc-validator-registration" class="nav-link" data-scroll-target="#validator-registration">Validator registration</a>
+          <ul class="collapse">
+          <li><a href="#genesis-registration" id="toc-genesis-registration" class="nav-link" data-scroll-target="#genesis-registration">Genesis registration</a></li>
+          <li><a href="#post-genesis-registration" id="toc-post-genesis-registration" class="nav-link" data-scroll-target="#post-genesis-registration">Post-genesis registration</a></li>
+          </ul></li>
+          <li><a href="#validator-accountability" id="toc-validator-accountability" class="nav-link" data-scroll-target="#validator-accountability">Validator accountability</a></li>
+          <li><a href="#validator-jailing" id="toc-validator-jailing" class="nav-link" data-scroll-target="#validator-jailing">Validator jailing</a></li>
+          <li><a href="#validator-pausing" id="toc-validator-pausing" class="nav-link" data-scroll-target="#validator-pausing">Validator pausing</a></li>
+          <li><a href="#validator-re-activation" id="toc-validator-re-activation" class="nav-link" data-scroll-target="#validator-re-activation">Validator re-activation</a></li>
+          <li><a href="#validator-commission-rate-change" id="toc-validator-commission-rate-change" class="nav-link" data-scroll-target="#validator-commission-rate-change">Validator commission rate change</a></li>
+          </ul>
+        </nav>
+            </div>
+        <!-- main -->
+        <main class="content" id="quarto-document-content">
+    
+        <header id="title-block-header" class="quarto-title-block default">
+        <div class="quarto-title">
+        <h1 class="title">Validator</h1>
+        </div>
+
+        <div>
+          <div class="description">
+            <p>The role of validators, the functions they perform, and their lifecycle</p>
+          </div>
+        </div>
+
+
+        <div class="quarto-title-meta">
+
+            
+          
+            
+          </div>
+          
+
+        </header>    
+            
+    <section id="overview" class="level2">
+    <h2 class="anchored" data-anchor-id="overview">Overview</h2>
+    <p>This section describes the role of validators, prerequisites for becoming a validator, and the validator lifecycle (registration, pausing, reactivation).</p>
+    <p>A validator is an Autonity full node with bonded stake that is eligible for selection to an Autonity Network’s consensus committee. As a member of the consensus committee its primary function is to ensure the integrity of system state.</p>
+    <p>To fulfil this purpose the validator participates in consensus computation with other members of the consensus committee:</p>
+    <ul>
+    <li>Proposing, voting, and validating new <a href="../../glossary/#block">blocks</a> in accordance with the rules of Autonity’s implementation of the Tendermint consensus mechanism.</li>
+    <li>Reporting infractions of consensus rules by committee members in the accountability and fault detection protocol.</li>
+    <li>Submitting price reports and voting on aggregated median price data for selected currency pairs in oracle protocol voting rounds.</li>
+    </ul>
+    <p>It has responsibilities to:</p>
+    <ul>
+    <li>Propose blocks of ordered transactions as the leader of a consensus round.</li>
+    <li>Validate that proposed blocks contain only valid state transitions.</li>
+    <li>Vote in consensus rounds, exchanging consensus messages with committee members as the consensus protocol executes.</li>
+    <li>Maintain system state by committing new blocks to state as a consensus round completes.</li>
+    <li>Propagate new blocks to the network at the end of a consensus round, sending the full block if round leader otherwise sending a new block announcement.</li>
+    <li>Provide bonded stake to the Proof of Stake consensus mechanism, providing locked stake for network security economics.</li>
+    <li>Participate in the accountability and fault detection protocol, detecting and submitting accountability events committed by other committee members. See concept <a href="../../concepts/accountability/">accountability and fault detection protocol</a>.</li>
+    <li>Participate in the oracle protocol, inputting raw price data and voting for aggregated median price data for currency pairs provided by the Autonity network during oracle <a href="../../glossary/#voting-round">voting rounds</a>. See concept <a href="../../concepts/oracle-network/">oracle network</a>.</li>
+    </ul>
+    <p>As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour by stake <a href="../../concepts/staking/#slashing">slashing</a> and penalty mechanisms implemented by an <a href="../../concepts/accountability/">accountability and fault detection protocol</a>. Consensus committee members are incentivised by <a href="../../concepts/staking/#staking-rewards">staking rewards</a>, receiving a share of the transaction fee revenue earned for each block of transactions committed to system state, <em>pro rata</em> to their share of bonded stake securing the system in that block. Consensus committee members are incentivised to report Byzantine behaviour by other committee members by <a href="../../concepts/accountability/#slashing-rewards">slashing rewards</a> for reporting accountability faults resulting in a penalty.</p>
+    <section id="validator-prerequisites" class="level3">
+    <h3 class="anchored" data-anchor-id="validator-prerequisites">Validator prerequisites</h3>
+    <p>To operate as a validator node, the operator must operate Autonity <a href="../../concepts/oracle-server/">oracle server</a> software as an adjunct to its Autonity <a href="../../concepts/client/">full node</a> software.</p>
+    <p>Prerequisites for becoming a validator node operator are:</p>
+    <ul>
+    <li>A <a href="../../concepts/validator/#validator-enode-url">validator enode URL</a>. A node joined to the network.</li>
+    <li>An <a href="../../concepts/oracle-network/">oracle server</a> configured to collect external price data from off-chain data providers, and connected to the operator’s validator node for on-chain submission of price reports.</li>
+    <li>A <a href="../../concepts/validator/#treasury-account">treasury account</a>. An EOA account that is the validator node operator’s online identity and which:
+    <ul>
+    <li>Is the <code>msg.sender()</code> account used by the operator to submit state affecting transactions that govern the <a href="../../concepts/validator/#validator-lifecycle">validator lifecycle</a>.</li>
+    <li>Will receive the validator’s share of <a href="../../concepts/staking/#staking-rewards">staking rewards</a>.</li>
+    </ul></li>
+    </ul>
+    </section>
+    </section>
+    <section id="validator-identity-accounts-and-keypairs" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-identity-accounts-and-keypairs">Validator identity, accounts and keypairs</h2>
+    <p>The validator makes use of different accounts and private/public <a href="../../glossary/#key-pair">key pairs</a> for validator lifecycle management (registration, pausing, reactivation), validator identity, staking rewards, consensus participation and cryptographic security.</p>
+    <section id="p2p-node-key" class="level3">
+    <h3 class="anchored" data-anchor-id="p2p-node-key">P2P node key</h3>
+    <p>The private/public key pair of the validator node.</p>
+    <p>The private key is used:</p>
+    <ul>
+    <li>By a node for negotiating an authenticated and encrypted connection between other network nodes at the devp2p layer in the <a href="https://github.com/ethereum/devp2p/blob/master/rlpx.md">RLPx Transport Protocol</a>.</li>
+    <li>To generate the <code>proof</code> of enode ownership required for validator registration. The <code>proof</code> is generated using the <a href="../../reference/cli/#command-line-options"><code>genEnodeProof</code></a> command-line option of the Autonity Go Client.</li>
+    </ul>
+    <p>The public key is used:</p>
+    <ul>
+    <li>As the identifier or ‘node ID’ of the node (in RLPx and node discovery protocols).</li>
+    <li>As the PUBKEY component of the enode URL as a hex string.</li>
+    <li>To verify the signature of consensus level network messages.</li>
+    <li>To derive an ethereum format account that is then used to identify the validator node. See <a href="#validator-identifier">validator identifier</a>.</li>
+    </ul>
+    <p>::: {.callout-note title=“Note” collapse=“false”}The private key can be used by Autonity’s <code>bootnode</code> utility to derive the hex string used in the <code>enode</code> URL. (See Networking Options <code>nodekey</code> and <code>nodekeyhex</code> in <a href="../../reference/cli/#usage">Autonity command-line options</a> and, for reference, the ethereum stack exchange article <a href="https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key">how to produce enode from node key</a>.):::</p>
+    </section>
+    <section id="validator-enode-url" class="level3">
+    <h3 class="anchored" data-anchor-id="validator-enode-url">Validator enode URL</h3>
+    <p>The <code>enode</code> URL is the network address of the peer node operated by the validator. It provides the network location of the node client for p2p networking.</p>
+    <p>The enode URL format is described in the <a href="https://ethereum.org/en/developers/docs/networking-layer/network-addresses/#enode">ethereum Developers docs</a>.</p>
+    <p>It takes the form:</p>
+    <pre><code>enode://PUBKEY@IP:PORT</code></pre>
+    <p>The PUBKEY component is the public key from the P2P node key. The PUBKEY is static. The IP and PORT COMPONENTS may change over time.</p>
+    <p>The PUBKEY component is used to derive an ethereum format account address that is used as the validator identity in validator registration, staking, and accountability and omissions operations - see validator identifier.</p>
+    </section>
+    <section id="validator-identifier" class="level3">
+    <h3 class="anchored" data-anchor-id="validator-identifier">Validator identifier</h3>
+    <p>A unique identifier for the validator used as the validator identity in validator lifecycle management (registration, pausing, reactivation), staking, and accountability and omissions operations. It provides an unambiguous relationship between validator identity and node. For example, it is used to identify the validator in a bond stake function call.</p>
+    <p>The identity is created as an ethereum format account address, derived on registration by protocol logic from the PUBKEY component of the validator node’s enode URL. It is stored in the <code>nodeAddress</code> field in the Validator data struct maintained in state.</p>
+    <p>Note that the identifier is the validator <em>node’s</em> on-chain identity and is distinct from the treasury account which is the validator <em>operator’s</em> account.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>An account address rather than the PUBKEY of the <a href="../../glossary/#enode">enode</a> url is used to make use of the address datatype in function calls.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="treasury-account" class="level3">
+    <h3 class="anchored" data-anchor-id="treasury-account">Treasury account</h3>
+    <p>The <code>treasury</code> account is the Autonity Network account used by a validator to submit transactions for validator lifecycle management transactions and to receive its share of staking rewards. It uses a different private/public key pair with respect to the p2p node key. This is because those keys may have different security requirements, as well as because multiple validators could use the same treasury account.</p>
+    </section>
+    <section id="oracle-identifier" class="level3">
+    <h3 class="anchored" data-anchor-id="oracle-identifier">Oracle identifier</h3>
+    <p>A unique identifier for the Autonity Oracle Server providing price data reports to the validator node.</p>
+    <p>The identity is created as an ethereum format account address and provided as a validator registration parameter. For more information see concept <a href="../../concepts/oracle-network/">oracle network</a> and <a href="../../concepts/oracle-network/#oracle-identifier">oracle identifier</a>.</p>
+    </section>
+    </section>
+    <section id="validator-lifecycle" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-lifecycle">Validator lifecycle</h2>
+    <p>Validator lifecycle management comprises registration, participation in the consensus committee, jailing for accountability faults, pausing, and reactivation.</p>
+    <p>The sequence of lifecycle events for a validator is:</p>
+    <ol type="1">
+    <li><p>Join the network. The validator’s main client software is admitted to the P2P network as a peer node, syncing state on connection.</p></li>
+    <li><p>Configure oracle server and data sources. Pre-validator registration, the validator installs the oracle server software and configures data sources for price data provision.</p></li>
+    <li><p>Register as a validator. The validator’s node is registered as a validator by the submission of registration parameters.</p></li>
+    <li><p>Stake bonding. Stake is bonded to the validator, either by the validator itself or by delegation from a stake token holder. Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the <a href="../../concepts/consensus/committee/#committee-member-selection">committee selection process</a>.</p></li>
+    <li><p>Selection to consensus committee. In the last block of an epoch, the <a href="../../concepts/consensus/committee/#committee-member-selection">committee selection process</a> is run and a validator may be selected to the consensus committee for the next epoch. Whilst a member of the consensus committee it is responsible for participating in (a) block validation, proposing and voting on new blocks, and (b) oracle price data submission and voting.</p></li>
+    <li><p>Jailed for accountability fault. If a validator is found guilty by the <a href="../../concepts/accountability/">accountability and fault detection protocol</a> of failing to adhere to consensus rules as a member of the consensus committee, then <a href="../../glossary/#jailing">jailing</a> may be applied. In this state the validator is <a href="../../concepts/validator/#jailing-and-exclusion-from-consensus-committee">jailed and excluded from consensus committee selection</a> for a computed duration.</p>
+    <p>Depending on the gravity of the fault committed, jailing may be temporary or permanent and the validator will enter a <code>jailed</code> or <code>jailbound</code> state:</p>
+    <p>6.a. Temporary jailing: <code>jailed</code> state. The validator is <em>impermanently</em> jailed for a number of blocks. The block height at which the jail period ends is recorded in the validator’s state as the <a href="../../reference/api/aut/#response-26"><code>jailReleaseBlock</code></a> property. After expiry of the <a href="../../glossary/#jail-period">jail period</a> the validator may be <a href="../../concepts/validator/#validator-re-activation">re-activated</a> to resume an <code>active</code> state.</p>
+    <p>6.b. Permanent jailing: <code>jailbound</code> state. In this state the validator is <em>permanently</em> jailed and becomes <a href="../../glossary/#jailbound">jailbound</a>. Permanent jailing is only applied in the case where a validator is found guilty by the <a href="../../concepts/accountability/">accountability and fault detection protocol</a> of a fault with a 100% stake slashing penalty as a member of the consensus committee.</p></li>
+    <li><p>Pause as a validator. The validator’s node enters a <code>paused</code> state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until <a href="../../concepts/validator/#validator-re-activation">re-activated</a>. Stake is <em>not</em> automatically unbonded.</p></li>
+    <li><p>Re-activate as a validator. The validator’s node transitions from a <code>paused</code> or <code>jailed</code> state to resume an <code>active</code> state in which it is eligible for inclusion in the committee selection process.</p></li>
+    </ol>
+    <p>Validator registration can take place at genesis initialisation or after genesis. In the genesis scenario, event steps 1-4 happen automatically as the network is initialised and the validator is included in the genesis run of the <a href="../../concepts/consensus/committee/#committee-member-selection">committee selection process</a>. After genesis, all lifecycle steps are discrete and initiated by the validator node operator entity.</p>
+    <section id="eligibility-for-selection-to-consensus-committee" class="level3">
+    <h3 class="anchored" data-anchor-id="eligibility-for-selection-to-consensus-committee">Eligibility for selection to consensus committee</h3>
+    <p>A validator becomes eligible for selection to the consensus committee when:</p>
+    <ul>
+    <li>It is registered and has an <code>active</code> state. Registration is complete: the validator’s registration parameters and state are recorded in the <code>validators</code> data structure maintained by the Autonity Protocol Contract.</li>
+    <li>It has non-zero bonded stake. The amount of stake bonded to the validator, recorded in the <code>validators</code> data structure, is greater than <code>0</code>.</li>
+    </ul>
+    <p>Eligible validators are included in the committee selection algorithm. The algorithm is run at block epoch end to choose the committee for the upcoming epoch.</p>
+    </section>
+    <section id="jailing-and-exclusion-from-consensus-committee" class="level3">
+    <h3 class="anchored" data-anchor-id="jailing-and-exclusion-from-consensus-committee">Jailing and exclusion from consensus committee</h3>
+    <p>A validator may be found guilty by the <a href="../../concepts/accountability/">accountability and fault detection protocol</a> of failing to adhere to consensus rules when a member of the consensus committee. In this case, depending on the type of fault committed, <a href="../../glossary/#jailing">jailing</a> for a computed number of blocks may be applied as part of a slashing penalty.</p>
+    <p>On entering a jailed state a validator is ignored by the consensus committee selection algorithm and cannot be elected as a consensus committee member. The duration of validator jailing may be <em>temporary</em> or <em>permanent</em> depending on how serious the committed accountability fault has been. If <em>temporary</em>, the validator enters a <code>jailed</code> state. If permanent, the validator enters a <code>jailbound</code> state.</p>
+    <p>For further detail see <a href="../../concepts/validator/#validator-jailing">Validator jailing</a> on this page.</p>
+    </section>
+    </section>
+    <section id="stake-bonding-and-delegation" class="level2">
+    <h2 class="anchored" data-anchor-id="stake-bonding-and-delegation">Stake bonding and delegation</h2>
+    <p>Validators are staked with Autonity’s <a href="../../concepts/protocol-assets/newton/">Newton</a> stake token. A genesis validator must bond stake at genesis. After genesis, a validator can bond their own Newton and have Newton staked to them by <a href="../../glossary/#delegation">delegation</a> from other Newton token holders at any time.</p>
+    <p>Autonity implements a <a href="../../concepts/staking/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a> model and a <a href="../../concepts/staking/#liquid-staking">liquid staking</a> model.</p>
+    <p>In this model:</p>
+    <ul>
+    <li><a href="../../concepts/staking/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a>: <a href="../../glossary/#self-bonded">self-bonded</a> stake is slashed before <a href="../../glossary/#delegated">delegated</a> stake, ensuring the validator has “skin in the game” and incentivising reliable and honest validator operations and behaviour.</li>
+    <li><a href="../../concepts/staking/#liquid-staking">Liquid staking</a>: <a href="../../glossary/#delegated">delegated</a> stake has <a href="../../concepts/protocol-assets/liquid-newton/">Liquid Newton</a> minted to the staker in proportion to the amount of Newton staked to a validator.</li>
+    </ul>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>Note that: - <a href="../../concepts/protocol-assets/liquid-newton/">Liquid Newton</a> is <strong>not</strong> minted for <a href="../../glossary/#self-bonded">self-bonded</a> stake. For rationale see <a href="../../concepts/staking/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a>. - Staking rewards accrue to all bonded stake active in the current consensus committee; <a href="../../glossary/#delegated">delegated</a> and <a href="../../glossary/#self-bonded">self-bonded</a> stakers earn staking rewards <em>pro rata</em> to their share of the validator’s total bonded stake.</p>
+    </div>
+    </div>
+    </div>
+    <p>Account addresses owning liquid newton and receiving staking reward revenue are:</p>
+    <ul>
+    <li>EOA accounts that have bonded <a href="../../glossary/#delegated">delegated</a> stake to a validator node, or have been recipients of a liquid newton transfer.</li>
+    <li>Contract accounts that have been recipients of a liquid newton transfer from an EOA or a contract account.</li>
+    </ul>
+    <p>For clarity, these are the <code>msgSender()</code> addresses of the account submitting <code>registerValidator()</code> and <code>bond()</code> transactions to the Autonity Network.</p>
+    <p>Autonity implements an ‘active epoch’ staking model, applying staking transitions for bonding and unbonding at the end of each block epoch.</p>
+    <p>Stake is bonded and redeemed by Newton holders submitting transaction requests to the Autonity Protocol Contract. These requests are recorded in state on submission as <code>BondingRequest</code> and <code>UnbondingRequest</code> data structures in the Autonity Protocol Contract state, but there is a temporal delay in effect. Voting power cannot change mid-epoch and so staking transitions are applied at epoch end before the next committee selection is run.</p>
+    <p>Stake is bonded by submitting a bonding request transaction to the <code>bond()</code> function and redeemed by the converse, to the <code>unbond()</code> function. In the bonding scenario, liquid newton is minted for <a href="../../glossary/#delegated">delegated</a> stake and the Validator’s total bonded stake amount updated in the final block of the epoch. Stake redemption by contrast is an incremental process: liquid newton for <a href="../../glossary/#delegated">delegated</a> stake is burned immediately on processing of the <code>unbond()</code> function call, the validator’s total bonded stake amount is updated at epoch end, the newton is issued (i.e.&nbsp;minted) to the staker at the end of the unbonding period. If the unbonding request is included in block <code>T</code>, then actual unbonding is then executed at <code>T</code> + <code>unbondingPeriod</code> + remainder of the epoch in which the unbonding period falls. At this point, the staker’s due newton is minted to them.</p>
+    </section>
+    <section id="validator-economics" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-economics">Validator economics</h2>
+    <p>Validator economic returns are determined by the amount of stake bonded to them, their participation in the consensus committee, commission rate, and any slashing penalties applied for accountability and omissions.</p>
+    <p>Staking reward revenue is proportionate to the validator’s share of the stake active in a consensus round in which it participates. Staking rewards are distributed to consensus committee members <em>pro rata</em> to the amount of stake they have at stake. Validators can earn from:</p>
+    <ul>
+    <li>Staking rewards earned from their own <a href="../../glossary/#self-bonded">self-bonded</a> stake.</li>
+    <li>Commission charged on <a href="../../glossary/#delegated">delegated</a> stake per the delegation rate they charge as commission.</li>
+    <li>The priority fee ‘tip’ that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.</li>
+    <li><a href="../../concepts/accountability/#slashing-rewards">Slashing rewards</a> earned for reporting slashed faults in the <a href="../../concepts/accountability/">accountability and fault detection</a> protocol.</li>
+    </ul>
+    <p>Staking reward revenue potential is determined by the frequency with which a validator is an active member of the consensus committee. This is driven by:</p>
+    <ul>
+    <li>The amount of stake the validator has bonded to it.</li>
+    <li>The committee size and number of registered validators.</li>
+    <li>The frequency with which the validator proposes blocks.</li>
+    <li>The amount of transaction revenue earned from transactions included in blocks committed when the validator is a member of the committee.</li>
+    <li>The validator’s commission rate. The percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator’s stake delegators. The rate can be any value in the range <code>0 - 100%</code>. At registration all validators have commission set to a default rate specified by the Autonity network’s genesis configuration. (See Reference <a href="../../reference/genesis/#configautonity-object">Genesis, <code>delegationRate</code></a>.) After registration the validator can modify its commission rate - see <a href="../../concepts/validator/#validator-commission-rate-change">Validator commission rate change</a> on this page.</li>
+    </ul>
+    <p>Bonded stake may be slashed and/or staking rewards may be reduced or forfeited by slashing penalties applied to the validator for accountable faults. The extent of the fine varies according to the severity of the fault committed. See Concept <a href="../../concepts/accountability/">accountability and fault detection protocol</a> and <a href="../../concepts/accountability/#slashing-economics">slashing economics</a>.</p>
+    </section>
+    <section id="validator-registration" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-registration">Validator registration</h2>
+    <p>A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:</p>
+    <ul>
+    <li>The validator has a node address (an enode URL).</li>
+    <li>The validator has a connected <a href="../../concepts/oracle-server/">oracle server</a>.</li>
+    <li>The validator has a funded account on the network.</li>
+    </ul>
+    <p>A validator’s registration is recorded and maintained as a state variable in a <code>Validator</code> data structure. (See <a href="../../reference/api/aut/#registervalidator"><code>registerValidator()</code></a>).</p>
+    <section id="genesis-registration" class="level3">
+    <h3 class="anchored" data-anchor-id="genesis-registration">Genesis registration</h3>
+    <p>At genesis the process is:</p>
+    <ul>
+    <li><p>Registration parameters for the genesis validator set are listed in the network’s genesis configuration file (See<code>validators</code> struct):</p>
+    <ul>
+    <li><code>treasury</code> - the account address that will receive staking rewards the validator earns.</li>
+    <li><code>enode</code> - the enode URL of the validator node.</li>
+    <li><code>oracleAddress</code> - the identifier address of the validator node’s connected oracle server.</li>
+    <li><code>bondedStake</code> - the amount of stake the validator is bonding at genesis.</li>
+    <li><code>delegationRate</code> - the amount of commission that the validator will charge on staking rewards earned from delegated stake. This is a global value set for all validators, specified by the <code>delegationRate</code> parameter in the genesis configuration file.</li>
+    </ul>
+    <p>Example:</p>
+    <pre><code>{
+ "treasury": "0xd0A5fB6A3CBD7cB0328ae298598527E62bE90A0F",
+ "enode": "enode://bdbae1dede11147d0f1de2b6339a25fae9d46edfbeb48b3441d8dfff5d396bcb0b99f2ade05bf37239451f9a  dc60015f7a7b744321ea9a845b7c3a1f1ebd73e3@127.0.0.1:5003",
+ "oracleAddress":"0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03",
+"bondedStake": 10000
+},</code></pre></li>
+    <li><p>Genesis of the Autonity Network is initialised and for each validator:</p>
+    <ul>
+    <li>The <code>registerValidator()</code> function is called. The registration metadata is recorded in a <code>Validator</code> state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.</li>
+    <li>A <code>RegisteredValidator</code> event is emitted by the Autonity Protocol Contract.</li>
+    <li>The <code>bond()</code> function is called. The <code>bondedStake</code> amount is bonded to the validator’s address and a corresponding amount of Liquid Newton minted to the validator’s <code>treasury</code> account address. This is recorded in a <code>Staking</code> state variable data structure ready to be applied to the genesis state.</li>
+    </ul></li>
+    </ul>
+    <p>The validator is registered and eligible for selection to the genesis consensus committee.</p>
+    <p>Note that genesis registration requires the validator <a href="../../glossary/#self-bonded">self-bond</a> stake. The chain will not deploy if <code>bondedStake</code> for a genesis validator is null. This constraint guarantees genesis validators have stake and are eligible for selection to the consensus committee. This mitigates the risk of having no consensus committee for the genesis block and so a chain halt at initialisation!</p>
+    </section>
+    <section id="post-genesis-registration" class="level3">
+    <h3 class="anchored" data-anchor-id="post-genesis-registration">Post-genesis registration</h3>
+    <p>After genesis the process is:</p>
+    <ul>
+    <li>Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the <code>registerValidator()</code> function to submit the Validator registration parameters <code>enode</code> URL, <code>oracleAddress</code> <a href="../../concepts/validator/#oracle-identifier">oracle identifier</a>, and a <code>proof</code> of node ownership generated from the private key of the validator node’s <a href="../../concepts/validator/#p2p-node-key">P2P node key</a> and the validator’s <a href="../../concepts/oracle-network/#oracle-server-key">oracle server key</a>. The transaction <code>msgSender()</code> address is used for the validator’s <code>treasury</code> parameter value. The registration metadata is recorded in a <code>Validator</code> state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.</li>
+    <li>A <code>RegisteredValidator</code> event is emitted by the Autonity Protocol Contract.</li>
+    <li>To bond stake to the validator, the staker submits a bonding request transaction to the Autonity Protocol Public APIs, calling the <code>bond()</code> function with its validator address (<code>enode</code>) and the bonded stake amount. This is recorded in a <code>Staking</code> state variable data structure ready to be applied at epoch end</li>
+    </ul>
+    <p>The validator is registered and eligible for selection to the consensus committee.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>Note that registration after genesis allows a validator to register with zero bonded stake. The validator bonds stake after registration to become eligible for committee selection.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="validator-accountability" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-accountability">Validator accountability</h2>
+    <p>Validators may be held accountable by the <a href="../../concepts/accountability/">Accountability and fault detection protocol (AFD)</a> for failing to adhere to consensus rules when a member of the consensus committee.</p>
+    <p>Depending on the severity of the accountability fault committed, a validator may suffer: stake slashing according to autonity’s <a href="../../concepts/staking/#penalty-absorbing-stake-pas">Penalty-Absorbing Stake (PAS)</a> model, the loss of <a href="../../concepts/staking/#staking-rewards">staking rewards</a> earned as a member of the current consensus committee, and <a href="../../concepts/validator/#validator-jailing">validator jailing</a>.</p>
+    <p>Accountability is applied at the end of each epoch when the <a href="../../concepts/accountability/">AFD protocol</a> processes slashable faults and for each offending validator:</p>
+    <ul>
+    <li>Computes the <a href="../../concepts/accountability/#autonity-slashing-amount-calculation">slashing amount</a> and <a href="../../glossary/#jailing">jailing</a> punishment, a count of blocks for which the validator is ‘in jail’ and excluded from selection to the consensus committee.</li>
+    <li>Applies the slashing amount fine.</li>
+    <li>Applies <a href="../../concepts/validator/#validator-jailing">validator jailing</a> if applicable, changing the validator’s state from <code>active</code> to one of <code>jailed</code> or <code>jailbound</code>.</li>
+    <li>Emits a <code>SlashingEvent</code> event detailing: validator identifier address, slashing amount, jail release block: the block number at which the jail period expires or <code>0</code> if the validator is permanently jailed and in a <code>jailbound</code> state.</li>
+    </ul>
+    </section>
+    <section id="validator-jailing" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-jailing">Validator jailing</h2>
+    <p>A validator can be jailed by protocol as a penalty for failing to adhere to consensus rules when serving as a member of the consensus committee. If a slashing penalty imposes <a href="../../glossary/#jailing">jailing</a>, this will be applied at epoch end when the penalty is processed.</p>
+    <p>On jailing the validator is transitioned by protocol from an <code>active</code> to a <code>jailed</code> or <code>jailbound</code> state. Jailing is either temporary or permanent:</p>
+    <ul>
+    <li><p>On temporary jailing the validator enters a <code>jailed</code> state and is <em>impermanently</em> jailed for a number of blocks, the <a href="../../glossary/#jail-period">jail period</a>. To get out of jail and resume an active state, the validator operator must <a href="../../concepts/validator/#validator-re-activation">reactivate their validator</a>. This can be done at any point after expiry of the <a href="../../glossary/#jail-period">jail period</a>. Returned to an <code>active</code> state, the validator is again eligible for selection to the consensus committee.</p></li>
+    <li><p>On permanent jailing the validator enters a <code>jailbound</code> state and is <em>permanently</em> jailed. It becomes <a href="../../glossary/#jailbound">jailbound</a> and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the <a href="../../concepts/accountability/">accountability and fault detection protocol</a> of a fault with a 100% stake slashing penalty as a member of the consensus committee.</p></li>
+    </ul>
+    <p>Note that:</p>
+    <ul>
+    <li>On jailing a validator is ignored by the committee selection algorithm run at the epoch end.</li>
+    <li>New stake delegation transactions bonding stake are reverted until the validator resumes an <code>active</code> state. Pending stake delegation requests (bonding, unbonding) submitted <em>before</em> a jailing event are still applied.</li>
+    <li>The Validator’s Liquid Newton remains transferrable and redeemable for Newton while the validator is jailed.</li>
+    <li>The information that the validator is being jailed and barred from active validator duty is visible to delegators.</li>
+    </ul>
+    </section>
+    <section id="validator-pausing" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-pausing">Validator pausing</h2>
+    <p>A validator can pause from active committee participation by submitting a pause request to the Autonity Network. Once the pause request has been processed the validator’s state changes from <code>active</code> to <code>paused</code>. In this state:</p>
+    <ul>
+    <li>It is ignored by the committee selection algorithm run at the epoch end.</li>
+    <li>New stake delegations are not accepted.</li>
+    <li>That the validator is pausing from active validator duty is visible to potential delegators (from event data).</li>
+    </ul>
+    <p>Note that:</p>
+    <ul>
+    <li>Pending stake delegation requests (bonding, unbonding) submitted <em>before</em> the pause request was processed are still applied.</li>
+    <li>The Validator’s Liquid Newton remains transferrable and redeemable for Newton while a pause request is ‘pending’ application at effective block and after pausing has been ‘applied’.</li>
+    <li>Unbonding of stake from the validator is <em>not</em> automated and has to be initiated by the staker.</li>
+    </ul>
+    <p>The process is:</p>
+    <ul>
+    <li>The validator operator entity submits a pause request transaction to the Autonity Protocol Public APIs, calling the <a href="../../reference/api/aut/#pausevalidator"><code>pauseValidator()</code></a> function, submitting the transaction from the account used to register the validator (validator <code>treasury</code> account) and passing in the validator identifier address.</li>
+    <li>Transaction processed and committed to state:
+    <ul>
+    <li>The validator’s state is changed from <code>active</code> to <code>paused</code>.</li>
+    <li>A <code>PausedValidator</code> event is emitted detailing: validator operator entity treasury address, validator identifier address, effective block height at which pausing takes effect: projected block number for epoch end.</li>
+    </ul></li>
+    <li>Pause request tracked for execution until effective block height: epoch end.</li>
+    <li>Validator pausing is applied at epoch end before the next committee selection is run.</li>
+    </ul>
+    <p>The validator is paused and ignored by the committee selection algorithm. Stake delegation transactions bonding stake are reverted until the validator resumes an <code>active</code> state.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>Pausing has no impact on unbonding constraints. For example, if a validator pauses at time <code>T</code> and a staker immediately detects the <code>PausedValidator</code> event and submits an unbond transaction at time <code>T+1</code>, the unbonding period begins to count at <code>T+1</code>. Unbonding is then executed at <code>T+1 + unbondingPeriod + remainder of the epoch</code> in which <code>unbondingPeriod</code> falls.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="validator-re-activation" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-re-activation">Validator re-activation</h2>
+    <p>A validator can re-activate and resume active committee participation by submitting an activate request to the Autonity network. Once the activate request has been submitted the validator’s state changes from its inactive state (<code>paused</code> or <code>jailed</code>) to <code>active</code>. In this state:</p>
+    <ul>
+    <li>It is again included by the committee selection algorithm run at the epoch end.</li>
+    <li>New stake delegations are accepted.</li>
+    <li>That the validator is resuming active validator duty is visible to potential delegators.</li>
+    </ul>
+    <p>Note that:</p>
+    <ul>
+    <li>New stake delegation requests bonding stake to the validator submitted <em>after</em> the activate request was processed no longer revert and are accepted.</li>
+    </ul>
+    <p>The process is:</p>
+    <ul>
+    <li>The validator operator entity submits an activate request transaction to the Autonity Protocol Public APIs, calling the <a href="../../reference/api/aut/#activatevalidator"><code>activateValidator()</code></a> function, submitting the transaction from the account used to register the validator (validator <code>treasury</code> account) and passing in the validator identifier address.</li>
+    <li>Transaction processed and committed to state:
+    <ul>
+    <li>The validator’s state is changed from its inactive state (<code>paused</code> or <code>jailed</code>) to <code>active</code>.</li>
+    <li>An <code>ActivatedValidator</code> event is emitted detailing: validator operator entity treasury address, validator identifier address, effective block height at which re-activation takes effect: projected block number for epoch end.</li>
+    </ul></li>
+    </ul>
+    <p>The validator is active, able to accept new stake delegations, and once again eligible for selection to the consensus committee.</p>
+    </section>
+    <section id="validator-commission-rate-change" class="level2">
+    <h2 class="anchored" data-anchor-id="validator-commission-rate-change">Validator commission rate change</h2>
+    <p>A validator operator can modify its validator commission rate from the global default rate set for the validator on initial registration (see Reference <a href="../../reference/genesis/#configautonity-object">Genesis, <code>delegationRate</code></a>) by submitting a commission rate change request to the Autonity Network.</p>
+    <p>Commission rate changes are subject to the same temporal <a href="../../concepts/staking/#unbondingperiod">unbonding period</a> constraint as staking transitions. This gives the stake delegator protection from validator commission rate changes intra-epoch.</p>
+    <p>The process is:</p>
+    <ul>
+    <li>The validator operator entity submits a commission rate change request transaction to the Autonity Protocol Public APIs, calling the <a href="../../reference/api/aut/#changecommissionrate"><code>changeCommissionRate()</code></a> function, submitting the transaction from the account used to register the validator (validator <code>treasury</code> account) and passing in the validator identifier address and the new commission rate in basis points (bps).</li>
+    <li>Transaction processed and committed to state:
+    <ul>
+    <li>The commission rate change request is tracked in memory and the <a href="../../concepts/staking/#unbondingperiod">unbonding period</a> lock constraint begins.</li>
+    <li>The rate change is applied at the end of the epoch in which the unbonding period expires as the last block of the epoch is finalised.</li>
+    <li>A <code>CommissionRateChange</code> event is emitted detailing: validator identifier address, new rate value.</li>
+    </ul></li>
+    </ul>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>A stake delegator can use the <code>CommissionRateChange</code> event to listen for upcoming commission rate changes. The effective block of the commission rate change can then be calculated from data points: the <code>changeCommissionRate</code> transaction commit block number, and the network <code>unbondingPeriod</code> and <code>epochPeriod</code> values.</p>
+    </div>
+    </div>
+    </div>
+    
+    
+    </section>
+
+        </main> <!-- /main -->
+        <script id="quarto-html-after-body" type="application/javascript">
+        window.document.addEventListener("DOMContentLoaded", function (event) {
+          const toggleBodyColorMode = (bsSheetEl) => {
+            const mode = bsSheetEl.getAttribute("data-mode");
+            const bodyEl = window.document.querySelector("body");
+            if (mode === "dark") {
+              bodyEl.classList.add("quarto-dark");
+              bodyEl.classList.remove("quarto-light");
+            } else {
+              bodyEl.classList.add("quarto-light");
+              bodyEl.classList.remove("quarto-dark");
+            }
+          }
+          const toggleBodyColorPrimary = () => {
+            const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+            if (bsSheetEl) {
+              toggleBodyColorMode(bsSheetEl);
+            }
+          }
+          toggleBodyColorPrimary();  
+          const icon = "";
+          const anchorJS = new window.AnchorJS();
+          anchorJS.options = {
+            placement: 'right',
+            icon: icon
+          };
+          anchorJS.add('.anchored');
+          const isCodeAnnotation = (el) => {
+            for (const clz of el.classList) {
+              if (clz.startsWith('code-annotation-')) {                     
+                return true;
+              }
+            }
+            return false;
+          }
+          const clipboard = new window.ClipboardJS('.code-copy-button', {
+            text: function(trigger) {
+              const codeEl = trigger.previousElementSibling.cloneNode(true);
+              for (const childEl of codeEl.children) {
+                if (isCodeAnnotation(childEl)) {
+                  childEl.remove();
+                }
+              }
+              return codeEl.innerText;
+            }
+          });
+          clipboard.on('success', function(e) {
+            // button target
+            const button = e.trigger;
+            // don't keep focus
+            button.blur();
+            // flash "checked"
+            button.classList.add('code-copy-button-checked');
+            var currentTitle = button.getAttribute("title");
+            button.setAttribute("title", "Copied!");
+            let tooltip;
+            if (window.bootstrap) {
+              button.setAttribute("data-bs-toggle", "tooltip");
+              button.setAttribute("data-bs-placement", "left");
+              button.setAttribute("data-bs-title", "Copied!");
+              tooltip = new bootstrap.Tooltip(button, 
+                { trigger: "manual", 
+                  customClass: "code-copy-button-tooltip",
+                  offset: [0, -8]});
+              tooltip.show();    
+            }
+            setTimeout(function() {
+              if (tooltip) {
+                tooltip.hide();
+                button.removeAttribute("data-bs-title");
+                button.removeAttribute("data-bs-toggle");
+                button.removeAttribute("data-bs-placement");
+              }
+              button.setAttribute("title", currentTitle);
+              button.classList.remove('code-copy-button-checked');
+            }, 1000);
+            // clear code selection
+            e.clearSelection();
+          });
+          function tippyHover(el, contentFn) {
+            const config = {
+              allowHTML: true,
+              content: contentFn,
+              maxWidth: 500,
+              delay: 100,
+              arrow: false,
+              appendTo: function(el) {
+                  return el.parentElement;
+              },
+              interactive: true,
+              interactiveBorder: 10,
+              theme: 'quarto',
+              placement: 'bottom-start'
+            };
+            window.tippy(el, config); 
+          }
+          const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+          for (var i=0; i<noterefs.length; i++) {
+            const ref = noterefs[i];
+            tippyHover(ref, function() {
+              // use id or data attribute instead here
+              let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+              try { href = new URL(href).hash; } catch {}
+              const id = href.replace(/^#\/?/, "");
+              const note = window.document.getElementById(id);
+              return note.innerHTML;
+            });
+          }
+              let selectedAnnoteEl;
+              const selectorForAnnotation = ( cell, annotation) => {
+                let cellAttr = 'data-code-cell="' + cell + '"';
+                let lineAttr = 'data-code-annotation="' +  annotation + '"';
+                const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+                return selector;
+              }
+              const selectCodeLines = (annoteEl) => {
+                const doc = window.document;
+                const targetCell = annoteEl.getAttribute("data-target-cell");
+                const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+                const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+                const lineIds = lines.map((line) => {
+                  return targetCell + "-" + line;
+                })
+                let top = null;
+                let height = null;
+                let parent = null;
+                if (lineIds.length > 0) {
+                    //compute the position of the single el (top and bottom and make a div)
+                    const el = window.document.getElementById(lineIds[0]);
+                    top = el.offsetTop;
+                    height = el.offsetHeight;
+                    parent = el.parentElement.parentElement;
+                  if (lineIds.length > 1) {
+                    const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                    const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                    height = bottom - top;
+                  }
+                  if (top !== null && height !== null && parent !== null) {
+                    // cook up a div (if necessary) and position it 
+                    let div = window.document.getElementById("code-annotation-line-highlight");
+                    if (div === null) {
+                      div = window.document.createElement("div");
+                      div.setAttribute("id", "code-annotation-line-highlight");
+                      div.style.position = 'absolute';
+                      parent.appendChild(div);
+                    }
+                    div.style.top = top - 2 + "px";
+                    div.style.height = height + 4 + "px";
+                    let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                    if (gutterDiv === null) {
+                      gutterDiv = window.document.createElement("div");
+                      gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                      gutterDiv.style.position = 'absolute';
+                      const codeCell = window.document.getElementById(targetCell);
+                      const gutter = codeCell.querySelector('.code-annotation-gutter');
+                      gutter.appendChild(gutterDiv);
+                    }
+                    gutterDiv.style.top = top - 2 + "px";
+                    gutterDiv.style.height = height + 4 + "px";
+                  }
+                  selectedAnnoteEl = annoteEl;
+                }
+              };
+              const unselectCodeLines = () => {
+                const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+                elementsIds.forEach((elId) => {
+                  const div = window.document.getElementById(elId);
+                  if (div) {
+                    div.remove();
+                  }
+                });
+                selectedAnnoteEl = undefined;
+              };
+              // Attach click handler to the DT
+              const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+              for (const annoteDlNode of annoteDls) {
+                annoteDlNode.addEventListener('click', (event) => {
+                  const clickedEl = event.target;
+                  if (clickedEl !== selectedAnnoteEl) {
+                    unselectCodeLines();
+                    const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+                    if (activeEl) {
+                      activeEl.classList.remove('code-annotation-active');
+                    }
+                    selectCodeLines(clickedEl);
+                    clickedEl.classList.add('code-annotation-active');
+                  } else {
+                    // Unselect the line
+                    unselectCodeLines();
+                    clickedEl.classList.remove('code-annotation-active');
+                  }
+                });
+              }
+          const findCites = (el) => {
+            const parentEl = el.parentElement;
+            if (parentEl) {
+              const cites = parentEl.dataset.cites;
+              if (cites) {
+                return {
+                  el,
+                  cites: cites.split(' ')
+                };
+              } else {
+                return findCites(el.parentElement)
+              }
+            } else {
+              return undefined;
+            }
+          };
+          var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+          for (var i=0; i<bibliorefs.length; i++) {
+            const ref = bibliorefs[i];
+            const citeInfo = findCites(ref);
+            if (citeInfo) {
+              tippyHover(citeInfo.el, function() {
+                var popup = window.document.createElement('div');
+                citeInfo.cites.forEach(function(cite) {
+                  var citeDiv = window.document.createElement('div');
+                  citeDiv.classList.add('hanging-indent');
+                  citeDiv.classList.add('csl-entry');
+                  var biblioDiv = window.document.getElementById('ref-' + cite);
+                  if (biblioDiv) {
+                    citeDiv.innerHTML = biblioDiv.innerHTML;
+                  }
+                  popup.appendChild(citeDiv);
+                });
+                return popup.innerHTML;
+              });
+            }
+          }
+            var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+              var filterRegex = new RegExp('/' + window.location.host + '/');
+            var isInternal = (href) => {
+                return filterRegex.test(href) || localhostRegex.test(href);
+            }
+            // Inspect non-navigation links and adorn them if external
+         	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+            for (var i=0; i<links.length; i++) {
+              const link = links[i];
+              if (!isInternal(link.href)) {
+                  // target, if specified
+                  link.setAttribute("target", "_blank");
+                  // default icon
+                  link.classList.add("external");
+              }
+            }
+        });
+        </script>
+        </div> <!-- /content -->
+        <footer class="footer">
+          <div class="nav-footer">
+            <div class="nav-footer-left">
+              <ul class="footer-items list-unstyled">
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://github.com/autonity/">
+              <i class="bi bi-github" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://twitter.com/autonity_">
+              <i class="bi bi-twitter" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://discord.com/invite/autonity">
+              <i class="bi bi-discord" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ">
+              <i class="bi bi-youtube" role="img">
+        </i> 
+            </a>
+          </li>  
+        </ul>
+            </div>   
+            <div class="nav-footer-center">
+              &nbsp;
+            </div>
+            <div class="nav-footer-right">
+              &nbsp;
+            </div>
+          </div>
+        </footer>
+    
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
+    
+
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
+
+
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
+
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.3.361">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <meta name="description" content="How to install and launch the NodeJS Console.">
+
+    <title>Autonity Documentation - Setup the NodeJS Console</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        code{white-space: pre-wrap;}
+        span.smallcaps{font-variant: small-caps;}
+        div.columns{display: flex; gap: min(4vw, 1.5em);}
+        div.column{flex: auto; overflow-x: auto;}
+        div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+        ul.task-list{list-style: none;}
+        ul.task-list li input[type="checkbox"] {
+          width: 0.8em;
+          margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+          vertical-align: middle;
+        }
+        /* CSS for syntax highlighting */
+        pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+          }
+        pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+        div.sourceCode
+          {   }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+    </style>
+    
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+        <script id="quarto-search-options" type="application/json">{
+          "location": "navbar",
+          "copy-button": false,
+          "collapse-after": 3,
+          "panel-placement": "end",
+          "type": "overlay",
+          "limit": 20,
+          "language": {
+            "search-no-results-text": "No results",
+            "search-matching-documents-text": "matching documents",
+            "search-copy-link-title": "Copy link to search",
+            "search-hide-matches-text": "Hide additional matches",
+            "search-more-match-text": "more match in this document",
+            "search-more-matches-text": "more matches in this document",
+            "search-clear-button-title": "Clear",
+            "search-detached-cancel-button-title": "Cancel",
+            "search-submit-button-title": "Submit",
+            "search-label": "Search"
+          }
+        }</script>
+        <style>html{ scroll-behavior: smooth; }</style>
+        <link rel="preconnect" href="https://plausible.io">
+        <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+        <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    
+    
+        <link rel="stylesheet" href="../../_assets/css/styles.css">
+    </head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+        <div id="quarto-search-results"></div>
+          <header id="quarto-header" class="headroom fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-dark ">
+              <div class="navbar-container container-fluid">
+              <div class="navbar-brand-container">
+            <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+            <img src="../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+            </a>
+            <a class="navbar-brand" href="../../index.html">
+            <span class="navbar-title">Autonity Documentation</span>
+            </a>
+          </div>
+                <div class="quarto-navbar-tools ms-auto">
+        </div>
+                  <div id="quarto-search" class="" title="Search"></div>
+              </div> <!-- /container-fluid -->
+            </nav>
+          <nav class="quarto-secondary-nav">
+            <div class="container-fluid d-flex">
+              <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+                <i class="bi bi-layout-text-sidebar-reverse"></i>
+              </button>
+              <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Setup the NodeJS Console</li></ol></nav>
+              <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+              </a>
+            </div>
+          </nav>
+        </header>
+        <!-- content -->
+        <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+        <!-- sidebar -->
+          <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+            <div class="sidebar-menu-container"> 
+            <ul class="list-unstyled mt-1">
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Overview</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+         <span class="menu-text">Concepts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability and fault detection (AFD)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server (AOS)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton Stabilization Mechanism (ASM)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Staking</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client (AGC)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/validator/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">System model</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Architecture</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle network</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus Committee</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Tendermint BFT consensus</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol assets</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Newton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+         <span class="menu-text">Networks</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bakerloo Testnet</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Piccadilly Testnet</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+         <span class="menu-text">Accounts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setup the Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Create an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Fund an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a transaction from the Autonity Utility tool (aut)</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+         <span class="menu-text">Running a Node</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Connecting to your Node</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Set up node monitoring</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+         <span class="menu-text">Running an Oracle Server</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity Oracle Server in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity Oracle Server</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+         <span class="menu-text">Running a Validator</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Register as a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Pause and reactivate a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Change Validator Commission Rate</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+         <span class="menu-text">Staking</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bond and unbond stake</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Claim Staking Rewards</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Transfer Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+         <span class="menu-text">Borrowing by CDP in the ASM</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Open and manage a CDP</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquidate a CDP</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+         <span class="menu-text">Development</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a governance transaction from Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Deploy smart contracts to an Autonity network with Brownie</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setting up custom networks</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+         <span class="menu-text">Reference</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/utility-tools/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Utility tools</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Codebase</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol Parameters</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/genesis/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Genesis</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Interfaces</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Web3 Namespace</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Governance and Protocol Only Reference</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ASM Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Stabilization Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ACU Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Supply Control Contract Interface</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Command-line</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client Command-line</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server Command-line</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../glossary/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Glossary</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../issues/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Known issues</span></a>
+          </div>
+        </li>
+            </ul>
+            </div>
+        </nav>
+        <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+        <!-- margin-sidebar -->
+            <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+                <nav id="TOC" role="doc-toc" class="toc-active">
+            <h2 id="toc-title">On this page</h2>
+           
+          <ul>
+          <li><a href="#autonity-nodejs-console" id="toc-autonity-nodejs-console" class="nav-link active" data-scroll-target="#autonity-nodejs-console">Autonity NodeJS Console</a></li>
+          <li><a href="#install-the-autonity-nodejs-console" id="toc-install-the-autonity-nodejs-console" class="nav-link" data-scroll-target="#install-the-autonity-nodejs-console">Install the Autonity NodeJS Console</a></li>
+          <li><a href="#run-the-autonity-nodejs-console" id="toc-run-the-autonity-nodejs-console" class="nav-link" data-scroll-target="#run-the-autonity-nodejs-console">Run the Autonity NodeJS Console</a></li>
+          <li><a href="#syntax-when-making-calls" id="toc-syntax-when-making-calls" class="nav-link" data-scroll-target="#syntax-when-making-calls">Syntax when making calls</a></li>
+          <li><a href="#javascript-cli-nodejs-console" id="toc-javascript-cli-nodejs-console" class="nav-link" data-scroll-target="#javascript-cli-nodejs-console">JavaScript CLI: NodeJS Console</a>
+          <ul class="collapse">
+          <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+          <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+          <li><a href="#rpc-calls" id="toc-rpc-calls" class="nav-link" data-scroll-target="#rpc-calls">RPC Calls</a></li>
+          </ul></li>
+          <li><a href="#geth-javascript-console" id="toc-geth-javascript-console" class="nav-link" data-scroll-target="#geth-javascript-console">Geth Javascript Console</a>
+          <ul class="collapse">
+          <li><a href="#usage-1" id="toc-usage-1" class="nav-link" data-scroll-target="#usage-1">Usage</a></li>
+          </ul></li>
+          <li><a href="#built-in-functions" id="toc-built-in-functions" class="nav-link" data-scroll-target="#built-in-functions">Built in functions</a>
+          <ul class="collapse">
+          <li><a href="#vals-print-validator-information" id="toc-vals-print-validator-information" class="nav-link" data-scroll-target="#vals-print-validator-information"><code>vals</code> <em>Print validator information</em></a>
+          <ul class="collapse">
+          <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+          <li><a href="#response" id="toc-response" class="nav-link" data-scroll-target="#response">Response</a></li>
+          <li><a href="#usage-2" id="toc-usage-2" class="nav-link" data-scroll-target="#usage-2">Usage</a></li>
+          <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+          </ul></li>
+          <li><a href="#wal-print-staking-wallet" id="toc-wal-print-staking-wallet" class="nav-link" data-scroll-target="#wal-print-staking-wallet"><code>wal</code> <em>Print Staking Wallet</em></a>
+          <ul class="collapse">
+          <li><a href="#parameters-1" id="toc-parameters-1" class="nav-link" data-scroll-target="#parameters-1">Parameters</a></li>
+          <li><a href="#response-1" id="toc-response-1" class="nav-link" data-scroll-target="#response-1">Response</a></li>
+          <li><a href="#usage-3" id="toc-usage-3" class="nav-link" data-scroll-target="#usage-3">Usage</a></li>
+          <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example</a></li>
+          </ul></li>
+          <li><a href="#rclm-claim-staking-rewards" id="toc-rclm-claim-staking-rewards" class="nav-link" data-scroll-target="#rclm-claim-staking-rewards"><code>rclm</code> <em>Claim staking rewards</em></a>
+          <ul class="collapse">
+          <li><a href="#parameters-2" id="toc-parameters-2" class="nav-link" data-scroll-target="#parameters-2">Parameters</a></li>
+          <li><a href="#response-2" id="toc-response-2" class="nav-link" data-scroll-target="#response-2">Response</a></li>
+          <li><a href="#usage-4" id="toc-usage-4" class="nav-link" data-scroll-target="#usage-4">Usage</a></li>
+          <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example</a></li>
+          </ul></li>
+          <li><a href="#rclm_a-claim-all-staking-rewards" id="toc-rclm_a-claim-all-staking-rewards" class="nav-link" data-scroll-target="#rclm_a-claim-all-staking-rewards"><code>rclm_a</code> <em>Claim all staking rewards</em></a>
+          <ul class="collapse">
+          <li><a href="#parameters-3" id="toc-parameters-3" class="nav-link" data-scroll-target="#parameters-3">Parameters</a></li>
+          <li><a href="#response-3" id="toc-response-3" class="nav-link" data-scroll-target="#response-3">Response</a></li>
+          <li><a href="#usage-5" id="toc-usage-5" class="nav-link" data-scroll-target="#usage-5">Usage</a></li>
+          <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3">Example</a></li>
+          </ul></li>
+          <li><a href="#lsend-send-liquid-newton" id="toc-lsend-send-liquid-newton" class="nav-link" data-scroll-target="#lsend-send-liquid-newton"><code>lsend</code> <em>Send Liquid Newton</em></a>
+          <ul class="collapse">
+          <li><a href="#parameters-4" id="toc-parameters-4" class="nav-link" data-scroll-target="#parameters-4">Parameters</a></li>
+          <li><a href="#response-4" id="toc-response-4" class="nav-link" data-scroll-target="#response-4">Response</a></li>
+          <li><a href="#event" id="toc-event" class="nav-link" data-scroll-target="#event">Event</a></li>
+          <li><a href="#usage-6" id="toc-usage-6" class="nav-link" data-scroll-target="#usage-6">Usage</a></li>
+          <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4">Example</a></li>
+          </ul></li>
+          </ul></li>
+          </ul>
+        </nav>
+            </div>
+        <!-- main -->
+        <main class="content" id="quarto-document-content">
+    
+        <header id="title-block-header" class="quarto-title-block default">
+        <div class="quarto-title">
+        <h1 class="title">Setup the NodeJS Console</h1>
+        </div>
+
+        <div>
+          <div class="description">
+            How to install and launch the NodeJS Console.
+          </div>
+        </div>
+
+
+        <div class="quarto-title-meta">
+
+            
+          
+            
+          </div>
+          
+
+        </header>    
+            
+    <!-- This is a collection of all content cut-and-pasted from other
+    sections, so it is unlikely to be coherant or well-ordered. -->
+    <section id="autonity-nodejs-console" class="level3">
+    <h3 class="anchored" data-anchor-id="autonity-nodejs-console">Autonity NodeJS Console</h3>
+    <section id="prerequisites" class="level4">
+    <h4 class="anchored" data-anchor-id="prerequisites">Prerequisites</h4>
+    <ul>
+    <li>AMD64 instruction set Linux OS</li>
+    <li>To install and run the Autonity NodeJS Console you need current versions of <a href="https://nodejs.org/en/download/">nodejs</a> and <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">npm</a></li>
+    </ul>
+    </section>
+    <section id="install" class="level4">
+    <h4 class="anchored" data-anchor-id="install">Install</h4>
+    <p>The Autonity NodeJS Console is distributed as part of the Autonity Go Client Release in the <code>nodejsconsole</code> sub directory. For users who only require a console, it is also available as a separate download from the Autonity <a href="https://github.com/autonity/autonity/releases">Releases</a> Archive - <code>nodejsconsole-&lt;RELEASE_VERSION&gt;.tar.gz</code>.</p>
+    <p>To install, get the <em>tarball</em> and unpack. The tarball contains a folder with 2 artefacts, so you don’t need to create a home directory for it. Simply unpack the tarball file from your Downloads folder to your working directory as described for the client in steps 1-3 above.</p>
+    <p>To run the Console and connect to a node, specify WebSockets as the transport and the IP address and port <code>8546</code> of the Autonity client node you will connect to. Use WS for a local node and WSS for secure connection to a public node on an Autonity network. For example, to connect to a node running on local host:</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./console</span> ws://127.0.0.1:8546</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>On initial running, the console will install web3 and node modules, then initialise the console and display:</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Welcome to the Autonity node <span class="bu">console</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>modules<span class="op">:</span> eth net rpc autonity</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Type <span class="st">"module"</span><span class="op">.&lt;</span>Tab<span class="op">&gt;</span> to <span class="kw">get</span> started</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    </section>
+    <section id="install-the-autonity-nodejs-console" class="level3">
+    <h3 class="anchored" data-anchor-id="install-the-autonity-nodejs-console">Install the Autonity NodeJS Console</h3>
+    <p>The Autonity NodeJS Console can be used to connect to the WebSocket endpoint on an Autonity Go Client node, and execute commands to interact with the Autonity client and Autonity Protocol smart contracts. Set up the NodeJS Console on your local machine using one of two methods:</p>
+    <ul>
+    <li><p>If you have already cloned Autonity, create a directory and copy the console from the Autonity repo:</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> nodejsconsole</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> nodejsconsole</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="op">&lt;</span>PATH TO AUTONITY<span class="op">&gt;</span>/autonity/nodejsconsole/console</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="op">&lt;</span>PATH TO AUTONITY<span class="op">&gt;</span>/autonity/nodejsconsole/script.js</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+    <li><p>For users who only require a console, download the separate NodeJS Console release from the Autonity <a href="https://github.com/autonity/autonity/releases">Releases</a> Archive - <code>nodejsconsole-&lt;RELEASE_VERSION&gt;.tar.gz</code>.</p></li>
+    <li><p>Unpack the <em>tarball</em> file from your Downloads folder to your install directory:</p>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzf</span> nodejsconsole-amd64-<span class="op">&lt;</span>RELEASE_VERSION<span class="op">&gt;</span>.tar.gz  <span class="at">--directory</span> /<span class="op">&lt;</span>PATH_TO_WORKING_DIREoCTORY<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+    </ul>
+    </section>
+    <section id="run-the-autonity-nodejs-console" class="level3">
+    <h3 class="anchored" data-anchor-id="run-the-autonity-nodejs-console">Run the Autonity NodeJS Console</h3>
+    <p>Run the console, specifying the IP address of the Autonity client node you will connect to using WebSocket.</p>
+    <p>If the node you are connecting to has an encrypted WebSocket endpoint, then you need to connect to it via <code>wss</code> (“web socket secure”). For example, to connect to the Piccadilly Testnet public endpoint <code>rpc1.piccadilly.autonity.org</code>:</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./console</span> wss://rpc1.piccadilly.autonity.org:8546</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>Here are some examples:</p>
+    <section id="get-the-block-number" class="level4">
+    <h4 class="anchored" data-anchor-id="get-the-block-number">Get the block number:</h4>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>web3<span class="op">.</span><span class="at">eth</span><span class="op">.</span><span class="fu">getBlockNumber</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    <section id="get-maximum-consensus-committee-size" class="level4">
+    <h4 class="anchored" data-anchor-id="get-maximum-consensus-committee-size">Get maximum consensus committee size:</h4>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>autonity<span class="op">.</span><span class="fu">getMaxCommitteeSize</span>()<span class="op">.</span><span class="fu">call</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    <section id="get-all-nodes-in-the-consensus-committee" class="level4">
+    <h4 class="anchored" data-anchor-id="get-all-nodes-in-the-consensus-committee">Get all nodes in the consensus committee:</h4>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>autonity<span class="op">.</span><span class="fu">getCommittee</span>()<span class="op">.</span><span class="fu">call</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    <section id="get-the-genesis-config" class="level4">
+    <h4 class="anchored" data-anchor-id="get-the-genesis-config">Get the genesis config:</h4>
+    <p>To return the protocol parameterisation set at network genesis for:</p>
+    <ul>
+    <li>operatorAccount</li>
+    <li>treasuryAccount</li>
+    <li>treasuryFee</li>
+    <li>minBaseFee</li>
+    <li>delegationRate</li>
+    <li>epochPeriod</li>
+    <li>unbondingPeriod</li>
+    <li>committeeSize</li>
+    <li>contractVersion</li>
+    <li>blockPeriod</li>
+    </ul>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>autonity<span class="op">.</span><span class="fu">config</span>()<span class="op">.</span><span class="fu">call</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    <section id="check-the-auton-balance-of-an-account" class="level4">
+    <h4 class="anchored" data-anchor-id="check-the-auton-balance-of-an-account">Check the auton balance of an account:</h4>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>eth<span class="op">.</span><span class="fu">getBalance</span>(<span class="st">'&lt;_addr&gt;'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    <section id="check-the-newton-balance-of-an-account" class="level4">
+    <h4 class="anchored" data-anchor-id="check-the-newton-balance-of-an-account">Check the newton balance of an account:</h4>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>autonity<span class="op">.</span><span class="fu">balanceOf</span>(<span class="st">'&lt;_addr&gt;'</span>)<span class="op">.</span><span class="fu">call</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    </section>
+    <section id="syntax-when-making-calls" class="level3">
+    <h3 class="anchored" data-anchor-id="syntax-when-making-calls">Syntax when making calls</h3>
+    <ul>
+    <li><p>For functions that read information by calling Autonity protocol smart contract methods such as above, add <code>.call()</code>.</p></li>
+    <li><p>For functions that retrieve information from the node client itself, like many of the <code>web3.eth</code> functions, you do not need <code>.call()</code>.</p></li>
+    <li><p>Web3 commands can be accessed by typing <code>web3.</code> then pressing <code>&lt;TAB&gt;</code> twice to list available functions.</p></li>
+    <li><p>The ‘eth’ command namespace can be found by typing <code>web3.eth.</code> then pressing <code>&lt;TAB&gt;</code> twice.</p></li>
+    <li><p>Autonity specific commands can be found by typing <code>autonity.</code> then pressing <code>&lt;TAB&gt;</code> twice. (e.g., as above, <code>autonity.getCommittee().call()</code>).</p></li>
+    <li><p>You can leave the console by typing <code>.exit</code>.</p></li>
+    </ul>
+    </section>
+    <section id="javascript-cli-nodejs-console" class="level2">
+    <h2 class="anchored" data-anchor-id="javascript-cli-nodejs-console">JavaScript CLI: NodeJS Console</h2>
+    <p>The Autonity NodeJS console is a command-line interface for invoking an interactive JavaScript runtime environment to connect to an Autonity node. It gives access to <code>web3</code> and <code>autonity</code> interfaces, and access to Autonity Protocol method calls for which public JSON-RPC calls are not defined.</p>
+    <p>The Autonity NodeJS console can be used in interactive or script mode as the Geth console can be.</p>
+    <section id="installation" class="level3">
+    <h3 class="anchored" data-anchor-id="installation">Installation</h3>
+    <p>The Autonity NodeJS Console is provided as part of the Autonity Go Client binary and as a separate download package.</p>
+    <p>To install, see the How to <em>Install Autonity</em> and:</p>
+    <ul>
+    <li><a href="../../node-operators/install-aut/#build-from-source-code">Build from source code</a> to build and install from binary, and,</li>
+    <li><a href="../../node-operators/install-aut/#autonity-nodejs-console">Autonity Node JS Console</a> to install from the download package.</li>
+    </ul>
+    <p>CD to the Node JS Console directory. This will be <code>./nodejsconsole</code> if you have built from source, or if you are using the separate download then the directory location where you unzipped the <em>tar</em> file to.</p>
+    <p>To connect to a node on an Autonity network in an interactive session run the Autonity console, specifying the IP address of the node you will connect to. The connection is made over WebSockets to port 8546 by default:</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./console</span> ws://<span class="op">&lt;</span>IP-ADDRESS<span class="op">&gt;</span>:8546</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>For example, to connect to a local node run:</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./console</span> ws://127.0.0.1:8546</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>The console installs, initialises with web3 and Autonity Go Client interface modules, then displays:</p>
+    <div class="sourceCode" id="cb14"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Welcome to the Autonity node <span class="bu">console</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>modules<span class="op">:</span> eth net rpc tendermint autonity</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>Type <span class="st">"module"</span><span class="op">.&lt;</span>Tab<span class="op">&gt;</span> to <span class="kw">get</span> started</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>An interactive session is now open with the connected node.</p>
+    <p>Note that the NodeJS Console:</p>
+    <ul>
+    <li>Provides <code>aut</code> (Autonity), <code>eth</code>, <code>net</code>, <code>rpc</code>, <code>tendermint</code> modules by default. Web3 method calls can be prefixed by <code>web3.</code>but this is not required. Additional Web3 modules may be available if the node you are connecting to has provided them in its <code>--ws.api</code> flag when starting Autonity (See How to <a href="../../node-operators/run-aut/">Run Autonity</a>).</li>
+    <li>Will not timeout if idle. The console implements an automatic reconnect mechanism and will reconnect if left idle after 1000 ms.</li>
+    </ul>
+    <div class="callout callout-style-default callout-important callout-titled" title="Warning">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Warning
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>Public access to the <code>tendermint</code> namespace module is deprecated and will be removed in a future release. See <a href="../../issues/">Known Issues</a>, <a href="../../issues/#tendermint-namespace-interface-is-accessible-but-not-meant-for-use-by-external-clients">Tendermint Namespace Interface is accessible but not meant for use by external clients</a>.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="usage" class="level3">
+    <h3 class="anchored" data-anchor-id="usage">Usage</h3>
+    <p>The Autonity console is invoked as an interactive shell. Refer to the <a href="../../reference/api">Autonity Interfaces</a> Reference section ‘console’ entries for guidance on how to call the API from the console.</p>
+    <p>::: {.callout-note title=“Note” collapse=“false”} Some functions provided by the NodeJS console are asynchronous and they return promises (https://www.w3schools.com/Js/js_promise.asp). For conveniency reasons promises are automatically resolved by the NodeJS console CLI when calling asynchronous functions; however this is not true when performing assigments or nested function calls, in this case the <code>await</code> keyword needs to be specified to resolve the promise. Examples: <code>wallet = await web3.personal.listWallets()</code>, <code>web3.eth.getBlock(await web3.eth.getBlockNumber())</code>:::</p>
+    <section id="call-and-.send" class="level4">
+    <h4 class="anchored" data-anchor-id="call-and-.send"><code>.call()</code> and <code>.send()</code></h4>
+    <p>API interactions made using the console may have <code>.call()</code> or <code>.send()</code> appended depending on the method and module called.</p>
+    <p>Use <code>.call()</code> for <code>Autonity</code> calls to read ledger state and retrieve <a href="../../glossary/">calldata</a>, appending <code>.call()</code> to the method name:</p>
+    <div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> autonity.totalSupply<span class="kw">()</span><span class="fu">.call()</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">'80000'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>Use <code>.send()</code> for <code>Autonity</code>and <code>web3</code> calls to submit state affecting transactions, appending <code>. send()</code> to the method name:</p>
+    <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> autonity.transfer<span class="kw">(</span><span class="st">'&lt;_recipient&gt;'</span><span class="ex">,</span> <span class="op">&lt;</span>_amount<span class="op">&gt;</span><span class="kw">)</span><span class="ex">.send</span><span class="er">(</span><span class="ex">{from:</span> myAddress, gas: gas}<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>Console configuration for use of <code>.send()</code> is described in the How to Submit a transaction from Autonity NodeJS Console.</p>
+    </section>
+    <section id="javascript-object-prototype-functions" class="level4">
+    <h4 class="anchored" data-anchor-id="javascript-object-prototype-functions">JavaScript Object Prototype functions</h4>
+    <p><code>Node.JS</code> automatically attaches the following prototype functions to a JavaScript object at runtime. These functions are displayed for both <code>web3</code> and <code>autonity</code> namespaces in the Autonity NodeJS Console but are <strong>unused</strong>. For the function definitions see the linked Mozilla Developer Network Reference documentation.</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>MDN Web Docs Reference</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>.__defineGetter__</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__defineGetter__"><code>Object.prototype.__defineGetter__()</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>.__defineSetter__</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__defineSetter__"><code>Object.prototype.__defineSetter__()</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>.__lookupGetter__</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__lookupGetter__"><code>Object.prototype.__lookupGetter__()</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>.__lookupSetter__</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__lookupSetter__"><code>Object.prototype.__lookupSetter__()</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>.__proto__</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto"><code>Object.prototype.__proto__</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>.hasOwnProperty</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty"><code>Object.prototype.hasOwnProperty()</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>.isPrototypeOf</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isPrototypeOf"><code>Object.prototype.isPrototypeOf()</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>.propertyIsEnumerable</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/propertyIsEnumerable"><code>Object.prototype.propertyIsEnumerable()</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>.toLocaleString</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toLocaleString"><code>Object.prototype.toLocaleString()</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>.toString</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString"><code>Object.prototype.toString()</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>.valueOf</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf"><code>Object.prototype.valueOf()</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>.constructor</code></td>
+    <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor"><code>Object.prototype.constructor</code></a></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="exiting-the-console" class="level4">
+    <h4 class="anchored" data-anchor-id="exiting-the-console">Exiting the console</h4>
+    <p>To exit the console press <code>^C</code> twice or type <code>.exit</code>.</p>
+    </section>
+    </section>
+    <section id="rpc-calls" class="level3">
+    <h3 class="anchored" data-anchor-id="rpc-calls">RPC Calls</h3>
+    <section id="calling-the-ethereum-web3-api" class="level4">
+    <h4 class="anchored" data-anchor-id="calling-the-ethereum-web3-api">Calling the Ethereum <code>web3</code> API</h4>
+    <p>Enter <code>web3.&lt;tab&gt;</code> to see a list of available function calls:</p>
+    <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> web3.</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.__defineGetter__</span>      web3.__defineSetter__      web3.__lookupGetter__</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.__lookupSetter__</span>      web3.__proto__             web3.hasOwnProperty</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.isPrototypeOf</span>         web3.propertyIsEnumerable  web3.toLocaleString</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.toString</span>              web3.valueOf</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.constructor</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.BatchRequest</span>          web3._provider             web3._requestManager</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.admin</span>                 web3.bzz                   web3.currentProvider</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.eth</span>                   web3.extend                web3.givenProvider</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.net</span>                   web3.personal              web3.providers</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.rpc</span>                   web3.setProvider           web3.setRequestManager</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.shh</span>                   web3.tendermint            web3.txpool</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.utils</span>                 web3.version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <section id="console-functions" class="level5">
+    <h5 class="anchored" data-anchor-id="console-functions">Console functions</h5>
+    <section id="javascript-object-prototype-functions-1" class="level6">
+    <h6 class="anchored" data-anchor-id="javascript-object-prototype-functions-1">JavaScript Object Prototype functions</h6>
+    <p>As noted <a href="../../reference/cli#javascript-object-prototype-functions">above</a>, these prototype functions added by <code>Node.JS</code> are <strong>unused</strong>.</p>
+    </section>
+    <section id="web3-method-calls" class="level6">
+    <h6 class="anchored" data-anchor-id="web3-method-calls">Web3 method calls</h6>
+    <p>For the function definitions see the linked <code>web3.js</code> and upstream Geth JSON-RPC API Reference in the <a href="../../reference/api/">Autonity Interfaces</a> documentation.</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Reference - web3.js</th>
+    <th>Reference - JSON-RPC API</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>web3.BatchRequest</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3.html?highlight=web3.BatchRequest#batchrequest"><code>BatchRequest</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3._provider</code></td>
+    <td></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3._requestManager</code></td>
+    <td></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.admin</code></td>
+    <td></td>
+    <td>Geth <a href="https://geth.ethereum.org/docs/rpc/ns-admin"><code>admin</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3.bzz</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3-bzz.html"><code>bzz</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.currentProvider</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3.html#currentprovider"><code>currentProvider</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3.eth</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3-eth.html"><code>eth</code></a></td>
+    <td>Geth <a href="https://geth.ethereum.org/docs/rpc/ns-eth"><code>eth</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.extend</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3.html#extend"><code>extend</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3.givenProvider</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3.html#givenprovider"><code>givenProvider</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.net</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3-net.html?highlight=web3.net#"><code>*.net</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3.personal</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3-eth-personal.html#eth-personal"><code>eth.personal</code></a></td>
+    <td>Geth <a href="https://geth.ethereum.org/docs/rpc/ns-personal"><code>personal</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.providers</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3.html#providers"><code>providers</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3.rpc</code></td>
+    <td></td>
+    <td>Geth <a href="https://geth.ethereum.org/docs/rpc/server"><code>JSON-RPC Server</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.setProvider</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/include_package-core.html?highlight=.setProvider"><code>setProvider</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3.setRequestManager</code></td>
+    <td></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.shh</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3-shh.html"><code>shh</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3.tendermint</code></td>
+    <td></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.txpool</code></td>
+    <td></td>
+    <td>Geth <a href="https://geth.ethereum.org/docs/rpc/ns-txpool"><code>txpool</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>web3.utils</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3-utils.html"><code>utils</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>web3.version</code></td>
+    <td><a href="https://web3js.readthedocs.io/en/v1.2.11/web3.html#version"><code>version</code></a></td>
+    <td></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    </section>
+    <section id="calling-the-autonity-protocol-contract-interface" class="level4">
+    <h4 class="anchored" data-anchor-id="calling-the-autonity-protocol-contract-interface">Calling the <code>autonity</code> Protocol Contract Interface</h4>
+    <p>Enter <code>autonity.&lt;tab&gt;</code> to see a list of available function calls.</p>
+    <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> autonity.</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.__defineGetter__</span>       autonity.__defineSetter__</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.__lookupGetter__</span>       autonity.__lookupSetter__</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.__proto__</span>              autonity.constructor</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.hasOwnProperty</span>         autonity.isPrototypeOf</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.propertyIsEnumerable</span>   autonity.toLocaleString</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.toString</span>               autonity.valueOf</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.allowance</span>              autonity.approve</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.balanceOf</span>              autonity.bond</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.burn</span>                   autonity.computeCommittee</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.config</span>                 autonity.deployer</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.epochID</span>                autonity.epochReward</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.epochTotalBondedStake</span>  autonity.finalize</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.getBondingReq</span>          autonity.getCommittee</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.getCommitteeEnodes</span>     autonity.getMaxCommitteeSize</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.getMinimumBaseFee</span>      autonity.getNewContract</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.getOperator</span>            autonity.getProposer</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.getUnbondingReq</span>        autonity.getValidator</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.getValidators</span>          autonity.getVersion</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.headBondingID</span>          autonity.headUnbondingID</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.lastEpochBlock</span>         autonity.mint</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.name</span>                   autonity.registerValidator</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.setCommitteeSize</span>       autonity.setEpochPeriod</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.setMinimumBaseFee</span>      autonity.setOperatorAccount</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.setTreasuryAccount</span>     autonity.setTreasuryFee</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.setUnbondingPeriod</span>     autonity.symbol</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.tailBondingID</span>          autonity.tailUnbondingID</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.totalRedistributed</span>     autonity.totalSupply</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.transfer</span>               autonity.transferFrom</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.unbond</span>                 autonity.upgradeContract</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <section id="console-functions-1" class="level5">
+    <h5 class="anchored" data-anchor-id="console-functions-1">Console functions</h5>
+    <section id="javascript-object-prototype-functions-2" class="level6">
+    <h6 class="anchored" data-anchor-id="javascript-object-prototype-functions-2">JavaScript Object Prototype functions</h6>
+    <p>As noted <a href="../../reference/cli#javascript-object-prototype-functions">above</a>, these prototype functions added by <code>Node.JS</code> are <strong>unused</strong>.</p>
+    </section>
+    <section id="autonity-method-calls" class="level6">
+    <h6 class="anchored" data-anchor-id="autonity-method-calls">Autonity method calls</h6>
+    <p>For the function definitions see the linked <a href="../../reference/api/">Autonity Interfaces</a> Reference documentation for the Autonity Protocol Contract functions. If accessing the method is constrained to the protocol or governance account is shown.</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Reference</th>
+    <th>Access constraint?</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>autonity.allowance</code></td>
+    <td><a href="../../reference/api/aut/#allowance"><code>allowance</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.approve</code></td>
+    <td><a href="../../reference/api/aut/#approve"><code>approve</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.balanceOf</code></td>
+    <td><a href="../../reference/api/aut/#balanceof"><code>balanceOf</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.bond</code></td>
+    <td><a href="../../reference/api/aut/#bond"><code>bond</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.burn</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#burn"><code>burn</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.computeCommittee</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#computecommittee"><code>computeCommittee</code></a></td>
+    <td>onlyProtocol</td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.config</code></td>
+    <td><a href="../../reference/api/aut/#config"><code>config</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.deployer</code></td>
+    <td><a href="../../reference/api/aut/#deployer"><code>deployer</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.epochID</code></td>
+    <td><a href="../../reference/api/aut/#epochid"><code>epochID</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.epochReward</code></td>
+    <td><a href="../../reference/api/aut/#epochreward"><code>epochReward</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.epochTotalBondedStake</code></td>
+    <td><a href="../../reference/api/aut/#epochtotalbondedstake"><code>epochTotalBondedStake</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.finalize</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#finalize"><code>finalize</code></a></td>
+    <td>onlyProtocol</td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.getBondingReq</code></td>
+    <td><a href="../../reference/api/aut/#getbondingreq"><code>getBondingReq</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.getCommittee</code></td>
+    <td><a href="../../reference/api/aut/#getcommittee"><code>getCommittee</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.getCommitteeEnodes</code></td>
+    <td><a href="../../reference/api/aut/#getcommitteeenodes"><code>getCommitteeEnodes</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.getMaxCommitteeSize</code></td>
+    <td><a href="../../reference/api/aut/#getmaxcommitteesize"><code>getMaxCommitteeSize</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.getMinimumBaseFee</code></td>
+    <td><a href="../../reference/api/aut/#getminimumbasefee"><code>getMinimumBaseFee</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.getNewContract</code></td>
+    <td><a href="../../reference/api/aut/#getnewcontract"><code>getNewContract</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.getOperator</code></td>
+    <td><a href="../../reference/api/aut/#getoperator"><code>getOperator</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.getProposer</code></td>
+    <td><a href="../../reference/api/aut/#getproposer"><code>getProposer</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.getUnbondingReq</code></td>
+    <td><a href="../../reference/api/aut/#getunbondingreq"><code>getUnbondingReq</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.getValidator</code></td>
+    <td><a href="../../reference/api/aut/#getvalidator"><code>getValidator</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.getValidators</code></td>
+    <td><a href="../../reference/api/aut/#getvalidators"><code>getValidators</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.getVersion</code></td>
+    <td><a href="../../reference/api/aut/#getversion"><code>getVersion</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.headBondingID</code></td>
+    <td><a href="../../reference/api/aut/#headbondingid"><code>headBondingID</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.headUnbondingID</code></td>
+    <td><a href="../../reference/api/aut/#headunbondingid"><code>headUnbondingID</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.lastEpochBlock</code></td>
+    <td><a href="../../reference/api/aut/#lastepochblock"><code>lastEpochBlock</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.mint</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#mint"><code>mint</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.name</code></td>
+    <td><a href="../../reference/api/aut/#name"><code>name</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.registerValidator</code></td>
+    <td><a href="../../reference/api/aut/#registervalidator"><code>registerValidator</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.setCommitteeSize</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#setcommitteesize"><code>setCommitteeSize</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.setEpochPeriod</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#setepochperiod"><code>setEpochPeriod</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.setMinimumBaseFee</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#setminimumbasefee"><code>setMinimumBaseFee</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.setOperatorAccount</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#setoperatoraccount"><code>setOperatorAccount</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.setTreasuryAccount</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#settreasuryaccount"><code>setTreasuryAccount</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.setTreasuryFee</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#settreasuryfee"><code>setTreasuryFee</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.setUnbondingPeriod</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#setunbondingperiod"><code>setUnbondingPeriod</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.symbol</code></td>
+    <td><a href="../../reference/api/aut/#symbol"><code>symbol</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.tailBondingID</code></td>
+    <td><a href="../../reference/api/aut/#tailbondingid"><code>tailBondingID</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.tailUnbondingID</code></td>
+    <td><a href="../../reference/api/aut/#tailunbondingid"><code>tailUnbondingID</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.totalRedistributed</code></td>
+    <td><a href="../../reference/api/aut/#totalredistributed"><code>totalRedistributed</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.totalSupply</code></td>
+    <td><a href="../../reference/api/aut/#totalsupply"><code>totalSupply</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.transfer</code></td>
+    <td><a href="../../reference/api/aut/#transfer"><code>transfer</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.transferFrom</code></td>
+    <td><a href="../../reference/api/aut/#transferfrom"><code>transferFrom</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="odd">
+    <td><code>autonity.unbond</code></td>
+    <td><a href="../../reference/api/aut/#unbond"><code>unbond</code></a></td>
+    <td></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity.upgradeContract</code></td>
+    <td><a href="../../reference/api/aut/op-prot/#upgradecontract"><code>upgradeContract</code></a></td>
+    <td>onlyOperator</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    </section>
+    <section id="calling-the-liquid-newton-contract-interface-staking-wallet-functions" class="level4">
+    <h4 class="anchored" data-anchor-id="calling-the-liquid-newton-contract-interface-staking-wallet-functions">Calling the <code>Liquid Newton Contract</code> interface <code>Staking Wallet</code> functions</h4>
+    <p>The Node JS Console provides <code>Staking Wallet</code> functions for a stake delegator to:</p>
+    <ul>
+    <li>View information about registered validators on the network</li>
+    <li>view stake delegations: the delegator’s own Liquid Newton holding and claimable reward balances</li>
+    <li>Claim rewards</li>
+    <li>Send Liquid Newton to another account.</li>
+    </ul>
+    <p>The functions are accessible from the default context: a module namespace prefix is not required when calling.</p>
+    <p>For the function definitions see the linked <a href="../../reference/api/liquid-newton">Autonity Interfaces</a> Reference documentation for the Autonity Liquid Newton Contract functions available from the NodeJS Console.</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Function</th>
+    <th>Reference</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>vals()</code> Print validator information</td>
+    <td><a href="../../reference/api/liquid-newton/#vals-_print-validator-information_"><code>vals</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>wal()</code> Print Staking Wallet</td>
+    <td><a href="../../reference/api/liquid-newton/#wal-_print-staking-wallet_"><code>wal</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>rclm()</code> Claim staking rewards for single stake delegation</td>
+    <td><a href="../../reference/api/liquid-newton/#rclm-_claim-staking-rewards_"><code>rclm</code></a></td>
+    </tr>
+    <tr class="even">
+    <td><code>rclm_a()</code> Claim staking rewards for all stake delegations</td>
+    <td><a href="../../reference/api/liquid-newton/#rclm_a-_claim-all-staking-rewards_"><code>rclm_a</code></a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>lsend()</code> Send Liquid Newton</td>
+    <td><a href="../../reference/api/liquid-newton/#lsend-_send-liquid-newton_"><code>lsend</code></a></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    </section>
+    <section id="geth-javascript-console" class="level2">
+    <h2 class="anchored" data-anchor-id="geth-javascript-console">Geth Javascript Console</h2>
+    <p>The Geth JavaScript Console provides a JavaScript runtime environment for executing RPC calls encoded as JSON objects.</p>
+    <p>The console is deprecated in favour of the <a href="../../reference/utility-tools/#javascript-cli-nodejs-console">Autonity NodeJS Console</a> as an interactive JavaScript environment for Autonity.</p>
+    <div class="callout callout-style-default callout-important callout-titled" title="Warning">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Warning
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The console remains in the codebase but is not officially supported. It may be used with this caveat.</p>
+    </div>
+    </div>
+    </div>
+    <section id="usage-1" class="level3">
+    <h3 class="anchored" data-anchor-id="usage-1">Usage</h3>
+    <p>For how to invoke and use the CLI see the Geth docs <a href="https://geth.ethereum.org/docs/interface/javascript-console">JavaScript Console</a>.</p>
+    </section>
+    </section>
+    <section id="built-in-functions" class="level1">
+    <h1>Built in functions</h1>
+    <p>TODO: old Node JS Console built-in functions content</p>
+    <p>Interface for interacting with Autonity Liquid Newton Contract using wrapper functions implemented by the NodeJS Console. Function calls do not require the <code>.call()</code> or <code>.send()</code> suffix.</p>
+    <p>Datatypes are <a href="https://docs.soliditylang.org/en/v0.8.3/types.html#">Solidity v0.8.3 Types</a>.</p>
+    <p></p><div class="pageinfo pageinfo-primary"> Examples use the setup described in the How to’s:<p></p>
+    <ul>
+    <li><a href="../../account-holders/submit-trans-nodejsconsole/">Submit a transaction from Autonity NodeJS Console</a></li>
+    <li><a href="../../delegators/claim-rewards/">Claim Staking Rewards</a></li>
+    <li><a href="../../delegators/transfer-lntn/">Transfer Liquid Newton</a>. </li></ul></div>
+    
+    <p></p><div class="pageinfo pageinfo-primary"> - <code>unclaimedRewards()</code>: returns the total amount of rewards available and pending retrieval - <code>claimRewards()</code>: claims the sender’s pending rewards. </div><p></p>
+    <section id="vals-print-validator-information" class="level2">
+    <h2 class="anchored" data-anchor-id="vals-print-validator-information"><code>vals</code> <em>Print validator information</em></h2>
+    <p>Displays the list of current registered validators.</p>
+    <section id="parameters" class="level3">
+    <h3 class="anchored" data-anchor-id="parameters">Parameters</h3>
+    <p>None.</p>
+    </section>
+    <section id="response" class="level3">
+    <h3 class="anchored" data-anchor-id="response">Response</h3>
+    <p>Displays a formatted list of <code>Validator</code> object data for each registered validator, sorted by registration index in ascending order. I.E. the last processed registration request has the highest index identifier value and is always the last result returned.</p>
+    <p><code>Validator</code> object information returned consists of:</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>treasury</code></td>
+    <td><code>address payable</code></td>
+    <td>the address that will receive staking rewards the validator earns</td>
+    </tr>
+    <tr class="even">
+    <td><code>addr</code></td>
+    <td><code>address</code></td>
+    <td>the validator identifier account address</td>
+    </tr>
+    <tr class="odd">
+    <td><code>enode</code></td>
+    <td><code>string</code></td>
+    <td>the enode url of the validator node</td>
+    </tr>
+    <tr class="even">
+    <td><code>delegationRate</code></td>
+    <td><code>uint256</code></td>
+    <td>the percentage commission that the validator will charge on staking rewards from delegated stake</td>
+    </tr>
+    <tr class="odd">
+    <td><code>bondedStake</code></td>
+    <td><code>uint256</code></td>
+    <td>the total amount of delegated and self-bonded stake that has been bonded to the validator</td>
+    </tr>
+    <tr class="even">
+    <td><code>totalSlashed</code></td>
+    <td><code>uint256</code></td>
+    <td>a counter of the number of times that a validator has been penalised for accountability and omission faults since registration</td>
+    </tr>
+    <tr class="odd">
+    <td><code>liquidContract</code></td>
+    <td><code>Liquid</code></td>
+    <td>the address of the validator’s Liquid Newton contract</td>
+    </tr>
+    <tr class="even">
+    <td><code>liquidSupply</code></td>
+    <td><code>uint256</code></td>
+    <td>the total amount of the validator’s Liquid Newton in circulation</td>
+    </tr>
+    <tr class="odd">
+    <td><code>registrationBlock</code></td>
+    <td><code>uint256</code></td>
+    <td>the block number in which the registration of the validator was committed to state</td>
+    </tr>
+    <tr class="even">
+    <td><code>state</code></td>
+    <td><code>ValidatorState</code></td>
+    <td>the state of the validator. <code>ValidatorState</code> is an enumerated type with enumerations: <code>active</code>, <code>paused</code></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="usage-2" class="level3">
+    <h3 class="anchored" data-anchor-id="usage-2">Usage</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+    <p>vals()</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example" class="level3">
+    <h3 class="anchored" data-anchor-id="example">Example</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+    <blockquote class="blockquote">
+    <p>vals()</p>
+    </blockquote>
+    <p>__________________________Validator 0__________________________ treasury: 0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C addr: 0x07d872935972Aa0848d0cec9c67b270E5291D7e8 enode: enode://bb9bb2bcd75a5cde083a6a9be2c28f31d9fd6e8de38baa594ffffab0efc5d26524b91baf002fed32f098db71acf0d7646a7c32a7d05ed89fdbbb78c74db13a1a@51.89.151.55:30303 commissionRate: 1000 bondedStake: 10000 totalSlashed: 0 liquidContract: 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37 liquidSupply: 10000 registrationBlock: 0 state: 0</p>
+    <p>__________________________Validator 1__________________________ treasury: 0xd4EdDdE5D1D0d7129a7f9C35Ec55254f43b8E6d4 addr: 0x45998C7d6341CD32256E9eeEdd9865450d4aCB18 enode: enode://e89196cae37e8041e14d7a063cc82dec3bb351f79f46ab10a059220403932c1337f144ddbf1fd830bf1221fbf539a4e986c924600b060c0a36337256aa70ee2c@51.89.151.55:40303 commissionRate: 1000 bondedStake: 11360 totalSlashed: 0 liquidContract: 0x109F93893aF4C4b0afC7A9e97B59991260F98313 liquidSupply: 11360 registrationBlock: 0 state: 0</p>
+    <p>__________________________Validator 2__________________________ …</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="wal-print-staking-wallet" class="level2">
+    <h2 class="anchored" data-anchor-id="wal-print-staking-wallet"><code>wal</code> <em>Print Staking Wallet</em></h2>
+    <p>Display holding in LNTN and claimable rewards for the specified account.</p>
+    <section id="parameters-1" class="level3">
+    <h3 class="anchored" data-anchor-id="parameters-1">Parameters</h3>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>account</code></td>
+    <td><code>address</code></td>
+    <td>account address of the stake delegator</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-1" class="level3">
+    <h3 class="anchored" data-anchor-id="response-1">Response</h3>
+    <p>Displays an index-sorted list of all the stake delegations from the specified (i.e.&nbsp;<em>Staking Wallet</em>) account, showing:</p>
+    <ul>
+    <li><code>Account</code>: the <em>staking Wallet</em> account address</li>
+    </ul>
+    <p>Then, a table showing stake delegations sorted by validator index:</p>
+    <ul>
+    <li><code>(index)</code>: the validator index, i.e.&nbsp;if the 1st or nth validator registered in the network.</li>
+    <li><code>validator</code>: the unique <a href="../../concepts/validator/#validator-identifier">validator identifier</a>.</li>
+    <li><code>lntn</code>: the amount of Liquid Newton the staker owns for that validator.</li>
+    <li><code>claimableRewards</code>: the amount of rewards the staker can claim from the stake delegation, denominated in <a href="../../glossary/#ton">ton</a>, auton’s wei equivalent.</li>
+    </ul>
+    </section>
+    <section id="usage-3" class="level3">
+    <h3 class="anchored" data-anchor-id="usage-3">Usage</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+    <p>wal(‘account’)</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-1" class="level3">
+    <h3 class="anchored" data-anchor-id="example-1">Example</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+    <blockquote class="blockquote">
+    <p>wal(‘0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C’)</p>
+    </blockquote>
+    <pre><code>__________________________Staking Wallet__________________________
+
+Account:       0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
+
+________________________________________________________________________________________
+| (index) │                 validator                    │   lntn  │  claimableRewards  |
+|---------|----------------------------------------------|---------|--------------------|
+|    0    │ '0x07d872935972Aa0848d0cec9c67b270E5291D7e8' │ '10000' │ '1436124008436346' │
+│    1    │ '0x45998C7d6341CD32256E9eeEdd9865450d4aCB18' │  '150'  │ '29094266920200'   │
+│    2    │ '0xe32d53E4d077F7ADE8CDB6Ff3Cf857Be40Ab1516' │   '0'   │        '0'         │
+│    3    │ '0xAbbA1C48341755558E85A01e293Db94179dF9bcd' │   '0'   │        '0'         │</code></pre>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="rclm-claim-staking-rewards" class="level2">
+    <h2 class="anchored" data-anchor-id="rclm-claim-staking-rewards"><code>rclm</code> <em>Claim staking rewards</em></h2>
+    <p>Claims staking rewards for a specified staking delegation.</p>
+    <p>Calls the <code>claimRewards()</code> function for the specified validator. The sender’s account must be unlocked to call.</p>
+    <section id="parameters-2" class="level3">
+    <h3 class="anchored" data-anchor-id="parameters-2">Parameters</h3>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>account</code></td>
+    <td><code>address</code></td>
+    <td>the account address of the sender. This is the sender’s <em>Staking Wallet</em> account: the staker address that owns the liquid newton being sent</td>
+    </tr>
+    <tr class="even">
+    <td><code>validator</code></td>
+    <td><code>address</code></td>
+    <td>the unique <a href="../../concepts/validator/#validator-identifier">validator identifier</a> of the validator stake delegation from which liquid newton is being sent</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-2" class="level3">
+    <h3 class="anchored" data-anchor-id="response-2">Response</h3>
+    <p>Displays the validator and staker addresses, the amount of claimable rewards from that validator, and the transaction receipt.</p>
+    </section>
+    <section id="usage-4" class="level3">
+    <h3 class="anchored" data-anchor-id="usage-4">Usage</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+    <p>rclm(‘account’,‘validator’)</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-2" class="level3">
+    <h3 class="anchored" data-anchor-id="example-2">Example</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+    <blockquote class="blockquote">
+    <p>rclm(‘0x11a87b260dd85ff7189d848fd44b28cc8505fa9c’,‘0x07d872935972Aa0848d0cec9c67b270E5291D7e8’) validator: 0x07d872935972Aa0848d0cec9c67b270E5291D7e8 staker: 0x11a87b260dd85ff7189d848fd44b28cc8505fa9c claimable rewards: 1436124008436346 { blockHash: ‘0xb99026335707e71d8663f5918386f7b8039ae706ec1e104e3a601080191747ff’, blockNumber: 33594, contractAddress: null, cumulativeGasUsed: 49156, effectiveGasPrice: 12500000000, from: ‘0x11a87b260dd85ff7189d848fd44b28cc8505fa9c’, gasUsed: 49156, logsBloom: ‘0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000’, status: true, to: ‘0xf4d9599afd90b5038b18e3b551bc21a97ed21c37’, transactionHash: ‘0x6abe00db9b3beef9c40fe0b03e0f64dc6370c4b282f9136468b1259a1f6c77e8’, transactionIndex: 0, type: ‘0x2’, events: {} }</p>
+    </blockquote>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="rclm_a-claim-all-staking-rewards" class="level2">
+    <h2 class="anchored" data-anchor-id="rclm_a-claim-all-staking-rewards"><code>rclm_a</code> <em>Claim all staking rewards</em></h2>
+    <p>Claims staking rewards for all of the sender’s stake delegations.</p>
+    <p>Calls the <code>claimRewards()</code> function for every validator stake delegation with a non 0 <code>unclaimedRewards()</code> balance. The sender’s account must be unlocked to call.</p>
+    <section id="parameters-3" class="level3">
+    <h3 class="anchored" data-anchor-id="parameters-3">Parameters</h3>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>account</code></td>
+    <td><code>address</code></td>
+    <td>the account address of the sender. This is the sender’s <em>Staking Wallet</em> account: the staker address that owns the liquid newton being sent</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-3" class="level3">
+    <h3 class="anchored" data-anchor-id="response-3">Response</h3>
+    <p>Displays a listing of each validator you have delegated to, your claimable reward for each validator stake delegation, and the total amount of rewards claimed.</p>
+    </section>
+    <section id="usage-5" class="level3">
+    <h3 class="anchored" data-anchor-id="usage-5">Usage</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+    <p>rclm_a(‘account’)</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-3" class="level3">
+    <h3 class="anchored" data-anchor-id="example-3">Example</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+    <blockquote class="blockquote">
+    <p>rclm_a(‘0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C’) validator: 0x07d872935972Aa0848d0cec9c67b270E5291D7e8 claimable reward: 213928433236770</p>
+    </blockquote>
+    <pre><code>validator:          0x45998C7d6341CD32256E9eeEdd9865450d4aCB18
+claimable reward:   29094266920200
+
+
+total claimed:        243022700156970</code></pre>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="lsend-send-liquid-newton" class="level2">
+    <h2 class="anchored" data-anchor-id="lsend-send-liquid-newton"><code>lsend</code> <em>Send Liquid Newton</em></h2>
+    <p>Transfers an amount of Liquid Newton from a stake delegation to another account.</p>
+    <p>Calls the <code>transfer()</code> function for the specified validator. The sender’s account must be unlocked to call.</p>
+    <section id="parameters-4" class="level3">
+    <h3 class="anchored" data-anchor-id="parameters-4">Parameters</h3>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>val</code></td>
+    <td><code>address</code></td>
+    <td>the unique <a href="../../concepts/validator/#validator-identifier">validator identifier</a> of the validator stake delegation from which liquid newton is being sent</td>
+    </tr>
+    <tr class="even">
+    <td><code>from</code></td>
+    <td><code>address</code></td>
+    <td>the account address of the sender. This is the sender’s <em>Staking Wallet</em> account: the staker address that owns the liquid newton being sent</td>
+    </tr>
+    <tr class="odd">
+    <td><code>to</code></td>
+    <td><code>address</code></td>
+    <td>the account address of the recipient.</td>
+    </tr>
+    <tr class="even">
+    <td><code>value</code></td>
+    <td><code>uint256</code></td>
+    <td>the amount of liquid newton being sent</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-4" class="level3">
+    <h3 class="anchored" data-anchor-id="response-4">Response</h3>
+    <p>None.</p>
+    </section>
+    <section id="event" class="level3">
+    <h3 class="anchored" data-anchor-id="event">Event</h3>
+    <p>On a successful call the function emits a Transfer event, logging: <code>msg.sender</code>, <code>to</code>, <code>amount</code>.</p>
+    </section>
+    <section id="usage-6" class="level3">
+    <h3 class="anchored" data-anchor-id="usage-6">Usage</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+    <p>lsend({‘from’,‘to’,‘val’,value})</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-4" class="level3">
+    <h3 class="anchored" data-anchor-id="example-4">Example</h3>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+    <blockquote class="blockquote">
+    <p>lsend({from: ‘0x11a87b260dd85ff7189d848fd44b28cc8505fa9c’, to: ‘0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4’, val: ‘0x45998C7d6341CD32256E9eeEdd9865450d4aCB18’, value: 100}) Sending 100 LNTN - Validator 0x45998C7d6341CD32256E9eeEdd9865450d4aCB18 { blockHash: ‘0xa883dc4beffebc5a903ecc3d0f1fbc7dad97d7ccaeea0bd580ac124ea8b7ddf4’, blockNumber: 36016, contractAddress: null, cumulativeGasUsed: 63512, effectiveGasPrice: 12500000000, from: ‘0x11a87b260dd85ff7189d848fd44b28cc8505fa9c’, gasUsed: 63512, logsBloom: ‘0x00000000000000000000000000000400000000010000000000000000000000000000000000000000000000000000000004000000000000000000000001000000000000000000000000040008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000002000000000000000000000000000000000000000000000002000000000000000000000000000000000000000080000000000000000000001000000000’, status: true, to: ‘0x109f93893af4c4b0afc7a9e97b59991260f98313’, transactionHash: ‘0x844b8bf3c165a20a93b15586acdfe263a55445519f3b01d98324bea2300ab32d’, transactionIndex: 0, type: ‘0x2’, events: { Transfer: { address: ‘0x109F93893aF4C4b0afC7A9e97B59991260F98313’, blockNumber: 36016, transactionHash: ‘0x844b8bf3c165a20a93b15586acdfe263a55445519f3b01d98324bea2300ab32d’, transactionIndex: 0, blockHash: ‘0xa883dc4beffebc5a903ecc3d0f1fbc7dad97d7ccaeea0bd580ac124ea8b7ddf4’, logIndex: 0, removed: false, id: ‘log_67107f69’, returnValues: [Result], event: ‘Transfer’, signature: ‘0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef’, raw: [Object] } } }</p>
+    </blockquote>
+    </div>
+    </div>
+    </div>
+    
+    
+    </section>
+    </section>
+    </section>
+
+        </main> <!-- /main -->
+        <script id="quarto-html-after-body" type="application/javascript">
+        window.document.addEventListener("DOMContentLoaded", function (event) {
+          const toggleBodyColorMode = (bsSheetEl) => {
+            const mode = bsSheetEl.getAttribute("data-mode");
+            const bodyEl = window.document.querySelector("body");
+            if (mode === "dark") {
+              bodyEl.classList.add("quarto-dark");
+              bodyEl.classList.remove("quarto-light");
+            } else {
+              bodyEl.classList.add("quarto-light");
+              bodyEl.classList.remove("quarto-dark");
+            }
+          }
+          const toggleBodyColorPrimary = () => {
+            const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+            if (bsSheetEl) {
+              toggleBodyColorMode(bsSheetEl);
+            }
+          }
+          toggleBodyColorPrimary();  
+          const icon = "";
+          const anchorJS = new window.AnchorJS();
+          anchorJS.options = {
+            placement: 'right',
+            icon: icon
+          };
+          anchorJS.add('.anchored');
+          const isCodeAnnotation = (el) => {
+            for (const clz of el.classList) {
+              if (clz.startsWith('code-annotation-')) {                     
+                return true;
+              }
+            }
+            return false;
+          }
+          const clipboard = new window.ClipboardJS('.code-copy-button', {
+            text: function(trigger) {
+              const codeEl = trigger.previousElementSibling.cloneNode(true);
+              for (const childEl of codeEl.children) {
+                if (isCodeAnnotation(childEl)) {
+                  childEl.remove();
+                }
+              }
+              return codeEl.innerText;
+            }
+          });
+          clipboard.on('success', function(e) {
+            // button target
+            const button = e.trigger;
+            // don't keep focus
+            button.blur();
+            // flash "checked"
+            button.classList.add('code-copy-button-checked');
+            var currentTitle = button.getAttribute("title");
+            button.setAttribute("title", "Copied!");
+            let tooltip;
+            if (window.bootstrap) {
+              button.setAttribute("data-bs-toggle", "tooltip");
+              button.setAttribute("data-bs-placement", "left");
+              button.setAttribute("data-bs-title", "Copied!");
+              tooltip = new bootstrap.Tooltip(button, 
+                { trigger: "manual", 
+                  customClass: "code-copy-button-tooltip",
+                  offset: [0, -8]});
+              tooltip.show();    
+            }
+            setTimeout(function() {
+              if (tooltip) {
+                tooltip.hide();
+                button.removeAttribute("data-bs-title");
+                button.removeAttribute("data-bs-toggle");
+                button.removeAttribute("data-bs-placement");
+              }
+              button.setAttribute("title", currentTitle);
+              button.classList.remove('code-copy-button-checked');
+            }, 1000);
+            // clear code selection
+            e.clearSelection();
+          });
+          function tippyHover(el, contentFn) {
+            const config = {
+              allowHTML: true,
+              content: contentFn,
+              maxWidth: 500,
+              delay: 100,
+              arrow: false,
+              appendTo: function(el) {
+                  return el.parentElement;
+              },
+              interactive: true,
+              interactiveBorder: 10,
+              theme: 'quarto',
+              placement: 'bottom-start'
+            };
+            window.tippy(el, config); 
+          }
+          const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+          for (var i=0; i<noterefs.length; i++) {
+            const ref = noterefs[i];
+            tippyHover(ref, function() {
+              // use id or data attribute instead here
+              let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+              try { href = new URL(href).hash; } catch {}
+              const id = href.replace(/^#\/?/, "");
+              const note = window.document.getElementById(id);
+              return note.innerHTML;
+            });
+          }
+              let selectedAnnoteEl;
+              const selectorForAnnotation = ( cell, annotation) => {
+                let cellAttr = 'data-code-cell="' + cell + '"';
+                let lineAttr = 'data-code-annotation="' +  annotation + '"';
+                const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+                return selector;
+              }
+              const selectCodeLines = (annoteEl) => {
+                const doc = window.document;
+                const targetCell = annoteEl.getAttribute("data-target-cell");
+                const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+                const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+                const lineIds = lines.map((line) => {
+                  return targetCell + "-" + line;
+                })
+                let top = null;
+                let height = null;
+                let parent = null;
+                if (lineIds.length > 0) {
+                    //compute the position of the single el (top and bottom and make a div)
+                    const el = window.document.getElementById(lineIds[0]);
+                    top = el.offsetTop;
+                    height = el.offsetHeight;
+                    parent = el.parentElement.parentElement;
+                  if (lineIds.length > 1) {
+                    const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                    const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                    height = bottom - top;
+                  }
+                  if (top !== null && height !== null && parent !== null) {
+                    // cook up a div (if necessary) and position it 
+                    let div = window.document.getElementById("code-annotation-line-highlight");
+                    if (div === null) {
+                      div = window.document.createElement("div");
+                      div.setAttribute("id", "code-annotation-line-highlight");
+                      div.style.position = 'absolute';
+                      parent.appendChild(div);
+                    }
+                    div.style.top = top - 2 + "px";
+                    div.style.height = height + 4 + "px";
+                    let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                    if (gutterDiv === null) {
+                      gutterDiv = window.document.createElement("div");
+                      gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                      gutterDiv.style.position = 'absolute';
+                      const codeCell = window.document.getElementById(targetCell);
+                      const gutter = codeCell.querySelector('.code-annotation-gutter');
+                      gutter.appendChild(gutterDiv);
+                    }
+                    gutterDiv.style.top = top - 2 + "px";
+                    gutterDiv.style.height = height + 4 + "px";
+                  }
+                  selectedAnnoteEl = annoteEl;
+                }
+              };
+              const unselectCodeLines = () => {
+                const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+                elementsIds.forEach((elId) => {
+                  const div = window.document.getElementById(elId);
+                  if (div) {
+                    div.remove();
+                  }
+                });
+                selectedAnnoteEl = undefined;
+              };
+              // Attach click handler to the DT
+              const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+              for (const annoteDlNode of annoteDls) {
+                annoteDlNode.addEventListener('click', (event) => {
+                  const clickedEl = event.target;
+                  if (clickedEl !== selectedAnnoteEl) {
+                    unselectCodeLines();
+                    const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+                    if (activeEl) {
+                      activeEl.classList.remove('code-annotation-active');
+                    }
+                    selectCodeLines(clickedEl);
+                    clickedEl.classList.add('code-annotation-active');
+                  } else {
+                    // Unselect the line
+                    unselectCodeLines();
+                    clickedEl.classList.remove('code-annotation-active');
+                  }
+                });
+              }
+          const findCites = (el) => {
+            const parentEl = el.parentElement;
+            if (parentEl) {
+              const cites = parentEl.dataset.cites;
+              if (cites) {
+                return {
+                  el,
+                  cites: cites.split(' ')
+                };
+              } else {
+                return findCites(el.parentElement)
+              }
+            } else {
+              return undefined;
+            }
+          };
+          var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+          for (var i=0; i<bibliorefs.length; i++) {
+            const ref = bibliorefs[i];
+            const citeInfo = findCites(ref);
+            if (citeInfo) {
+              tippyHover(citeInfo.el, function() {
+                var popup = window.document.createElement('div');
+                citeInfo.cites.forEach(function(cite) {
+                  var citeDiv = window.document.createElement('div');
+                  citeDiv.classList.add('hanging-indent');
+                  citeDiv.classList.add('csl-entry');
+                  var biblioDiv = window.document.getElementById('ref-' + cite);
+                  if (biblioDiv) {
+                    citeDiv.innerHTML = biblioDiv.innerHTML;
+                  }
+                  popup.appendChild(citeDiv);
+                });
+                return popup.innerHTML;
+              });
+            }
+          }
+            var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+              var filterRegex = new RegExp('/' + window.location.host + '/');
+            var isInternal = (href) => {
+                return filterRegex.test(href) || localhostRegex.test(href);
+            }
+            // Inspect non-navigation links and adorn them if external
+         	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+            for (var i=0; i<links.length; i++) {
+              const link = links[i];
+              if (!isInternal(link.href)) {
+                  // target, if specified
+                  link.setAttribute("target", "_blank");
+                  // default icon
+                  link.classList.add("external");
+              }
+            }
+        });
+        </script>
+        </div> <!-- /content -->
+        <footer class="footer">
+          <div class="nav-footer">
+            <div class="nav-footer-left">
+              <ul class="footer-items list-unstyled">
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://github.com/autonity/">
+              <i class="bi bi-github" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://twitter.com/autonity_">
+              <i class="bi bi-twitter" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://discord.com/invite/autonity">
+              <i class="bi bi-discord" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ">
+              <i class="bi bi-youtube" role="img">
+        </i> 
+            </a>
+          </li>  
+        </ul>
+            </div>   
+            <div class="nav-footer-center">
+              &nbsp;
+            </div>
+            <div class="nav-footer-right">
+              &nbsp;
+            </div>
+          </div>
+        </footer>
+    
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

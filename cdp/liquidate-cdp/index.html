@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
+    
+
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
+
+
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
+
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.3.361">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <meta name="description" content="How to identify and liquidate a CDP in the Auton Stabilization Mechanism.">
+
+    <title>Autonity Documentation - Liquidate a CDP</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        code{white-space: pre-wrap;}
+        span.smallcaps{font-variant: small-caps;}
+        div.columns{display: flex; gap: min(4vw, 1.5em);}
+        div.column{flex: auto; overflow-x: auto;}
+        div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+        ul.task-list{list-style: none;}
+        ul.task-list li input[type="checkbox"] {
+          width: 0.8em;
+          margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+          vertical-align: middle;
+        }
+        /* CSS for syntax highlighting */
+        pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+          }
+        pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+        div.sourceCode
+          {   }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+    </style>
+    
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+        <script id="quarto-search-options" type="application/json">{
+          "location": "navbar",
+          "copy-button": false,
+          "collapse-after": 3,
+          "panel-placement": "end",
+          "type": "overlay",
+          "limit": 20,
+          "language": {
+            "search-no-results-text": "No results",
+            "search-matching-documents-text": "matching documents",
+            "search-copy-link-title": "Copy link to search",
+            "search-hide-matches-text": "Hide additional matches",
+            "search-more-match-text": "more match in this document",
+            "search-more-matches-text": "more matches in this document",
+            "search-clear-button-title": "Clear",
+            "search-detached-cancel-button-title": "Cancel",
+            "search-submit-button-title": "Submit",
+            "search-label": "Search"
+          }
+        }</script>
+        <style>html{ scroll-behavior: smooth; }</style>
+        <link rel="preconnect" href="https://plausible.io">
+        <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+        <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    
+    
+        <link rel="stylesheet" href="../../_assets/css/styles.css">
+    </head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+        <div id="quarto-search-results"></div>
+          <header id="quarto-header" class="headroom fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-dark ">
+              <div class="navbar-container container-fluid">
+              <div class="navbar-brand-container">
+            <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+            <img src="../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+            </a>
+            <a class="navbar-brand" href="../../index.html">
+            <span class="navbar-title">Autonity Documentation</span>
+            </a>
+          </div>
+                <div class="quarto-navbar-tools ms-auto">
+        </div>
+                  <div id="quarto-search" class="" title="Search"></div>
+              </div> <!-- /container-fluid -->
+            </nav>
+          <nav class="quarto-secondary-nav">
+            <div class="container-fluid d-flex">
+              <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+                <i class="bi bi-layout-text-sidebar-reverse"></i>
+              </button>
+              <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../cdp/open-cdp/index.html">Borrowing by CDP in the ASM</a></li><li class="breadcrumb-item"><a href="../../cdp/liquidate-cdp/index.html">Liquidate a CDP</a></li></ol></nav>
+              <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+              </a>
+            </div>
+          </nav>
+        </header>
+        <!-- content -->
+        <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+        <!-- sidebar -->
+          <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+            <div class="sidebar-menu-container"> 
+            <ul class="list-unstyled mt-1">
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Overview</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+         <span class="menu-text">Concepts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability and fault detection (AFD)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server (AOS)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton Stabilization Mechanism (ASM)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Staking</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client (AGC)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/validator/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">System model</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Architecture</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle network</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus Committee</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Tendermint BFT consensus</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol assets</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Newton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+         <span class="menu-text">Networks</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bakerloo Testnet</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Piccadilly Testnet</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+         <span class="menu-text">Accounts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setup the Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Create an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Fund an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a transaction from the Autonity Utility tool (aut)</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+         <span class="menu-text">Running a Node</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Connecting to your Node</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Set up node monitoring</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+         <span class="menu-text">Running an Oracle Server</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity Oracle Server in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity Oracle Server</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+         <span class="menu-text">Running a Validator</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Register as a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Pause and reactivate a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Change Validator Commission Rate</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+         <span class="menu-text">Staking</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bond and unbond stake</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Claim Staking Rewards</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Transfer Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+         <span class="menu-text">Borrowing by CDP in the ASM</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Open and manage a CDP</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link active">
+         <span class="menu-text">Liquidate a CDP</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+         <span class="menu-text">Development</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a governance transaction from Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Deploy smart contracts to an Autonity network with Brownie</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setting up custom networks</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+         <span class="menu-text">Reference</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/utility-tools/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Utility tools</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Codebase</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol Parameters</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/genesis/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Genesis</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Interfaces</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Web3 Namespace</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Governance and Protocol Only Reference</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ASM Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Stabilization Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ACU Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Supply Control Contract Interface</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Command-line</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client Command-line</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server Command-line</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../glossary/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Glossary</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../issues/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Known issues</span></a>
+          </div>
+        </li>
+            </ul>
+            </div>
+        </nav>
+        <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+        <!-- margin-sidebar -->
+            <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+                <nav id="TOC" role="doc-toc" class="toc-active">
+            <h2 id="toc-title">On this page</h2>
+           
+          <ul>
+          <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
+          <li><a href="#discover-if-a-cdp-is-liquidatable" id="toc-discover-if-a-cdp-is-liquidatable" class="nav-link" data-scroll-target="#discover-if-a-cdp-is-liquidatable">Discover if a CDP is liquidatable</a>
+          <ul class="collapse">
+          <li><a href="#step-1.-get-cdp-accounts" id="toc-step-1.-get-cdp-accounts" class="nav-link" data-scroll-target="#step-1.-get-cdp-accounts">Step 1. Get CDP accounts</a></li>
+          <li><a href="#step-2.-determine-if-a-cdp-is-liquidatable" id="toc-step-2.-determine-if-a-cdp-is-liquidatable" class="nav-link" data-scroll-target="#step-2.-determine-if-a-cdp-is-liquidatable">Step 2. Determine if a CDP is liquidatable</a></li>
+          <li><a href="#step-3.-get-cdp-economic-state" id="toc-step-3.-get-cdp-economic-state" class="nav-link" data-scroll-target="#step-3.-get-cdp-economic-state">Step 3. Get CDP economic state</a></li>
+          </ul></li>
+          <li><a href="#liquidate-a-cdp" id="toc-liquidate-a-cdp" class="nav-link" data-scroll-target="#liquidate-a-cdp">Liquidate a CDP</a></li>
+          </ul>
+        </nav>
+            </div>
+        <!-- main -->
+        <main class="content" id="quarto-document-content">
+    
+        <header id="title-block-header" class="quarto-title-block default">
+        <div class="quarto-title">
+        <h1 class="title">Liquidate a CDP</h1>
+        </div>
+
+        <div>
+          <div class="description">
+            <p>How to identify and liquidate a CDP in the Auton Stabilization Mechanism.</p>
+          </div>
+        </div>
+
+
+        <div class="quarto-title-meta">
+
+            
+          
+            
+          </div>
+          
+
+        </header>    
+            
+    <section id="prerequisites" class="level2">
+    <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+    <ul>
+    <li><p>An <a href="../../account-holders//create-acct/">account</a> that has been <a href="../../account-holders/fund-acct/">funded</a> with Auton (to pay for transaction gas costs)</p></li>
+    <li><p>A running instance of <a href="https://github.com/autonity/aut"><code>aut</code></a> configured to <a href="../../account-holders/submit-trans-aut/">submit a transaction from your account</a>.</p></li>
+    </ul>
+    <p></p><div class="pageinfo pageinfo-primary"> The guide uses the <code>aut contract call</code> and <code>aut contract tx</code> commands for contract interactions.<p></p>
+    <p><code>aut contract</code> usage requires that you specify the <a href="../../glossary/#application-binary-interface-abi">ABI</a> file and the protocol contract address of the contract being called. To complete the guide you will need to call the Stabilization Contract (<code>Stabilization.abi</code>) with the protocol contract address <code>0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f</code>.</p>
+    <p>The <code>abi</code> files are generated when building the client from source and can be found in your <code>autonity</code> installation directory at <code>./params/generated/Autonity.abi</code> and <code>./params/generated/Stabilization.abi</code>. Alternatively, you can generate the ABI using the <code>abigen</code> <code>cmd</code> utility if you built the utility when building from source (See <a href="../../node-operators/install-aut/#install-source">Install Autonity, Build from source code</a>).</p>
+    <p>The guide explicitly sets the path to the ABI file and contract address to be clear the Stabilization Contract is being called. Note that the ABI file and contract address can be set as defaults in <code>aut</code>’s configuration file <code>.autrc</code> using the <code>contract_address</code> and <code>contract_abi</code> flags:</p>
+    <pre><code>contract_abi = Stabilization.abi
+contract_address = 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f
+</code></pre>
+    <p>The guide assumes the ABI files are in the directory from which the <code>aut</code> command is run. </p></div><p></p>
+    </section>
+    <section id="discover-if-a-cdp-is-liquidatable" class="level2">
+    <h2 class="anchored" data-anchor-id="discover-if-a-cdp-is-liquidatable">Discover if a CDP is liquidatable</h2>
+    <ul>
+    <li>get the CDP’s <code>accounts()</code></li>
+    <li>call <code>isLiquidatable()</code></li>
+    <li>call <code>underCollateralized()</code></li>
+    <li>can you call other functions to forecast if it will be liquidatable or under collateralised based on interest due/accruing, or?
+    <ul>
+    <li>e.g.&nbsp;if the collateralPrice falls etc</li>
+    <li>i.e.&nbsp;liquidationRatio</li>
+    <li>i.e.&nbsp;collateralizationRatio</li>
+    </ul></li>
+    </ul>
+    <section id="step-1.-get-cdp-accounts" class="level3">
+    <h3 class="anchored" data-anchor-id="step-1.-get-cdp-accounts">Step 1. Get CDP accounts</h3>
+    <p>Query for open CDPs by calling the <a href="../../reference/api/asm/stabilization/#accounts"><code>accounts()</code></a> function of the Stabilization Contract using the <code>aut contract call</code> command:</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>An array of open CDPs is returned. For example:</p>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[</span><span class="st">"0x1f790c60D974F5A8f88558CA90F743a71F009641"</span><span class="ex">,</span> <span class="st">"0xfd1ac0e99E9BD153F49080A96eb44843211E5C9f"</span>, <span class="st">"0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    <section id="step-2.-determine-if-a-cdp-is-liquidatable" class="level3">
+    <h3 class="anchored" data-anchor-id="step-2.-determine-if-a-cdp-is-liquidatable">Step 2. Determine if a CDP is liquidatable</h3>
+    <p>Determine if a CDP is liquidatable by calling the <a href="../../reference/api/asm/stabilization/#isliquidatable"><code>isLiquidatable()</code></a> function of the Stabilization Contract using the <code>aut contract call</code> command. Pass in parameter:</p>
+    <ul>
+    <li><code>&lt;ACCOUNT&gt;</code>: the CDP account address</li>
+    </ul>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable <span class="op">&lt;</span>ACCOUNT<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>The call will return a boolean value indicating if the CDP is liquidatable or not.</p>
+    <p>For example, using the results returned from Step 1:</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p><code>false</code> is returned for <code>0x1f790c60D974F5A8f88558CA90F743a71F009641</code> - the CDP is not liquidatable.</p>
+    </section>
+    <section id="step-3.-get-cdp-economic-state" class="level3">
+    <h3 class="anchored" data-anchor-id="step-3.-get-cdp-economic-state">Step 3. Get CDP economic state</h3>
+    <p>Next, inspect CDP state to understand the economic costs and returns of liquidation - i.e.&nbsp;cost of repaying the debt (principal, accrued interest) and the collateral token that will be transferred to the position’s liquidator.</p>
+    <p>There are two steps to do this:</p>
+    <ul>
+    <li><a href="../../#get-debt-amount">Get CDP debt amount</a>, to calculate the current outstanding debt amount of Auton that must be repaid to liquidate the CDP.</li>
+    <li><a href="../../#get-collateral">Get CDP collateral amount</a>, to return the amount of collateral token deposited to the CDP.</li>
+    </ul>
+    <section id="get-collateral" class="level4">
+    <h4 class="anchored" data-anchor-id="get-collateral">Get CDP collateral amount</h4>
+    <p>As described in the Concept page for ASM <a href="../../concepts/asm/#stabilization">Stabilization</a> section, for each CDP, the Stabilization Contract records:</p>
+    <ul>
+    <li><code>timestamp</code>: the timestamp of the last borrow or repayment</li>
+    <li><code>collateral</code>: the collateral deposited with the Stabilization Contract</li>
+    <li><code>principal</code>: the principal debt outstanding as of <code>timestamp</code>.</li>
+    <li><code>interest</code>: the interest debt that is due at the <code>timestamp</code>.</li>
+    </ul>
+    <div class="callout callout-style-default callout-important callout-titled" title="Warning">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Warning
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The important data point is the <code>collateral</code> amount value as this gives you the economic benefit of liquidating the CDP.</p>
+    <p>The other data should be ignored. The <code>timestamp</code> reflects the time point that the CDP was last borrowed from or repaid to so the <code>principal</code> and <code>interest</code> data is out of date. To get the <em>current CDP debt amount</em> due you will need to call <a href="../../reference/api/asm/stabilization/#debtamount"><code>debtAmount()</code></a>, which is done in the next step <a href="../../cdp/liquidate-cdp/#get-debt-amount">Get CDP debt amount</a>.</p>
+    </div>
+    </div>
+    </div>
+    <p>CDP state is maintained in memory as a public mapping <code>cdps</code> and may be inspected by calling the getter function automatically generated for it when the Stabilization Contract is compiled.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The <code>cdps</code> getter function definition can be found in the <code>Stabilization.abi</code> file by searching for <code>"name": "cdps"</code>.</p>
+    </div>
+    </div>
+    </div>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The <code>cdps</code> function cannot currently be called from <code>aut</code> using the <code>aut contract call</code> command. This is a known issue logged as an <code>autonity.py</code> GitHub issue <a href="https://github.com/autonity/autonity.py/issues/37">AssertionError on returning tuple #37</a>.</p>
+    </div>
+    </div>
+    </div>
+    <p>The auto-generated <code>cdps</code> method can be called to return the CDP data, simply passing in the CDP account address as the parameter.</p>
+    <p>This can be done using a simple <code>web3.py</code> script using the <code>web3.eth.contract</code> module to call the <code>cdps</code> function. Where:</p>
+    <ul>
+    <li><code>&lt;RPC_ENDPOINT&gt;</code>: is the HTTP address for the node endpoint being called</li>
+    <li><code>&lt;ACCOUNT&gt;</code>: is the <a href="../../concepts/asm/#cdp-identifiers">CDP account address</a> identifier.</li>
+    </ul>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> web3 <span class="im">import</span> Web3, HTTPProvider</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"Stabilization.abi"</span>) <span class="im">as</span> f:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    abi <span class="op">=</span> info_json <span class="op">=</span> json.load(f)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>w3 <span class="op">=</span> Web3(HTTPProvider(<span class="st">'&lt;RPC_ENDPOINT&gt;'</span>))</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>stabilizationContractAddress <span class="op">=</span> <span class="st">"0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f"</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>contract_instance <span class="op">=</span> w3.eth.contract(address<span class="op">=</span>stabilizationContractAddress, abi<span class="op">=</span>abi)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># read state: call the cdps function passing in the CDP identifier address &lt;ACCOUNT&gt;:</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(contract_instance.functions.cdps(<span class="st">"&lt;ACCOUNT&gt;"</span>).call())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>For example, for the CDP account <code>0x1f790c60D974F5A8f88558CA90F743a71F009641</code> it returns:</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">%</span> python3 aut_cdps.py</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[1695737259,</span> 410000024269118276, 300010815663118114, 0]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    <section id="get-debt-amount" class="level4">
+    <h4 class="anchored" data-anchor-id="get-debt-amount">Get CDP debt amount</h4>
+    <p>The debt of a CDP consists of the Auton borrowed (the ‘principal’) and accrued interest due charged at the borrow interest rate.</p>
+    <p>To get the current debt owed on a CDP and so the cost of liquidating the CDP, call <a href="../../reference/api/asm/stabilization/#debtamount"><code>debtAmount()</code></a>function of the Stabilization Contract using the <code>aut contract call</code> command. Pass in parameters for:</p>
+    <ul>
+    <li><code>&lt;ACCOUNT&gt;</code>: the CDP account address</li>
+    <li><code>&lt;TIMESTAMP&gt;</code>: the timestamp at which you want to value the debt. The timestamp is provided as a <a href="../../glossary/#unix-time">Unix time</a> value.</li>
+    </ul>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount <span class="op">&lt;</span>ACCOUNT<span class="op">&gt;</span> <span class="op">&lt;</span>TIMESTAMP<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>The call will return the total amount owed on the CDP, <code>debt + accrued interest</code>. The result is returned as an integer value in <a href="../../glossary/#ton"><code>ton</code></a>, Autonity’s equivalent of Ethereum’s <code>wei</code>.</p>
+    <p>In this example the debt amount for CDP <code>0x1f790c60D974F5A8f88558CA90F743a71F009641</code> is returned as <code>0.3008...</code> ATN at time point October 17 2023 14:16:37 GMT:</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ubuntu@vps-c7c3e8c7:~/TEST/autcli$</span> aut contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1697552197</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>Returning:</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">300875359676920667</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    </section>
+    </section>
+    <section id="liquidate-a-cdp" class="level2">
+    <h2 class="anchored" data-anchor-id="liquidate-a-cdp">Liquidate a CDP</h2>
+    <p>To liquidate a CDP in a liquidatable state submit a <code>liquidate</code> transaction to the <a href="../../reference/api/asm/stabilization/#liquidate"><code>liquidate()</code></a> function of the Stabilization Contract using the <code>aut contract call</code> command. Pass in parameter:</p>
+    <ul>
+    <li><code>&lt;ACCOUNT&gt;</code>: the CDP account address to liquidate</li>
+    <li><code>&lt;AMOUNT&gt;</code>: the payment amount, sufficient to repay the outstanding debt of the CDP</li>
+    </ul>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract tx <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f <span class="at">--value</span> <span class="op">&lt;</span>AMOUNT<span class="op">&gt;</span> liquidate <span class="op">&lt;</span>ACCOUNT<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>The transaction will revert if the CDP is not liquidatable or the payment is insufficient to repay the debt.</p>
+    <p>On success, the CDP’s collateral token and any surplus Auton remaining from the payment are transferred to your account.</p>
+    
+    
+    </section>
+
+        </main> <!-- /main -->
+        <script id="quarto-html-after-body" type="application/javascript">
+        window.document.addEventListener("DOMContentLoaded", function (event) {
+          const toggleBodyColorMode = (bsSheetEl) => {
+            const mode = bsSheetEl.getAttribute("data-mode");
+            const bodyEl = window.document.querySelector("body");
+            if (mode === "dark") {
+              bodyEl.classList.add("quarto-dark");
+              bodyEl.classList.remove("quarto-light");
+            } else {
+              bodyEl.classList.add("quarto-light");
+              bodyEl.classList.remove("quarto-dark");
+            }
+          }
+          const toggleBodyColorPrimary = () => {
+            const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+            if (bsSheetEl) {
+              toggleBodyColorMode(bsSheetEl);
+            }
+          }
+          toggleBodyColorPrimary();  
+          const icon = "";
+          const anchorJS = new window.AnchorJS();
+          anchorJS.options = {
+            placement: 'right',
+            icon: icon
+          };
+          anchorJS.add('.anchored');
+          const isCodeAnnotation = (el) => {
+            for (const clz of el.classList) {
+              if (clz.startsWith('code-annotation-')) {                     
+                return true;
+              }
+            }
+            return false;
+          }
+          const clipboard = new window.ClipboardJS('.code-copy-button', {
+            text: function(trigger) {
+              const codeEl = trigger.previousElementSibling.cloneNode(true);
+              for (const childEl of codeEl.children) {
+                if (isCodeAnnotation(childEl)) {
+                  childEl.remove();
+                }
+              }
+              return codeEl.innerText;
+            }
+          });
+          clipboard.on('success', function(e) {
+            // button target
+            const button = e.trigger;
+            // don't keep focus
+            button.blur();
+            // flash "checked"
+            button.classList.add('code-copy-button-checked');
+            var currentTitle = button.getAttribute("title");
+            button.setAttribute("title", "Copied!");
+            let tooltip;
+            if (window.bootstrap) {
+              button.setAttribute("data-bs-toggle", "tooltip");
+              button.setAttribute("data-bs-placement", "left");
+              button.setAttribute("data-bs-title", "Copied!");
+              tooltip = new bootstrap.Tooltip(button, 
+                { trigger: "manual", 
+                  customClass: "code-copy-button-tooltip",
+                  offset: [0, -8]});
+              tooltip.show();    
+            }
+            setTimeout(function() {
+              if (tooltip) {
+                tooltip.hide();
+                button.removeAttribute("data-bs-title");
+                button.removeAttribute("data-bs-toggle");
+                button.removeAttribute("data-bs-placement");
+              }
+              button.setAttribute("title", currentTitle);
+              button.classList.remove('code-copy-button-checked');
+            }, 1000);
+            // clear code selection
+            e.clearSelection();
+          });
+          function tippyHover(el, contentFn) {
+            const config = {
+              allowHTML: true,
+              content: contentFn,
+              maxWidth: 500,
+              delay: 100,
+              arrow: false,
+              appendTo: function(el) {
+                  return el.parentElement;
+              },
+              interactive: true,
+              interactiveBorder: 10,
+              theme: 'quarto',
+              placement: 'bottom-start'
+            };
+            window.tippy(el, config); 
+          }
+          const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+          for (var i=0; i<noterefs.length; i++) {
+            const ref = noterefs[i];
+            tippyHover(ref, function() {
+              // use id or data attribute instead here
+              let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+              try { href = new URL(href).hash; } catch {}
+              const id = href.replace(/^#\/?/, "");
+              const note = window.document.getElementById(id);
+              return note.innerHTML;
+            });
+          }
+              let selectedAnnoteEl;
+              const selectorForAnnotation = ( cell, annotation) => {
+                let cellAttr = 'data-code-cell="' + cell + '"';
+                let lineAttr = 'data-code-annotation="' +  annotation + '"';
+                const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+                return selector;
+              }
+              const selectCodeLines = (annoteEl) => {
+                const doc = window.document;
+                const targetCell = annoteEl.getAttribute("data-target-cell");
+                const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+                const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+                const lineIds = lines.map((line) => {
+                  return targetCell + "-" + line;
+                })
+                let top = null;
+                let height = null;
+                let parent = null;
+                if (lineIds.length > 0) {
+                    //compute the position of the single el (top and bottom and make a div)
+                    const el = window.document.getElementById(lineIds[0]);
+                    top = el.offsetTop;
+                    height = el.offsetHeight;
+                    parent = el.parentElement.parentElement;
+                  if (lineIds.length > 1) {
+                    const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                    const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                    height = bottom - top;
+                  }
+                  if (top !== null && height !== null && parent !== null) {
+                    // cook up a div (if necessary) and position it 
+                    let div = window.document.getElementById("code-annotation-line-highlight");
+                    if (div === null) {
+                      div = window.document.createElement("div");
+                      div.setAttribute("id", "code-annotation-line-highlight");
+                      div.style.position = 'absolute';
+                      parent.appendChild(div);
+                    }
+                    div.style.top = top - 2 + "px";
+                    div.style.height = height + 4 + "px";
+                    let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                    if (gutterDiv === null) {
+                      gutterDiv = window.document.createElement("div");
+                      gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                      gutterDiv.style.position = 'absolute';
+                      const codeCell = window.document.getElementById(targetCell);
+                      const gutter = codeCell.querySelector('.code-annotation-gutter');
+                      gutter.appendChild(gutterDiv);
+                    }
+                    gutterDiv.style.top = top - 2 + "px";
+                    gutterDiv.style.height = height + 4 + "px";
+                  }
+                  selectedAnnoteEl = annoteEl;
+                }
+              };
+              const unselectCodeLines = () => {
+                const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+                elementsIds.forEach((elId) => {
+                  const div = window.document.getElementById(elId);
+                  if (div) {
+                    div.remove();
+                  }
+                });
+                selectedAnnoteEl = undefined;
+              };
+              // Attach click handler to the DT
+              const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+              for (const annoteDlNode of annoteDls) {
+                annoteDlNode.addEventListener('click', (event) => {
+                  const clickedEl = event.target;
+                  if (clickedEl !== selectedAnnoteEl) {
+                    unselectCodeLines();
+                    const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+                    if (activeEl) {
+                      activeEl.classList.remove('code-annotation-active');
+                    }
+                    selectCodeLines(clickedEl);
+                    clickedEl.classList.add('code-annotation-active');
+                  } else {
+                    // Unselect the line
+                    unselectCodeLines();
+                    clickedEl.classList.remove('code-annotation-active');
+                  }
+                });
+              }
+          const findCites = (el) => {
+            const parentEl = el.parentElement;
+            if (parentEl) {
+              const cites = parentEl.dataset.cites;
+              if (cites) {
+                return {
+                  el,
+                  cites: cites.split(' ')
+                };
+              } else {
+                return findCites(el.parentElement)
+              }
+            } else {
+              return undefined;
+            }
+          };
+          var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+          for (var i=0; i<bibliorefs.length; i++) {
+            const ref = bibliorefs[i];
+            const citeInfo = findCites(ref);
+            if (citeInfo) {
+              tippyHover(citeInfo.el, function() {
+                var popup = window.document.createElement('div');
+                citeInfo.cites.forEach(function(cite) {
+                  var citeDiv = window.document.createElement('div');
+                  citeDiv.classList.add('hanging-indent');
+                  citeDiv.classList.add('csl-entry');
+                  var biblioDiv = window.document.getElementById('ref-' + cite);
+                  if (biblioDiv) {
+                    citeDiv.innerHTML = biblioDiv.innerHTML;
+                  }
+                  popup.appendChild(citeDiv);
+                });
+                return popup.innerHTML;
+              });
+            }
+          }
+            var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+              var filterRegex = new RegExp('/' + window.location.host + '/');
+            var isInternal = (href) => {
+                return filterRegex.test(href) || localhostRegex.test(href);
+            }
+            // Inspect non-navigation links and adorn them if external
+         	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+            for (var i=0; i<links.length; i++) {
+              const link = links[i];
+              if (!isInternal(link.href)) {
+                  // target, if specified
+                  link.setAttribute("target", "_blank");
+                  // default icon
+                  link.classList.add("external");
+              }
+            }
+        });
+        </script>
+        </div> <!-- /content -->
+        <footer class="footer">
+          <div class="nav-footer">
+            <div class="nav-footer-left">
+              <ul class="footer-items list-unstyled">
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://github.com/autonity/">
+              <i class="bi bi-github" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://twitter.com/autonity_">
+              <i class="bi bi-twitter" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://discord.com/invite/autonity">
+              <i class="bi bi-discord" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ">
+              <i class="bi bi-youtube" role="img">
+        </i> 
+            </a>
+          </li>  
+        </ul>
+            </div>   
+            <div class="nav-footer-center">
+              &nbsp;
+            </div>
+            <div class="nav-footer-right">
+              &nbsp;
+            </div>
+          </div>
+        </footer>
+    
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

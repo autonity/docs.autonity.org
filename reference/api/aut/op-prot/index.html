@@ -1,0 +1,2761 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <link rel="preload" href="../../../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
+    
+
+    <link rel="preload" href="../../../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
+
+
+    <link rel="preload" href="../../../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
+
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.3.361">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <meta name="description" content="Autonity Protocol Contract functions callable by governance operator and by protocol only">
+
+    <title>Autonity Documentation - Governance and Protocol Only Reference</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        code{white-space: pre-wrap;}
+        span.smallcaps{font-variant: small-caps;}
+        div.columns{display: flex; gap: min(4vw, 1.5em);}
+        div.column{flex: auto; overflow-x: auto;}
+        div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+        ul.task-list{list-style: none;}
+        ul.task-list li input[type="checkbox"] {
+          width: 0.8em;
+          margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+          vertical-align: middle;
+        }
+    </style>
+    
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+        <script id="quarto-search-options" type="application/json">{
+          "location": "navbar",
+          "copy-button": false,
+          "collapse-after": 3,
+          "panel-placement": "end",
+          "type": "overlay",
+          "limit": 20,
+          "language": {
+            "search-no-results-text": "No results",
+            "search-matching-documents-text": "matching documents",
+            "search-copy-link-title": "Copy link to search",
+            "search-hide-matches-text": "Hide additional matches",
+            "search-more-match-text": "more match in this document",
+            "search-more-matches-text": "more matches in this document",
+            "search-clear-button-title": "Clear",
+            "search-detached-cancel-button-title": "Cancel",
+            "search-submit-button-title": "Submit",
+            "search-label": "Search"
+          }
+        }</script>
+        <style>html{ scroll-behavior: smooth; }</style>
+        <link rel="preconnect" href="https://plausible.io">
+        <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+        <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    
+    
+        <link rel="stylesheet" href="../../../../_assets/css/styles.css">
+    </head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+        <div id="quarto-search-results"></div>
+          <header id="quarto-header" class="headroom fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-dark ">
+              <div class="navbar-container container-fluid">
+              <div class="navbar-brand-container">
+            <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+            <img src="../../../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+            </a>
+            <a class="navbar-brand" href="../../../../index.html">
+            <span class="navbar-title">Autonity Documentation</span>
+            </a>
+          </div>
+                <div class="quarto-navbar-tools ms-auto">
+        </div>
+                  <div id="quarto-search" class="" title="Search"></div>
+              </div> <!-- /container-fluid -->
+            </nav>
+          <nav class="quarto-secondary-nav">
+            <div class="container-fluid d-flex">
+              <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+                <i class="bi bi-layout-text-sidebar-reverse"></i>
+              </button>
+              <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../reference/utility-tools/index.html">Reference</a></li><li class="breadcrumb-item"><a href="../../../../reference/api/index.html">Autonity Interfaces</a></li><li class="breadcrumb-item"><a href="../../../../reference/api/aut/index.html">Autonity Contract Interface</a></li><li class="breadcrumb-item"><a href="../../../../reference/api/aut/op-prot/index.html">Governance and Protocol Only Reference</a></li></ol></nav>
+              <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+              </a>
+            </div>
+          </nav>
+        </header>
+        <!-- content -->
+        <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+        <!-- sidebar -->
+          <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+            <div class="sidebar-menu-container"> 
+            <ul class="list-unstyled mt-1">
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Overview</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+         <span class="menu-text">Concepts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability and fault detection (AFD)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server (AOS)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton Stabilization Mechanism (ASM)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Staking</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client (AGC)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/validator/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">System model</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Architecture</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle network</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus Committee</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Tendermint BFT consensus</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol assets</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Newton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+         <span class="menu-text">Networks</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bakerloo Testnet</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Piccadilly Testnet</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+         <span class="menu-text">Accounts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setup the Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Create an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Fund an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a transaction from the Autonity Utility tool (aut)</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+         <span class="menu-text">Running a Node</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Connecting to your Node</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Set up node monitoring</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+         <span class="menu-text">Running an Oracle Server</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity Oracle Server in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity Oracle Server</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+         <span class="menu-text">Running a Validator</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Register as a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Pause and reactivate a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Change Validator Commission Rate</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+         <span class="menu-text">Staking</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bond and unbond stake</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Claim Staking Rewards</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Transfer Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+         <span class="menu-text">Borrowing by CDP in the ASM</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Open and manage a CDP</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquidate a CDP</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+         <span class="menu-text">Development</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a governance transaction from Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Deploy smart contracts to an Autonity network with Brownie</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setting up custom networks</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+         <span class="menu-text">Reference</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/utility-tools/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Utility tools</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Codebase</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol Parameters</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/genesis/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Genesis</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../../reference/api/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Interfaces</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Web3 Namespace</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link active">
+         <span class="menu-text">Governance and Protocol Only Reference</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ASM Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Stabilization Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ACU Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Supply Control Contract Interface</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Command-line</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client Command-line</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server Command-line</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../glossary/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Glossary</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../issues/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Known issues</span></a>
+          </div>
+        </li>
+            </ul>
+            </div>
+        </nav>
+        <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+        <!-- margin-sidebar -->
+            <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+                <nav id="TOC" role="doc-toc" class="toc-active">
+            <h2 id="toc-title">On this page</h2>
+           
+          <ul>
+          <li><a href="#operator-only" id="toc-operator-only" class="nav-link active" data-scroll-target="#operator-only">Operator only</a>
+          <ul class="collapse">
+          <li><a href="#burn" id="toc-burn" class="nav-link" data-scroll-target="#burn">burn</a></li>
+          <li><a href="#mint" id="toc-mint" class="nav-link" data-scroll-target="#mint">mint</a></li>
+          <li><a href="#mint-supply-control-contract" id="toc-mint-supply-control-contract" class="nav-link" data-scroll-target="#mint-supply-control-contract">mint (Supply Control Contract)</a></li>
+          <li><a href="#modifybasket-acu-contract" id="toc-modifybasket-acu-contract" class="nav-link" data-scroll-target="#modifybasket-acu-contract">modifyBasket (ACU Contract)</a></li>
+          <li><a href="#setaccountabilitycontract" id="toc-setaccountabilitycontract" class="nav-link" data-scroll-target="#setaccountabilitycontract">setAccountabilityContract</a></li>
+          <li><a href="#setacucontract" id="toc-setacucontract" class="nav-link" data-scroll-target="#setacucontract">setAcuContract</a></li>
+          <li><a href="#setcommitteesize" id="toc-setcommitteesize" class="nav-link" data-scroll-target="#setcommitteesize">setCommitteeSize</a></li>
+          <li><a href="#setepochperiod" id="toc-setepochperiod" class="nav-link" data-scroll-target="#setepochperiod">setEpochPeriod</a></li>
+          <li><a href="#setliquidationratio-asm-stabilization-contract" id="toc-setliquidationratio-asm-stabilization-contract" class="nav-link" data-scroll-target="#setliquidationratio-asm-stabilization-contract">setLiquidationRatio (ASM Stabilization Contract)</a></li>
+          <li><a href="#setmincollateralizationratio-asm-stabilization-contract" id="toc-setmincollateralizationratio-asm-stabilization-contract" class="nav-link" data-scroll-target="#setmincollateralizationratio-asm-stabilization-contract">setMinCollateralizationRatio (ASM Stabilization Contract)</a></li>
+          <li><a href="#setmindebtrequirement-asm-stabilization-contract" id="toc-setmindebtrequirement-asm-stabilization-contract" class="nav-link" data-scroll-target="#setmindebtrequirement-asm-stabilization-contract">setMinDebtRequirement (ASM Stabilization Contract)</a></li>
+          <li><a href="#setminimumbasefee" id="toc-setminimumbasefee" class="nav-link" data-scroll-target="#setminimumbasefee">setMinimumBaseFee</a></li>
+          <li><a href="#setoperatoraccount" id="toc-setoperatoraccount" class="nav-link" data-scroll-target="#setoperatoraccount">setOperatorAccount</a></li>
+          <li><a href="#setoraclecontract" id="toc-setoraclecontract" class="nav-link" data-scroll-target="#setoraclecontract">setOracleContract</a></li>
+          <li><a href="#setstabilizationcontract" id="toc-setstabilizationcontract" class="nav-link" data-scroll-target="#setstabilizationcontract">setStabilizationContract</a></li>
+          <li><a href="#setsupplycontrolcontract" id="toc-setsupplycontrolcontract" class="nav-link" data-scroll-target="#setsupplycontrolcontract">setSupplyControlContract</a></li>
+          <li><a href="#setsymbols-oracle-contract" id="toc-setsymbols-oracle-contract" class="nav-link" data-scroll-target="#setsymbols-oracle-contract">setSymbols (Oracle Contract)</a></li>
+          <li><a href="#settreasuryaccount" id="toc-settreasuryaccount" class="nav-link" data-scroll-target="#settreasuryaccount">setTreasuryAccount</a></li>
+          <li><a href="#settreasuryfee" id="toc-settreasuryfee" class="nav-link" data-scroll-target="#settreasuryfee">setTreasuryFee</a></li>
+          <li><a href="#setunbondingperiod" id="toc-setunbondingperiod" class="nav-link" data-scroll-target="#setunbondingperiod">setUnbondingPeriod</a></li>
+          </ul></li>
+          <li><a href="#protocol-only" id="toc-protocol-only" class="nav-link" data-scroll-target="#protocol-only">Protocol only</a>
+          <ul class="collapse">
+          <li><a href="#burn-supply-control-contract" id="toc-burn-supply-control-contract" class="nav-link" data-scroll-target="#burn-supply-control-contract">burn (Supply Control Contract)</a></li>
+          <li><a href="#computecommittee" id="toc-computecommittee" class="nav-link" data-scroll-target="#computecommittee">computeCommittee</a></li>
+          <li><a href="#distributerewards-accountability-contract" id="toc-distributerewards-accountability-contract" class="nav-link" data-scroll-target="#distributerewards-accountability-contract">distributeRewards (Accountability Contract)</a></li>
+          <li><a href="#finalize" id="toc-finalize" class="nav-link" data-scroll-target="#finalize">finalize</a></li>
+          <li><a href="#finalize-accountability-contract" id="toc-finalize-accountability-contract" class="nav-link" data-scroll-target="#finalize-accountability-contract">finalize (Accountability Contract)</a></li>
+          <li><a href="#finalize-oracle-contract" id="toc-finalize-oracle-contract" class="nav-link" data-scroll-target="#finalize-oracle-contract">finalize (Oracle Contract)</a></li>
+          <li><a href="#handleevent-accountability-contract" id="toc-handleevent-accountability-contract" class="nav-link" data-scroll-target="#handleevent-accountability-contract">handleEvent (Accountability Contract)</a></li>
+          <li><a href="#mint-supply-control-contract-1" id="toc-mint-supply-control-contract-1" class="nav-link" data-scroll-target="#mint-supply-control-contract-1">mint (Supply Control Contract)</a></li>
+          <li><a href="#update-acu-contract" id="toc-update-acu-contract" class="nav-link" data-scroll-target="#update-acu-contract">update (ACU Contract)</a></li>
+          </ul></li>
+          </ul>
+        </nav>
+            </div>
+        <!-- main -->
+        <main class="content" id="quarto-document-content">
+    
+        <header id="title-block-header" class="quarto-title-block default">
+        <div class="quarto-title">
+        <h1 class="title">Governance and Protocol Only Reference</h1>
+        </div>
+
+        <div>
+          <div class="description">
+            <p>Autonity Protocol Contract functions callable by governance operator and by protocol only</p>
+          </div>
+        </div>
+
+
+        <div class="quarto-title-meta">
+
+            
+          
+            
+          </div>
+          
+
+        </header>    
+            
+    <section id="operator-only" class="level2">
+    <h2 class="anchored" data-anchor-id="operator-only">Operator only</h2>
+    <p>Functions with the <code>onlyOperator</code> access constraint that can only be called by the governance operator account.</p>
+    <section id="burn" class="level3">
+    <h3 class="anchored" data-anchor-id="burn">burn</h3>
+    <p>Burns the specified amount of Newton stake token from an account. When <code>x</code> amount of newton is burned, then <code>x</code> is simply deducted from the account’s balance and from the total supply of newton in circulation.</p>
+    <section id="parameters" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_addr</code></td>
+    <td><code>address</code></td>
+    <td>the account address from which newton is being burned</td>
+    </tr>
+    <tr class="even">
+    <td><code>_amount</code></td>
+    <td><code>uint256</code></td>
+    <td>a positive integer value for the value amount being burned, denominated in Newton</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response" class="level4">
+    <h4 class="anchored" data-anchor-id="response">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The new Newton balance of the account can be retrieved from state by calling the <a href="../../../../reference/api/aut/#balanceof"><code>balanceOf()</code></a> method.</p>
+    <p>The new total supply of Newton in circulation can be retrieved from state by calling the <a href="../../../../reference/api/aut/#totalsupply"><code>totalSupply()</code></a> method.</p>
+    </section>
+    <section id="event" class="level4">
+    <h4 class="anchored" data-anchor-id="event">Event</h4>
+    <p>On a successful call the function emits a <code>BurnedStake</code> event, logging: <code>_addr</code>, <code>_amount</code>.</p>
+    </section>
+    <section id="usage" class="level4">
+    <h4 class="anchored" data-anchor-id="usage">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+    <p>aut protocol burn [OPTIONS] AMOUNT ACCOUNT</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example" class="level4">
+    <h4 class="anchored" data-anchor-id="example">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+    <p>aut protocol burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0x3e86062cca9fa263acb7076f8287117e9ee2c5570e0f4e4bd2ff4db21895796e</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="mint" class="level3">
+    <h3 class="anchored" data-anchor-id="mint">mint</h3>
+    <p>Mints new stake token and adds it to the recipient’s account balance. When <code>x</code> amount of newton is minted, then <code>x</code> is simply added to the account’s balance and to the total supply of newton in circulation.</p>
+    <section id="parameters-1" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-1">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_addr</code></td>
+    <td><code>address</code></td>
+    <td>the recipient account address</td>
+    </tr>
+    <tr class="even">
+    <td><code>_amount</code></td>
+    <td><code>uint256</code></td>
+    <td>a positive integer value for the value amount being minted, denominated in <code>Newton</code></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-1" class="level4">
+    <h4 class="anchored" data-anchor-id="response-1">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The new Newton balance of the recipient account can be retrieved from state by calling the <a href="../../../../reference/api/aut/#balanceof"><code>balanceOf()</code></a> method.</p>
+    <p>The new total supply of newton in circulation can be retrieved from state by calling the <a href="../../../../reference/api/aut/#totalsupply"><code>totalSupply()</code></a> method.</p>
+    </section>
+    <section id="event-1" class="level4">
+    <h4 class="anchored" data-anchor-id="event-1">Event</h4>
+    <p>On a successful call the function emits a <code>MintedStake</code> event, logging: <code>_addr</code>, <code>_amount</code>.</p>
+    </section>
+    <section id="usage-1" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-1">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+    <p>aut protocol mint [OPTIONS] AMOUNT RECIPIENT</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-1" class="level4">
+    <h4 class="anchored" data-anchor-id="example-1">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+    <p>aut protocol mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0xbd9e604372cc922c4594b0fce94919f933734e29b0043c5af3c4a7774ed99ad7</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="mint-supply-control-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="mint-supply-control-contract">mint (Supply Control Contract)</h3>
+    <p>The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing.</p>
+    <p>The protocol calls the function using by the <code>stabilizer</code> account, the Stabilization Contract address The recipient cannot be the <code>stabilizer</code> account or the <code>0</code> zero address. The minted <code>amount</code> cannot be equal to <code>0</code> or greater than the Supply Control Contract’s available auton <code>balance</code>.</p>
+    <p>When <code>x</code> amount of auton is minted, then <code>x</code> is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.</p>
+    <section id="parameters-2" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-2">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>recipient</code></td>
+    <td><code>address</code></td>
+    <td>the recipient account address</td>
+    </tr>
+    <tr class="even">
+    <td><code>amount</code></td>
+    <td><code>uint256</code></td>
+    <td>amount of Auton to mint (non-zero)</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-2" class="level4">
+    <h4 class="anchored" data-anchor-id="response-2">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The new Auton balance of the recipient account can be returned from state using <code>aut</code> to <a href="../../../../account-holders/submit-trans-aut/#get-auton-balance">Get the auton balance</a>.</p>
+    <p>The new total supply of auton available for minting can be retrieved from state by calling the <a href="../../../../reference/api/asm/supplycontrol/#availablesupply"><code>availableSupply()</code></a> method.</p>
+    </section>
+    <section id="event-2" class="level4">
+    <h4 class="anchored" data-anchor-id="event-2">Event</h4>
+    <p>On a successful call the function emits a <code>Mint</code> event, logging: <code>recipient</code>, <code>amount</code>.</p>
+    </section>
+    <section id="usage-2" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-2">Usage</h4>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The ASM Supply Control Contract Interface is not currently supported by <code>aut</code>.</p>
+    <p>You can interact with the contract using the <code>aut contract</code> command group. See <code>aut contract tx -h</code> for how to submit a transaction calling the interface function.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="modifybasket-acu-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="modifybasket-acu-contract">modifyBasket (ACU Contract)</h3>
+    <p>Modifies the ACU symbols, quantities, or scale of the ACU currency basket.</p>
+    <section id="parameters-3" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-3">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>symbols_</code></td>
+    <td><code>string</code></td>
+    <td>the symbols used to retrieve prices</td>
+    </tr>
+    <tr class="even">
+    <td><code>quantities_</code></td>
+    <td><code>uint256</code></td>
+    <td>the basket quantity corresponding to each symbol</td>
+    </tr>
+    <tr class="odd">
+    <td><code>scale_</code></td>
+    <td><code>uint256</code></td>
+    <td>the scale for quantities and the ACU value</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-3" class="level4">
+    <h4 class="anchored" data-anchor-id="response-3">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-3" class="level4">
+    <h4 class="anchored" data-anchor-id="event-3">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-3" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-3">Usage</h4>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The ASM ACU Contract Interface is not currently supported by <code>aut</code>.</p>
+    <p>You can interact with the contract using the <code>aut contract</code> command group. See <code>aut contract tx -h</code> for how to submit a transaction calling the interface function.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setaccountabilitycontract" class="level3">
+    <h3 class="anchored" data-anchor-id="setaccountabilitycontract">setAccountabilityContract</h3>
+    <p>Sets a new value for the <a href="../../../../concepts/architecture/#autonity-accountability-contract">Autonity Accountability Contract</a> address.</p>
+    <section id="parameters-4" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-4">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_address</code></td>
+    <td><code>address</code></td>
+    <td>the ethereum formatted address of the Accountability Contract</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-4" class="level4">
+    <h4 class="anchored" data-anchor-id="response-4">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-4" class="level4">
+    <h4 class="anchored" data-anchor-id="event-4">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-4" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-4">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+    <p>aut protocol set-accountability-contract [OPTIONS] CONTRACT-ADDRESS</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setacucontract" class="level3">
+    <h3 class="anchored" data-anchor-id="setacucontract">setAcuContract</h3>
+    <p>Sets a new value for the <a href="../../../../concepts/architecture/#asm-acu-contract">ASM Auton Currency Unit (ACU) Contract</a> address.</p>
+    <section id="parameters-5" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-5">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_address</code></td>
+    <td><code>address</code></td>
+    <td>the ethereum formatted address of the ACU Contract</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-5" class="level4">
+    <h4 class="anchored" data-anchor-id="response-5">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-5" class="level4">
+    <h4 class="anchored" data-anchor-id="event-5">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-5" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-5">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
+    <p>aut protocol set-acu-contract [OPTIONS] CONTRACT-ADDRESS</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setcommitteesize" class="level3">
+    <h3 class="anchored" data-anchor-id="setcommitteesize">setCommitteeSize</h3>
+    <p>Sets a new value for the <code>committeeSize</code> protocol parameter.</p>
+    <section id="parameters-6" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-6">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_size</code></td>
+    <td><code>uint256</code></td>
+    <td>a positive integer value for the maximum committee size</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-6" class="level4">
+    <h4 class="anchored" data-anchor-id="response-6">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The updated parameter can be retrieved from state by calling the <a href="../../../../reference/api/aut/#getmaxcommitteesize"><code>getMaxCommitteeSize()</code></a> method.</p>
+    </section>
+    <section id="usage-6" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-6">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+    <p>aut protocol set-committee-size [OPTIONS] COMMITTEE_SIZE</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-2" class="level4">
+    <h4 class="anchored" data-anchor-id="example-2">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+    <p>$ aut protocol set-committee-size 50 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0x3dbe5afbb89267b1549f735d09ac3acd6a4894eccbab8dca125497806c8fdc2d</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setepochperiod" class="level3">
+    <h3 class="anchored" data-anchor-id="setepochperiod">setEpochPeriod</h3>
+    <p>Sets a new value for the <code>epochPeriod</code> protocol parameter.</p>
+    <p>The <code>epochPeriod</code> period value must be less than the <code>unbondingPeriod</code> protocol parameter.</p>
+    <p>Constraint checks are applied:</p>
+    <ul>
+    <li>if decreasing the epoch period, checks the current chain head has not already exceeded the new epoch period window: if <code>block.number &gt;= lastEpochBlock + _period</code>, then the transaction reverts.</li>
+    </ul>
+    <section id="parameters-7" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-7">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_period</code></td>
+    <td><code>uint256</code></td>
+    <td>a positive integer value specifying the number of blocks defining the duration of an epoch on the network</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-7" class="level4">
+    <h4 class="anchored" data-anchor-id="response-7">Response</h4>
+    <p>No response object is returned on successful execution of the call.</p>
+    <p>The updated parameter can be retrieved from state by a call to the <a href="../../../../reference/api/aut/#epochperiod"><code>epochPeriod()</code></a> public variable.</p>
+    </section>
+    <section id="event-6" class="level4">
+    <h4 class="anchored" data-anchor-id="event-6">Event</h4>
+    <p>On a successful call the function emits an <code>EpochPeriodUpdated</code> event, logging: <code>_period</code>.</p>
+    </section>
+    <section id="usage-7" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-7">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+    <p>aut protocol set-epoch-period [OPTIONS] EPOCH_PERIOD</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-3" class="level4">
+    <h4 class="anchored" data-anchor-id="example-3">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+    <p>$ aut protocol set-epoch-period 1000 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0xdf3b3eb316a3070a591621d8cc450ca6d1af3a6d57a0455714b5bff72eb06b92</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setliquidationratio-asm-stabilization-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="setliquidationratio-asm-stabilization-contract">setLiquidationRatio (ASM Stabilization Contract)</h3>
+    <p>Sets a new value for the <code>liquidationRatio</code> protocol parameter in the ASM Stabilization Contract configuration.</p>
+    <p>Constraint checks are applied:</p>
+    <ul>
+    <li>the ratio must be less than the minimum collateralization ratio parameter.</li>
+    </ul>
+    <section id="parameters-8" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-8">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>ratio</code></td>
+    <td><code>uint256</code></td>
+    <td>an integer value specifying the liquidation ratio for ASM CDP’s</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-8" class="level4">
+    <h4 class="anchored" data-anchor-id="response-8">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-7" class="level4">
+    <h4 class="anchored" data-anchor-id="event-7">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-8" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-8">Usage</h4>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The ASM Stabilization Contract Interface is not currently supported by <code>aut</code>.</p>
+    <p>You can interact with the contract using the <code>aut contract</code> command group. See <code>aut contract tx -h</code> for how to submit a transaction calling the interface function.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setmincollateralizationratio-asm-stabilization-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="setmincollateralizationratio-asm-stabilization-contract">setMinCollateralizationRatio (ASM Stabilization Contract)</h3>
+    <p>Sets a new value for the <code>minCollateralizationRatio</code> protocol parameter in the ASM Stabilization Contract configuration</p>
+    <p>Constraint checks are applied:</p>
+    <ul>
+    <li>the ratio must be a positive value</li>
+    <li>the ratio must be greater than the liquidation ratio</li>
+    <li>minimum collateralization ratio parameter.</li>
+    </ul>
+    <section id="parameters-9" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-9">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>ratio</code></td>
+    <td><code>uint256</code></td>
+    <td>a positive integer value specifying the minimum collateralization ratio for ASM CDP’s</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-9" class="level4">
+    <h4 class="anchored" data-anchor-id="response-9">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-8" class="level4">
+    <h4 class="anchored" data-anchor-id="event-8">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-9" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-9">Usage</h4>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The ASM Stabilization Contract Interface is not currently supported by <code>aut</code>.</p>
+    <p>You can interact with the contract using the <code>aut contract</code> command group. See <code>aut contract tx -h</code> for how to submit a transaction calling the interface function.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setmindebtrequirement-asm-stabilization-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="setmindebtrequirement-asm-stabilization-contract">setMinDebtRequirement (ASM Stabilization Contract)</h3>
+    <p>Sets a new value for the <code>minDebtRequirement</code> protocol parameter in the ASM Stabilization Contract configuration.</p>
+    <section id="parameters-10" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-10">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>amount</code></td>
+    <td><code>uint256</code></td>
+    <td>an integer value specifying the minimum debt requirement for ASM CDP’s</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-10" class="level4">
+    <h4 class="anchored" data-anchor-id="response-10">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-9" class="level4">
+    <h4 class="anchored" data-anchor-id="event-9">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-10" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-10">Usage</h4>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The ASM Stabilization Contract Interface is not currently supported by <code>aut</code>.</p>
+    <p>You can interact with the contract using the <code>aut contract</code> command group. See <code>aut contract tx -h</code> for how to submit a transaction calling the interface function.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setminimumbasefee" class="level3">
+    <h3 class="anchored" data-anchor-id="setminimumbasefee">setMinimumBaseFee</h3>
+    <p>Sets a new value for the <code>minBaseFee</code> protocol parameter. The value is denominated in <a href="../../../../glossary/#ton"><code>ton</code></a>.</p>
+    <section id="parameters-11" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-11">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_price</code></td>
+    <td><code>uint256</code></td>
+    <td>a positive integer value for the minimum gas price, denominated in <a href="../../../../glossary/#ton"><code>ton</code></a></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-11" class="level4">
+    <h4 class="anchored" data-anchor-id="response-11">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The updated parameter can be retrieved from state by calling the <a href="../../../../reference/api/aut/#getminimumbasefee"><code>getMinimumBaseFee()</code></a> method.</p>
+    </section>
+    <section id="event-10" class="level4">
+    <h4 class="anchored" data-anchor-id="event-10">Event</h4>
+    <p>On a successful call the function emits a <code>MinimumBaseFeeUpdated</code> event, logging: <code>_price</code>.</p>
+    </section>
+    <section id="usage-11" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-11">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+    <p>aut protocol set-minimum-base-fee [OPTIONS] base-fee</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-4" class="level4">
+    <h4 class="anchored" data-anchor-id="example-4">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
+    <p>aut protocol set-minimum-base-fee 50000000 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0x4d1abc6881f63d7856b3b2d6f0b9865a4a9c2b1378dd824e36e9ac194fd8da52</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setoperatoraccount" class="level3">
+    <h3 class="anchored" data-anchor-id="setoperatoraccount">setOperatorAccount</h3>
+    <p>Sets a new governance account address as the protocol parameter for the <a href="../../../../concepts/architecture/#application-layer-protocol-contracts">Autonity Protocol Contracts</a>:</p>
+    <ul>
+    <li><a href="../../../../concepts/architecture/#autonity-protocol-contract">Autonity Protocol Contract</a></li>
+    <li><a href="../../../../concepts/architecture/#autonity-oracle-contract">Autonity Oracle Contract</a></li>
+    <li><a href="../../../../concepts/architecture/#asm-acu-contract">ASM ACU Contract</a></li>
+    <li><a href="../../../../concepts/architecture/#asm-supply-control-contract">ASM Supply Control Contract</a></li>
+    <li><a href="../../../../concepts/architecture/#asm-stabilization-contract">ASM Stabilization Contract</a>.</li>
+    </ul>
+    <section id="parameters-12" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-12">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_account</code></td>
+    <td><code>address</code></td>
+    <td>the ethereum formatted address of the operator governance account</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-12" class="level4">
+    <h4 class="anchored" data-anchor-id="response-12">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The updated parameter can be retrieved from state by a call to the <a href="../../../../reference/api/aut/#operatoraccount"><code>operatorAccount()</code></a> public variable.</p>
+    </section>
+    <section id="usage-12" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-12">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
+    <p>aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-5" class="level4">
+    <h4 class="anchored" data-anchor-id="example-5">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
+    <p>aut protocol set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0xee513f48b4ad4cd24cfc5bb0fe0c1402a5e03ae030b6c73824bae253f56efd51</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setoraclecontract" class="level3">
+    <h3 class="anchored" data-anchor-id="setoraclecontract">setOracleContract</h3>
+    <p>Sets a new value for the <a href="../../../../concepts/architecture/#autonity-oracle-contract">Autonity Oracle Contract</a> address.</p>
+    <p>The Oracle Contract is called by the <a href="../../../../concepts/architecture/#application-layer-protocol-contracts">Autonity Protocol Contracts</a>:</p>
+    <ul>
+    <li><a href="../../../../concepts/architecture/#autonity-protocol-contract">Autonity Protocol Contract</a></li>
+    <li><a href="../../../../concepts/architecture/#asm-acu-contract">ASM ACU Contract</a></li>
+    <li><a href="../../../../concepts/architecture/#asm-stabilization-contract">ASM Stabilization Contract</a>.</li>
+    </ul>
+    <section id="parameters-13" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-13">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_address</code></td>
+    <td><code>address</code></td>
+    <td>the ethereum formatted address of the Oracle Contract</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-13" class="level4">
+    <h4 class="anchored" data-anchor-id="response-13">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-11" class="level4">
+    <h4 class="anchored" data-anchor-id="event-11">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-13" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-13">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
+    <p>aut protocol set-oracle-contract [OPTIONS] CONTRACT-ADDRESS</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setstabilizationcontract" class="level3">
+    <h3 class="anchored" data-anchor-id="setstabilizationcontract">setStabilizationContract</h3>
+    <p>Sets a new value for the <a href="../../../../concepts/architecture/#asm-stabilization-contract">ASM Stabilization Contract</a> address.</p>
+    <section id="parameters-14" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-14">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_address</code></td>
+    <td><code>address</code></td>
+    <td>the ethereum formatted address of the Stabilization Contract</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-14" class="level4">
+    <h4 class="anchored" data-anchor-id="response-14">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-12" class="level4">
+    <h4 class="anchored" data-anchor-id="event-12">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-14" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-14">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
+    <p>aut protocol set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setsupplycontrolcontract" class="level3">
+    <h3 class="anchored" data-anchor-id="setsupplycontrolcontract">setSupplyControlContract</h3>
+    <p>Sets a new value for the <a href="../../../../concepts/architecture/#asm-supply-control-contract">ASM Supply Control Contract</a> address.</p>
+    <section id="parameters-15" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-15">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>supplyControl</code></td>
+    <td><code>address</code></td>
+    <td>the ethereum formatted address of the Supply Control Contract</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-15" class="level4">
+    <h4 class="anchored" data-anchor-id="response-15">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-13" class="level4">
+    <h4 class="anchored" data-anchor-id="event-13">Event</h4>
+    <p>None.</p>
+    </section>
+    <section id="usage-15" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-15">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
+    <p>aut protocol set-supply-control-contract [OPTIONS] CONTRACT-ADDRESS</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setsymbols-oracle-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="setsymbols-oracle-contract">setSymbols (Oracle Contract)</h3>
+    <p>Sets a new value set for the <a href="../../../../glossary/#currency-pair">currency pair</a> symbols for which the Oracle Contract computes median price.</p>
+    <p>Note that the function overwrites the existing symbols; and does not update; the complete set of symbols for which oracles shall provide price reports must be provided.</p>
+    <p>Constraint checks are applied:</p>
+    <ul>
+    <li>the <code>_symbols</code> parameter cannot be empty; new symbols are provided</li>
+    <li>the current <code>round</code> number is not equal to the current symbol update (a) round number, and (b) round number +1.</li>
+    </ul>
+    <p>The symbol update is applied and oracle submissions for the new symbols are effective from the next round <code>round+1</code>.</p>
+    <section id="parameters-16" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-16">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>symbols</code></td>
+    <td><code>string</code> array</td>
+    <td>a comma-separated list of the new currency pair symbols for which price reports are generated</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-16" class="level4">
+    <h4 class="anchored" data-anchor-id="response-16">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-14" class="level4">
+    <h4 class="anchored" data-anchor-id="event-14">Event</h4>
+    <p>On a successful call the function emits a <code>NewSymbols</code> event, logging: a string array of the new currency pair <code>_symbol</code> and the following round number at which the new symbols become effective <code>round+1</code>.</p>
+    </section>
+    <section id="usage-16" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-16">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
+    <p>aut contract tx –address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ‘[“_symbol”]’ | aut tx sign - | aut tx send -</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-6" class="level4">
+    <h4 class="anchored" data-anchor-id="example-6">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
+    <p>aut contract tx –address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols ‘[“AUD-USD”, “CAD-USD”, “EUR-USD”, “GBP-USD”, “JPY-USD”, “SEK-USD”, “ATN-USD”, “NTN-USD”, “NTN-ATN”]’ | aut tx sign - | aut tx send -</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="settreasuryaccount" class="level3">
+    <h3 class="anchored" data-anchor-id="settreasuryaccount">setTreasuryAccount</h3>
+    <p>Sets a new account address as the value of the <code>treasuryAccount</code> protocol parameter.</p>
+    <section id="parameters-17" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-17">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_account</code></td>
+    <td><code>address payable</code></td>
+    <td>the ethereum formatted address of the Autonity Treasury Account for community funds</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-17" class="level4">
+    <h4 class="anchored" data-anchor-id="response-17">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The updated parameter can be retrieved from state by a call to <a href="../../../../reference/api/aut/#config"><code>config()</code></a> to get the Autonity network configuration.</p>
+    </section>
+    <section id="usage-17" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-17">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
+    <p>aut protocol set-treasury-account [OPTIONS] treasury-address</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-7" class="level4">
+    <h4 class="anchored" data-anchor-id="example-7">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-21-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-21-1-tab">
+    <p>$ aut protocol set-treasury-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0xffe8725f6988668700896f335ecb5db75bb48c9dfb7caef90acecef85d0a2520</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="settreasuryfee" class="level3">
+    <h3 class="anchored" data-anchor-id="settreasuryfee">setTreasuryFee</h3>
+    <p>Sets a new value for the <code>treasuryFee</code> protocol parameter.</p>
+    <section id="parameters-18" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-18">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_treasuryFee</code></td>
+    <td><code>uint256</code></td>
+    <td>a positive integer value specifying the percentage fee levied on staking rewards before redistribution</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-18" class="level4">
+    <h4 class="anchored" data-anchor-id="response-18">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The updated parameter can be retrieved from state by a call to <a href="../../../../reference/api/aut/#config"><code>config()</code></a> to get the Autonity network configuration.</p>
+    </section>
+    <section id="usage-18" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-18">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-22-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-22-1" role="tab" aria-controls="tabset-22-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-22-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-22-1-tab">
+    <p>aut protocol set-treasury-fee [OPTIONS] TREASURY-FEE</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-8" class="level4">
+    <h4 class="anchored" data-anchor-id="example-8">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-23-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-23-1" role="tab" aria-controls="tabset-23-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-23-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-23-1-tab">
+    <p>aut protocol set-treasury-fee 100000000 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0x513f36338720545a8f2c1111e0c2f4b5eebe9582e39493c6cd587ababe1e2e08</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    <section id="setunbondingperiod" class="level3">
+    <h3 class="anchored" data-anchor-id="setunbondingperiod">setUnbondingPeriod</h3>
+    <p>Sets a new value for the <code>unbondingPeriod</code> protocol parameter. The unbonding period specifies the length of time that bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction. The period of time is defined as a number of blocks.</p>
+    <p>The <code>unbondingPeriod</code> period value must be greater than the <code>epochPeriod</code> protocol parameter. When the last block of an epoch is finalised, logic checks if the unbonding period for any pending unbonding requests for unbonding has expired and if so applies the staking transitions.</p>
+    <section id="parameters-19" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-19">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_period</code></td>
+    <td><code>uint256</code></td>
+    <td>a positive integer value specifying the number of blocks defining the duration of an unbonding period</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-19" class="level4">
+    <h4 class="anchored" data-anchor-id="response-19">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The updated parameter can be retrieved from state by a call to <a href="../../../../reference/api/aut/#config"><code>config()</code></a> to get the Autonity network configuration.</p>
+    </section>
+    <section id="usage-19" class="level4">
+    <h4 class="anchored" data-anchor-id="usage-19">Usage</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-24-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-24-1" role="tab" aria-controls="tabset-24-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-24-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-24-1-tab">
+    <p>aut protocol set-unbonding-period [OPTIONS] UNBONDING_PERIOD</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="example-9" class="level4">
+    <h4 class="anchored" data-anchor-id="example-9">Example</h4>
+    <div class="tabset-margin-container"></div><div class="panel-tabset">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-25-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-25-1" role="tab" aria-controls="tabset-25-1" aria-selected="true">bash</a></li></ul>
+    <div class="tab-content">
+    <div id="tabset-25-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-25-1-tab">
+    <p>$ aut protocol set-unbonding-period 1000 | aut tx sign - | aut tx send - (consider using ‘KEYFILEPWD’ env var). Enter passphrase (or CTRL-d to exit): 0x1057bf2525ee910b393ea8d54d0ec9b362355e5dbeb14235ed5eba92750a4bdd</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    </section>
+    </section>
+    <section id="protocol-only" class="level2">
+    <h2 class="anchored" data-anchor-id="protocol-only">Protocol only</h2>
+    <p>Functions with protocol contract access constraints can only be invoked by the Autonity protocol itself:</p>
+    <ul>
+    <li>Autonity Protocol Contract: for state finalization and committee selection</li>
+    <li>Autonity Stabilization Contract: for Auton mint and burn.</li>
+    </ul>
+    <section id="burn-supply-control-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="burn-supply-control-contract">burn (Supply Control Contract)</h3>
+    <p>The Auton burn function, called by the Stabilization Contract <code>stabilizer</code> account address to burn Auton while processing a CDP repayment.</p>
+    <p>Burns the specified amount of Auton, taking it out of circulation.</p>
+    <p>Constraint checks are applied:</p>
+    <ul>
+    <li>the caller is the <code>stabilizer</code> account, the Stabilization Contract address.</li>
+    </ul>
+    <section id="parameters-20" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-20">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>amount</code></td>
+    <td><code>uint256</code></td>
+    <td>a non-zero integer value for the value amount being burned, denominated in Auton</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-20" class="level4">
+    <h4 class="anchored" data-anchor-id="response-20">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    </section>
+    <section id="event-15" class="level4">
+    <h4 class="anchored" data-anchor-id="event-15">Event</h4>
+    <p>On a successful call the function emits a <code>Burn</code> event, logging: <code>value</code>, the amount of Auton burned.</p>
+    </section>
+    </section>
+    <section id="computecommittee" class="level3">
+    <h3 class="anchored" data-anchor-id="computecommittee">computeCommittee</h3>
+    <p>Selects the consensus committee for the following epoch by selecting the validators with the highest amount of bonded stake.</p>
+    <p>The algorithm reads from the <code>validatorList</code> state variable to select the set of registered validators that are in an <code>enabled</code> state and with bonded stake greater than <code>0</code>.</p>
+    <p>If the number of selected validators exceeds the maximum committee size, then the selected validators are sorted by bonded stake amount in ascending order. The top <code>N</code> where <code>N</code> is the maximum committee size, are then selected to be members of the consensus committee for the next epoch.</p>
+    <p>The consensus committee variables maintained in persistent storage are deleted and recreated:</p>
+    <ul>
+    <li><code>committee</code> is assigned the array of new <code>CommitteeMember</code>’s, each <code>CommitteeMember</code> struct recording the validator’s account address (<code>_addr</code>) and bonded stake amount (<code>votingPower</code>)</li>
+    <li><code>committeeNodes</code> is assigned the array of enode URL’s for the committee members</li>
+    <li><code>epochTotalBondedStake</code> is assigned the total amount of the stake bonded to the committee members.</li>
+    </ul>
+    <p>Constraint checks:</p>
+    <ul>
+    <li><code>validatorList.length &gt; 0</code>. A committee cannot be selected without registered validators.</li>
+    <li><code>ValidatorState = 0</code> (i.e.&nbsp;active). Validators must be in an active state to be included in the selection algorithm (validators in a paused, jailed, or jailbound state are excluded).</li>
+    <li><code>bondedStake &gt; 0</code>. Validators must have a non-zero amount of bonded stake to be included in the selection algorithm.</li>
+    </ul>
+    <section id="parameters-21" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-21">Parameters</h4>
+    <p>None.</p>
+    </section>
+    <section id="response-21" class="level4">
+    <h4 class="anchored" data-anchor-id="response-21">Response</h4>
+    <p>No response object is returned on successful execution of the method invocation.</p>
+    <p>The new committee can be retrieved from state by calling the <a href="../../../../reference/api/aut/#getcommittee"><code>getCommittee()</code></a> method.</p>
+    <p>The new committee enode URL’s can be retrieved from state by calling the <a href="../../../../reference/api/aut/#getcommitteeenodes"><code>getCommitteeEnodes()</code></a> method.</p>
+    <p>Returns the amount of stake token bonded to the new consensus committee members and securing the network during the epoch can be retrieved from state by a call to the <a href="../../../../reference/api/aut/#epochtotalbondedstake"><code>epochTotalBondedStake()</code></a> method.</p>
+    </section>
+    </section>
+    <section id="distributerewards-accountability-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="distributerewards-accountability-contract">distributeRewards (Accountability Contract)</h3>
+    <p>The Accountability Contract reward distribution function, called at epoch finalisation as part of the state finalisation function <a href="../../../../reference/api/aut/op-prot/#finalize"><code>finalize</code></a>.</p>
+    <p>The function:</p>
+    <ul>
+    <li>distributes rewards for reporting provable faults committed by an offending validator to the reporting validator.</li>
+    <li>if multiple slashing events are committed by the same offending validator during the same epoch, then rewards are only distributed to the last reporter.</li>
+    <li>if funds can’t be transferred to the reporter’s <code>treasury</code> account, then rewards go to the autonity protocol <code>treasury</code> account for community funds (see also <a href="../../../../reference/protocol/#parameters">Protocol Parameters</a> Reference).</li>
+    </ul>
+    <p>After distribution, the reporting validator is removed from the <code>beneficiaries</code> array.</p>
+    <section id="parameters-22" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-22">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_validator</code></td>
+    <td><code>address</code></td>
+    <td>the address of the validator node being slashed</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-22" class="level4">
+    <h4 class="anchored" data-anchor-id="response-22">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-16" class="level4">
+    <h4 class="anchored" data-anchor-id="event-16">Event</h4>
+    <p>None.</p>
+    </section>
+    </section>
+    <section id="finalize" class="level3">
+    <h3 class="anchored" data-anchor-id="finalize">finalize</h3>
+    <p>The block finalisation function, invoked each block after processing every transaction within it. The function:</p>
+    <ul>
+    <li><p>tests if the <code>bytecode</code> protocol parameter is <code>0</code> length to determine if an Autonity Protocol Contract upgrade is available. If the <code>bytecode</code> length is <code>&gt;0</code>, the <code>contractUpgradeReady</code> protocol parameter is set to <code>true</code></p></li>
+    <li><p>tests if the block number is the last epoch block number (equal to <code>lastEpochBlock + epochPeriod</code> config) and if so sets the <code>epochEnded</code> boolean variable to <code>true</code> or <code>false</code> accordingly</p></li>
+    <li><p>invokes the Accountability Contract <a href="../../../../reference/api/aut/op-prot/#finalize-accountability-contract"><code>finalize()</code></a> function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations</p></li>
+    <li><p>then, if <code>epochEnded</code> is <code>true</code>:</p>
+    <ul>
+    <li>performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a <code>Rewarded</code> event for each distribution</li>
+    <li>applies any staking transitions - pending bonding and unbonding requests tracked in <code>BondingRequest</code> and <code>UnbondingRequest</code> data structures in memory</li>
+    <li>applies any validator commission rate changes - pending rate change requests tracked in <code>CommissionRateChangeRequest</code> data structures in memory</li>
+    <li>selects the consensus committee for the following epoch, invoking the <a href="../../../../reference/api/aut/op-prot/#computecommittee"><code>computeCommittee()</code></a> function</li>
+    <li>assigns the <code>lastEpochBlock</code> state variable the value of the current block number</li>
+    <li>increments the <code>epochID</code> by <code>1</code></li>
+    <li>emits a <code>NewEpoch</code> event logging the <code>epochID</code> of the new epoch</li>
+    </ul></li>
+    <li><p>invokes the Oracle Contract <a href="../../../../reference/api/aut/op-prot/#finalize-oracle-contract"><code>finalize()</code></a> function, triggering the Oracle Contract to check it is the end of a voting round and if so:</p>
+    <ul>
+    <li>calculate the median price of <a href="../../../../glossary/#currency-pair">currency pairs</a></li>
+    <li>re-set oracle voters and parameters ready for the next oracle voting round.</li>
+    </ul></li>
+    <li><p>then, if the oracle has computed data and started a new voting round (<code>newRound</code> is <code>true</code>), invokes the ACU Contract <a href="../../../../reference/api/aut/op-prot/#update-acu-contract"><code>update()</code></a> function to recompute the ACU value using the new price data.</p></li>
+    </ul>
+    <section id="parameters-23" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-23">Parameters</h4>
+    <p>None.</p>
+    </section>
+    <section id="response-23" class="level4">
+    <h4 class="anchored" data-anchor-id="response-23">Response</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>contractUpgradeReady</code></td>
+    <td><code>bool</code></td>
+    <td>Set to <code>true</code> if an Autonity Protocol Contract upgrade is available</td>
+    </tr>
+    <tr class="even">
+    <td><code>committee</code></td>
+    <td><code>CommitteeMember[]</code> array</td>
+    <td>the consensus committee that approved the block, each <code>CommitteeMember</code> struct recording the validator’s account address (<code>_addr</code>) and bonded stake amount (<code>votingPower</code>)</td>
+    </tr>
+    </tbody>
+    </table>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the <a href="../../../../reference/api/aut/#getversion"><code>getVersion()</code></a> method.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="event-17" class="level4">
+    <h4 class="anchored" data-anchor-id="event-17">Event</h4>
+    <p>On successful reward distribution the function emits:</p>
+    <ul>
+    <li>a <code>Rewarded</code> event for each staking reward distribution, logging: recipient address <code>addr</code> and reward amount <code>amount</code>.</li>
+    <li>a <code>NewEpoch</code> event signalling the beginning of a new epoch, logging: unique identifier for the new epoch <code>epochID</code>.</li>
+    </ul>
+    </section>
+    </section>
+    <section id="finalize-accountability-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="finalize-accountability-contract">finalize (Accountability Contract)</h3>
+    <p>The Accountability Contract finalisation function, called at each block finalisation as part of the state finalisation function <a href="../../../../reference/api/aut/op-prot/#finalize"><code>finalize()</code></a>. The function checks if it is the last block of the epoch, then:</p>
+    <ul>
+    <li>On each block, tries to <a href="../../../../reference/api/aut/op-prot/#promote-guilty-accusations">promote <code>Accusations</code></a> without proof of innocence into misconducts. <code>Accusations</code> without a valid innocence proof are considered guilty of the reported misconduct and a new fault proof is created if the fault severity is higher than that of any previous fault already committed by the validator in the current epoch.</li>
+    </ul>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>A validator can, of course, have more than one fault proven against it in an epoch. For example, a first fault is proven and then another fault for a higher severity is proven. Note that the protocol will only apply an accountability slashing to a validator for the fault with the highest severity committed in an epoch.</p>
+    </div>
+    </div>
+    </div>
+    <ul>
+    <li>On epoch end, <a href="../../../../reference/api/aut/op-prot/#perform-slashing-tasks">performs slashing tasks</a>.</li>
+    </ul>
+    <section id="promote-guilty-accusations" class="level4">
+    <h4 class="anchored" data-anchor-id="promote-guilty-accusations">promote guilty accusations</h4>
+    <p><code>Accusations</code> are placed into an <code>accusation</code> queue stored in memory. For each <code>Accusation</code> in the queue, the protocol checks if the proof submission window for the <code>Accusation</code> has expired and, if so, it attempts to promote the <code>Accusation</code> into a misbehaviour fault. If a fault with a higher severity than the <code>Accusation</code> already exists for the epoch, then the <code>Accusation</code> is dropped. Otherwise, a new <code>FaultProof</code> is created from the <code>Accusation</code> and the slashing history of the validator is updated to record this as the highest severity fault committed in the epoch.</p>
+    <p>The function takes each <code>Accusation</code> proof from the accusations queue and:</p>
+    <ul>
+    <li>Checks if the proof innocence window has closed. If the window is still open, the <code>Accusation</code> remains in the queue. If the window has closed (the sum of the block number at which the <code>Accusation</code> was reported and the number of blocks in the proof innocence window is greater than the current block number (<code>_ev.reportingBlock + INNOCENCE_PROOF_SUBMISSION_WINDOW &gt; block.number</code>)), then the <code>Accusation</code> is removed from the queue (i.e.&nbsp;deleted) to determine if the <code>Accusation's</code> should be promoted to a fault.</li>
+    <li>Tries to promote the <code>Accusation</code> to a fault or discards. The slashing history of the validator is checked to see if the validator already has a proven offence (i.e.&nbsp;a <code>FaultProof</code>) for the epoch with a severity <code>&gt;=</code> to the <code>Accusation</code>. If true, then the <code>Accusation</code> is skipped as a <code>FaultProof</code> with a higher severity has already been reported during the epoch. If false, then the validator’s slashing history is updated to record the new fault as the highest severity for the epoch. A new <code>FaultProof</code> is created for the validator and added to the slashing queue.</li>
+    <li>A <code>FaultProof</code> event is emitted logging the event.</li>
+    </ul>
+    <p>The reported validator will be silenced and slashed for the fault at the end of the current epoch.</p>
+    </section>
+    <section id="perform-slashing-tasks" class="level4">
+    <h4 class="anchored" data-anchor-id="perform-slashing-tasks">perform slashing tasks</h4>
+    <p>For each fault the protocol performs slashing over faulty validators at the end of an epoch.</p>
+    <p>The function checks the total number of faults committed by <strong>all</strong> validators in the epoch, counting the number of fault proofs in the slashing queue, to quantify validator collusion. It then applies slashing for each fault in the slashing queue:</p>
+    <ul>
+    <li>Computes the slashing. The slashing rate and amount are computed taking into account the number of fault offences committed in the epoch by the offending validator and all validators globally. The slashing amount is calculated by the formula <code>(slashing rate * validator bonded stake)/slashing rate precision</code>.</li>
+    <li>Applies the slashing penalty. Slashing is applied to the offending validator’s stake, subtracting the slashing amount from the validator’s bonded stake according to the protocol’s <a href="../../../../concepts/accountability/#penalty-absorbing-stake-pas">Penalty Absorbing Stake (PAS)</a> model (<a href="../../../../glossary/#self-bonded">self-bonded</a> stake before <a href="../../../../glossary/#delegated">delegated</a> stake)</li>
+    <li>Computes the jail period of the offending validator. If the validator stake slashing is 100% of bonded stake, permanent validator jailing is applied and the validator state is set to <code>jailbound</code>. Else, jailing is temporary and a jail period is calculated, using the formula <code>current block number + jail factor * proven offence fault count * epoch period</code> to compute a jail release block number. The validator state is set to <code>jailed</code>.</li>
+    <li>Updates validator state. The validator’s proven fault counter is incremented by <code>1</code> to record the slashing occurrence in the validator’s reputational slashing history. The jail release block number is recorded, set to the computed value if <code>jailed</code> or set to <code>0</code> if <code>jailbound</code>. Bonded stake amounts are adjusted for the slashing amount and the slashed stake token are transferred to the Autonity Protocol global <code>treasury</code> account for community funding.</li>
+    <li>Updates global slashing state. The pending slashing fault queue is reset ready for the next epoch, and the reporting validator is added to the array of reward beneficiaries that will receive rewards for offence reporting</li>
+    <li>A <code>SlashingEvent</code> event is emitted for each validator that has been slashed.</li>
+    </ul>
+    <p>Rewards for fault reporting are distributed to the <code>treasury</code> account of the reporting validator as the last block of the epoch is finalised. Reporting validator <a href="../../../../glossary/#self-bonded">self-bonded</a> and <a href="../../../../glossary/#delegated">delegated</a> stakeholders receive a share of the rewards <em>pro rata</em> to their bonded stake amount. If the rewards transfer to the validator <code>treasury</code> account fails, then the rewards are sent to the Autonity Protocol’s community <code>treasury</code> account.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The protocol adjusts the slashing rate according to the total number of fault offences committed in an epoch across all validators.</p>
+    <p>This mechanism applies a dynamic slashing rate mitigating collusion risk by Byzantine agents in an epoch.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="parameters-24" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-24">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>epochEnd</code></td>
+    <td><code>Bool</code></td>
+    <td>boolean value indicating if the current block is the last block of the epoch (<code>true</code>) or not (<code>false</code>)</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-24" class="level4">
+    <h4 class="anchored" data-anchor-id="response-24">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-18" class="level4">
+    <h4 class="anchored" data-anchor-id="event-18">Event</h4>
+    <p>The function emits events:</p>
+    <ul>
+    <li>on submission of a fault proof, a <code>NewFaultProof</code> event, logging: <code>_offender</code>, <code>_severity</code>, <code>_id</code>.</li>
+    <li>after a successful slashing, a <code>SlashingEvent</code> logging: <code>_val.nodeAddress</code>, <code>_slashingAmount</code>, <code>_val.jailReleaseBlock</code>, <code>isJailbound</code>.</li>
+    </ul>
+    </section>
+    </section>
+    <section id="finalize-oracle-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="finalize-oracle-contract">finalize (Oracle Contract)</h3>
+    <p>The Oracle Contract finalisation function, called once per <code>VotePeriod</code> as part of the state finalisation function <a href="../../../../reference/api/aut/op-prot/#finalize"><code>finalize()</code></a>. The function checks if it is the last block of the vote period, if so then:</p>
+    <ul>
+    <li>executes the Oracle Contract’s on-chain aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract <code>aggregateSymbol</code> function</li>
+    <li>checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round</li>
+    <li>resets the <code>lastRoundBlock</code> to the current <code>block.number</code></li>
+    <li>increments the <code>round</code> counter by <code>1</code></li>
+    <li>checks if there have been any oracle symbol changes, if so then updates the oracle symbol set for the following oracle voting round.</li>
+    </ul>
+    <section id="parameters-25" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-25">Parameters</h4>
+    <p>None.</p>
+    </section>
+    <section id="response-25" class="level4">
+    <h4 class="anchored" data-anchor-id="response-25">Response</h4>
+    <p>Returns <code>true</code> if there is a new voting round and new symbol prices are available, <code>false</code> if not.</p>
+    </section>
+    <section id="event-19" class="level4">
+    <h4 class="anchored" data-anchor-id="event-19">Event</h4>
+    <p>On success the function emits a <code>NewRound</code> event for the new oracle voting period, logging: round number <code>round</code>, <code>block.number</code>, <code>block.timestamp</code> and vote period duration <code>votePeriod</code>.</p>
+    </section>
+    </section>
+    <section id="handleevent-accountability-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="handleevent-accountability-contract">handleEvent (Accountability Contract)</h3>
+    <p>The accountability event handling function, invoked by protocol on submission of accountability event data to handle event processing.</p>
+    <p>Constraint checks are applied:</p>
+    <ul>
+    <li>the <code>msg.sender</code> caller is a registered <a href="../../../../concepts/validator/#validator-identifier">validator identifier</a>, else the transaction reverts. (Rewards for reporting a successful slashing event are distributed to the validator’s <a href="../../../../concepts/validator/#treasury-account"><code>treasury</code> account</a>.)</li>
+    <li>the <code>msg.sender</code> calling the function and the slashing event reporter addresses are the same.</li>
+    <li>chunk segments are contiguous for oversize events that have been chunked for storage into a map. If an event’s raw proof data is above a floor byte size, then the event is <code>chunked</code> into <code>16kb</code> size chunks and stored in a map. Chunk id’s must be contiguous; i.e.&nbsp;a map can only contain chunks from one and not multiple events.</li>
+    </ul>
+    <p>The function checks the event data:</p>
+    <ul>
+    <li>If the raw proof contains <code>&gt;1</code> chunk, then the function stores the event into a map and then returns.</li>
+    </ul>
+    <p>The function then processes the event according to event type.</p>
+    <p>The function validates the accountability event proof, passing the event’s <code>rawProof</code> data to a precompiled contract for verification. The precompiled contract returns verification outcome to the method:</p>
+    <ul>
+    <li><code>_success</code> - boolean flag indicating if proof verification succeeded or failed</li>
+    <li><code>_offender</code> - validator identifier address of the fault offender</li>
+    <li><code>_ruleId</code> - ID of the accountability rule tested</li>
+    <li><code>_block</code> - number of the block in which the fault occurred</li>
+    <li><code>_messageHash</code> - cryptographic hash of the main fault evidence, the <code>rawProof</code>.</li>
+    </ul>
+    <p>Based on the verification outcome, constraint checks are applied:</p>
+    <ul>
+    <li><p>the raw proof verification passed: <code>_success</code> is <code>true</code></p></li>
+    <li><p>there are no mismatches between the event data and the verified raw proof data fields:</p>
+    <ul>
+    <li>the returned <code>_offender</code> and event <code>offender</code> address values match</li>
+    <li>the returned <code>_ruleId</code> and event <code>rule</code> identifier values match</li>
+    </ul></li>
+    <li><p>the<code>_block</code> number returned by the verification is less than the current <code>block.number</code> - the proof is for a historical and not future event</p></li>
+    <li><p>depending on event type, specific constraint checks are applied:</p>
+    <ul>
+    <li>if <code>FaultProof</code>, then:
+    <ul>
+    <li>the severity of the fault event is greater than the severity of the offender’s current slashing history for the epoch.</li>
+    </ul></li>
+    <li>if <code>Accusation</code>, then:
+    <ul>
+    <li>the severity of the fault event is greater than the severity of the offender’s current slashing history for the epoch</li>
+    <li>the validator does not have a pending accusation being processed.</li>
+    </ul></li>
+    <li>if <code>InnocenceProof</code>, then:
+    <ul>
+    <li>the validator has an associated pending accusation being processed</li>
+    <li>the innocence proof and associated accusation proof have matching: rule identifiers, block number, message hash.</li>
+    </ul></li>
+    </ul></li>
+    </ul>
+    <p>On successful constraint checking:</p>
+    <ul>
+    <li>The <code>event</code> data object is updated using data returned by processing of the raw proof during proof verification processing:</li>
+    </ul>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>block</code></td>
+    <td><code>uint256</code></td>
+    <td>assigned block number returned from verification in <code>_block</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>epoch</code></td>
+    <td><code>uint256</code></td>
+    <td>assigned the identifier of the epoch in which the accountability event <code>_block</code> occurred</td>
+    </tr>
+    <tr class="odd">
+    <td><code>reportingBlock</code></td>
+    <td><code>uint256</code></td>
+    <td>assigned the current block number</td>
+    </tr>
+    <tr class="even">
+    <td><code>messageHash</code></td>
+    <td><code>uint256</code></td>
+    <td>assigned the hash of the main evidence for the accountability event returned from verification in <code>_messageHash</code></td>
+    </tr>
+    </tbody>
+    </table>
+    <ul>
+    <li>The event is added to the events queue and assigned an <code>_eventId</code> value reflecting its position in the event queue.</li>
+    </ul>
+    <p>Then, depending on event type:</p>
+    <ul>
+    <li>If <code>FaultProof</code>, then:
+    <ul>
+    <li>The record of validator faults is updated to add the new event ID.</li>
+    <li>The event is added to the slashing queue.</li>
+    <li>The slashing history of the validator for the epoch is updated to record the fault’s severity.</li>
+    </ul></li>
+    <li>If <code>Accusation</code>, then:
+    <ul>
+    <li>The event is recorded as the validator’s pending accusation.</li>
+    <li>The event is added to the accusation queue.</li>
+    </ul></li>
+    <li>If <code>InnocenceProof</code>, then:
+    <ul>
+    <li>The accusation queue is checked and the associated accusation is removed.</li>
+    <li>The validator’s pending accusation is reset to <code>0</code>, indicating the validator has no pending accusations (so a new accusation can now be submitted against the validator).</li>
+    </ul></li>
+    </ul>
+    <section id="parameters-26" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-26">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>_event</code></td>
+    <td><code>Event</code></td>
+    <td>event data object</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>On proof submission an <code>_event</code> object data structure is constructed in memory, populated with fields ready for proof processing:</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>chunks</code></td>
+    <td><code>uint8</code></td>
+    <td>counter of the number of chunks in the accountability event (for oversize accountability event)</td>
+    </tr>
+    <tr class="even">
+    <td><code>chunkId</code></td>
+    <td><code>uint8</code></td>
+    <td>chunk index to construct the oversize accountability event</td>
+    </tr>
+    <tr class="odd">
+    <td><code>eventType</code></td>
+    <td><code>EventType</code></td>
+    <td>the accountability event type, one of: <code>FaultProof</code> (proven misbehaviour), <code>Accusation</code> (pending accusation), <code>InnocenceProof</code> (proven innocence)</td>
+    </tr>
+    <tr class="even">
+    <td><code>rule</code></td>
+    <td><code>Rule</code></td>
+    <td>the identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. Enumerated values are defined for each AFD Rule ID.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>reporter</code></td>
+    <td><code>address</code></td>
+    <td>the node address of the validator that reported this accountability event</td>
+    </tr>
+    <tr class="even">
+    <td><code>offender</code></td>
+    <td><code>address</code></td>
+    <td>the node address of the validator accused of the accountability event</td>
+    </tr>
+    <tr class="odd">
+    <td><code>rawProof</code></td>
+    <td><code>bytes</code></td>
+    <td>the <code>rlp</code> encoded bytes of the accountability proof object</td>
+    </tr>
+    <tr class="even">
+    <td><code>block</code></td>
+    <td><code>uint256</code></td>
+    <td>the number of the block at which the accountability event occurred. Assigned by protocol after proof verification.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>epoch</code></td>
+    <td><code>uint256</code></td>
+    <td>the identifier of the epoch in which the accountability event occurred. Assigned by protocol after proof verification.</td>
+    </tr>
+    <tr class="even">
+    <td><code>reportingBlock</code></td>
+    <td><code>uint256</code></td>
+    <td>the number of the block at which the accountability event was reported. Assigned by protocol after proof verification.</td>
+    </tr>
+    <tr class="odd">
+    <td><code>messageHash</code></td>
+    <td><code>uint256</code></td>
+    <td>hash of the main evidence for the accountability event. Assigned by protocol after proof verification.</td>
+    </tr>
+    <tr class="even">
+    <td><code>_validator</code></td>
+    <td><code>address</code></td>
+    <td>the address of the validator node being slashed</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-26" class="level4">
+    <h4 class="anchored" data-anchor-id="response-26">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-20" class="level4">
+    <h4 class="anchored" data-anchor-id="event-20">Event</h4>
+    <p>On success the function emits events for handling of:</p>
+    <ul>
+    <li>Fault proof: a <code>NewFaultProof</code> event, logging: round <code>_offender</code> validator address, <code>_severity</code> of the fault, and <code>_eventId</code>.</li>
+    <li>Accusation proof: a <code>NewAccusation</code> event, logging: round <code>_offender</code> validator address, <code>_severity</code> of the fault, and <code>_eventId</code>.</li>
+    <li>Innocence proof: an <code>InnocenceProven</code> event, logging: <code>_offender</code> validator address, <code>0</code> indicating there are no pending accusations against the validator.</li>
+    </ul>
+    </section>
+    </section>
+    <section id="mint-supply-control-contract-1" class="level3">
+    <h3 class="anchored" data-anchor-id="mint-supply-control-contract-1">mint (Supply Control Contract)</h3>
+    <p>The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing.</p>
+    <p>Mints Auton and sends it to a recipient account, increasing the amount of Auton in circulation.</p>
+    <p>Constraint checks are applied:</p>
+    <ul>
+    <li>the caller is the <code>stabilizer</code> account, the Stabilization Contract address</li>
+    <li>invalid recipient: the <code>recipient</code> cannot be the <code>stabilizer</code> account, the Stabilization Contract address, or the <code>0</code> zero address</li>
+    <li>invalid amount: the <code>amount</code> is not equal to <code>0</code> or greater than the Supply Control Contract’s available Auton <code>balance</code>.</li>
+    </ul>
+    <p>When <code>x</code> amount of Auton is minted, then <code>x</code> is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.</p>
+    <section id="parameters-27" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-27">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Field</th>
+    <th>Datatype</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>recipient</code></td>
+    <td><code>address</code></td>
+    <td>the recipient account address</td>
+    </tr>
+    <tr class="even">
+    <td><code>amount</code></td>
+    <td><code>uint256</code></td>
+    <td>amount of Auton to mint (non-zero)</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="response-27" class="level4">
+    <h4 class="anchored" data-anchor-id="response-27">Response</h4>
+    <p>No response object is returned on successful execution of the method call.</p>
+    <p>The new Auton balance of the recipient account can be returned from state using <code>aut</code> to <a href="../../../../account-holders/submit-trans-aut/#get-auton-balance">Get the auton balance</a>.</p>
+    <p>The new total supply of auton available for minting can be retrieved from state by calling the <a href="../../../../reference/api/asm/supplycontrol/#availablesupply"><code>availableSupply()</code></a> method.</p>
+    </section>
+    <section id="event-21" class="level4">
+    <h4 class="anchored" data-anchor-id="event-21">Event</h4>
+    <p>On a successful call the function emits a <code>Mint</code> event, logging: <code>recipient</code>, <code>amount</code>.</p>
+    </section>
+    </section>
+    <section id="update-acu-contract" class="level3">
+    <h3 class="anchored" data-anchor-id="update-acu-contract">update (ACU Contract)</h3>
+    <p>The Auton Currency Unit (ACU) Contract finalization function, called once per Oracle voting round as part of the state finalization function <a href="../../../../reference/api/aut/op-prot/#finalize"><code>finalize()</code></a>. The function checks if the Oracle Contract <a href="../../../../reference/api/aut/op-prot/#finalize-oracle-contract"><code>finalize()</code></a> has initiated a new oracle voting round, if so then:</p>
+    <ul>
+    <li>it retrieves the latest prices from the Oracle Contract (i.e.&nbsp;the latest round data)</li>
+    <li>checks price data completeness:
+    <ul>
+    <li>if latest prices have been returned for all symbols in the ACU currency basket, then:
+    <ul>
+    <li>computes the ACU index value</li>
+    <li>resets the <code>round</code> to the index number of the oracle voting round that computed the retrieved latest prices.</li>
+    <li>returns status of <code>true</code> to the calling Autonity Protocol Contract</li>
+    </ul></li>
+    <li>else if one or more prices are unavailable from the Oracle, it will not compute the ACU value for that round, and returns status of <code>false</code> to the calling Autonity Protocol Contract.</li>
+    </ul></li>
+    </ul>
+    <section id="parameters-28" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-28">Parameters</h4>
+    <p>None.</p>
+    </section>
+    <section id="response-28" class="level4">
+    <h4 class="anchored" data-anchor-id="response-28">Response</h4>
+    <p>None.</p>
+    </section>
+    <section id="event-22" class="level4">
+    <h4 class="anchored" data-anchor-id="event-22">Event</h4>
+    <p>On success the function emits an <code>Updated</code> event for the new ACU value, logging: <code>block.number</code>, <code>block.timestamp</code>, oracle voting round number <code>round</code>, and the ACU index value calculated <code>_value</code>.</p>
+    
+    
+    </section>
+    </section>
+    </section>
+
+        </main> <!-- /main -->
+        <script id="quarto-html-after-body" type="application/javascript">
+        window.document.addEventListener("DOMContentLoaded", function (event) {
+          const toggleBodyColorMode = (bsSheetEl) => {
+            const mode = bsSheetEl.getAttribute("data-mode");
+            const bodyEl = window.document.querySelector("body");
+            if (mode === "dark") {
+              bodyEl.classList.add("quarto-dark");
+              bodyEl.classList.remove("quarto-light");
+            } else {
+              bodyEl.classList.add("quarto-light");
+              bodyEl.classList.remove("quarto-dark");
+            }
+          }
+          const toggleBodyColorPrimary = () => {
+            const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+            if (bsSheetEl) {
+              toggleBodyColorMode(bsSheetEl);
+            }
+          }
+          toggleBodyColorPrimary();  
+          const icon = "";
+          const anchorJS = new window.AnchorJS();
+          anchorJS.options = {
+            placement: 'right',
+            icon: icon
+          };
+          anchorJS.add('.anchored');
+          const isCodeAnnotation = (el) => {
+            for (const clz of el.classList) {
+              if (clz.startsWith('code-annotation-')) {                     
+                return true;
+              }
+            }
+            return false;
+          }
+          const clipboard = new window.ClipboardJS('.code-copy-button', {
+            text: function(trigger) {
+              const codeEl = trigger.previousElementSibling.cloneNode(true);
+              for (const childEl of codeEl.children) {
+                if (isCodeAnnotation(childEl)) {
+                  childEl.remove();
+                }
+              }
+              return codeEl.innerText;
+            }
+          });
+          clipboard.on('success', function(e) {
+            // button target
+            const button = e.trigger;
+            // don't keep focus
+            button.blur();
+            // flash "checked"
+            button.classList.add('code-copy-button-checked');
+            var currentTitle = button.getAttribute("title");
+            button.setAttribute("title", "Copied!");
+            let tooltip;
+            if (window.bootstrap) {
+              button.setAttribute("data-bs-toggle", "tooltip");
+              button.setAttribute("data-bs-placement", "left");
+              button.setAttribute("data-bs-title", "Copied!");
+              tooltip = new bootstrap.Tooltip(button, 
+                { trigger: "manual", 
+                  customClass: "code-copy-button-tooltip",
+                  offset: [0, -8]});
+              tooltip.show();    
+            }
+            setTimeout(function() {
+              if (tooltip) {
+                tooltip.hide();
+                button.removeAttribute("data-bs-title");
+                button.removeAttribute("data-bs-toggle");
+                button.removeAttribute("data-bs-placement");
+              }
+              button.setAttribute("title", currentTitle);
+              button.classList.remove('code-copy-button-checked');
+            }, 1000);
+            // clear code selection
+            e.clearSelection();
+          });
+          function tippyHover(el, contentFn) {
+            const config = {
+              allowHTML: true,
+              content: contentFn,
+              maxWidth: 500,
+              delay: 100,
+              arrow: false,
+              appendTo: function(el) {
+                  return el.parentElement;
+              },
+              interactive: true,
+              interactiveBorder: 10,
+              theme: 'quarto',
+              placement: 'bottom-start'
+            };
+            window.tippy(el, config); 
+          }
+          const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+          for (var i=0; i<noterefs.length; i++) {
+            const ref = noterefs[i];
+            tippyHover(ref, function() {
+              // use id or data attribute instead here
+              let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+              try { href = new URL(href).hash; } catch {}
+              const id = href.replace(/^#\/?/, "");
+              const note = window.document.getElementById(id);
+              return note.innerHTML;
+            });
+          }
+              let selectedAnnoteEl;
+              const selectorForAnnotation = ( cell, annotation) => {
+                let cellAttr = 'data-code-cell="' + cell + '"';
+                let lineAttr = 'data-code-annotation="' +  annotation + '"';
+                const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+                return selector;
+              }
+              const selectCodeLines = (annoteEl) => {
+                const doc = window.document;
+                const targetCell = annoteEl.getAttribute("data-target-cell");
+                const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+                const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+                const lineIds = lines.map((line) => {
+                  return targetCell + "-" + line;
+                })
+                let top = null;
+                let height = null;
+                let parent = null;
+                if (lineIds.length > 0) {
+                    //compute the position of the single el (top and bottom and make a div)
+                    const el = window.document.getElementById(lineIds[0]);
+                    top = el.offsetTop;
+                    height = el.offsetHeight;
+                    parent = el.parentElement.parentElement;
+                  if (lineIds.length > 1) {
+                    const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                    const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                    height = bottom - top;
+                  }
+                  if (top !== null && height !== null && parent !== null) {
+                    // cook up a div (if necessary) and position it 
+                    let div = window.document.getElementById("code-annotation-line-highlight");
+                    if (div === null) {
+                      div = window.document.createElement("div");
+                      div.setAttribute("id", "code-annotation-line-highlight");
+                      div.style.position = 'absolute';
+                      parent.appendChild(div);
+                    }
+                    div.style.top = top - 2 + "px";
+                    div.style.height = height + 4 + "px";
+                    let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                    if (gutterDiv === null) {
+                      gutterDiv = window.document.createElement("div");
+                      gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                      gutterDiv.style.position = 'absolute';
+                      const codeCell = window.document.getElementById(targetCell);
+                      const gutter = codeCell.querySelector('.code-annotation-gutter');
+                      gutter.appendChild(gutterDiv);
+                    }
+                    gutterDiv.style.top = top - 2 + "px";
+                    gutterDiv.style.height = height + 4 + "px";
+                  }
+                  selectedAnnoteEl = annoteEl;
+                }
+              };
+              const unselectCodeLines = () => {
+                const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+                elementsIds.forEach((elId) => {
+                  const div = window.document.getElementById(elId);
+                  if (div) {
+                    div.remove();
+                  }
+                });
+                selectedAnnoteEl = undefined;
+              };
+              // Attach click handler to the DT
+              const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+              for (const annoteDlNode of annoteDls) {
+                annoteDlNode.addEventListener('click', (event) => {
+                  const clickedEl = event.target;
+                  if (clickedEl !== selectedAnnoteEl) {
+                    unselectCodeLines();
+                    const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+                    if (activeEl) {
+                      activeEl.classList.remove('code-annotation-active');
+                    }
+                    selectCodeLines(clickedEl);
+                    clickedEl.classList.add('code-annotation-active');
+                  } else {
+                    // Unselect the line
+                    unselectCodeLines();
+                    clickedEl.classList.remove('code-annotation-active');
+                  }
+                });
+              }
+          const findCites = (el) => {
+            const parentEl = el.parentElement;
+            if (parentEl) {
+              const cites = parentEl.dataset.cites;
+              if (cites) {
+                return {
+                  el,
+                  cites: cites.split(' ')
+                };
+              } else {
+                return findCites(el.parentElement)
+              }
+            } else {
+              return undefined;
+            }
+          };
+          var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+          for (var i=0; i<bibliorefs.length; i++) {
+            const ref = bibliorefs[i];
+            const citeInfo = findCites(ref);
+            if (citeInfo) {
+              tippyHover(citeInfo.el, function() {
+                var popup = window.document.createElement('div');
+                citeInfo.cites.forEach(function(cite) {
+                  var citeDiv = window.document.createElement('div');
+                  citeDiv.classList.add('hanging-indent');
+                  citeDiv.classList.add('csl-entry');
+                  var biblioDiv = window.document.getElementById('ref-' + cite);
+                  if (biblioDiv) {
+                    citeDiv.innerHTML = biblioDiv.innerHTML;
+                  }
+                  popup.appendChild(citeDiv);
+                });
+                return popup.innerHTML;
+              });
+            }
+          }
+            var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+              var filterRegex = new RegExp('/' + window.location.host + '/');
+            var isInternal = (href) => {
+                return filterRegex.test(href) || localhostRegex.test(href);
+            }
+            // Inspect non-navigation links and adorn them if external
+         	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+            for (var i=0; i<links.length; i++) {
+              const link = links[i];
+              if (!isInternal(link.href)) {
+                  // target, if specified
+                  link.setAttribute("target", "_blank");
+                  // default icon
+                  link.classList.add("external");
+              }
+            }
+        });
+        </script>
+        </div> <!-- /content -->
+        <footer class="footer">
+          <div class="nav-footer">
+            <div class="nav-footer-left">
+              <ul class="footer-items list-unstyled">
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://github.com/autonity/">
+              <i class="bi bi-github" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://twitter.com/autonity_">
+              <i class="bi bi-twitter" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://discord.com/invite/autonity">
+              <i class="bi bi-discord" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ">
+              <i class="bi bi-youtube" role="img">
+        </i> 
+            </a>
+          </li>  
+        </ul>
+            </div>   
+            <div class="nav-footer-center">
+              &nbsp;
+            </div>
+            <div class="nav-footer-right">
+              &nbsp;
+            </div>
+          </div>
+        </footer>
+    
+
+
+<script src="../../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

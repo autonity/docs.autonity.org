@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
+    
+
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
+
+
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
+
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.3.361">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <meta name="description" content="Setting genesis configuration for an Autonity Go Client">
+
+    <title>Autonity Documentation - Genesis</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        code{white-space: pre-wrap;}
+        span.smallcaps{font-variant: small-caps;}
+        div.columns{display: flex; gap: min(4vw, 1.5em);}
+        div.column{flex: auto; overflow-x: auto;}
+        div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+        ul.task-list{list-style: none;}
+        ul.task-list li input[type="checkbox"] {
+          width: 0.8em;
+          margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+          vertical-align: middle;
+        }
+        /* CSS for syntax highlighting */
+        pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+          }
+        pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+        div.sourceCode
+          {   }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+    </style>
+    
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+        <script id="quarto-search-options" type="application/json">{
+          "location": "navbar",
+          "copy-button": false,
+          "collapse-after": 3,
+          "panel-placement": "end",
+          "type": "overlay",
+          "limit": 20,
+          "language": {
+            "search-no-results-text": "No results",
+            "search-matching-documents-text": "matching documents",
+            "search-copy-link-title": "Copy link to search",
+            "search-hide-matches-text": "Hide additional matches",
+            "search-more-match-text": "more match in this document",
+            "search-more-matches-text": "more matches in this document",
+            "search-clear-button-title": "Clear",
+            "search-detached-cancel-button-title": "Cancel",
+            "search-submit-button-title": "Submit",
+            "search-label": "Search"
+          }
+        }</script>
+        <style>html{ scroll-behavior: smooth; }</style>
+        <link rel="preconnect" href="https://plausible.io">
+        <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+        <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    
+    
+        <link rel="stylesheet" href="../../_assets/css/styles.css">
+    </head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+        <div id="quarto-search-results"></div>
+          <header id="quarto-header" class="headroom fixed-top">
+            <nav class="navbar navbar-expand-lg navbar-dark ">
+              <div class="navbar-container container-fluid">
+              <div class="navbar-brand-container">
+            <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+            <img src="../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+            </a>
+            <a class="navbar-brand" href="../../index.html">
+            <span class="navbar-title">Autonity Documentation</span>
+            </a>
+          </div>
+                <div class="quarto-navbar-tools ms-auto">
+        </div>
+                  <div id="quarto-search" class="" title="Search"></div>
+              </div> <!-- /container-fluid -->
+            </nav>
+          <nav class="quarto-secondary-nav">
+            <div class="container-fluid d-flex">
+              <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+                <i class="bi bi-layout-text-sidebar-reverse"></i>
+              </button>
+              <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reference/utility-tools/index.html">Reference</a></li><li class="breadcrumb-item"><a href="../../reference/genesis/index.html">Genesis</a></li></ol></nav>
+              <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+              </a>
+            </div>
+          </nav>
+        </header>
+        <!-- content -->
+        <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+        <!-- sidebar -->
+          <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+            <div class="sidebar-menu-container"> 
+            <ul class="list-unstyled mt-1">
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Overview</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+         <span class="menu-text">Concepts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability and fault detection (AFD)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server (AOS)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton Stabilization Mechanism (ASM)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Staking</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client (AGC)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/validator/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">System model</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Architecture</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle network</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus Committee</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Tendermint BFT consensus</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol assets</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Newton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+         <span class="menu-text">Networks</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bakerloo Testnet</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Piccadilly Testnet</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+         <span class="menu-text">Accounts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setup the Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Create an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Fund an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a transaction from the Autonity Utility tool (aut)</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+         <span class="menu-text">Running a Node</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Connecting to your Node</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Set up node monitoring</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+         <span class="menu-text">Running an Oracle Server</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity Oracle Server in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity Oracle Server</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+         <span class="menu-text">Running a Validator</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Register as a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Pause and reactivate a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Change Validator Commission Rate</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+         <span class="menu-text">Staking</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bond and unbond stake</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Claim Staking Rewards</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Transfer Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+         <span class="menu-text">Borrowing by CDP in the ASM</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Open and manage a CDP</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquidate a CDP</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+         <span class="menu-text">Development</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a governance transaction from Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Deploy smart contracts to an Autonity network with Brownie</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setting up custom networks</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+         <span class="menu-text">Reference</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/utility-tools/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Utility tools</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Codebase</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol Parameters</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/genesis/index.html" class="sidebar-item-text sidebar-link active">
+         <span class="menu-text">Genesis</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Interfaces</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Web3 Namespace</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Governance and Protocol Only Reference</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ASM Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Stabilization Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ACU Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Supply Control Contract Interface</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Command-line</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client Command-line</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server Command-line</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../glossary/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Glossary</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../issues/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Known issues</span></a>
+          </div>
+        </li>
+            </ul>
+            </div>
+        </nav>
+        <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+        <!-- margin-sidebar -->
+            <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+                <nav id="TOC" role="doc-toc" class="toc-active">
+            <h2 id="toc-title">On this page</h2>
+           
+          <ul>
+          <li><a href="#public-autonity-network-configuration" id="toc-public-autonity-network-configuration" class="nav-link active" data-scroll-target="#public-autonity-network-configuration">Public Autonity Network configuration</a>
+          <ul class="collapse">
+          <li><a href="#public-network-flags" id="toc-public-network-flags" class="nav-link" data-scroll-target="#public-network-flags">Public network flags</a></li>
+          </ul></li>
+          <li><a href="#local-autonity-network-configuration" id="toc-local-autonity-network-configuration" class="nav-link" data-scroll-target="#local-autonity-network-configuration">Local Autonity Network configuration</a>
+          <ul class="collapse">
+          <li><a href="#genesis-configuration-file" id="toc-genesis-configuration-file" class="nav-link" data-scroll-target="#genesis-configuration-file">Genesis configuration file</a></li>
+          <li><a href="#static-nodes-file" id="toc-static-nodes-file" class="nav-link" data-scroll-target="#static-nodes-file">Static nodes file</a></li>
+          </ul></li>
+          </ul>
+        </nav>
+            </div>
+        <!-- main -->
+        <main class="content" id="quarto-document-content">
+    
+        <header id="title-block-header" class="quarto-title-block default">
+        <div class="quarto-title">
+        <h1 class="title">Genesis</h1>
+        </div>
+
+        <div>
+          <div class="description">
+            <p>Setting genesis configuration for an Autonity Go Client</p>
+          </div>
+        </div>
+
+
+        <div class="quarto-title-meta">
+
+            
+          
+            
+          </div>
+          
+
+        </header>    
+            
+    <p>Genesis configuration for public Autonity networks is built into the client’s configuration. If setting up a local testnet, for example a private devnet, configuration has to be specified when initialising the node.</p>
+    <section id="public-autonity-network-configuration" class="level2">
+    <h2 class="anchored" data-anchor-id="public-autonity-network-configuration">Public Autonity Network configuration</h2>
+    <p>Configuring the client to join a public network is done by setting the network as a <a href="../../reference/cli/#command-line-options">command-line option</a> when initialising the Autonity Go Client. The client will then auto-detect the network genesis configuration and bootnodes, connect, and sync.</p>
+    <section id="public-network-flags" class="level3">
+    <h3 class="anchored" data-anchor-id="public-network-flags">Public network flags</h3>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Network</th>
+    <th>Command-line option</th>
+    <th>Network settings</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>Bakerloo Testnet</td>
+    <td><a href="../../reference/cli/#command-line-options"><code>--bakerloo</code> command-line option</a></td>
+    <td><a href="../../networks/testnet-bakerloo/#genesis-configuration">Genesis configuration</a></td>
+    </tr>
+    <tr class="even">
+    <td>Piccadilly Testnet</td>
+    <td><a href="../../reference/cli/#command-line-options"><code>--piccadilly</code> command-line option</a></td>
+    <td><a href="../../networks/testnet-piccadilly/#genesis-configuration">Genesis configuration</a></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>For details of individual public network purpose and use see the <a href="../../networks/">Networks</a> section.</p>
+    </section>
+    </section>
+    <section id="local-autonity-network-configuration" class="level2">
+    <h2 class="anchored" data-anchor-id="local-autonity-network-configuration">Local Autonity Network configuration</h2>
+    <p>For launching a local Autonity network, genesis configuration and bootnodes need to be specified when running the client:</p>
+    <ul>
+    <li>Genesis configuration file. To set genesis state of your local Autonity network you will need to provide your own custom <code>genesis.json</code> configuration file, a JSON formatted file containing the initialisation configuration for the network. This file defines:
+    <ul>
+    <li>the genesis block and that block’s header</li>
+    <li>protocol parameters configuring protocol rules of the network</li>
+    <li>validators from which the genesis consensus committee will be selected</li>
+    <li>oracle network configuration</li>
+    <li>accounts to be created at network genesis: initial allocation of Auton to EOA accounts; contract accounts.</li>
+    </ul></li>
+    <li>Bootnodes. Bootnodes can be provided statically as a file or as a command-line option when running the client. To provide statically, specify a <code>static-nodes.json</code> file, or as a comma-separated list in the <code>--bootnodes</code> command-line option.</li>
+    </ul>
+    <section id="genesis-configuration-file" class="level3">
+    <h3 class="anchored" data-anchor-id="genesis-configuration-file">Genesis configuration file</h3>
+    <section id="json-data-structures" class="level4">
+    <h4 class="anchored" data-anchor-id="json-data-structures">JSON data structures</h4>
+    <p>Genesis configuration file JSON objects:</p>
+    <ul>
+    <li><a href="#genesis-file-object">genesis file</a></li>
+    <li><a href="#config-object">config</a></li>
+    <li><a href="#configautonity-object">config.autonity</a></li>
+    <li><a href="#configautonityvalidators-object">config.autonity.validators</a></li>
+    <li><a href="#configasm-object">config.asm</a></li>
+    <li><a href="#configasmacu-object">config.asm.acu</a></li>
+    <li><a href="#configasmstabilization-object">config.asm.stabilization</a></li>
+    <li><a href="#configasmsupplycontrol-object">config.asm.supplyControl</a></li>
+    <li><a href="#configaccountability-object">config.accountability</a></li>
+    <li><a href="#configoracle-object">config.oracle</a></li>
+    <li><a href="#alloc-object">alloc</a></li>
+    <li><a href="#allocaccount-object">alloc.account object</a></li>
+    </ul>
+    </section>
+    <section id="genesis-file-object" class="level4">
+    <h4 class="anchored" data-anchor-id="genesis-file-object">Genesis file object</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>config</code></td>
+    <td>Configuration variables for the Autonity Network blockchain</td>
+    <td>See <a href="#config-object"><code>config</code> object</a></td>
+    </tr>
+    <tr class="even">
+    <td><code>nonce</code></td>
+    <td>Maintained by the Autonity Protocol for backward compatibility reasons in the EVM.</td>
+    <td>Set to <code>0</code> (<code>0x0</code> in hexadecimal)</td>
+    </tr>
+    <tr class="odd">
+    <td><code>timestamp</code></td>
+    <td>Specifies the time point when the network starts mining and the first block is mined. If set to <code>0</code> the node will start mining on deployment. If a future time point is specified, then miners will wait until <code>timestamp</code> + <code>blockPeriod</code> to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e.&nbsp;by the <a href="https://www.nwtime.org/documentationandlinks/">Network Time Protocol (NTP)</a></td>
+    <td>Set to <code>0</code> (<code>0x0</code>) to start node mining on connection to the Autonity network</td>
+    </tr>
+    <tr class="even">
+    <td><code>baseFee</code></td>
+    <td>The base gas price for computing a transaction on an Autonity network after genesis. The base fee is adjusted per the <a href="https://eips.ethereum.org/EIPS/eip-1559">EIP 1559</a> fee market mechanism. See Concepts, <a href="../../concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm">EIP 1559 Transaction fee mechanism (TFM)</a></td>
+    <td>Set to: <code>15000000000</code></td>
+    </tr>
+    <tr class="odd">
+    <td><code>gasLimit</code></td>
+    <td>The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. Denominated in <a href="../../glossary/#ton"><code>ton</code></a>. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol</td>
+    <td>Set to: <code>30000000</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>difficulty</code></td>
+    <td>Derived from Ethereum where it sets the difficulty for Ethereum’s Ethash Proof of Work consensus. For Autonity’s implementation of Tendermint BFT Proof of Stake consensus this must be assigned <code>0</code>.</td>
+    <td>Set to <code>0</code> (<code>0x0</code>)</td>
+    </tr>
+    <tr class="odd">
+    <td><code>coinbase</code></td>
+    <td>Maintained for backward compatibility reasons in the EVM. Unused by the Autonity Protocol. Ethereum format address.</td>
+    <td>Set to <code>0x0000000000000000000000000000000000000000</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>number</code></td>
+    <td>A value equal to the number of ancestor blocks. At genesis there are no ancestor blocks and it is assigned the value <code>0</code></td>
+    <td>Set to <code>0</code> (<code>0x0</code>)</td>
+    </tr>
+    <tr class="odd">
+    <td><code>gasUsed</code></td>
+    <td>The gas used in the computation of the block. At genesis this is assigned the value <code>0</code></td>
+    <td>Set to <code>0</code> (<code>0x0</code>)</td>
+    </tr>
+    <tr class="even">
+    <td><code>parentHash</code></td>
+    <td>A Keccak 256-bit hash of the parent block header. At genesis there is no parent block and this is assigned a zero value.</td>
+    <td>Set to <code>0x0000000000000000000000000000000000000000000000000000000000000000</code></td>
+    </tr>
+    <tr class="odd">
+    <td><code>mixHash</code></td>
+    <td>Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. Used for: (a) compatibility with 3rd party Ethereum tools that expect the field, (b) an internal code check by the Autonity Protocol before a block is accepted during consensus; blocks without this hash are rejected.</td>
+    <td>A 256-bit hash as a Hex encoded string, set to: <code>0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>alloc</code></td>
+    <td>An array of accounts to be assigned <code>Auton</code> on chain initialisation. Contract accounts for deployment at genesis can also be specified.</td>
+    <td>See <a href="#alloc-object"><code>alloc</code> object</a> definition</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config-object">config object</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>chainId</code></td>
+    <td>Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by <a href="https://eips.ethereum.org/EIPS/eip-155">EIP 155</a> and used for transaction signature generation</td>
+    <td>8-digit decimal integer value formed according to a naming scheme composed of 3 elements: <code>{A + Network Type + ID}</code>, where: <code>A</code> = <code>65</code>; <code>Network Type</code> = <code>00</code> (Public Mainnet) or <code>01</code> (Public General Purpose Testnet) or <code>10</code> (Public Special Purpose Testnet) or <code>11</code> (Private Internal Development Testnet); <code>ID</code> = <code>0000</code>-<code>9999</code> (unique identifier for the testnet). For example, Bakerloo Testnet has the <code>chainId</code> <code>65010000</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>autonity</code></td>
+    <td>Autonity Protocol configuration parameters</td>
+    <td>See <a href="#configautonity-object"><code>config.autonity</code> object</a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>accountability</code></td>
+    <td>Autonity Accountability and Fault Detection protocol configuration parameters</td>
+    <td>See <a href="#configaccountability-object"><code>config.accountability</code> object</a></td>
+    </tr>
+    <tr class="even">
+    <td><code>asm</code></td>
+    <td>Auton Stabilization Mechanism configuration parameters</td>
+    <td>See <a href="#configasm-object"><code>config.asm</code> object</a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>oracle</code></td>
+    <td>Oracle protocol configuration parameters</td>
+    <td>See <a href="#configoracle-object"><code>config.oracle</code> object</a></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.autonity-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config.autonity-object">config.autonity object</h4>
+    <p>::: {.callout-note title=“Note” collapse=“false”} In current state the <code>operator</code> governance account is an EOA. It could be assigned to a smart contract address. For example, in the case the blockchain is DAO-governed.:::</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>abi</code></td>
+    <td>The abi of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed</td>
+    <td>Only specify if overriding default contract deployment</td>
+    </tr>
+    <tr class="even">
+    <td><code>bytecode</code></td>
+    <td>The EVM bytecode of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed</td>
+    <td>Only specify if overriding default contract deployment</td>
+    </tr>
+    <tr class="odd">
+    <td><code>minBaseFee</code></td>
+    <td>The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivizes validators at genesis when transaction volumes are low</td>
+    <td>Set to: <code>500000000</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>blockPeriod</code></td>
+    <td>The minimum time interval between two consecutive blocks, measured in seconds. Commonly known as ‘block time’ or ‘block interval’</td>
+    <td>Value is specific to network configuration. For example, set to <code>1</code> for a 1-second block interval</td>
+    </tr>
+    <tr class="odd">
+    <td><code>unbondingPeriod</code></td>
+    <td>The number of blocks bonded stake must wait after processing a stake unbond transaction before Newton is redeemed to the stake delegator. The <code>unbondingPeriod</code> must be longer than an <code>epochPeriod</code></td>
+    <td>Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of <code>120</code> could be appropriate</td>
+    </tr>
+    <tr class="even">
+    <td><code>epochPeriod</code></td>
+    <td>The number of blocks in an epoch. The <code>epochPeriod</code> must be shorter than the <code>unbonding</code> period</td>
+    <td>Value is specific to network configuration. For a local devnet supporting rapid testing a value of <code>30</code> could be appropriate</td>
+    </tr>
+    <tr class="odd">
+    <td><code>treasury</code></td>
+    <td>The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. Ethereum format address.</td>
+    <td>Value is specific to network configuration</td>
+    </tr>
+    <tr class="even">
+    <td><code>treasuryFee</code></td>
+    <td>The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision.</td>
+    <td>Value is specific to network configuration. For example, a setting of <code>10000000000000000</code> = 1%</td>
+    </tr>
+    <tr class="odd">
+    <td><code>delegationRate</code></td>
+    <td>The percentage fee of staking rewards that is deducted by validators as a commission from delegated stake. The fee is sent to the validator entity’s account at epoch end on reward distribution. The rate can be specified to the precision of 1 basis point. Specified as an integer value representing up to 3 decimal places of precision.</td>
+    <td>Value is specific to network configuration. For example, a setting of <code>1000</code> = 10%</td>
+    </tr>
+    <tr class="even">
+    <td><code>maxCommitteeSize</code></td>
+    <td>The maximum number of validators that can be selected as members of a consensus committee</td>
+    <td>Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of <code>21</code> could be appropriate</td>
+    </tr>
+    <tr class="odd">
+    <td><code>operator</code></td>
+    <td>Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance <code>operator</code> account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section <a href="../../reference/api/aut/op-prot/">Autonity Protocol and Operator Only</a></td>
+    <td>EOA account address</td>
+    </tr>
+    <tr class="even">
+    <td><code>validators</code></td>
+    <td>Object structure for validators at genesis</td>
+    <td>See <a href="#configautonityvalidators-object"><code>config.autonity.validators</code> object</a></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.autonity.validators-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config.autonity.validators-object">config.autonity.validators object</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>enode</code></td>
+    <td>The <a href="../../glossary/#enode">enode url</a> address for the validator node on the network after genesis</td>
+    <td>The validator node enode URL</td>
+    </tr>
+    <tr class="even">
+    <td><code>treasury</code></td>
+    <td>The validator’s treasury account for receiving staking rewards. Ethereum format address.</td>
+    <td>The validator’s EOA account address</td>
+    </tr>
+    <tr class="odd">
+    <td><code>oracleAddress</code></td>
+    <td>The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address.</td>
+    <td>The Oracle Server’s account address</td>
+    </tr>
+    <tr class="even">
+    <td><code>bondedStake</code></td>
+    <td>The amount of stake bonded to the validator node at genesis. Denominated in Newton. Positive integer for stake amount</td>
+    <td>Value is specific to validator’s stake at genesis</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.asm-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config.asm-object">config.asm object</h4>
+    <p>Configuration of the Auton Stabilization Mechanism (ASM).</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>acu</code></td>
+    <td>Object structure for the ASM’s Auton Currency Unit (ACU) configuration at genesis</td>
+    <td>See <a href="#configasmacu-object"><code>config.asm.acu</code> object</a></td>
+    </tr>
+    <tr class="even">
+    <td><code>stabilization</code></td>
+    <td>Object structure for the ASM’s Stabilization mechanism CDP configuration at genesis</td>
+    <td>See <a href="#configasmstabilization-object"><code>config.asm.stabilization</code> object</a></td>
+    </tr>
+    <tr class="odd">
+    <td><code>supplyControl</code></td>
+    <td>Object structure for the ASM’s Auton supply control configuration at genesis</td>
+    <td>See <a href="#configasmsupplycontrol-object"><code>config.asm.supplyControl</code> object</a></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.asm.acu-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config.asm.acu-object">config.asm.acu object</h4>
+    <p>Configuration of the Auton Currency Unit (ACU), an optimal currency basket of 7 free-floating fiat currencies.</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>symbols</code></td>
+    <td>The <a href="../../glossary/#currency-pair">currency pair</a> symbols used to retrieve prices for the currencies in the basket</td>
+    <td>Set to <code>["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "USD-USD", "SEK-USD"]</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>quantities</code></td>
+    <td>The basket quantity corresponding to each symbol.</td>
+    <td>Set to <code>[21_300,18_700,14_300,10_400,1_760_000,18_000,141_000]</code></td>
+    </tr>
+    <tr class="odd">
+    <td><code>scale</code></td>
+    <td>The scale used to represent the basket <code>quantities</code> and ACU value.</td>
+    <td>Set to <code>5</code></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.asm.stabilization-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config.asm.stabilization-object">config.asm.stabilization object</h4>
+    <p>Configuration of the Stabilization mechanism’s Collateralized Debt Position (CDP).</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>borrowInterestRate</code></td>
+    <td>The annual continuously-compounded interest rate for borrowing.</td>
+    <td>Set to 5%, <code>50_000_000_000_000_000</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>liquidationRatio</code></td>
+    <td>The minimum ACU value of collateral required to maintain 1 ACU value of debt. Set to 1.8,</td>
+    <td><code>1_800_000_000_000_000_000</code></td>
+    </tr>
+    <tr class="odd">
+    <td><code>minCollateralizationRatio</code></td>
+    <td>The minimum ACU value of collateral required to borrow 1 ACU value of debt.</td>
+    <td>Set to 2, <code>2_000_000_000_000_000_000</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>minDebtRequirement</code></td>
+    <td>The minimum amount of debt required to maintain a CDP.</td>
+    <td>Set to a <a href="../../concepts/protocol-assets/auton/#unit-measures-of-auton"><code>megaton</code></a>, <code>1_000_000</code></td>
+    </tr>
+    <tr class="odd">
+    <td><code>targetPrice</code></td>
+    <td>The ACU value of 1 unit of debt.</td>
+    <td>Set to 1, <code>1_000_000_000_000_000_000</code></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.asm.supplycontrol-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config.asm.supplycontrol-object">config.asm.supplyControl object</h4>
+    <p>Configuration of the Stabilization mechanism’s initial Auton supply.</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 36%">
+    <col style="width: 44%">
+    <col style="width: 20%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>initialAllocation</code></td>
+    <td>The initial allocation of Auton to the ASM.</td>
+    <td>Value is specific to network configuration.</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.accountability-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config.accountability-object">config.accountability object</h4>
+    <p>Object structure for the Accountability and Fault Detection (AFD) protocol configuration at genesis.</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 36%">
+    <col style="width: 44%">
+    <col style="width: 20%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>innocenceProofSubmissionWindow</code></td>
+    <td>The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation</td>
+    <td>Set to <code>600</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>baseSlashingRateLow</code></td>
+    <td>The base slashing rate for a fault of <em>Low</em> severity</td>
+    <td>Set to <code>1000</code> (10%)</td>
+    </tr>
+    <tr class="odd">
+    <td><code>baseSlashingRateMid</code></td>
+    <td>The base slashing rate for a fault of <em>Mid</em> severity</td>
+    <td>Set to <code>2000</code> (20%)</td>
+    </tr>
+    <tr class="even">
+    <td><code>collusionFactor</code></td>
+    <td>The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty</td>
+    <td>Set to <code>800</code> (8%)</td>
+    </tr>
+    <tr class="odd">
+    <td><code>historyFactor</code></td>
+    <td>The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty</td>
+    <td>Set to <code>500</code> (5%)</td>
+    </tr>
+    <tr class="even">
+    <td><code>jailFactor</code></td>
+    <td>The number of epochs used as a factor when computing the jail period of an offending validator</td>
+    <td>Set to <code>2</code></td>
+    </tr>
+    <tr class="odd">
+    <td><code>slashingRatePrecision</code></td>
+    <td>The division precision used as the denominator when computing the slashing amount of a penalty</td>
+    <td>Set to <code>10000</code></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.accountability-object-1" class="level4">
+    <h4 class="anchored" data-anchor-id="config.accountability-object-1">config.accountability object</h4>
+    <p>Object structure for the Accountability and Fault Detection (AFD) protocol configuration at genesis.</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 36%">
+    <col style="width: 44%">
+    <col style="width: 20%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>innocenceProofSubmissionWindow</code></td>
+    <td>The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation</td>
+    <td>Set to <code>600</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>baseSlashingRateLow</code></td>
+    <td>The base slashing rate for a fault of <em>Low</em> severity</td>
+    <td>Set to <code>1000</code> (10%)</td>
+    </tr>
+    <tr class="odd">
+    <td><code>baseSlashingRateMid</code></td>
+    <td>The base slashing rate for a fault of <em>Mid</em> severity</td>
+    <td>Set to <code>2000</code> (20%)</td>
+    </tr>
+    <tr class="even">
+    <td><code>collusionFactor</code></td>
+    <td>The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty</td>
+    <td>Set to <code>800</code> (8%)</td>
+    </tr>
+    <tr class="odd">
+    <td><code>historyFactor</code></td>
+    <td>The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty</td>
+    <td>Set to <code>500</code> (5%)</td>
+    </tr>
+    <tr class="even">
+    <td><code>jailFactor</code></td>
+    <td>The number of epochs used as a factor when computing the jail period of an offending validator</td>
+    <td>Set to <code>2</code></td>
+    </tr>
+    <tr class="odd">
+    <td><code>slashingRatePrecision</code></td>
+    <td>The division precision used as the denominator when computing the slashing amount of a penalty</td>
+    <td>Set to <code>10000</code></td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="config.oracle-object" class="level4">
+    <h4 class="anchored" data-anchor-id="config.oracle-object">config.oracle object</h4>
+    <p>Object structure for the oracle network at genesis.</p>
+    <table class="table">
+    <colgroup>
+    <col style="width: 36%">
+    <col style="width: 44%">
+    <col style="width: 20%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>bytecode</code></td>
+    <td>The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed</td>
+    <td>Only specify if overriding default contract deployment</td>
+    </tr>
+    <tr class="even">
+    <td><code>abi</code></td>
+    <td>The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed</td>
+    <td>Only specify if overriding default contract deployment</td>
+    </tr>
+    <tr class="odd">
+    <td><code>symbols</code></td>
+    <td>The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency</td>
+    <td>Comma separated list of currency pairs. Set to <code>'"AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","SEK-USD","ATN-USD","NTN-USD","NTN-ATN"'</code></td>
+    </tr>
+    <tr class="even">
+    <td><code>votePeriod</code></td>
+    <td>The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks</td>
+    <td>Value is specific to network configuration. For example, set to <code>30</code> for initiating a new oracle voting round at 30-block intervals</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="alloc-object" class="level4">
+    <h4 class="anchored" data-anchor-id="alloc-object">alloc object</h4>
+    <p>The <code>alloc</code> object is used to issue native coin and allows pre-deployment of smart contract accounts at network genesis.</p>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>alloc</code></td>
+    <td>An array of accounts objects to be created on the network at genesis. These can be EOA or contract accounts</td>
+    <td>See <a href="#alloc-object"><code>alloc.account</code> object</a> definition</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="alloc.account-object" class="level4">
+    <h4 class="anchored" data-anchor-id="alloc.account-object">alloc.account object</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 36%">
+    <col style="width: 44%">
+    <col style="width: 20%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>alloc.ADDRESS</code></td>
+    <td>The account address</td>
+    <td>Ethereum format address</td>
+    </tr>
+    <tr class="even">
+    <td><code>alloc.ADDRESS.balance</code></td>
+    <td>The amount of Auton allocated to the account <em>ADDRESS</em></td>
+    <td>Positive integer value</td>
+    </tr>
+    <tr class="odd">
+    <td><code>alloc.ADDRESS.code</code></td>
+    <td>The contract bytecode to be deployed if a contract account <em>ADDRESS</em></td>
+    <td>EVM bytecode</td>
+    </tr>
+    <tr class="even">
+    <td><code>alloc.ADDRESS.storage</code></td>
+    <td>The key-value pair for the contract bytecode storage space if a contract account <em>ADDRESS</em></td>
+    <td>k-v pairs for contract storage</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="example-genesis.json" class="level4">
+    <h4 class="anchored" data-anchor-id="example-genesis.json">Example <code>genesis.json</code></h4>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"config"</span><span class="op">:</span> {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"chainId"</span><span class="op">:</span> <span class="dv">65110000</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"autonity"</span><span class="op">:</span> {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"minBaseFee"</span><span class="op">:</span> <span class="dv">500000000</span><span class="op">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"delegationRate"</span> <span class="op">:</span> <span class="dv">1000</span><span class="op">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"blockPeriod"</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"maxCommitteeSize"</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"unbondingPeriod"</span><span class="op">:</span> <span class="dv">120</span><span class="op">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"epochPeriod"</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"operator"</span><span class="op">:</span> <span class="st">"0x293039dDC627B1dF9562380c0E5377848F94325A"</span><span class="op">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x7f1B212dcDc119a395Ec2B245ce86e9eE551043E"</span><span class="op">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"treasuryFee"</span><span class="op">:</span> <span class="dv">150000000</span><span class="op">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="st">"validators"</span><span class="op">:</span> [</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303"</span><span class="op">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013"</span><span class="op">,</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f"</span><span class="op">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303"</span><span class="op">,</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xf1859D9feD50514F9D805BeC7a30623d061f40B7"</span><span class="op">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D"</span><span class="op">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303"</span><span class="op">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x1B441084736B80f273e498E646b0bEA86B4eC6AB"</span><span class="op">,</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d"</span><span class="op">,</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308"</span><span class="op">,</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xB5C49d50470743D8dE43bB6822AC4505E64648Da"</span><span class="op">,</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113"</span><span class="op">,</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309"</span><span class="op">,</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x31e1dE659A26F7638FAaFEfD94D47258FE361823"</span><span class="op">,</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF"</span><span class="op">,</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310"</span><span class="op">,</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9"</span><span class="op">,</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d"</span><span class="op">,</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">"asm"</span><span class="op">:</span> {</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>      <span class="st">"acu"</span> <span class="op">:</span> {</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">"symbols"</span> <span class="op">:</span> [<span class="st">"AUD-USD"</span><span class="op">,</span><span class="st">"CAD-USD"</span><span class="op">,</span><span class="st">"EUR-USD"</span><span class="op">,</span><span class="st">"GBP-USD"</span><span class="op">,</span><span class="st">"JPY-USD"</span><span class="op">,</span><span class="st">"USD-USD"</span><span class="op">,</span><span class="st">"SEK-USD"</span>]<span class="op">,</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">"quantities"</span> <span class="op">:</span> [<span class="dv">21_300</span><span class="op">,</span> <span class="dv">18_700</span><span class="op">,</span> <span class="dv">14_300</span><span class="op">,</span> <span class="dv">10_400</span><span class="op">,</span> <span class="dv">1_760_000</span><span class="op">,</span> <span class="dv">18_000</span><span class="op">,</span> <span class="dv">141_000</span>]<span class="op">,</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">"scale"</span> <span class="op">:</span> <span class="dv">5</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stabilization"</span><span class="op">:</span>{</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>        <span class="st">"borrowInterestRate"</span> <span class="op">:</span> <span class="dv">50_000_000_000_000_000</span><span class="op">,</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="st">"liquidationRatio"</span><span class="op">:</span> <span class="dv">1_800_000_000_000_000_000</span><span class="op">,</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minCollateralizationRatio"</span><span class="op">:</span> <span class="dv">2_000_000_000_000_000_000</span><span class="op">,</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minDebtRequirement"</span>  <span class="op">:</span> <span class="dv">1_000_000</span><span class="op">,</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        <span class="st">"targetPrice"</span> <span class="op">:</span> <span class="dv">1_000_000_000_000_000_000</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>      <span class="st">"supplyControl"</span> <span class="op">:</span> {</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        <span class="st">"initialAllocation"</span><span class="op">:</span> <span class="dv">1000</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    <span class="st">"accountability"</span><span class="op">:</span> {</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>         <span class="st">"innocenceProofSubmissionWindow"</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>         <span class="st">"baseSlashingRateLow"</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>         <span class="st">"baseSlashingRateMid"</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>         <span class="st">"collusionFactor"</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>         <span class="st">"historyFactor"</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>         <span class="st">"jailFactor"</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>         <span class="st">"slashingRatePrecision"</span><span class="op">:</span> <span class="dv">10000</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>       }<span class="op">,</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>     <span class="st">"oracle"</span><span class="op">:</span> {</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>      <span class="st">"symbols"</span><span class="op">:</span>[</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>            <span class="st">"AUD-USD"</span><span class="op">,</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CAD-USD"</span><span class="op">,</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>            <span class="st">"EUR-USD"</span><span class="op">,</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>            <span class="st">"GBP-USD"</span><span class="op">,</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>            <span class="st">"JPY-USD"</span><span class="op">,</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SEK-USD"</span><span class="op">,</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ATN-USD"</span><span class="op">,</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>            <span class="st">"NTN-USD"</span><span class="op">,</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>         ]<span class="op">,</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>      <span class="st">"votePeriod"</span><span class="op">:</span> <span class="dv">30</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nonce"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>  <span class="st">"timestamp"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>  <span class="st">"baseFee"</span><span class="op">:</span> <span class="st">"15000000000"</span><span class="op">,</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gasLimit"</span><span class="op">:</span> <span class="st">"10000000000"</span><span class="op">,</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>  <span class="st">"difficulty"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>  <span class="st">"coinbase"</span><span class="op">:</span> <span class="st">"0x0000000000000000000000000000000000000000"</span><span class="op">,</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>  <span class="st">"number"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gasUsed"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  <span class="st">"parentHash"</span><span class="op">:</span> <span class="st">"0x0000000000000000000000000000000000000000000000000000000000000000"</span><span class="op">,</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  <span class="st">"mixHash"</span><span class="op">:</span> <span class="st">"0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365"</span><span class="op">,</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>  <span class="st">"alloc"</span><span class="op">:</span> {</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9"</span><span class="op">:</span> {</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x31e1dE659A26F7638FAaFEfD94D47258FE361823"</span><span class="op">:</span> {</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x293039dDC627B1dF9562380c0E5377848F94325A"</span><span class="op">:</span> {</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"1000000000000000000000000000000000000000000000000000000000000000"</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xB5C49d50470743D8dE43bB6822AC4505E64648Da"</span><span class="op">:</span> {</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xf1859D9feD50514F9D805BeC7a30623d061f40B7"</span><span class="op">:</span> {</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013"</span><span class="op">:</span> {</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x1B441084736B80f273e498E646b0bEA86B4eC6AB"</span><span class="op">:</span> {</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f"</span><span class="op">:</span> {</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D"</span><span class="op">:</span> {</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d"</span><span class="op">:</span> {</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113"</span><span class="op">:</span> {</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF"</span><span class="op">:</span> {</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d"</span><span class="op">:</span> {</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    </section>
+    <section id="static-nodes-file" class="level3">
+    <h3 class="anchored" data-anchor-id="static-nodes-file">Static nodes file</h3>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Description</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><code>enode</code></td>
+    <td>An array of <a href="../../glossary/#enode">enode url</a> addresses for the network bootnodes</td>
+    <td>The node’s enode URL</td>
+    </tr>
+    </tbody>
+    </table>
+    <section id="example-static-nodes.json" class="level4">
+    <h4 class="anchored" data-anchor-id="example-static-nodes.json">Example <code>static-nodes.json</code></h4>
+    <p>```javascript [ “enode://bb9bb2bcd75a5cde083a6a9be2c28f31d9fd6e8de38baa594ffffab0efc5d26524b91baf002fed32f098db71acf0d7646a7c32a7d05ed89fdbbb78c74db13a1a@52.89.151.55:30303”, “enode://e89196cae37e8041e14d7a063cc82dec3bb351f79f46ab10a059220403932c1337f144ddbf1fd830bf1221fbf539a4e986c924600b060c0a36337256aa70ee2c@52.89.151.55:40303”, “enode://d8ec443a7a16cd0da3df70d8c96a1a4939ac3cc497097843614b0c87167c6b080f07e02f12f8609230cae5db53f677d620b6bb574155738256d6782f902b9506@52.89.151.55:50303”, “enode://53f7ed087d55c044278279963a9d3a039d1044d2ff6ae61f11778fee42a5c14c7fdd9b529b08075de8be6f3b41ce28ab1e31b1a0a9db2fd0ec09f07cf6edabd2@512.89.151.55:60303”]</p>
+    
+    
+    </section>
+    </section>
+    </section>
+
+        </main> <!-- /main -->
+        <script id="quarto-html-after-body" type="application/javascript">
+        window.document.addEventListener("DOMContentLoaded", function (event) {
+          const toggleBodyColorMode = (bsSheetEl) => {
+            const mode = bsSheetEl.getAttribute("data-mode");
+            const bodyEl = window.document.querySelector("body");
+            if (mode === "dark") {
+              bodyEl.classList.add("quarto-dark");
+              bodyEl.classList.remove("quarto-light");
+            } else {
+              bodyEl.classList.add("quarto-light");
+              bodyEl.classList.remove("quarto-dark");
+            }
+          }
+          const toggleBodyColorPrimary = () => {
+            const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+            if (bsSheetEl) {
+              toggleBodyColorMode(bsSheetEl);
+            }
+          }
+          toggleBodyColorPrimary();  
+          const icon = "";
+          const anchorJS = new window.AnchorJS();
+          anchorJS.options = {
+            placement: 'right',
+            icon: icon
+          };
+          anchorJS.add('.anchored');
+          const isCodeAnnotation = (el) => {
+            for (const clz of el.classList) {
+              if (clz.startsWith('code-annotation-')) {                     
+                return true;
+              }
+            }
+            return false;
+          }
+          const clipboard = new window.ClipboardJS('.code-copy-button', {
+            text: function(trigger) {
+              const codeEl = trigger.previousElementSibling.cloneNode(true);
+              for (const childEl of codeEl.children) {
+                if (isCodeAnnotation(childEl)) {
+                  childEl.remove();
+                }
+              }
+              return codeEl.innerText;
+            }
+          });
+          clipboard.on('success', function(e) {
+            // button target
+            const button = e.trigger;
+            // don't keep focus
+            button.blur();
+            // flash "checked"
+            button.classList.add('code-copy-button-checked');
+            var currentTitle = button.getAttribute("title");
+            button.setAttribute("title", "Copied!");
+            let tooltip;
+            if (window.bootstrap) {
+              button.setAttribute("data-bs-toggle", "tooltip");
+              button.setAttribute("data-bs-placement", "left");
+              button.setAttribute("data-bs-title", "Copied!");
+              tooltip = new bootstrap.Tooltip(button, 
+                { trigger: "manual", 
+                  customClass: "code-copy-button-tooltip",
+                  offset: [0, -8]});
+              tooltip.show();    
+            }
+            setTimeout(function() {
+              if (tooltip) {
+                tooltip.hide();
+                button.removeAttribute("data-bs-title");
+                button.removeAttribute("data-bs-toggle");
+                button.removeAttribute("data-bs-placement");
+              }
+              button.setAttribute("title", currentTitle);
+              button.classList.remove('code-copy-button-checked');
+            }, 1000);
+            // clear code selection
+            e.clearSelection();
+          });
+          function tippyHover(el, contentFn) {
+            const config = {
+              allowHTML: true,
+              content: contentFn,
+              maxWidth: 500,
+              delay: 100,
+              arrow: false,
+              appendTo: function(el) {
+                  return el.parentElement;
+              },
+              interactive: true,
+              interactiveBorder: 10,
+              theme: 'quarto',
+              placement: 'bottom-start'
+            };
+            window.tippy(el, config); 
+          }
+          const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+          for (var i=0; i<noterefs.length; i++) {
+            const ref = noterefs[i];
+            tippyHover(ref, function() {
+              // use id or data attribute instead here
+              let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+              try { href = new URL(href).hash; } catch {}
+              const id = href.replace(/^#\/?/, "");
+              const note = window.document.getElementById(id);
+              return note.innerHTML;
+            });
+          }
+              let selectedAnnoteEl;
+              const selectorForAnnotation = ( cell, annotation) => {
+                let cellAttr = 'data-code-cell="' + cell + '"';
+                let lineAttr = 'data-code-annotation="' +  annotation + '"';
+                const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+                return selector;
+              }
+              const selectCodeLines = (annoteEl) => {
+                const doc = window.document;
+                const targetCell = annoteEl.getAttribute("data-target-cell");
+                const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+                const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+                const lineIds = lines.map((line) => {
+                  return targetCell + "-" + line;
+                })
+                let top = null;
+                let height = null;
+                let parent = null;
+                if (lineIds.length > 0) {
+                    //compute the position of the single el (top and bottom and make a div)
+                    const el = window.document.getElementById(lineIds[0]);
+                    top = el.offsetTop;
+                    height = el.offsetHeight;
+                    parent = el.parentElement.parentElement;
+                  if (lineIds.length > 1) {
+                    const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                    const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                    height = bottom - top;
+                  }
+                  if (top !== null && height !== null && parent !== null) {
+                    // cook up a div (if necessary) and position it 
+                    let div = window.document.getElementById("code-annotation-line-highlight");
+                    if (div === null) {
+                      div = window.document.createElement("div");
+                      div.setAttribute("id", "code-annotation-line-highlight");
+                      div.style.position = 'absolute';
+                      parent.appendChild(div);
+                    }
+                    div.style.top = top - 2 + "px";
+                    div.style.height = height + 4 + "px";
+                    let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                    if (gutterDiv === null) {
+                      gutterDiv = window.document.createElement("div");
+                      gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                      gutterDiv.style.position = 'absolute';
+                      const codeCell = window.document.getElementById(targetCell);
+                      const gutter = codeCell.querySelector('.code-annotation-gutter');
+                      gutter.appendChild(gutterDiv);
+                    }
+                    gutterDiv.style.top = top - 2 + "px";
+                    gutterDiv.style.height = height + 4 + "px";
+                  }
+                  selectedAnnoteEl = annoteEl;
+                }
+              };
+              const unselectCodeLines = () => {
+                const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+                elementsIds.forEach((elId) => {
+                  const div = window.document.getElementById(elId);
+                  if (div) {
+                    div.remove();
+                  }
+                });
+                selectedAnnoteEl = undefined;
+              };
+              // Attach click handler to the DT
+              const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+              for (const annoteDlNode of annoteDls) {
+                annoteDlNode.addEventListener('click', (event) => {
+                  const clickedEl = event.target;
+                  if (clickedEl !== selectedAnnoteEl) {
+                    unselectCodeLines();
+                    const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+                    if (activeEl) {
+                      activeEl.classList.remove('code-annotation-active');
+                    }
+                    selectCodeLines(clickedEl);
+                    clickedEl.classList.add('code-annotation-active');
+                  } else {
+                    // Unselect the line
+                    unselectCodeLines();
+                    clickedEl.classList.remove('code-annotation-active');
+                  }
+                });
+              }
+          const findCites = (el) => {
+            const parentEl = el.parentElement;
+            if (parentEl) {
+              const cites = parentEl.dataset.cites;
+              if (cites) {
+                return {
+                  el,
+                  cites: cites.split(' ')
+                };
+              } else {
+                return findCites(el.parentElement)
+              }
+            } else {
+              return undefined;
+            }
+          };
+          var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+          for (var i=0; i<bibliorefs.length; i++) {
+            const ref = bibliorefs[i];
+            const citeInfo = findCites(ref);
+            if (citeInfo) {
+              tippyHover(citeInfo.el, function() {
+                var popup = window.document.createElement('div');
+                citeInfo.cites.forEach(function(cite) {
+                  var citeDiv = window.document.createElement('div');
+                  citeDiv.classList.add('hanging-indent');
+                  citeDiv.classList.add('csl-entry');
+                  var biblioDiv = window.document.getElementById('ref-' + cite);
+                  if (biblioDiv) {
+                    citeDiv.innerHTML = biblioDiv.innerHTML;
+                  }
+                  popup.appendChild(citeDiv);
+                });
+                return popup.innerHTML;
+              });
+            }
+          }
+            var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+              var filterRegex = new RegExp('/' + window.location.host + '/');
+            var isInternal = (href) => {
+                return filterRegex.test(href) || localhostRegex.test(href);
+            }
+            // Inspect non-navigation links and adorn them if external
+         	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+            for (var i=0; i<links.length; i++) {
+              const link = links[i];
+              if (!isInternal(link.href)) {
+                  // target, if specified
+                  link.setAttribute("target", "_blank");
+                  // default icon
+                  link.classList.add("external");
+              }
+            }
+        });
+        </script>
+        </div> <!-- /content -->
+        <footer class="footer">
+          <div class="nav-footer">
+            <div class="nav-footer-left">
+              <ul class="footer-items list-unstyled">
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://github.com/autonity/">
+              <i class="bi bi-github" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://twitter.com/autonity_">
+              <i class="bi bi-twitter" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://discord.com/invite/autonity">
+              <i class="bi bi-discord" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ">
+              <i class="bi bi-youtube" role="img">
+        </i> 
+            </a>
+          </li>  
+        </ul>
+            </div>   
+            <div class="nav-footer-center">
+              &nbsp;
+            </div>
+            <div class="nav-footer-right">
+              &nbsp;
+            </div>
+          </div>
+        </footer>
+    
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
