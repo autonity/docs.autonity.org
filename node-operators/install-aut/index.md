@@ -9,8 +9,8 @@ description: >
 The Autonity Go Client can be installed in several ways:
 
 - as a pre-compiled Linux Executable File from the Release Archive
-- in a Docker container
-- by building the client from source code.
+- by building the client from source code
+- in a Docker container.
 
 We assume that the Autonity Go Client will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _local_ machine will be used for creating transactions and queries which are then sent to the Autonity Go Client on the _host_ via the RPC endpoint.
 
@@ -35,11 +35,14 @@ To run an Autonity Go Client node, we recommend using a host machine (physical o
 ### Network
 
 A public-facing internet connection with static IP is required.  Incoming traffic must be allowed on the following:
-* `TCP, UDP 30303` for node p2p (DEVp2p) communication.
+
+* `TCP, UDP 30303` for node p2p (DEVp2p) communication for transaction gossiping.
+* `TCP 20203` for node p2p (DEVp2p) communication for consensus gossiping.
 
 You may also choose to allow traffic on the following ports:
+
 * `TCP 8545` to make http RPC connections to the node.
-* `TCP 8546` to make WebSocket RPC connections to the node.
+* `TCP 8546` to make WebSocket RPC connections to the node (required if you are operating a validator node).
 * `TCP 6060` to export Autonity metrics (recommended but not required)
 
 <!-- who collects the metrics? -->
@@ -78,6 +81,67 @@ The description here covers only the basic network setup. Especially in a produc
 {{pageinfo}}
 You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary).
 {{/pageinfo}}
+
+
+## Build from source code {#install-source}
+
+::: {.callout-note title="Prerequisites" collapse="false"}
+The following should be installed in order to build the Autonity Go Client:
+- **Git** Follow the official GitHub documentation to [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
+- **Golang** (version 1.15 or later) - [https://golang.org/dl](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
+- **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
+- [**GNU Make**](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
+:::
+
+
+1. Clone/Copy the Autonity repo:
+
+    ```bash
+    git clone git@github.com:autonity/autonity.git
+    ```
+
+
+2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
+
+    ```bash
+    git checkout tags/v0.12.2 -b v0.12.2
+    ```
+
+3. Build autonity:
+
+    ```bash
+    make autonity
+    ```
+
+    (The `cmd` utilities, including the Clef account management tool, can be built using `make all`.)
+
+4. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
+
+    ```bash
+    sudo cp build/bin/autonity /usr/local/bin/autonity
+    ```
+
+### Troubleshooting
+
+An error of the form
+```bash
+Caught SIGILL in blst_cgo_init, consult <blst>/bindings/go/README.md.
+```
+thrown on the Go [`blst`](https://github.com/supranational/blst/blob/master/bindings/go/README.md) package (Go package [docs](https://pkg.golang.ir/github.com/supranational/blst/bindings/go) when running the `make` command indicates missing environment variables for CGO Flags.
+
+To resolve:
+
+- Set environment variables for CGO Flags:
+
+   ```bash
+   export CGO_CFLAGS="-O -D__BLST_PORTABLE__" 
+   export CGO_CFLAGS_ALLOW="-O -D__BLST_PORTABLE__"
+   ```
+
+- Run `make clean` to cleanse object and executable files from the previous `make` run  
+
+Re-run your `make` command.
+
 
 ## Installing the Docker image {#install-docker}
 
@@ -133,56 +197,6 @@ sudo systemctl restart docker
 You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker).
 {{/pageinfo}}
 
-## Build from source code {#install-source}
-
-::: {.callout-note title="Prerequisites" collapse="false"}
-The following should be installed in order to build the Autonity Go Client:
-- **Git** Follow the official GitHub documentation to [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
-- **Golang** (version 1.15 or later) - [https://golang.org/dl](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
-- **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
-- [**GNU Make**](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
-:::
-
-
-1. Clone/Copy the Autonity repo:
-
-    ```bash
-    git clone git@github.com:autonity/autonity.git
-    ```
-
-
-2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
-
-    ```bash
-    git checkout tags/v0.12.2 -b v0.12.2
-    ```
-
-3. Build autonity:
-
-    ```bash
-    make autonity
-    ```
-
-    (The `cmd` utilities, including the Clef account management tool, can be built using `make all`.)
-
-4. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH` :
-
-    ```bash
-    sudo cp build/bin/autonity /usr/local/bin/autonity
-    ```
-
-### Troubleshooting
-
-Errors of the form
-```bash
-Caught SIGILL in blst_cgo_init, consult <blst>/bindings/go/README.md.
-```
-can be resolved by running `make clean` before running `make` to build Autonity:
-
-```bash
-make clean
-make all
-```
 
 ## Verify the installation {#verify}
 
@@ -193,12 +207,12 @@ $ ./autonity version
 ```
 ```
 Autonity
-Version: 0.12.2
-Git Commit: 2495b37ae4aacc6505f6287cafe19cfbb0b7f17b
-Git Commit Date: 20231128
+Version: 0.13.0-rc
+Git Commit: 8b4a17c18951088c3af01c06da707a87d7887971
+Git Commit Date: 20240210
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.20.4
+Go Version: go1.21.6
 Operating System: linux
 GOPATH=
 GOROOT=
