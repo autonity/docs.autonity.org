@@ -751,16 +751,16 @@
     <ul>
     <li><a href="#genesis-file-object">genesis file</a></li>
     <li><a href="#config-object">config</a></li>
-    <li><a href="#configautonity-object">config.autonity</a></li>
-    <li><a href="#configautonityvalidators-object">config.autonity.validators</a></li>
-    <li><a href="#configasm-object">config.asm</a></li>
-    <li><a href="#configasmacu-object">config.asm.acu</a></li>
-    <li><a href="#configasmstabilization-object">config.asm.stabilization</a></li>
-    <li><a href="#configasmsupplycontrol-object">config.asm.supplyControl</a></li>
-    <li><a href="#configaccountability-object">config.accountability</a></li>
-    <li><a href="#configoracle-object">config.oracle</a></li>
+    <li><a href="#config.autonity-object">config.autonity</a></li>
+    <li><a href="#config.autonity.validators-object">config.autonity.validators</a></li>
+    <li><a href="#config.asm-object">config.asm</a></li>
+    <li><a href="#config.asm.acu-object">config.asm.acu</a></li>
+    <li><a href="#config.asm.stabilization-object">config.asm.stabilization</a></li>
+    <li><a href="#config.asm.supplycontrol-object">config.asm.supplyControl</a></li>
+    <li><a href="#config.accountability-object">config.accountability</a></li>
+    <li><a href="#config.oracle-object">config.oracle</a></li>
     <li><a href="#alloc-object">alloc</a></li>
-    <li><a href="#allocaccount-object">alloc.account object</a></li>
+    <li><a href="#alloc.account-object">alloc.account object</a></li>
     </ul>
     </section>
     <section id="genesis-file-object" class="level4">
@@ -965,7 +965,7 @@
     <tr class="odd">
     <td><code>enode</code></td>
     <td>The <a href="../../glossary/#enode">enode url</a> address for the validator node on the network after genesis</td>
-    <td>The validator node enode URL</td>
+    <td>The validator’s enode URL</td>
     </tr>
     <tr class="even">
     <td><code>treasury</code></td>
@@ -973,14 +973,19 @@
     <td>The validator’s EOA account address</td>
     </tr>
     <tr class="odd">
+    <td><code>consensusKey</code></td>
+    <td>The validator’s BLST key used for consensus gossiping when participating in consensus</td>
+    <td>The validator’s <em>consensus public key</em></td>
+    </tr>
+    <tr class="even">
     <td><code>oracleAddress</code></td>
     <td>The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address.</td>
     <td>The Oracle Server’s account address</td>
     </tr>
-    <tr class="even">
+    <tr class="odd">
     <td><code>bondedStake</code></td>
-    <td>The amount of stake bonded to the validator node at genesis. Denominated in Newton. Positive integer for stake amount</td>
-    <td>Value is specific to validator’s stake at genesis</td>
+    <td>The amount of stake bonded to the validator node at genesis. Denominated in Newton.</td>
+    <td>Positive integer for stake amount. Value is specific to validator’s stake at genesis.</td>
     </tr>
     </tbody>
     </table>
@@ -1064,8 +1069,8 @@
     </tr>
     <tr class="even">
     <td><code>liquidationRatio</code></td>
-    <td>The minimum ACU value of collateral required to maintain 1 ACU value of debt. Set to 1.8,</td>
-    <td><code>1_800_000_000_000_000_000</code></td>
+    <td>The minimum ACU value of collateral required to maintain 1 ACU value of debt.</td>
+    <td>Set to 1.8, <code>1_800_000_000_000_000_000</code></td>
     </tr>
     <tr class="odd">
     <td><code>minCollateralizationRatio</code></td>
@@ -1104,8 +1109,8 @@
     <tbody>
     <tr class="odd">
     <td><code>initialAllocation</code></td>
-    <td>The initial allocation of Auton to the ASM.</td>
-    <td>Value is specific to network configuration.</td>
+    <td>The initial allocation of Auton to the ASM</td>
+    <td>Value is specific to network configuration</td>
     </tr>
     </tbody>
     </table>
@@ -1250,7 +1255,7 @@
     <tr class="odd">
     <td><code>symbols</code></td>
     <td>The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency</td>
-    <td>Comma separated list of currency pairs. Set to <code>'"AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","SEK-USD","ATN-USD","NTN-USD","NTN-ATN"'</code></td>
+    <td>Comma separated list of currency pairs. Set to <code>"AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","SEK-USD","ATN-USD","NTN-USD","NTN-ATN"</code></td>
     </tr>
     <tr class="even">
     <td><code>votePeriod</code></td>
@@ -1338,133 +1343,140 @@
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        {</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303"</span><span class="op">,</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013"</span><span class="op">,</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f"</span><span class="op">,</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303"</span><span class="op">,</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xf1859D9feD50514F9D805BeC7a30623d061f40B7"</span><span class="op">,</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D"</span><span class="op">,</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303"</span><span class="op">,</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x1B441084736B80f273e498E646b0bEA86B4eC6AB"</span><span class="op">,</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d"</span><span class="op">,</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308"</span><span class="op">,</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xB5C49d50470743D8dE43bB6822AC4505E64648Da"</span><span class="op">,</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113"</span><span class="op">,</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309"</span><span class="op">,</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x31e1dE659A26F7638FAaFEfD94D47258FE361823"</span><span class="op">,</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF"</span><span class="op">,</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310"</span><span class="op">,</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9"</span><span class="op">,</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d"</span><span class="op">,</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>      ]</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">"asm"</span><span class="op">:</span> {</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>      <span class="st">"acu"</span> <span class="op">:</span> {</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">"symbols"</span> <span class="op">:</span> [<span class="st">"AUD-USD"</span><span class="op">,</span><span class="st">"CAD-USD"</span><span class="op">,</span><span class="st">"EUR-USD"</span><span class="op">,</span><span class="st">"GBP-USD"</span><span class="op">,</span><span class="st">"JPY-USD"</span><span class="op">,</span><span class="st">"USD-USD"</span><span class="op">,</span><span class="st">"SEK-USD"</span>]<span class="op">,</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">"quantities"</span> <span class="op">:</span> [<span class="dv">21_300</span><span class="op">,</span> <span class="dv">18_700</span><span class="op">,</span> <span class="dv">14_300</span><span class="op">,</span> <span class="dv">10_400</span><span class="op">,</span> <span class="dv">1_760_000</span><span class="op">,</span> <span class="dv">18_000</span><span class="op">,</span> <span class="dv">141_000</span>]<span class="op">,</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">"scale"</span> <span class="op">:</span> <span class="dv">5</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stabilization"</span><span class="op">:</span>{</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>        <span class="st">"borrowInterestRate"</span> <span class="op">:</span> <span class="dv">50_000_000_000_000_000</span><span class="op">,</span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="st">"liquidationRatio"</span><span class="op">:</span> <span class="dv">1_800_000_000_000_000_000</span><span class="op">,</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minCollateralizationRatio"</span><span class="op">:</span> <span class="dv">2_000_000_000_000_000_000</span><span class="op">,</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minDebtRequirement"</span>  <span class="op">:</span> <span class="dv">1_000_000</span><span class="op">,</span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        <span class="st">"targetPrice"</span> <span class="op">:</span> <span class="dv">1_000_000_000_000_000_000</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>      <span class="st">"supplyControl"</span> <span class="op">:</span> {</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        <span class="st">"initialAllocation"</span><span class="op">:</span> <span class="dv">1000</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    <span class="st">"accountability"</span><span class="op">:</span> {</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>         <span class="st">"innocenceProofSubmissionWindow"</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>         <span class="st">"baseSlashingRateLow"</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>         <span class="st">"baseSlashingRateMid"</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>         <span class="st">"collusionFactor"</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>         <span class="st">"historyFactor"</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>         <span class="st">"jailFactor"</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>         <span class="st">"slashingRatePrecision"</span><span class="op">:</span> <span class="dv">10000</span></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>       }<span class="op">,</span></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>     <span class="st">"oracle"</span><span class="op">:</span> {</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>      <span class="st">"symbols"</span><span class="op">:</span>[</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>            <span class="st">"AUD-USD"</span><span class="op">,</span></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CAD-USD"</span><span class="op">,</span></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>            <span class="st">"EUR-USD"</span><span class="op">,</span></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>            <span class="st">"GBP-USD"</span><span class="op">,</span></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>            <span class="st">"JPY-USD"</span><span class="op">,</span></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SEK-USD"</span><span class="op">,</span></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ATN-USD"</span><span class="op">,</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>            <span class="st">"NTN-USD"</span><span class="op">,</span></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>         ]<span class="op">,</span></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>      <span class="st">"votePeriod"</span><span class="op">:</span> <span class="dv">30</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nonce"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>  <span class="st">"timestamp"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>  <span class="st">"baseFee"</span><span class="op">:</span> <span class="st">"15000000000"</span><span class="op">,</span></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gasLimit"</span><span class="op">:</span> <span class="st">"10000000000"</span><span class="op">,</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>  <span class="st">"difficulty"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>  <span class="st">"coinbase"</span><span class="op">:</span> <span class="st">"0x0000000000000000000000000000000000000000"</span><span class="op">,</span></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>  <span class="st">"number"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gasUsed"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  <span class="st">"parentHash"</span><span class="op">:</span> <span class="st">"0x0000000000000000000000000000000000000000000000000000000000000000"</span><span class="op">,</span></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  <span class="st">"mixHash"</span><span class="op">:</span> <span class="st">"0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365"</span><span class="op">,</span></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>  <span class="st">"alloc"</span><span class="op">:</span> {</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9"</span><span class="op">:</span> {</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x31e1dE659A26F7638FAaFEfD94D47258FE361823"</span><span class="op">:</span> {</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x293039dDC627B1dF9562380c0E5377848F94325A"</span><span class="op">:</span> {</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"1000000000000000000000000000000000000000000000000000000000000000"</span></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xB5C49d50470743D8dE43bB6822AC4505E64648Da"</span><span class="op">:</span> {</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xf1859D9feD50514F9D805BeC7a30623d061f40B7"</span><span class="op">:</span> {</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013"</span><span class="op">:</span> {</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x1B441084736B80f273e498E646b0bEA86B4eC6AB"</span><span class="op">:</span> {</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f"</span><span class="op">:</span> {</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D"</span><span class="op">:</span> {</span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d"</span><span class="op">:</span> {</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113"</span><span class="op">:</span> {</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF"</span><span class="op">:</span> {</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d"</span><span class="op">:</span> {</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>          <span class="st">"consensusKey"</span><span class="op">:</span> <span class="st">"0x776d2652de66e7x2d294c77d0706c772x077d242076e97cx44feex03e27d59757f7c7m7905072537eccd2d6292262724"</span><span class="op">,</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f"</span><span class="op">,</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303"</span><span class="op">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xf1859D9feD50514F9D805BeC7a30623d061f40B7"</span><span class="op">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>          <span class="st">"consensusKey"</span><span class="op">:</span> <span class="st">"0x456y2357dfk6e7x2d294c71d0k06c512x077d242076lk7cx44feex03e27d59757f7c717925692537eccd2e6292262774"</span><span class="op">,</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D"</span><span class="op">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303"</span><span class="op">,</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x1B441084736B80f273e498E646b0bEA86B4eC6AB"</span><span class="op">,</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>          <span class="st">"consensusKey"</span><span class="op">:</span> <span class="st">"0xhi3d112de66e7x2d294c77d0709c772x099d272076e97cx44jyex03e27du175df7cp7hh05o71537eccd2d9282262532"</span><span class="op">,</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d"</span><span class="op">,</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308"</span><span class="op">,</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xB5C49d50470743D8dE43bB6822AC4505E64648Da"</span><span class="op">,</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>          <span class="st">"consensusKey"</span><span class="op">:</span> <span class="st">"0x1a0j2652de66e7x2a294c7ad0406c711x077d242076e97cfc4fykx03e27d59757f7c777905072537ec9d2fhj9w26271u"</span><span class="op">,</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113"</span><span class="op">,</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309"</span><span class="op">,</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0x31e1dE659A26F7638FAaFEfD94D47258FE361823"</span><span class="op">,</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>          <span class="st">"consensusKey"</span><span class="op">:</span> <span class="st">"0xf9wd795wdew6e7x2d294c75d07c6c281xk7md282076ek7ch34fesx03e279j9d87f5c1o790i0725h7efcd2d69372mh527"</span><span class="op">,</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF"</span><span class="op">,</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>          <span class="st">"enode"</span><span class="op">:</span> <span class="st">"enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310"</span><span class="op">,</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>          <span class="st">"treasury"</span><span class="op">:</span> <span class="st">"0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9"</span><span class="op">,</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>          <span class="st">"consensusKey"</span><span class="op">:</span> <span class="st">"0x776d2602de06e7x2d294c77d0706c772x077d242076e97cx44feex00e27d09707f7c7779j0e49il2etc4kd2ar39ov3a7"</span><span class="op">,</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>          <span class="st">"oracleAddress"</span><span class="op">:</span> <span class="st">"0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d"</span><span class="op">,</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>          <span class="st">"bondedStake"</span><span class="op">:</span> <span class="dv">10000000000000000000000</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>      ]</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"asm"</span><span class="op">:</span> {</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>      <span class="st">"acu"</span> <span class="op">:</span> {</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        <span class="st">"symbols"</span> <span class="op">:</span> [<span class="st">"AUD-USD"</span><span class="op">,</span><span class="st">"CAD-USD"</span><span class="op">,</span><span class="st">"EUR-USD"</span><span class="op">,</span><span class="st">"GBP-USD"</span><span class="op">,</span><span class="st">"JPY-USD"</span><span class="op">,</span><span class="st">"USD-USD"</span><span class="op">,</span><span class="st">"SEK-USD"</span>]<span class="op">,</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="st">"quantities"</span> <span class="op">:</span> [<span class="dv">21_300</span><span class="op">,</span> <span class="dv">18_700</span><span class="op">,</span> <span class="dv">14_300</span><span class="op">,</span> <span class="dv">10_400</span><span class="op">,</span> <span class="dv">1_760_000</span><span class="op">,</span> <span class="dv">18_000</span><span class="op">,</span> <span class="dv">141_000</span>]<span class="op">,</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        <span class="st">"scale"</span> <span class="op">:</span> <span class="dv">5</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>      <span class="st">"stabilization"</span><span class="op">:</span>{</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        <span class="st">"borrowInterestRate"</span> <span class="op">:</span> <span class="dv">50_000_000_000_000_000</span><span class="op">,</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        <span class="st">"liquidationRatio"</span><span class="op">:</span> <span class="dv">1_800_000_000_000_000_000</span><span class="op">,</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minCollateralizationRatio"</span><span class="op">:</span> <span class="dv">2_000_000_000_000_000_000</span><span class="op">,</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minDebtRequirement"</span>  <span class="op">:</span> <span class="dv">1_000_000</span><span class="op">,</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>        <span class="st">"targetPrice"</span> <span class="op">:</span> <span class="dv">1_000_000_000_000_000_000</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>      <span class="st">"supplyControl"</span> <span class="op">:</span> {</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>        <span class="st">"initialAllocation"</span><span class="op">:</span> <span class="dv">1000</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">"accountability"</span><span class="op">:</span> {</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>         <span class="st">"innocenceProofSubmissionWindow"</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>         <span class="st">"baseSlashingRateLow"</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>         <span class="st">"baseSlashingRateMid"</span><span class="op">:</span> <span class="dv">2000</span><span class="op">,</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>         <span class="st">"collusionFactor"</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>         <span class="st">"historyFactor"</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>         <span class="st">"jailFactor"</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>         <span class="st">"slashingRatePrecision"</span><span class="op">:</span> <span class="dv">10000</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>       }<span class="op">,</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>     <span class="st">"oracle"</span><span class="op">:</span> {</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>      <span class="st">"symbols"</span><span class="op">:</span>[</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>            <span class="st">"AUD-USD"</span><span class="op">,</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>            <span class="st">"CAD-USD"</span><span class="op">,</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>            <span class="st">"EUR-USD"</span><span class="op">,</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>            <span class="st">"GBP-USD"</span><span class="op">,</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>            <span class="st">"JPY-USD"</span><span class="op">,</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>            <span class="st">"SEK-USD"</span><span class="op">,</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ATN-USD"</span><span class="op">,</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>            <span class="st">"NTN-USD"</span><span class="op">,</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>            <span class="st">"NTN-ATN"</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>         ]<span class="op">,</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>      <span class="st">"votePeriod"</span><span class="op">:</span> <span class="dv">30</span></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nonce"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  <span class="st">"timestamp"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  <span class="st">"baseFee"</span><span class="op">:</span> <span class="st">"15000000000"</span><span class="op">,</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gasLimit"</span><span class="op">:</span> <span class="st">"10000000000"</span><span class="op">,</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>  <span class="st">"difficulty"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>  <span class="st">"coinbase"</span><span class="op">:</span> <span class="st">"0x0000000000000000000000000000000000000000"</span><span class="op">,</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>  <span class="st">"number"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gasUsed"</span><span class="op">:</span> <span class="st">"0x0"</span><span class="op">,</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>  <span class="st">"parentHash"</span><span class="op">:</span> <span class="st">"0x0000000000000000000000000000000000000000000000000000000000000000"</span><span class="op">,</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>  <span class="st">"mixHash"</span><span class="op">:</span> <span class="st">"0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365"</span><span class="op">,</span></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>  <span class="st">"alloc"</span><span class="op">:</span> {</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9"</span><span class="op">:</span> {</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x31e1dE659A26F7638FAaFEfD94D47258FE361823"</span><span class="op">:</span> {</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x293039dDC627B1dF9562380c0E5377848F94325A"</span><span class="op">:</span> {</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"1000000000000000000000000000000000000000000000000000000000000000"</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xB5C49d50470743D8dE43bB6822AC4505E64648Da"</span><span class="op">:</span> {</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xf1859D9feD50514F9D805BeC7a30623d061f40B7"</span><span class="op">:</span> {</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013"</span><span class="op">:</span> {</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x1B441084736B80f273e498E646b0bEA86B4eC6AB"</span><span class="op">:</span> {</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f"</span><span class="op">:</span> {</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D"</span><span class="op">:</span> {</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d"</span><span class="op">:</span> {</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113"</span><span class="op">:</span> {</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF"</span><span class="op">:</span> {</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d"</span><span class="op">:</span> {</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>      <span class="st">"balance"</span><span class="op">:</span> <span class="st">"10000000000000000000000"</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     </section>
     </section>
     <section id="static-nodes-file" class="level3">
@@ -1487,7 +1499,12 @@
     </table>
     <section id="example-static-nodes.json" class="level4">
     <h4 class="anchored" data-anchor-id="example-static-nodes.json">Example <code>static-nodes.json</code></h4>
-    <p>```javascript [ “enode://bb9bb2bcd75a5cde083a6a9be2c28f31d9fd6e8de38baa594ffffab0efc5d26524b91baf002fed32f098db71acf0d7646a7c32a7d05ed89fdbbb78c74db13a1a@52.89.151.55:30303”, “enode://e89196cae37e8041e14d7a063cc82dec3bb351f79f46ab10a059220403932c1337f144ddbf1fd830bf1221fbf539a4e986c924600b060c0a36337256aa70ee2c@52.89.151.55:40303”, “enode://d8ec443a7a16cd0da3df70d8c96a1a4939ac3cc497097843614b0c87167c6b080f07e02f12f8609230cae5db53f677d620b6bb574155738256d6782f902b9506@52.89.151.55:50303”, “enode://53f7ed087d55c044278279963a9d3a039d1044d2ff6ae61f11778fee42a5c14c7fdd9b529b08075de8be6f3b41ce28ab1e31b1a0a9db2fd0ec09f07cf6edabd2@512.89.151.55:60303”]</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"enode://bb9bb2bcd75a5cde083a6a9be2c28f31d9fd6e8de38baa594ffffab0efc5d26524b91baf002fed32f098db71acf0d7646a7c32a7d05ed89fdbbb78c74db13a1a@52.89.151.55:30303"</span><span class="op">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"enode://e89196cae37e8041e14d7a063cc82dec3bb351f79f46ab10a059220403932c1337f144ddbf1fd830bf1221fbf539a4e986c924600b060c0a36337256aa70ee2c@52.89.151.55:40303"</span><span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"enode://d8ec443a7a16cd0da3df70d8c96a1a4939ac3cc497097843614b0c87167c6b080f07e02f12f8609230cae5db53f677d620b6bb574155738256d6782f902b9506@52.89.151.55:50303"</span><span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"enode://53f7ed087d55c044278279963a9d3a039d1044d2ff6ae61f11778fee42a5c14c7fdd9b529b08075de8be6f3b41ce28ab1e31b1a0a9db2fd0ec09f07cf6edabd2@512.89.151.55:60303"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     
     
     </section>
