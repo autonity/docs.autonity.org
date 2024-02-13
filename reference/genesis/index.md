@@ -41,16 +41,16 @@ Genesis configuration file JSON objects:
 
 - [genesis file](#genesis-file-object)
 - [config](#config-object)
-- [config.autonity](#configautonity-object)
-- [config.autonity.validators](#configautonityvalidators-object)
-- [config.asm](#configasm-object)
-- [config.asm.acu](#configasmacu-object)
-- [config.asm.stabilization](#configasmstabilization-object)
-- [config.asm.supplyControl](#configasmsupplycontrol-object)
-- [config.accountability](#configaccountability-object)
-- [config.oracle](#configoracle-object)
+- [config.autonity](#config.autonity-object)
+- [config.autonity.validators](#config.autonity.validators-object)
+- [config.asm](#config.asm-object)
+- [config.asm.acu](#config.asm.acu-object)
+- [config.asm.stabilization](#config.asm.stabilization-object)
+- [config.asm.supplyControl](#config.asm.supplycontrol-object)
+- [config.accountability](#config.accountability-object)
+- [config.oracle](#config.oracle-object)
 - [alloc](#alloc-object)
-- [alloc.account object](#allocaccount-object)
+- [alloc.account object](#alloc.account-object)
 
 #### Genesis file object
 
@@ -105,10 +105,11 @@ In current state the `operator` governance account is an EOA. It could be assign
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `enode` |The [enode url](/glossary/#enode) address for the validator node on the network after genesis | The validator node enode URL |
+| `enode` |The [enode url](/glossary/#enode) address for the validator node on the network after genesis | The validator's enode URL |
 | `treasury` | The validator’s treasury account for receiving staking rewards. Ethereum format address. | The validator's EOA account address |
+| `consensusKey` | The validator's BLST key used for consensus gossiping when participating in consensus | The validator's _consensus public key_ |
 | `oracleAddress` | The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address. | The Oracle Server's account address |
-| `bondedStake` | The amount of stake bonded to the validator node at genesis. Denominated in Newton. Positive integer for stake amount | Value is specific to validator's stake at genesis |
+| `bondedStake` | The amount of stake bonded to the validator node at genesis. Denominated in Newton. | Positive integer for stake amount. Value is specific to validator's stake at genesis. |
 
 #### config.asm object
 
@@ -137,7 +138,7 @@ Configuration of the Stabilization mechanism's Collateralized Debt Position (CDP
 |Parameter|Description|Value|
 |---------|-----------|-----|
 | `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set to 5%, `50_000_000_000_000_000` |
-| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. Set to 1.8, | `1_800_000_000_000_000_000` |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set to 1.8, `1_800_000_000_000_000_000` |
 | `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set to 2, `2_000_000_000_000_000_000` |
 | `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` |
 | `targetPrice` | The ACU value of 1 unit of debt. | Set to 1, `1_000_000_000_000_000_000` |
@@ -148,7 +149,7 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `initialAllocation` | The initial allocation of Auton to the ASM. | Value is specific to network configuration. |
+| `initialAllocation` | The initial allocation of Auton to the ASM | Value is specific to network configuration |
 
 #### config.accountability object
 
@@ -186,7 +187,7 @@ Object structure for the oracle network at genesis.
 |---------|-----------|-----|
 |`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set to `'"AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","SEK-USD","ATN-USD","NTN-USD","NTN-ATN"'` |
+| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set to `"AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","SEK-USD","ATN-USD","NTN-USD","NTN-ATN"` |
 | `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. For example, set to `30` for initiating a new oracle voting round at 30-block intervals |
 
 
@@ -228,36 +229,42 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
         {
           "enode": "enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303",
           "treasury": "0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013",
+          "consensusKey": "0x776d2652de66e7x2d294c77d0706c772x077d242076e97cx44feex03e27d59757f7c7m7905072537eccd2d6292262724",
           "oracleAddress": "0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f",
           "bondedStake": 10000000000000000000000
         },
         {
           "enode": "enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303",
           "treasury": "0xf1859D9feD50514F9D805BeC7a30623d061f40B7",
+          "consensusKey": "0x456y2357dfk6e7x2d294c71d0k06c512x077d242076lk7cx44feex03e27d59757f7c717925692537eccd2e6292262774",
           "oracleAddress": "0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D",
           "bondedStake": 10000000000000000000000
         },
         {
           "enode": "enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303",
           "treasury": "0x1B441084736B80f273e498E646b0bEA86B4eC6AB",
+          "consensusKey": "0xhi3d112de66e7x2d294c77d0709c772x099d272076e97cx44jyex03e27du175df7cp7hh05o71537eccd2d9282262532",
           "oracleAddress": "0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d",
           "bondedStake": 10000000000000000000000
         },
         {
           "enode": "enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308",
           "treasury": "0xB5C49d50470743D8dE43bB6822AC4505E64648Da",
+          "consensusKey": "0x1a0j2652de66e7x2a294c7ad0406c711x077d242076e97cfc4fykx03e27d59757f7c777905072537ec9d2fhj9w26271u",
           "oracleAddress": "0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113",
           "bondedStake": 10000000000000000000000
         },
         {
           "enode": "enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309",
           "treasury": "0x31e1dE659A26F7638FAaFEfD94D47258FE361823",
+          "consensusKey": "0xf9wd795wdew6e7x2d294c75d07c6c281xk7md282076ek7ch34fesx03e279j9d87f5c1o790i0725h7efcd2d69372mh527",
           "oracleAddress": "0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF",
           "bondedStake": 10000000000000000000000
         },
         {
           "enode": "enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310",
           "treasury": "0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9",
+          "consensusKey": "0x776d2602de06e7x2d294c77d0706c772x077d242076e97cx44feex00e27d09707f7c7779j0e49il2etc4kd2ar39ov3a7",
           "oracleAddress": "0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d",
           "bondedStake": 10000000000000000000000
         }
@@ -299,6 +306,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
             "SEK-USD",
             "ATN-USD",
             "NTN-USD",
+            "NTN-ATN"
          ],
       "votePeriod": 30
     }
@@ -373,3 +381,4 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     "enode://d8ec443a7a16cd0da3df70d8c96a1a4939ac3cc497097843614b0c87167c6b080f07e02f12f8609230cae5db53f677d620b6bb574155738256d6782f902b9506@52.89.151.55:50303",
     "enode://53f7ed087d55c044278279963a9d3a039d1044d2ff6ae61f11778fee42a5c14c7fdd9b529b08075de8be6f3b41ce28ab1e31b1a0a9db2fd0ec09f07cf6edabd2@512.89.151.55:60303"
 ]
+```
