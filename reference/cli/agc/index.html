@@ -1257,7 +1257,7 @@ COPYRIGHT:
             }
           }
             var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-              var filterRegex = new RegExp('/' + window.location.host + '/');
+              var filterRegex = new RegExp("https:\/\/autonity\.github\.io\/docs\.autonity\.org\/");
             var isInternal = (href) => {
                 return filterRegex.test(href) || localhostRegex.test(href);
             }

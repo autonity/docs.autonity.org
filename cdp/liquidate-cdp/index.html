@@ -1102,7 +1102,7 @@ contract_address = 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f
             }
           }
             var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-              var filterRegex = new RegExp('/' + window.location.host + '/');
+              var filterRegex = new RegExp("https:\/\/autonity\.github\.io\/docs\.autonity\.org\/");
             var isInternal = (href) => {
                 return filterRegex.test(href) || localhostRegex.test(href);
             }
