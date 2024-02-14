@@ -44,7 +44,7 @@ Prerequisites for becoming a validator node operator are:
 ## Validator identity, accounts and keypairs
 The validator makes use of different accounts and private/public [key pairs](/glossary/#key-pair) for validator lifecycle management (registration, pausing, reactivation), validator identity, staking rewards, consensus participation and cryptographic security. 
 
-### P2P node key
+### P2P node keys: autonityKeys
 The private/public key pair of the validator node.
 
 The private key is used:

@@ -27,7 +27,7 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `--oraclekey` |  An option for the Autonity Oracle Server account key file is added. Validator nodes on an Autonity network must run the oracle binary to participate in the oracle network. |
 | `--oraclekeyhex` |  An option for the Autonity Oracle Server account key as hex (for testing) is added |
 | `--consensus.port` | An option for the network listening port for the consensus channel is added (default: 20203) |
-| `--consensus.nat` | An option for the NAT port mapping mechanism for the consensus channel is added (any|none|upnp|pmp|extip:<IP>) (default: "any") |
+| `--consensus.nat` | An option for the NAT port mapping mechanism for the consensus channel is added ("any", "none", "upnp", "pmp", "extip:<IP>") (default: "any") |
 | MINER OPTIONS: ||
 | `miner.etherbase ` | The option for setting the address for receiving block mining rewards is removed. Autonity implements a protocol mechanism for distributing staking rewards |
 | `miner.gasprice` | The default value for the minimum gas price for mining a transaction is changed from '1000000000' to '500000000' |

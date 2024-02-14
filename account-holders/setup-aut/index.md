@@ -9,7 +9,7 @@ For full details and to report any issues, see the [`aut` repository](https://gi
 
 ## Installation {#install}
 
-::: {.callout-note title="State of the Games" collapse="false"}>}}
+::: {.callout-note title="Prerequisites" collapse="false"}
 A working Python install with the `pip` tool is required.
 :::
 
