@@ -26,32 +26,33 @@ See the [Oracle](/concepts/oracle-server/) section for an explanation of the ora
 This must be performed on the host machine running the Autonity Go Client, using the `autonity genOwnershipProof` command:
 
 ```bash
-autonity genOwnershipProof --nodekey <NODE_KEY_PATH> --oraclekey <ORACLE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
-```
-
-If you are running the Autonity Go Client in a docker container, setup as described in the [Run Autonity section](../../node-operators/run-aut#run-docker) (i.e. with the `autonity-chaindata` directory mapped to a host directory of the same name), the proof can be generated as follows:
-
-```bash
-docker run -t -i --volume $(pwd)/autonity-chaindata:/autonity-chaindata --volume <ORACLE_KEY_PATH>:/oracle.key --name autonity-proof --rm ghcr.io/autonity/autonity:latest genOwnershipProof --nodekey ./autonity-chaindata/autonity/nodekey --oraclekey oracle.key <TREASURY_ACCOUNT_ADDRESS>
+autonity genOwnershipProof --autonitykeys <AUTONITYKEYS_PATH> --oraclekey <ORACLE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
 ```
 
 where:
 
-  - `<NODE_KEY_PATH>`: is the path to the private key file of the P2P node key (by default within the `autonity` subfolder of the `--datadir` specified when running the node. (For setting the data directory see How to [Run Autonity](/node-operators/run-aut/).)
-  - `<ORACLE_KEY_PATH>`: is the path to the private key file of the oracle server key. (For creating this key see How to [Run Autonity Oracle Server](/oracle/run-oracle/).)
+  - `<AUTONITYKEYS_PATH>`: is the path to the private key file of the node's `autonitykeys` P2P node keys, specified when running the node. (For generating your `autonitykeys` file see the guide [Run Autonity](/node-operators/run-aut/).)
+  - `<ORACLE_KEY_PATH>`: is the path to the private key file of the oracle server key. (For creating this key see the guide [Run Autonity Oracle Server](/oracle/run-oracle/).)
   - `<TREASURY_ACCOUNT_ADDRESS>`: is the account address you will use to operate the validator and receive commission revenue rewards to (i.e. the address you are using to submit the registration transaction from the local machine).
 
 You should see something like this:
 
 ```bash
-autonity genOwnershipProof --nodekey ./autonity-chaindata/autonity/nodekey --oraclekey oracle.key 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
-Signature hex: 0x116f317684203d325732fbdd74632649c60ff9b246e09aced5172a0ab87ed8014b43cdce2f4c745e7c18272bc360066ee8b737bbbf27b82f9ddcd18cdc792f29012b5c3aad85f54fb2ff530a69dbd5cb5bf27dfc1658bc6f496dba4bec7d12e65a243ec8f79a4b5fbc6913273072dd1eaddee6e3b8fb699ba9b924c7d015a9c35c00
+autonity genOwnershipProof --autonitykeys ./keystore/autonityKeys --oraclekey ./keystore/oraclekey 0xf47fdd88c8f6f80239e177386cc5ae3d6bcdeeea
+
+0xad5652191c7b36608b52bdb6479c2de4b8786fb72b7be30cade15c847323ed091542e917d304d9e011892fe26006f359808f01557651607ba70542218a7d329a01a5189e8d50880faf97ad42501375b216b89304c3fd4acf548a1d7fd7136e74771791422819134e2e3fbf720c35652d8c163e3d4f22c798a3c648958f7abcda2c0089d5969f39bc6dff61ae6d90ac4074879e53daaf8857f3bc5b5cc3743725544dfa2954d0fc077a0fddc7c9b01994c96a079f5340bfec22c59e67c9687b4348913b37ed0617dd66a324b8532146c6d33a280d1c5a6425799856648c58d45c9c06
 ```
 
 This signature hex will be required for the registration.
 
+If you are running the Autonity Go Client in a docker container, setup as described in the guide [Run Autonity as a Docker Image](/node-operators/run-aut#run-docker), the proof can be generated as follows. In this example the keys are mounted in a volume simply named `keystore`:
+
+```bash
+docker run -t -i --volume $PWD/keystore:/keystore --name autonity --rm ghcr.io/autonity/autonity:latest genOwnershipProof --autonitykeys /<AUTONITYKEYS_PATH> --oraclekey /<ORACLE_KEY_PATH> <TREASURY_ACCOUNT_ADDRESS>
+```
+
 ::: {.callout-note title="Note" collapse="false"}
-The `genOwnershipProof` command options `--nodekey` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument. The `nodekey` file is unencrypted. If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
+The `genOwnershipProof` command options `--autonitykeys` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument. The `autonitykeys` file is unencrypted. If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
 
 Autonity's `ethkey` cmd utility can be used to inspect the keystore file and view the account address, public key, and private key after entering your account password:
 

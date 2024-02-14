@@ -113,7 +113,7 @@ The following should be installed in order to build the Autonity Go Client:
 2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
 
     ```bash
-    git checkout tags/v0.12.2 -b v0.12.2
+    git checkout tags/v0.13.0 -b v0.13.0
     ```
 
 3. Build autonity:
