@@ -56,7 +56,7 @@ P2P networking protocols are Ethereum devp2p, RLPx as transport to an ethereum w
 ### Separate channels for transaction and consensus gossiping
 The segregation of transaction and consensus traffic into different channels on prevents the risk of high transaction traffic interfering with consensus traffic and delaying the consensus process. Further, gossiping separation improves network scalability and robustness as consensus is shielded from transaction volume growth, whilst the separation of concerns allows each gossiping channel to be managed independently (e.g. socket buffering). For example, a validator node operator can setup their IP and port configuration to prioritise a robust network for the consensus channel.
 
-Autonity implements [Tendermint BFT consensus](/concepts/consensus/pos/) as an independent consensus protocol running alongside the ethereum wire protocol. The consensus protocol leverages node information obtained through the wire protocol's node discovery mechanisms. If the consensus channel TCP port default (`20203`) is not used, then the custom `ip:port` information is specified as part of the enode url. If the enode URL provides consensus channel information, this is used to connect to the validator node at the specified IP:port combination. Otherwise, the consensus protocol assumes that the consensus channel IP is the same as the transaction channel IP, and the consensus channel port is fixed at the default port number `20203`.
+Autonity implements [Tendermint BFT consensus](/concepts/consensus/pos/) as an independent consensus protocol running alongside the ethereum wire protocol. Logically, this can be considered as a separate Autonity Consensus Network (ACN) layer. The consensus protocol leverages node information obtained through the wire protocol's node discovery mechanisms. If the consensus channel TCP port default (`20203`) is not used, then the custom `ip:port` information is specified as part of the enode url. If the enode URL provides consensus channel information, this is used to connect to the validator node at the specified IP:port combination. Otherwise, the consensus protocol assumes that the consensus channel IP is the same as the transaction channel IP, and the consensus channel port is fixed at the default port number `20203`.
 
 The standard Ethereum [enode URL](https://ethereum.org/en/developers/docs/networking-layer/network-addresses#enode) is composed of components:
 
@@ -65,18 +65,22 @@ The standard Ethereum [enode URL](https://ethereum.org/en/developers/docs/networ
 - hostname: the IP address and TCP listening port of the node, i,e. the ethereum wire protocol, separated from the username by an `@`: `ip:port`
 - (optionally) query parameter `?discport`: the UDP (discovery) port if different to the TCP port
 
-Autonity simply uses the standard URL scheme to specify the consensus channel `ip:port` in the query parameter `acn=ip:port`. This is added as the query parameter or after the discport value if specified.
+Autonity simply uses the standard URL scheme to specify the consensus channel `ip:port` in the query parameter:
 
-Valid enode url query parameter forms for specifying non-default consensus channel `ip:port` are then:
+- (optionally) `acn=ip:port`: IP and port information for the consensus channel is added as the query parameter or after the `discport` value if specified.
 
-- `@1.1.1.1:30303?acn=2.2.2.2`
-- `@1.1.1.1:30303?acn=2.2.2.2:20201`
-- `@1.1.1.1:30303?discPort=30301&acn=2.2.2.2`
-- `@1.1.1.1:30303?discPort=30301&acn=2.2.2.2:20201`
+Valid enode url query parameter forms for specifying non-default consensus channel `ip:port` could be:
+
+- `@127.0.0.1:30303?acn=@127.0.0.1`: ip only
+- `@127.0.0.1:30303?acn=@127.0.0.1:20203`: ip and port
+- `@127.0.0.1:30303?acn=@:20203`: port only
+- `@127.0.0.1:30303?discport=30301&acn=@127.0.0.1`: ip only
+- `@127.0.0.1:30303?discport=30301&acn=@127.0.0.1:20203`: ip and port
+- `@127.0.0.1:30303?discport=30301&acn=@:20203`: port only
 
 
 ::: {.callout-note title="Note" collapse="false"}
-Separate transaction and consensus gossiping channels is both a logical and physical segregation as each type of traffic is on a separate socket. Although CPU and memory resources remain shared, the design ensures that consensus traffic doesn't get delayed due to transaction traffic on the same socket queue.
+Separate transaction and consensus gossiping channels is a logical and physical segregation as each type of traffic is on a separate socket. Although CPU and memory resources remain shared, the design ensures that gossiping of consensus traffic is not delayed due to transaction traffic on the same socket queue.
 
 The design allows validator node operators the flexibility to configure distinct networks (not necessarily different hosts) to set the network quality for consensus and transaction traffic.
 

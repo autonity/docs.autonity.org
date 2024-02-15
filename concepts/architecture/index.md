@@ -309,13 +309,11 @@ To learn more about the concept, see [consensus](/concepts/consensus/) and the [
 
 Autonity uses a [fully connected network topology](/glossary/#mesh-network) with peer-to-peer communication based on Ethereum [devp2p](https://github.com/ethereum/devp2p) network protocols RLPx and wire protocol.
 
-Each participant maintains a current record of peers in the network, updated as new participants join or leave the system. Participants establish an authenticated connection with one another over TCP by the RLPx transport protocol. At the application-level, Autonity extends the Ethereum wire protocol for message broadcast to:
+At the P2P level, Autonity separates transaction and consensus traffic on to separate channels on different TCP ports.
 
-- Add message types for consensus and state synchronisation exchanged by committee members during Tendermint consensus rounds for block proposal, prevote, and pre-commit.
-- Generate cryptographically signed 'seals' for validator messages sent during consensus rounds. Seals are included in the [block header](/concepts/system-model/#block-header) as cryptographic proof of the validator quorum that agreed on the block. There are two types of seal:
-    - A proposer seal, seal of the committee member proposing the block
-    - A committed seal, an aggregated seal of the committee members that voted and agreed on the block
-- Provide reliable broadcast logic and duplicate message send prevention under an [eventually synchronous model](/concepts/system-model/#networking) to guarantee the liveness property of consensus messaging in the wire protocol.
+For transaction gossiping between nodes the Ethereum wire protocol is used for P2P propagation of block announcements and transactions. Reliable broadcast between network peer nodes and duplicate message send prevention under an [eventually synchronous model](/concepts/system-model/#networking) to guarantee the liveness property of consensus messaging in the wire protocol. Each participant maintains a current record of peers in the network, updated as new participants join or leave the system. Participants establish an authenticated connection with one another over TCP by the RLPx transport protocol. 
+
+For consensus gossiping a separate consensus protocol runs alongside the ethwire protocol for the execution of Autonity's BFT Tendermint Consensus algorithm. This channel is used for broadcast of message types for consensus and state synchronisation exchanged by committee members during Tendermint consensus rounds for block proposal, prevote, and pre-commit. Validator messages sent during consensus rounds are cryptographically signed (a 'seal') by validators using BLST cryptography. There are two types of seal: a *proposer seal*, seal of the committee member proposing the block, and a *committed seal*, an aggregated seal of the committee members that voted and agreed on the block. Seals are included in the [block header](/concepts/system-model/#block-header) as cryptographic proof of the validator quorum that agreed on the block.
 
 To learn more about the concept, see [Networking](/concepts/system-model/#networking) in the System model.
 
