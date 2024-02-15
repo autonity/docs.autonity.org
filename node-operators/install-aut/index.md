@@ -46,12 +46,12 @@ Running an Autonity node requires that you maintain a static ip address because 
 Incoming traffic must be allowed on the following:
 
 * `TCP, UDP 30303` for node p2p (DEVp2p) communication for transaction gossiping.
-* `TCP 20203` for node p2p (DEVp2p) communication for consensus gossiping.
 
 You may also choose to allow traffic on the following ports:
 
 * `TCP 8545` to make http RPC connections to the node.
 * `TCP 8546` to make WebSocket RPC connections to the node (required if you are operating a validator node).
+* `TCP 20203` for node p2p (DEVp2p) communication for consensus gossiping  (required if you are operating a validator node).
 * `TCP 6060` to export Autonity metrics (recommended but not required)
 
 <!-- who collects the metrics? -->
