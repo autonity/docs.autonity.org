@@ -8,13 +8,22 @@ description: >
 
 To register a validator you need:
 
-- A [running instance of the Autonity Go Client](/node-operators/) running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on its WebSocket port.  This will be the node to be registered as a validator.
-- A [running instance of the Autonity Oracle Server](/oracle/) running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your  validator node's WebSocket port.
+- A [running instance of the Autonity Go Client](/node-operators/) running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on the following ports:
+
+  - TCP, UDP `30303` for node p2p (DEVp2p) communication for transaction gossiping.
+  - TCP `20203` for node p2p (DEVp2p) communication for consensus gossiping.
+  - TCP `8546` for WebSocket RPC connections to the node by your oracle server.
+  
+  This will be the node to be registered as a validator.
+
+- A [running instance of the Autonity Oracle Server](/oracle/) running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your validator node's WebSocket port.
 - A configured instance of [`aut`](/account-holders/setup-aut/).
 - An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that will also receive the validator's share of staking rewards.
 
 ::: {.callout-note title="Note" collapse="false"}
 See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.
+
+See the [System model, Networking](/concepts/system-model/#networking) section for an explanation of node p2p (DEVp2p) communication for transaction and consensus gossiping.
 
 See the [Oracle](/concepts/oracle-server/) section for an explanation of the oracle server.
 :::
@@ -87,24 +96,36 @@ $ aut node info
 "net_listening": true,
 "net_peerCount": 0,
 "net_networkId": "65100000",
-"web3_clientVersion": "Autonity/v0.9.0-773923af-20221021/linux-amd64/go1.18.1",
-"admin_enode": "enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb8a6b8ad408a18bf66266b9d03dd9aa26c902a4ac02eb465d205c0c58b6f5063963fc752806f2681287a915@51.89.151.55:30303",
+"web3_clientVersion": "Autonity/v0.13.0-rc-8b4a17c1-20240210/linux-amd64/go1.21.6",
+"admin_enode": "enode://cef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15@751.11.121.34:30303",
 "admin_id": "f8d35fa6019628963668e868a9f070101236476fe077f4a058c0c22e81b8a6c9"
 }
 ```
 
 The url is returned in the `admin_enode` field.
 
-The [validator address](/concepts/validator/#validator-identifier) or [validator identifier](/concepts/validator/#validator-identifier) is derived from the validator [P2P node key](/concepts/validator/#p2p-node-key)'s public key.  It can be computed from the enode string before registration:
+The [validator address](/concepts/validator/#validator-identifier) or [validator identifier](/concepts/validator/#validator-identifier) is derived from the validator [P2P node key](/concepts/validator/#p2p-node-key)'s public key.
+
+When you generated your `autonitykeys` file for the node, the validator address was printed to terminal as the `Node address` as shown in the guide [Run Autonity](/node-operators/run-aut/):
 
 ```bash
-aut validator compute-address enode://c746ded15b4fa7e398a8925d8a2e4c76d9fc8007eb8a6b8ad408a18bf66266b9d03dd9aa26c902a4ac02eb465d205c0c58b6f5063963fc752806f2681287a915@51.89.151.55:30303
-```
-```bash
-0x49454f01a8F1Fbab21785a57114Ed955212006be
+Node address: 0x550454352B8e1EAD5F27Cce108EF59439B18E249
+Node public key: 0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
+Consensus public key: 0x90e54b54718c6d5e50d10b93743d743ebcec2f2a2fd43be6813dc5399e11a9bae891c0a357c8f3aa8ca411f9a526a03f
 ```
 
-Make a note of this identifier.
+::: {.callout-tip title="Tip" collapse="false"}
+Note that the `Node public key` value minus the leading `0x` market of the HEX string is the public key component of your enode url. You can verify you are using the correct `autonitykeys` file by checking the values correspond. If they don't, then you have an `autonitykeys`file mismatch. 
+
+The validator address can also be computed from the enode string using `aut`:
+
+```bash
+aut validator compute-address enode://cef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15@751.11.121.34:30303
+```
+```bash
+0x550454352B8e1EAD5F27Cce108EF59439B18E249
+```
+:::
 
 ### Step 3. Submit the registration transaction
 
@@ -151,17 +172,17 @@ aut validator list
 0x31870f96212787D181B3B2771F58AF2BeD0019Aa
 0xE03D1DE3A2Fb5FEc85041655F218f18c9d4dac55
 0x52b89AFA0D1dEe274bb5e4395eE102AaFbF372EA
-0x49454f01a8F1Fbab21785a57114Ed955212006be
+0x550454352B8e1EAD5F27Cce108EF59439B18E249
 ```
 
 Confirm the validator details using:
 
 ```bash
-aut validator info --validator 0x49454f01a8F1Fbab21785a57114Ed955212006be
+aut validator info --validator 0x550454352B8e1EAD5F27Cce108EF59439B18E249
 ```
 
 and check that the information is as expected for your validator.
 
-{{pageinfo}}
+::: {.callout-note title="Bond stake to your validator" collapse="false"}
 To self-bond stake to your validator node, submit a bond transaction from the account used to submit the registration transaction - i.e. the validator's treasury account address. For how to  do this see the how to [Bond stake](/delegators/bond-stake/).
-{{/pageinfo}}
+:::

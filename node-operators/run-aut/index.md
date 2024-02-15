@@ -112,7 +112,7 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 3. Generate the `autonitykeys` private key file for your node and write the key file to your key directory. This must be performed on the host machine running the Autonity Go Client, using the `autonity genAutonityKeys --writeaddress` command:
 
 	```bash
-	docker run -t -i --volume $PWD/<DIR_PATH>/<OUT_KEY_FILE_NAME>:/<DIR_PATH>/<OUT_KEY_FILE_NAME> --name autonity --rm ghcr.io/autonity/autonity:latest genAutonityKeys  --writeaddress /<DIR_PATH>/<OUT_KEY_FILE_NAME>
+	docker run -t -i --volume $PWD/<DIR_PATH>:/<DIR_PATH> --name autonity --rm ghcr.io/autonity/autonity:latest genAutonityKeys  --writeaddress /<DIR_PATH>/<OUT_KEY_FILE_NAME>
 	```
 
 	where:
@@ -135,7 +135,6 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 	Node public key: 0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
 	Consensus public key: 0x90e54b54718c6d5e50d10b93743d743ebcec2f2a2fd43be6813dc5399e11a9bae891c0a357c8f3aa8ca411f9a526a03f
 	```
-
 
 ::: {.callout-important title="Important" collapse="false"}
 Remember to backup your `autonitykeys` file! Copy it to a safe location!
