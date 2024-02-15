@@ -1386,7 +1386,8 @@ Returns a `Validator` object consisting of:
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
 | `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height). Set to `0` when the validator is in an active or jailbound state |
 | `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
-| `ValidatorState` | `state` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `0`: active, `1`: paused, `2`: jailed, `3`: jailbound |
+| `consensusKey` | `bytes` | the public consensus key of the validator |
+| `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `0`: active, `1`: paused, `2`: jailed, `3`: jailbound |
 
 ### Usage
 
@@ -1430,8 +1431,34 @@ $ aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --valid
 :::
 ::: {.panel-tabset}
 ## bash
-$ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c"], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":{"treasury":"0x61ee7d3244642e5f6d654416a098deabfbf5306e","nodeAddress":"0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c","oracleAddress":"0x9b844631b7279576330b9b822be79266696ff8c2","enode":"enode://b2748268c31ebab8603058335bb4bed062e05b9ceaa3562f69868a01d1038a84136fc587fb913e1cb8ce821f1eb0bf9879e3249f18adcd39f1211a104ceb57a9@35.197.223.249:30303","commissionRate":1000,"bondedStake":10000000000000000000000,"unbondingStake":0,"unbondingShares":0,"selfBondedStake":10000000000000000000000,"selfUnbondingStake":0,"selfUnbondingShares":0,"selfUnbondingStakeLocked":0,"liquidContract":"0xf4d9599afd90b5038b18e3b551bc21a97ed21c37","liquidSupply":0,"registrationBlock":0,"totalSlashed":0,"jailReleaseBlock":0,"provableFaultCount":0,"state":0}}
+$ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0x439926f9a819e86ae284ceaa7e87909777cf8c84"], "id":1}' .|jq
+
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "treasury": "0xf47fdd88c8f6f80239e177386cc5ae3d6bcdeeea",
+    "nodeAddress": "0x439926f9a819e86ae284ceaa7e87909777cf8c84",
+    "oracleAddress": "0xf75cadcbf252708d7f030978929dd68d5046fbca",
+    "enode": "enode://02ad2d5ae371983f9aecadaee6fd300d3241b946d10c29ec59724ed6bcc41c05bedae9318fe566a2f2180be9783fd552f05a0d212a094304cdfbc8d87e70b0a3@86.182.102.239:30303",
+    "commissionRate": 1000,
+    "bondedStake": 0,
+    "unbondingStake": 0,
+    "unbondingShares": 0,
+    "selfBondedStake": 0,
+    "selfUnbondingStake": 0,
+    "selfUnbondingShares": 0,
+    "selfUnbondingStakeLocked": 0,
+    "liquidContract": "0x2b0f159443599fbb6723cdb33d0db94f96b95d0f",
+    "liquidSupply": 0,
+    "registrationBlock": 171322,
+    "totalSlashed": 0,
+    "jailReleaseBlock": 0,
+    "provableFaultCount": 0,
+    "consensusKey": "reWv9AU/mGkTEaSlmcXAghXQrXITz6WOABRU51+Scig/1LeC4gia6FQKQDzQj83W",
+    "state": 0
+  }
+}
 :::
 
 
@@ -1666,12 +1693,11 @@ Enter passphrase (or CTRL-d to exit):
 :::
 
 
-
 ## registerValidator
 
 Registers a validator on an Autonity Network.
 
-The `registerValidator` method provides as argument the [enode](/glossary/#enode) URL of the validator node, the validator's oracle server address, and a proof of node ownership generated using the private key of the validator node's [P2P node key](/concepts/validator/#p2p-node-key) and the validator's [oracle server key](/concepts/oracle-network/#oracle-server-key).
+The `registerValidator` method provides as argument the [enode](/glossary/#enode) URL of the validator node, the validator's oracle server address, the validator's BLS public key used for consensus gossiping, and a proof of node ownership generated using the private key of the validator node's [P2P node keys, autonitykeys](/concepts/validator/#p2p-node-keys-autonitykeys) and the validator's [oracle server key](/concepts/oracle-network/#oracle-server-key).
 
 On method execution a `Validator` object data structure is constructed in memory, populated with method arguments and default values ready for validator registration processing:
 
@@ -1695,13 +1721,14 @@ On method execution a `Validator` object data structure is constructed in memory
 | `totalSlashed` | `uint256` | Set to `0`. (The total amount of stake that a validator has had slashed for accountability and omission faults since registration.) |
 | `jailReleaseBlock` | `uint256` | Set to `0`. (The block number at which a validator jail period applied for an accountability or omission fault ends.) |
 | `provableFaultCount` | `uint256` | Set to `0`. (Counter recording the number of times the validator has been penalised for accountability and omission faults.) |
+| `consensusKey` | `bytes` | Set to the `_consensusKey` parameter value provided in the `registerValidator` method call transaction |
 | `ValidatorState` | `state` | Set to `active`. |
-
 
 Constraint checks are applied:
 
 - the `enode` URL is not empty and is correctly formed
 - the `address` of the validator is not already registered
+- the `consensusKey` is valid
 - the `proof` of node ownership is valid: a cryptographic proof containing the string of the validator's `treasury` account address signed by (a) the validator's private P2P node key and (2) the validator's oracle server private key. The two signatures are concatenated together to create the ownership proof. The validator's `treasury` account address is recovered from the proof using the public key of (1) the validator's P2P node key and (2) the oracle server key.
 
 Validator registration is then executed, the temporary address assignments updated, and the new validator object appended to the indexed validator list recorded in system state. I.E. the most recently registered validator will always have the highest index identifier value and will always be the last item in the validator list returned by a call to get a network's registered validators (see [`getValidators`](/reference/api/aut/#getvalidators)).
@@ -1714,7 +1741,8 @@ A validator-specific Liquid Newton contract is deployed; the contract's `name` a
 | --| --| --|
 | `_enode` | `string` | the enode url for the validator node  |
 | `_oracleAddress` | `address` | the oracle server identifier account address |
-| `_multisig` | `bytes` | the proof of node ownership. A combination of two signatures of the validator `treasury` account address string, appended sequentially, generated using (a) the validator P2P node key private key, (2) the Oracle server private key. |
+| `_consensusKey` | `bytes` | the BLS public key from `autonitykeys` used for P2P consensus gossiping |
+| `_signatures` | `bytes` | the proof of node ownership. A combination of two ECDSA signatures and a bls signature appended sequentially to provide the ownership proof of the validator node key (autonitykeys). The first two ECDSA signatures are in the order: (1) a message containing the treasury account address signed by the validator P2P autonitykeys private key; (2) a message containing the treasury account address signed by the Oracle Server account private key. |
 
 ### Response
 
@@ -1731,16 +1759,19 @@ On a successful call the function emits a `RegisteredValidator` event, logging: 
 
 ::: {.panel-tabset}
 ## bash
-aut validator register [OPTIONS] ENODE ORACLE PROOF
+aut contract tx --abi Autonity.abi --address  0xBd770416a3345F91E4B34576cb804a576fa48EB1 registerValidator  _enode _oracleAddress _consensusKey _signatures
 :::
-
+::: {.panel-tabset}
+## bash
+{"method":"aut_registerValidator", "params":[]}
+:::
 
 ### Example
 
 
 ::: {.panel-tabset}
 ## bash
-aut validator register enode://a3b821f89d8ea172421dedacdb00e76d8d6a929e4c5ff3c2b30ec84144a7405698ce30ba2ed482770ad2df94d050311b350c036d7f2cef3c9ef32be3f635d62e@51.89.151.55:30303 0xFd91928d58Af4AFbD78C96821D3147ef1f517072 0x62a44f56a617520ebc7c73414df7b8ae5b8133ebdbc0715d66ca0522fe26788873c7e774ed8a7702e16311e6ee8f149c4ef70cfb261fbdd3d375401375209a3000a5189e8d50880faf97ad42501375b216b89304c3fd4acf548a1d7fd7136e74771791422819134e2e3fbf720c35652d8c163e3d4f22c798a3c648958f7abcda2c00 | aut tx sign - | aut tx send -
+aut contract tx --abi Autonity.abi --address  0xBd770416a3345F91E4B34576cb804a576fa48EB1 --rpc-endpoint https://rpc1.devnet.clearmatics.network/ registerValidator  enode://02ad2d5ae371983f9aecadaee6fd300d3241b946d10c29ec59724ed6bcc41c05bedae9318fe566a2f2180be9783fd552f05a0d212a094304cdfbc8d87e70b0a3@86.182.102.239:30303 0xF75Cadcbf252708D7F030978929dD68d5046fbcA 0xade5aff4053f98691311a4a599c5c08215d0ad7213cfa58e001454e75f9272283fd4b782e2089ae8540a403cd08fcdd6  0x22a1410a98d63da7e738869836aa900e724a1090de4681cc9768bd1733581b23105ab1c328e2d14824bd0496009c34d3a4d7262d93091ab5bd989c1adc1c922c004d5dd78df2a47b15a5fb5ee11bfa6329b41a5c79f536a0d72030bd3b50233a9f184cf651b2c94b54210caf7e428fbc7178975258a209fd5098c6105d0a6e09d900a7ec9ff58bd9f7f0c19f4af28273ba3afb5dbd46394b1296a19da1ccd224165cbf19b978d6dfc981ae3eda21ceac63e6129217dac19283085860b57ee46a336ba618b082b5ebcddfb733c3af8591e7dfca05fa31d75deb68bac1973981f95e9b | aut tx sign - | aut tx send -
 :::
 
 
