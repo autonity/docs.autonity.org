@@ -10,9 +10,15 @@ Interface for interacting with Autonity Contract functions using:
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 - JSON-RPC methods to submit calls to inspect state.
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
-{{/pageinfo}}
+:::
+
+::: {.callout-note title="Protocol contract calls" collapse="false"}
+Some Usage and Examples illustrate using the Autonity Protocol Contract's generated ABI and the `aut` tool's `contract` command to submit transactions to the Autonity Protocol Contract address `0xBd770416a3345F91E4B34576cb804a576fa48EB1`. See `aut contract tx --help`.
+
+Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The contract `.abi` files are generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Autonity.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
+:::
 
 ## activateValidator
 
@@ -1935,9 +1941,9 @@ On a successful call the function emits a `RegisteredValidator` event, logging: 
 ### Usage
 
 ::: {.callout-note title="Note" collapse="false"}
-The `registerValidator` function is not currently supported by `aut`.
+The `registerValidator` function is not currently supported by `aut` `v0.3.0` - see the `aut` GitHub issue "[`aut validator` commands `registerValidator` and `info` update for AGC v0.13.0 #146](https://github.com/autonity/aut/issues/146)" for detail.
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+You can interact with the contract using the `aut contract tx` command as described in the note ["Protocol contract calls"](/reference/api/aut/) at the top of this page.
 :::
 
 ::: {.panel-tabset}

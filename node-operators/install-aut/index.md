@@ -87,9 +87,9 @@ The description here covers only the basic network setup. Especially in a produc
     sudo cp -r autonity /usr/local/bin/autonity
     ```
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary).
-{{/pageinfo}}
+:::
 
 
 ## Build from source code {#install-source}
@@ -202,9 +202,9 @@ sudo systemctl restart docker
     ghcr.io/autonity/autonity                latest    sha256:7298a5fb9834b8cc281b81df1153fcf2f955a292bf3bd5e5d3eb3f80b52f0727   3375da450343   3 weeks ago    54.4MB
     ```
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker).
-{{/pageinfo}}
+:::
 
 
 ## Verify the installation {#verify}
@@ -252,10 +252,9 @@ The output above will vary depending on the version of the Autonity Go Client yo
 
 ## Next steps {#next}
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary).
-{{/pageinfo}}
-
+:::
 
 ------------------------------------------------
 

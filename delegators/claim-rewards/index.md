@@ -58,5 +58,7 @@ To claim staking rewards you need:
 Note that claiming rewards is a state-affecting transaction that incurs gas costs. After claiming rewards, the user's auton balance will only increase by _amount of rewards claimed - claim transaction cost_. Fees should not be claimed until the gain outweighs the cost! The gas cost of a claim transaction can be calculated simply as _gas used by transaction * gas price per unit of gas_.
 
 
-{{pageinfo}}
-See also the How to [Transfer Liquid Newton](/delegators/transfer-lntn/).{{/pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
+See also the How to [Transfer Liquid Newton](/delegators/transfer-lntn/).
+:::
+

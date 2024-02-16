@@ -224,9 +224,9 @@ Exit may take up to 3 minutes. If you are using `systemd` and/or other software 
 :::
 
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 Now you can now [connect to your node using `aut`](/node-operators/connect/) from your _local_ machine.
-{{/pageinfo}}
+:::
 
 ## Migrating an Autonity Go Client
 

@@ -135,6 +135,6 @@ aut account balance --ntn <_addr>
 3.73401
 ```
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 Once your node has been properly set up, you may consider making it a [validator node](/validators/) to further help secure the network and earn rewards.
-{{/pageinfo}}
+:::
