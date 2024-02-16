@@ -51,21 +51,21 @@ On a successful call the function emits a `Deposit` event, logging: `msg.sender`
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f deposit amount
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --abi Stabilization.abi deposit 1000000000000000000 | aut tx sign - | aut tx send -
+```
 :::
-
 
 
 ### withdraw
@@ -103,19 +103,20 @@ On a successful call the function emits a `Withdraw` event, logging: `msg.sender
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f withdraw amount
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f withdraw 1000000000000000000 | aut tx sign - | aut tx send -
+```
 :::
 
 
@@ -151,24 +152,23 @@ None.
 
 On a successful call the function emits a `Borrow` event, logging: `msg.sender`, `amount`.
 
-
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrow amount
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrow 1000000000000000000 | aut tx sign - | aut tx send -
+```
 :::
-
 
 
 ### repay
@@ -211,21 +211,21 @@ On a successful call the function emits a `Repay` event, logging: `msg.sender`, 
 Use the `aut tx` command, specifying the Stabilization Contract address as the `RECIPIENT` address.
 :::
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value amount repay
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value 1 repay | aut tx sign - | aut tx send -
+```
 :::
-
 
 
 ## CDP Liquidator 
@@ -259,24 +259,24 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
 false
+```
 :::
 
 
-## CDP Liquidator 
 ### liquidate
 
 Liquidates a CDP that is undercollateralized.
@@ -318,21 +318,21 @@ On a successful call the function emits a `Liquidate ` event, logging: `account`
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value amount liquidate account
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value 2500000000000000000 liquidate 0x1f790c60D974F5A8f88558CA90F743a71F009641 | aut tx sign - | aut tx send -
+```
 :::
-
 
 
 ## CDP View functions
@@ -359,22 +359,22 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 ["0x1f790c60D974F5A8f88558CA90F743a71F009641"]
+```
 :::
-
 
 
 ### borrowLimit
@@ -419,22 +419,22 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
 19633000000000000000
+```
 :::
-
 
 
 ### collateralPrice
@@ -489,22 +489,22 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
 10019717700000000000
+```
 :::
-
 
 
 ### debtAmount
@@ -532,22 +532,22 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
 300012369185855391
+```
 :::
-
 
 
 ### interestDue
@@ -581,391 +581,21 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
 4118044981651418
-:::
-
-
-
-### minimumCollateral
-
-Calculates the minimum amount of Collateral Token that must be deposited in the CDP in order to borrow the given amount of Autons.
-
-Constraint checks are applied:
-
-- invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
-
-::: {.callout-note title="Note" collapse="false"}
-The minimum collateral amount is calculated by `(principal * mcr) / price`.
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `principal` | `uint256` | Auton amount to borrow |
-| `price` | `uint256` | The price of Collateral Token in Auton |
-| `mcr` | `uint256` | The minimum collateralization ratio |
-
-::: {.callout-note title="Note" collapse="false"}
-For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-
-The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-:::
-
-#### Response
-
-The function returns the minimum collateral required as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal price mcr
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000000 9672000000000000000 2000000000000000000
-206782464846980976
-:::
-
-
-
-### underCollateralized
-
-Determines if a debt position is undercollateralized or not.
-
-Constraint checks are applied:
-
-- invalid price: the value of the `price` argument is valid, i.e. it is not equal to `0`.
-
-If the CDP is under collateralized, then it can be liquidated - see [`liquidate()`](/reference/api/asm/stabilization/#liquidate).
-
-::: {.callout-note title="Note" collapse="false"}
-If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `collateral` | `uint256` | Amount of Collateral Token backing the debt |
-| `price` | `uint256` | The price of Collateral Token in Auton |
-| `debt` | `uint256` | The debt amount |
-| `liquidationRatio` | `uint256` | The liquidation ratio |
-
-::: {.callout-note title="Note" collapse="false"}
-For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-
-The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-:::
-
-#### Response
-
-The method returns a boolean flag specifying whether the CDP is undercollateralized (true) or not (false).
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized collateral price debt liquidationRatio
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 206782464846980976 9672000000000000000 1000000000000000000 1800000000000000000
-false
-:::
-
-
-
-## CDP View functions
-
-### accounts
-
-Retrieve all the accounts that have opened a CDP.
-
-#### Parameters
-
-None.
-
-#### Response
-Returns an `_accounts` array of CDP account addresses:
-
-
-| Field | Datatype | Description |
-| --| --| --|
-| `account` | `address` | The CDP account address |
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
-["0x1f790c60D974F5A8f88558CA90F743a71F009641"]
-:::
-
-
-
-### debtAmount
-
-Calculates the current debt amount outstanding for a CDP at the block height of the call.
-
-Constraint checks are applied:
-
-- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested).
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `account` | `address` | The CDP account address to liquidate |
-| `timestamp` | `uint` | the timestamp to value the debt. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-
-#### Response
-
-The function returns the debt amount as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
-300012369185855391
-:::
-
-
-
-### isLiquidatable
-
-Determines if a CDP is liquidatable at the block height of the call.
-
-Constraint checks are applied:
-
-- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
- 
-
-::: {.callout-note title="Note" collapse="false"}
-The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `account` | `address` | The CDP account address |
-
-#### Response
-
-The function returns a `Boolean` flag indicating if the CDP is liquidatable (`True`) or not (`False`).
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
-false
-:::
-
-
-### collateralPrice
-
-Retrieves the Collateral Token price from the Oracle Contract and converts it to Auton.
-
-The function reverts in case the price is invalid or unavailable.
-
-Constraint checks are applied:
-
-- price unavailable: the Oracle Contract is providing data computed in the oracle network's last completed voting round.
-
-::: {.callout-note title="Note" collapse="false"}
-To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
-:::
-
-- invalid price: the `price` returned by the Oracle Contract is not equal to `0`.
-
-On method execution, state is inspected to retrieve:
-
-- the latest computed Collateral Token price data and the Oracle Contract scale precision from the Oracle Contract.
-
-::: {.callout-note title="Note" collapse="false"}
-The function converts the Collateral Token price retrieved from the Oracle Contract to `SCALE` decimals used by the Stabilisation Contract.
-
-Conversion is conditional upon the difference between the Stabilisation Contract and Oracle Contract scale and precision:
-
-- if `(SCALE_FACTOR > precision)`, then collateral price = `price * (SCALE_FACTOR / precision`
-- else collateral price = `price / (precision() / SCALE_FACTOR)`.
-
-Where:
-
-- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
-- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-- `price` is the aggregated median price for Collateral Token calculated by the Oracle Contract (returned by calling [`latestRoundData()`](/reference/api/oracle/#latestrounddata)).
-- `precision` is the Oracle Contract setting for the multiplier applied to submitted data price reports before calculation of an aggregated median price for a symbol (returned by calling [`getPrecision()`](/reference/api/oracle/#getprecision)).
-:::
-
-#### Parameters
-
-None.
-
-#### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `price` | `uint256` | Price of Collateral Token |
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
-10019717700000000000
-:::
-
-
-### borrowLimit
-
-Calculates the maximum amount of Amount that can be borrowed for the given amount of Collateral Token.
-    
-Constraint checks are applied:
-
-- invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
-
-::: {.callout-note title="Note" collapse="false"}
-The borrowing limit amount is calculated by `(collateral * price * targetPrice) / (mcr * SCALE_FACTOR)`.
-
-Where:
-
-- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
-- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `collateral` | `uint256` | Amount of Collateral Token backing the debt |
-| `price` | `uint256` | The price of Collateral Token in Auton |
-| `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
-| `mcr` | `uint256` | The minimum collateralization ratio |
-
-::: {.callout-note title="Note" collapse="false"}
-For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-
-The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-:::
-
-#### Response
-
-The function returns the maximum amount of Auton that can be borrowed as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
-19633000000000000000
+```
 :::
 
 
@@ -1005,68 +635,21 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal price mcr
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000000 9672000000000000000 2000000000000000000
 206782464846980976
-:::
-
-
-### interestDue
-
-Calculates the interest due for a given amount of debt.
-
-Constraint checks are applied:
-
-- invalid parameter: the `timeBorrow` argument is not greater than the `timeDue` argument value.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `debt` | `uint256` | The debt amount |
-| `rate` | `uint256` | The borrow interest rate |
-| `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-| `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-
-::: {.callout-note title="Note" collapse="false"}
-For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-:::
-  
-#### Response
-
-The function returns the amount of interest due as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
-4118044981651418
+```
 :::
 
 
@@ -1109,437 +692,19 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized collateral price debt liquidationRatio
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 206782464846980976 9672000000000000000 1000000000000000000 1800000000000000000
 false
+```
 :::
-
-
-
-## CDP View functions
-
-### accounts
-
-Retrieve all the accounts that have opened a CDP.
-
-#### Parameters
-
-None.
-
-#### Response
-Returns an `_accounts` array of CDP account addresses:
-
-
-| Field | Datatype | Description |
-| --| --| --|
-| `account` | `address` | The CDP account address |
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
-["0x1f790c60D974F5A8f88558CA90F743a71F009641"]
-:::
-
-
-
-### debtAmount
-
-Calculates the current debt amount outstanding for a CDP at the block height of the call.
-
-Constraint checks are applied:
-
-- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested).
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `account` | `address` | The CDP account address to liquidate |
-| `timestamp` | `uint` | the timestamp to value the debt. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-
-#### Response
-
-The function returns the debt amount as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount "0x1f790c60D974F5A8f88558CA90F743a71F009641" 1695300701
-0
-:::
-
-
-
-### isLiquidatable
-
-Determines if a CDP is liquidatable at the block height of the call.
-
-Constraint checks are applied:
-
-- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
- 
-
-::: {.callout-note title="Note" collapse="false"}
-The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `account` | `address` | The CDP account address |
-<!--
-| `timestamp` | `uint` | The timestamp at which the CDP liquidatability is being queried |
--->
-
-#### Response
-
-The function returns a `Boolean` flag indicating if the CDP is liquidatable (`True`) or not (`False`).
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-
-:::
-
-
-### collateralPrice
-
-Retrieves the Collateral Token price from the Oracle Contract and converts it to Auton.
-
-The function reverts in case the price is invalid or unavailable.
-
-Constraint checks are applied:
-
-- price unavailable: the Oracle Contract is providing data computed in the oracle network's last completed voting round.
-
-::: {.callout-note title="Note" collapse="false"}
-To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
-:::
-
-- invalid price: the `price` returned by the Oracle Contract is not equal to `0`.
-
-On method execution, state is inspected to retrieve:
-
-- the latest computed Collateral Token price data and the Oracle Contract scale precision from the Oracle Contract.
-
-::: {.callout-note title="Note" collapse="false"}
-The function converts the Collateral Token price retrieved from the Oracle Contract to `SCALE` decimals used by the Stabilisation Contract.
-
-Conversion is conditional upon the difference between the Stabilisation Contract and Oracle Contract scale and precision:
-
-- if `(SCALE_FACTOR > precision)`, then collateral price = `price * (SCALE_FACTOR / precision`
-- else collateral price = `price / (precision() / SCALE_FACTOR)`.
-
-Where:
-
-- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
-- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-- `price` is the aggregated median price for Collateral Token calculated by the Oracle Contract (returned by calling [`latestRoundData()`](/reference/api/oracle/#latestrounddata)).
-- `precision` is the Oracle Contract setting for the multiplier applied to submitted data price reports before calculation of an aggregated median price for a symbol (returned by calling [`getPrecision()`](/reference/api/oracle/#getprecision)).
-:::
-
-#### Parameters
-
-None.
-
-#### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `price` | `uint256` | Price of Collateral Token |
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-
-:::
-
-
-### borrowLimit
-
-Calculates the maximum amount of Amount that can be borrowed for the given amount of Collateral Token.
-    
-Constraint checks are applied:
-
-- invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
-
-::: {.callout-note title="Note" collapse="false"}
-The borrowing limit amount is calculated by `(collateral * price * targetPrice) / (mcr * SCALE_FACTOR)`.
-
-Where:
-
-- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
-- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `collateral` | `uint256` | Amount of Collateral Token backing the debt |
-| `price` | `uint256` | The price of Collateral Token in Auton |
-| `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
-| `mcr` | `uint256` | The minimum collateralization ratio |
-
-::: {.callout-note title="Note" collapse="false"}
-For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-
-The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-:::
-
-#### Response
-
-The function returns the maximum amount of Auton that can be borrowed as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
-19633000000000000000
-:::
-
-
-### minimumCollateral
-
-Calculates the minimum amount of Collateral Token that must be deposited in the CDP in order to borrow the given amount of Autons.
-
-Constraint checks are applied:
-
-- invalid parameter: the `price` and `mcr` argument values are valid, i.e. are not equal to `0`.
-
-::: {.callout-note title="Note" collapse="false"}
-The minimum collateral amount is calculated by `(principal * mcr) / price`.
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `principal` | `uint256` | Auton amount to borrow |
-| `price` | `uint256` | The price of Collateral Token in Auton |
-| `mcr` | `uint256` | The minimum collateralization ratio |
-
-::: {.callout-note title="Note" collapse="false"}
-For the default value set for `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-
-The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-:::
-
-#### Response
-
-The function returns the minimum collateral required as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal price mcr
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000000 9672000000000000000 2000000000000000000
-206782464846980976
-:::
-
-
-### interestDue
-
-Calculates the interest due for a given amount of debt.
-
-Constraint checks are applied:
-
-- invalid parameter: the `timeBorrow` argument is not greater than the `timeDue` argument value.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `debt` | `uint256` | The debt amount |
-| `rate` | `uint256` | The borrow interest rate |
-| `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-| `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-
-::: {.callout-note title="Note" collapse="false"}
-For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-:::
-  
-#### Response
-
-The function returns the amount of interest due as an `uint256` integer value.
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
-4118044981651418
-:::
-
-
-### underCollateralized
-
-Determines if a debt position is undercollateralized or not.
-
-Constraint checks are applied:
-
-- invalid price: the value of the `price` argument is valid, i.e. it is not equal to `0`.
-
-If the CDP is under collateralized, then it can be liquidated - see [`liquidate()`](/reference/api/asm/stabilization/#liquidate).
-
-::: {.callout-note title="Note" collapse="false"}
-If a debt position is under collateralized or not is determined by calculating `(collateral * price) / debt`. If this returns a value `< liquidationRatio`, then the CDP is under collateralised and can be liquidated.
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `collateral` | `uint256` | Amount of Collateral Token backing the debt |
-| `price` | `uint256` | The price of Collateral Token in Auton |
-| `debt` | `uint256` | The debt amount |
-| `liquidationRatio` | `uint256` | The liquidation ratio |
-
-::: {.callout-note title="Note" collapse="false"}
-For the default value set for `liquidationRatio` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
-
-The current `price` value can be returned by calling [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice).
-:::
-
-#### Response
-
-The method returns a boolean flag specifying whether the CDP is undercollateralized (true) or not (false).
-
-#### Event
-
-None.
-
-#### Usage
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized collateral price debt liquidationRatio
-:::
-
-
-#### Example
-
-
-::: {.panel-tabset}
-## bash
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f underCollateralized 206782464846980976 9672000000000000000 1000000000000000000 1800000000000000000
-false
-:::
-

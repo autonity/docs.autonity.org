@@ -1934,6 +1934,11 @@ On a successful call the function emits a `RegisteredValidator` event, logging: 
 
 ### Usage
 
+::: {.callout-note title="Note" collapse="false"}
+The `registerValidator` function is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
 
 ::: {.panel-tabset}
 
@@ -1951,10 +1956,9 @@ aut contract tx --abi Autonity.abi --address  0xBd770416a3345F91E4B34576cb804a57
 ## aut
 
 ``` {.aut}
-aut contract tx --abi Autonity.abi --address  0xBd770416a3345F91E4B34576cb804a576fa48EB1 --rpc-endpoint https://rpc1.devnet.clearmatics.network/ registerValidator  enode://02ad2d5ae371983f9aecadaee6fd300d3241b946d10c29ec59724ed6bcc41c05bedae9318fe566a2f2180be9783fd552f05a0d212a094304cdfbc8d87e70b0a3@86.182.102.239:30303 0xF75Cadcbf252708D7F030978929dD68d5046fbcA 0xade5aff4053f98691311a4a599c5c08215d0ad7213cfa58e001454e75f9272283fd4b782e2089ae8540a403cd08fcdd6  0x22a1410a98d63da7e738869836aa900e724a1090de4681cc9768bd1733581b23105ab1c328e2d14824bd0496009c34d3a4d7262d93091ab5bd989c1adc1c922c004d5dd78df2a47b15a5fb5ee11bfa6329b41a5c79f536a0d72030bd3b50233a9f184cf651b2c94b54210caf7e428fbc7178975258a209fd5098c6105d0a6e09d900a7ec9ff58bd9f7f0c19f4af28273ba3afb5dbd46394b1296a19da1ccd224165cbf19b978d6dfc981ae3eda21ceac63e6129217dac19283085860b57ee46a336ba618b082b5ebcddfb733c3af8591e7dfca05fa31d75deb68bac1973981f95e9b | aut tx sign - | aut tx send -
+aut contract tx --abi Autonity.abi --address  0xBd770416a3345F91E4B34576cb804a576fa48EB1 --rpc-endpoint https://rpc1.piccadilly.autonity.org/ registerValidator  enode://02ad2d5ae371983f9aecadaee6fd300d3241b946d10c29ec59724ed6bcc41c05bedae9318fe566a2f2180be9783fd552f05a0d212a094304cdfbc8d87e70b0a3@86.182.102.239:30303 0xF75Cadcbf252708D7F030978929dD68d5046fbcA 0xade5aff4053f98691311a4a599c5c08215d0ad7213cfa58e001454e75f9272283fd4b782e2089ae8540a403cd08fcdd6  0x22a1410a98d63da7e738869836aa900e724a1090de4681cc9768bd1733581b23105ab1c328e2d14824bd0496009c34d3a4d7262d93091ab5bd989c1adc1c922c004d5dd78df2a47b15a5fb5ee11bfa6329b41a5c79f536a0d72030bd3b50233a9f184cf651b2c94b54210caf7e428fbc7178975258a209fd5098c6105d0a6e09d900a7ec9ff58bd9f7f0c19f4af28273ba3afb5dbd46394b1296a19da1ccd224165cbf19b978d6dfc981ae3eda21ceac63e6129217dac19283085860b57ee46a336ba618b082b5ebcddfb733c3af8591e7dfca05fa31d75deb68bac1973981f95e9b | aut tx sign - | aut tx send -
 ```
 :::
-
 
 
 ## symbol
@@ -1987,7 +1991,6 @@ aut token symbol [OPTIONS]
 {"method":"aut_symbol", "params":[]}
 ```
 :::
-
 
 ### Example
 
@@ -2035,7 +2038,6 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
 ## aut
 
@@ -2048,7 +2050,6 @@ aut protocol total-redistributed [OPTIONS]
 {"method":"aut_totalRedistributed", "params":[]}
 ```
 :::
-
 
 ### Example
 
@@ -2066,7 +2067,6 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 {"jsonrpc":"2.0","id":1,"result":47981813599875371606}
 ```
 :::
-
 
 
 ## totalSupply
@@ -2100,7 +2100,6 @@ aut token total-supply [OPTIONS]
 ```
 :::
 
-
 ### Example
 
 To return total supply for the Newton stake token specify the `--ntn` option:
@@ -2120,9 +2119,7 @@ curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: app
 ```
 :::
 
-
 To return the total supply for an ERC20 contract token (e.g. Liquid Newton) specify the `--token` option:
-
 
 ::: {.panel-tabset}
 ## aut
@@ -2132,7 +2129,6 @@ aut token total-supply --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37   -r h
 10087
 ```
 :::
-
 
 
 ## transfer
@@ -2163,7 +2159,6 @@ On a successful call the function emits a `Transfer` event, logging: `msg.sender
 
 ### Usage
 
-
 ::: {.panel-tabset}
 ## aut
 
@@ -2171,7 +2166,6 @@ On a successful call the function emits a `Transfer` event, logging: `msg.sender
 aut token transfer [OPTIONS] RECIPIENT AMOUNT
 ```
 :::
-
 
 ### Example
 
@@ -2188,8 +2182,7 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
-
-To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the `--token` option:
+To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the contract address with the `--token` option:
 
 ::: {.panel-tabset}
 ## aut
@@ -2203,19 +2196,17 @@ Enter passphrase (or CTRL-d to exit):
 :::
 
 
-
 ##  transferFrom
 
-Transfers a designated amount of Newton stake token from a specified sender account to a recipient account.
+Transfers a designated amount of Newton stake token from a specified sender account to a recipient account using the ERC20 [`approve()'](/reference/api/aut/#approve) and [`allowance()'](/reference/api/aut/#allowance) mechanisms.
 
-The `transferFrom` method is used for withdraw workflows where the sender account has authorised the method caller (the `spender`, the `msg.sender`) to transfer tokens on the sender's behalf.
+The `transferFrom` method is used for withdraw workflows where the token owner account (the `sender`) has authorised the method caller, the `spender` (the `msg.sender`), to transfer tokens on the owner's behalf.
 
 Constraint checks:
 
 - `sender` and `recipient` accounts must be allowed to hold Newton stake token
-- `sender` must have an account balance `>= amount`
-- the `msg.sender` has been approved by the `sender` to withdraw tokens from their account
-- the `msg.sender`'s remaining allowance to withdraw `sender`'s tokens is `>= amount`
+- the `msg.sender` (`spender`) has been approved by the owner (the `sender`) to withdraw tokens from their account
+- the `msg.sender`'s remaining allowance to withdraw the `owner`'s tokens is `>= amount`
 
 Using `aut` you can call `transferFrom` on an ERC20 token contract (e.g. Liquid Newton) account.
 
@@ -2236,19 +2227,16 @@ The method returns a boolean flag specifying whether the `transfer` was executed
 On a successful call the function emits:
 
 - a `Transfer` event, logging: `msg.sender`, `_recipient`, `amount`.
-- an `Approval` event, logging: `owner`, `spender`, `amount`.
 
 ### Usage
-
 
 ::: {.panel-tabset}
 ## aut
 
 ``` {.aut}
-aut token transfer-from [OPTIONS] SPENDER RECIPIENT AMOUNT
+aut token transfer-from [OPTIONS] SENDER RECIPIENT AMOUNT
 ```
 :::
-
 
 ### Example
 
@@ -2265,9 +2253,7 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
-
-To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the `--token` option:
-
+To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the contract address with the `--token` option:
 
 ::: {.panel-tabset}
 ## aut
@@ -2279,7 +2265,6 @@ Enter passphrase (or CTRL-d to exit):
 0x64a88723d7dd99e026029db531b6415e6e7a19fe131395059742065fcfe6575c
 ```
 :::
-
 
 
 ## unbond
@@ -2355,7 +2340,6 @@ On a successful call the function emits a `NewUnbondingRequest` event, logging: 
 aut validator unbond [OPTIONS] AMOUNT
 ```
 :::
-
 
 ### Example
 

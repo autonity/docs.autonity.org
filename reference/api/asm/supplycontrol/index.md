@@ -34,22 +34,22 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 availableSupply
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 availableSupply
 115792089237316195423570985008687907853269984665640564039457584007913129639935
+```
 :::
-
 
 
 ## stabilizer
@@ -68,23 +68,22 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 stabilizer
+```
 :::
-
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 stabilizer
 "0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f"
+```
 :::
-
 
 
 ## totalSupply
@@ -103,20 +102,19 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 totalSupply
+```
 :::
-
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 --abi SupplyControl.abi totalSupply
 115792089237316195423570985008687907853269984665640564039457584007913129639935
+```
 :::
-

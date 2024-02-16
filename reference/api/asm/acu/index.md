@@ -33,20 +33,21 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
 98410
+```
 :::
 
 
@@ -66,20 +67,21 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
 ["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "USD-USD", "SEK-USD"]
+```
 :::
 
 
@@ -99,19 +101,19 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
 [21300, 18700, 14300, 10400, 1760000, 18000, 141000]
+```
 :::
-

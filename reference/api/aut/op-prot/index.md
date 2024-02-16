@@ -34,24 +34,24 @@ On a successful call the function emits a `BurnedStake` event, logging: `_addr`,
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut protocol burn [OPTIONS] AMOUNT ACCOUNT
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut protocol burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3e86062cca9fa263acb7076f8287117e9ee2c5570e0f4e4bd2ff4db21895796e
+```
 :::
-
 
 
 ###  mint
@@ -79,24 +79,24 @@ On a successful call the function emits a `MintedStake` event, logging: `_addr`,
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut protocol mint [OPTIONS] AMOUNT RECIPIENT
+```
 :::
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut protocol mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xbd9e604372cc922c4594b0fce94919f933734e29b0043c5af3c4a7774ed99ad7
+```
 :::
-
 
 
 ###  mint (Supply Control Contract)
@@ -184,10 +184,12 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-accountability-contract [OPTIONS] CONTRACT-ADDRESS
+```
 :::
 
 
@@ -212,12 +214,13 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
-aut protocol set-acu-contract [OPTIONS] CONTRACT-ADDRESS
-:::
+## aut
 
+``` {.aut}
+aut protocol set-acu-contract [OPTIONS] CONTRACT-ADDRESS
+```
+:::
 
 
 ###  setCommitteeSize
@@ -238,24 +241,26 @@ The updated parameter can be retrieved from state by calling the [`getMaxCommitt
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
-aut protocol set-committee-size [OPTIONS] COMMITTEE_SIZE
-:::
+## aut
 
+``` {.aut}
+aut protocol set-committee-size [OPTIONS] COMMITTEE_SIZE
+```
+:::
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 $ aut protocol set-committee-size 50 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3dbe5afbb89267b1549f735d09ac3acd6a4894eccbab8dca125497806c8fdc2d
+```
 :::
-
 
 
 ###  setEpochPeriod
@@ -286,24 +291,26 @@ On a successful call the function emits an `EpochPeriodUpdated` event, logging: 
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
-aut protocol set-epoch-period [OPTIONS] EPOCH_PERIOD
-:::
+## aut
 
+``` {.aut}
+aut protocol set-epoch-period [OPTIONS] EPOCH_PERIOD
+```
+:::
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
-$ aut protocol set-epoch-period 1000 | aut tx sign - | aut tx send -
+## aut
+
+``` {.aut}
+aut protocol set-epoch-period 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xdf3b3eb316a3070a591621d8cc450ca6d1af3a6d57a0455714b5bff72eb06b92
+```
 :::
-
 
 
 ###  setLiquidationRatio (ASM Stabilization Contract)
@@ -419,25 +426,26 @@ On a successful call the function emits a `MinimumBaseFeeUpdated` event, logging
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-minimum-base-fee [OPTIONS] base-fee
+```
 :::
-
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-minimum-base-fee 50000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x4d1abc6881f63d7856b3b2d6f0b9865a4a9c2b1378dd824e36e9ac194fd8da52
+```
 :::
-
 
 
 ###  setOperatorAccount
@@ -465,25 +473,26 @@ The updated parameter can be retrieved from state by a call to the [`operatorAcc
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
+```
 :::
-
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xee513f48b4ad4cd24cfc5bb0fe0c1402a5e03ae030b6c73824bae253f56efd51
+```
 :::
-
 
 
 ###  setOracleContract
@@ -512,13 +521,13 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
+```
 :::
-
-
 
 
 ###  setStabilizationContract
@@ -541,13 +550,13 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS
+```
 :::
-
-
 
 
 ###  setSupplyControlContract
@@ -570,13 +579,13 @@ None.
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-supply-control-contract [OPTIONS] CONTRACT-ADDRESS
+```
 :::
-
-
 
 
 ### setSymbols (Oracle Contract)
@@ -608,22 +617,23 @@ On a successful call the function emits a `NewSymbols` event, logging: a string 
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut contract tx --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols '["_symbol"]' | aut tx sign - | aut tx send -
+```
 :::
-
-
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
-aut contract tx --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols '["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "NTN-ATN"]' | aut tx sign - | aut tx send -
-:::
+## aut
 
+``` {.aut}
+aut contract tx --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols '["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "NTN-ATN"]' | aut tx sign - | aut tx send -
+```
+:::
 
 
 ###  setTreasuryAccount
@@ -644,24 +654,26 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
-aut protocol set-treasury-account [OPTIONS] treasury-address
-:::
+## aut
 
+``` {.aut}
+aut protocol set-treasury-account [OPTIONS] treasury-address
+```
+:::
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
-$ aut protocol set-treasury-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+## aut
+
+``` {.aut}
+aut protocol set-treasury-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xffe8725f6988668700896f335ecb5db75bb48c9dfb7caef90acecef85d0a2520
+```
 :::
-
 
 
 ### setTreasuryFee
@@ -682,24 +694,26 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
-aut protocol set-treasury-fee [OPTIONS] TREASURY-FEE
-:::
+## aut
 
+``` {.aut}
+aut protocol set-treasury-fee [OPTIONS] TREASURY-FEE
+```
+:::
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+
+``` {.aut}
 aut protocol set-treasury-fee 100000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x513f36338720545a8f2c1111e0c2f4b5eebe9582e39493c6cd587ababe1e2e08
+```
 :::
-
 
 
 ###  setUnbondingPeriod
@@ -722,22 +736,25 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 
 #### Usage
 
-
 ::: {.panel-tabset}
-## bash
-aut protocol set-unbonding-period [OPTIONS] UNBONDING_PERIOD
-:::
+## aut
 
+``` {.aut}
+aut protocol set-unbonding-period [OPTIONS] UNBONDING_PERIOD
+```
+:::
 
 #### Example
 
-
 ::: {.panel-tabset}
-## bash
-$ aut protocol set-unbonding-period 1000 | aut tx sign - | aut tx send -
+## aut
+
+``` {.aut}
+aut protocol set-unbonding-period 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x1057bf2525ee910b393ea8d54d0ec9b362355e5dbeb14235ed5eba92750a4bdd
+```
 :::
 
 
@@ -1134,4 +1151,3 @@ None.
 #### Event
 
 On success the function emits an `Updated` event for the new ACU value, logging: `block.number`, `block.timestamp`, oracle voting round number `round`, and the ACU index value calculated `_value`.
-

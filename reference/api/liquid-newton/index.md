@@ -53,20 +53,21 @@ Queries the contract and returns the amount of locked Liquid Newton held by a st
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address lockedBalanceOf delegator
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313  lockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
 0
+```
 :::
 
 
@@ -88,19 +89,19 @@ Queries the contract and returns the amount of unlocked Liquid Newton held by a 
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address unlockedBalanceOf delegator
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 unlockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
 0
+```
 :::
-
