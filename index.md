@@ -14,7 +14,7 @@ Autonity networks are Byzantine fault-tolerant and secured by delegated Proof of
 Key technical features of the Autonity Protocol are:
 
 - Immediate transaction finality in a public environment where participant nodes can join the network dynamically without permission.
-- Delegated Proof of Stake consensus for committee selection and blockchain management, using the Tendermint BFT consensus algorithm.
+- Delegated Proof of Stake consensus for committee selection and blockchain management, using the [Tendermint BFT consensus algorithm](/concepts/consensus/pos/).
 - Native [protocol assets](/concepts/protocol-assets/) and [stabilization mechanism](/concepts/asm/): _Auton_ utility coin used in the transaction fee mechanism; _Newton_ staking coin for securing the network. Auton price stability is by a CDP-based stabilization mechanism, the [Auton Stabilization Mechanism (ASM)](/concepts/asm/); the stabilization target is the [Auton Currency Unit (ACU)](/concepts/asm/#acu), a base-invariant, volatility-minimized index.
 - [Liquid staking](/concepts/staking/#liquid-staking) for capital efficiency and a [Penalty-Absorbing Stake](/concepts/staking/#penalty-absorbing-stake-pas) model. [Delegated](/glossary/#delegated) _Newton_ stake yields transferrable _Liquid Newton_ tokens, which can be used to redeem the underlying _Newton_ by unbonding stake. [Self-bonded](/glossary/#self-bonded) stake by validator operators does not yield _Liquid Newton_ and is slashed before delegated stake to assure validator integrity and 'skin in the game'.
 - [Accountability and fault detection (AFD)](/concepts/accountability/): a protocol for detecting infractions of consensus rules by validators participating in block proposal and voting as a committee member. Failure to adhere to these rules is a rule infraction and AFD will detect and apply slashing penalties for proven rule infractions.
@@ -52,9 +52,9 @@ The actors of an Autonity network are:
 
 - [Node operators](/node-operators/): network peer nodes running the AGC client software, forming the backbone of the networks p2p infrastructure and shared system ledger. Nodes store an up-to-date copy of the system state and may be run as public rpc endpoints providing open access to an Autonity network.
 
-- [Validator nodes](/validators/): network nodes running the AGC client and AOS oracle server software forming the validation infrastructure proposing and maintaining system state, and the oracle network for computing median price data. Active validator nodes are candidates for selection to the network's consensus committee. The consensus committee is responsible for proposing and deciding on new blocks and computing oracle price data in voting rounds.
+- [Validator node operators](/validators/): network nodes running the AGC client and AOS oracle server software forming the validation infrastructure proposing and maintaining system state, and the oracle network for computing median price data. Active validator nodes are candidates for selection to the network's consensus committee. The consensus committee is responsible for proposing and deciding on new blocks and computing oracle price data in voting rounds.
 
-- [Stake delegators](/delegators/): account holders that have a _Newton_ stake token balance and delegate stake to one or more validators in order to secure the network. Stake holders receive _Liquid Newton_ for bonded stake.
+- [Stake delegators](/delegators/): account holders that have a _Newton_ stake token balance and delegate stake to one or more validators in order to secure the network. Stake holders receive _staking rewards_ for bonded stake.
 
 
 ## Key concepts

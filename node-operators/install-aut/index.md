@@ -14,6 +14,8 @@ The Autonity Go Client can be installed in several ways:
 
 We assume that the Autonity Go Client will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _local_ machine will be used for creating transactions and queries which are then sent to the Autonity Go Client on the _host_ via the RPC endpoint.
 
+It is recommended not run Autonity using Docker containers outside of a test environment.
+
 ::: {.callout-note title="Note" collapse="false"}
 Client source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity](https://github.com/autonity/autonity/).
 :::
@@ -37,7 +39,6 @@ To run an Autonity Go Client node, we recommend using a host machine (physical o
 A public-facing internet connection with static IP is required:
 
 * If you are using a cloud provider for node hosting, then a static IP address for your cloud space should be a stated hosting requirement. Cloud vendors typically don't supply a static IP address unless it is purchased explicitly.
-
 
 ::: {.callout-note title="Why is a static IP Address required?" collapse="false"}
 Running an Autonity node requires that you maintain a static ip address because the ip address forms part of the node's network address, the [enode URL](/glossary/#enode). The enode provides the network location of the node client for p2p networking. Changing the ip address will change the node's identity on the network, therefore. This is significant if you are operating a validator node as the enode is provided as part of the validator meta data when [registering a validator](/validators/register-vali/#step-3.-submit-the-registration-transaction).

@@ -27,7 +27,7 @@ Autonity extends Ethereum at three logical layers:
 	Autonity Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
 - Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
-- Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
+- Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of transaction and consensus information among validators and participant nodes b [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols).
 
 
 ## Protocol contracts
@@ -300,10 +300,10 @@ Committee selection is dynamic and stake-based, with a new committee elected for
 
 The consensus protocol makes use of:
 
-- The communication layer for consensus round messaging and consensus state synchronisation.
-- The Autonity Protocol Contract for committee selection logic.
+- The [communication layer](/concepts/architecture/#communication-layer) for consensus round messaging and consensus state synchronisation in a [dedicated consensus channel](/concepts/system-model/#p2p-networking-protocols).
+- The [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract) for [committee selection logic](/reference/api/aut/op-prot/#computecommittee).
 
-To learn more about the concept, see [consensus](/concepts/consensus/) and the [protocol parameters](/reference/protocol/) reference.
+To learn more about the concept, see [Consensus](/concepts/consensus/), [System model, Networking](/concepts/consensus/) and the [protocol parameters](/reference/protocol/) reference.
 
 ## Communication Layer
 
@@ -315,6 +315,6 @@ For transaction gossiping between nodes the Ethereum wire protocol is used for P
 
 For consensus gossiping a separate consensus protocol runs alongside the ethwire protocol for the execution of Autonity's BFT Tendermint Consensus algorithm. This channel is used for broadcast of message types for consensus and state synchronisation exchanged by committee members during Tendermint consensus rounds for block proposal, prevote, and pre-commit. Validator messages sent during consensus rounds are cryptographically signed (a 'seal') by validators using BLST cryptography. There are two types of seal: a *proposer seal*, seal of the committee member proposing the block, and a *committed seal*, an aggregated seal of the committee members that voted and agreed on the block. Seals are included in the [block header](/concepts/system-model/#block-header) as cryptographic proof of the validator quorum that agreed on the block.
 
-To learn more about the concept, see [Networking](/concepts/system-model/#networking) in the System model.
+To learn more about the separation of transaction and consensus gossiping traffic, see [System model, Networking](/concepts/system-model/#networking).
 
 For how bootnode provision works, see the How to [Run Autonity](/node-operators/run-aut/).
