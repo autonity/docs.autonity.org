@@ -289,6 +289,11 @@ The Autonity Stabilization Contract implements logic for a liquidator to:
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
 
+### Protocol contract upgrade
+
+Autonity protocol contracts are upgradable by governance calling the [`upgrade()`](/reference/api/aut/op-prot/#upgrade) function on the `upgradeManagerContract` to provide new contract bytecode and abi for a designated protocol contract address.
+
+Upgrade functions by replacing contract logic for a designated contract address. The contract address and replacement contract code is passed in as parameters to the `upgrade()` function call. The block [`finalize()`](/reference/api/aut/op-prot/#finalize) function checks if a contract upgrade is available. The protocol will then update the contract code of the autonity contract during the block finalization phase. Contract code is replaced in the EVM and existing contract state is maintained.
 
 ## Consensus layer
 

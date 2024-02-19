@@ -456,7 +456,8 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 - [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract)
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
-- [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
+- [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract)
+- [upgradeManagerContract](/concepts/architecture/#protocol-contract-upgrade).
 
 
 #### Parameters
@@ -758,6 +759,55 @@ Enter passphrase (or CTRL-d to exit):
 :::
 
 
+###  setUpgradeManagerContract
+
+Sets a new value for the [Upgrade Manager Contract](/concepts/architecture/#protocol-contract-upgrade) address.
+
+::: {.callout-note title="Note" collapse="false"}
+This is a development function only used for internal testing purposes. A value other than `0x3C368B86AF00565Df7a3897Cfa9195B9434A59f9` will break the upgrade function.
+:::
+
+     
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `UpgradeManager` | `_address` |  the ethereum formatted address of the Upgrade Manager Contract|
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+
+###  upgrade
+
+Provides new contract creation code for an Autonity Protocol Contract.
+
+The function calls an in-protocol EVM replace mechanism. The contract creation code is compiled and the new contract bytecode and abi appended to the contract storage buffer.
+
+::: {.callout-note title="Note" collapse="false"}
+The contract storage buffer length is checked during block finalization and if a contract upgrade is ready it is applied - see [`finalize()`](/reference/api/aut/op-prot/#finalize).
+:::
+  
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_target ` | `address` | the target contract address to be updated |
+| `_data` | `string` | the contract creation code |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
 
 ## Protocol only
 
@@ -886,7 +936,7 @@ None.
 | `committee`| `CommitteeMember[]` array | the consensus committee that approved the block, each `CommitteeMember` struct recording the validator's account address (`_addr`) and bonded stake amount (`votingPower`)|
 
 ::: {.callout-note title="Note" collapse="false"}
-If a contract upgrade is available, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.
+If an upgrade is available for a protocol contract, this is executed by the protocol at epoch finalisation. After an upgrade has been completed the new Autonity Protocol Contract version can be retrieved from state by calling the [`getVersion()`](/reference/api/aut/#getversion) method.
 :::
 
 #### Event
