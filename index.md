@@ -4,7 +4,7 @@
 
 ---
 
-![logo-autonity](/_assets/images/text-logo-autonity.svg)
+![](/_assets/images/text-logo-autonity.svg)
 
 Welcome to the documentation site for the Autonity Go Client (AGC) and Autonity Oracle Server (AOS). AGC is the main client software run by peer nodes in an Autonity network. AOS is the oracle software run by validator nodes to source price data from external data providers and submit price reports on-chain.
 

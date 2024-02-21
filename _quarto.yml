@@ -21,7 +21,19 @@ website:
     - section: "Overview"
     - section: "Concepts"
       contents:
-      - auto: "concepts/**"   
+      - "concepts/architecture/index.md"
+      - "concepts/system-model/index.md"
+      - "concepts/consensus/index.md"
+      - "concepts/client/index.md"
+      - "concepts/oracle-network/index.md"
+      - "concepts/oracle-server/index.md"
+      - "concepts/validator/index.md"
+      - "concepts/staking/index.md"
+      - "concepts/accountability/index.md"
+      - "concepts/asm/index.md"
+      - section: "Protocol Assets"
+        contents:
+        - auto: "concepts/protocol-assets/**"
     - section: "Networks"
       contents:
       - auto: "networks/**"
@@ -62,10 +74,17 @@ website:
       - "developer/custom-networks/index.md"
     - section: "Reference"
       contents:
-      - auto: rules
-      - auto: "reference/**"            
-    - "glossary/index.md"      
-    - "issues/index.md"      
+      - section: "Autonity Command-line"
+        contents:
+        - auto: "reference/cli/**"
+      - section: "Autonity Interfaces"
+        contents:
+        - auto: "reference/api/**"  
+      - "reference/codebase/index.md"
+      - "reference/genesis/index.md"
+      - "reference/protocol/index.md"
+    - "glossary/index.md"
+    - "issues/index.md"
    style: docked
    collapse-level: 2
   navbar:  
