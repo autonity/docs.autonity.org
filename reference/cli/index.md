@@ -3,6 +3,12 @@
 title: "Autonity Command-line"
 description: >
   Command-line options and facilities of the Autonity Go Client and Oracle Server
+listing:
+  type: table
+  fields: [title, description]
+  categories: false
+  filter-ui: false
+  sort-ui: false
 ---
 
 ## Command-line facilities
