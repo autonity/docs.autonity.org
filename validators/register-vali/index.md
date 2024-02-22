@@ -61,9 +61,13 @@ docker run -t -i --volume $PWD/keystore:/keystore --name autonity --rm ghcr.io/a
 ```
 
 ::: {.callout-note title="Note" collapse="false"}
-The `genOwnershipProof` command options `--autonitykeys` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument. The `autonitykeys` file is unencrypted. If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
+The `genOwnershipProof` command options `--autonitykeys` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument.
 
-Autonity's `ethkey` cmd utility can be used to inspect the keystore file and view the account address, public key, and private key after entering your account password:
+The `autonitykeys` file is unencrypted.
+
+If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
+
+Autonity's `ethkey` cmd utility can be used to inspect the oracle key file and view the account address, public key, and private key after entering your account password:
 
 ```
 ./build/bin/ethkey inspect --private <ORACLE_KEY_PATH>/oracle.key                   
@@ -152,14 +156,44 @@ Errors of the form
 Error: execution reverted: Invalid proof provided for registration
 ```
 indicate a mismatch between treasury address and either:
-<!--
+
 - the `from` address of the transaction generated in the `aut validator register` command, AND/OR
 
--->
+<!--
 - the `from` address of the transaction generated in the `aut contract tx` command, AND/OR
+-->
+
 - the key used in the `aut tx sign` command
 
 Check your configuration as described in the "Important Note" at the start of this section.
+
+::: {.callout-tip title="Verifying your ownership proof against your keys" collapse="false"}
+
+You can use Autonity's `ethkey` cmd utility to check there is no key mismatch between the account private keys you used to generate the ownership proof with the `genOwnershipProof` command, and the argument data you are providing in the validator registration transaction:
+
+```
+./build/bin/ethkey verifypop <TREASURY_ADDRESS> <ENODE_URL> <ORACLE_ADDRESS> <CONSENSUS_PUBLIC_KEY> <PROOF>                
+```
+The command `verifypop` will verify the ownership proof against the other argument data and print if the proof for registering a validator is valid or not. For the proof to be valid, node key, oracle key and consensus key must all return `true` and not `false`. For example:
+
+```
+===== POP Validation Results =====
+Node Key:       true
+Oracle Key:     true
+Consensus Key:  true
+```
+
+A `false` value indicates you have a key mismatch. For example, providing to `verifypop` an incorrect oracle address returns:
+
+```
+===== POP Validation Results =====
+Node Key:       true
+Oracle Key:     false
+Consensus Key:  true
+```
+
+This can be done as a pre-flight check before submitting the registration transaction to make sure you don't have a key mismatch.
+:::
 
 ### Step 4. Confirm registration
 

@@ -33,10 +33,10 @@ To connect to a network and sync, get the genesis and bootnode files if needed, 
 	- `<DIR_PATH>`: is the path to the directory where you will store the private key file of the node.
 	- `<OUT_KEY_FILE_NAME>`: is the name of the P2P autonity keys private key file you are generating for your node.
 
-	For example, running the command where the directory is `(pwd)/keystore` and the file name `myAutonityKeysFile`:
+	For example, running the command where the directory is `(pwd)/keystore` and the file name `autonitykeys`:
 
 	```bash
-	./autonity/build/bin/autonity genAutonityKeys --writeaddress ./keystore/myAutonityKeysFile
+	./autonity/build/bin/autonity genAutonityKeys --writeaddress ./keystore/autonitykeys
 	```
 
 	You should see something like this output to your terminal:
@@ -46,15 +46,21 @@ To connect to a network and sync, get the genesis and bootnode files if needed, 
 	Node public key: 0xee0f1195d19b422cd6fc69b060853b7c21094a84e66a225b549afafe7ba44996f85015d6a7f19d32e1e978db26db4083c8db8e153ddea6f1aa4c65608374c868
 	Consensus public key: 0x8aa83a28e235072ffdae48ff01ccc46e2b8d9dc16df9b6ff87ffa5ff6d8f90a2852649a60563237cd66a256f60a92e69
 	```
+	
+	Make a note of the output. If you intend to register your validator as a node, you will need to provide the `Consensus public key` as a validator registration parameter.
 
 ::: {.callout-important title="Important" collapse="false"}
 Remember to backup your `autonitykeys` file! Copy it to a safe location!
 :::
 
-::: {.callout-important title="Important" collapse="false"}
-Copy the output - you will need the output if you intend to register your validator as a node.
+::: {.callout-tip title="Tip" collapse="false"}
+Autonity’s `ethkey` cmd utility can be used to inspect the `autonitykeys` file and view the `Node address`, `Node public key`, and `Consensus public key`:
 
-It is *not* possible to inspect the keyfile to retrieve the `Consensus public key` which you MUST provide as part of the validator registration information.
+```
+./build/bin/ethkey autinspect <DIR_PATH>/autonitykeys                  
+```
+
+To install the cmd utilities use `make all` when [building Autonity from source code](/node-operators/install-aut/#install-source).
 :::
 
 
@@ -86,12 +92,10 @@ It is *not* possible to inspect the keyfile to retrieve the `Consensus public ke
    - (Optional) `<CONSENSUS_PORT_NUMBER>` specify the network listening port for the consensus channel if the default port "20203" is not to be used.
    - `--piccadilly` specifies that the node will connect to the Piccadilly testnet.  For other testnets, use the appropriate flag (for example, `--bakerloo`).
 
-::: {.callout-warning title="Warning!" collapse="false"}
-You *must* specify the `--autonitykeys` command option.
+::: {.callout-note title="Note" collapse="false"}
+If the `--autonitykeys` command option is *not* specified, then on starting AGC will automatically generate an `autonitykeys` file  by default within the `autonity` subfolder of the `--datadir` specified when running the node. 
 
-If it is *not* specified, then on starting AGC will automatically generate a standard Ethereum `nodekey` file  by default within the `autonity` subfolder of the `--datadir` specified when running the node. 
-
-AGC would then use that `nodekey` for the public key component of the enode, *not* your `autonitykeys` file.
+AGC would then use that `autonitykeys` for the public key component of the enode, *not* the `autonitykeys` file you generated.
 :::
 
 See the [Autonity command-line reference](/reference/cli) for the full set of available flags.
@@ -122,10 +126,10 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 
 	To generate, run the Autonity Go Client docker container with the `<DIR_PATH>` directory mapped to a host directory of the same name.
 
-	For example, running the command where the directory is `(pwd)/keystore` and the file name `myAutonityKeysFile`:
+	For example, running the command where the directory is `(pwd)/keystore` and the file name `autonitykeys`:
 
 	```bash
-	docker run -t -i --volume $PWD/keystore:/keystore --name autonity --rm ghcr.io/autonity/autonity:latest genAutonityKeys  --writeaddress /keystore/myAutonityKeysFile
+	docker run -t -i --volume $PWD/keystore:/keystore --name autonity --rm ghcr.io/autonity/autonity:latest genAutonityKeys  --writeaddress /keystore/autonitykeys
 	```
 
 	You should see something like this:
@@ -135,19 +139,22 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 	Node public key: 0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
 	Consensus public key: 0x90e54b54718c6d5e50d10b93743d743ebcec2f2a2fd43be6813dc5399e11a9bae891c0a357c8f3aa8ca411f9a526a03f
 	```
+	
+	Make a note of the output. If you intend to register your validator as a node, you will need to provide the `Consensus public key` as a validator registration parameter.
 
 ::: {.callout-important title="Important" collapse="false"}
 Remember to backup your `autonitykeys` file! Copy it to a safe location!
 :::
 
-::: {.callout-important title="Important" collapse="false"}
+::: {.callout-tip title="Tip" collapse="false"}
+Autonity’s `ethkey` cmd utility can be used to inspect the `autonitykeys` file and view the `Node address`, `Node public key`, and `Consensus public key`:
 
-Copy the output - you will need the output if you intend to register your validator as a node.
+```
+./build/bin/ethkey autinspect <DIR_PATH>/autonitykeys                  
+```
 
-It is *not* possible to inspect the keyfile to retrieve the `Consensus public key` which you MUST provide as part of the validator registration information.
-
+To install the cmd utilities use `make all` when [building Autonity from source code](/node-operators/install-aut/#install-source).
 :::
-
 
 4. Start the node. Set the Docker configuration and the arguments for connecting Autonity to a network.
 
@@ -190,12 +197,10 @@ It is *not* possible to inspect the keyfile to retrieve the `Consensus public ke
    - (Optional) `<CONSENSUS_PORT_NUMBER>` specify the network listening port for the consensus channel if the default port "20203" is not to be used.
    - `--piccadilly` specifies that the node will connect to the Piccadilly testnet.  For other testnets, use the appropriate flag (for example, `--bakerloo`).
 
-::: {.callout-warning title="Warning!" collapse="false"}
-You *must* specify the `--autonitykeys` command option.
+::: {.callout-note title="Note" collapse="false"}
+If the `--autonitykeys` command option is *not* specified, then on starting AGC will automatically generate an `autonitykeys` file  by default within the `autonity` subfolder of the `--datadir` specified when running the node. 
 
-If it is *not* specified, then on starting AGC will automatically generate a standard Ethereum `nodekey` file  by default within the `autonity` subfolder of the `--datadir` specified when running the node. 
-
-AGC would then use that `nodekey` for the public key component of the enode, *not* your `autonitykeys` file.
+AGC would then use that `autonitykeys` for the public key component of the enode, *not* the `autonitykeys` file you generated.
 :::
 
    See the [Autonity command-line reference](/reference/cli) for the full set of available flags.

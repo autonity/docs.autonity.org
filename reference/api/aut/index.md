@@ -1940,18 +1940,12 @@ On a successful call the function emits a `RegisteredValidator` event, logging: 
 
 ### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The `registerValidator` function is not currently supported by `aut` `v0.3.0` - see the `aut` GitHub issue "[`aut validator` commands `registerValidator` and `info` update for AGC v0.13.0 #146](https://github.com/autonity/aut/issues/146)" for detail.
-
-You can interact with the contract using the `aut contract tx` command as described in the note ["Protocol contract calls"](/reference/api/aut/) at the top of this page.
-:::
-
 ::: {.panel-tabset}
 
 ## aut
 
 ``` {.aut}
-aut contract tx --abi Autonity.abi --address  0xBd770416a3345F91E4B34576cb804a576fa48EB1 registerValidator  _enode _oracleAddress _consensusKey _signatures
+aut validator register [OPTIONS] ENODE ORACLE CONSENSUS_KEY PROOF
 ```
 :::
 
@@ -1962,7 +1956,7 @@ aut contract tx --abi Autonity.abi --address  0xBd770416a3345F91E4B34576cb804a57
 ## aut
 
 ``` {.aut}
-aut contract tx --abi Autonity.abi --address  0xBd770416a3345F91E4B34576cb804a576fa48EB1 --rpc-endpoint https://rpc1.piccadilly.autonity.org/ registerValidator  enode://02ad2d5ae371983f9aecadaee6fd300d3241b946d10c29ec59724ed6bcc41c05bedae9318fe566a2f2180be9783fd552f05a0d212a094304cdfbc8d87e70b0a3@86.182.102.239:30303 0xF75Cadcbf252708D7F030978929dD68d5046fbcA 0xade5aff4053f98691311a4a599c5c08215d0ad7213cfa58e001454e75f9272283fd4b782e2089ae8540a403cd08fcdd6  0x22a1410a98d63da7e738869836aa900e724a1090de4681cc9768bd1733581b23105ab1c328e2d14824bd0496009c34d3a4d7262d93091ab5bd989c1adc1c922c004d5dd78df2a47b15a5fb5ee11bfa6329b41a5c79f536a0d72030bd3b50233a9f184cf651b2c94b54210caf7e428fbc7178975258a209fd5098c6105d0a6e09d900a7ec9ff58bd9f7f0c19f4af28273ba3afb5dbd46394b1296a19da1ccd224165cbf19b978d6dfc981ae3eda21ceac63e6129217dac19283085860b57ee46a336ba618b082b5ebcddfb733c3af8591e7dfca05fa31d75deb68bac1973981f95e9b | aut tx sign - | aut tx send -
+aut validator register enode://c36481d70943dd046d8013f3d302cf0d2a17f5f5f3398cd47fbcb38edfe4e5b4207ea4e762ec52efb65f72bede5cd5a65e8380eaf0db9ef39a77cb6ec5694af9@11.19.111.18:30303 0xFe91928d58Af4AFbD78C96121k3147ef1f517072 0x978191bff952cd9614b36ff2cc57a47820204bc71b0131625964e6801c304836a7fa11a9c47ca2561cbfc71eb0b314ab 0xfc93396148320f466f10f25abd312ed15ef31f6b29e8924b6f0592e585580f873f807304a540a8a436d92aed969aef0148ca8a2884fc7ad56f1cffa50bb7aa9a01a5189e8d50880faf97ad42501375b216b89304c3fd4acf548a1d7fd7136e74771791422819134e2e3fbf720c35652d8c163e3d4f22c798a3c648958f7abcda2c00b1e8cd80be821c23d41d4ccb6587685960519375762e9ccd8a95ba3fbeb7d47955990b33af65db5155d3d79d498152760d83ab8c92a132e94aeb458f556ff7ef9d5b78b2544a47939ae71a01faf5172c25b5102bc7eed886ff105e91283b3916 | aut tx sign - | aut tx send -
 ```
 :::
 
