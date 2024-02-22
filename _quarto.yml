@@ -18,7 +18,7 @@ website:
   sidebar: 
    contents:
     - index.md
-    - section: "Overview"
+    - "overview/index.md"
     - section: "Concepts"
       contents:
       - "concepts/architecture/index.md"
