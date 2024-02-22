@@ -2,10 +2,7 @@ name: PR
 
 on:
   pull_request:
-    branches:
-      - master
-      - feature/sumida-upgrade
-
+  branches: [ master ]
 jobs:
   build:
     runs-on: ubuntu-latest
