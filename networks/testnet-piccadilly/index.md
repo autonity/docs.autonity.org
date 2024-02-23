@@ -21,7 +21,7 @@ Piccadilly is for participants interested in:
 |------|----------|
 |Network Name|`Autonity Piccadilly (Barada) Testnet`|
 |New RPC URL|`https://rpc1.piccadilly.autonity.org/`|
-|ChainID |`65100001`|
+|ChainID |`65100002`|
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
 
@@ -31,12 +31,12 @@ Piccadilly is for participants interested in:
 
 | Name                               | Piccadilly                    |
 | ---------------------------------- | ----------------------------- |
-| `chainId`                          | `65100001`                    |
+| `chainId`                          | `65100002`                    |
 | `gasLimit`                         | `30000000`(30M)               |
 | `config.autonity.blockPeriod`      | `1` second                    |
 | `config.autonity.epochPeriod`      | `1800`(30 min)                |
 | `config.autonity.unbondingPeriod`  | `21600`(6 hours)              |
-| `config.autonity.maxCommitteeSize` | `100`                         |
+| `config.autonity.maxCommitteeSize` | `9` (increases to `100` after genesis, then oscillates in range `34` - `100`) |
 | `config.autonity.delegationRate`   | `1000` (10%)                  |
 | `config.autonity.treasuryFee`      | `10000000000000000` (1%)      |
 | `config.autonity.minBaseFee`       | `500000000` (0.5 GWei)        |
@@ -51,10 +51,6 @@ Piccadilly is for participants interested in:
 | `config.oracle.symbols`       | `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "ATN-NTN"]`        |
 | `config.oracle.votePeriod`       | `30` (30 blocks)       |
 
-Note:
-
-- The client default setting for the `--miner.gaslimit` flag is set to `30000000` (30M), the EIP-1559 block gas limit of 30M per Ethereum upstream.
-
 
 ## Bootnodes
 
@@ -66,9 +62,9 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.12.2](https://github.com/autonity/autonity/releases/tag/v0.12.2)
+- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.13.0](https://github.com/autonity/autonity/releases/tag/v0.13.0)
 
-- The nodes are running this docker image release: `ghcr.io/autonity/autonity:latest`
+- The docker image release is: `ghcr.io/autonity/autonity:latest`
 
 ## Faucet
 
