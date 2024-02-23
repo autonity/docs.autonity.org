@@ -13,6 +13,19 @@ Usage:
 - Run `quarto preview` to serve the site in Quarto's local webserver
 - Review the [`_quarto.yml`](_quarto.yml) file and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details
 
+## Migrating from Hugo
+
+For best results, clone into a new directory. However, if you are unable to do that, Delete the following directories as they will conflict and prevent Quarto from building:
+
+``` env
+ - themes/     # contains docys shortcodes
+ - archetypes/ # contains docsy shortcodes
+ - layouts/    # contains Markup for docsy templating
+ - data/       # is empty and no longer required
+ - docs/       # holds the content in a format that works for Hugo (and not Quarto).
+ - content/    # holds the content in a format that works for Hugo (and not Quarto). 
+```
+
 ## Publication workflow
 
 The repo is configured to publish:
