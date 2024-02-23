@@ -119,7 +119,7 @@ Consensus public key: 0x90e54b54718c6d5e50d10b93743d743ebcec2f2a2fd43be6813dc539
 ```
 
 ::: {.callout-tip title="Tip" collapse="false"}
-Note that the `Node public key` value minus the leading `0x` market of the HEX string is the public key component of your enode url. You can verify you are using the correct `autonitykeys` file by checking the values correspond. If they don't, then you have an `autonitykeys`file mismatch. 
+Note that the `Node public key` value minus the leading `0x` marker of the HEX string is the public key component of your enode url. You can verify you are using the correct `autonitykeys` file by checking the values correspond. If they don't, then you have an `autonitykeys` file mismatch. 
 
 The validator address can also be computed from the enode string using `aut`:
 
