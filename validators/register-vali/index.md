@@ -63,7 +63,7 @@ docker run -t -i --volume $PWD/keystore:/keystore --name autonity --rm ghcr.io/a
 ::: {.callout-note title="Note" collapse="false"}
 The `genOwnershipProof` command options `--autonitykeys` and `--oraclekey` options require the raw (unencrypted) private key file is passed in as argument.
 
-The `autonitykeys` file is unencrypted.
+The `autonitykeys` file is generated unencrypted.
 
 If `aut` has been used to generate the oracle key, then the key has been created in encrypted file format using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/).
 
