@@ -12,6 +12,8 @@ AGC is a fork of [Geth <i class='fas fa-external-link-alt'></i>](https://geth.et
 
 This documentation describes key concepts and functionality of the Autonity protocol, main client, and oracle server. It explains how to use the software and connect to an Autonity network.
 
+Autonity is an EVM based public blockchain for decentralized derivatives clearing.
+
 ## Getting started
 
 ### Autonity protocol and platform
