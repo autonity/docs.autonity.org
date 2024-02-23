@@ -40,7 +40,7 @@ autonity genOwnershipProof --autonitykeys <AUTONITYKEYS_PATH> --oraclekey <ORACL
 
 where:
 
-  - `<AUTONITYKEYS_PATH>`: is the path to the private key file of the node's `autonitykeys` P2P node keys, specified when running the node. (For generating your `autonitykeys` file see the guide [Run Autonity](/node-operators/run-aut/).)
+  - `<AUTONITYKEYS_PATH>`: path of the file containing the node's `autonitykeys`. For generating your `autonitykeys` file see the guide [Run Autonity](/node-operators/run-aut/).
   - `<ORACLE_KEY_PATH>`: is the path to the private key file of the oracle server key. (For creating this key see the guide [Run Autonity Oracle Server](/oracle/run-oracle/).)
   - `<TREASURY_ACCOUNT_ADDRESS>`: is the account address you will use to operate the validator and receive commission revenue rewards to (i.e. the address you are using to submit the registration transaction from the local machine).
 
