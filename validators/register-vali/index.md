@@ -108,20 +108,7 @@ $ aut node info
 
 The url is returned in the `admin_enode` field.
 
-The [validator address](/concepts/validator/#validator-identifier) or [validator identifier](/concepts/validator/#validator-identifier) is derived from the validator [P2P node key](/concepts/validator/#p2p-node-key)'s public key.
-
-When you generated your `autonitykeys` file for the node, the validator address was printed to terminal as the `Node address` as shown in the guide [Run Autonity](/node-operators/run-aut/):
-
-```bash
-Node address: 0x550454352B8e1EAD5F27Cce108EF59439B18E249
-Node public key: 0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
-Consensus public key: 0x90e54b54718c6d5e50d10b93743d743ebcec2f2a2fd43be6813dc5399e11a9bae891c0a357c8f3aa8ca411f9a526a03f
-```
-
-::: {.callout-tip title="Tip" collapse="false"}
-Note that the `Node public key` value minus the leading `0x` marker of the HEX string is the public key component of your enode url. You can verify you are using the correct `autonitykeys` file by checking the values correspond. If they don't, then you have an `autonitykeys` file mismatch. 
-
-The validator address can also be computed from the enode string using `aut`:
+The validator address can now be computed from the enode string using `aut`:
 
 ```bash
 aut validator compute-address enode://cef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15@751.11.121.34:30303
@@ -129,22 +116,51 @@ aut validator compute-address enode://cef6334d0855b72dadaa923ceae532550ef68e0ac5
 ```bash
 0x550454352B8e1EAD5F27Cce108EF59439B18E249
 ```
+
+Make a note of the enode and validator address values.
+
+::: {.callout-note title="Note" collapse="false"}
+The [validator address](/concepts/validator/#validator-identifier) is a unique identifier for your validator node. Technically, it is the public key derived from the node's [P2P node key](/concepts/validator/#p2p-node-key)'s private key used for transaction gossiping.
 :::
 
-### Step 3. Submit the registration transaction
+### Step 3. Determine the validator consensus public key
+
+To get the consensus public key of your node, inspect the `autonitykeys` file of your node using Autonity's `ethkey` cmd utility and the ``autinspect` command:
+
+```bash
+./build/bin/ethkey autinspect <KEYFILE>
+```
+
+   where `<KEYFILE>` is the path to the `autonitykeys` file location. By default this is in the `autonity` subfolder of the `--datadir` specified when [running the node](/node-operators/run-aut/#run-binary).
+   
+   Make a note of the `Consensus Public Key` value returned.
+   
+   For example:
+   
+```bash
+./autonity/build/bin/ethkey autinspect ../autonity-chaindata/autonity/autonitykeys
+
+Node Address:           0x550454352B8e1EAD5F27Cce108EF59439B18E249
+Node Public Key:        0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
+Consensus Public Key:   0x1aa83a28e235072ffdae41fg01ccc46e2b8d9dc16df3b6ff87ffa5ff6d7f90a2852649a60563237cd66a256f60a92e71
+``` 
+
+
+### Step 4. Submit the registration transaction
 
 ::: {.callout-note title="Note" collapse="false"}
 The commands given in this step assume that your `.autrc` configuration file contains a `keyfile = <path>` entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above.  If this is not the case, use the `--keyfile` option in the `aut validator register` and `aut tx sign` command below, to ensure that the registration transaction is compatible with the proof.
 :::
 
 ```bash
-aut validator register <ENODE_URL> <ORACLE_ADDRESS> <PROOF> | aut tx sign - | aut tx send -
+aut validator register <ENODE> <ORACLE> <CONSENSUS_KEY> <PROOF> | aut tx sign - | aut tx send -
 ```
 
 where:
 
-- `<ENODE_URL>`: the enode url returned in Step 2.
-- `<ORACLE_ADDRESS>`: the oracle server account address.
+- `<ENODE>`: the node's enode url returned in Step 2.
+- `<ORACLE>`: the oracle server account address.
+- `<CONSENSUS_KEY>`: the node's consensus public key returned in Step 3.
 - `<PROOF>`: the proof of node ownership generated in Step 1.
 
 Once the transaction is finalized (use `aut tx wait <txid>` to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for [selection to the consensus committee](/concepts/validator/#eligibility-for-selection-to-consensus-committee) once stake has been bonded to it.
@@ -166,6 +182,8 @@ indicate a mismatch between treasury address and either:
 - the key used in the `aut tx sign` command
 
 Check your configuration as described in the "Important Note" at the start of this section.
+
+If you are still unable to register, verify there is not a mismatch in the treasury, oracle, enode, or consensus keys being used. You can do this using the `ethkey` utility for the verification steps beneath. 
 
 ::: {.callout-tip title="Verifying your ownership proof against your keys" collapse="false"}
 
@@ -195,7 +213,31 @@ Consensus Key:  true
 This can be done as a pre-flight check before submitting the registration transaction to make sure you don't have a key mismatch.
 :::
 
-### Step 4. Confirm registration
+::: {.callout-tip title="Verifying you are using the correct `autonitykeys` file" collapse="false"}
+
+You can use Autonity's `ethkey` cmd utility to check there is no key mismatch between the data you are providing in the registration transaction and the `autonitykeys` file of the node:
+
+```
+./build/bin/ethkey autinspect <KEYFILE>                
+```
+
+The command `autinspect` will return the `Node Address`, `Node Public Key` and `Consensus Public Key` of the node.
+
+Referring back to the output generated in Step 3:
+
+```
+Node Address:           0x550454352B8e1EAD5F27Cce108EF59439B18E249
+Node Public Key:        0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
+Consensus Public Key:   0x1aa83a28e235072ffdae41fg01ccc46e2b8d9dc16df3b6ff87ffa5ff6d7f90a2852649a60563237cd66a256f60a92e71
+```
+
+Note that (a) the `Node public key` value minus the leading `0x` marker of the HEX string is the public key component of your enode url, and, (b) the `Node Address` value is the validator identifier address returned in Step 2.
+
+You can verify you are using the correct `autonitykeys` file by checking the values correspond. If they don't, then you have an `autonitykeys` file mismatch.
+:::
+
+
+### Step 5. Confirm registration
 
 Confirm that the validator has been registered by checking that its identifier (noted in Step 2) appears in the validator list:
 ```bash
