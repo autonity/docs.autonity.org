@@ -27,7 +27,7 @@ Autonity extends Ethereum at three logical layers:
 	Autonity Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
 - Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
-- Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of transaction and consensus information among validators and participant nodes b [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols).
+- Communication layer: peer-to-peer networking is modified to enable the gossiping of transaction and consensus information among validators and participant nodes in separate channels.  See [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols).
 
 
 ## Protocol contracts
