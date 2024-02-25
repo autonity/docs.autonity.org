@@ -16,60 +16,17 @@ To connect to a network and sync, get the genesis and bootnode files if needed, 
 
 1. Create and enter a working directory for autonity.
 
-1. Create the autonity-chaindata directory to hold the autonity working data:
+2. Create the autonity-chaindata directory to hold the autonity working data:
 
 	```bash
     mkdir autonity-chaindata
     ```
 
-2. Generate the `autonitykeys` private key file for your node. This must be performed on the host machine running the Autonity Go Client, using the `autonity genAutonityKeys --writeaddress` command:
-
-	```bash
-	./autonity genAutonityKeys --writeaddress ./<DIR_PATH>/<OUT_KEY_FILE_NAME>
-	```
-
-	where:
-
-	- `<DIR_PATH>`: is the path to the directory where you will store the private key file of the node.
-	- `<OUT_KEY_FILE_NAME>`: is the name of the P2P autonity keys private key file you are generating for your node.
-
-	For example, running the command where the directory is `(pwd)/keystore` and the file name `autonitykeys`:
-
-	```bash
-	./autonity/build/bin/autonity genAutonityKeys --writeaddress ./keystore/autonitykeys
-	```
-
-	You should see something like this output to your terminal:
-
-	```bash
-	Node address: 0x0f083e047725bF1dFf3efe110430B98AAac55986
-	Node public key: 0xee0f1195d19b422cd6fc69b060853b7c21094a84e66a225b549afafe7ba44996f85015d6a7f19d32e1e978db26db4083c8db8e153ddea6f1aa4c65608374c868
-	Consensus public key: 0x8aa83a28e235072ffdae48ff01ccc46e2b8d9dc16df9b6ff87ffa5ff6d8f90a2852649a60563237cd66a256f60a92e69
-	```
-	
-	Make a note of the output. If you intend to register your validator as a node, you will need to provide the `Consensus public key` as a validator registration parameter.
-
-::: {.callout-important title="Important" collapse="false"}
-Remember to backup your `autonitykeys` file! Copy it to a safe location!
-:::
-
-::: {.callout-tip title="Tip" collapse="false"}
-Autonity’s `ethkey` cmd utility can be used to inspect the `autonitykeys` file and view the `Node address`, `Node public key`, and `Consensus public key`:
-
-```
-./build/bin/ethkey autinspect <DIR_PATH>/autonitykeys                  
-```
-
-To install the cmd utilities use `make all` when [building Autonity from source code](/node-operators/install-aut/#install-source).
-:::
-
-
-4. Start autonity:
+3. Start autonity:
 
     ``` bash
     autonity \
         --datadir ./autonity-chaindata \
-        --autonitykeys ./<PATH_TO_AUTONITYKEYS_FILE> \
         --piccadilly  \
         --http  \
         --http.addr 0.0.0.0 \
@@ -86,16 +43,17 @@ To install the cmd utilities use `make all` when [building Autonity from source 
 
    where:
 
-   - `<PATH_TO_AUTONITYKEYS_FILE>` is the path to the `autonitykeys` file generated in Step 2.
    - `<IP_ADDRESS>` is the node's host IP Address, which can be determined with `curl ifconfig.me`.
    - (Optional) `<CONSENSUS_NAT>` specify the NAT port mapping for the consensus channel (one of "any", "none", "upnp", "pmp", "extip:<IP>") if the default value "any" is not to be used.
    - (Optional) `<CONSENSUS_PORT_NUMBER>` specify the network listening port for the consensus channel if the default port "20203" is not to be used.
    - `--piccadilly` specifies that the node will connect to the Piccadilly testnet.  For other testnets, use the appropriate flag (for example, `--bakerloo`).
 
-::: {.callout-note title="Note" collapse="false"}
-If the `--autonitykeys` command option is *not* specified, then on starting AGC will automatically generate an `autonitykeys` file  by default within the `autonity` subfolder of the `--datadir` specified when running the node. 
+::: {.callout-note title="Default location for AGC's node and consensus private keys file  `autonitykeys`" collapse="false"}
+On starting, by default AGC will automatically generate an `autonitykeys` file containing your node key and consensus key within the `autonity` subfolder of the `--datadir` specified when running the node.
 
-AGC would then use that `autonitykeys` for the public key component of the enode, *not* the `autonitykeys` file you generated.
+The `autonitykeys` file contains the private keys of (a) the node key used for transaction gossiping with other network peer nodes, and (b) the consensus key used for consensus gossiping with other validators if your node is run as a validator and is participating in consensus.
+
+If you choose not to store your key in the default location, then specify the path to where you are keeping your `autonitykeys` file using the `--autonitykeys` option in the run command.
 :::
 
 See the [Autonity command-line reference](/reference/cli) for the full set of available flags.
@@ -113,56 +71,12 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 	```bash
     mkdir autonity-chaindata
     ```
-3. Generate the `autonitykeys` private key file for your node and write the key file to your key directory. This must be performed on the host machine running the Autonity Go Client, using the `autonity genAutonityKeys --writeaddress` command:
-
-	```bash
-	docker run -t -i --volume $PWD/<DIR_PATH>:/<DIR_PATH> --name autonity --rm ghcr.io/autonity/autonity:latest genAutonityKeys  --writeaddress /<DIR_PATH>/<OUT_KEY_FILE_NAME>
-	```
-
-	where:
-
-	- `<DIR_PATH>`: is the path to the directory where you will store the private key file of the node.
-	- `<OUT_KEY_FILE_NAME>`: is the name of the P2P autonity keys private key file you are generating for your node.
-
-	To generate, run the Autonity Go Client docker container with the `<DIR_PATH>` directory mapped to a host directory of the same name.
-
-	For example, running the command where the directory is `(pwd)/keystore` and the file name `autonitykeys`:
-
-	```bash
-	docker run -t -i --volume $PWD/keystore:/keystore --name autonity --rm ghcr.io/autonity/autonity:latest genAutonityKeys  --writeaddress /keystore/autonitykeys
-	```
-
-	You should see something like this:
-
-	```bash
-	Node address: 0x550454352B8e1EAD5F27Cce108EF59439B18E249
-	Node public key: 0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
-	Consensus public key: 0x90e54b54718c6d5e50d10b93743d743ebcec2f2a2fd43be6813dc5399e11a9bae891c0a357c8f3aa8ca411f9a526a03f
-	```
-	
-	Make a note of the output. If you intend to register your validator as a node, you will need to provide the `Consensus public key` as a validator registration parameter.
-
-::: {.callout-important title="Important" collapse="false"}
-Remember to backup your `autonitykeys` file! Copy it to a safe location!
-:::
-
-::: {.callout-tip title="Tip" collapse="false"}
-Autonity’s `ethkey` cmd utility can be used to inspect the `autonitykeys` file and view the `Node address`, `Node public key`, and `Consensus public key`:
-
-```
-./build/bin/ethkey autinspect <DIR_PATH>/autonitykeys                  
-```
-
-To install the cmd utilities use `make all` when [building Autonity from source code](/node-operators/install-aut/#install-source).
-:::
-
-4. Start the node. Set the Docker configuration and the arguments for connecting Autonity to a network.
+3. Start the node. Set the Docker configuration and the arguments for connecting Autonity to a network.
 
    ```bash
    docker run \
        -t -i \
        --volume $(pwd)/autonity-chaindata:/autonity-chaindata \
-       --volume $(pwd)/<DIR_PATH>:/<DIR_PATH>
        --publish 8545:8545 \
        --publish 8546:8546 \
        --publish 30303:30303 \
@@ -173,7 +87,6 @@ To install the cmd utilities use `make all` when [building Autonity from source 
        --rm \
        ghcr.io/autonity/autonity:latest \
            --datadir ./autonity-chaindata  \
-           --autonitykeys ./<DIR_PATH>/<AUTONITYKEYS_FILE_NAME> \
            --piccadilly \
            --http  \
            --http.addr 0.0.0.0 \
@@ -190,18 +103,10 @@ To install the cmd utilities use `make all` when [building Autonity from source 
 
    where:
    
-   - `<DIR_PATH>` is the path to the directory where you will store the `autonitykeys` private key file of the node.
-   - `<AUTONITYKEYS_FILE_NAME>` is the path to the `autonitykeys` file generated in Step 2.
    - `<IP_ADDRESS>` is the node's host IP Address, which can be determined with `curl ifconfig.me`.
    - (Optional) `<CONSENSUS_NAT>` specify the NAT port mapping for the consensus channel (one of "any", "none", "upnp", "pmp", "extip:<IP>") if the default value "any" is not to be used.
    - (Optional) `<CONSENSUS_PORT_NUMBER>` specify the network listening port for the consensus channel if the default port "20203" is not to be used.
    - `--piccadilly` specifies that the node will connect to the Piccadilly testnet.  For other testnets, use the appropriate flag (for example, `--bakerloo`).
-
-::: {.callout-note title="Note" collapse="false"}
-If the `--autonitykeys` command option is *not* specified, then on starting AGC will automatically generate an `autonitykeys` file  by default within the `autonity` subfolder of the `--datadir` specified when running the node. 
-
-AGC would then use that `autonitykeys` for the public key component of the enode, *not* the `autonitykeys` file you generated.
-:::
 
    See the [Autonity command-line reference](/reference/cli) for the full set of available flags.
 
@@ -210,8 +115,6 @@ AGC would then use that `autonitykeys` for the public key component of the enode
 - The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
 - The hosts `autonity-chaindata` directory is mounted in the container (via the `--volume` option).  All working data will be saved in this directory and therefore persisted even when the temporary container is removed.
 - The same `autonity-chaindata` directory can thereby be used by both a local binary and the docker image (although not at the same time), allowing administrators to switch between run methods at any time.
-- The hosts `<DIR_PATH>` directory for the `autonitykeys`is mounted in the container (via the `--volume` option).  The private key will be saved in this directory and therefore persisted even when the temporary container is removed.
-
 - The `--publish` flag causes incoming connections to the localhost to be forwarded to the container.
 :::
 
@@ -220,7 +123,6 @@ Naturally, the above command line can be tailored to suit a specific deployment.
 ## Stopping the Autonity Go Client
 
 To shutdown the node, press `CTRL-C` and wait for it to exit.
-
 
 ::: {.callout-warning title="Warning!" collapse="false"}
 You *must* wait for the node to exit successfully.  Terminating the process prematurely may risk corruption of the state store (LevelDB).
