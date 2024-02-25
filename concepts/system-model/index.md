@@ -48,7 +48,7 @@ Transaction calls execute against local state and are not broadcast to the netwo
 :::
 
 ### P2P networking protocols
-P2P networking protocols are based on Ethereum devp2p, RLPx as transport to an ethereum wire protocol (eth66). Peer to peer gossiping is separated into two channels: ethereum wire protocol for _transaction_ gossiping, and a dedicated consensus channel for _consensus_ gossiping during Tendermint BFT consensus rounds. These run  on different TCP ports, defaults of `30303` and `20203` respectively.
+Peer to peer gossiping is separated into two channels: ethereum wire protocol for _transaction_ gossiping, and a dedicated consensus channel for _consensus_ gossiping during Tendermint BFT consensus rounds. These run  on different TCP ports, defaults of `30303` and `20203` respectively.
 
 ### Separate channels for transaction and consensus gossiping
 Gossiping separation improves network scalability and robustness as consensus is shielded from transaction volume growth, whilst the separation of concerns allows each gossiping channel to be managed independently (e.g. socket buffering). For example, a validator node operator can setup their IP and port configuration to prioritise a robust network for the consensus channel.
