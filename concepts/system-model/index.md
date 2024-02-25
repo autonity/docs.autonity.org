@@ -64,7 +64,7 @@ The standard Ethereum [enode URL](https://ethereum.org/en/developers/docs/networ
 
 Autonity simply uses the standard URL scheme to specify the consensus channel `ip:port` in the query parameter:
 
-- (optionally) `acn=ip:port`: IP and port information for the consensus channel is added as the query parameter or after the `discport` value if specified.
+- (optionally) `acn=ip:port`: IP and port information for the consensus channel is added as a query parameter.
 
 Valid enode url query parameter forms for specifying non-default consensus channel `ip:port` could be:
 
