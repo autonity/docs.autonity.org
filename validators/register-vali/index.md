@@ -12,9 +12,10 @@ To register a validator you need:
 
   - TCP, UDP `30303` for node p2p (DEVp2p) communication for transaction gossiping.
   - TCP `20203` for node p2p (DEVp2p) communication for consensus gossiping.
-  - TCP `8546` for WebSocket RPC connections to the node by your oracle server.
-  
-  This will be the node to be registered as a validator.
+
+::: {.callout-note title="Note" collapse="false"}
+The oracle server providing price data to your validator node must be able to establish a WebSocket RPC connection to your node on TCP port `8546`. If you are running your oracle server on a different host to your AGC, then you will need to allow incoming traffic on that TCP port.
+:::
 
 - A [running instance of the Autonity Oracle Server](/oracle/) running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your validator node's WebSocket port.
 - A configured instance of [`aut`](/account-holders/setup-aut/).
