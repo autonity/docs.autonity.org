@@ -63,6 +63,12 @@ It is assumed that most administrators will want to restrict access to these por
 
 The description here covers only the basic network setup. Especially in a production setting, administrators should consider further security measures based on their situation.
 
+::: {.callout-warning title="Security of your node installation" collapse="false"}
+As a software system publicly accessible over the Internet, your node installation must be adequately secured!
+
+Standard best practices for securing software allowing incoming traffic from the Internet are assumed. For example, firewalls and the configuration of reverse proxies, as well as additional steps required by your own best practices and security policies, are assumed.
+:::
+
 ## Installing the pre-compiled executable {#install-binary}
 
 ::: {.callout-note title="Note" collapse="false"}
