@@ -80,7 +80,7 @@ Separate transaction and consensus gossiping channels is a logical and physical 
 
 The design allows validator node operators the flexibility to configure distinct networks (not necessarily different hosts) to set the network quality for consensus and transaction traffic.
 
-Ideally, operators should opt for a higher-bandwidth and a network with a higher reliability guarantee for consensus traffic.
+Ideally, operators should opt for a higher-bandwidth network for transactions and a network with a higher reliability guarantee for consensus traffic.
 :::
  
 ## System state
