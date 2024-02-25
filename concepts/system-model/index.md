@@ -58,7 +58,7 @@ Autonity implements [Tendermint BFT consensus](/concepts/consensus/pos/) as an i
 The standard Ethereum [enode URL](https://ethereum.org/en/developers/docs/networking-layer/network-addresses#enode) is composed of:
 
 - protocol (or scheme): the enode URL scheme `enode://`
-- username: the node ID, the public key of the node's private key (`autonitykeys`), a hex string
+- username: the node ID, the public key of the node's `autonitykeys`, a hex string
 - hostname: the IP address and TCP listening port of the node, i,e. the ethereum wire protocol, separated from the username by an `@`: `ip:port`
 - (optionally) query parameter `?discport`: the UDP (discovery) port if different to the TCP port
 
