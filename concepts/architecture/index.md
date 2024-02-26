@@ -295,6 +295,12 @@ Autonity protocol contracts are upgradable by governance calling the [`upgrade()
 
 Upgrade functions by replacing contract logic for a designated contract address. The contract address and replacement contract code is passed in as parameters to the `upgrade()` function call. The block [`finalize()`](/reference/api/aut/op-prot/#finalize) function checks if a contract upgrade is available. The protocol will then update the contract code of the autonity contract during the block finalization phase. Contract code is replaced in the EVM and existing contract state is maintained.
 
+Upgrade functions by replacing contract logic for a designated contract address. The contract address and replacement contract code is passed in as parameters to the `upgrade()` function call. The upgrade is immediate. As soon as the `upgrade()`transaction is executed contract code is replaced in the EVM; the existing contract state is maintained.
+
+<!--
+The block [`finalize()`](/reference/api/aut/op-prot/#finalize) function checks if a contract upgrade is available. The protocol will then update the contract code of the autonity contract during the block finalization phase. Contract code is replaced in the EVM and existing contract state is maintained.
+-->
+
 ## Consensus layer
 
 The append of new blocks to the ledger with immediate finality is managed by the Proof-of-Stake based Tendermint BFT consensus mechanism. It enables dynamic committee selection and maximises stake securing the system by a stake-weighted algorithm for committee selection.
