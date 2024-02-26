@@ -428,18 +428,18 @@ Interface for interacting with Autonity Liquid Newton Contract using wrapper fun
 
 Datatypes are [Solidity v0.8.3 Types](https://docs.soliditylang.org/en/v0.8.3/types.html#).
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 Examples use the setup described in the How to's:
 
 - [Submit a transaction from Autonity NodeJS Console](/account-holders/submit-trans-nodejsconsole/)
 - [Claim Staking Rewards](/delegators/claim-rewards/)
 - [Transfer Liquid Newton](/delegators/transfer-lntn/).
-{{/pageinfo}}
+:::
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 - `unclaimedRewards()`: returns the total amount of rewards available and pending retrieval
 - `claimRewards()`: claims the sender's pending rewards.
-{{/pageinfo}}
+:::
 
 ## `vals` _Print validator information_
 

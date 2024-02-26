@@ -1,11 +1,8 @@
-name: PR
+name: Quarto build checker
 
 on:
   pull_request:
-    branches:
-      - master
-      - feature/sumida-upgrade
-
+  branches: [ test/gh-ci ]
 jobs:
   build:
     runs-on: ubuntu-latest

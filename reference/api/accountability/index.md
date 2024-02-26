@@ -6,13 +6,13 @@ Interface for interacting with Autonity Accountability Contract functions using:
 
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 
-{{pageinfo}}
+::: {.callout-note title="Protocol contract calls" collapse="false"}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
 
 Usage and Examples illustrate using the Accountability Contract's generated ABI and the `aut` tool's `contract` command to call the Accountability Contract address `0x5a443704dd4B594B382c22a083e2BD3090A6feF3`. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Accountability.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Accountability.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
-{{/pageinfo}}
+:::
 
 
 ## canAccuse
@@ -51,7 +51,10 @@ Accusations do not automatically cause slashing. The _innocence proof window_ is
 <!--
 
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
+
+```
 :::
 
 -->
@@ -64,7 +67,10 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 <!--
 
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
+
+```
 :::
 
 -->
@@ -102,7 +108,10 @@ The method returns a `boolean` flag specifying whether the reported infraction i
 <!--
 
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
+
+```
 :::
 
 -->
@@ -116,61 +125,13 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 <!--
 
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
+
+```
 :::
 
 -->
-
-::: {.callout-note title="Note" collapse="false"}
-To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-:::
-
-
-## canSlash
-
-Called by a reporting validator to determine if the infraction of a protocol rule by a designated offending validator has a severity higher than any rule infraction committed by the offending validator in the current epoch.
-
-Returns true if the severity of the reported rule infraction is higher than that of any already reported.
-
-::: {.callout-note title="Note" collapse="false"}
-Protocol only applies an accountability slashing for the fault with the highest severity committed in an epoch.
-
-If the severity of the rule infraction reported is higher than any infraction faults committed by the offending validator in the current epoch, then it can lead to a slashing until a rule infraction with a higher severity is reported.
-:::
-
-### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_offender` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the offending validator |
-| `_rule` | `Rule` | enumerated value providing the ID for the protocol rule |
-| `_block` | `uint256` | block number at which the rule infraction occurred |
-
-### Response
-
-Returns an `Event` object of type `Accusation` consisting of:
-
-| Field | Datatype | Description |
-| --| --| --|
-| `chunks` | `uint8` | counter of number of chunks in the event (for oversize accountability event) |
-| `chunkId` | `uint8` | chunk index to construct the oversize accountability event |
-| `eventType` | `EventType` | accountability event type: `Accusation` |
-| `rule` | `Rule` | the identifier of the accountability Rule defined in the Accountability Fault Detector (AFD) rule engine. |
-| `reporter` | `address` | the node address of the validator that reported this accountability event |
-| `offender` | `address` | the node address of the validator accused of the accountability event. |
-| `rawProof` | `bytes` | the rlp encoded bytes of the accountability proof object |
-| `block ` | `uint256` | block number at which the accountability event occurred |
-| `epoch` | `uint256` | identifier of the epoch in which the accountability event occurred |
-| `reportingBlock` | `uint256` | block number at which the accountability event was reported |
-| `messageHash` | `uint256` | hash of the main evidence for the accountability event |
-
-### Usage
-
-::: {.callout-note title="Note" collapse="false"}
-To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-:::
-
-### Example
 
 ::: {.callout-note title="Note" collapse="false"}
 To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
@@ -210,7 +171,10 @@ Returns an `Event` object of type `Accusation` consisting of:
 <!--
 
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
+
+```
 :::
 
 -->
@@ -223,7 +187,10 @@ To add - see Issue [Accountability Contract Interface: add Usage and Examples to
 <!--
 
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
+
+```
 :::
 
 -->
@@ -261,17 +228,19 @@ Returns an array of `Event` object(s) of type `FaultProof` consisting of:
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
-aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults _val:::
-
+## aut
+``` {.aut}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults _val
+```
+:::
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults 0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C
-[]:::
-
+[]
+```
+:::

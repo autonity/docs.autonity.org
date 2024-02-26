@@ -27,7 +27,7 @@ Autonity extends Ethereum at three logical layers:
 	Autonity Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
 - Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
-- Communication layer: peer-to-peer networking in the **communication layer** is extended with new block and consensus messaging propagation primitives, to enable the gossiping of information among validators and participant nodes.
+- Communication layer: peer-to-peer networking is modified to enable the gossiping of transaction and consensus information among validators and participant nodes in separate channels.  See [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols).
 
 
 ## Protocol contracts
@@ -289,6 +289,17 @@ The Autonity Stabilization Contract implements logic for a liquidator to:
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
 
+### Protocol contract upgrade
+
+Autonity protocol contracts are upgradable by governance calling the [`upgrade()`](/reference/api/aut/op-prot/#upgrade) function on the `upgradeManagerContract` to provide new contract bytecode and abi for a designated protocol contract address.
+
+Upgrade functions by replacing contract logic for a designated contract address. The contract address and replacement contract code is passed in as parameters to the `upgrade()` function call. The block [`finalize()`](/reference/api/aut/op-prot/#finalize) function checks if a contract upgrade is available. The protocol will then update the contract code of the autonity contract during the block finalization phase. Contract code is replaced in the EVM and existing contract state is maintained.
+
+Upgrade functions by replacing contract logic for a designated contract address. The contract address and replacement contract code is passed in as parameters to the `upgrade()` function call. The upgrade is immediate. As soon as the `upgrade()`transaction is executed contract code is replaced in the EVM; the existing contract state is maintained.
+
+<!--
+The block [`finalize()`](/reference/api/aut/op-prot/#finalize) function checks if a contract upgrade is available. The protocol will then update the contract code of the autonity contract during the block finalization phase. Contract code is replaced in the EVM and existing contract state is maintained.
+-->
 
 ## Consensus layer
 
@@ -300,23 +311,21 @@ Committee selection is dynamic and stake-based, with a new committee elected for
 
 The consensus protocol makes use of:
 
-- The communication layer for consensus round messaging and consensus state synchronisation.
-- The Autonity Protocol Contract for committee selection logic.
+- The [communication layer](/concepts/architecture/#communication-layer) for consensus round messaging and consensus state synchronisation in a [dedicated consensus channel](/concepts/system-model/#p2p-networking-protocols).
+- The [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract) for [committee selection logic](/reference/api/aut/op-prot/#computecommittee).
 
-To learn more about the concept, see [consensus](/concepts/consensus/) and the [protocol parameters](/reference/protocol/) reference.
+To learn more about the concept, see [Consensus](/concepts/consensus/), [System model, Networking](/concepts/consensus/) and the [protocol parameters](/reference/protocol/) reference.
 
 ## Communication Layer
 
 Autonity uses a [fully connected network topology](/glossary/#mesh-network) with peer-to-peer communication based on Ethereum [devp2p](https://github.com/ethereum/devp2p) network protocols RLPx and wire protocol.
 
-Each participant maintains a current record of peers in the network, updated as new participants join or leave the system. Participants establish an authenticated connection with one another over TCP by the RLPx transport protocol. At the application-level, Autonity extends the Ethereum wire protocol for message broadcast to:
+At the P2P level, Autonity separates transaction and consensus traffic on to separate channels on different TCP ports.
 
-- Add message types for consensus and state synchronisation exchanged by committee members during Tendermint consensus rounds for block proposal, prevote, and pre-commit.
-- Generate cryptographically signed 'seals' for validator messages sent during consensus rounds. Seals are included in the [block header](/concepts/system-model/#block-header) as cryptographic proof of the validator quorum that agreed on the block. There are two types of seal:
-    - A proposer seal, seal of the committee member proposing the block
-    - A committed seal, an aggregated seal of the committee members that voted and agreed on the block
-- Provide reliable broadcast logic and duplicate message send prevention under an [eventually synchronous model](/concepts/system-model/#networking) to guarantee the liveness property of consensus messaging in the wire protocol.
+For transaction gossiping between nodes the Ethereum wire protocol is used for P2P propagation of block announcements and transactions. Each participant maintains a current record of peers in the network, updated as new participants join or leave the system. Participants establish an authenticated connection with one another over TCP by the RLPx transport protocol. For detail, see the Concept description [System model, Networking](/concepts/system-model/#networking). 
 
-To learn more about the concept, see [Networking](/concepts/system-model/#networking) in the System model.
+For consensus gossiping a separate consensus protocol runs alongside the ethwire protocol for the execution of Autonity's BFT Tendermint Consensus algorithm. This channel is used by committee members to broadcast consensus messages during Tendermint consensus rounds (propose, prevote and precommit). Validator messages sent during consensus rounds are cryptographically signed (sealed). A subset of these signatures are saved in the [block header](/concepts/system-model/#block-header) as cryptographic proof of the validator quorum that agreed on the block: the *proposer seal*, seal of the committee member proposing the block, and the *committed seals*, set of seals from the committee members that voted and agreed on the block.
+
+To learn more about the separation of transaction and consensus gossiping traffic, see [System model, Networking](/concepts/system-model/#networking).
 
 For how bootnode provision works, see the How to [Run Autonity](/node-operators/run-aut/).

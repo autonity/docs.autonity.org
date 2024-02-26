@@ -11,17 +11,17 @@ The address of the Liquid Newton contract for a given validator can be determine
 
 Liquid Newton tokens implement the ERC20 interface, and so all ERC20 calls are implemented.  The following public methods are also available for handling the reward distribution and querying Liquid Newton balances.
 
-{{pageinfo}}
+::: {.callout-note title="Protocol contract calls" collapse="false"}
 Autonity implements a 'pull-based' model for staking rewards where delegators must manually retrieve their rewards.
-{{/pageinfo}}
+:::
 
-{{pageinfo}}
+::: {.callout-note title="Protocol contract calls" collapse="false"}
 Some Usage and Examples illustrate using the Liquid Newton  Contracts' generated ABI and the `aut` tool's `contract` command to call the Liquid Newton Contract functions. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The contract `.abi` files are generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Liquid.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 
 You will need to specify the validator's Liquid Newton contract address. This can be retrieved using the `aut` command `aut validator info` - for usage see Autonity Contract Interface and [`getValidator()`](/reference/api/aut/#getvalidator).
-{{/pageinfo}}
+:::
 
 ## unclaimedRewards
 
@@ -53,20 +53,21 @@ Queries the contract and returns the amount of locked Liquid Newton held by a st
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address lockedBalanceOf delegator
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313  lockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
 0
+```
 :::
 
 
@@ -88,19 +89,19 @@ Queries the contract and returns the amount of unlocked Liquid Newton held by a 
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address unlockedBalanceOf delegator
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 unlockedBalanceOf 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
 0
+```
 :::
-

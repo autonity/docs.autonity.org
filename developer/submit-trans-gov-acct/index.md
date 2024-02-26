@@ -6,9 +6,9 @@ description: >
 draft: false
 ---
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 Governance functions are only callable from the governance operator account of an Autonity network. See the Autonity Interfaces Reference section [Operator only](/reference/api/aut/op-prot/#operator-only) for the listing of governance API methods.
-{{/pageinfo}}
+:::
 
 ## Prerequisites
 

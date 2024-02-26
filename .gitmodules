@@ -1,6 +1,0 @@
-[submodule "themes/docsy"]
-	path = themes/docsy
-	url = https://github.com/google/docsy.git
-[submodule "themes/plausible-hugo"]
-	path = themes/plausible-hugo
-	url = https://github.com/divinerites/plausible-hugo.git

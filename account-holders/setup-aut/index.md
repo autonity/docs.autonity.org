@@ -9,7 +9,7 @@ For full details and to report any issues, see the [`aut` repository](https://gi
 
 ## Installation {#install}
 
-::: {.callout-note title="State of the Games" collapse="false"}>}}
+::: {.callout-note title="Prerequisites" collapse="false"}
 A working Python install with the `pip` tool is required.
 :::
 
@@ -71,9 +71,9 @@ aut node info
 The output above may vary depending on the version of the Autonity Go Client you are connected to.
 :::
 
-{{pageinfo}}
+::: {.callout-note title="Info" collapse="false"}
 Now that you have a working `aut` installation, you can  [create](/account-holders/create-acct/) and [fund](/account-holders/fund-acct/) and account on the network, and then [create and submit a transaction](/account-holders/submit-trans-aut/).
-{{/pageinfo}}
+:::
 
 ------------------------------------------------
 

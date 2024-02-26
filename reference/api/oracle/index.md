@@ -8,13 +8,13 @@ Interface for interacting with Autonity Oracle Contract functions using:
 
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 
-{{pageinfo}}
+::: {.callout-note title="Protocol contract calls" collapse="false"}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
 
 Usage and Examples illustrate using the Oracle Contract's generated ABI and the `aut` tool's `contract` command to call the Oracle Contract address `0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D`. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Oracle.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Oracle.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
-{{/pageinfo}}
+:::
 
 
 ## getPrecision
@@ -29,7 +29,6 @@ The precision is the multiplier applied to price data points before aggregation 
 For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the L2 aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
 :::
 
-
 ### Parameters
 
 None.
@@ -42,22 +41,22 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecision
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecision
 10000000
+```
 :::
-
 
 
 ## getRound
@@ -76,22 +75,22 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRound
 1809
+```
 :::
-
 
 
 ## getRoundData
@@ -118,25 +117,24 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
 :::
 
-
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData _round _symbol
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "SEK-USD"
 {"round": 1809, "price": 899334, "timestamp": 1694668219, "status": 0}
+```
 :::
-
 
 
 ## getSymbols
@@ -160,25 +158,24 @@ None.
 | --| --| --|
 | `symbols` | `string` array | a comma-separated list of the currency pair symbols for which price reports are generated |
 
-
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbols
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbols
 ["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD"]
+```
 :::
-
 
 
 ## getVotePeriod
@@ -199,22 +196,22 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
 30
+```
 :::
-
 
 
 ## getVoters
@@ -233,25 +230,24 @@ None.
 | --| --| --|
 | `address` | `address` array | a comma-separated list of the oracle addresses for the current Oracle Voter set |
 
-
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters   
 ["0xf8D8c4818Fd21B4be57a0ACD619fdD88ec7A858c", "0xd4d2874450a21f1Bf5E1C12260773d8716b526B8", "0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03"]
+```
 :::
-
 
 
 ## latestRoundData
@@ -286,19 +282,19 @@ This can easily be converted to a human-readable form, for example:
 
 ### Usage
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData _symbol
+```
 :::
-
 
 ### Example
 
-
 ::: {.panel-tabset}
-## bash
+## aut
+``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK-USD"
 {"round": 47631, "price": 963459, "timestamp": 1688390007, "status": 0}
+```
 :::
-

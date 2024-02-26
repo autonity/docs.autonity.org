@@ -5,7 +5,7 @@ description: >
   Tendermint BFT in Autonity
 ---
 
-Autonity manages blockchain state machine replication by the deterministic Tendermint [Byzantine-fault tolerant](/glossary/#byzantine-fault-tolerance-bft) consensus algorithm.
+Autonity manages blockchain state machine replication by the deterministic Tendermint [Byzantine-fault tolerant](/glossary/#byzantine-fault-tolerance-bft) consensus algorithm. Autonity implements Tendermint BFT consensus as an independent consensus protocol running alongside the ethereum wire protocol at the [P2P Networking level](/concepts/system-model/#p2p-networking-protocols) of the [communication layer](/concepts/architecture/#communication-layer).
 
 Tendermint is Proof-of-Stake (PoS) based and provides state machine replication by a repeated consensus model where each new block is proposed and agreed by a sequential consensus instance proposed and agreed by consensus committee members.
 

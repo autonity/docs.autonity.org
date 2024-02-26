@@ -35,8 +35,6 @@ A committee member participates in Tendermint Consensus instances, voting for an
 
 An Autonity system has a full [mesh network](/glossary/#mesh-network) topology. Each participant is connected to every other participant by a direct TCP/IP connection. This gives a reliable and _eventually synchronous_ channel for message broadcast between peers.
 
-P2P networking protocols are Ethereum [devp2p](https://github.com/ethereum/devp2p), RLPx as transport to an ethereum wire protocol (eth66) modified to add messages for Tendermint BFT consensus rounds.
- 
 _Eventual synchrony_ is a model described by a Global Stabilisation Time (GST) and a _Delta_ time. If a message is sent by a participant at time _t, then the message is received by time _max{t,GST} + Delta_, _Delta > 0_ and unknown by all the participants. Client logic verifies if a received message has been sent to a participant before forwarding, preventing duplicate message sends. The Tendermint algorithm assumes that at _GST + Delta_, all the consensus messages sent at GST should have been received by committee members.
 
 The principal message primitives of the networking communication layer are:
@@ -49,6 +47,42 @@ The principal message primitives of the networking communication layer are:
 Transaction calls execute against local state and are not broadcast to the network, per standard Ethereum.
 :::
 
+### P2P networking protocols
+Peer to peer gossiping is separated into two channels: ethereum wire protocol for _transaction_ gossiping, and a dedicated consensus channel for _consensus_ gossiping during Tendermint BFT consensus rounds. These run  on different TCP ports, defaults of `30303` and `20203` respectively.
+
+### Separate channels for transaction and consensus gossiping
+Gossiping separation improves network scalability and robustness as consensus is shielded from transaction volume growth, whilst the separation of concerns allows each gossiping channel to be managed independently (e.g. socket buffering). For example, a validator node operator can setup their IP and port configuration to prioritise a robust network for the consensus channel.
+
+Autonity implements [Tendermint BFT consensus](/concepts/consensus/pos/) as an independent consensus protocol running alongside the ethereum wire protocol. Logically, this can be considered as a separate Autonity Consensus Network (ACN) layer. By default, the consensus protocol is configured to use port `20203` and assumes the IP to be the same as the Ethereum wire protocol IP. If a validator wishes to use a different IP and/or port combination for the consensus network, they can specify this information in the enode URL
+
+The standard Ethereum [enode URL](https://ethereum.org/en/developers/docs/networking-layer/network-addresses#enode) is composed of:
+
+- protocol (or scheme): the enode URL scheme `enode://`
+- username: the node ID, the public key of the node's `autonitykeys`, a hex string
+- hostname: the IP address and TCP listening port of the node, i,e. the ethereum wire protocol, separated from the username by an `@`: `ip:port`
+- (optionally) query parameter `?discport`: the UDP (discovery) port if different to the TCP port
+
+Autonity simply uses the standard URL scheme to specify the consensus channel `ip:port` in the query parameter:
+
+- (optionally) `acn=ip:port`: IP and port information for the consensus channel is added as a query parameter.
+
+Valid enode url query parameter forms for specifying non-default consensus channel `ip:port` could be:
+
+- `...@127.0.0.1:30303?acn=127.0.0.1:20203`: ip and port
+- `...@127.0.0.1:30303?discport=30301&acn=127.0.0.1:20203`: ip and port
+- `...@127.0.0.1:30303?acn=127.0.0.1`: ip only
+- `...@127.0.0.1:30303?discport=30301&acn=127.0.0.1`: ip only
+- `...@127.0.0.1:30303?acn=:20203`: port only
+- `...@127.0.0.1:30303?discport=30301&acn=:20203`: port only
+
+::: {.callout-note title="Note" collapse="false"}
+Separate transaction and consensus gossiping channels is a logical and physical segregation as each type of traffic is on a separate socket. Although CPU and memory resources remain shared, the design ensures that gossiping of consensus traffic is not delayed due to transaction traffic on the same socket queue.
+
+The design allows validator node operators the flexibility to configure distinct networks (not necessarily different hosts) to set the network quality for consensus and transaction traffic.
+
+Ideally, operators should opt for a higher-bandwidth network for transactions and a network with a higher reliability guarantee for consensus traffic.
+:::
+ 
 ## System state
 
 Autonity inherits Ethereum's state model, ledger trie structures, and transaction state machine. Per Ethereum the state of the system incrementally evolves from genesis state as blocks are decided and appended to the ledger, each individual transaction forming a valid arc between state transitions to an account. The world (or global) state of the system comprises the mapping between accounts and their states, recorded in the distributed ledger maintained by participants. Per Ethereum, a participant can compute the current world state of each account on the system at any time by using the ledger and EVM, and applying in order the sequence of transactions from genesis block to current block height.
