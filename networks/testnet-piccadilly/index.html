@@ -676,7 +676,7 @@
     </tr>
     <tr class="odd">
     <td>ChainID</td>
-    <td><code>65100001</code></td>
+    <td><code>65100002</code></td>
     </tr>
     <tr class="even">
     <td>Symbol</td>
@@ -706,7 +706,7 @@
     <tbody>
     <tr class="odd">
     <td><code>chainId</code></td>
-    <td><code>65100001</code></td>
+    <td><code>65100002</code></td>
     </tr>
     <tr class="even">
     <td><code>gasLimit</code></td>
@@ -726,7 +726,7 @@
     </tr>
     <tr class="even">
     <td><code>config.autonity.maxCommitteeSize</code></td>
-    <td><code>100</code></td>
+    <td><code>9</code> (increases to <code>100</code> after genesis, then oscillates in range <code>34</code> - <code>100</code>)</td>
     </tr>
     <tr class="odd">
     <td><code>config.autonity.delegationRate</code></td>
@@ -782,10 +782,6 @@
     </tr>
     </tbody>
     </table>
-    <p>Note:</p>
-    <ul>
-    <li>The client default setting for the <code>--miner.gaslimit</code> flag is set to <code>30000000</code>&nbsp;(30M), the EIP-1559 block gas limit of 30M per Ethereum upstream.</li>
-    </ul>
     </section>
     <section id="bootnodes" class="level2">
     <h2 class="anchored" data-anchor-id="bootnodes">Bootnodes</h2>
@@ -799,8 +795,8 @@
     <section id="release" class="level2">
     <h2 class="anchored" data-anchor-id="release">Release</h2>
     <ul>
-    <li><p>The current iteration of the Piccadilly network is built using this Autonity Release: <a href="https://github.com/autonity/autonity/releases/tag/v0.12.2">v0.12.2</a></p></li>
-    <li><p>The nodes are running this docker image release: <code>ghcr.io/autonity/autonity:latest</code></p></li>
+    <li><p>The current iteration of the Piccadilly network is built using this Autonity Release: <a href="https://github.com/autonity/autonity/releases/tag/v0.13.0">v0.13.0</a></p></li>
+    <li><p>The docker image release is: <code>ghcr.io/autonity/autonity:latest</code></p></li>
     </ul>
     </section>
     <section id="faucet" class="level2">

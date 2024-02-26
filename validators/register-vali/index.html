@@ -650,8 +650,9 @@
           <ul class="collapse">
           <li><a href="#step-1.-generate-a-cryptographic-proof-of-node-ownership" id="toc-step-1.-generate-a-cryptographic-proof-of-node-ownership" class="nav-link" data-scroll-target="#step-1.-generate-a-cryptographic-proof-of-node-ownership">Step 1. Generate a cryptographic proof of node ownership</a></li>
           <li><a href="#step-2.-determine-the-validator-enode-and-address" id="toc-step-2.-determine-the-validator-enode-and-address" class="nav-link" data-scroll-target="#step-2.-determine-the-validator-enode-and-address">Step 2. Determine the validator enode and address</a></li>
-          <li><a href="#step-3.-submit-the-registration-transaction" id="toc-step-3.-submit-the-registration-transaction" class="nav-link" data-scroll-target="#step-3.-submit-the-registration-transaction">Step 3. Submit the registration transaction</a></li>
-          <li><a href="#step-4.-confirm-registration" id="toc-step-4.-confirm-registration" class="nav-link" data-scroll-target="#step-4.-confirm-registration">Step 4. Confirm registration</a></li>
+          <li><a href="#step-3.-determine-the-validator-consensus-public-key" id="toc-step-3.-determine-the-validator-consensus-public-key" class="nav-link" data-scroll-target="#step-3.-determine-the-validator-consensus-public-key">Step 3. Determine the validator consensus public key</a></li>
+          <li><a href="#step-4.-submit-the-registration-transaction" id="toc-step-4.-submit-the-registration-transaction" class="nav-link" data-scroll-target="#step-4.-submit-the-registration-transaction">Step 4. Submit the registration transaction</a></li>
+          <li><a href="#step-5.-confirm-registration" id="toc-step-5.-confirm-registration" class="nav-link" data-scroll-target="#step-5.-confirm-registration">Step 5. Confirm registration</a></li>
           </ul></li>
           </ul>
         </nav>
@@ -689,12 +690,7 @@
     <ul>
     <li>TCP, UDP <code>30303</code> for node p2p (DEVp2p) communication for transaction gossiping.</li>
     <li>TCP <code>20203</code> for node p2p (DEVp2p) communication for consensus gossiping.</li>
-    <li>TCP <code>8546</code> for WebSocket RPC connections to the node by your oracle server.</li>
-    </ul>
-    <p>This will be the node to be registered as a validator.</p></li>
-    <li><p>A <a href="../../oracle/">running instance of the Autonity Oracle Server</a> running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your validator node’s WebSocket port.</p></li>
-    <li><p>A configured instance of <a href="../../account-holders/setup-aut/"><code>aut</code></a>.</p></li>
-    <li><p>An <a href="../../account-holders//create-acct/">account</a> that has been <a href="../../account-holders/fund-acct/">funded</a> with auton (to pay for transaction gas costs). Note that this account will become the validator’s <a href="../../concepts/validator/#treasury-account"><code>treasury account</code></a> - the account used to manage the validator, that will also receive the validator’s share of staking rewards.</p></li>
+    </ul></li>
     </ul>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
     <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
@@ -707,6 +703,27 @@
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
     <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>The oracle server providing price data to your validator node must be able to establish a WebSocket RPC connection to your node on TCP port <code>8546</code>. If you are running your oracle server on a different host to your AGC, then you will need to allow incoming traffic on that TCP port.</p>
+    </div>
+    </div>
+    </div>
+    <ul>
+    <li>A <a href="../../oracle/">running instance of the Autonity Oracle Server</a> running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your validator node’s WebSocket port.</li>
+    <li>A configured instance of <a href="../../account-holders/setup-aut/"><code>aut</code></a>.</li>
+    <li>An <a href="../../account-holders//create-acct/">account</a> that has been <a href="../../account-holders/fund-acct/">funded</a> with auton (to pay for transaction gas costs). Note that this account will become the validator’s <a href="../../concepts/validator/#treasury-account"><code>treasury account</code></a> - the account used to manage the validator, that will also receive the validator’s share of staking rewards.</li>
+    </ul>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>See the <a href="../../concepts/validator/">Validator</a> section for an explanation of the validator, a description of the <a href="../../concepts/validator/#validator-lifecycle">validator lifecycle</a>, and a description of the <a href="../../concepts/validator/#post-genesis-registration">post-genesis registration</a> process.</p>
     <p>See the <a href="../../concepts/system-model/#networking">System model, Networking</a> section for an explanation of node p2p (DEVp2p) communication for transaction and consensus gossiping.</p>
@@ -723,7 +740,7 @@
     <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity</span> genOwnershipProof <span class="at">--autonitykeys</span> <span class="op">&lt;</span>AUTONITYKEYS_PATH<span class="op">&gt;</span> --oraclekey <span class="op">&lt;</span>ORACLE_KEY_PATH<span class="op">&gt;</span> <span class="op">&lt;</span>TREASURY_ACCOUNT_ADDRESS<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <p>where:</p>
     <ul>
-    <li><code>&lt;AUTONITYKEYS_PATH&gt;</code>: is the path to the private key file of the node’s <code>autonitykeys</code> P2P node keys, specified when running the node. (For generating your <code>autonitykeys</code> file see the guide <a href="../../node-operators/run-aut/">Run Autonity</a>.)</li>
+    <li><code>&lt;AUTONITYKEYS_PATH&gt;</code>: path of the file containing the node’s <code>autonitykeys</code>. For generating your <code>autonitykeys</code> file see the guide <a href="../../node-operators/run-aut/">Run Autonity</a>.</li>
     <li><code>&lt;ORACLE_KEY_PATH&gt;</code>: is the path to the private key file of the oracle server key. (For creating this key see the guide <a href="../../oracle/run-oracle/">Run Autonity Oracle Server</a>.)</li>
     <li><code>&lt;TREASURY_ACCOUNT_ADDRESS&gt;</code>: is the account address you will use to operate the validator and receive commission revenue rewards to (i.e.&nbsp;the address you are using to submit the registration transaction from the local machine).</li>
     </ul>
@@ -735,7 +752,7 @@
     <p>If you are running the Autonity Go Client in a docker container, setup as described in the guide <a href="../../node-operators/run-aut#run-docker">Run Autonity as a Docker Image</a>, the proof can be generated as follows. In this example the keys are mounted in a volume simply named <code>keystore</code>:</p>
     <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-t</span> <span class="at">-i</span> <span class="at">--volume</span> <span class="va">$PWD</span>/keystore:/keystore <span class="at">--name</span> autonity <span class="at">--rm</span> ghcr.io/autonity/autonity:latest genOwnershipProof <span class="at">--autonitykeys</span> /<span class="op">&lt;</span>AUTONITYKEYS_PATH<span class="op">&gt;</span> --oraclekey /<span class="op">&lt;</span>ORACLE_KEY_PATH<span class="op">&gt;</span> <span class="op">&lt;</span>TREASURY_ACCOUNT_ADDRESS<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -744,10 +761,10 @@
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>The <code>genOwnershipProof</code> command options <code>--autonitykeys</code> and <code>--oraclekey</code> options require the raw (unencrypted) private key file is passed in as argument.</p>
-    <p>The <code>autonitykeys</code> file is unencrypted.</p>
+    <p>The <code>autonitykeys</code> file is generated unencrypted.</p>
     <p>If <code>aut</code> has been used to generate the oracle key, then the key has been created in encrypted file format using the <a href="https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/">Web3 Secret Storage Definition</a>.</p>
     <p>Autonity’s <code>ethkey</code> cmd utility can be used to inspect the oracle key file and view the account address, public key, and private key after entering your account password:</p>
     <pre><code>./build/bin/ethkey inspect --private &lt;ORACLE_KEY_PATH&gt;/oracle.key                   
@@ -780,33 +797,10 @@ Password: </code></pre>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">"admin_id"</span><span class="ex">:</span> <span class="st">"f8d35fa6019628963668e868a9f070101236476fe077f4a058c0c22e81b8a6c9"</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <p>The url is returned in the <code>admin_enode</code> field.</p>
-    <p>The <a href="../../concepts/validator/#validator-identifier">validator address</a> or <a href="../../concepts/validator/#validator-identifier">validator identifier</a> is derived from the validator <a href="../../concepts/validator/#p2p-node-key">P2P node key</a>’s public key.</p>
-    <p>When you generated your <code>autonitykeys</code> file for the node, the validator address was printed to terminal as the <code>Node address</code> as shown in the guide <a href="../../node-operators/run-aut/">Run Autonity</a>:</p>
-    <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Node</span> address: 0x550454352B8e1EAD5F27Cce108EF59439B18E249</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Node</span> public key: 0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Consensus</span> public key: 0x90e54b54718c6d5e50d10b93743d743ebcec2f2a2fd43be6813dc5399e11a9bae891c0a357c8f3aa8ca411f9a526a03f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <div class="callout callout-style-default callout-tip callout-titled" title="Tip">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-    <div class="callout-icon-container">
-    <i class="callout-icon"></i>
-    </div>
-    <div class="callout-title-container flex-fill">
-    Tip
-    </div>
-    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-    </div>
-    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-    <div class="callout-body-container callout-body">
-    <p>Note that the <code>Node public key</code> value minus the leading <code>0x</code> market of the HEX string is the public key component of your enode url. You can verify you are using the correct <code>autonitykeys</code> file by checking the values correspond. If they don’t, then you have an <code>autonitykeys</code>file mismatch.</p>
-    <p>The validator address can also be computed from the enode string using <code>aut</code>:</p>
-    <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> validator compute-address enode://cef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15@751.11.121.34:30303</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">0x550454352B8e1EAD5F27Cce108EF59439B18E249</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    </div>
-    </div>
-    </div>
-    </section>
-    <section id="step-3.-submit-the-registration-transaction" class="level3">
-    <h3 class="anchored" data-anchor-id="step-3.-submit-the-registration-transaction">Step 3. Submit the registration transaction</h3>
+    <p>The validator address can now be computed from the enode string using <code>aut</code>:</p>
+    <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> validator compute-address enode://cef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15@751.11.121.34:30303</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">0x550454352B8e1EAD5F27Cce108EF59439B18E249</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>Make a note of the enode and validator address values.</p>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
     <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
@@ -819,22 +813,55 @@ Password: </code></pre>
     </div>
     <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
+    <p>The <a href="../../concepts/validator/#validator-identifier">validator address</a> is a unique identifier for your validator node. Technically, it is the public key derived from the node’s <a href="../../concepts/validator/#p2p-node-key">P2P node key</a>’s private key used for transaction gossiping.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section id="step-3.-determine-the-validator-consensus-public-key" class="level3">
+    <h3 class="anchored" data-anchor-id="step-3.-determine-the-validator-consensus-public-key">Step 3. Determine the validator consensus public key</h3>
+    <p>To get the consensus public key of your node, inspect the <code>autonitykeys</code> file of your node using Autonity’s <code>ethkey</code> cmd utility and the `<code>autinspect</code> command:</p>
+    <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./build/bin/ethkey</span> autinspect <span class="op">&lt;</span>KEYFILE<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>where <code>&lt;KEYFILE&gt;</code> is the path to the <code>autonitykeys</code> file location. By default this is in the <code>autonity</code> subfolder of the <code>--datadir</code> specified when <a href="../../node-operators/run-aut/#run-binary">running the node</a>.</p>
+    <p>Make a note of the <code>Consensus Public Key</code> value returned.</p>
+    <p>For example:</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./autonity/build/bin/ethkey</span> autinspect ../autonity-chaindata/autonity/autonitykeys</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Node</span> Address:           0x550454352B8e1EAD5F27Cce108EF59439B18E249</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Node</span> Public Key:        0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Consensus</span> Public Key:   0x1aa83a28e235072ffdae41fg01ccc46e2b8d9dc16df3b6ff87ffa5ff6d7f90a2852649a60563237cd66a256f60a92e71</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    </section>
+    <section id="step-4.-submit-the-registration-transaction" class="level3">
+    <h3 class="anchored" data-anchor-id="step-4.-submit-the-registration-transaction">Step 4. Submit the registration transaction</h3>
+    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Note
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
     <p>The commands given in this step assume that your <code>.autrc</code> configuration file contains a <code>keyfile = &lt;path&gt;</code> entry pointing to the keyfile for the treasury account used to generate the proof of node ownership above. If this is not the case, use the <code>--keyfile</code> option in the <code>aut validator register</code> and <code>aut tx sign</code> command below, to ensure that the registration transaction is compatible with the proof.</p>
     </div>
     </div>
     </div>
-    <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> validator register <span class="op">&lt;</span>ENODE_URL<span class="op">&gt;</span> <span class="op">&lt;</span>ORACLE_ADDRESS<span class="op">&gt;</span> <span class="op">&lt;</span>PROOF<span class="op">&gt;</span> <span class="kw">|</span> <span class="ex">aut</span> tx sign <span class="at">-</span> <span class="kw">|</span> <span class="ex">aut</span> tx send <span class="at">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> validator register <span class="op">&lt;</span>ENODE<span class="op">&gt;</span> <span class="op">&lt;</span>ORACLE<span class="op">&gt;</span> <span class="op">&lt;</span>CONSENSUS_KEY<span class="op">&gt;</span> <span class="op">&lt;</span>PROOF<span class="op">&gt;</span> <span class="kw">|</span> <span class="ex">aut</span> tx sign <span class="at">-</span> <span class="kw">|</span> <span class="ex">aut</span> tx send <span class="at">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <p>where:</p>
     <ul>
-    <li><code>&lt;ENODE_URL&gt;</code>: the enode url returned in Step 2.</li>
-    <li><code>&lt;ORACLE_ADDRESS&gt;</code>: the oracle server account address.</li>
+    <li><code>&lt;ENODE&gt;</code>: the node’s enode url returned in Step 2.</li>
+    <li><code>&lt;ORACLE&gt;</code>: the oracle server account address.</li>
+    <li><code>&lt;CONSENSUS_KEY&gt;</code>: the node’s consensus public key returned in Step 3.</li>
     <li><code>&lt;PROOF&gt;</code>: the proof of node ownership generated in Step 1.</li>
     </ul>
     <p>Once the transaction is finalized (use <code>aut tx wait &lt;txid&gt;</code> to wait for it to be included in a block and return the status), the node is registered as a validator in the active state. It will become eligible for <a href="../../concepts/validator/#eligibility-for-selection-to-consensus-committee">selection to the consensus committee</a> once stake has been bonded to it.</p>
     <section id="troubleshooting" class="level4">
     <h4 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h4>
     <p>Errors of the form</p>
-    <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Error:</span> execution reverted: Invalid proof provided for registration</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Error:</span> execution reverted: Invalid proof provided for registration</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <p>indicate a mismatch between treasury address and either:</p>
     <ul>
     <li>the <code>from</code> address of the transaction generated in the <code>aut validator register</code> command, AND/OR</li>
@@ -846,8 +873,9 @@ Password: </code></pre>
     <li>the key used in the <code>aut tx sign</code> command</li>
     </ul>
     <p>Check your configuration as described in the “Important Note” at the start of this section.</p>
+    <p>If you are still unable to register, verify there is not a mismatch in the treasury, oracle, enode, or consensus keys being used. You can do this using the <code>ethkey</code> utility for the verification steps beneath.</p>
     <div class="callout callout-style-default callout-tip callout-titled" title="Verifying your ownership proof against your keys">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -856,7 +884,7 @@ Password: </code></pre>
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+    <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>You can use Autonity’s <code>ethkey</code> cmd utility to check there is no key mismatch between the account private keys you used to generate the ownership proof with the <code>genOwnershipProof</code> command, and the argument data you are providing in the validator registration transaction:</p>
     <pre><code>./build/bin/ethkey verifypop &lt;TREASURY_ADDRESS&gt; &lt;ENODE_URL&gt; &lt;ORACLE_ADDRESS&gt; &lt;CONSENSUS_PUBLIC_KEY&gt; &lt;PROOF&gt;                </code></pre>
@@ -874,22 +902,46 @@ Consensus Key:  true</code></pre>
     </div>
     </div>
     </div>
+    <div class="callout callout-style-default callout-tip callout-titled" title="Verifying you are using the correct `autonitykeys` file">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-icon-container">
+    <i class="callout-icon"></i>
+    </div>
+    <div class="callout-title-container flex-fill">
+    Verifying you are using the correct <code>autonitykeys</code> file
+    </div>
+    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+    </div>
+    <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+    <div class="callout-body-container callout-body">
+    <p>You can use Autonity’s <code>ethkey</code> cmd utility to check there is no key mismatch between the data you are providing in the registration transaction and the <code>autonitykeys</code> file of the node:</p>
+    <pre><code>./build/bin/ethkey autinspect &lt;KEYFILE&gt;                </code></pre>
+    <p>The command <code>autinspect</code> will return the <code>Node Address</code>, <code>Node Public Key</code> and <code>Consensus Public Key</code> of the node.</p>
+    <p>Referring back to the output generated in Step 3:</p>
+    <pre><code>Node Address:           0x550454352B8e1EAD5F27Cce108EF59439B18E249
+Node Public Key:        0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
+Consensus Public Key:   0x1aa83a28e235072ffdae41fg01ccc46e2b8d9dc16df3b6ff87ffa5ff6d7f90a2852649a60563237cd66a256f60a92e71</code></pre>
+    <p>Note that (a) the <code>Node public key</code> value minus the leading <code>0x</code> marker of the HEX string is the public key component of your enode url, and, (b) the <code>Node Address</code> value is the validator identifier address returned in Step 2.</p>
+    <p>You can verify you are using the correct <code>autonitykeys</code> file by checking the values correspond. If they don’t, then you have an <code>autonitykeys</code> file mismatch.</p>
+    </div>
+    </div>
+    </div>
     </section>
     </section>
-    <section id="step-4.-confirm-registration" class="level3">
-    <h3 class="anchored" data-anchor-id="step-4.-confirm-registration">Step 4. Confirm registration</h3>
+    <section id="step-5.-confirm-registration" class="level3">
+    <h3 class="anchored" data-anchor-id="step-5.-confirm-registration">Step 5. Confirm registration</h3>
     <p>Confirm that the validator has been registered by checking that its identifier (noted in Step 2) appears in the validator list:</p>
-    <div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> validator list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">0x32F3493Ef14c28419a98Ff20dE8A033cf9e6aB97</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">0x31870f96212787D181B3B2771F58AF2BeD0019Aa</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">0xE03D1DE3A2Fb5FEc85041655F218f18c9d4dac55</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">0x52b89AFA0D1dEe274bb5e4395eE102AaFbF372EA</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">0x550454352B8e1EAD5F27Cce108EF59439B18E249</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> validator list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">0x32F3493Ef14c28419a98Ff20dE8A033cf9e6aB97</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">0x31870f96212787D181B3B2771F58AF2BeD0019Aa</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">0xE03D1DE3A2Fb5FEc85041655F218f18c9d4dac55</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">0x52b89AFA0D1dEe274bb5e4395eE102AaFbF372EA</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">0x550454352B8e1EAD5F27Cce108EF59439B18E249</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <p>Confirm the validator details using:</p>
-    <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> validator info <span class="at">--validator</span> 0x550454352B8e1EAD5F27Cce108EF59439B18E249</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> validator info <span class="at">--validator</span> 0x550454352B8e1EAD5F27Cce108EF59439B18E249</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <p>and check that the information is as expected for your validator.</p>
     <div class="callout callout-style-default callout-note callout-titled" title="Bond stake to your validator">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -898,7 +950,7 @@ Consensus Key:  true</code></pre>
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+    <div id="callout-8" class="callout-8-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>To self-bond stake to your validator node, submit a bond transaction from the account used to submit the registration transaction - i.e.&nbsp;the validator’s treasury account address. For how to do this see the how to <a href="../../delegators/bond-stake/">Bond stake</a>.</p>
     </div>

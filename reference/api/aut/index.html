@@ -934,23 +934,6 @@
     </div>
     </div>
     </div>
-    <div class="callout callout-style-default callout-note callout-titled" title="Protocol contract calls">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-    <div class="callout-icon-container">
-    <i class="callout-icon"></i>
-    </div>
-    <div class="callout-title-container flex-fill">
-    Protocol contract calls
-    </div>
-    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-    </div>
-    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-    <div class="callout-body-container callout-body">
-    <p>Some Usage and Examples illustrate using the Autonity Protocol Contract’s generated ABI and the <code>aut</code> tool’s <code>contract</code> command to submit transactions to the Autonity Protocol Contract address <code>0xBd770416a3345F91E4B34576cb804a576fa48EB1</code>. See <code>aut contract tx --help</code>.</p>
-    <p>Usage and Examples assume the path to the ABI file has been set in <code>aut</code>’s configuration file <code>.autrc</code>. The contract <code>.abi</code> files are generated when building the client from source and can be found in your <code>autonity</code> installation directory at <code>./params/generated/Autonity.abi</code>. Alternatively, you can generate the ABI using the <code>abigen</code> <code>cmd</code> utility if you built from source (See <a href="../../../node-operators/install-aut/#install-source">Install Autonity, Build from source code</a>).</p>
-    </div>
-    </div>
-    </div>
     <section id="activatevalidator" class="level2">
     <h2 class="anchored" data-anchor-id="activatevalidator">activateValidator</h2>
     <p>Changes the state of a paused validator on an Autonity Network from <code>paused</code> to <code>active</code>. (See <a href="../../../reference/api/aut/#pausevalidator"><code>pauseValidator</code></a> method.)</p>
@@ -1286,7 +1269,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     </div>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -1295,7 +1278,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>All Liquid Newton balances for an account can be returned in one call using the <code>aut</code> command <code>aut account lntn-balances [OPTIONS] ACCOUNT</code>.</p>
     </div>
@@ -1356,7 +1339,7 @@ Enter passphrase (or CTRL-d to exit):
     </table>
     <p>The <code>BondingRequest</code> is tracked in memory until applied at epoch end. At that block point, if the stake delegation is <a href="../../../glossary/#delegated">delegated</a> and not <a href="../../../glossary/#self-bonded">self-bonded</a>, then Liquid Newton will be minted to the delegator for the bonded stake amount.</p>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -1365,7 +1348,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>Liquid Newton is <em>not</em> issued for self-bonded stake. See Concept <a href="../../../concepts/staking/">Staking</a> and <a href="../../../concepts/staking/#penalty-absorbing-stake-pas">Penalty Absorbing Stake (PAS)</a>.</p>
     </div>
@@ -3189,7 +3172,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     </div>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -3198,7 +3181,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+    <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p><code>getValidators</code> can also be called using the <code>aut</code> command <code>aut protocol get-validators</code>.</p>
     </div>
@@ -4036,7 +4019,7 @@ Enter passphrase (or CTRL-d to exit):
     <p>Unbonds an amount of bonded stake from a designated validator.</p>
     <p>The amount specifies Newton stake token if the delegator is unbonding <a href="../../../glossary/#self-bonded">self-bonded</a> stake, else Liquid Newton if <a href="../../../glossary/#delegated">delegated</a> stake is being unbonded.</p>
     <div class="callout callout-style-default callout-important callout-titled" title="Warning">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -4045,7 +4028,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>The unbonding request will only be effective after the unbonding period, rounded to the next epoch.</p>
     <p>If the validator has a <a href="../../../concepts/accountability/#slashing">slashing</a> event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.</p>
@@ -4055,7 +4038,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     <p>Constraint checks are applied. The <code>validator</code> address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is <code>&lt;=</code> to the <code>msg.sender</code>’s bonded stake amount. For delegated stake this is done by checking the <code>msg.Sender</code>’s Liquid Newton balance is <code>&gt;=</code> to the requested amount, and for self-bonded stake this is done by checking the validator’s <code>selfBondedStake</code> balance is<code>&gt;=</code> to the requested unbonding amount.</p>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -4064,7 +4047,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+    <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>If <code>msg.Sender</code> is the validator <code>treasury</code> account, then Liquid Newton balance and supply checks are not required.</p>
     <p>This is because Liquid Newton is <em>not</em> issued for self-bonded stake. See Concept <a href="../../../concepts/staking/">Staking</a> and <a href="../../../concepts/staking/#penalty-absorbing-stake-pas">Penalty Absorbing Stake (PAS)</a>.</p>
@@ -4121,7 +4104,7 @@ Enter passphrase (or CTRL-d to exit):
     <p>The <a href="../../../glossary/#unbonding-period">unbonding period</a> begins in the next block. The <code>UnbondingRequest</code> is tracked in memory. At the end of the epoch in which the unbond request was processed: - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is <a href="../../../glossary/#delegated">delegated</a> and <em>not</em> <a href="../../../glossary/#self-bonded">self-bonded</a> stake - calculation of the amount of stake to deduct from the unbonding pool, as well as the delegator’s share of the unbonding pool - the amount of Newton bonded to the validator is reduced by the unbonding amount</p>
     <p>Then, at the end of the epoch in which the unbonding period expires Newton redemption occurs and the Newton that is due is minted to the staker’s Newton account.</p>
     <div class="callout callout-style-default callout-important callout-titled" title="Warning">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -4130,7 +4113,7 @@ Enter passphrase (or CTRL-d to exit):
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+    <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>The amount of Newton released may be less than the unbonded amount if the validator has been slashed.</p>
     </div>

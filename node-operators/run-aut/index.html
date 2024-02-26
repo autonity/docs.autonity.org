@@ -705,95 +705,44 @@
     <li><p>Create and enter a working directory for autonity.</p></li>
     <li><p>Create the autonity-chaindata directory to hold the autonity working data:</p>
     <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> autonity-chaindata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-    <li><p>Generate the <code>autonitykeys</code> private key file for your node. This must be performed on the host machine running the Autonity Go Client, using the <code>autonity genAutonityKeys --writeaddress</code> command:</p>
-    <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./autonity</span> genAutonityKeys <span class="at">--writeaddress</span> ./<span class="op">&lt;</span>DIR_PATH<span class="op">&gt;</span>/<span class="op">&lt;</span>OUT_KEY_FILE_NAME<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>where:</p>
-    <ul>
-    <li><code>&lt;DIR_PATH&gt;</code>: is the path to the directory where you will store the private key file of the node.</li>
-    <li><code>&lt;OUT_KEY_FILE_NAME&gt;</code>: is the name of the P2P autonity keys private key file you are generating for your node.</li>
-    </ul>
-    <p>For example, running the command where the directory is <code>(pwd)/keystore</code> and the file name <code>autonitykeys</code>:</p>
-    <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./autonity/build/bin/autonity</span> genAutonityKeys <span class="at">--writeaddress</span> ./keystore/autonitykeys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>You should see something like this output to your terminal:</p>
-    <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Node</span> address: 0x0f083e047725bF1dFf3efe110430B98AAac55986</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Node</span> public key: 0xee0f1195d19b422cd6fc69b060853b7c21094a84e66a225b549afafe7ba44996f85015d6a7f19d32e1e978db26db4083c8db8e153ddea6f1aa4c65608374c868</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Consensus</span> public key: 0x8aa83a28e235072ffdae48ff01ccc46e2b8d9dc16df9b6ff87ffa5ff6d8f90a2852649a60563237cd66a256f60a92e69</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>Make a note of the output. If you intend to register your validator as a node, you will need to provide the <code>Consensus public key</code> as a validator registration parameter.</p></li>
-    </ol>
-    <div class="callout callout-style-default callout-important callout-titled" title="Important">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-    <div class="callout-icon-container">
-    <i class="callout-icon"></i>
-    </div>
-    <div class="callout-title-container flex-fill">
-    Important
-    </div>
-    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-    </div>
-    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-    <div class="callout-body-container callout-body">
-    <p>Remember to backup your <code>autonitykeys</code> file! Copy it to a safe location!</p>
-    </div>
-    </div>
-    </div>
-    <div class="callout callout-style-default callout-tip callout-titled" title="Tip">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-    <div class="callout-icon-container">
-    <i class="callout-icon"></i>
-    </div>
-    <div class="callout-title-container flex-fill">
-    Tip
-    </div>
-    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-    </div>
-    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-    <div class="callout-body-container callout-body">
-    <p>Autonity’s <code>ethkey</code> cmd utility can be used to inspect the <code>autonitykeys</code> file and view the <code>Node address</code>, <code>Node public key</code>, and <code>Consensus public key</code>:</p>
-    <pre><code>./build/bin/ethkey autinspect &lt;DIR_PATH&gt;/autonitykeys                  </code></pre>
-    <p>To install the cmd utilities use <code>make all</code> when <a href="../../node-operators/install-aut/#install-source">building Autonity from source code</a>.</p>
-    </div>
-    </div>
-    </div>
-    <ol start="4" type="1">
     <li><p>Start autonity:</p>
-    <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity</span> <span class="dt">\</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--datadir</span> ./autonity-chaindata <span class="dt">\</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--autonitykeys</span> ./<span class="op">&lt;</span>PATH_TO_AUTONITYKEYS_FILE<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--piccadilly</span>  <span class="dt">\</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--http</span>  <span class="dt">\</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--http.addr</span> 0.0.0.0 <span class="dt">\</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--http.api</span> aut,eth,net,txpool,web3,admin <span class="dt">\</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--http.vhosts</span> <span class="st">"*"</span> <span class="dt">\</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--ws</span>  <span class="dt">\</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--ws.addr</span> 0.0.0.0 <span class="dt">\</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--ws.api</span> aut,eth,net,txpool,web3,admin  <span class="dt">\</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--nat</span> extip:<span class="op">&lt;</span>IP_ADDRESS<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--consensus.nat</span> <span class="op">&lt;</span>CONSENSUS_NAT<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--consensus.port</span> <span class="op">&lt;</span>CONSENSUS_PORT_NUMBER<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--datadir</span> ./autonity-chaindata <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--piccadilly</span>  <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--http</span>  <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--http.addr</span> 0.0.0.0 <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--http.api</span> aut,eth,net,txpool,web3,admin <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--http.vhosts</span> <span class="st">"*"</span> <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--ws</span>  <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--ws.addr</span> 0.0.0.0 <span class="dt">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--ws.api</span> aut,eth,net,txpool,web3,admin  <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--nat</span> extip:<span class="op">&lt;</span>IP_ADDRESS<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--consensus.nat</span> <span class="op">&lt;</span>CONSENSUS_NAT<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--consensus.port</span> <span class="op">&lt;</span>CONSENSUS_PORT_NUMBER<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <p>where:</p>
     <ul>
-    <li><code>&lt;PATH_TO_AUTONITYKEYS_FILE&gt;</code> is the path to the <code>autonitykeys</code> file generated in Step 2.</li>
     <li><code>&lt;IP_ADDRESS&gt;</code> is the node’s host IP Address, which can be determined with <code>curl ifconfig.me</code>.</li>
     <li>(Optional) <code>&lt;CONSENSUS_NAT&gt;</code> specify the NAT port mapping for the consensus channel (one of “any”, “none”, “upnp”, “pmp”, “extip:<ip>”) if the default value “any” is not to be used.</ip></li>
     <li>(Optional) <code>&lt;CONSENSUS_PORT_NUMBER&gt;</code> specify the network listening port for the consensus channel if the default port “20203” is not to be used.</li>
     <li><code>--piccadilly</code> specifies that the node will connect to the Piccadilly testnet. For other testnets, use the appropriate flag (for example, <code>--bakerloo</code>).</li>
     </ul></li>
     </ol>
-    <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout callout-style-default callout-note callout-titled" title="Default location for AGC's node and consensus private keys file  `autonitykeys`">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
     <div class="callout-title-container flex-fill">
-    Note
+    Default location for AGC’s node and consensus private keys file <code>autonitykeys</code>
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+    <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
-    <p>If the <code>--autonitykeys</code> command option is <em>not</em> specified, then on starting AGC will automatically generate an <code>autonitykeys</code> file by default within the <code>autonity</code> subfolder of the <code>--datadir</code> specified when running the node.</p>
-    <p>AGC would then use that <code>autonitykeys</code> for the public key component of the enode, <em>not</em> the <code>autonitykeys</code> file you generated.</p>
+    <p>On starting, by default AGC will automatically generate an <code>autonitykeys</code> file containing your node key and consensus key within the <code>autonity</code> subfolder of the <code>--datadir</code> specified when running the node.</p>
+    <p>The <code>autonitykeys</code> file contains the private keys of (a) the node key used for transaction gossiping with other network peer nodes, and (b) the consensus key used for consensus gossiping with other validators if your node is run as a validator and is participating in consensus.</p>
+    <p>If you choose not to store your key in the default location, then specify the path to where you are keeping your <code>autonitykeys</code> file using the <code>--autonitykeys</code> option in the run command.</p>
     </div>
     </div>
     </div>
@@ -808,98 +757,44 @@
     <ol type="1">
     <li><p>Create and enter a working directory for autonity.</p></li>
     <li><p>Create the autonity-chaindata directory to hold the autonity working data:</p>
-    <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> autonity-chaindata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-    <li><p>Generate the <code>autonitykeys</code> private key file for your node and write the key file to your key directory. This must be performed on the host machine running the Autonity Go Client, using the <code>autonity genAutonityKeys --writeaddress</code> command:</p>
-    <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-t</span> <span class="at">-i</span> <span class="at">--volume</span> <span class="va">$PWD</span>/<span class="op">&lt;</span>DIR_PATH<span class="op">&gt;</span>:/<span class="op">&lt;</span>DIR_PATH<span class="op">&gt;</span> --name autonity <span class="at">--rm</span> ghcr.io/autonity/autonity:latest genAutonityKeys  <span class="at">--writeaddress</span> /<span class="op">&lt;</span>DIR_PATH<span class="op">&gt;</span>/<span class="op">&lt;</span>OUT_KEY_FILE_NAME<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>where:</p>
-    <ul>
-    <li><code>&lt;DIR_PATH&gt;</code>: is the path to the directory where you will store the private key file of the node.</li>
-    <li><code>&lt;OUT_KEY_FILE_NAME&gt;</code>: is the name of the P2P autonity keys private key file you are generating for your node.</li>
-    </ul>
-    <p>To generate, run the Autonity Go Client docker container with the <code>&lt;DIR_PATH&gt;</code> directory mapped to a host directory of the same name.</p>
-    <p>For example, running the command where the directory is <code>(pwd)/keystore</code> and the file name <code>autonitykeys</code>:</p>
-    <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-t</span> <span class="at">-i</span> <span class="at">--volume</span> <span class="va">$PWD</span>/keystore:/keystore <span class="at">--name</span> autonity <span class="at">--rm</span> ghcr.io/autonity/autonity:latest genAutonityKeys  <span class="at">--writeaddress</span> /keystore/autonitykeys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>You should see something like this:</p>
-    <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Node</span> address: 0x550454352B8e1EAD5F27Cce108EF59439B18E249</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Node</span> public key: 0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Consensus</span> public key: 0x90e54b54718c6d5e50d10b93743d743ebcec2f2a2fd43be6813dc5399e11a9bae891c0a357c8f3aa8ca411f9a526a03f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>Make a note of the output. If you intend to register your validator as a node, you will need to provide the <code>Consensus public key</code> as a validator registration parameter.</p></li>
-    </ol>
-    <div class="callout callout-style-default callout-important callout-titled" title="Important">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
-    <div class="callout-icon-container">
-    <i class="callout-icon"></i>
-    </div>
-    <div class="callout-title-container flex-fill">
-    Important
-    </div>
-    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-    </div>
-    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
-    <div class="callout-body-container callout-body">
-    <p>Remember to backup your <code>autonitykeys</code> file! Copy it to a safe location!</p>
-    </div>
-    </div>
-    </div>
-    <div class="callout callout-style-default callout-tip callout-titled" title="Tip">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
-    <div class="callout-icon-container">
-    <i class="callout-icon"></i>
-    </div>
-    <div class="callout-title-container flex-fill">
-    Tip
-    </div>
-    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-    </div>
-    <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
-    <div class="callout-body-container callout-body">
-    <p>Autonity’s <code>ethkey</code> cmd utility can be used to inspect the <code>autonitykeys</code> file and view the <code>Node address</code>, <code>Node public key</code>, and <code>Consensus public key</code>:</p>
-    <pre><code>./build/bin/ethkey autinspect &lt;DIR_PATH&gt;/autonitykeys                  </code></pre>
-    <p>To install the cmd utilities use <code>make all</code> when <a href="../../node-operators/install-aut/#install-source">building Autonity from source code</a>.</p>
-    </div>
-    </div>
-    </div>
-    <ol start="4" type="1">
+    <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> autonity-chaindata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
     <li><p>Start the node. Set the Docker configuration and the arguments for connecting Autonity to a network.</p>
-    <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="dt">\</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> <span class="at">-i</span> <span class="dt">\</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--volume</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/autonity-chaindata:/autonity-chaindata <span class="dt">\</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--volume</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/<span class="op">&lt;</span>DIR_PATH<span class="op">&gt;</span>:/<span class="op">&lt;</span>DIR_PATH<span class="op">&gt;</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">--publish</span> 8545:8545 <span class="dt">\</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 8546:8546 <span class="dt">\</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 30303:30303 <span class="dt">\</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 30303:30303/udp <span class="dt">\</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 20203:20203 <span class="dt">\</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 6060:6060 <span class="dt">\</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--name</span> autonity <span class="dt">\</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--rm</span> <span class="dt">\</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    ghcr.io/autonity/autonity:latest <span class="dt">\</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">--datadir</span> ./autonity-chaindata  <span class="dt">\</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">--autonitykeys</span> ./<span class="op">&lt;</span>DIR_PATH<span class="op">&gt;</span>/<span class="op">&lt;</span>AUTONITYKEYS_FILE_NAME<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">--piccadilly</span> <span class="dt">\</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">--http</span>  <span class="dt">\</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">--http.addr</span> 0.0.0.0 <span class="dt">\</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">--http.api</span> aut,eth,net,txpool,web3,admin  <span class="dt">\</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">--http.vhosts</span> <span class="st">"*"</span> <span class="dt">\</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">--ws</span>  <span class="dt">\</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">--ws.addr</span> 0.0.0.0 <span class="dt">\</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">--ws.api</span> aut,eth,net,txpool,web3,admin  <span class="dt">\</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">--nat</span> extip:<span class="op">&lt;</span>IP_ADDRESS<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">--consensus.nat</span> <span class="op">&lt;</span>CONSENSUS_NAT<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">--consensus.port</span> <span class="op">&lt;</span>CONSENSUS_PORT_NUMBER<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>     <span class="kw">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> <span class="at">-i</span> <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--volume</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/autonity-chaindata:/autonity-chaindata <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 8545:8545 <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 8546:8546 <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 30303:30303 <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 30303:30303/udp <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 20203:20203 <span class="dt">\</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--publish</span> 6060:6060 <span class="dt">\</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--name</span> autonity <span class="dt">\</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--rm</span> <span class="dt">\</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    ghcr.io/autonity/autonity:latest <span class="dt">\</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">--datadir</span> ./autonity-chaindata  <span class="dt">\</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">--piccadilly</span> <span class="dt">\</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">--http</span>  <span class="dt">\</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">--http.addr</span> 0.0.0.0 <span class="dt">\</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">--http.api</span> aut,eth,net,txpool,web3,admin  <span class="dt">\</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">--http.vhosts</span> <span class="st">"*"</span> <span class="dt">\</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">--ws</span>  <span class="dt">\</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">--ws.addr</span> 0.0.0.0 <span class="dt">\</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">--ws.api</span> aut,eth,net,txpool,web3,admin  <span class="dt">\</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">--nat</span> extip:<span class="op">&lt;</span>IP_ADDRESS<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">--consensus.nat</span> <span class="op">&lt;</span>CONSENSUS_NAT<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">--consensus.port</span> <span class="op">&lt;</span>CONSENSUS_PORT_NUMBER<span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>     <span class="kw">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
     <p>where:</p>
     <ul>
-    <li><code>&lt;DIR_PATH&gt;</code> is the path to the directory where you will store the <code>autonitykeys</code> private key file of the node.</li>
-    <li><code>&lt;AUTONITYKEYS_FILE_NAME&gt;</code> is the path to the <code>autonitykeys</code> file generated in Step 2.</li>
     <li><code>&lt;IP_ADDRESS&gt;</code> is the node’s host IP Address, which can be determined with <code>curl ifconfig.me</code>.</li>
     <li>(Optional) <code>&lt;CONSENSUS_NAT&gt;</code> specify the NAT port mapping for the consensus channel (one of “any”, “none”, “upnp”, “pmp”, “extip:<ip>”) if the default value “any” is not to be used.</ip></li>
     <li>(Optional) <code>&lt;CONSENSUS_PORT_NUMBER&gt;</code> specify the network listening port for the consensus channel if the default port “20203” is not to be used.</li>
     <li><code>--piccadilly</code> specifies that the node will connect to the Piccadilly testnet. For other testnets, use the appropriate flag (for example, <code>--bakerloo</code>).</li>
-    </ul></li>
+    </ul>
+    <p>See the <a href="../../reference/cli">Autonity command-line reference</a> for the full set of available flags.</p></li>
     </ol>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -908,33 +803,14 @@
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
-    <div class="callout-body-container callout-body">
-    <p>If the <code>--autonitykeys</code> command option is <em>not</em> specified, then on starting AGC will automatically generate an <code>autonitykeys</code> file by default within the <code>autonity</code> subfolder of the <code>--datadir</code> specified when running the node.</p>
-    <p>AGC would then use that <code>autonitykeys</code> for the public key component of the enode, <em>not</em> the <code>autonitykeys</code> file you generated.</p>
-    </div>
-    </div>
-    </div>
-    <p>See the <a href="../../reference/cli">Autonity command-line reference</a> for the full set of available flags.</p>
-    <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
-    <div class="callout-icon-container">
-    <i class="callout-icon"></i>
-    </div>
-    <div class="callout-title-container flex-fill">
-    Note
-    </div>
-    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-    </div>
-    <div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+    <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <ul>
-    <li><p>Note that all flags after the image name are passed to the Autonity Go Client in the container, and thus follow the same pattern as for <a href="#run-binary">running a binary or source install</a></p></li>
-    <li><p>The command above creates a temporary container, which is deleted (via the <code>--rm</code> flag) when the node is shut down.</p></li>
-    <li><p>The hosts <code>autonity-chaindata</code> directory is mounted in the container (via the <code>--volume</code> option). All working data will be saved in this directory and therefore persisted even when the temporary container is removed.</p></li>
-    <li><p>The same <code>autonity-chaindata</code> directory can thereby be used by both a local binary and the docker image (although not at the same time), allowing administrators to switch between run methods at any time.</p></li>
-    <li><p>The hosts <code>&lt;DIR_PATH&gt;</code> directory for the <code>autonitykeys</code>is mounted in the container (via the <code>--volume</code> option). The private key will be saved in this directory and therefore persisted even when the temporary container is removed.</p></li>
-    <li><p>The <code>--publish</code> flag causes incoming connections to the localhost to be forwarded to the container.</p></li>
+    <li>Note that all flags after the image name are passed to the Autonity Go Client in the container, and thus follow the same pattern as for <a href="#run-binary">running a binary or source install</a></li>
+    <li>The command above creates a temporary container, which is deleted (via the <code>--rm</code> flag) when the node is shut down.</li>
+    <li>The hosts <code>autonity-chaindata</code> directory is mounted in the container (via the <code>--volume</code> option). All working data will be saved in this directory and therefore persisted even when the temporary container is removed.</li>
+    <li>The same <code>autonity-chaindata</code> directory can thereby be used by both a local binary and the docker image (although not at the same time), allowing administrators to switch between run methods at any time.</li>
+    <li>The <code>--publish</code> flag causes incoming connections to the localhost to be forwarded to the container.</li>
     </ul>
     </div>
     </div>
@@ -945,7 +821,7 @@
     <h2 class="anchored" data-anchor-id="stopping-the-autonity-go-client">Stopping the Autonity Go Client</h2>
     <p>To shutdown the node, press <code>CTRL-C</code> and wait for it to exit.</p>
     <div class="callout callout-style-default callout-warning callout-titled" title="Warning!">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -954,7 +830,7 @@
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+    <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>You <em>must</em> wait for the node to exit successfully. Terminating the process prematurely may risk corruption of the state store (LevelDB).</p>
     <p>Exit may take up to 3 minutes. If you are using <code>systemd</code> and/or other software services management software, then make sure this is configured to allow for a safe exit time to avoid early shutdown.</p>
@@ -962,7 +838,7 @@
     </div>
     </div>
     <div class="callout callout-style-default callout-note callout-titled" title="Info">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -971,7 +847,7 @@
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+    <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>Now you can now <a href="../../node-operators/connect/">connect to your node using <code>aut</code></a> from your <em>local</em> machine.</p>
     </div>
@@ -983,7 +859,7 @@
     <p>To migrate a node to a new instance the node identity must be preserved. The <a href="../../concepts/validator/#p2p-node-keys-autonitykeys">P2P node keys: autonityKeys</a> and the node’s host <a href="../../node-operators/install-aut/#network">ip address</a> must be maintained to keep the same node <a href="../../concepts/validator/#validator-identifier">identifier</a> address and <a href="../../glossary/#enode">enode url</a>.</p>
     <p>Copy the <a href="../../concepts/validator/#p2p-node-keys-autonitykeys">P2P node keys: autonityKeys</a> file to a safe location and be sure to maintain your hosting IP address.</p>
     <div class="callout callout-style-default callout-note callout-titled" title="Static IP Address is required">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -992,7 +868,7 @@
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+    <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>Running an Autonity node requires maintaining a static ip address as described in the guide <a href="../../node-operators/install-aut/#network">Install Autonity, Networking</a> section.</p>
     <p>If you are using a cloud provider for node hosting, then a static IP address for your cloud space should be a stated hosting requirement if you intend to migrate the node. Cloud vendors typically don’t supply a static IP address unless it is purchased explicitly.</p>
@@ -1014,7 +890,7 @@
     </ul>
     <p>Autonity will detect and use the original <code>autonitykeys</code>. The new node installation will have the same identity as the original.</p>
     <div class="callout callout-style-default callout-note callout-titled" title="Note">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
+    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
@@ -1023,7 +899,7 @@
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
-    <div id="callout-12" class="callout-12-contents callout-collapse collapse show">
+    <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
     <p>If you are running a validator node you need to:</p>
     <ul>
