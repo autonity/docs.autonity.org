@@ -51,7 +51,7 @@ Incoming traffic must be allowed on the following:
 You may also choose to allow traffic on the following ports:
 
 * `TCP 8545` to make http RPC connections to the node.
-* `TCP 8546` to make WebSocket RPC connections to the node (for example, if you are operating as a validator node to allow a connection from your oracle server if it is running on a different host).
+* `TCP 8546` to make WebSocket RPC connections to the node (for example, if you are operating a validator node and your oracle server is hosted on a separate dedicated machine).
 * `TCP 20203` for node p2p (DEVp2p) communication for consensus gossiping  (required if you are operating a validator node).
 * `TCP 6060` to export Autonity metrics (recommended but not required)
 
