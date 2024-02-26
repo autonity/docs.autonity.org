@@ -1,39 +1,23 @@
-name: PR
+name: Quarto build checker
 
 on:
   pull_request:
-    branches: [ master ]
-
+  branches: [ test/gh-ci ]
 jobs:
-  hugo-build:
-    name: Hugo Build
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-      - uses: actions/checkout@v2
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
         with:
-          submodules: recursive
-          fetch-depth: 0
+          version: 1.3.361
 
-      - name: Install Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: 'latest'
-          extended: true
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: npm
-
-      - run: make deps
-
-      - run: make build
-
-      - name: Archive site
-        uses: actions/upload-artifact@v2
-        with:
-          name: site
-          path: public/
-          retention-days: 1
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
+        
+        

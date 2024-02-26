@@ -1,46 +1,36 @@
-name: Publish Site
+name: Publish Production Site
 
 on:
   push:
-    branches: [ master ]
-
+    branches:
+      - master
 jobs:
-  hugo-build:
-    name: Hugo Build
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-      - uses: actions/checkout@v2
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
         with:
-          submodules: recursive
-          fetch-depth: 0
+          version: 1.3.361
 
-      - name: Install Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: 'latest'
-          extended: true
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: npm
-
-      - run: make deps
-
-      - run: make build
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
 
       - name: Archive site
         uses: actions/upload-artifact@v2
         with:
           name: site
-          path: public/
+          path: docs/
           retention-days: 1
 
-  hugo-deploy:
-    name: Hugo Deploy
-    needs: hugo-build
+  deploy:
+    name: Deploy
+    needs: build
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
@@ -55,11 +45,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: site
-          path: public/
+          path: docs/
 
       - name: Deploy to S3
         run: |
-          aws s3 sync --delete ./public s3://$AWS_S3_BUCKET
-          aws cloudfront create-invalidation --distribution-id E2JSC1AZT8OHDX --paths "/*"
+          aws s3 sync --delete ./docs s3://$AWS_S3_BUCKET
+          aws cloudfront create-invalidation --distribution-id E2G6TVRX7KH3ZZ --paths "/*"
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}

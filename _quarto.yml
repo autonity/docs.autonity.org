@@ -1,0 +1,120 @@
+project:
+  type: website
+  output-dir: docs/
+  preview:
+    port: 3000
+    browser: false
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+website:
+  title: "Autonity Documentation"
+  favicon: "_assets/favicon.svg"
+  google-analytics: ""
+  search:
+    location: navbar
+    type: overlay
+  sidebar: 
+   contents:
+    - index.md
+    - "overview/index.md"
+    - section: "Concepts"
+      contents:
+      - "concepts/architecture/index.md"
+      - "concepts/system-model/index.md"
+      - "concepts/consensus/index.md"
+      - "concepts/client/index.md"
+      - "concepts/oracle-network/index.md"
+      - "concepts/oracle-server/index.md"
+      - "concepts/validator/index.md"
+      - "concepts/staking/index.md"
+      - "concepts/accountability/index.md"
+      - "concepts/asm/index.md"
+      - auto: concepts/protocol-assets
+    - section: "Networks"
+      contents:
+      - auto: "networks/**"
+    - section: "Accounts"
+      contents:
+      - "account-holders/setup-aut/index.md"
+      - "account-holders/create-acct/index.md"
+      - "account-holders/fund-acct/index.md"
+      - "account-holders/submit-trans-aut/index.md"
+    - section: "Running a Node"
+      contents:
+      - "node-operators/install-aut/index.md"
+      - "node-operators/run-aut/index.md"
+      - "node-operators/connect/index.md"
+      - "node-operators/setup-node-monitoring/index.md"
+    - section: "Running an Oracle Server"
+      contents:
+      - "oracle/install-oracle/index.md"
+      - "oracle/run-oracle/index.md"
+    - section: "Running a Validator"
+      contents:
+      - "validators/register-vali/index.md"
+      - "validators/pause-vali/index.md"
+      - "validators/change-commission-rate/index.md"
+    - section: "Staking"
+      contents:
+      - "delegators/bond-stake/index.md"
+      - "delegators/claim-rewards/index.md"
+      - "delegators/transfer-lntn/index.md"
+    - section: "Borrowing by CDP in the ASM"
+      contents: 
+      - "cdp/open-cdp/index.md"
+      - "cdp/liquidate-cdp/index.md"
+    - section: "Development"
+      contents:
+      - "developer/submit-trans-gov-acct/index.md"
+      - "developer/deploy-brownie/index.md"
+      - "developer/custom-networks/index.md"
+    - section: "Reference"
+      contents:
+      - auto: reference/cli
+      - auto: reference/api  
+      - "reference/codebase/index.md"
+      - "reference/genesis/index.md"
+      - "reference/protocol/index.md"
+    - "glossary/index.md"
+    - "issues/index.md"
+   style: docked
+   collapse-level: 2
+  navbar:  
+    background: dark
+    logo: "_assets/images/logo-autonity.svg"
+  page-footer:
+    left:
+      - icon: github
+        href: https://github.com/autonity/
+      - icon: twitter
+        href: https://twitter.com/autonity_
+      - icon: discord
+        href: https://discord.com/invite/autonity
+      - icon: youtube
+        href: https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ
+filters:
+  - _filters/macro-substitution.lua
+  - _filters/page-info.lua
+  - _filters/card-substitution.lua
+format:
+  html:
+    link-external-icon: true
+    link-external-newwindow: true
+    fontcolor: "#333333"
+    smooth-scroll: true
+    theme:
+      light: [cosmo, _theme/theme.scss]
+    code-copy: true
+    code-overflow: wrap
+    css: _assets/css/styles.css
+    toc: true
+    include-in-header:
+      - text: |
+          <link rel="preconnect" href="https://plausible.io">
+          <script defer data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+          <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    template: _templates/autonity-base.html
+    template-partials:
+      - toc.html
