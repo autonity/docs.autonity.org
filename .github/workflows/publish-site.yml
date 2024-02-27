@@ -50,6 +50,6 @@ jobs:
       - name: Deploy to S3
         run: |
           aws s3 sync --delete ./docs s3://$AWS_S3_BUCKET
-          aws cloudfront create-invalidation --distribution-id E2G6TVRX7KH3ZZ --paths "/*"
+          aws cloudfront create-invalidation --distribution-id E2JSC1AZT8OHDX --paths "/*"
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
