@@ -2,6 +2,12 @@
 title: Managing keys and accounts
 description: How to setup and use Autonity with software and hardware secure wallets
 draft: true
+listing:
+ type: table
+ fields: [title, description]
+ categories: false
+ filter-ui: false
+ sort-ui: false
 ---
 
 Autonity provides secure account management and transaction signing using standard go-ethereum mechanisms:
