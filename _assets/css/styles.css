@@ -530,3 +530,7 @@ textarea.has-content {
 span.resource {
 	font-size: 11px;
 }
+
+.callout-collapse {
+    padding: 0px 8px 0px 8px;
+}

@@ -23,7 +23,7 @@ website:
       contents:
       - "concepts/architecture/index.md"
       - "concepts/system-model/index.md"
-      - "concepts/consensus/index.md"
+      - auto: "concepts/consensus"
       - "concepts/client/index.md"
       - "concepts/oracle-network/index.md"
       - "concepts/oracle-server/index.md"

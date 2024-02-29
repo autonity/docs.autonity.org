@@ -3,6 +3,12 @@ title: "ASM Contract Interface"
 
 description: >
   Auton Stabilization Mechanism Contract functions
+listing:
+ type: table
+ fields: [title, description]
+ categories: false
+ filter-ui: false
+ sort-ui: false
 ---
 
 Interfaces for interacting with Auton Stabilization Mechanism Contract functions using:

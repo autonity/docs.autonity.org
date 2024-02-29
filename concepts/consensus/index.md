@@ -3,6 +3,12 @@
 title: "Consensus "
 description: >
   Consensus mechanism - overview, core concepts and features
+listing:
+ type: table
+ fields: [title, description]
+ categories: false
+ filter-ui: false
+ sort-ui: false
 ---
 
 ## Overview
