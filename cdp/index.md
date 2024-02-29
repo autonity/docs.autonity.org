@@ -2,6 +2,12 @@
 title: "Borrowing by CDP in the ASM"
 description: >
     Instructions for opening and liquidating a CDP in the Auton Stabilization Mechanism (ASM).
+listing:
+ type: table
+ fields: [title, description]
+ categories: false
+ filter-ui: false
+ sort-ui: false
 ---
 
 The steps here describe interactions with the CDP-based [Auton Stabilization Mechanism (ASM)](/concepts/asm/) for:
