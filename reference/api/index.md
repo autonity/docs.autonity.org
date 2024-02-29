@@ -4,6 +4,12 @@ title: "Autonity Interfaces"
 
 description: >
   Autonity Contract Interfaces and JSON-RPC APIs provided by the Autonity Go Client
+listing:
+ type: table
+ fields: [title, description]
+ categories: false
+ filter-ui: false
+ sort-ui: false
 ---
 
 ::: {.callout-note title="Helper libraries" collapse="false"}

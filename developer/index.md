@@ -1,9 +1,14 @@
-
 ---
 title: "Development with Autonity"
 description: >
   Start developing on the Autonity network, spin up a local development testnet and deploy contracts.
 draft: false
+listing:
+ type: table
+ fields: [title, description]
+ categories: false
+ filter-ui: false
+ sort-ui: false
 ---
 
 The steps in this section describe how to set up a local testnet for development and deploy contracts to your local or a public Autonity network.
