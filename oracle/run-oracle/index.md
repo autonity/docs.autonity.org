@@ -114,7 +114,7 @@ If plugins for external data sources or the symbols for which oracle server prov
         -t -i \
         --volume $<ORACLE_KEYFILE>:/autoracle/oracle.key \
         --volume $<PLUGINS_CONF_FILE>:/autoracle/plugins-conf.yml \
-        --volume $<ORACLE_SERVER_CONF_FILE>:/autoracle/plugins-conf.yml \
+        --volume $<ORACLE_SERVER_CONF_FILE>:/autoracle/oracle-server.config \
         --name <ORACLE_CONTAINER_NAME> \
         --rm \
         <DOCKER_IMAGE>:latest \
