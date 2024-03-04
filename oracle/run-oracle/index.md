@@ -182,7 +182,7 @@ The oracle server config file `oracle-server.config` can be found in the `/auton
    key.password 123%&%^$
    log.level 3
    ws ws://127.0.0.1:8546
-   plugin.dir ./build/binplugins
+   plugin.dir ./build/bin/plugins
    plugin.conf ./config/plugins-conf.yml
    ```
    
@@ -230,11 +230,12 @@ For example, to start oracle server specifying command line flags when running t
    - `<PWD>` is the password to your oracle server key file
    - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node, e.g. "ws://172.17.0.2:8546", see [install Autonity, networks](/node-operators/install-aut/#network)). 
    
-   ::: {.callout-note title="Note" collapse="false"}
-   - Note that all flags after the image name are passed to the Autonity Oracle Server in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
-   - The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
-   - The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
-   :::
+::: {.callout-note title="Note" collapse="false"}
+
+- Note that all flags after the image name are passed to the Autonity Oracle Server in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
+- The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
+- The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
+:::
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) or the oracle server's GitHub repo [README, Configuration of oracle server](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [CLI flags](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#cli-flags) for the full set of available flags.
 
