@@ -16,8 +16,13 @@ A working Python install with the `pip` tool is required.
 The tool can be installed using [pipx](https://github.com/pypa/pipx). To get the latest release run:
 
 ```bash
-pipx install --force git+https://github.com/autonity/aut
+pipx uninstall aut
+pipx install ./aut-0.4.0.dev0-py3-none-any.whl
 ```
+
+<!--
+pipx install --force git+https://github.com/autonity/aut
+-->
 
 ::: {.callout-note title="Note" collapse="false"}
 If you are experiencing errors such as:
