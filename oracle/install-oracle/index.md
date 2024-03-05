@@ -161,6 +161,7 @@ sudo systemctl restart docker
 :::
 
 1. Create a working directory and CD to your working directory:
+    
     ```bash
     mkdir autonity-oracle && cd autonity-oracle
     ```
