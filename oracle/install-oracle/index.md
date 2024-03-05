@@ -234,10 +234,10 @@ $ ./autoracle version
 v0.1.6
 ```
 
-If using Docker, the setup of the Bakerloo image can be verified with:
+If using Docker, the setup of the Piccadilly Testnet image can be verified with:
 
 ```bash
-docker run --rm ghcr.io/autonity/autonity-oracle:latest version 
+docker run --rm ghcr.io/autonity/autonity-oracle-piccadilly:latest version 
 ```
 ```
 v0.1.6
