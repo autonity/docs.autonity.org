@@ -48,7 +48,6 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
    
 5. Start oracle server:
 
-
     ``` bash
     ./autoracle --config="./oracle-server.config"
     ```
@@ -112,12 +111,12 @@ If plugins for external data sources or the symbols for which oracle server prov
    ```bash
    docker run \
         -t -i \
-        --volume $<ORACLE_KEYFILE>:/autoracle/oracle.key \
-        --volume $<PLUGINS_CONF_FILE>:/autoracle/plugins-conf.yml \
-        --volume $<ORACLE_SERVER_CONF_FILE>:/autoracle/oracle-server.config \
+        --volume ./<ORACLE_KEYFILE>:/autoracle/oracle.key \
+        --volume ./<PLUGINS_CONF_FILE>:/autoracle/plugins-conf.yml \
+        --volume ./<ORACLE_SERVER_CONF_FILE>:/autoracle/oracle-server.config \
         --name <ORACLE_CONTAINER_NAME> \
-        --rm \
-        <DOCKER_IMAGE>:latest \
+        --rm <DOCKER_IMAGE>:latest \
+        --config="/autoracle/oracle-server.config" \
         ;
    ```
 
@@ -147,16 +146,15 @@ If plugins for external data sources or the symbols for which oracle server prov
 5. Start oracle server. On running the Docker you should see something like:
 
    ```
- 	2023/09/26 10:04:53 
+ 	2024/03/06 11:44:45
 
-        Running autonity oracle server v0.1.2
-        with symbols: AUD-USD,CAD-USD,EUR-USD,GBP-USD,JPY-USD,SEK-USD,ATN-USD,NTN-USD,NTN-ATN
-        and plugin directory: ./build/bin/plugins/
-        by connecting to L1 node: ws://127.0.0.1:8546
-        on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D 
-   ```
+ 	Running autonity oracle server v0.1.6
+	with plugin directory: /usr/local/bin/plugins/
+ 	by connecting to L1 node: ws://127.0.0.1:8546
+ 	on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
+ 	```
    
-   Oracle server will connect to external data sources using the providers set in the `plugin.` configuration properties and begin submitting price reports to the connected node.
+   Oracle server will discover plugins in the `plugins` configuration, set them up, connect to external data sources using the providers set in the `plugins-conf.yml` configuration properties, and begin submitting price reports to the connected node.
 
 
 ## Configure oracle server
@@ -174,7 +172,7 @@ The oracle server config file `oracle-server.config` can be found in the `/auton
    - `plugin.dir` is the path to the directory containing the built data plugins.
    - `plugin.conf` is the path to the plugins YAML configuration file `plugins-conf.yml` (defaults to `./plugins-conf.yml`).
 
-   An example configuration could be:
+   An example configuration for an oracle server binary could be:
 
    ```
    tip 1
@@ -185,7 +183,19 @@ The oracle server config file `oracle-server.config` can be found in the `/auton
    plugin.dir ./build/bin/plugins
    plugin.conf ./config/plugins-conf.yml
    ```
-   
+  
+   An example configuration for an oracle server Docker image could be per beneath. Note the mounted path is used for `key.file` and `plugin.conf` files. A mounted path is not used for the `plugin.dir` config which takes the Docker image plugins directory path `/usr/local/bin/plugins/`:
+
+   ```
+   tip 1
+   key.file /autoracle/UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5>
+   key.password 123%&%^$
+   log.level 3
+   ws ws://127.0.0.1:8546
+   plugin.dir /usr/local/bin/plugins/
+   plugin.conf /autoracle/plugins-conf.yml
+   ```
+ 
 ### Setup using command line flags or system env variables  
 The oracle server configuration can also be set directly in the terminal as console flags or as system environment variables.
 
@@ -207,8 +217,8 @@ For example, to start oracle server specifying command line flags when running t
    ```bash
    docker run \
         -t -i \
-        --volume $<ORACLE_KEYFILE>:/autoracle/oracle.key \
-        --volume $<PLUGINS_CONF_FILE>:/autoracle/plugins-conf.yml \
+        --volume ./<ORACLE_KEYFILE>:/autoracle/oracle.key \
+        --volume ./<PLUGINS_CONF_FILE>:/autoracle/plugins-conf.yml \
         --name <ORACLE_CONTAINER_NAME> \
         --rm \
         <DOCKER_IMAGE>:latest \
