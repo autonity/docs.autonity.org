@@ -84,8 +84,9 @@ You can now [configure and launch Autonity Oracle Server](/oracle/run-oracle/#ru
 
 ::: {.callout-note title="Prerequisites" collapse="false"}
 The following should be installed in order to build the Autonity Oracle Server:
+
 - **Git** Follow the official GitHub documentation to [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
-- **Golang** (version 1.19.3 or later) - [https://golang.org/dl](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
+- **Golang** (version 1.21 or later) - [https://golang.org/dl](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
 - **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
 - [**GNU Make**](https://www.gnu.org/software/make/) (Check if installed:  `make --version`)
 :::

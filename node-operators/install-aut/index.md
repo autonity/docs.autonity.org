@@ -105,6 +105,7 @@ You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary)
 
 ::: {.callout-note title="Prerequisites" collapse="false"}
 The following should be installed in order to build the Autonity Go Client:
+
 - **Git** Follow the official GitHub documentation to [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). (Check if installed:  `git --version`)
 - **Golang** (version 1.21 or later) - [https://golang.org/dl](https://golang.org/dl) (Check if installed:  `go --version` or `go version`)
 - **C compiler** (GCC or another) (Check if GCC is installed:  `gcc --version`)
@@ -225,18 +226,16 @@ $ ./autonity version
 ```
 ```
 Autonity
-Version: 0.13.0-rc
-Git Commit: 8b4a17c18951088c3af01c06da707a87d7887971
-Git Commit Date: 20240210
+Version: 0.13.0
+Git Commit: 4073f24786ce5c99bef80238aa798482ae13fd33
+Git Commit Date: 20240226
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.21.6
+Go Version: go1.22.1
 Operating System: linux
 GOPATH=
 GOROOT=
 ```
-
-<!-- TODO: Check this works -->
 
 If using Docker, the setup of the image can be verified with:
 
@@ -246,10 +245,10 @@ $ docker run --rm ghcr.io/autonity/autonity:latest version
 
 ```
 Autonity
-Version: 0.10.1
+Version: 0.13.0
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.17.10
+Go Version: go1.21.7
 Operating System: linux
 GOPATH=
 GOROOT=/usr/local/go
