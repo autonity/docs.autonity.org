@@ -21,7 +21,7 @@ The steps covered are:
 
 - An [installation](/node-operators/install-aut/) of Autonity Go Client (AGC), with the `--metrics` and `--pprof` flags enabled.
 - An installation of [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) server agent, which will provide the backend service for metrics collection.
-- An installation of Docker. See [Get setup, Install Docker](https://docs.autonity.org/node-operators/get-setup/#install-docker) if Docker is not already installed onto the host machine.
+- An installation of Docker. See [Get setup, Install Docker](https://docs.autonity.org/node-operators/install-aut/#install-docker) if Docker is not already installed onto the host machine.
 
 Familiarity with monitoring and the basics of the third-party products used in this guide is assumed:
 
