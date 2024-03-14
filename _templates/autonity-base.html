@@ -34,7 +34,6 @@
     $endif$
     $math$
     $endif$
-
     $for(css)$
     <link rel="stylesheet" href="$css$" />
     $endfor$
@@ -65,5 +64,12 @@
     $endfor$
 
 </body>
-
+<script>
+window.addEventListener('load', () => {
+    const anchor = location.hash;
+    if (anchor && document.querySelector(anchor)) {
+        document.querySelector(anchor).scrollIntoView();
+    }
+});
+</script>
 </html>
