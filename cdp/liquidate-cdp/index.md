@@ -6,7 +6,7 @@ description: >
 
 ## Prerequisites
 
-- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with Auton (to pay for transaction gas costs)
+- An [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with Auton (to pay for transaction gas costs)
 
 - A running instance of [`aut`](https://github.com/autonity/aut) configured to [submit a transaction from your account](/account-holders/submit-trans-aut/).
 
