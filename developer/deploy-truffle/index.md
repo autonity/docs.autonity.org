@@ -11,7 +11,7 @@ This guide uses the Truffle development environment and JavaScript framework to 
 
 - An up-to-date installation of [Truffle <i class="fas fa-external-link-alt"></i>](https://trufflesuite.com/docs/truffle/) and `npm`. See the Truffle Suite docs for the [Installation](https://trufflesuite.com/docs/truffle/how-to/install/) how to.
 
-- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs. The guide will use the encrypted ethereum keyfile of the account.
+- An [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs. The guide will use the encrypted ethereum keyfile of the account.
 
 - Configuration details for the Autonity network you are deploying to: a [public Autonity network](/networks/) or a [custom network](/developer/custom-networks/) if you are deploying to a local testnet.
 
