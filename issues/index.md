@@ -22,6 +22,10 @@ The Autonity Protocol Contract Interface function [`getProposer()`](/reference/a
 - height = `h - 1`.
 - round = `r`.
 
+# Light client syncing is not supported
+
+Autonity does not currently support light clients and the LES Protocol. The blockchain sync mode "light" should not be set: `--syncmode light` is not supported.
+
 <!--
 ## Tendermint Namespace Interface is accessible but not meant for use by external clients
 
