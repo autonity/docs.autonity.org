@@ -48,34 +48,26 @@ Accusations do not automatically cause slashing. The _innocence proof window_ is
 
 ### Usage
 
-<!--
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 canAccuse _offender _rule _block
 ```
 :::
 
--->
-::: {.callout-note title="Note" collapse="false"}
-To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-:::
 
 ### Example
 
-<!--
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 canAccuse 0x4B241e33CEFbeF5fFE87CF81C56f19D6321536c4 10 1245
+web3.exceptions.ContractLogicError: execution reverted
 ```
 :::
 
--->
 ::: {.callout-note title="Note" collapse="false"}
-To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+If the validator is not accusable, the transaction will simply revert.
 :::
 
 
@@ -105,36 +97,26 @@ The method returns a `boolean` flag specifying whether the reported infraction i
 
 ### Usage
 
-<!--
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 canSlash _offender _rule _block
 ```
 :::
 
--->
-
-::: {.callout-note title="Note" collapse="false"}
-To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
-:::
 
 ### Example
 
-<!--
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 canSlash 0x4B241e33CEFbeF5fFE87CF81C56f19D6321536c4 10 1245
+web3.exceptions.ContractLogicError: execution reverted
 ```
 :::
 
--->
-
 ::: {.callout-note title="Note" collapse="false"}
-To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+If the validator is not slashable, the transaction will simply revert.
 :::
 
 
@@ -168,36 +150,26 @@ Returns an `Event` object of type `Accusation` consisting of:
 
 ### Usage
 
-<!--
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorAccusation _val
 ```
-:::
-
--->
-::: {.callout-note title="Note" collapse="false"}
-To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
 :::
 
 ### Example
 
-<!--
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorAccusation 0x6558D2cEEb4a9Fe9c9cF19A3F6EBE7D45C30efaF
+web3.exceptions.ContractLogicError: execution reverted: no accusation
 ```
 :::
 
--->
 ::: {.callout-note title="Note" collapse="false"}
-To add - see Issue [Accountability Contract Interface: add Usage and Examples to canAccuse, canSlash, getValidatorAccusation #103](https://github.com/autonity/docs.autonity.org/issues/103).
+If there are no accusations, the transaction will simply revert with the revert reason: "no accusation".
 :::
-
 
 ## getValidatorFaults
 
