@@ -15,7 +15,7 @@ To run Autonity Oracle Server you will need to generate a keyfile for your oracl
 
 ## Create oracle server account
 
-Begin by creating an [account](/account-holders//create-acct/) that  will be used as the cryptographic identity of the oracle server. Note that the account's:
+Begin by creating an [account](/account-holders/create-acct/) that  will be used as the cryptographic identity of the oracle server. Note that the account's:
 
 - private key is used as the [oracle server key](/concepts/oracle-network/#oracle-server-key) to sign price report transactions submitted to the Oracle Contract on-chain
 - address is used as the [`oracle identifier`](/concepts/oracle-network/#oracle-identifier), the unique identifier of the oracle server.

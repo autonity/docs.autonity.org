@@ -17,7 +17,7 @@ It is assumed that you have:
 
 - [Setup the Autonity Utility Tool (aut)](/account-holders/setup-aut/).
 
-- Have an [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs:
+- Have an [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs:
 	
 	- If deploying to a public network you will need to [fund](/account-holders/fund-acct/) your account from the testnet faucet.
 	

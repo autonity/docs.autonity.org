@@ -8,7 +8,7 @@ description: >
 
 To open a CDP and borrow ATN you need:
 
-- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with:
+- An [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with:
   - Auton: to pay for transaction gas costs
   - Newton: to deposit as collateral token in the CDP.
   
