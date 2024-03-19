@@ -59,8 +59,8 @@ The public key is used:
 - To verify the signature of consensus level network messages.
 - To derive an ethereum format account that is then used to identify the validator node. See [validator identifier](#validator-identifier).
 
-::: {.callout-note title="Note" collapse="false"}The private key can be used by Autonity’s `bootnode` utility to derive the hex string used in the `enode` URL. (See Networking Options  `nodekey` and `nodekeyhex` in [Autonity command-line options](/reference/cli/#usage) and, for reference,  the ethereum stack exchange article [how to produce enode from node key](https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key).):::
-
+::: {.callout-note title="Note" collapse="false"}The private key can be used by Autonity’s `bootnode` utility to derive the hex string used in the `enode` URL. (See Networking Options  `nodekey` and `nodekeyhex` in [Autonity command-line options](/reference/cli/#usage) and, for reference,  the ethereum stack exchange article [how to produce enode from node key](https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key).)
+:::
 
 ### Validator enode URL
 The `enode` URL is the network address of the peer node operated by the validator. It provides the network location of the node client for p2p networking.
