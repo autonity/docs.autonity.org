@@ -123,7 +123,7 @@ The password that you are setting here is not the password for your keystore. It
 
 ##  Submit transactions using NodeJS Console
 ::: {.callout-note title="Note" collapse="false"}
-Since you are using clef to sign transactions, whenever you issue a command on the NodeJS console which requires a signature from your private key, the nodejs console will hang. This is because it is waiting for the signature from clef, that you need to manually approve. This process can be automated using the clef rule engine https://geth.ethereum.org/docs/clef/tutorial#automatic-rules
+Since you are using clef to sign transactions, whenever you issue a command on the NodeJS console which requires a signature from your private key, the nodejs console will hang. This is because it is waiting for the signature from clef, that you need to manually approve. This process can be automated using the clef rule engine [https://geth.ethereum.org/docs/clef/tutorial#automatic-rules](https://geth.ethereum.org/docs/clef/tutorial#automatic-rules)
 :::
 
 1. Start the Autonity NodeJS Console and then, to view the accounts in Clef, enter as follows:
