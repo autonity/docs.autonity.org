@@ -84,7 +84,9 @@ Before transferring LNTN, verify your liquid newton holdings and the liquid newt
     0x0aee457755874ff776e36ec2d76955fcd4856d6753d5e75e1ba125d029c67725
     ```
 
-::: {.callout-note title="Note" collapse="false"}The Liquid Newton contract is ERC20 so you can also transfer LNTN using the ERC20 `transfer` command in the `token` command group.
+::: {.callout-note title="Note" collapse="false"}
+The Liquid Newton contract is ERC20 so you can also transfer LNTN using the ERC20 `transfer` command in the `token` command group.
+:::
 
 If using `transfer`, pass in as arguments:
 
@@ -95,4 +97,3 @@ If using `transfer`, pass in as arguments:
     ```bash
     aut token transfer --token <LIQUID_CONTRACT>  <RECIPIENT_ACCOUNT_ADDRESS> <AMOUNT>  | aut tx sign - | aut tx send -
     ```
-:::
