@@ -9,7 +9,7 @@ To submit transactions to a client node from `aut` you need:
 
 - An installation of [`aut`](https://github.com/autonity/aut) - see the [howto](/account-holders/setup-aut/) for further help.
 
-- An [account](/account-holders//create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs.
+- An [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs.
 
 - `aut` should be configured to connect to the appropriate node or Autonity network (see the [list of networks including public RPC endpoints](/networks/).
 
