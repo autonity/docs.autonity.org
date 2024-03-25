@@ -229,7 +229,7 @@ The sequence of lifecycle events for a CDP is:
   - Borrower determines their borrowing and collateral requirements. To do this, the borrower can call Stabilization Contract functions, see [`collateralPrice()`](/reference/api/asm/stabilization/#collateralprice), [`minimumCollateral()`](/reference/api/asm/stabilization/#minimumcollateral).
   - Borrower opts to open a CDP, becoming a CDP Owner. The CDP Owner then approves the Stabilization Contract to spend Collateral Token (NTN) on their behalf for the amount of collateral to be deposited:
     - Calls the Collateral Token Contract (i.e. Autonity Protocol Contract) to [`approve()`](/reference/api/aut/#approve) the [Stabilization Contract address](/concepts/architecture/#protocol-contract-account-addresses) as a spender on their behalf and set the [`allowance()`](/reference/api/aut/#allowance) of collateral token that the Stabilization Contract can spend.
-    - Calls the Stabilization Contract to deposit Collateral Token to a CDP, calling the contract's [`deposit()`(/reference/api/asm/stabilization/#deposit) to deposit collateral.
+    - Calls the Stabilization Contract to deposit Collateral Token to a CDP, calling the contract's [`deposit()`](/reference/api/asm/stabilization/#deposit) to deposit collateral.
   - Stabilization Contract creates the CDP, using the ERC20 allowance mechanism to execute the collateral deposit. A CDP object is created, and the [CDP attributes](/concepts/asm/#stabilization) are populated.
 
 - CDP is maintained and serviced. The CDP Owner maintains the CDP, opting to increase or decrease borrowing and deposited collateral within [CDP primitive constraints](/concepts/asm/#cdp). The CDP Owner may:
