@@ -111,7 +111,7 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 | `round` | `uint256` | the index number of the oracle voting round in which the price was generated |
 | `_p.price` | `uint256` | the median price for the requested currency pair symbol |
 | `_p.timestamp` | `string` | the timestamp of the block height at which the returned price was calculated; the  timestamp is in Unix Timestamp format |
-| `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in the requested `round`; value of `0` (FAILURE) or `1` (SUCCESS). If a price was not successfully calculated in the requested `round`, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
+| `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in the requested `round`; value of `1` (FAILURE) or `0` (SUCCESS). If a price was not successfully calculated in the requested `round`, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
 
 ::: {.callout-note title="Note" collapse="false"}
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
@@ -269,7 +269,7 @@ If the last oracle voting round failed to successfully compute a new median pric
 | `round-1` | `uint256` | the index number of the oracle voting round in which the price was generated. This is always `1` less than the number of the oracle's voting round at the time of the call |
 | `_p.price` | `uint256` | the latest median price for the requested currency pair symbol |
 | `_p.timestamp` | `string` | the timestamp of the block height at which the returned price was calculated; the  timestamp is in Unix Timestamp format |
-| `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in `round-1`, represented by a value of `1` (SUCCESS) or `0` (FAILURE).  If a price was not successfully calculated, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
+| `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in `round-1`, represented by a value of `0` (SUCCESS) or `1` (FAILURE).  If a price was not successfully calculated, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
 
 ::: {.callout-note title="Note" collapse="false"}
 Unix time represents time as an integer value recording the number of seconds since 1 January 1970 00:00:00 UTC.
