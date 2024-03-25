@@ -34,20 +34,20 @@ cp ./<PATH>/genesis.json ./
 	- `--networkid`: to provide the network identifier. This is typically the same value as the `chainId` file in the genesis configuration file, but may be different.
 
 	An example run command for a local development network on localhost could be:
-	
+
 ```bash
 autonity \
-		--datadir ./autonity-chaindata  \
-		--genesis ./genesis.json  \
+		--datadir ./autonity-chaindata \
+		--genesis ./genesis.json \
 		--networkid 65110000 \
-		--http  \
+		--http \
 		--http.addr 0.0.0.0 \
-		--http.api aut,eth,net,txpool,web3,admin  \
+		--http.api aut,eth,net,txpool,web3,admin \
 		--http.vhosts * \
-		--ws  \
+		--ws \
 		--ws.addr 0.0.0.0 \
-		--ws.api aut,eth,net,txpool,web3,admin  \
-		--nat extip:<IP_ADDRESS>  
+		--ws.api aut,eth,net,txpool,web3,admin \
+		--nat extip:<IP_ADDRESS>
 		;
 ```
 
