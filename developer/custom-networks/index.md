@@ -43,7 +43,7 @@ autonity \
 		--http  \
 		--http.addr 0.0.0.0 \
 		--http.api aut,eth,net,txpool,web3,admin  \
-		--http.vhosts \* \
+		--http.vhosts * \
 		--ws  \
 		--ws.addr 0.0.0.0 \
 		--ws.api aut,eth,net,txpool,web3,admin  \
