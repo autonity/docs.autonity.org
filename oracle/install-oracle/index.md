@@ -15,7 +15,7 @@ The Autonity Oracle Server can be installed in several ways:
 We assume that the Autonity Oracle Server will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _host_ machine will be used for Autonity Go Client the oracle serves via the WSS endpoint.
 
 ::: {.callout-note title="Note" collapse="false"}
-Autonity Oracle Server source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity-oracle] (https://github.com/autonity/autonity-oracle).
+Autonity Oracle Server source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity-oracle](https://github.com/autonity/autonity-oracle).
 :::
 
 ## Requirements
