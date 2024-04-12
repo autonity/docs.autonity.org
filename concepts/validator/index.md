@@ -45,22 +45,70 @@ Prerequisites for becoming a validator node operator are:
 The validator makes use of different accounts and private/public [key pairs](/glossary/#key-pair) for validator lifecycle management (registration, pausing, reactivation), validator identity, staking rewards, consensus participation and cryptographic security. 
 
 ### P2P node keys: autonityKeys
-The private/public key pair of the validator node.
+The private/public key pair of the validator node. The `autonitykeys` file contains the private keys for the transaction and consensus gossiping [communication layer](/concepts/architecture/#communication-layer). The keys are concatenated together to create a 128 character string:
+
+- the first 64 characters are the `nodekey`: used for transaction gossiping with other network peer nodes
+- the second 64 characters are the `consensuskey`: used for consensus gossiping with other validators whilst participating in consensus
+
+::: {.callout-tip title="Generating the `autonitykeys` file with `genAutonityKeys`" collapse="true"}
+
+By default AGC will automatically generate an `autonitykeys` file containing your node key and consensus key within the `autonity` subfolder of the `--datadir` specified when [running the node](/node-operators/run-aut/).
+
+The `autonitykeys` file can be generated using AGC's command-line option [`genAutonityKeys`](/reference/cli/agc/):
+
+```
+./build/bin/autonity genAutonityKeys  --writeaddress <KEYFILE_NAME>                
+```
+
+The command will generate an `autonitykeys` keyfile with the given `<KEYFILE_NAME>` and print to terminal the `Node Address`, `Node Public Key` and `Consensus Public Key` for the node.
+
+For example:
+
+```
+Node Address:           0x550454352B8e1EAD5F27Cce108EF59439B18E249
+Node Public Key:        0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
+Consensus Public Key:   0x1aa83a28e235072ffdae41fg01ccc46e2b8d9dc16df3b6ff87ffa5ff6d7f90a2852649a60563237cd66a256f60a92e71
+```
+
+If you choose to generate the `autonitykeys` file and _do not store your key in the default location, then you must specify the path to where you are keeping your `autonitykeys` file using the `--autonitykeys` option in the run command.
+
+:::
+
 
 The private key is used:
 
-- By a node for negotiating an authenticated and encrypted connection between other network nodes at the devp2p layer in the [RLPx Transport Protocol](https://github.com/ethereum/devp2p/blob/master/rlpx.md).
-- To generate the `proof` of enode ownership required for validator registration. The `proof` is generated using the [`genEnodeProof`](/reference/cli/#command-line-options) command-line option of the Autonity Go Client. 
+- By a node for:
+  - transaction gossiping (`nodekey`), for negotiating an authenticated and encrypted connection between other network nodes at the devp2p layer in the [RLPx Transport Protocol](https://github.com/ethereum/devp2p/blob/master/rlpx.md).
+  - consensus gossiping (`consensuskey`), for voting in consensus rounds whilst a member of the [consensus committee](/concepts/consensus/committee/)
+- To generate the `proof` of enode ownership required for validator registration. The `proof` is generated using the [`genOwnershipProof`](/reference/cli/#command-line-options) command-line option of the Autonity Go Client. 
 
 The public key is used:
 
-- As the identifier or 'node ID' of the node (in RLPx and node discovery protocols).
-- As the PUBKEY component of the enode URL as a hex string.
-- To verify the signature of consensus level network messages.
-- To derive an ethereum format account that is then used to identify the validator node. See [validator identifier](#validator-identifier).
+- As the identifier or 'node ID' of the node (in RLPx and node discovery protocols) (`node public key`).
+- As the PUBKEY component of the enode URL as a hex string (`node public key`).
+- To derive an ethereum format account that is then used to identify the validator node. See [validator identifier](#validator-identifier) (`node public key`).
+- To verify the signature of consensus level network messages  (`consensus public key`).
 
-::: {.callout-note title="Note" collapse="false"}
-The private key can be used by Autonity’s `bootnode` utility to derive the hex string used in the `enode` URL. (See Networking Options  `nodekey` and `nodekeyhex` in [Autonity command-line options](/reference/cli/#usage) and, for reference,  the ethereum stack exchange article [how to produce enode from node key](https://ethereum.stackexchange.com/questions/28970/how-to-produce-enode-from-node-key).)
+::: {.callout-tip title="Viewing the node and consensus public keys with `autinspect`" collapse="true"}
+
+The node and consensus public keys can be viewed using Autonity's `ethkey` cmd utility and the `autinspect` command to sinspect the `autonitykeys` file:
+
+```
+./build/bin/ethkey autinspect <KEYFILE>                
+```
+
+The command will return the `Node Address`, `Node Public Key` and `Consensus Public Key` of the node.
+
+For example:
+
+```
+Node Address:           0x550454352B8e1EAD5F27Cce108EF59439B18E249
+Node Public Key:        0xcef6334d0855b72dadaa923ceae532550ef68e0ac50288a393eda5d811b9e81053e1324e637a202e21d04e301fe1765900bdd9f3873d58a2badf693331cb1b15
+Consensus Public Key:   0x1aa83a28e235072ffdae41fg01ccc46e2b8d9dc16df3b6ff87ffa5ff6d7f90a2852649a60563237cd66a256f60a92e71
+```
+
+Note that (a) the `Node public key` value minus the leading `0x` marker of the HEX string is the public key component of your [validator enode url](/concepts/validator/#validator-enode-url), and, (b) the `Node Address` value is the [validator identifier address](/concepts/validator/#validator-identifier).
+
 :::
 
 ### Validator enode URL
@@ -68,7 +116,7 @@ The `enode` URL is the network address of the peer node operated by the validato
 
 The enode URL format is described in the [ethereum Developers docs](https://ethereum.org/en/developers/docs/networking-layer/network-addresses/#enode).
 
-It takes the form:
+It takes the basic form:
 
 ```
 enode://PUBKEY@IP:PORT
@@ -76,7 +124,14 @@ enode://PUBKEY@IP:PORT
 
 The PUBKEY component is the public key from the P2P node key. The PUBKEY is static. The IP and PORT COMPONENTS may change over time.
 
-The PUBKEY component is used to derive an ethereum format account address that is used as the validator identity in validator registration, staking, and accountability and omissions operations - see validator identifier.
+::: {.callout-tip title="Specifying enode query parameters for non-default IP and port settings" collapse="true"}
+
+A node operator may choose to deploy their node with non-default IP and port settings. This is done in the enode URL scheme by specifying the required IP and port settings using optional `query` parameters. 
+
+For how to do this, see the concept [System model, Networking](/concepts/system-model/#networking) and [Separate channels for transaction and consensus gossiping](/concepts/system-model/#separate-channels-for-transaction-and-consensus-gossiping).
+
+:::
+
 
 ### Validator identifier
 
@@ -239,7 +294,7 @@ Note that genesis registration requires the validator [self-bond](/glossary/#sel
 
 After genesis the process is:
 
-- Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the `registerValidator()` function to submit the Validator registration parameters `enode` URL, `oracleAddress` [oracle identifier](/concepts/validator/#oracle-identifier), and a `proof` of node ownership generated from the private key of the validator node’s [P2P node key](/concepts/validator/#p2p-node-key) and the validator’s [oracle server key](/concepts/oracle-network/#oracle-server-key). The transaction `msgSender()` address is used for the validator's `treasury` parameter value. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
+- Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the `registerValidator()` function to submit the Validator registration parameters `enode` URL, `oracleAddress` [oracle identifier](/concepts/validator/#oracle-identifier), and a `proof` of node ownership generated from the private key of the validator node’s [P2P node keys: `autonityKeys`](/concepts/validator/#p2p-node-keys-autonitykeys), private key of the [oracle server key](/concepts/oracle-network/#oracle-server-key), and the validator's [`treasury` account](/concepts/validator/#treasury-account) address. The `treasury` account address used in the ownership proof is used as the `msgSender()` address when submitting the registration transaction. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
 - A `RegisteredValidator` event is emitted by the Autonity Protocol Contract.
 - To bond stake to the validator, the staker submits a bonding request transaction to the Autonity Protocol Public APIs, calling the `bond()` function with its validator address (`enode`) and the bonded stake amount. This is recorded in a `Staking` state variable data structure ready to be applied at epoch end
 

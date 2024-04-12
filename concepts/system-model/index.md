@@ -10,24 +10,19 @@ An Autonity network is a distributed blockchain system comprised of peer nodes r
 ## Participants
 A participant is a network node connected to an Autonity distributed system and forming part of the system's distributed virtual machine. Participants run a peer node running main client software implementing the [Autonity Protocol](/glossary/#autonity-protocol), i.e. the [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) software, communicate with one another over networking protocols in Autonity's communication layer, execute state transitions in the [EVM](/glossary/#ethereum-virtual-machine-evm) Ethereum runtime environment, and have read and write access to the system ledger. Each participant maintains an up-to-date copy of [system state](/glossary/#system-state) in a [ledger object](/concepts/system-model/#the-ledger-object).
 
-Participants are secured and uniquely identified by public key cryptography. Each participant has a public and private keypair ([node key](/concepts/validator/#p2p-node-key)) for signing the messages it broadcasts at the communication layer. This message signature allows cryptographic verification of message sender identity by recipient participants. 
+Participants are secured and uniquely identified by public key cryptography. Each participant node has cryptographic identity from keypairs, see [P2P node keys: `autonityKeys`](/concepts/validator/#p2p-node-keys-autonitykeys). The `autonitykeys` file contains two private keys that are  used to sign messages in the communication layer for transaction (`nodekey`) and consensus (`consensuskey`) gossiping. These message signatures allows cryptographic verification of message sender identity by recipient participants. The corresponding public keys are accessible to other participants and a participant can identify other participants by public key, therefore. The _public node key_ is used to derive participant identifier and network addresses. Namely, a unique network address (the [enode URL](/concepts/validator/#validator-enode-url)), and a _node address_ for the validator (the public key for the private node key).  The _public consensus key_ is used to identify the validator during consensus participation.
 
-Each participant node has:
+Participants can register as validators and have stake bonded to them as described in the [Validator](/concepts/validator/) section. If a participant is registered as a validator, then the _node address_ is used as the [validator identifier](/concepts/validator/#validator-identifier) address.
 
-- A keypair - the [node key](/concepts/validator/#p2p-node-key). The private key is used to sign messages in the communication layer. The public key is used to uniquely identify the participant:
-	- Public keys are accessible to other participants and a participant can identify other participants by their public key.
-	- It is used to derive participant identifier and network address.
-- A unique network address (the [enode URL](/concepts/validator/#validator-enode-url)).
-- If a participant is registered as a validator, then an address derived determinstically from the node key public key is used as the [validator identifier](/concepts/validator/#validator-identifier) address.
+Consequently the set of participants can be subdivided into divisions or subclassed as:
 
-Participants can register as validators and have stake bonded to them as described in the [Validator](/concepts/validator/) section. Consequently the set of participants can be subdivided into divisions or subclassed as:
-
+- The set of node participants making up the P2P network,
 - The set of possible validator participants, and, for those validators selected to the consensus committee,
 - The set of committee members. Validators in the consensus committee also participate in the [oracle network](/concepts/oracle-network/).
 
 The committee is dynamically maintained and selection is a deterministic function of the protocol - see [Committee member selection](/concepts/consensus/committee/#committee-member-selection).
 
-A committee member participates in Tendermint Consensus instances, voting for and deciding on proposed blocks. Blocks endorsed by two-thirds or more of the committee's voting power are appended to the blockchain. The validator votes for a block are recorded in the [block header](/concepts/system-model/#the-blockchain-object) `committedSeals` field.
+A committee member participates in [Tendermint Consensus](/concepts/consensus/pos/) instances, voting for and deciding on proposed blocks. Blocks endorsed by two-thirds or more of the committee's voting power are appended to the blockchain. The validator votes for a block are recorded in the [block header](/concepts/system-model/#the-blockchain-object) `committedSeals` field.
 
 [System actors](/overview/#system-actors) submit calls and state affecting transactions to the system by RPC to [Autonity Interfaces](/reference/api/) provided by Autonity Go Client nodes. 
 
