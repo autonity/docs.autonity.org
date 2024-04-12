@@ -75,14 +75,14 @@ If you choose to generate the `autonitykeys` file and _do not store your key in 
 :::
 
 
-The private key is used:
+The private `autonitykeys` are used:
 
 - By a node for:
   - transaction gossiping (`nodekey`), for negotiating an authenticated and encrypted connection between other network nodes at the devp2p layer in the [RLPx Transport Protocol](https://github.com/ethereum/devp2p/blob/master/rlpx.md).
   - consensus gossiping (`consensuskey`), for voting in consensus rounds whilst a member of the [consensus committee](/concepts/consensus/committee/)
 - To generate the `proof` of enode ownership required for validator registration. The `proof` is generated using the [`genOwnershipProof`](/reference/cli/#command-line-options) command-line option of the Autonity Go Client. 
 
-The public key is used:
+The corresponding public keys are used:
 
 - As the identifier or 'node ID' of the node (in RLPx and node discovery protocols) (`node public key`).
 - As the PUBKEY component of the enode URL as a hex string (`node public key`).

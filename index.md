@@ -6,7 +6,7 @@
 
 ![](/_assets/images/text-logo-autonity.svg)
 
-Welcome to the documentation site for the Autonity Go Client (AGC) and Autonity Oracle Server (AOS). AGC is the main client software run by peer nodes in an Autonity network. AOS is the oracle software run by validator nodes to source price data from external data providers and submit price reports on-chain.
+Welcome to the documentation site for the [Autonity Go Client (AGC)](https://github.com/autonity/autonity) and [Autonity Oracle Server (AOS)](https://github.com/autonity/autonity-oracle)! AGC is the main client software run by peer nodes in an Autonity network. AOS is the oracle software run by validator nodes to source price data from external data providers and submit price reports on-chain.
 
 AGC is a fork of [Geth <i class='fas fa-external-link-alt'></i>](https://geth.ethereum.org/) and is the reference implementation of the Autonity Protocol. The protocol provides an EVM-based blockchain that utilises Tendermint BFT for delegated proof of stake consensus, has a dual native coin design for tokenomics, and provides liquid staking for capital efficiency.
 
