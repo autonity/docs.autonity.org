@@ -539,3 +539,7 @@ span.resource {
     background-color: #000000;
     color: #fff;
 }
+
+code {
+    word-break: break-all;
+}
