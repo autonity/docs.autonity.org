@@ -539,7 +539,10 @@ span.resource {
     background-color: #000000;
     color: #fff;
 }
+.content, .content * {
+    overflow-wrap: break-word;
+}
 
-code {
+td, td * {
     word-break: break-all;
 }
