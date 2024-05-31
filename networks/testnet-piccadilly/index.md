@@ -9,7 +9,7 @@ Piccadilly is a public Testnet running the latest deployable version of the Auto
 Piccadilly is for participants interested in:
 
 - Taking part in the [Piccadilly Circus Games Competition](https://game.autonity.org) and helping to develop the Autonity project.
-- Helping find bugs in Autonity (See the game's [Bug Bounty](https://game.autonity.org/#tasks--points)).
+- Helping find bugs in Autonity (See the game's [Bug Bounty](https://game.autonity.org/#tasks-points)).
 - Operating node infrastructure.
 - Operating as a validator.
 - Stake delegation.
