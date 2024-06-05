@@ -237,8 +237,7 @@ Staking reward revenue is proportionate to the validator's share of the stake ac
 - Staking rewards earned from their own [self-bonded](/glossary/#self-bonded) stake.
 - Commission charged on [delegated](/glossary/#delegated) stake per the delegation rate they charge as commission.
 - The priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
-- [Slashing rewards](/concepts/accountability/#slashing-rewards) earned for reporting slashed faults in the [accountability and fault detection](/concepts/accountability/) protocol.
-
+- [Slashing rewards](/concepts/accountability/#slashing-rewards) earned for reporting slashed faults in the [accountability and fault detection](/concepts/accountability/) protocol. Slashing rewards are provided by forfeiture of an offending validator’s staking rewards.
 
 Staking reward revenue potential is determined by the frequency with which a validator is an active member of the consensus committee. This is driven by:
 
