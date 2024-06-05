@@ -111,7 +111,7 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 | `round` | `uint256` | the index number of the oracle voting round in which the price was generated |
 | `_p.price` | `uint256` | the median price for the requested currency pair symbol |
 | `_p.timestamp` | `string` | the timestamp of the block height at which the returned price was calculated; the  timestamp is in Unix Timestamp format |
-| `_p.status` | `uint` | status value indicating if the median price was calculated successfully or not in the requested `round`; value of `1` (FAILURE) or `0` (SUCCESS). If a price was not successfully calculated in the requested `round`, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
+| `_p.sucess` | `bool` | status value indicating if the median price was calculated successfully or not in the requested `round`; value of `False` (FAILURE) or `True` (SUCCESS). If a price was not successfully calculated in the requested `round`, then the price returned is the most recently generated price for the requested symbol and was generated at the returned block timestamp.|
 
 ::: {.callout-note title="Note" collapse="false"}
 Note that median price calculation happens when the last block of a round is finalised. If `getRoundData()` is called with the current `round` number, then it will return zero because the price aggregation hasn't been executed yet.
@@ -132,7 +132,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundD
 ## aut
 ``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "SEK-USD"
-{"round": 1809, "price": 899334, "timestamp": 1694668219, "status": 0}
+{"round": 1809, "price": 899334, "timestamp": 1694668219, "success": 0}
 ```
 :::
 
