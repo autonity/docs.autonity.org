@@ -290,7 +290,7 @@ Autonity uses Ethereum's [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) tra
 #### EIP 1559 Transaction fee mechanism (TFM)
 EIP 1559 fee markets accommodate demand volatility by a variable block size and dynamic adjustment of the minimum price for each unit of gas used to compute a transaction on the network. The TFM functions by targeting usage of an average percentage of available block capacity over time. Mean-reverting to this target is achieved by adjusting gas price each block according to the delta between actual gas used versus targeted gas usage in the preceding block.
 
-The minimum gas price is set as a _base fee_, which may remain static, increase, or decrease according to actual consumption. Change in the base fee is a function of the _actual_ gas used in computing the preceding block and the expected _target_ gas consumption of the parent block. A _base fee change denominator_ bounds the amount the fee is allowed to change between blocks. This smooths volatility in price movements away from and back to the target usage over block time. The _target_ is derived by dividing the parent _block gas limit_ by an _elasticity multiplier_ to project a desired block usage as a percentage of the block capacity. The surpus block capacity gives elasticity, a buffer zone, that can accommodate volatility in transaction demand. Surplus block capacity absorbs the increased throughput and adjustment of base fee every block responds to market demand for the blockchain's computational and storage resources by adjusting base fee per gas unit cost accordingly:
+The minimum gas price is set as a _base fee_, which may remain static, increase, or decrease according to actual consumption. Change in the base fee is a function of the _actual_ gas used in computing the preceding block and the expected _target_ gas consumption of the parent block. A _base fee change denominator_ bounds the amount the fee is allowed to change between blocks. This smooths volatility in price movements away from and back to the target usage over block time. The _target_ is derived by dividing the parent _block gas limit_ by an _elasticity multiplier_ to project a desired block usage as a percentage of the block capacity. The surplus block capacity gives elasticity, a buffer zone, that can accommodate volatility in transaction demand. Surplus block capacity absorbs the increased throughput and adjustment of base fee every block responds to market demand for the blockchain's computational and storage resources by adjusting base fee per gas unit cost accordingly:
 
 - increasing when blocks are above the gas target
 - decreasing when blocks are below the gas target.
@@ -300,12 +300,12 @@ To incentivise inclusion of a transaction in a block, EIP 1559 allows a transact
  
 #### Autonity EIP 1559 configuration
 
-Autonity maintains the Ethereum protocol settings for EIP 1559:
+Autonity sets an EIP 1559 configuration of:
 
-- _block gas target_ = `15M`, the pre EIP 1559 block gas limit
-- _block gas limit_ = `30M`, double the preceding block gas limit accommodating 50% elasticity
-- _base fee change denominator_ = `8`, limiting possible change in base fee to 12.5% each block.
-- _elasticity multiplier_ = `2`, setting targeted block usage at 50% of the block limit.
+- _block gas target_ = `20M`, the block gas usage targeted for a block
+- _block gas limit_ = the gas limit possible for a block is dynamic and can change (increase) by no more than 10% a block from the actual block gas usage of the parent block
+- _base fee change denominator_ = `8`, limiting possible change (increase or decrease) in base fee to 12.5% each block
+- _elasticity multiplier_ = `2`, setting targeted block usage at 50% of the block limit and so accommodating 50% elasticity
 
 
 Autonity modifies EIP 1559 by:
