@@ -132,7 +132,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundD
 ## aut
 ``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRoundData 1809 "SEK-USD"
-{"round": 1809, "price": 899334, "timestamp": 1694668219, "success": 0}
+{"round": 1809, "price": 899334, "timestamp": 1694668219, "success": True}
 ```
 :::
 

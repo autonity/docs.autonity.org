@@ -31,10 +31,10 @@ aut node info
     "eth_blockNumber": 12803619,
     "eth_gasPrice": 1000000000,
     "eth_syncing": false,
-    "eth_chainId": 65100000,
+    "eth_chainId": 65100003,
     "net_listening": true,
     "net_peerCount": 19,
-    "net_networkId": "65100000",
+    "net_networkId": "65100003",
     "web3_clientVersion": "Autonity/v0.9.0/linux-amd64/go1.19",
     "admin_enode": "enode://d9a7297b2bec3c2f92233dc42f53c0cf98af30528a56765b102d9e28be2a760b7fd3045790246d1a5836af9a8ea5d2dbcc9b56864f6391045ba76391d9db931e@77.86.9.81:30303",
     "admin_id": "8794927d6dda6f8cb45bc7eefd9084dbb3b81ce508ff43e1ccb7fe904ccd2cfc"

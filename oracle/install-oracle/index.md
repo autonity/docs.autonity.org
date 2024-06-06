@@ -6,10 +6,10 @@ description: >
 
 ## Overview
 
-The Autonity Oracle Server can be installed in several ways:
+The [Autonity Oracle Server ](https://github.com/autonity/autonity-oracle) can be installed in several ways:
 
 - as a pre-compiled Linux Executable File from the Release Archive
-- by building the client from source code
+- by building the server from source code
 - in a Docker container.
 
 We assume that the Autonity Oracle Server will run on a _host_ machine (a VPS or other host that is always-on and persistently available), and a distinct _host_ machine will be used for Autonity Go Client the oracle serves via the WSS endpoint.
@@ -210,10 +210,10 @@ You can now [configure and launch oracle server](/oracle/run-oracle/#run-docker)
 You should now be able to execute the `autoracle` command.  Verify your installation by executing `autoracle version` to return the oracle version and configuration:
 
 ```bash
-$ ./autoracle version
+$ /build/bin/autoracle version
 ```
 ```
-v0.1.6
+v0.1.7
 ```
 
 If using Docker, the setup of the Piccadilly Testnet image can be verified with:
@@ -222,7 +222,7 @@ If using Docker, the setup of the Piccadilly Testnet image can be verified with:
 docker run --rm ghcr.io/autonity/autonity-oracle-piccadilly:latest version 
 ```
 ```
-v0.1.6
+v0.1.7
 ```
 
 ::: {.callout-note title="Note" collapse="false"}
