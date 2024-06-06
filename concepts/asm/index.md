@@ -17,7 +17,7 @@ Autons are burned when a CDP is repaid by depositing ATN to the ASM's smart cont
 
 CDPs are created with defined collateralization and liquidation ratios which limit the risk that the debt cannot be adequately covered by the sale of the collateral.
 
-Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Auton Currency Unit (ACU)](/glossary/#acu).
+Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Autonomous Currency Unit (ACU)](/glossary/#acu).
 
 ## ASM identifiers and accounts
 
@@ -54,7 +54,7 @@ The ASM is composed of 3 system elements implemented as smart contract logic: AC
 
 #### ACU
 
-The [Auton Currency Unit (ACU)](/glossary/#acu) is a currency basket from which an index value is computed. This index value is then used as the _stabilization target_ for Auton price, see _[Stabilization](/concepts/asm/#stabilization)_.
+The [Autonomous Currency Unit (ACU)](/glossary/#acu) is a currency basket from which an index value is computed. This index value is then used as the _stabilization target_ for Auton price, see _[Stabilization](/concepts/asm/#stabilization)_.
 
 The ACU currency basket is composed of 7 free-floating currencies:
 
@@ -176,7 +176,7 @@ Oracle price data is computed per the [Oracle protocol](/concepts/oracle-network
 
 #### ACU
 
-Auton price has the [Auton Currency Unit (ACU)](/glossary/#acu) as the Stabilization Target to which it _mean-reverts_. ACU is an index value computed from a basket of free-floating currencies. Use of a currency basket minimises exposure to an individual currency's FX exchange risk. The index value is computed from the basket, weighted _pro rata_ to each currency's share i.e. _quantity_ in the basket. Basket quantities are set at network genesis and may be modified by governance.
+Auton price has the [Autonomous Currency Unit (ACU)](/glossary/#acu) as the Stabilization Target to which it _mean-reverts_. ACU is an index value computed from a basket of free-floating currencies. Use of a currency basket minimises exposure to an individual currency's FX exchange risk. The index value is computed from the basket, weighted _pro rata_ to each currency's share i.e. _quantity_ in the basket. Basket quantities are set at network genesis and may be modified by governance.
 
 ASM then functions to maintain Auton-to-ACU value, '_mean reverting_' to this value by the CDP stabilization mechanism. 
 
@@ -272,3 +272,4 @@ ASM economics are multi-dimensional:
   - CDP's give access to collateralized borrowing for Auton with  flexibility to increase and decrease borrowing and collateral amounts within constraints. Borrowers can offset flexibility against opportunity costs of borrow interest, staking reward potential if deposited Newton collateral were earning staking rewards, and liquidation risk.
 - For the liquidator:
   - Liquidation returns from remaining collateral after settlement of debt and interest outstanding.
+Autonomous Currency Unit
