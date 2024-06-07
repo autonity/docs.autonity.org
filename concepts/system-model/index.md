@@ -22,7 +22,7 @@ Consequently the set of participants can be subdivided into divisions or subclas
 
 The committee is dynamically maintained and selection is a deterministic function of the protocol - see [Committee member selection](/concepts/consensus/committee/#committee-member-selection).
 
-A committee member participates in [Tendermint Consensus](/concepts/consensus/pos/) instances, voting for and deciding on proposed blocks. Blocks endorsed by two-thirds or more of the committee's voting power are appended to the blockchain. The validator votes for a block are recorded in the [block header](/concepts/system-model/#the-blockchain-object) `committedSeals` field.
+A committee member participates in [Tendermint Consensus](/concepts/consensus/pos/) instances, voting for and deciding on proposed blocks. Blocks endorsed by two-thirds or more of the committee's voting power are appended to the blockchain. The validator votes for a block are recorded using BLS aggregation as a `quorumCertificate` field in the [block header](/concepts/system-model/#the-blockchain-object).
 
 [System actors](/overview/#system-actors) submit calls and state affecting transactions to the system by RPC to [Autonity Interfaces](/reference/api/) provided by Autonity Go Client nodes. 
 
@@ -102,45 +102,48 @@ Autonity modifies the inherited Ethereum blockchain structure, extending the blo
 Fields inherited from Ethereum:
 
 <!-- - `coinbase`, unused -->
-- `baseFeePerGas`, minimum price per unit of gas for your transaction to be included in the block.
-- `difficulty`, a scalar value corresponding to the difficulty level of this block. Can be calculated from the previous block's difficulty level and the timestamp
-- `extraData`, an arbitrary byte array containing data relevant to this block. This must be 32 bytes or fewer
-- `gasLimit`, a scalar value equal to the current limit of gas expenditure per block
-- `gasUsed`, a scalar value equal to the total gas used in transactions in this block
-- `hash`, the Keccak 256-bit hash of the current block's header.
-- `logsBloom`, the Bloom filter composed from indexable information (logger address and log topics) contained in each log entry from the receipt of each transaction in the transactions list
-- `miner`, the address of the block proposer
-- `mixHash`, a 256-bit hash which, combined with the nonce, proves that a sufficient amount of computation has been carried out on this block
-- `nonce`, a 64-bit value which, combined with the mixHash, proves that a sufficient amount of computation has been carried out on this block
-- `number`, a scalar value equal to the number of ancestor blocks. The genesis block has a number of zero.
-- `parentHash`, the Keccak 256-bit hash of the parent block’s header.
-- `receiptsRoot`, the Keccak 256-bit hash of the root node of the trie structure populated with the receipts of each transaction in the transactions list portion of the block
-- `sha3Uncles`, the SHA3 hash of the uncle parents of the block. This always has the value '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
-- `size`, a scalar value corresponding to the current block byte size
-- `stateRoot`, the Keccak 256-bit hash of the root node of the state trie after transactions execution and finalization.
-- `timestamp`, a scalar value equal to the reasonable output of [Unix's `time()`](/glossary/#unix-time) at this block's inception.
-- `totalDifficulty`, a scalar value corresponding to the difficulty of computing blocks in the chain to the current block
-- `transactionsRoot`, the Keccak 256-bit hash of the root node of the trie structure populated with each transaction in the transactions list portion of the block
+
+| Field | Description |
+| :-- | :-- |
+| `baseFeePerGas` | minimum price per unit of gas for your transaction to be included in the block |
+| `difficulty` | a scalar value corresponding to the difficulty level of this block. Can be calculated from the previous block's difficulty level and the timestamp. |
+| `extraData` | an arbitrary byte array containing data relevant to this block |
+| `gasLimit` | a scalar value equal to the current limit of gas expenditure per block |
+| `gasUsed` | a scalar value equal to the total gas used in transactions in this block |
+| `hash` | the Keccak 256-bit hash of the current block's header |
+| `logsBloom` | the Bloom filter composed from indexable information (logger address and log topics) contained in each log entry from the receipt of each transaction in the transactions list |
+| `miner` | the address of the block proposer |
+| `mixHash` | a 256-bit hash which, combined with the nonce, proves that a sufficient amount of computation has been carried out on this block |
+| `nonce` | a 64-bit value which, combined with the mixHash, proves that a sufficient amount of computation has been carried out on this block |
+| `number` | a scalar value equal to the number of ancestor blocks. The genesis block has a number of zero. |
+| `parentHash` | the Keccak 256-bit hash of the parent block’s header |
+| `receiptsRoot` | the Keccak 256-bit hash of the root node of the trie structure populated with the receipts of each transaction in the transactions list portion of the block |
+| `sha3Uncles` | the SHA3 hash of the uncle parents of the block. This always has the value '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347' |
+| `size` | a scalar value corresponding to the current block byte size |
+| `stateRoot` | the Keccak 256-bit hash of the root node of the state trie after transactions execution and finalization |
+| `timestamp` | a scalar value equal to the reasonable output of [Unix's `time()`](/glossary/#unix-time) at this block's inception |
+| `totalDifficulty` | a scalar value corresponding to the difficulty of computing blocks in the chain to the current block |
+| `transactionsRoot` | the Keccak 256-bit hash of the root node of the trie structure populated with each transaction in the transactions list portion of the block |
 
 
 New Autonity Fields:
 
-- `committedSeals`, array of signed committee member precommit votes for the block
-- `committee`, array of the consensus committee members for the **following block**. Each item in the array is recorded as an RLP-encoded pair of committee member properties (`address`, `votingPower`).
-- `proposerSeal`, the block proposer's signed block proposal
-- `round`, a scalar value corresponding to the number of consensus rounds initiated for the block. Initial value of `0`.
-
-::: {.callout-note title="Note" collapse="false"}
-If you want to determine how many validators voted for a block with regard to the total committee membership, check if there is a delta between the count of seals in this block and the committee members in the preceding block.
-:::
+| Field | Description |
+| :-- | :-- |
+| `quorumCertificate` | a BLS aggregate signature of committee member precommit votes for the block |
+| `committee` | array of the consensus committee members for the **following block**. Each item in the array is recorded as an RLP-encoded pair of committee member properties (`address`, `consensusKey`, `votingPower`). |
+| `proposerSeal` | the block proposer's signed block proposal |
+| `round` | a scalar value corresponding to the number of consensus rounds initiated for the block. Initial value of `0`. |
 
 
 #### Block content
 
 The block content structure is unmodified per standard Ethereum:
 
-- `transactions`: a list of the transactions comprising the block. Recorded as an array of Keccak 256-bit hashes of the signed transaction.
-- `uncles`: unused.
+| Field | Description |
+| :-- | :-- |
+|`transactions` | a list of the transactions comprising the block. Recorded as an array of Keccak 256-bit hashes of the signed transaction. |
+|`uncles` | unused |
 
 
 #### Example block
@@ -148,53 +151,90 @@ The block content structure is unmodified per standard Ethereum:
 ```python
 aut block height | aut block get | jq .
 {
-  "baseFeePerGas": 5000,
-  "committedSeals": [
-    "0x19e8bdb5827723327a9fcfc305aa2825076ff14340ac7ddc56610fd2a49765036c9283746580661314534ca5c22ed0ec194d5e263f266d779d5a8b4493c2527801",
-    "0x1aca00d74bcbe6a893860dee0311a764e23e577bf5bb7266c7e7f74f066d7a18767623df78bc988e7f7030fd64a2355672f1bd721a24b6cd02cf39dab57511e001",
-    "0xfe6918b694abd11df39eeb0d81d1a5e338a3b414900c8ba1104ed29ca056c4123be24a7c45e23d1f4521c1a5521a19eb92d34713f5c2a70d7dec77d70ce3956c00"
-  ],
+  "baseFeePerGas": 500000000,
   "committee": [
     {
-      "address": "0x0be4ee22d794c640366352ef6ce666e52229886d",
-      "votingPower": "0x21e19e0c9bab2402710"
+      "address": "0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d",
+      "consensusKey": "0xb0d287da6365b9ebcf69c84985877a75a59e7449699a2ada0abb42f3e3414fef3f1406dd11a1e9cb0ee2154c2983de77",
+      "votingPower": "0x1823f3cf621d23400000"
     },
     {
-      "address": "0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c",
-      "votingPower": "0x21e19e0c9bab2402710"
+      "address": "0x889dcd8ca57ab1108e73e9b02b2c2cb09ea9b19e",
+      "consensusKey": "0xa83a69fb0a0918985bea979812abf6d98b674d5fc6619b8b1fa67f8515aee63a024d8913eb45306645a6bc5c4964769c",
+      "votingPower": "0x1823f3cf621d23400000"
     },
     {
-      "address": "0x4827c61c0bdf17578a0879d1aab75abebc4898fe",
-      "votingPower": "0x2710"
+      "address": "0xea75934e9fc938609b9c745e3b738f4d1edc5d07",
+      "consensusKey": "0x8caf7e1e307265575ccb491e05e7b6a81f924a035f4e9488c2cbe75d5773a9a088a690e35d70510924f7694ea8165954",
+      "votingPower": "0x1823f3cf621d23400000"
     },
     {
-      "address": "0x8cc985ded2546e9675546db6bcf34f87f4a16c56",
-      "votingPower": "0x21e19e0c9bab2402710"
+      "address": "0xd97247c264f50fc287721ce949948ba40fcd88b6",
+      "consensusKey": "0x8516924f88279313051dbc85f65fd447fdc435bb1463ec29052589fd2fcaad36df4f8377f18f71f77ddfc42dbcd7587f",
+      "votingPower": "0x1823f3cf621d23400000"
+    },
+    {
+      "address": "0xb4e427d4e8285da5cb2c4b3bd22cf57f6a65e922",
+      "consensusKey": "0x996c0c6ad3e41d58d02d654c86004a7d1058104c63ee217c9dad6143942e90af19c95f81648c4c907e37662a0e4eceb2",
+      "votingPower": "0x1823f3cf621d23400000"
+    },
+    {
+      "address": "0x01fd244de85fe49b2cbc5f2274a9b009fab367b5",
+      "consensusKey": "0xb3e1cc3ef693a2f24055cfd9ce5208105592752f37053ef0e3d4f6ccdbcc7c35f836fcfa2384ad88cf9eca7c99d5c81c",
+      "votingPower": "0x1823f3cf621d23400000"
+    },
+    {
+      "address": "0xd4f2a15bdbf29beb2c2184a3eee5333734aea8fe",
+      "consensusKey": "0xaa68d168310c685a5ba7a67ab56f4635542ab58e539dab67451964a924f549ca1bf6e6bdfab511301643b0f6733fb3bb",
+      "votingPower": "0x1823f3cf621d23400000"
+    },
+    {
+      "address": "0x953281c109681f1aca5b9a445d1948eebea20f7e",
+      "consensusKey": "0x83cb989c48bdd9524d232a8be969a26490835256d5c78eb567b1adc991da9111492178dec20e74b5273c349fb3728492",
+      "votingPower": "0x1823f3cf621d23400000"
+    },
+    {
+      "address": "0x10f31c0c7123c82f982f27a3ee7f58fa4f347fdf",
+      "consensusKey": "0x9111df79c2041efd6aa7a3ebae1678fde6464f4d0adf737ac517d1c3840d31f7909a597937b89363dc4561556405b66d",
+      "votingPower": "0x1823f3cf621d23400000"
+    },
+    {
+      "address": "0x1e40ea9631af6a94258e1fa885886fdfd93c29cc",
+      "consensusKey": "0xa81d2a7e070f93d6ab4f7109a1b88e73dc4cbae8e835b4b964d2d08a0aa4c3ae1505e028cf2e7527a9fa1072750b8c90",
+      "votingPower": "0x1823f3cf621d23400000"
     }
   ],
   "difficulty": 1,
   "extraData": "0x",
-  "gasLimit": 30000000,
-  "gasUsed": 104740,
-  "hash": "0xf9c37be33aa458e472c7ee017d03a4b3fe782c170eafd05334535092fd01bce0",
-  "logsBloom": "0x00200000000000000000000080000000000000000000000000000008000000000000000000000000000100000000000000000000000000000000000000200000200000000000000000000008000000200000000000000000000402000000000000000000000000000000000000000000000000020200002000000010000200000000000080000000000000080000000040000000000000080008004000000000020000000000000000000000000000200000000000000000000000010000000000000002000000000000000000100000800000000000001000000000000000000010000000000000000000000080000000000000000000000000000000000000",
-  "miner": "0x0be4Ee22d794c640366352Ef6CE666E52229886d",
+  "gasLimit": 20000000,
+  "gasUsed": 175852,
+  "hash": "0x24c1445195d42ddf6abdfbbaa02a15444348a4bc400e9549184b6c47b96ba842",
+  "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "miner": "0xd97247c264f50FC287721ce949948BA40FCd88b6",
   "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
   "nonce": "0x0000000000000000",
-  "number": 4017598,
-  "parentHash": "0x58653bcfa028c2a19194b1b9bec3a7e5a167595b0a4c7eae10531f88ab0bd097",
-  "proposerSeal": "0xf282a6230a12f3c913193ca57f99793dce8f5c14a0c5ed51163735430eb9487e394a53a4b8b4f075ff41a93d85d7af235121b2edd35e7941313b713bc7a30bc301",
-  "receiptsRoot": "0x91118225d50963cf4b0626d78bcb017ca6763ff683e2d4220bf161485f297bce",
+  "number": 159962,
+  "parentHash": "0xac58d2089dde0056a9e7ce6e63350d26c0848d28a1ef63f07ae877e9fe346dbc",
+  "proposerSeal": "0x28a6f6a0e1bc9d777f63ed550e9b9c4aeba77f10417382940d1b7af238f630f048df7931cef872713be149684e8a63c17d8631e101b88140d2446d0c226a2bbe00",
+  "quorumCertificate": {
+    "Signature": "0xa6a5572ea1cd36a15f61a6fbdd931cce8cd46941be47dfcaf616e0860c67f8bb9eda220c91cf62688cd478d5fb91426a043f136e740f2706b5f475d6750ceb369bc37750af8c2d413a4d3b75882be08f33443b747728a62be2ffc03802d04eea",
+    "Signers": {
+      "Bits": "VQRQ",
+      "Coefficients": []
+    }
+  },
+  "receiptsRoot": "0xb6655c1f32fe2253d13121459257f12d619b352963cc3ff318c6a80a1380658b",
   "round": "0x0",
   "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
-  "size": 1302,
-  "stateRoot": "0x2351f09ed0c16f0bb7ace91f1b75223a885895573348667435304eed6e43b7f9",
-  "timestamp": 1689680235,
-  "totalDifficulty": 4017598,
+  "size": 2610,
+  "stateRoot": "0xe67b995075c2552f548c796012c47dc0def19191f40579ae857dcddf9886c116",
+  "timestamp": 1717761699,
+  "totalDifficulty": 159962,
   "transactions": [
-    "0x29cd30370da131cdb79e8e0e1ca95e33be21fb3da78ba37009cbc8433a24a7da"
+    "0x492121327ac7f3f48910cca39ac4a35ce58d129ee06392ac844bb97976c0ad7c",
+    "0xf2d2a3dd03f0e5025e9ab6d75742af6227ac5bc909cee08f0236fa92f88b542f"
   ],
-  "transactionsRoot": "0x97f1cfbdf36cfe329d50fb218093e2267356f8139ec09654a7b30515b1129278",
+  "transactionsRoot": "0x7fed8efde6bb8f574ba410af9805ee164b851731ec30043c16a2e099d197f71f",
   "uncles": []
 }
 ```

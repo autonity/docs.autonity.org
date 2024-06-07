@@ -25,7 +25,12 @@ In each consensus instance a consensus round of three voting steps is executed a
 
 If the committee member receives _2f+1_ Precommits, then by protocol the block proposal is decided and:
 
-- The block is broadcast to the network. The block proposer broadcasts the new block, its [block header](/concepts/system-model/#block-header) containing the block proposal and precommit message seals and an array of the committee members that voted for the block. Other committee members broadcast a (new) block announcement.
-- The block is committed to the ledger. Participants that receive the new block check validity by verifying the seals. Participants that receive an announcement sync to retrieve the block, verifying  by computing block state as it appends the block to the chain.
+- The block is broadcast to the network. The block proposer broadcasts the new block. Other committee members broadcast a (new) block announcement.
+
+  ::: {.callout-tip title="Cryptographic proof of the validator quorum that agreed on the block" collapse="false"}
+This is recorded in the [block header](/concepts/system-model/#block-header) by the _proposer seal_ (seal of the committee member proposing the block) and the _quorum certificate_ (a single aggregated BLS signature of the committee members that voted and agreed on the block).
+:::
+
+- The block is committed to the ledger. Participants that receive the new block check validity by verifying the _proposer seal_ and _quorum certificate_. Participants that receive an announcement sync to retrieve the block, verifying  by computing block state as it appends the block to the chain.
 
 If quorum is not reached at Prevote or Precommit stages or there is timeout, then the round terminates and a new consensus instance begins.
