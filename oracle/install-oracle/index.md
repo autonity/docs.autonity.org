@@ -213,7 +213,7 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ /build/bin/autoracle version
 ```
 ```
-v0.1.7
+v0.1.8
 ```
 
 If using Docker, the setup of the Piccadilly Testnet image can be verified with:
@@ -222,7 +222,7 @@ If using Docker, the setup of the Piccadilly Testnet image can be verified with:
 docker run --rm ghcr.io/autonity/autonity-oracle-piccadilly:latest version 
 ```
 ```
-v0.1.7
+v0.1.8
 ```
 
 ::: {.callout-note title="Note" collapse="false"}
