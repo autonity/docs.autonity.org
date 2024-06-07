@@ -135,38 +135,6 @@ Exit may take up to 3 minutes. If you are using `systemd` and/or other software 
 Now you can now [connect to your node using `aut`](/node-operators/connect/) from your _local_ machine.
 :::
 
-## Migrating an Autonity Go Client
-
-To migrate a node to a new instance the node identity must be preserved. The [P2P node keys: autonityKeys](/concepts/validator/#p2p-node-keys-autonitykeys) and the node's host [ip address](/node-operators/install-aut/#network) must be maintained to keep the same node [identifier](/concepts/validator/#validator-identifier) address and [enode url](/glossary/#enode).
-
-Copy the [P2P node keys: autonityKeys](/concepts/validator/#p2p-node-keys-autonitykeys) file to a safe location and be sure to maintain your hosting IP address.
-
-::: {.callout-note title="Static IP Address is required" collapse="false"}
-Running an Autonity node requires maintaining a static ip address as described in the guide [Install Autonity, Networking](/node-operators/install-aut/#network) section.
-
-If you are using a cloud provider for node hosting, then a static IP address for your cloud space should be a stated hosting requirement if you intend to migrate the node. Cloud vendors typically don't supply a static IP address unless it is purchased explicitly.
-:::
-
-To migrate, when reinstalling and running the node:
-
-- Install the node as described in the [install autonity](/node-operators/install-aut/) guide
-- Migrate the `autonitykeys` before running the node:
-  - Copy your original `autonitykeys` to the directory location you will use to hold the key when running the node. See `<DIR_PATH>` in Step 4 of this Guide.
-- Start the node per Step 4 in this guide, maintaining the original IP address value for:
-  - `--nat extip:<IP_ADDRESS>`.
-  - (Optional) `--consensus-nat extip:<IP_ADDRESS>` if you are not using AGC's default settings for the consensus gossiping channel and have set `extip`.
-
-Autonity will detect and use the original `autonitykeys`. The new node installation will have the same identity as the original.
-
-::: {.callout-note title="Note" collapse="false"}
-If you are running a validator node you need to:
-
-- [pause the validator node](/validators/pause-vali/) **before migration**, and 
-- [reactivate the new validator](/validators/pause-vali/) **after migration**
-
-Be sure to fully decommission the original node installation.
-:::
-
 ------------------------------------------------
 
 If you need help, you can chat to us on Autonity [Discord Server](https://discord.gg/autonity)!

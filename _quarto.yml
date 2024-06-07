@@ -47,6 +47,7 @@ website:
       - "node-operators/run-aut/index.md"
       - "node-operators/connect/index.md"
       - "node-operators/setup-node-monitoring/index.md"
+      - "node-operators/migrate-aut/index.md"
     - section: "Running an Oracle Server"
       contents:
       - "oracle/install-oracle/index.md"
@@ -56,6 +57,7 @@ website:
       - "validators/register-vali/index.md"
       - "validators/pause-vali/index.md"
       - "validators/change-commission-rate/index.md"
+      - "validators/migrate-vali/index.md"
     - section: "Staking"
       contents:
       - "delegators/bond-stake/index.md"

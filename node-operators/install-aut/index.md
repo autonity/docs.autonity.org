@@ -41,7 +41,9 @@ A public-facing internet connection with static IP is required:
 * If you are using a cloud provider for node hosting, then a static IP address for your cloud space should be a stated hosting requirement. Cloud vendors typically don't supply a static IP address unless it is purchased explicitly.
 
 ::: {.callout-note title="Why is a static IP Address required?" collapse="false"}
-Running an Autonity node requires that you maintain a static ip address because the ip address forms part of the node's network address, the [enode URL](/glossary/#enode). The enode provides the network location of the node client for p2p networking. Changing the ip address will change the node's identity on the network, therefore. This is significant if you are operating a validator node as the enode is provided as part of the validator meta data when [registering a validator](/validators/register-vali/#step-3.-submit-the-registration-transaction).
+Running an Autonity node requires that you maintain a static ip address because the ip address forms part of the node's network address, the [enode URL](/glossary/#enode). I.e. the IP address should not dynamically change due to resetting by the IP provider.
+
+The enode provides the network location of the node client for p2p networking. Changing the ip address will change the node's identity on the network, therefore. This is significant if you are operating a validator node as the enode is provided as part of the validator meta data when [registering a validator](/validators/register-vali/#step-3.-submit-the-registration-transaction).
 :::
 
 Incoming traffic must be allowed on the following:

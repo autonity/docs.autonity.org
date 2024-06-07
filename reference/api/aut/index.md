@@ -2347,3 +2347,57 @@ Enter passphrase (or CTRL-d to exit):
 0x3ac340e33f5ddfdab04ffe85ce4b564986b2f1a877720cb79bc9d31c11c8f318
 ```
 :::
+
+## updateEnode
+
+Updates the enode URL of a registered validator on an Autonity Network.
+
+The `updateEnode` method provides as argument the validator identifier and the [enode](/glossary/#enode) URL of the validator node.
+
+Constraint checks are applied:
+
+- the `enode` URL is not empty, is correctly formed, the `PUBKEY` element of the enode has not been updated
+- the `_nodeAddress` is a registered validator address
+- the `msg.Sender` caller address of the `updateEnode()` transaction is the validator's registered [treasury account](/concepts/validator/#treasury-account)
+- the `_nodeAddress` is not a member of the consensus committee
+
+On method execution the `enode` property of the validator is updated in system state and assigned the value of the `_enode` argument to the method call.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_nodeAddress` | `address` | the validator node identifier account address |
+| `_enode` | `string` | the enode url for the validator node  |
+
+
+### Response
+
+No response object is returned on successful execution of the method call.
+
+The updated validator enode can be retrieved from state by calling the [`getValidator`](/reference/api/aut/#getvalidator) method.
+
+### Event
+
+None.
+
+### Usage
+
+::: {.panel-tabset}
+
+## aut
+``` {.aut}
+aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode _nodeAddress _enode
+
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+
+## aut
+aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode 0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d enode://0be363cfa0c81ee12cfc7e144cf6611a1418344a1fa6a0ca04aaa9b09f68dfe2a8d70b8de22026807728424122937721f8f3570bf296c8d445183e37c87b152d@35.197.223.249:30303
+
+:::
+
