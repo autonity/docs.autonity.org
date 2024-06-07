@@ -108,7 +108,7 @@ In current state the `operator` governance account is an EOA. It could be assign
 |---------|-----------|-----|
 | `enode` |The [enode url](/glossary/#enode) address for the validator node on the network after genesis | The validator's enode URL |
 | `treasury` | The validator’s treasury account for receiving staking rewards. Ethereum format address. | The validator's EOA account address |
-| `consensusKey` | The validator's BLST key used for consensus gossiping when participating in consensus | The validator's _consensus public key_ |
+| `consensusKey` | The validator's BLS key used for consensus gossiping when participating in consensus | The validator's _consensus public key_ |
 | `oracleAddress` | The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address. | The Oracle Server's account address |
 | `bondedStake` | The amount of stake bonded to the validator node at genesis. Denominated in Newton. | Positive integer for stake amount. Value is specific to validator's stake at genesis. |
 
