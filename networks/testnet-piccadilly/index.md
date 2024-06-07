@@ -59,9 +59,11 @@ The network bootnode addresses are:
 
 ## Release
 
-- The current iteration of the Piccadilly network is built using this Autonity Release: [v0.14.0](https://github.com/autonity/autonity/releases/tag/v0.14.0)
+The current iteration of the Piccadilly network is built using:
 
-- The docker image release is: `ghcr.io/autonity/autonity:latest`
+- Autonity Go Client (AGC) Release: [v0.14.0](https://github.com/autonity/autonity/releases/tag/v0.14.0). The docker image release is: `ghcr.io/autonity/autonity:latest`
+
+- Autonity Oracle Server (AOS) Release: [v0.1.8](https://github.com/autonity/autonity-oracle/releases/tag/v0.1.8). The docker image release is: `ghcr.io/autonity/autonity-oracle-piccadilly:latest`
 
 ## Faucet
 
