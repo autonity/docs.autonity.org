@@ -28,6 +28,7 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `--oraclekeyhex` |  An option for the Autonity Oracle Server account key as hex (for testing) is added |
 | `--consensus.port` | An option for the network listening port for the consensus channel is added (default: 20203) |
 | `--consensus.nat` | An option for the NAT port mapping mechanism for the consensus channel is added ("any", "none", "upnp", "pmp", "extip:<IP>") (default: "any") |
+| `--nogossip` | An option to disable consensus message gossip (for testing) is added |
 | MINER OPTIONS: ||
 | `miner.etherbase ` | The option for setting the address for receiving block mining rewards is removed. Autonity implements a protocol mechanism for distributing staking rewards |
 | `miner.gasprice` | The default value for the minimum gas price for mining a transaction is changed from '1000000000' to '500000000' |
@@ -64,7 +65,7 @@ USAGE:
    autonity [options] [command] [command options] [arguments...]
    
 VERSION:
-   0.13.0-rc-8b4a17c1-20240210
+   0.14.0-internal-a09e8d99-20240605
    
 COMMANDS:
    account                            Manage accounts
@@ -192,6 +193,7 @@ NETWORKING OPTIONS:
   --oraclekeyhex value                oracle account key as hex (for testing)
   --consensus.port value              Network listening port for consensus channel (default: 20203)
   --consensus.nat value               NAT port mapping mechanism for consensus channel (any|none|upnp|pmp|extip:<IP>) (default: "any")
+  --nogossip                          disable consensus message gossip
   
 MINER OPTIONS:
   --mine                              Enable mining. Will bypass the chain sync check.
