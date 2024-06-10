@@ -772,7 +772,6 @@ Returns a `committee` array of `CommitteeMember` objects, each object consisting
 
 ### Usage
 
-
 ::: {.panel-tabset}
 ## aut
 
@@ -813,8 +812,21 @@ aut protocol get-committee -r https://rpc1.bakerloo.autonity.org
 ## RPC
 
 ``` {.rpc}
-curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":[{"addr":"0x4b7275d5f5292c3027a16e0eb891d75a0ef39cc7","votingPower":10000},{"addr":"0x5e08564ee99e96e690e9b25591191ae0c78351a3","votingPower":10000},{"addr":"0x33bf54630991f0a1a23b9f102873b3b54c4b94b3","votingPower":10000},{"addr":"0x1ae9b1b3207195430a36d82fc0bda1f857d0aa72","votingPower":10000},{"addr":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4","votingPower":10000},{"addr":"0xf5a48b1df2a3a616adb92e57d6ce36e17c3c2a0b","votingPower":10000},{"addr":"0x5fe87ee4f61da6e640aec02ce818cdcd30b8cb13","votingPower":10000},{"addr":"0xebf9dd85cc99a15f1afb78a6a7cb28a9103e9a12","votingPower":10000},{"addr":"0x9f26942a9710099a7f2b4b64e53522bb16d2af7d","votingPower":10005}]}
+curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}' | jq .
+{"jsonrpc":"2.0","id":1,"result":[
+    {
+      "addr": "0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d",
+      "votingPower": 114000000000000000000000,
+      "consensusKey": "sNKH2mNluevPachJhYd6daWedElpmiraCrtC8+NBT+8/FAbdEaHpyw7iFUwpg953"
+    },
+    {
+      "addr": "0x889dcd8ca57ab1108e73e9b02b2c2cb09ea9b19e",
+      "votingPower": 114000000000000000000000,
+      "consensusKey": "qDpp+woJGJhb6peYEqv22YtnTV/GYZuLH6Z/hRWu5joCTYkT60UwZkWmvFxJZHac"
+    },
+    ...
+  ]
+}
 ```
 :::
 
