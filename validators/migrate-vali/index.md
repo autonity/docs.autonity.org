@@ -28,8 +28,7 @@ This guide describes how to migrate a validator node to an environment with a ne
 Only the network connection information - IP and/or port - of a registered validator enode can be updated. You **cannot** change the validator's address (i.e. the `PUBKEY` part of the [validator enode URL](/concepts/validator/#validator-enode-url)).
 :::
 
-When performing the update the validator **must not** not be an active member of the consensus committee and should be in a [`paused`](/concepts/validator/#validator-pausing) state.
-
+When performing the update the validator **must not** not be an active member of the consensus committee. It is **recommended** that you [`pause`](/concepts/validator/#validator-pausing) your validator before migration. This is to prevent your node being elected as a committee member while you are in the process of migration.
 
 ### Step 1: Pause the validator
 
