@@ -768,6 +768,7 @@ Returns a `committee` array of `CommitteeMember` objects, each object consisting
 | --| --| --|
 | `addr` | `address` | account address of the committee member |
 | `votingPower` | `uint256` | the amount of Newton stake token bonded to the committee member |
+| `consensusKey` | `bytes` | the public consensus key of the validator |
 
 ### Usage
 
@@ -796,41 +797,16 @@ aut protocol get-committee [OPTIONS]
 aut protocol get-committee -r https://rpc1.bakerloo.autonity.org
 [
   {
-    "address": "0x4b7275d5F5292C3027a16E0eb891D75a0Ef39cc7",
-    "voting_power": 10000
+    "address": "0xBaf935b88066021a0B0BD34cEB2Ba10389b6Aa0D",
+    "voting_power": 114000000000000000000000,
+    "consensus_key": "0xb0d287da6365b9ebcf69c84985877a75a59e7449699a2ada0abb42f3e3414fef3f1406dd11a1e9cb0ee2154c2983de77"
   },
   {
-    "address": "0x5e08564Ee99E96e690E9b25591191aE0c78351a3",
-    "voting_power": 10000
+    "address": "0x889Dcd8Ca57AB1108e73E9B02B2C2Cb09Ea9b19e",
+    "voting_power": 114000000000000000000000,
+    "consensus_key": "0xa83a69fb0a0918985bea979812abf6d98b674d5fc6619b8b1fa67f8515aee63a024d8913eb45306645a6bc5c4964769c"
   },
-  {
-    "address": "0x33BF54630991f0a1A23B9f102873b3B54C4b94B3",
-    "voting_power": 10000
-  },
-  {
-    "address": "0x1ae9B1B3207195430a36D82Fc0bDA1f857D0AA72",
-    "voting_power": 10000
-  },
-  {
-    "address": "0x0c7dC2aB00c7b5934EDA097a8585f56367A94dA4",
-    "voting_power": 10000
-  },
-  {
-    "address": "0xf5A48b1Df2a3a616AdB92E57d6ce36E17c3C2a0b",
-    "voting_power": 10000
-  },
-  {
-    "address": "0x5FE87eE4f61Da6E640Aec02CE818CdcD30B8cB13",
-    "voting_power": 10000
-  },
-  {
-    "address": "0xEbF9dD85cc99a15f1AFB78A6A7cb28a9103e9a12",
-    "voting_power": 10000
-  },
-  {
-    "address": "0x9f26942A9710099A7F2b4b64e53522bB16d2Af7d",
-    "voting_power": 10005
-  }
+  ...
 ]
 ```
 
