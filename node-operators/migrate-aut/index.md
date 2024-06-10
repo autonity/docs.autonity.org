@@ -11,9 +11,14 @@ description: >
 
 ## Maintaining node identity
 
-To migrate a node to a new instance the node identity must be preserved. This is done by simply using the existing [P2P node keys: autonityKeys](/concepts/validator/#p2p-node-keys-autonitykeys) and the node's host [ip address](/node-operators/install-aut/#network) for the new node instance.  by doing this the new node instance will have the same node [identifier](/concepts/validator/#validator-identifier) address and [enode url](/glossary/#enode) as the old instance.
+To migrate a node to a new instance the node identity must be preserved. This is done by simply using the existing [P2P node keys: autonityKeys](/concepts/validator/#p2p-node-keys-autonitykeys) and the node's host [ip address](/node-operators/install-aut/#network) for the new node instance. By doing this the new node instance will have the same node [identifier](/concepts/validator/#validator-identifier) address and [enode url](/glossary/#enode) as the old instance.
 
-Copy the [P2P node keys: autonityKeys](/concepts/validator/#p2p-node-keys-autonitykeys) file to a safe location and be sure to maintain your hosting IP address.
+::: {.callout-note title="Additional checks if you are migrating a registered validator node" collapse="false"}
+1. Make sure that your validator is not an active member of the consensus committee during the migration. It is recommended that your validator is in a [`paused`](/concepts/validator/#validator-pausing) state before beginning the migration.
+2. Verify the node's new IP/Port address is the same as that in your registered enode URL. You can check this by calling `aut validator info --validator` to view the registered enode URL.
+
+If you are operating a validator node it is possible to change your IP/Port address as described in the guide [Migrating validator node to a new IP/Port address](/validators/migrate-vali/#migrating-validator-node-to-a-new-ipport-address).
+:::
 
 <!--
 ::: {.callout-note title="Static IP Address is required" collapse="false"}
@@ -54,13 +59,12 @@ Start the node as described in the guide [Run Autonity](/node-operators/run-aut/
 
 Autonity will detect and use the original `autonitykeys`. The new node installation will have the same identity as the original.
 
-::: {.callout-note title="Note" collapse="false"}
-If you are running a validator node you need to:
+Be sure to fully decommission the original validator node installation environment!
 
-- [pause the validator node](/validators/pause-vali/) **before migration**, and 
-- [reactivate the new validator](/validators/pause-vali/) **after migration**
+::: {.callout-note title="Additional Step if you are migrating a registered validator node" collapse="false"}
+You will need to transition your validator back to an active state so it is once again considered by protocol for consensus committee selection.
 
-Be sure to fully decommission the original node installation.
+To do this [re-activate the validator](/validators/pause-vali/#re-activate-a-validator) instance after migration completes.
 :::
 
 ------------------------------------------------

@@ -36,6 +36,10 @@ Pause the validator as described in the guide [Pause as a validator](/validators
 
 If your validator is an active member of the consensus committed, wait for the epoch to end before proceeding further.
 
+::: {.callout-important title="Verify your validator node is not in the active consensus committee" collapse="false"}
+Call `aut protocol get-committee` to verify that your validator address does not appear in the list of committee validators returned.
+:::
+
 ### Step 2: Update enode URL with new IP/Port address
 
 ::: {.callout-note title="Protocol contract calls" collapse="false"}
@@ -59,7 +63,7 @@ The guide explicitly sets the path to the ABI file and contract address for clar
 The guide assumes the ABI file is in the directory from which the `aut` command is run, and `aut` is configured to use the validator [treasury account](/concepts/validator/#treasury-account) keyfile.
 :::
 
-1. Call [`updateEnode()`](/reference/api/aut/#updateenode) passing in parameters for:
+Call [`updateEnode()`](/reference/api/aut/#updateenode) passing in parameters for:
 
   - `<NODE_ADDRESS>`: the [validator identifier](/concepts/validator/#validator-identifier) address of the validator node
   - `<ENODE>`: the new enode URL value
@@ -68,7 +72,7 @@ The guide assumes the ABI file is in the directory from which the `aut` command 
 aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode <NODE_ADDRESS> <ENODE>
 ```
   
-  On commit, the transaction will update the validator's registered enode URL in system state.
+On commit, the transaction will update the validator's registered enode URL in system state. you can view the updated enode using `aut validator info --validator`.
 
 ### Step 3: Migrate to new environment
 
