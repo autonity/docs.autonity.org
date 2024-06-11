@@ -27,7 +27,7 @@ It has responsibilities to:
 - Participate in the accountability and fault detection protocol, detecting and submitting accountability events committed by other committee members. See concept [accountability and fault detection protocol](/concepts/accountability/).
 - Participate in the oracle protocol, inputting raw price data and voting for aggregated median price data for currency pairs provided by the Autonity network during oracle [voting rounds](/glossary/#voting-round). See concept [oracle network](/concepts/oracle-network/).
 
-As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour by stake [slashing](/concepts/staking/#slashing) and penalty mechanisms implemented by an [accountability and fault detection protocol](/concepts/accountability/). Consensus committee members are incentivised by [staking rewards](/concepts/staking/#staking-rewards), receiving a share of the transaction fee revenue earned for each block of transactions committed to system state, _pro rata_ to their share of bonded stake securing the system in that block. Consensus committee members are incentivised to report Byzantine behaviour by other committee members by [slashing rewards](/concepts/accountability/#slashing-rewards) for reporting accountability faults resulting in a penalty.
+As an entity contributing bonded stake to secure the network, a validator active in the [consensus committee](/concepts/consensus/committee/) is economically incentivised toward correct behaviour by [staking rewards](/concepts/staking/#staking-rewards) and [slashing rewards](/concepts/accountability/#slashing-rewards). Validators are disincentivised from Byzantine behaviour by stake [slashing](/concepts/staking/#slashing) and penalty mechanisms implemented by an [accountability and fault detection protocol](/concepts/accountability/). See [validator economics](/concepts/validator/#validator-economics) on this page for details.
 
 ### Validator prerequisites 
 
@@ -82,6 +82,14 @@ The private `autonitykeys` are used:
   - consensus gossiping (`consensuskey`), for voting in consensus rounds whilst a member of the [consensus committee](/concepts/consensus/committee/)
 - To generate the `proof` of enode ownership required for validator registration. The `proof` is generated using the [`genOwnershipProof`](/reference/cli/#command-line-options) command-line option of the Autonity Go Client. 
 
+::: {.callout-tip title="Viewing the node and consensus private keys" collapse="true"}
+The `autonitykeys` file is 128 characters and is a concatenation of the p2p node and consensus private keys each of which is 64 characters.
+
+You can view the private keys individually by simply extracting the first or last 64 characters.
+
+For example, to inspect the node key from your `autonitykeys` file, the simple command `head -c 64 <DIR_PATH>/autonitykeys`, where `<DIR_PATH>` is the path to your `autonitykeys` file, will print the private node key from the `autonitykeys` file to terminal.
+:::
+
 The corresponding public keys are used:
 
 - As the identifier or 'node ID' of the node (in RLPx and node discovery protocols) (`node public key`).
@@ -122,7 +130,7 @@ It takes the basic form:
 enode://PUBKEY@IP:PORT
 ```
 
-The PUBKEY component is the public key from the P2P node key. The PUBKEY is static. The IP and PORT COMPONENTS may change over time.
+The PUBKEY component is the public key from the P2P node key. The PUBKEY is static. The IP and PORT COMPONENTS may change over time (see [Migrating validator node to a new IP/Port address](/validators/migrate-vali/#migrating-validator-node-to-a-new-ipport-address)).
 
 ::: {.callout-tip title="Specifying enode query parameters for non-default IP and port settings" collapse="true"}
 
@@ -182,12 +190,12 @@ Validator registration can take place at genesis initialisation or after genesis
 
 ### Eligibility for selection to consensus committee
 
-A validator becomes eligible for selection to the consensus committee when:
+A validator becomes eligible for selection to the [consensus committee](/concepts/consensus/committee/) when:
 
-- It is registered and has an `active` state. Registration is complete: the validator's registration parameters and state are recorded in the `validators` data structure maintained by the Autonity Protocol Contract.
+- It is registered and has an `active` state. Registration is complete: the validator's registration parameters and state are recorded in the `validators` data structure maintained by the [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract).
 - It has non-zero bonded stake. The amount of stake bonded to the validator, recorded in the `validators` data structure, is greater than `0`.
 
-Eligible validators are included in the committee selection algorithm. The algorithm is run at block epoch end to choose the committee for the upcoming epoch.
+Eligible validators are included in the committee selection algorithm. The algorithm is run at block [epoch](/glossary/#epoch) end to choose the committee for the upcoming epoch.
 
 ### Jailing and exclusion from consensus committee
 
@@ -230,32 +238,60 @@ Stake is bonded by submitting a bonding request transaction to the `bond()` func
 
 ## Validator economics
 
-Validator economic returns are determined by the amount of stake bonded to them, their participation in the consensus committee, commission rate, and any slashing penalties applied for accountability and omissions.
+As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour.
 
-Staking reward revenue is proportionate to the validator's share of the stake active in a consensus round in which it participates. Staking rewards are distributed to consensus committee members _pro rata_ to the amount of stake they have at stake. Validators can earn from:
+Incentives are economic gains from [staking rewards](/concepts/staking/#staking-rewards) and [slashing rewards](/concepts/accountability/#slashing-rewards). [Staking rewards](/concepts/staking/#staking-rewards) are from transaction fee revenue for each block of transactions committed to system state. Consensus committee members receive a share of the transaction fee revenue earned _pro rata_ to their share of the [voting power](/glossary/#voting-power) (bonded stake) securing the system in that block. Consensus committee members are incentivised to report Byzantine behaviour by other committee members by [slashing rewards](/concepts/accountability/#slashing-rewards) for reporting accountability faults resulting in a penalty.
+
+Disincentives are economic losses incurred for proven validator faults committed while a member of the consensus committee. Disincentives are applied by an [accountability and fault detection protocol](/concepts/accountability/) and include stake [slashing](/concepts/staking/#slashing), barring from selection to the consensus committee ('[jailing](/glossary/#jailing)'), and the loss of staking rewards. 
+
+---
+
+### Incentives
+
+Validator economic returns are earned from:
 
 - Staking rewards earned from their own [self-bonded](/glossary/#self-bonded) stake.
 - Commission charged on [delegated](/glossary/#delegated) stake per the delegation rate they charge as commission.
 - The priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
 - [Slashing rewards](/concepts/accountability/#slashing-rewards) earned for reporting slashed faults in the [accountability and fault detection](/concepts/accountability/) protocol. Slashing rewards are provided by forfeiture of an offending validator’s staking rewards.
 
-Staking reward revenue potential is determined by the frequency with which a validator is an active member of the consensus committee. This is driven by:
+Staking reward revenue potential is determined by the amount of stake bonded to them (their [voting power](/glossary/#voting-power)) and the frequency of their participation in the consensus committee. This is driven by:
 
 -  The amount of stake the validator has bonded to it.
 -  The committee size and number of registered validators.
 -  The frequency with which the validator proposes blocks.
 -  The amount of transaction revenue earned from transactions included in blocks committed when the validator is a member of the committee.
--  The validator's commission rate. The percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator's stake delegators. The rate can be any value in the range `0 - 100%`. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate - see [Validator commission rate change](/concepts/validator/#validator-commission-rate-change) on this page.
+-  The validator's commission rate on delegated stake. Commission is a percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator's stake delegators. The rate can be any value in the range `0 - 100%`. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate - see [Validator commission rate change](/concepts/validator/#validator-commission-rate-change) on this page.
 
-Bonded stake may be slashed and/or staking rewards may be reduced or forfeited by slashing penalties applied to the validator for accountable faults. The extent of the fine varies according to the severity of the fault committed. See Concept [accountability and fault detection protocol](/concepts/accountability/) and [slashing economics](/concepts/accountability/#slashing-economics).
+Slashing reward revenue potential is determined by the validator reporting a proven fault committed by other validators while a member of the consensus committee. This is driven by:
+ 
+- The reporting of a slashable fault per the [accountability and fault detection](/concepts/accountability/) protocol.
+- The value of forfeited staking rewards the offending validator would have earned for the epoch.
 
+
+| Economic gain | Receiving account | Distribution | Description |
+|:-- |:--|:--|:--|
+| staking rewards | `treasury` account | epoch end | This is from their own self-bonded stake |
+| commission revenue | `treasury` account | epoch end | This is commission on staking rewards for the total bonded stake bonded to the validator taken according to the validator's commission rate |
+| priority fee tips | [`validator identifier`](/concepts/validator/#validator-identifier) account | block finalisation | When a block proposer, priority fees for transactions included in the block are transferred directly to the validator node address, the [`validator identifier`](/concepts/validator/#validator-identifier) account |
+| slashing rewards |  `treasury` account | epoch end | As the reporting validator of an accountable fault a validator may receive slashing rewards. The staking rewards for offending validator for the epoch are forfeited and become the slashing rewards sent to the reporting validator |
+
+
+### Disincentives
+Validator economic losses are determined by any slashing penalties applied for accountable faults.
+
+Disincentives are slashing penalties applied at epoch end and take the form of slashing of stake token, loss of staking rewards, and loss of future earning opportunity by barring from the consensus committee ('jailing').
+
+Bonded stake may be slashed and/or staking rewards may be reduced or forfeited by slashing penalties. The extent of the fine varies according to the severity of the fault committed. Slashing penalties may also apply temporary or permanent 'jailing', excluding the validator from future participation in the consens committee.
+
+For a table of the economic losses from applied slashing penalties see [slashing economics](/concepts/accountability/#slashing-economics) in the concept [accountability and fault detection protocol](/concepts/accountability/).
 
 ## Validator registration
 A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:
 
 -  The validator has a node address (an enode URL).
 -  The validator has a connected [oracle server](/concepts/oracle-server/).
--  The validator has a funded account on the network.
+-  The validator node operator has a funded account on the network (to fund submitting the [validator registration](/validators/register-vali/) transaction).
 
 A validator's registration is recorded and maintained as a state variable in a `Validator` data structure. (See [`registerValidator()`](/reference/api/aut/#registervalidator)).
 
@@ -274,7 +310,7 @@ At genesis the process is:
    ```
    {
     "treasury": "0xd0A5fB6A3CBD7cB0328ae298598527E62bE90A0F",
-    "enode": "enode://bdbae1dede11147d0f1de2b6339a25fae9d46edfbeb48b3441d8dfff5d396bcb0b99f2ade05bf37239451f9a  dc60015f7a7b744321ea9a845b7c3a1f1ebd73e3@127.0.0.1:5003",
+    "enode": "enode://bdbae1dede11147d0f1de2b6339a25fae9d46edfbeb48b3441d8dfff5d396bcb0b99f2ade05bf37239451f9adc60015f7a7b744321ea9a845b7c3a1f1ebd73e3@127.0.0.1:5003",
     "oracleAddress":"0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03",
    "bondedStake": 10000
    },

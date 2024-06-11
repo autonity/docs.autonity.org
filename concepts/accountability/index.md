@@ -302,12 +302,11 @@ There are two aspects to the economics of slashing: slashing penalties for _offe
 
 The economic loss to validators and their delegators from slashing penalties covers stake token and staking rewards.
 
-| Economic loss | Description |
-| :-- | :-- |
-| Slashing of stake token | The _offending validator's_ bonded stake is slashed for the penalty amount. Slashing is applied at epoch end according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. The amount of stake token slashed varies according to the _severity_ of the fault committed and the slashing factors applied. The slashed NTN stake token are transferred to the Autonity Protocol global `treasury` account for community funding. |
-| Loss of current epoch staking rewards | The _offending validator_ loses staking rewards earned if a member of the consensus committee in the epoch when the slashing penalty is applied. The forfeited staking rewards are distributed to the _reporting validator_. |
-| Loss of future staking rewards | If the slashing penalty applies [jailing](/glossary/#jailing) for the fault, then the _offending validator_ loses the opportunity to earn future staking rewards as a committee member until it resumes an `active` state. |
-
+| Economic loss | Receiving account | Distribution | Description |
+|:-- |:--|:--|:--|
+| Slashing of stake token | Autonity Protocol `treasury` account | epoch end | The _offending validator's_ bonded stake is slashed for the penalty amount. Slashing is applied at epoch end according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. The amount of stake token slashed varies according to the _severity_ of the fault committed and the slashing factors applied. The slashed NTN stake token are transferred to the Autonity Protocol global `treasury` account for community funding. |
+| Loss of current epoch staking rewards | _reporting validator_ `treasury` account | epoch end | The _offending validator_ loses staking rewards earned if a member of the consensus committee in the epoch when the slashing penalty is applied. The forfeited staking rewards are distributed to the _reporting validator_. |
+| Loss of future staking rewards - 'jailing' | n/a | epoch end | If the slashing penalty applies [jailing](/glossary/#jailing) for the fault, then the validator is temporarily or permanently barred from selection to the consensus committee. The _offending validator_ loses the opportunity to earn future staking rewards as a committee member until it resumes an `active` state. |
 
 ### Slashing rewards
 
