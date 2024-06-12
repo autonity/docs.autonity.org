@@ -352,7 +352,7 @@ Autonity modifies EIP 1559 by:
 
 - specifying a _minimum base fee_. Setting a minimum base fee imposes a floor to the minimum gas price cost per unit of gas used to process a transaction on the network. This floor ensures base fee cannot revert to `0` in a period of network inactivity, maintaining the inherent security properties of gas economics. The value is set at genesis. See [`minBaseFee`](/reference/genesis/#configautonitycontract-object) parameter in the [Protocol](/reference/protocol/) section
 - the _base fee_ is _not burned_ as in EIP 1559. The base fees collected for each block are added to the rewards pool for distribution as staking rewards at epoch end.
-- the _priority fee_ rewards are given to the block proposer per EIP 1559. In current state, the priority fee is paid to the proposing validator entity's account every block.
+- the _priority fee_ rewards are given to the block proposer per EIP 1559. In current state, the priority fee is sent to the proposing validator node's [`validator identifier`](/concepts/validator/#validator-identifier) account every block.
 
 
 ### Accounts - EOA and contract

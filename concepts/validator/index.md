@@ -47,8 +47,8 @@ The validator makes use of different accounts and private/public [key pairs](/gl
 ### P2P node keys: autonityKeys
 The private/public key pair of the validator node. The `autonitykeys` file contains the private keys for the transaction and consensus gossiping [communication layer](/concepts/architecture/#communication-layer). The keys are concatenated together to create a 128 character string:
 
-- the first 64 characters are the `nodekey`: used for transaction gossiping with other network peer nodes
-- the second 64 characters are the `consensuskey`: used for consensus gossiping with other validators whilst participating in consensus
+- the first 64 characters are the `node key`: used for transaction gossiping with other network peer nodes
+- the second 64 characters are the `consensus key`: used for consensus gossiping with other validators whilst participating in consensus
 
 ::: {.callout-tip title="Generating the `autonitykeys` file with `genAutonityKeys`" collapse="true"}
 
@@ -227,7 +227,7 @@ Account addresses owning liquid newton and receiving staking reward revenue are:
 - EOA accounts that have bonded [delegated](/glossary/#delegated) stake to a validator node, or have been recipients of a liquid newton transfer.
 - Contract accounts that have been recipients of a liquid newton transfer from an EOA or a contract account.
 
-For clarity, these are the `msgSender()` addresses of the account submitting `registerValidator()` and `bond()` transactions to the Autonity Network.
+For clarity, these are the `msgSender()` addresses of the account submitting [`registerValidator()`](/reference/api/aut/#registervalidator) and [`bond()`](/reference/api/aut/#bond) transactions to the Autonity Network.
 
 Autonity implements an 'active epoch' staking model, applying staking transitions for bonding and unbonding at the end of each block epoch.
 
@@ -235,16 +235,13 @@ Stake is bonded and redeemed by Newton holders submitting transaction requests t
 
 Stake is bonded by submitting a bonding request transaction to the `bond()` function and redeemed by the converse, to the `unbond()` function. In the bonding scenario, liquid newton is minted for [delegated](/glossary/#delegated) stake and the Validator's total bonded stake amount updated in the final block of the epoch. Stake redemption by contrast is an incremental process: liquid newton for [delegated](/glossary/#delegated) stake is burned immediately on processing of the `unbond()` function call, the validator's total bonded stake amount is updated at epoch end, the newton is issued (i.e. minted) to the staker at the end of the unbonding period. If the unbonding request is included in block `T`, then actual unbonding is then executed at `T` + `unbondingPeriod` + remainder of the epoch in which the unbonding period falls. At this point, the staker's due newton is minted to them.
 
-
 ## Validator economics
 
-As an entity contributing bonded stake to secure the network a validator active in the consensus committee is economically incentivised toward correct behaviour and disincentivised from Byzantine behaviour.
+Validators active in the consensus committee are incentivised toward correct consensus behaviour by rewards and disincentivised from Byzantine behaviour by penalties.
 
 Incentives are economic gains from [staking rewards](/concepts/staking/#staking-rewards) and [slashing rewards](/concepts/accountability/#slashing-rewards). [Staking rewards](/concepts/staking/#staking-rewards) are from transaction fee revenue for each block of transactions committed to system state. Consensus committee members receive a share of the transaction fee revenue earned _pro rata_ to their share of the [voting power](/glossary/#voting-power) (bonded stake) securing the system in that block. Consensus committee members are incentivised to report Byzantine behaviour by other committee members by [slashing rewards](/concepts/accountability/#slashing-rewards) for reporting accountability faults resulting in a penalty.
 
 Disincentives are economic losses incurred for proven validator faults committed while a member of the consensus committee. Disincentives are applied by an [accountability and fault detection protocol](/concepts/accountability/) and include stake [slashing](/concepts/staking/#slashing), barring from selection to the consensus committee ('[jailing](/glossary/#jailing)'), and the loss of staking rewards. 
-
----
 
 ### Incentives
 
@@ -271,13 +268,13 @@ Slashing reward revenue potential is determined by the validator reporting a pro
 
 | Economic gain | Receiving account | Distribution | Description |
 |:-- |:--|:--|:--|
-| staking rewards | `treasury` account | epoch end | This is from their own self-bonded stake |
-| commission revenue | `treasury` account | epoch end | This is commission on staking rewards for the total bonded stake bonded to the validator taken according to the validator's commission rate |
+| staking rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | This is from their own self-bonded stake |
+| commission revenue | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | This is commission on staking rewards for the total bonded stake bonded to the validator taken according to the validator's commission rate |
 | priority fee tips | [`validator identifier`](/concepts/validator/#validator-identifier) account | block finalisation | When a block proposer, priority fees for transactions included in the block are transferred directly to the validator node address, the [`validator identifier`](/concepts/validator/#validator-identifier) account |
-| slashing rewards |  `treasury` account | epoch end | As the reporting validator of an accountable fault a validator may receive slashing rewards. The staking rewards for offending validator for the epoch are forfeited and become the slashing rewards sent to the reporting validator |
-
+| slashing rewards |  [`treasury`](/concepts/validator/#treasury-account) account | epoch end | As the _reporting validator_ of an accountable fault a validator may receive slashing rewards. The staking rewards earned by the _offending validator_ for the epoch are forfeited and become the slashing rewards sent to the _reporting validator_ |
 
 ### Disincentives
+
 Validator economic losses are determined by any slashing penalties applied for accountable faults.
 
 Disincentives are slashing penalties applied at epoch end and take the form of slashing of stake token, loss of staking rewards, and loss of future earning opportunity by barring from the consensus committee ('jailing').
@@ -287,6 +284,7 @@ Bonded stake may be slashed and/or staking rewards may be reduced or forfeited b
 For a table of the economic losses from applied slashing penalties see [slashing economics](/concepts/accountability/#slashing-economics) in the concept [accountability and fault detection protocol](/concepts/accountability/).
 
 ## Validator registration
+
 A validator is registered at or after genesis by submitting registration parameters to the Autonity Network. Prerequisites for registration are:
 
 -  The validator has a node address (an enode URL).
@@ -296,24 +294,28 @@ A validator is registered at or after genesis by submitting registration paramet
 A validator's registration is recorded and maintained as a state variable in a `Validator` data structure. (See [`registerValidator()`](/reference/api/aut/#registervalidator)).
 
 ### Genesis registration
+
 At genesis the process is:
 
 - Registration parameters for the genesis validator set are listed in the network's genesis configuration file (See`validators` struct):
-   - `treasury` - the account address that will receive staking rewards the validator earns.
-   - `enode` - the enode URL of the validator node.
-   - `oracleAddress` - the identifier address of the validator node's connected oracle server.
-   - `bondedStake` - the amount of stake the validator is bonding at genesis.
-   - `delegationRate` - the amount of commission that the validator will charge on staking rewards earned from delegated stake. This is a global value set for all validators, specified by the `delegationRate` parameter in the genesis configuration file.
+   - `treasury` - the account address that will receive staking rewards the validator earns
+   - `enode` - the enode URL of the validator node
+   - `consensusKey` - the BLS public key from [`autonitykeys`](/concepts/validator/#p2p-node-keys-autonitykeys) used for P2P consensus gossiping
+   - `oracleAddress` - the identifier address of the validator node's connected oracle server
+   - `bondedStake` - the amount of stake the validator is bonding at genesis
+   
+   The amount of commission that the validator will charge on staking rewards earned from delegated stake defaults to the value specified by the `delegationRate` parameter in the genesis configuration file. This is a global value set for all validators at genesis.
 
    Example:
 
    ```
    {
-    "treasury": "0xd0A5fB6A3CBD7cB0328ae298598527E62bE90A0F",
-    "enode": "enode://bdbae1dede11147d0f1de2b6339a25fae9d46edfbeb48b3441d8dfff5d396bcb0b99f2ade05bf37239451f9adc60015f7a7b744321ea9a845b7c3a1f1ebd73e3@127.0.0.1:5003",
-    "oracleAddress":"0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03",
-   "bondedStake": 10000
-   },
+	"enode": "enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310",
+	"treasury": "0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9",
+	"consensusKey": "0x776d2602de06e7x2d294c77d0706c772x077d242076e97cx44feex00e27d09707f7c7779j0e49il2etc4kd2ar39ov3a7",
+	"oracleAddress": "0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d",
+	"bondedStake": 10000000000000000000000
+   }
    ```
 
 - Genesis of the Autonity Network is initialised and for each validator:
@@ -329,7 +331,7 @@ Note that genesis registration requires the validator [self-bond](/glossary/#sel
 
 After genesis the process is:
 
-- Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the `registerValidator()` function to submit the Validator registration parameters `enode` URL, `oracleAddress` [oracle identifier](/concepts/validator/#oracle-identifier), and a `proof` of node ownership generated from the private key of the validator node’s [P2P node keys: `autonityKeys`](/concepts/validator/#p2p-node-keys-autonitykeys), private key of the [oracle server key](/concepts/oracle-network/#oracle-server-key), and the validator's [`treasury` account](/concepts/validator/#treasury-account) address. The `treasury` account address used in the ownership proof is used as the `msgSender()` address when submitting the registration transaction. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
+- Prospective validator submits a registration request transaction to the Autonity Protocol Public APIs, calling the [`registerValidator()`](/reference/api/aut/#registervalidator) function to submit the Validator registration parameters `enode` URL, `oracleAddress` [oracle identifier](/concepts/validator/#oracle-identifier), and a `proof` of node ownership generated from the private key of the validator node’s [P2P node keys: `autonityKeys`](/concepts/validator/#p2p-node-keys-autonitykeys), private key of the [oracle server key](/concepts/oracle-network/#oracle-server-key), and the validator's [`treasury` account](/concepts/validator/#treasury-account) address. The `treasury` account address used in the ownership proof is used as the `msgSender()` address when submitting the registration transaction. The registration metadata is recorded in a `Validator` state variable data structure. A Liquid Newton ERC20 contract is deployed for the Validator and recorded in the Liquid Newton Contract Registry maintained by the Autonity Protocol Contract.
 - A `RegisteredValidator` event is emitted by the Autonity Protocol Contract.
 - To bond stake to the validator, the staker submits a bonding request transaction to the Autonity Protocol Public APIs, calling the `bond()` function with its validator address (`enode`) and the bonded stake amount. This is recorded in a `Staking` state variable data structure ready to be applied at epoch end
 
