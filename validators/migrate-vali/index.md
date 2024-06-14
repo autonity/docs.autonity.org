@@ -8,18 +8,6 @@ description: >
 - Ensure that the host machine meets the [minimum requirements](/node-operators/install-aut/#requirements)
 :::
 
-
-## Migrating validator node to a new environment
-
-To migrate a node to a new instance follow the steps described in the node operator's guide [Migrate Autonity](/node-operators/migrate-aut/).
-
-::: {.callout-warning title="Important" collapse="false"}
-If your node is in an active state, you must [pause the validator node](/validators/pause-vali/) **before migration**. [Reactivate the validator](/validators/pause-vali/) **after migration**.
-
-Be sure to fully decommission the original node installation!
-:::
-
-
 ## Migrating validator node to a new IP/Port address
 
 This guide describes how to migrate a validator node to an environment with a new IP/Port network address by updating the validator's registered enode URL.
@@ -87,6 +75,16 @@ Start the validator as described in the guide [Run Autonity](/node-operators/run
 Reactivate the validator as described in the guide [Reactivate as a validator](/validators/pause-vali/#re-activate-a-validator).
 
 The validator has resumed an active state and can join the consensus committee if selected.
+
+## Migrating validator node to a new environment
+
+To migrate a node to a new instance follow the steps described in the node operator's guide [Migrate Autonity](/node-operators/migrate-aut/).
+
+::: {.callout-warning title="Important" collapse="false"}
+If your node is in an active state, you must [pause the validator node](/validators/pause-vali/) **before migration**. [Reactivate the validator](/validators/pause-vali/) **after migration**.
+
+Be sure to fully decommission the original node installation!
+:::
 
 ------------------------------------------------
 

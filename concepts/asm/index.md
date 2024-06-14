@@ -272,4 +272,3 @@ ASM economics are multi-dimensional:
   - CDP's give access to collateralized borrowing for Auton with  flexibility to increase and decrease borrowing and collateral amounts within constraints. Borrowers can offset flexibility against opportunity costs of borrow interest, staking reward potential if deposited Newton collateral were earning staking rewards, and liquidation risk.
 - For the liquidator:
   - Liquidation returns from remaining collateral after settlement of debt and interest outstanding.
-Autonomous Currency Unit

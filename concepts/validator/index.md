@@ -45,10 +45,10 @@ Prerequisites for becoming a validator node operator are:
 The validator makes use of different accounts and private/public [key pairs](/glossary/#key-pair) for validator lifecycle management (registration, pausing, reactivation), validator identity, staking rewards, consensus participation and cryptographic security. 
 
 ### P2P node keys: autonityKeys
-The private/public key pair of the validator node. The `autonitykeys` file contains the private keys for the transaction and consensus gossiping [communication layer](/concepts/architecture/#communication-layer). The keys are concatenated together to create a 128 character string:
+The private/public key pair of the validator node. The `autonitykeys` file contains the private keys for the transaction and consensus message signing in the [communication layer](/concepts/architecture/#communication-layer). The keys are concatenated together to create a 128 character string:
 
-- the first 64 characters are the `node key`: used for transaction gossiping with other network peer nodes
-- the second 64 characters are the `consensus key`: used for consensus gossiping with other validators whilst participating in consensus
+- the first 64 characters are the `node key`: used for transaction signing with other network peer nodes
+- the second 64 characters are the `consensus key`: used for consensus signing with other validators whilst participating in consensus
 
 ::: {.callout-tip title="Generating the `autonitykeys` file with `genAutonityKeys`" collapse="true"}
 
@@ -78,8 +78,8 @@ If you choose to generate the `autonitykeys` file and _do not store your key in 
 The private `autonitykeys` are used:
 
 - By a node for:
-  - transaction gossiping (`nodekey`), for negotiating an authenticated and encrypted connection between other network nodes at the devp2p layer in the [RLPx Transport Protocol](https://github.com/ethereum/devp2p/blob/master/rlpx.md).
-  - consensus gossiping (`consensuskey`), for voting in consensus rounds whilst a member of the [consensus committee](/concepts/consensus/committee/)
+  - transaction signing (`nodekey`), for negotiating an authenticated and encrypted connection between other network nodes at the devp2p layer in the [RLPx Transport Protocol](https://github.com/ethereum/devp2p/blob/master/rlpx.md).
+  - consensus signing (`consensuskey`), for voting in consensus rounds whilst a member of the [consensus committee](/concepts/consensus/committee/)
 - To generate the `proof` of enode ownership required for validator registration. The `proof` is generated using the [`genOwnershipProof`](/reference/cli/#command-line-options) command-line option of the Autonity Go Client. 
 
 ::: {.callout-tip title="Viewing the node and consensus private keys" collapse="true"}
@@ -260,11 +260,7 @@ Staking reward revenue potential is determined by the amount of stake bonded to 
 -  The amount of transaction revenue earned from transactions included in blocks committed when the validator is a member of the committee.
 -  The validator's commission rate on delegated stake. Commission is a percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator's stake delegators. The rate can be any value in the range `0 - 100%`. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate - see [Validator commission rate change](/concepts/validator/#validator-commission-rate-change) on this page.
 
-Slashing reward revenue potential is determined by the validator reporting a proven fault committed by other validators while a member of the consensus committee. This is driven by:
- 
-- The reporting of a slashable fault per the [accountability and fault detection](/concepts/accountability/) protocol.
-- The value of forfeited staking rewards the offending validator would have earned for the epoch.
-
+Slashing rewards can be earned by a validator for reporting a slashable fault committed by another committee member per the [accountability and fault detection](/concepts/accountability/) protocol. As reward the _reporting validator_ is awarded the staking rewards the _offending validator_ would have earned for the epoch.
 
 | Economic gain | Receiving account | Distribution | Description |
 |:-- |:--|:--|:--|
@@ -300,7 +296,7 @@ At genesis the process is:
 - Registration parameters for the genesis validator set are listed in the network's genesis configuration file (See`validators` struct):
    - `treasury` - the account address that will receive staking rewards the validator earns
    - `enode` - the enode URL of the validator node
-   - `consensusKey` - the BLS public key from [`autonitykeys`](/concepts/validator/#p2p-node-keys-autonitykeys) used for P2P consensus gossiping
+   - `consensusKey` - the BLS public key from [`autonitykeys`](/concepts/validator/#p2p-node-keys-autonitykeys) used for P2P consensus
    - `oracleAddress` - the identifier address of the validator node's connected oracle server
    - `bondedStake` - the amount of stake the validator is bonding at genesis
    
@@ -439,4 +435,3 @@ The process is:
 ::: {.callout-note title="Note" collapse="false"}
 A stake delegator can use the `CommissionRateChange` event to listen for upcoming commission rate changes. The effective block of the commission rate change can then be calculated from data points: the `changeCommissionRate` transaction commit block number, and the network `unbondingPeriod` and `epochPeriod` values.
 :::
-

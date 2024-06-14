@@ -28,7 +28,7 @@ If the committee member receives _2f+1_ Precommits, then by protocol the block p
 - The block is broadcast to the network. The block proposer broadcasts the new block. Other committee members broadcast a (new) block announcement.
 
   ::: {.callout-tip title="Cryptographic proof of the validator quorum that agreed on the block" collapse="false"}
-This is recorded in the [block header](/concepts/system-model/#block-header) by the _proposer seal_ (seal of the committee member proposing the block) and the _quorum certificate_ (a single aggregated BLS signature of the committee members that voted and agreed on the block).
+This is recorded in the [block header](/concepts/system-model/#block-header) by the _quorum certificate_ , a single aggregated BLS signature of the committee members that voted and agreed on the block.
 :::
 
 - The block is committed to the ledger. Participants that receive the new block check validity by verifying the _proposer seal_ and _quorum certificate_. Participants that receive an announcement sync to retrieve the block, verifying  by computing block state as it appends the block to the chain.

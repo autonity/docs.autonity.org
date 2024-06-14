@@ -76,4 +76,3 @@ In addition to Ethereum concepts such as `address`, `gas`, and `node`, the disti
 | [Auton Stabilization Mechanism (ASM)](/concepts/asm/) | The protocol mechanism used to maintain [Auton](/concepts/protocol-assets/auton/) price stability. The Stabilization Mechanism is CDP, [Auton](/concepts/protocol-assets/auton/) borrowed against [Newton](/concepts/protocol-assets/newton/) or [Liquid Newton](/concepts/protocol-assets/liquid-newton/) collateral. |
 
 For all Autonity terminology and concepts see the [Glossary](/glossary/).
-Autonomous Currency Unit

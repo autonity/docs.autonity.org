@@ -43,7 +43,7 @@ A public-facing internet connection with static IP is required:
 ::: {.callout-note title="Why is a static IP Address required?" collapse="false"}
 Running an Autonity node requires that you maintain a static ip address because the ip address forms part of the node's network address, the [enode URL](/glossary/#enode). I.e. the IP address should not dynamically change due to resetting by the IP provider.
 
-The enode provides the network location of the node client for p2p networking. Changing the ip address will change the node's identity on the network, therefore. This is significant if you are operating a validator node as the enode is provided as part of the validator meta data when [registering a validator](/validators/register-vali/#step-3.-submit-the-registration-transaction).
+The enode provides the network location of the node client for p2p networking. Changing the ip address will change the node's identity on the network, therefore. This is significant if you are operating a validator node as the enode is provided as part of the validator meta data when [registering a validator](/validators/register-vali/#step-3.-submit-the-registration-transaction). If a validator node needs moving to a new IP address after registration, then follow the steps in the guide [Migrating a validator node to an new IP/Port address](/validators/migrate-vali/#migrating-validator-node-to-a-new-ipport-address).
 :::
 
 Incoming traffic must be allowed on the following:

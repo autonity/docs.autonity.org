@@ -329,4 +329,3 @@ For consensus gossiping a separate consensus protocol runs alongside the ethwire
 To learn more about the separation of transaction and consensus gossiping traffic, see [System model, Networking](/concepts/system-model/#networking).
 
 For how bootnode provision works, see the How to [Run Autonity](/node-operators/run-aut/).
-Autonomous Currency Unit

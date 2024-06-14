@@ -1201,4 +1201,3 @@ None.
 #### Event
 
 On success the function emits an `Updated` event for the new ACU value, logging: `block.number`, `block.timestamp`, oracle voting round number `round`, and the ACU index value calculated `_value`.
-Autonomous Currency Unit

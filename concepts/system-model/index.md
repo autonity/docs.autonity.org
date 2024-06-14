@@ -10,7 +10,7 @@ An Autonity network is a distributed blockchain system comprised of peer nodes r
 ## Participants
 A participant is a network node connected to an Autonity distributed system and forming part of the system's distributed virtual machine. Participants run a peer node running main client software implementing the [Autonity Protocol](/glossary/#autonity-protocol), i.e. the [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) software, communicate with one another over networking protocols in Autonity's communication layer, execute state transitions in the [EVM](/glossary/#ethereum-virtual-machine-evm) Ethereum runtime environment, and have read and write access to the system ledger. Each participant maintains an up-to-date copy of [system state](/glossary/#system-state) in a [ledger object](/concepts/system-model/#the-ledger-object).
 
-Participants are secured and uniquely identified by public key cryptography. Each participant node has cryptographic identity from keypairs, see [P2P node keys: `autonityKeys`](/concepts/validator/#p2p-node-keys-autonitykeys). The `autonitykeys` file contains two private keys that are  used to sign messages in the communication layer for transaction (`nodekey`) and consensus (`consensuskey`) gossiping. These message signatures allows cryptographic verification of message sender identity by recipient participants. The corresponding public keys are accessible to other participants and a participant can identify other participants by public key, therefore. The _public node key_ is used to derive participant identifier and network addresses. Namely, a unique network address (the [enode URL](/concepts/validator/#validator-enode-url)), and a _node address_ for the validator (the public key for the private node key).  The _public consensus key_ is used to identify the validator during consensus participation.
+Participants are secured and uniquely identified by public key cryptography. Each participant node has cryptographic identity from keypairs, see [P2P node keys: `autonityKeys`](/concepts/validator/#p2p-node-keys-autonitykeys). The `autonitykeys` file contains two private keys that are  used to sign messages in the communication layer for transaction (`nodekey`) and consensus (`consensuskey`) gossiping. These message signatures allows cryptographic verification of message sender identity by recipient participants.
 
 Participants can register as validators and have stake bonded to them as described in the [Validator](/concepts/validator/) section. If a participant is registered as a validator, then the _node address_ is used as the [validator identifier](/concepts/validator/#validator-identifier) address.
 
@@ -343,7 +343,7 @@ To incentivise inclusion of a transaction in a block, EIP 1559 allows a transact
 Autonity sets an EIP 1559 configuration of:
 
 - _block gas target_ = `20M`, the block gas usage targeted for a block
-- _block gas limit_ = the gas limit possible for a block is dynamic and can change (increase) by no more than 10% a block from the actual block gas usage of the parent block
+- _block gas limit_ = the gas limit possible for a block is dynamic and can change (increase or decrease) by no more than 10% a block from the actual block gas usage of the parent block
 - _base fee change denominator_ = `8`, limiting possible change (increase or decrease) in base fee to 12.5% each block
 - _elasticity multiplier_ = `2`, setting targeted block usage at 50% of the block limit and so accommodating 50% elasticity
 
