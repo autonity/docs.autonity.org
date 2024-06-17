@@ -59,7 +59,7 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
     ```
     2024/06/05 11:22:48 
     
-       Running autonity oracle server v0.1.8
+       Running autonity oracle server v0.1.9
        with plugin directory: ./build/bin/plugins
        by connecting to L1 node: ws://127.0.0.1:8546
        on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
@@ -148,7 +148,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    ```
  	2024/06/05 11:44:45
 
- 	Running autonity oracle server v0.1.8
+ 	Running autonity oracle server v0.1.9
 	with plugin directory: /usr/local/bin/plugins/
  	by connecting to L1 node: ws://127.0.0.1:8546
  	on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
