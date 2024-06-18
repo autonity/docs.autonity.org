@@ -16,7 +16,7 @@ pipx install eth-brownie
 
 Add the testnet you would like to deploy the contract to:
 ```bash
-brownie networks add Ethereum piccadilly host=https://rpc1.piccadilly.autonity.org/ chainid=65100000
+brownie networks add Ethereum piccadilly host=https://rpc1.piccadilly.autonity.org/ chainid=65100003
 ```
 Here we have used the [Piccadilly testnet](/networks/testnet-piccadilly/) as an example.  See [here](/networks/) for other possible networks.
 

@@ -26,7 +26,7 @@ A 64 character hex string providing the unique identifier of an [account](/gloss
 ## Auton
 A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/concepts/protocol-assets/auton/).
 
-## Auton Currency Unit (ACU) {#acu}
+## Autonomous Currency Unit (ACU) {#acu}
 A base-invariant, volatility-minimised index based on a currency basket of 7 free-floating fiat currencies.
 
 The ACU is the _Stabilization Target_ for [Auton](/glossary/#auton) price stability used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm). 

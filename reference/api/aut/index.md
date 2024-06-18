@@ -768,9 +768,9 @@ Returns a `committee` array of `CommitteeMember` objects, each object consisting
 | --| --| --|
 | `addr` | `address` | account address of the committee member |
 | `votingPower` | `uint256` | the amount of Newton stake token bonded to the committee member |
+| `consensusKey` | `bytes` | the public consensus key of the validator |
 
 ### Usage
-
 
 ::: {.panel-tabset}
 ## aut
@@ -796,49 +796,37 @@ aut protocol get-committee [OPTIONS]
 aut protocol get-committee -r https://rpc1.bakerloo.autonity.org
 [
   {
-    "address": "0x4b7275d5F5292C3027a16E0eb891D75a0Ef39cc7",
-    "voting_power": 10000
+    "address": "0xBaf935b88066021a0B0BD34cEB2Ba10389b6Aa0D",
+    "voting_power": 114000000000000000000000,
+    "consensus_key": "0xb0d287da6365b9ebcf69c84985877a75a59e7449699a2ada0abb42f3e3414fef3f1406dd11a1e9cb0ee2154c2983de77"
   },
   {
-    "address": "0x5e08564Ee99E96e690E9b25591191aE0c78351a3",
-    "voting_power": 10000
+    "address": "0x889Dcd8Ca57AB1108e73E9B02B2C2Cb09Ea9b19e",
+    "voting_power": 114000000000000000000000,
+    "consensus_key": "0xa83a69fb0a0918985bea979812abf6d98b674d5fc6619b8b1fa67f8515aee63a024d8913eb45306645a6bc5c4964769c"
   },
-  {
-    "address": "0x33BF54630991f0a1A23B9f102873b3B54C4b94B3",
-    "voting_power": 10000
-  },
-  {
-    "address": "0x1ae9B1B3207195430a36D82Fc0bDA1f857D0AA72",
-    "voting_power": 10000
-  },
-  {
-    "address": "0x0c7dC2aB00c7b5934EDA097a8585f56367A94dA4",
-    "voting_power": 10000
-  },
-  {
-    "address": "0xf5A48b1Df2a3a616AdB92E57d6ce36E17c3C2a0b",
-    "voting_power": 10000
-  },
-  {
-    "address": "0x5FE87eE4f61Da6E640Aec02CE818CdcD30B8cB13",
-    "voting_power": 10000
-  },
-  {
-    "address": "0xEbF9dD85cc99a15f1AFB78A6A7cb28a9103e9a12",
-    "voting_power": 10000
-  },
-  {
-    "address": "0x9f26942A9710099A7F2b4b64e53522bB16d2Af7d",
-    "voting_power": 10005
-  }
+  ...
 ]
 ```
 
 ## RPC
 
 ``` {.rpc}
-curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":[{"addr":"0x4b7275d5f5292c3027a16e0eb891d75a0ef39cc7","votingPower":10000},{"addr":"0x5e08564ee99e96e690e9b25591191ae0c78351a3","votingPower":10000},{"addr":"0x33bf54630991f0a1a23b9f102873b3b54c4b94b3","votingPower":10000},{"addr":"0x1ae9b1b3207195430a36d82fc0bda1f857d0aa72","votingPower":10000},{"addr":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4","votingPower":10000},{"addr":"0xf5a48b1df2a3a616adb92e57d6ce36e17c3c2a0b","votingPower":10000},{"addr":"0x5fe87ee4f61da6e640aec02ce818cdcd30b8cb13","votingPower":10000},{"addr":"0xebf9dd85cc99a15f1afb78a6a7cb28a9103e9a12","votingPower":10000},{"addr":"0x9f26942a9710099a7f2b4b64e53522bb16d2af7d","votingPower":10005}]}
+curl -X GET 'https://rpc1.bakerloo.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}' | jq .
+{"jsonrpc":"2.0","id":1,"result":[
+    {
+      "addr": "0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d",
+      "votingPower": 114000000000000000000000,
+      "consensusKey": "sNKH2mNluevPachJhYd6daWedElpmiraCrtC8+NBT+8/FAbdEaHpyw7iFUwpg953"
+    },
+    {
+      "addr": "0x889dcd8ca57ab1108e73e9b02b2c2cb09ea9b19e",
+      "votingPower": 114000000000000000000000,
+      "consensusKey": "qDpp+woJGJhb6peYEqv22YtnTV/GYZuLH6Z/hRWu5joCTYkT60UwZkWmvFxJZHac"
+    },
+    ...
+  ]
+}
 ```
 :::
 
@@ -2347,3 +2335,57 @@ Enter passphrase (or CTRL-d to exit):
 0x3ac340e33f5ddfdab04ffe85ce4b564986b2f1a877720cb79bc9d31c11c8f318
 ```
 :::
+
+## updateEnode
+
+Updates the enode URL of a registered validator on an Autonity Network.
+
+The `updateEnode` method provides as argument the validator identifier and the [enode](/glossary/#enode) URL of the validator node.
+
+Constraint checks are applied:
+
+- the `enode` URL is not empty, is correctly formed, the `PUBKEY` element of the enode has not been updated
+- the `_nodeAddress` is a registered validator address
+- the `msg.Sender` caller address of the `updateEnode()` transaction is the validator's registered [treasury account](/concepts/validator/#treasury-account)
+- the `_nodeAddress` is not a member of the consensus committee
+
+On method execution the `enode` property of the validator is updated in system state and assigned the value of the `_enode` argument to the method call.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_nodeAddress` | `address` | the validator node identifier account address |
+| `_enode` | `string` | the enode url for the validator node  |
+
+
+### Response
+
+No response object is returned on successful execution of the method call.
+
+The updated validator enode can be retrieved from state by calling the [`getValidator`](/reference/api/aut/#getvalidator) method.
+
+### Event
+
+None.
+
+### Usage
+
+::: {.panel-tabset}
+
+## aut
+``` {.aut}
+aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode _nodeAddress _enode
+
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+
+## aut
+aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode 0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d enode://0be363cfa0c81ee12cfc7e144cf6611a1418344a1fa6a0ca04aaa9b09f68dfe2a8d70b8de22026807728424122937721f8f3570bf296c8d445183e37c87b152d@35.197.223.249:30303
+
+:::
+

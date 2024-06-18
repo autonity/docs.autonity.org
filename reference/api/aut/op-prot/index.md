@@ -196,7 +196,7 @@ aut protocol set-accountability-contract [OPTIONS] CONTRACT-ADDRESS
 
 ###  setAcuContract
 
-Sets a new value for the [ASM Auton Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
+Sets a new value for the [ASM Autonomous Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
 
 #### Parameters
    
@@ -1180,7 +1180,7 @@ On a successful call the function emits a `Mint` event, logging: `recipient`, `a
 
 ###  update (ACU Contract)
 
-The Auton Currency Unit (ACU) Contract finalization function, called once per Oracle voting round as part of the state finalization function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
+The Autonomous Currency Unit (ACU) Contract finalization function, called once per Oracle voting round as part of the state finalization function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if the Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract) has initiated a new oracle voting round, if so then:
 
 - it retrieves the latest prices from the Oracle Contract (i.e. the latest round data)
 - checks price data completeness:

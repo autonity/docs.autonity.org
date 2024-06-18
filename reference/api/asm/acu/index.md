@@ -2,10 +2,10 @@
 title: "ACU Contract Interface"
 
 description: >
-  Auton Currency Unit Contract functions
+  Autonomous Currency Unit Contract functions
 ---
 
-Interfaces for interacting with the ASM Auton Currency Unit Contract functions using:
+Interfaces for interacting with the ASM Autonomous Currency Unit Contract functions using:
 
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 
