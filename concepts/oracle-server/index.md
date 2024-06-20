@@ -59,8 +59,8 @@ Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch
 
 Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
 
-- Adaptor code template `template_plugin` in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins).
-- Guide for how _To write a new plugin_ using the template in [`/plugins/README`](https://github.com/clearmatics/autonity-oracle/tree/master/plugins#readme).
+- Adaptor code template `template_plugin.go` in [`/plugins/template_plugin` ](https://github.com/autonity/autonity-oracle/tree/master/plugins/template_plugin).
+- Guide for how _To write a new plugin_ using the template in [`/plugins/README`](https://github.com/autonity/autonity-oracle/tree/master/plugins#readme).
 
 ### Oracle server lifecycle
 
