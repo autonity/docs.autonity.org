@@ -211,7 +211,7 @@ sudo systemctl restart docker
     ```bash
     docker images --digests ghcr.io/autonity/autonity
     REPOSITORY                               TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
-    ghcr.io/autonity/autonity                latest    sha256:7298a5fb9834b8cc281b81df1153fcf2f955a292bf3bd5e5d3eb3f80b52f0727   3375da450343   3 weeks ago    54.4MB
+    ghcr.io/autonity/autonity                latest    sha256:25ee8fcfc158c2396f43c8dfb02dff268e0089c846fedd7cb6934e28f6a8b7d1   487ecdf178f8   3 months ago   56MB
     ```
 
 ::: {.callout-note title="Info" collapse="false"}
@@ -229,11 +229,11 @@ $ ./autonity version
 ```
 Autonity
 Version: 0.14.0
-Git Commit: 4073f24786ce5c99bef80238aa798482ae13fd33
-Git Commit Date: 20240226
+Git Commit: 15cd01644a4b19d70c654bc334f04fab851f2466
+Git Commit Date: 20240619
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.22.1
+Go Version: go1.22.4
 Operating System: linux
 GOPATH=
 GOROOT=
