@@ -125,7 +125,7 @@ The following should be installed in order to build the Autonity Go Client:
 2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
 
     ```bash
-    git checkout tags/v0.13.0 -b v0.13.0
+    git checkout tags/v0.14.0 -b v0.14.0
     ```
 
 3. Build autonity:
@@ -228,7 +228,7 @@ $ ./autonity version
 ```
 ```
 Autonity
-Version: 0.13.0
+Version: 0.14.0
 Git Commit: 4073f24786ce5c99bef80238aa798482ae13fd33
 Git Commit Date: 20240226
 Architecture: amd64
@@ -247,7 +247,7 @@ $ docker run --rm ghcr.io/autonity/autonity:latest version
 
 ```
 Autonity
-Version: 0.13.0
+Version: 0.14.0
 Architecture: amd64
 Protocol Versions: [66]
 Go Version: go1.21.7
