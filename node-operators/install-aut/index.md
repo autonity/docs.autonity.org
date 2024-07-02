@@ -195,7 +195,16 @@ sudo systemctl restart docker
 ```
 :::
 
-1. Pull the Autonity Go Client image from the Github Container Registry:
+1. Pull the Autonity Go Client image from the Github Container Registry.
+
+   If you are deploying to the Bakerloo Testnet:
+   
+    ```bash
+    docker pull ghcr.io/autonity/autonity-bakerloo:latest
+    ```
+
+   If you are deploying to the Piccadilly Testnet:
+   
     ```bash
     docker pull ghcr.io/autonity/autonity:latest
     ```
