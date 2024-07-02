@@ -57,7 +57,7 @@ Call [`updateEnode()`](/reference/api/aut/#updateenode) passing in parameters fo
   - `<ENODE>`: the new enode URL value
 
   ```bash
-aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode <NODE_ADDRESS> <ENODE>
+aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode <NODE_ADDRESS> <ENODE> | aut tx sign - | aut tx send -
 ```
   
 On commit, the transaction will update the validator's registered enode URL in system state. you can view the updated enode using `aut validator info --validator`.
