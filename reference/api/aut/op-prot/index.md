@@ -37,7 +37,7 @@ On a successful call the function emits a `BurnedStake` event, logging: `_addr`,
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut protocol burn [OPTIONS] AMOUNT ACCOUNT
+aut governance burn [OPTIONS] AMOUNT ACCOUNT
 ```
 :::
 
@@ -46,7 +46,7 @@ aut protocol burn [OPTIONS] AMOUNT ACCOUNT
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut protocol burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut governance burn 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3e86062cca9fa263acb7076f8287117e9ee2c5570e0f4e4bd2ff4db21895796e
@@ -82,7 +82,7 @@ On a successful call the function emits a `MintedStake` event, logging: `_addr`,
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut protocol mint [OPTIONS] AMOUNT RECIPIENT
+aut governance mint [OPTIONS] AMOUNT RECIPIENT
 ```
 :::
 
@@ -91,7 +91,7 @@ aut protocol mint [OPTIONS] AMOUNT RECIPIENT
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut protocol mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut governance mint 1 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xbd9e604372cc922c4594b0fce94919f933734e29b0043c5af3c4a7774ed99ad7
@@ -188,7 +188,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol set-accountability-contract [OPTIONS] CONTRACT-ADDRESS
+aut governance set-accountability-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -218,7 +218,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol set-acu-contract [OPTIONS] CONTRACT-ADDRESS
+aut governance set-acu-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -245,7 +245,7 @@ The updated parameter can be retrieved from state by calling the [`getMaxCommitt
 ## aut
 
 ``` {.aut}
-aut protocol set-committee-size [OPTIONS] COMMITTEE_SIZE
+aut governance set-committee-size [OPTIONS] COMMITTEE_SIZE
 ```
 :::
 
@@ -255,7 +255,7 @@ aut protocol set-committee-size [OPTIONS] COMMITTEE_SIZE
 ## aut
 
 ``` {.aut}
-$ aut protocol set-committee-size 50 | aut tx sign - | aut tx send -
+$ aut governance set-committee-size 50 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3dbe5afbb89267b1549f735d09ac3acd6a4894eccbab8dca125497806c8fdc2d
@@ -295,7 +295,7 @@ On a successful call the function emits an `EpochPeriodUpdated` event, logging: 
 ## aut
 
 ``` {.aut}
-aut protocol set-epoch-period [OPTIONS] EPOCH_PERIOD
+aut governance set-epoch-period [OPTIONS] EPOCH_PERIOD
 ```
 :::
 
@@ -305,7 +305,7 @@ aut protocol set-epoch-period [OPTIONS] EPOCH_PERIOD
 ## aut
 
 ``` {.aut}
-aut protocol set-epoch-period 1000 | aut tx sign - | aut tx send -
+aut governance set-epoch-period 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xdf3b3eb316a3070a591621d8cc450ca6d1af3a6d57a0455714b5bff72eb06b92
@@ -430,7 +430,7 @@ On a successful call the function emits a `MinimumBaseFeeUpdated` event, logging
 ## aut
 
 ``` {.aut}
-aut protocol set-minimum-base-fee [OPTIONS] base-fee
+aut governance set-minimum-base-fee [OPTIONS] base-fee
 ```
 :::
 
@@ -440,7 +440,7 @@ aut protocol set-minimum-base-fee [OPTIONS] base-fee
 ## aut
 
 ``` {.aut}
-aut protocol set-minimum-base-fee 50000000 | aut tx sign - | aut tx send -
+aut governance set-minimum-base-fee 50000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x4d1abc6881f63d7856b3b2d6f0b9865a4a9c2b1378dd824e36e9ac194fd8da52
@@ -478,7 +478,7 @@ The updated parameter can be retrieved from state by a call to the [`operatorAcc
 ## aut
 
 ``` {.aut}
-aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
+aut governance set-operator-account [OPTIONS] OPERATOR-ADDRESS
 ```
 :::
 
@@ -488,7 +488,7 @@ aut protocol set-operator-account [OPTIONS] OPERATOR-ADDRESS
 ## aut
 
 ``` {.aut}
-aut protocol set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut governance set-operator-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xee513f48b4ad4cd24cfc5bb0fe0c1402a5e03ae030b6c73824bae253f56efd51
@@ -526,7 +526,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
+aut governance set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -555,7 +555,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS
+aut governance set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -584,7 +584,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol set-supply-control-contract [OPTIONS] CONTRACT-ADDRESS
+aut governance set-supply-control-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -659,7 +659,7 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 ## aut
 
 ``` {.aut}
-aut protocol set-treasury-account [OPTIONS] treasury-address
+aut governance set-treasury-account [OPTIONS] treasury-address
 ```
 :::
 
@@ -669,7 +669,7 @@ aut protocol set-treasury-account [OPTIONS] treasury-address
 ## aut
 
 ``` {.aut}
-aut protocol set-treasury-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
+aut governance set-treasury-account 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xffe8725f6988668700896f335ecb5db75bb48c9dfb7caef90acecef85d0a2520
@@ -699,7 +699,7 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 ## aut
 
 ``` {.aut}
-aut protocol set-treasury-fee [OPTIONS] TREASURY-FEE
+aut governance set-treasury-fee [OPTIONS] TREASURY-FEE
 ```
 :::
 
@@ -709,7 +709,7 @@ aut protocol set-treasury-fee [OPTIONS] TREASURY-FEE
 ## aut
 
 ``` {.aut}
-aut protocol set-treasury-fee 100000000 | aut tx sign - | aut tx send -
+aut governance set-treasury-fee 100000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x513f36338720545a8f2c1111e0c2f4b5eebe9582e39493c6cd587ababe1e2e08
@@ -741,7 +741,7 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 ## aut
 
 ``` {.aut}
-aut protocol set-unbonding-period [OPTIONS] UNBONDING_PERIOD
+aut governance set-unbonding-period [OPTIONS] UNBONDING_PERIOD
 ```
 :::
 
@@ -751,7 +751,7 @@ aut protocol set-unbonding-period [OPTIONS] UNBONDING_PERIOD
 ## aut
 
 ``` {.aut}
-aut protocol set-unbonding-period 1000 | aut tx sign - | aut tx send -
+aut governance set-unbonding-period 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x1057bf2525ee910b393ea8d54d0ec9b362355e5dbeb14235ed5eba92750a4bdd
