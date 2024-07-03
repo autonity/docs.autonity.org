@@ -215,12 +215,22 @@ sudo systemctl restart docker
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
    :::
 
-1. Verify the authenticity of the Autonity Docker images against the official [image digests](https://github.com/autonity/autonity/pkgs/container/autonity/versions):
+2. Verify the authenticity of the Autonity Docker images against the official [image digests](https://github.com/autonity/autonity/pkgs/container/autonity/versions):
 
+   If you are deploying to the Bakerloo Testnet:
+   
+    ```bash
+    docker images --digests ghcr.io/autonity/autonity-bakerloo
+    REPOSITORY                           TAG       DIGEST                                                                    IMAGE ID       CREATED      SIZE
+    ghcr.io/autonity/autonity-bakerloo   latest    sha256:9927fc07f0db07e3d18d9c290fd1fbfc509558adf0250dec97b8d630fc7febc7   342dbfb45641   5 days ago   57MB
+    ```
+
+   If you are deploying to the Piccadilly Testnet:
+   
     ```bash
     docker images --digests ghcr.io/autonity/autonity
-    REPOSITORY                               TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
-    ghcr.io/autonity/autonity                latest    sha256:25ee8fcfc158c2396f43c8dfb02dff268e0089c846fedd7cb6934e28f6a8b7d1   487ecdf178f8   3 months ago   56MB
+    REPOSITORY                  TAG       DIGEST                                                                    IMAGE ID       CREATED         SIZE
+    ghcr.io/autonity/autonity   latest    sha256:25ee8fcfc158c2396f43c8dfb02dff268e0089c846fedd7cb6934e28f6a8b7d1   487ecdf178f8   4 months ago    56MB
     ```
 
 ::: {.callout-note title="Info" collapse="false"}

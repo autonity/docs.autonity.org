@@ -187,18 +187,26 @@ sudo systemctl restart docker
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
    :::
 
-<!-- TODO: UPDATE to autonity-oracle:latest
-
 3. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
 
-    ```bash
-    docker images --digests ghcr.io/autonity/autonity-oracle
-    REPOSITORY                               TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
-    ghcr.io/autonity/autonity                latest    sha256:0eb561ce19ed3617038b022db89586f40abb9580cb0c4cd5f28a7ce74728a3d4   3375da450343   3 weeks ago    51.7MB
-    ```
--->
 
-3. Data source plugins. Note that the data source plugins are included as part of the Docker image at the directory path `/usr/local/bin/plugins`.
+   If you are deploying to the Bakerloo Testnet:
+   
+    ```bash
+    docker images --digests ghcr.io/autonity/autonity-oracle-bakerloo
+    REPOSITORY                                  TAG       DIGEST                                                                    IMAGE ID       CREATED       SIZE
+    ghcr.io/autonity/autonity-oracle-bakerloo   latest    sha256:f37cdf332bab761426f94a6b6f8e670efc7b95e4470bc9a4ce1151d48baff791   d6cc39e078f6   2 weeks ago   111MB
+    ```
+   
+   If you are deploying to the Piccadilly Testnet:
+   
+    ```bash
+    docker images --digests ghcr.io/autonity/autonity-oracle-piccadilly
+    REPOSITORY                                    TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
+    ghcr.io/autonity/autonity-oracle-piccadilly   latest    sha256:aa0192ce1d72b1a6d5ad971e8d10a8dbc32004f4ea1d3da7217b80ec8b6a363e   78446bd6c4b6   2 weeks ago    111MB
+    ```
+
+4. Data source plugins. Note that the data source plugins are included as part of the Docker image at the directory path `/usr/local/bin/plugins`.
 
 ::: {.callout-note title="Info" collapse="false"}
 You can now [configure and launch oracle server](/oracle/run-oracle/#run-docker).
@@ -210,7 +218,7 @@ You can now [configure and launch oracle server](/oracle/run-oracle/#run-docker)
 You should now be able to execute the `autoracle` command.  Verify your installation by executing `autoracle version` to return the oracle version and configuration:
 
 ```bash
-$ /build/bin/autoracle version
+$ ./build/bin/autoracle version
 ```
 ```
 v0.1.9
