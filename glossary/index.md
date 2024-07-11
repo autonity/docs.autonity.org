@@ -164,6 +164,16 @@ The JSON-formatted genesis configuration file that contains the data necessary t
 ## gigaton
 The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to denominate Autonity gas prices. 1 `gigaton` = 1,000,000,000 [ton](/glossary/#ton). The Autonity equivalent of wei is [ton](/glossary/#ton) and of gwei gigaton.
 
+## inflation mechanism
+The mechanism by which a percentage of the total [newton](/glossary/#newton) supply is held in an "Inflation Reserve" and released over time as [inflation awards](/glossary/#inflation-awards).
+
+Newton total supply is capped at 100 million NTNs of which 40% is reserved for inflation awards in the short-to-medium term.
+
+Inflation awards are emitted in the form of newton inflation (i.e. newly minted newton supply) for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero as the Inflation Reserve is fixed.
+
+## inflation awards
+Inflation awards are a distribution of newly minted newton by the [inflation mechanism](/glossary/#inflation-mechanism) to all holders of bonded stake [participating](/glossary/#participation-rate) in securing the network.
+
 ## incentivization scheme
 A cryptoeconomic mechanism where economic penalties are applied for incorrect actions or state transitions by network participants, enforced by cryptographic proofs of state or action.
 
@@ -226,6 +236,12 @@ A [peer](/glossary/#peer) [node](/glossary/#node) that is currently connected to
 
 A participant is able to sync state, and broadcast and receive transactions, and potentially be a [validator](/glossary/#validator) node.
 
+## participation rate
+
+The percentage of "circulating" [newton](/glossary/#newton) supply that is bonded to registered [validator](/glossary/#validator) nodes on an [Autonity network](/glossary/#autonity-network).
+
+The participation rate is a key dimension of the network’s security, as it quantifies the slashing cost to an attacker successfully launching a $1/3$ superminority attack. A higher participation rate results in higher economic security.
+
 ## peer
 A [node](/glossary/#node) which is currently connected to other nodes in a [peer-to-peer network](/glossary/#peer-to-peer-network-p2p) and is a [participant](/glossary/#participant) in that network.
 
@@ -273,7 +289,9 @@ A network participant that holds an amount of the [Newton](/glossary/#newton) st
 The process by which stake is delegated to a validator node in a Proof of Stake (PoS) blockchain. Validators with bonded stake participate in transaction validation if a member of the consensus committee. Stake can be [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegated).
 
 ## staking rewards
-Revenue earned by bonded stake when it is actively securing the network during consensus. Only stake bonded to members of the current consensus committee earn staking rewards.
+Staking rewards are a distribution of fee revenue entitlement to all holders of bonded stake actively backing consensus. 
+
+Only stake bonded to members of the current consensus committee earn staking rewards.
 
 ## staking wallet account
 The [account](/glossary/#account) used by a [stakeholder](/glossary/#stakeholder) for stake delegation. This is the account address used to submit transactions for operations to:
