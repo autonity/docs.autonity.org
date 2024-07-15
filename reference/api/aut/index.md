@@ -2024,7 +2024,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol total-redistributed [OPTIONS]
+aut protocol atn-total-redistributed [OPTIONS]
 ```
 ## RPC
 
@@ -2039,7 +2039,7 @@ aut protocol total-redistributed [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol total-redistributed -r https://rpc1.piccadilly.autonity.org
+aut protocol atn-total-redistributed -r https://rpc1.piccadilly.autonity.org
 47981813599875371606
 ```
 ## RPC
