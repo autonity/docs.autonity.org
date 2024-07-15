@@ -2004,9 +2004,9 @@ LNTN-0
 :::
 
 
-## totalRedistributed
+## atnTotalRedistributed
 
-Returns the total amount of staking rewards distributed since genesis minus treasury fee.
+Returns the total amount of Auton staking rewards distributed since genesis minus treasury fee.
 
 ### Parameters
 
@@ -2024,12 +2024,12 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol total-redistributed [OPTIONS]
+aut protocol atn-total-redistributed [OPTIONS]
 ```
 ## RPC
 
 ``` {.rpc}
-{"method":"aut_totalRedistributed", "params":[]}
+{"method":"aut_atnTotalRedistributed", "params":[]}
 ```
 :::
 
@@ -2039,13 +2039,13 @@ aut protocol total-redistributed [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol total-redistributed -r https://rpc1.piccadilly.autonity.org
+aut protocol atn-total-redistributed -r https://rpc1.piccadilly.autonity.org
 47981813599875371606
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_totalRedistributed", "params":[], "id":1}'
+curl -X GET 'https://rpc1.piccadilly.autonity.org/'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_atnTotalRedistributed", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":47981813599875371606}
 ```
 :::
