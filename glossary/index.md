@@ -129,7 +129,7 @@ Stake delegation transactions submitted from the validator `treasury` account re
 ## delegation
 The process of bonding stake token to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder).
 
-See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, and [delegation rate](/glossary/#delegation-rate).
+See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, [delegation rate](/glossary/#delegation-rate), and [participation rate](/glossary/#participation-rate).
 
 ## delegation rate
 The percentage commission of earned [staking rewards](/glossary/#staking-rewards) that a [validator](/glossary/#validator) charges as a commission on [delegated](/glossary/#delegation) stake.
@@ -171,7 +171,7 @@ Newton total supply is capped at 100 million NTNs of which 40% is reserved for i
 
 Inflation awards are emitted in the form of newton inflation (i.e. newly minted newton supply) for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero as the Inflation Reserve is fixed.
 
-## inflation awards
+## inflation rewards
 Inflation awards are a distribution of newly minted newton by the [inflation mechanism](/glossary/#inflation-mechanism) to all holders of bonded stake [participating](/glossary/#participation-rate) in securing the network.
 
 ## incentivization scheme
@@ -277,6 +277,8 @@ A network participant that holds an amount of the [Newton](/glossary/#newton) st
 
 ## staking
 The process by which stake is delegated to a validator node in a Proof of Stake (PoS) blockchain. Validators with bonded stake participate in transaction validation if a member of the consensus committee. Stake can be [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegated).
+
+See related concepts: [staking rewards](/glossary/#staking-rewards), [delegation rate](/glossary/#delegation-rate), and [participation rate](/glossary/#participation-rate).
 
 ## staking rewards
 Staking rewards are a distribution of fee revenue entitlement to all holders of bonded stake actively backing consensus. 
