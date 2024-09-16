@@ -22,7 +22,7 @@ jobs:
         uses: quarto-dev/quarto-actions/render@v2
 
       - name: Archive site
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: site
           path: docs/
@@ -42,7 +42,7 @@ jobs:
           aws-region: eu-west-2
 
       - name: Download site archive
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: site
           path: docs/
