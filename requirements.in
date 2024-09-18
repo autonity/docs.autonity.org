@@ -1,0 +1,11 @@
+# API documentation generator dependencies
+schema
+toml
+watchdog
+
+# Development dependencies
+black
+mypy
+pip-tools
+ruff
+types-toml
