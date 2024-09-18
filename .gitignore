@@ -17,3 +17,6 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
+
+# For the API doc generator
+autonity
