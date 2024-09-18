@@ -1,0 +1,39 @@
+# API reference documentation generator configuration
+# See: https://github.com/autonity/apidocgen
+
+[autonity]
+build_dir = "params/generated"
+src_dir = "autonity/solidity/contracts"
+github_url = "https://github.com/autonity/autonity"
+
+[contracts]
+
+[contracts.Accountability]
+output_file = "contracts/Accountability.md"
+excludes = ["distributeRewards", "finalize", "setEpochPeriod"]
+
+[contracts.ACU]
+output_file = "contracts/ACU.md"
+excludes = ["setOperator", "setOracle", "update"]
+
+[contracts.Autonity]
+output_file = "contracts/Autonity.md"
+excludes = ["computeCommittee", "finalize", "finalizeInitialization"]
+
+[contracts.Liquid]
+output_file = "contracts/Liquid-Newton.md"
+display_name = "Liquid Newton"
+excludes = ["lock", "unlock"]
+
+[contracts.Oracle]
+output_file = "contracts/Oracle.md"
+excludes = ["finalize", "setOperator", "setVoters"]
+
+[contracts.Stabilization]
+output_file = "contracts/Stabilization.md"
+excludes = ["setOperator", "setOracle"]
+
+[contracts.SupplyControl]
+output_file = "contracts/Supply-Control.md"
+display_name = "Supply Control"
+excludes = ["setOperator"]
