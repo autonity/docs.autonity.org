@@ -1,3 +1,4 @@
+# Quarto specific
 .quarto/
 .ipynb_checkpoints/
 .vscode/
@@ -6,3 +7,13 @@ docs
 /.luarc.json
 /_freeze/
 /_site/
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
