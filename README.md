@@ -21,6 +21,15 @@ Usage:
 - Run `quarto preview` to serve the site in Quarto's local webserver
 - Review the [`_quarto.yml`](_quarto.yml) file and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details
 
+## Generating API reference documentation
+
+- Clone Autonity and compile its protocol contracts with `make contracts`
+- Add a symlink to the Autonity clone into this repository with `ln -s /path/to/autonity`
+- If there are new contracts to document, edit [`config.toml`](./config.toml)
+- Run `apidocgen` to update the API reference documentation ([details](https://github.com/autonity/apidocgen))
+- Review changes with `quarto preview`
+- Commit the modified markdown files
+
 ## Migrating from Hugo
 
 For best results, clone into a new directory. However, if you are unable to do that, Delete the following directories as they will conflict and prevent Quarto from building:
