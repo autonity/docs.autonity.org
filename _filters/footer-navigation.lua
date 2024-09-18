@@ -10,7 +10,7 @@
     - next-url: the url of the next page
     - next-contract: the name of the next contract
   if no prev-url or next-url is provided, the corresponding button will not be displayed.
-  
+
   complete example
   ::: {.footer-navigation prev-url="previous-page.qmd" prev-contract="Previous Contract Name" next-url="next-page.qmd" next-contract="Next Contract Name"}
   :::
@@ -38,7 +38,7 @@ function Div(el)
         prev_html = string.format([[
           <div class="footer-link prev-link">
             <a href="%s">
-             <img class="footer-link-image" src="../_assets/images/chevron-left.svg" class="img-fluid">
+             <img class="footer-link-image" src="/_assets/images/chevron-left.svg" class="img-fluid">
             <div class="footer-link-text">
               <span>%s</span>
               <span class="contract-name">%s</span>
@@ -57,7 +57,7 @@ function Div(el)
                 <span>%s</span>
                 <span class="contract-name">%s</span>
               </div>
-              <img class="footer-link-image" src="../_assets/images/chevron-right.svg" class="img-fluid">
+              <img class="footer-link-image" src="/_assets/images/chevron-right.svg" class="img-fluid">
             </a>
           </div>
         ]], next_url, next_text, next_contract)
