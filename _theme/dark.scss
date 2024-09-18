@@ -1,7 +1,11 @@
 
 /*-- scss:defaults --*/
 :root {
+    --header-background-color: #000000;
+    --header-font-color: #ffffff;
     --foreground-color: #ffffff;
     --secondary-color: #e2e2e2;
     --background-color: #000000;
+    --highlight-color: #ffc6e5;
+    --header-boarder: var(--border-thickness) solid var(--foreground-color);    
   }

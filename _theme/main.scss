@@ -60,8 +60,7 @@ $font-family-monospace: 'Berkeley Mono', monospace;
     --font-size-root: 15px;
     --font-size-emphasis: 16px;
     --header-font: 'Berkeley Mono', monospace;    
-    --clamped-width: clamp(320px, 97%, 1440px);
-    --highlight-color: #6a274b;
+    --clamped-width: clamp(320px, 97%, 1440px);    
     --secondary-border: var(--border-thickness) solid var(--secondary-color);
     --primary-border: var(--border-thickness) solid var(--foreground-color);
     --standard-spacing: 15px;
@@ -119,8 +118,9 @@ h1,h2,h3,h4,h5,h6 {
     padding-top: 80px;
 }
   
-  .navbar {
-    background: var(--foreground-color);
+.navbar {
+    background: var(--header-background-color);
+    border: var(--header-boarder);
     max-width: var(--clamped-width);
     width: 100%;
     margin: auto;
@@ -130,7 +130,7 @@ h1,h2,h3,h4,h5,h6 {
 .navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {
     width: 26px;
     height: 26px;
-    color: var(--background-color);
+    color: var(--header-font-color);
     opacity: 1;
 }
 
@@ -155,17 +155,13 @@ header.headroom--unpinned {
     transform: translateY(-140%);
 }
 
-.headroom {
-    background: var(--background-color);
-}
-
 .navbar-brand:hover, .navbar-brand:focus {
     color: var(--background-color);
 }
 
 .navbar-brand {
     font-size: var(--header-size);
-    color: var(--background-color);
+    color: var(--header-font-color);
     font-weight: var(--bold);
 }
 .navbar-logo {
@@ -185,8 +181,7 @@ nav#TOC {
     overflow-x: hidden;
 }
 
-#TOC ul {
-    
+#TOC ul {    
     padding-left: 0;
     margin: 0;
   }
@@ -288,6 +283,7 @@ h4, .h4 {
 
 .footer-link {
     border: var(--primary-border);
+    font-family: var(--header-font);
     padding: 30px;
     width: 50%;
 }
