@@ -1,0 +1,340 @@
+/*-- scss:fonts --*/
+@font-face {
+    font-family: 'Berkeley Mono';
+    src: url('_theme/fonts/berkeley/BerkeleyMono-Regular.woff2') format('woff2'),
+        url('_theme/fonts/berkeley/BerkeleyMono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Berkeley Mono';
+    src: url('_theme/fonts/berkeley/BerkeleyMono-Bold.woff2') format('woff2'),
+        url('_theme/fonts/berkeley/BerkeleyMono-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Berkeley Mono';
+    src: url('_theme/fonts/berkeley/BerkeleyMono-Italic.woff2') format('woff2'),
+        url('_theme/fonts/berkeley/BerkeleyMono-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('_theme/fonts/noto/NotoSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('_theme/fonts/noto/NotoSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('_theme/fonts/noto/NotoSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: block;
+}
+
+/*-- scss:rules --*/
+:root {
+    --border-thickness: 2.53px;
+    --font-size-root: 15px;
+    --font-size-emphasis: 16px;
+    --font-stack: 'Berkeley Mono', monospace;    
+    --clamped-width: clamp(320px, 97%, 1440px);
+    --highlight-color: #6a274b;
+    --secondary-border: var(--border-thickness) solid var(--secondary-color);
+    --primary-border: var(--border-thickness) solid var(--foreground-color);
+    --standard-spacing: 15px;
+    --double-spacing: calc(var(--standard-spacing) * 2);
+    --header-size: 25px;
+    --bold: 600;
+    --gutter-spacing: 1.25em;
+    
+}
+/* For Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+    width: 3px;   /* Scrollbar width */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--foreground-color);  /* Scrollbar color */
+    border-radius: 10px;  /* Make it rounded */
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--background-color);  /* Track color */
+}
+
+/* For Firefox */
+html {
+    scrollbar-width: thin;  /* Set scrollbar width to thin */
+    scrollbar-color: var(--background-color);  /* Thumb and track colors */
+}
+
+a:hover {
+    color: #6a274b;
+    text-decoration: none;
+}
+
+a {
+    color: #822f5b;
+}
+
+/*-- scss:rules --*/
+body {
+    max-width: var(--clamped-width);
+    margin: auto;
+    font-family: var(--font-stack);
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+    font-variation-settings: 'wght' 100;
+    font-size: var(--font-size-root);
+  }
+
+  body.nav-fixed {
+    padding-top: 80px;
+}
+  
+  .navbar {
+    background: var(--foreground-color);
+    max-width: var(--clamped-width);
+    width: 100%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {
+    width: 26px;
+    height: 26px;
+    color: var(--background-color);
+    opacity: 1;
+}
+
+.navbar .quarto-navbar-tools .quarto-navigation-tool {
+    color: var(--foreground-color);
+}
+
+.sidebar nav[role=doc-toc] ul>li>a.active, .sidebar nav[role=doc-toc] ul>li>ul>li>a.active {
+    border-left: var(--primary-border);
+    color: var(--foreground-color) !important;
+}
+
+.sidebar nav[role=doc-toc]>ul a {
+    border-left: none;
+}
+.sidebar nav[role=doc-toc] ul>li>a:hover, .sidebar nav[role=doc-toc] ul>li>ul>li>a:hover {
+    font-weight: bold;
+    color: var(--foreground-color) !important;
+}
+
+header.headroom--unpinned {
+    transform: translateY(-140%);
+}
+
+.headroom {
+    background: var(--background-color);
+}
+
+.navbar-brand:hover, .navbar-brand:focus {
+    color: var(--background-color);
+}
+
+.navbar-brand {
+    font-size: var(--header-size);
+    color: var(--background-color);
+    font-weight: var(--bold);
+}
+.navbar-logo {
+    max-height: 42px;
+    width: auto;
+    padding-right: 0px;
+}
+
+div#quarto-margin-sidebar {
+    top: 85px;
+    max-height: calc(-85px + 100vh);
+}
+
+nav#TOC {
+    border: var(--primary-border);
+    padding: var(--standard-spacing);
+    overflow-x: hidden;
+}
+
+#TOC ul {
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  #TOC ul li a {
+    display: block;                /* Make sure the anchor is a block-level element */
+    white-space: nowrap;           /* Prevent text from wrapping to a new line */
+    overflow: hidden;              /* Hide overflowed text */
+    text-overflow: ellipsis;       /* Display the ellipsis (...) for overflowing text */
+    max-width: 100%;               /* Ensure the text does not exceed the container's width */
+  }
+  
+  #TOC .nav-link {
+    width: 100%;                   /* Make the links span the full width of the container */
+    max-width: 250px;              /* Set a specific max-width for the text overflow */
+  }
+  
+  #TOC ul li a:hover {
+    text-decoration: none;         /* Optional: Remove underline on hover */
+  }
+  
+
+
+
+@media (min-width: 992px) {
+    body.docked .page-columns {
+        display: grid;
+        gap: 0;
+        grid-template-columns: [screen-start] var(--standard-spacing) [screen-start-inset page-start] minmax(50px, 100px) [page-start-inset] 50px [body-start-outset] 50px [body-start] var(--standard-spacing) [body-content-start] minmax(500px, calc(1000px - 3em)) [body-content-end] var(--standard-spacing) [body-end] 50px [body-end-outset] minmax(50px, 100px) [page-end-inset] 90px [page-end] 5fr [screen-end-inset] 0px [screen-end];
+    }
+}
+
+div.sidebar-item-container .active, div.sidebar-item-container .show>.nav-link, div.sidebar-item-container .sidebar-link>code {
+    text-decoration: underline;
+    font-weight: bold;
+    color: var(--foreground-color);
+}
+
+.navbar-brand-container {
+    display: flex;
+    gap: var(--standard-spacing);
+    align-items: center;
+}
+
+nav#quarto-sidebar {
+    top: 100px;
+    max-height: calc(-100px + 100vh);
+    margin: 15px 0 0 0;
+    padding: 0;
+}
+
+.sidebar-menu-container {
+    
+    padding: var(--standard-spacing);
+}
+
+#quarto-content { 
+  margin-top: 15px;
+}
+
+div.sidebar.sidebar-navigation.rollup.quarto-sidebar-toggle-contents, nav.sidebar.sidebar-navigation:not(.rollup) {
+    background-color: var(--background-color);
+}
+
+.sidebar-navigation a {
+    color: var(--secondary-color);
+}
+
+a.external:after {
+    display: inline-block;
+    height: .75rem;
+    width: .75rem;
+    margin-bottom: .15em;
+    margin-left: .25em;
+    content: "";
+    vertical-align: -0.125em;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgb(162,%2059,%20114)' class='bi bi-box-arrow-up-right' viewBox='0%200%2016%2016'%3E%3Cpath fill-rule='evenodd' d='M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z'/%3E%3Cpath fill-rule='evenodd' d='M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: .75rem .75rem;
+  }
+  
+
+  table.table {
+    border: var(--primary-border);
+}
+
+.table>thead {
+    border-top-width: 0;
+    border: var(--primary-border);
+}
+
+.table>:not(caption)>*>* {
+    border: var(--primary-border);
+}
+
+@media (min-width: 1200px) {
+    h2, .h2 {
+        font-size: 22px;
+    }
+}
+
+@media (min-width: 1200px) {
+    h1, .h1 {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 1200px) {
+    h3, .h3 {
+        font-size: 16px;
+    }
+}
+
+h4, .h4 {
+    font-size: 15px;
+}
+
+.footer-link {
+    border: var(--primary-border);
+    padding: 30px;
+    width: 50%;
+}
+
+.footer-link:hover {
+    border-color: var(--highlight-color);
+}
+
+.footer-link > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: var(--foreground-color);
+}
+
+.footer-navigation {
+    display: flex;
+    gap: 15px;
+}
+img.footer-link-image {
+    width: 15px;
+}
+.footer-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.prev-link>a>.footer-link-text {    
+    align-items: end;
+}
+
+.footer-link:hover .contract-name {
+    color: var(--highlight-color);
+}
+
+.contract-name {
+    font-size: var(--font-size-emphasis);
+    font-weight: var(--bold);
+}

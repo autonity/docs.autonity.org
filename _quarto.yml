@@ -1,3 +1,4 @@
+version: "1.0.0"
 project:
   type: website
   output-dir: docs/
@@ -15,10 +16,11 @@ website:
   search:
     location: navbar
     type: overlay
-  sidebar: 
+  sidebar:    
    contents:
     - index.md
     - "overview/index.md"
+    - auto: "contracts"
     - section: "Concepts"
       contents:
       - "concepts/architecture/index.md"
@@ -82,7 +84,7 @@ website:
     - "glossary/index.md"
     - "issues/index.md"
    style: docked
-   collapse-level: 2
+   collapse-level: 1
   navbar:  
     background: dark
     logo: "_assets/images/logo-autonity.svg"
@@ -100,21 +102,17 @@ filters:
   - _filters/macro-substitution.lua
   - _filters/page-info.lua
   - _filters/card-substitution.lua
+  - _filters/footer-navigation.lua
 format:
-  html:
+  html:    
     link-external-icon: true
     link-external-newwindow: true
     fontcolor: "#333333"
     smooth-scroll: true
-    theme:
-      light: [cosmo, _theme/theme.scss]
+    theme:  
+      light: [_theme/main.scss, _theme/light.scss]
+      dark: [_theme/main.scss, _theme/dark.scss]
     code-copy: true
     code-overflow: wrap
-    css: _assets/css/styles.css
     toc: true
-    include-in-header:
-      - text: |
-          <link rel="preconnect" href="https://plausible.io">
-          <script defer data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
-          <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
-    template: _templates/autonity-base.html
+    
