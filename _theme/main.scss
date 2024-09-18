@@ -50,12 +50,16 @@
     font-display: block;
 }
 
+/*-- scss:defaults --*/
+$font-family-sans-serif: 'Noto Sans' sans-serif;
+$font-family-monospace: 'Berkeley Mono', monospace;
+
 /*-- scss:rules --*/
 :root {
     --border-thickness: 2.53px;
     --font-size-root: 15px;
     --font-size-emphasis: 16px;
-    --font-stack: 'Berkeley Mono', monospace;    
+    --header-font: 'Berkeley Mono', monospace;    
     --clamped-width: clamp(320px, 97%, 1440px);
     --highlight-color: #6a274b;
     --secondary-border: var(--border-thickness) solid var(--secondary-color);
@@ -88,24 +92,28 @@ html {
 }
 
 a:hover {
-    color: #6a274b;
+    color: var(--highlight-color);
     text-decoration: none;
 }
 
 a {
-    color: #822f5b;
+    color: var(--highlight-color);
 }
 
 /*-- scss:rules --*/
 body {
     max-width: var(--clamped-width);
     margin: auto;
-    font-family: var(--font-stack);
+    font-family: var(--body-font);
     background-color: var(--background-color);
     color: var(--foreground-color);
     font-variation-settings: 'wght' 100;
     font-size: var(--font-size-root);
-  }
+}
+
+h1,h2,h3,h4,h5,h6 { 
+    font-family: var(--header-font);
+}
 
   body.nav-fixed {
     padding-top: 80px;
@@ -178,6 +186,7 @@ nav#TOC {
 }
 
 #TOC ul {
+    
     padding-left: 0;
     margin: 0;
   }
@@ -273,24 +282,6 @@ a.external:after {
     border: var(--primary-border);
 }
 
-@media (min-width: 1200px) {
-    h2, .h2 {
-        font-size: 22px;
-    }
-}
-
-@media (min-width: 1200px) {
-    h1, .h1 {
-        font-size: 24px;
-    }
-}
-
-@media (min-width: 1200px) {
-    h3, .h3 {
-        font-size: 16px;
-    }
-}
-
 h4, .h4 {
     font-size: 15px;
 }
@@ -337,4 +328,45 @@ img.footer-link-image {
 .contract-name {
     font-size: var(--font-size-emphasis);
     font-weight: var(--bold);
+}
+
+.sidebar nav[role=doc-toc] ul>li>a.active, .sidebar nav[role=doc-toc] ul>li>ul>li>a.active {
+    color: var(--highlight-color) !important;
+}
+.sidebar nav[role=doc-toc] ul>li>a:hover, .sidebar nav[role=doc-toc] ul>li>ul>li>a:hover {
+    font-weight: unset;
+    color: var(--highlight-color) !important;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    float: left;
+    color: var(--foreground-color);
+    content: var(--bs-breadcrumb-divider, "/") /* rtl: var(--bs-breadcrumb-divider, "/") */;
+}
+
+#title-block-header a {
+    color: var(--foreground-color);
+}
+
+
+#title-block-header a:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 1200px) {
+    h2, .h2 {
+        font-size: 22px;
+    }
+}
+
+@media (min-width: 1200px) {
+    h1, .h1 {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 1200px) {
+    h3, .h3 {
+        font-size: 16px;
+    }
 }
