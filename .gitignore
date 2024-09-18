@@ -8,10 +8,6 @@ docs
 /_freeze/
 /_site/
 
-
-# Software Catalog
-__pycache__/
-
 # Devenv
 .devenv*
 devenv.local.nix

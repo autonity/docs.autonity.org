@@ -16,6 +16,8 @@ We assume that the Autonity Oracle Server will run on a _host_ machine (a VPS or
 
 ::: {.callout-note title="Note" collapse="false"}
 Autonity Oracle Server source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity-oracle](https://github.com/autonity/autonity-oracle).
+
+Before installing verify the correct Autonity Oracle Server release version to use for the network you are connecting to. See the [Networks](/networks/) pages [Bakerloo Testnet, Release](/networks/testnet-bakerloo/#release) and [Piccadilly Testnet, Release](/networks/testnet-piccadilly/#release) for the versions deployed.
 :::
 
 ## Requirements

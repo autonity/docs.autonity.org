@@ -4,9 +4,7 @@
 
 ### Setup
 
-- Install Nix using [nix-installer](https://zero-to-nix.com/start/install). The
-  official installer should also work, but may require additional configuration
-  that is not covered here.
+- Install Nix using [nix-installer](https://zero-to-nix.com/start/install).
 
 - Install [devenv](https://devenv.sh/getting-started/#__tabbed_2_2) using
   `nix profile install`.

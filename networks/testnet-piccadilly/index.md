@@ -42,7 +42,7 @@ Piccadilly is for participants interested in:
 | `config.autonity.minBaseFee`       | `500000000` (0.5 GWei)        |
 | `config.autonity.operator`         | `0xd32C0812Fa1296F082671D5Be4CbB6bEeedC2397` |
 | `config.autonity.treasury`         | `0xF74c34Fed10cD9518293634C6f7C12638a808Ad5` |
-| `config.autonity.validators`       |  See [`Validators`](https://github.com/autonity/autonity/blob/release/v0.14.0/params/config.go#L100) object in the AGC `PiccadillyChainConfig` for details.  |
+| `config.autonity.validators`       |  See [`Validators`](https://github.com/autonity/autonity/blob/release/v0.14.1/params/config.go#L100) object in the AGC `PiccadillyChainConfig` for details.  |
 | `config.oracle.symbols`       | `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "ATN-NTN"]`        |
 | `config.oracle.votePeriod`       | `30` (30 blocks)       |
 
@@ -61,7 +61,7 @@ The network bootnode addresses are:
 
 The current iteration of the Piccadilly network is built using:
 
-- Autonity Go Client (AGC) Release: [v0.14.0](https://github.com/autonity/autonity/releases/tag/v0.14.0). The docker image release is: `ghcr.io/autonity/autonity:latest`
+- Autonity Go Client (AGC) Release: [v0.14.1](https://github.com/autonity/autonity/releases/tag/v0.14.1). The docker image release is: `ghcr.io/autonity/autonity:v0.14.1`
 
 - Autonity Oracle Server (AOS) Release: [v0.1.9](https://github.com/autonity/autonity-oracle/releases/tag/v0.1.9). The docker image release is: `ghcr.io/autonity/autonity-oracle-piccadilly:latest`
 

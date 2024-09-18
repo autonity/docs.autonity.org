@@ -18,6 +18,8 @@ It is recommended not run Autonity using Docker containers outside of a test env
 
 ::: {.callout-note title="Note" collapse="false"}
 Client source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity](https://github.com/autonity/autonity/).
+
+Before installing verify the correct Autonity Go Client release version to install for the network you are connecting to. See the [Networks](/networks/) pages [Bakerloo Testnet, Release](/networks/testnet-bakerloo/#release) and [Piccadilly Testnet, Release](/networks/testnet-piccadilly/#release) for the versions deployed.
 :::
 
 ## Requirements
@@ -125,7 +127,7 @@ The following should be installed in order to build the Autonity Go Client:
 2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
 
     ```bash
-    git checkout tags/v0.14.0 -b v0.14.0
+    git checkout tags/v0.14.1 -b v0.14.1
     ```
 
 3. Build autonity:
@@ -206,7 +208,7 @@ sudo systemctl restart docker
    If you are deploying to the Piccadilly Testnet:
    
     ```bash
-    docker pull ghcr.io/autonity/autonity:latest
+    docker pull ghcr.io/autonity/autonity:v0.14.1
     ```
 
    (where `latest` can be replaced with another version)
@@ -230,7 +232,7 @@ sudo systemctl restart docker
     ```bash
     docker images --digests ghcr.io/autonity/autonity
     REPOSITORY                  TAG       DIGEST                                                                    IMAGE ID       CREATED         SIZE
-    ghcr.io/autonity/autonity   latest    sha256:25ee8fcfc158c2396f43c8dfb02dff268e0089c846fedd7cb6934e28f6a8b7d1   487ecdf178f8   4 months ago    56MB
+    ghcr.io/autonity/autonity   v0.14.1   sha256:0c2716615e47f22a5fb8b28f29f5b796ed45aaf75aa592ebed07f98de0a43374   c3e1d60a1853   22 hours ago    57.8MB
     ```
 
 ::: {.callout-note title="Info" collapse="false"}
@@ -247,12 +249,12 @@ $ ./autonity version
 ```
 ```
 Autonity
-Version: 0.14.0
-Git Commit: 15cd01644a4b19d70c654bc334f04fab851f2466
-Git Commit Date: 20240619
+Version: 0.14.1
+Git Commit: a5d0ecda73fab7ea81c5eaf648f83f393f1728ec
+Git Commit Date: 20240911
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.22.4
+Go Version: go1.22.0
 Operating System: linux
 GOPATH=
 GOROOT=
@@ -261,15 +263,15 @@ GOROOT=
 If using Docker, the setup of the image can be verified with:
 
 ```bash
-$ docker run --rm ghcr.io/autonity/autonity:latest version
+$ docker run --rm ghcr.io/autonity/autonity:v0.14.1 version
 ```
 
 ```
 Autonity
-Version: 0.14.0
+Version: 0.14.1
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.21.7
+Go Version: go1.22.0
 Operating System: linux
 GOPATH=
 GOROOT=/usr/local/go
