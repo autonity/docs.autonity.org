@@ -11,11 +11,7 @@ documentation site via [Quarto](https://quarto.org/).
 
 ## Usage
 
-The tool can be executed simply with:
-
-```term
-python -m _apidocgen
-```
+The tool can be executed simply with `apidocgen` inside the devenv shell.
 
 A (symlink to a) clone of the [Autonity repository](https://github.com/autonity/autonity)
 is assumed to be in the working directory, or its path can be specified with the
@@ -65,23 +61,14 @@ custom NatSpec tag to documentation comments in the contracts' source code.
 
 ## Development
 
-Dependencies are specified in [../requirements.txt](../requirements.txt) and
-installed automatically by devenv.
+Dependencies are specified in [../requirements.in](../requirements.in). They
+should be compiled with `pip-compile` and installed automatically by devenv.
 
-To show full stack traces of errors, set the `DEBUG` environment variable:
+Linters can be executed with the `lint-apidocgen` command inside the devenv shell.
 
-```
-DEBUG=1 python -m _apidocgen
-```
-
-Linters can be executed with:
-
-```
-ruff . && black --check . && pyright .
-```
+To show full stack traces of errors, set the `DEBUG` environment variable to `1`.
 
 ## Testing
 
-No automated tests are provided; after any change, run the generator with the
-[config file in the docs.autonity.org repository](https://github.com/autonity/docs.autonity.org/blob/master/config.toml)
+No automated tests are provided; after any change, run `DEBUG=1 apidocgen`
 and inspect whether there are unwanted changes in the generated documents.
