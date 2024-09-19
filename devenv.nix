@@ -17,7 +17,9 @@
   scripts.apidocgen.exec = ''
     python3 -m _apidocgen $@
   '';
-
+  scripts.apidocmon.exec = ''
+    _apidocgen/apidocmon
+  '';
   scripts.lint-apidocgen.exec = ''
     ruff check _apidocgen && black --check _apidocgen && mypy _apidocgen
   '';
