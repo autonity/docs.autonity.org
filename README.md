@@ -21,6 +21,60 @@ Usage:
 - Run `quarto preview` to serve the site in Quarto's local webserver
 - Review the [`_quarto.yml`](_quarto.yml) file and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details
 
+## Generating API reference documentation
+
+The repository includes an API documentation generator that takes documentation
+comments from Autonity protocol contracts and converts them into Markdown files.
+
+**TL/DR:** Symlink an [autonity](https://github.com/autonity/autonity) repository
+clone into the root of this repository and run [`apidocgen`](./_apidocgen/). The
+configuration is in [`config.toml`](./config.toml); the generated files are saved
+into `./contracts/<autonity-tag>/`.
+
+### Setup
+
+1. Clone the Autonity Go Client into an arbitrary directory:
+   ```sh
+   git clone git@github.com:autonity/autonity.git /path/to/autonity
+   ```
+1. Add a symlink to the Autonity repository clone into this repository:
+   ```sh
+   ln -s /path/to/autonity
+   ```
+
+### Adding API documentation for a new Autonity release
+
+1. If there are new contracts to document, add them to [`config.toml`](./config.toml).
+   The configuration is documented [here](./_apidocgen/README.md#configuration).
+1. Switch to the release tag in Autonity, e.g. for v0.14.0:
+   ```sh
+   cd autonity
+   git checkout v0.14.0
+   ```
+1. Compile the protocol contracts:
+   ```sh
+   make contracts
+   ```
+1. Generate the API reference documentation:
+   ```sh
+   cd -
+   apidocgen
+   ```
+1. Review and commit the created Markdown files.
+
+### Developing contract documentation
+
+Autonity protocol contracts are documented via documentation comments in
+Solidity source code. To help with previewing documentation, a script is
+available that watches the source directory in Autonity and rebuilds the
+documentation when files change.
+
+1. Launch the monitoring script with `apidocmon`.
+1. Open the preview URL from the terminal in the browser.
+1. Open Solidity code from the symlinked Autonity repository clone in a
+   text editor and make changes. The browser window should reload with
+   the new content.
+
 ## Migrating from Hugo
 
 For best results, clone into a new directory. However, if you are unable to do that, Delete the following directories as they will conflict and prevent Quarto from building:
