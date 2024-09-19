@@ -2,6 +2,8 @@
 
 import argparse
 import os
+import shutil
+import signal
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from os import path
@@ -32,7 +34,12 @@ def main() -> None:
     config = load_toml(args.config)
     validate_config(config)
 
-    paths = Paths(config["contracts"]["output_dir"], args.autonity, config["autonity"])
+    paths = Paths(
+        config["contracts"]["output_dir"],
+        args.autonity,
+        config["autonity"],
+        args.watch,
+    )
     configs = sorted(
         (key, value)
         for key, value in config["contracts"].items()
@@ -41,9 +48,16 @@ def main() -> None:
 
     if args.watch:
 
-        def compile_and_generate():
+        def compile_and_generate() -> None:
             artefacts = compile_contracts(configs, paths)
             generate_contract_docs(artefacts, configs, paths)
+
+        def clean(signum: int, _) -> None:
+            shutil.rmtree(paths.output_dir, ignore_errors=True)
+            sys.exit(128 + signum)
+
+        signal.signal(signal.SIGINT, clean)
+        signal.signal(signal.SIGTERM, clean)
 
         compile_and_generate()
         run_file_observer(paths.src_dir, ".sol", compile_and_generate)
@@ -62,6 +76,9 @@ def generate_contract_docs(
     # Add missing defaults to config
     for name, config in configs:
         config["display_name"] = config.get("display_name", name)
+
+    # Remove old bindings because the config might have been changed
+    shutil.rmtree(paths.output_dir, ignore_errors=True)
 
     pending_tasks = []
     executor = ThreadPoolExecutor()

@@ -2,6 +2,7 @@ import glob
 import json
 import re
 import subprocess
+import time
 from functools import cache
 from itertools import chain
 from os import path
@@ -16,12 +17,19 @@ class Paths:
     github_url: str
 
     def __init__(
-        self, output_dir: str, autonity_dir: str, autonity_config: dict[str, str]
+        self,
+        output_dir: str,
+        autonity_dir: str,
+        autonity_config: dict[str, str],
+        wip_mode: bool = False,
     ):
-        self.output_dir = output_dir
         self.autonity_dir = path.abspath(path.realpath(autonity_dir))
         self.build_dir = path.join(self.autonity_dir, autonity_config["build_dir"])
         self.src_dir = path.join(self.autonity_dir, autonity_config["src_dir"])
+        self.output_dir = path.join(
+            output_dir,
+            f"wip-{int(time.time())}" if wip_mode else get_git_tag(self.autonity_dir),
+        )
         self.github_url = autonity_config["github_url"]
 
     def load_abi(self, contract_name: str) -> list[dict[str, Any]]:
@@ -34,9 +42,8 @@ class Paths:
         return load_json(path.join(self.build_dir, f"{contract_name}.docdev"))
 
     def get_output_file_path(self, contract_display_name: str) -> str:
-        git_tag = get_git_tag(self.autonity_dir)
         return path.join(
-            self.output_dir, git_tag, contract_display_name.replace(" ", "-") + ".md"
+            self.output_dir, contract_display_name.replace(" ", "-") + ".md"
         )
 
     def get_github_src_url(self, contract_name: str, regexp: re.Pattern) -> str | None:
@@ -88,7 +95,6 @@ def load_json(file: str) -> Any:
         return json.load(f)
 
 
-@cache
 def get_git_tag(repo_root: str) -> str:
     return subprocess.check_output(
         ["git", "describe", "--tags"], cwd=repo_root, text=True

@@ -19,4 +19,5 @@ devenv.local.nix
 .pre-commit-config.yaml
 
 # For the API doc generator
-autonity
+/autonity
+/contracts/wip-*/
