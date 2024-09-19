@@ -23,7 +23,7 @@ excludes = ["computeCommittee", "finalize", "finalizeInitialization"]
 [contracts.Liquid]
 output_file = "contracts/Liquid-Newton.md"
 display_name = "Liquid Newton"
-excludes = ["lock", "unlock"]
+excludes = ["burn", "lock", "mint", "redistribute", "setCommissionRate", "unlock"]
 
 [contracts.Oracle]
 output_file = "contracts/Oracle.md"
