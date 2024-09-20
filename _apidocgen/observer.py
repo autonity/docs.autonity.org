@@ -1,3 +1,9 @@
+"""File system observer.
+
+Monitors source files and executes a callback function when any of them changes.
+To be used with the --watch option.
+"""
+
 import logging
 import time
 from os import path

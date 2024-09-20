@@ -1,3 +1,8 @@
+"""Contract parser.
+
+Loads and parses contract artefacts and converts data into Markdown.
+"""
+
 import logging
 import re
 from enum import Enum

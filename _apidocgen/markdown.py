@@ -1,3 +1,5 @@
+"""Markdown documentation generator."""
+
 import os
 from os import path
 

@@ -1,3 +1,15 @@
+"""Wrapper for the Solidity compiler.
+
+Generates Solidity contract artefacts. To be used with the --watch option.
+
+It is needed because `make contracts` in Autonity takes ~20 seconds to complete
+therefore it isn't suitable for live previews. This module generates the artefacts
+in less than 1 second.
+
+Might need to be reworked later because it assumes that Nix's solc version matches
+the one that Autonity uses.
+"""
+
 import json
 import logging
 import subprocess

@@ -1,3 +1,5 @@
+"""Configuration schema and validation."""
+
 import toml
 from schema import Optional, Schema, SchemaError  # type: ignore
 

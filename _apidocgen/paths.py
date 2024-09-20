@@ -1,3 +1,5 @@
+"""Helper class for constructing paths and URLs."""
+
 import glob
 import json
 import re
