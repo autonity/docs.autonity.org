@@ -41,21 +41,21 @@ into `./contracts/<autonity-tag>/`.
 
 1. If there are new contracts to document, add them to [`config.toml`](./config.toml).
    The configuration is documented [here](./_apidocgen/README.md#configuration).
-1. Switch to the release tag in Autonity, e.g. for v0.14.0:
+2. Switch to the release tag in Autonity, e.g. for v0.14.0:
    ```sh
    cd autonity
    git checkout v0.14.0
    ```
-1. Compile the protocol contracts:
+3. Compile the protocol contracts:
    ```sh
    make contracts
    ```
-1. Generate the API reference documentation:
+4. Generate the API reference documentation:
    ```sh
    cd -
    apidocgen
    ```
-1. Review and commit the created Markdown files.
+5. Review and commit the created Markdown files.
 
 The documents are saved into a subdirectory under `contracts` that is named after the
 Git tag of the Autonity release. If there have been additional commits since the last
@@ -70,8 +70,8 @@ available that watches the source directory in Autonity and rebuilds the
 documentation when files change.
 
 1. Launch the monitoring script with `apidocmon`.
-1. Open the preview URL from the terminal in the browser.
-1. Open Solidity code from the symlinked Autonity repository clone in a
+2. Open the preview URL from the terminal in the browser.
+3. Open Solidity code from the symlinked Autonity repository clone in a
    text editor and make changes. The browser window should reload with
    the new content.
 

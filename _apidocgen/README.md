@@ -17,13 +17,13 @@ A (symlink to a) clone of the [Autonity repository](https://github.com/autonity/
 is assumed to be in the working directory, or its path can be specified with the
 `--autonity` command line option.
 
-The configuration is read from a TOML file, defaults to `config.toml` in the
+The configuration is read from a TOML file. This defaults to `config.toml` in the
 working directory, or its path can be specified with the `--config` command line
 option.
 
 The `--watch` command line option launches an observer that detects contract code being
 modified and automatically recompiles the contracts and regenerates the Markdown
-documentation. Used together with `quarto perview`, it is possible to automatically
+documentation. Used together with `quarto preview`, it is possible to automatically
 rebuild the docsite when any of the contracts is modified.
 
 The `apidocmon` shell script runs `apidocgen --watch` and `quarto preview` together

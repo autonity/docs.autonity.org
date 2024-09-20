@@ -29,7 +29,9 @@ def load_contract_artefacts(name: str, paths: Paths) -> ContractArtefactTuple:
     assert isinstance(userdoc, dict), "Invalid NatSpec file format"
     assert isinstance(devdoc, dict), "Invalid NatSpec file format"
     assert devdoc["version"] == NATSPEC_VERSION, "Unsupported NatSpec version"
+    assert devdoc["kind"] == "dev", "Unexpected NatSpec document 'kind'"
     assert userdoc["version"] == NATSPEC_VERSION, "Unsupported NatSpec version"
+    assert userdoc["kind"] == "user", "Unexpected NatSpec document 'kind'"
 
     return (abi, devdoc, userdoc)
 
