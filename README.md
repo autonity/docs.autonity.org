@@ -33,14 +33,9 @@ into `./contracts/<autonity-tag>/`.
 
 ### Setup
 
-1. Clone the Autonity Go Client into an arbitrary directory:
-   ```sh
-   git clone git@github.com:autonity/autonity.git /path/to/autonity
-   ```
-1. Add a symlink to the Autonity repository clone into this repository:
-   ```sh
-   ln -s /path/to/autonity
-   ```
+- Either clone the [Autonity Go Client](https://github.com/autonity/autonity) into the
+  root of this repository
+- Or add a symlink to an existing clone into this repository with `ln -s /path/to/autonity`
 
 ### Adding API documentation for a new Autonity release
 
@@ -61,6 +56,11 @@ into `./contracts/<autonity-tag>/`.
    apidocgen
    ```
 1. Review and commit the created Markdown files.
+
+The documents are saved into a subdirectory under `contracts` that is named after the
+Git tag of the Autonity release. If there have been additional commits since the last
+release in the Autonity repository, the commit ID is added to the tag and it looks like
+e.g. `v0.14.0-1-g0c79355c0`.
 
 ### Developing contract documentation
 

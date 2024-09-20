@@ -21,10 +21,13 @@ The configuration is read from a TOML file, defaults to `config.toml` in the
 working directory, or its path can be specified with the `--config` command line
 option.
 
-The `--watch` command line option launches an observer that detects contracts being
-recompiled and automatically regenerates the Markdown documentation. Used together
-with `quarto perview`, it is possible to automatically rebuild the docsite when any of
-the contracts is modified.
+The `--watch` command line option launches an observer that detects contract code being
+modified and automatically recompiles the contracts and regenerates the Markdown
+documentation. Used together with `quarto perview`, it is possible to automatically
+rebuild the docsite when any of the contracts is modified.
+
+The `apidocmon` shell script runs `apidocgen --watch` and `quarto preview` together
+in the same terminal window.
 
 ## Configuration
 
