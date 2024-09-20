@@ -49,32 +49,22 @@ class Paths:
         )
 
     def get_github_src_url(self, contract_name: str, regexp: re.Pattern) -> str | None:
-        src_file = self.find_src_file(contract_name)
-        return self._get_github_src_url_recursively(src_file, regexp, [])
+        src_files = [self.find_src_file(contract_name)]
+        visited_files = []
 
-    def _get_github_src_url_recursively(
-        self,
-        src_file: str,
-        regexp: re.Pattern,
-        checked_files: list[str],
-    ) -> str | None:
-        # Prevent infinite recursion
-        if src_file in checked_files:
-            return None
-        checked_files.append(src_file)
+        for src_file in src_files:
+            visited_files.append(src_file)
+            code = read_file(src_file)
 
-        code = read_file(src_file)
+            if match := regexp.search(code):
+                lineno = code[: match.span()[0]].count("\n") + 1
+                return self.construct_github_src_url(src_file, lineno)
 
-        if match := regexp.search(code):
-            lineno = code[: match.span()[0]].count("\n") + 1
-            return self.construct_github_src_url(src_file, lineno)
-
-        for rel_import in parse_solidity_imports(src_file):
-            abs_import = path.abspath(path.join(path.dirname(src_file), rel_import))
-            if url := self._get_github_src_url_recursively(
-                abs_import, regexp, checked_files
-            ):
-                return url
+            # Check in imported files
+            for rel_import in parse_solidity_imports(src_file):
+                abs_import = path.abspath(path.join(path.dirname(src_file), rel_import))
+                if abs_import not in visited_files:
+                    src_files.append(abs_import)
 
         return None
 
