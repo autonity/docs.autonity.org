@@ -1,13 +1,25 @@
 [
   {
-    "listing": "/account-holders/index.html",
+    "listing": "/concepts/protocol-assets/index.html",
     "items": [
-      "/account-holders/key-mgt/clef/index.html",
-      "/account-holders/key-mgt/usb-wallets/index.html",
-      "/account-holders/create-acct/index.html",
-      "/account-holders/fund-acct/index.html",
-      "/account-holders/setup-aut/index.html",
-      "/account-holders/submit-trans-aut/index.html"
+      "/concepts/protocol-assets/auton/index.html",
+      "/concepts/protocol-assets/liquid-newton/index.html",
+      "/concepts/protocol-assets/newton/index.html"
+    ]
+  },
+  {
+    "listing": "/developer/index.html",
+    "items": [
+      "/developer/deploy-brownie/index.html",
+      "/developer/custom-networks/index.html",
+      "/developer/submit-trans-gov-acct/index.html"
+    ]
+  },
+  {
+    "listing": "/networks/index.html",
+    "items": [
+      "/networks/testnet-bakerloo/index.html",
+      "/networks/testnet-piccadilly/index.html"
     ]
   },
   {
@@ -18,18 +30,14 @@
     ]
   },
   {
-    "listing": "/concepts/consensus/index.html",
+    "listing": "/account-holders/index.html",
     "items": [
-      "/concepts/consensus/committee/index.html",
-      "/concepts/consensus/pos/index.html"
-    ]
-  },
-  {
-    "listing": "/developer/index.html",
-    "items": [
-      "/developer/deploy-brownie/index.html",
-      "/developer/custom-networks/index.html",
-      "/developer/submit-trans-gov-acct/index.html"
+      "/account-holders/key-mgt/clef/index.html",
+      "/account-holders/key-mgt/usb-wallets/index.html",
+      "/account-holders/create-acct/index.html",
+      "/account-holders/fund-acct/index.html",
+      "/account-holders/setup-aut/index.html",
+      "/account-holders/submit-trans-aut/index.html"
     ]
   },
   {
@@ -63,13 +71,6 @@
     ]
   },
   {
-    "listing": "/networks/index.html",
-    "items": [
-      "/networks/testnet-bakerloo/index.html",
-      "/networks/testnet-piccadilly/index.html"
-    ]
-  },
-  {
     "listing": "/cdp/index.html",
     "items": [
       "/cdp/liquidate-cdp/index.html",
@@ -77,11 +78,10 @@
     ]
   },
   {
-    "listing": "/concepts/protocol-assets/index.html",
+    "listing": "/concepts/consensus/index.html",
     "items": [
-      "/concepts/protocol-assets/auton/index.html",
-      "/concepts/protocol-assets/liquid-newton/index.html",
-      "/concepts/protocol-assets/newton/index.html"
+      "/concepts/consensus/committee/index.html",
+      "/concepts/consensus/pos/index.html"
     ]
   }
 ]

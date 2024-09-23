@@ -1,2 +1,1304 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"></html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
+    
+
+    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
+
+
+    <link rel="preload" href="../../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
+
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.4.551">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <meta name="description" content="How to setup and use go-ethereum supported hardware wallets with an Autonity Go Client node, using the NodeJS Console">
+
+    <title>Autonity Documentation - Connect Smartcard hardware wallet</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        code{white-space: pre-wrap;}
+        span.smallcaps{font-variant: small-caps;}
+        div.columns{display: flex; gap: min(4vw, 1.5em);}
+        div.column{flex: auto; overflow-x: auto;}
+        div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+        ul.task-list{list-style: none;}
+        ul.task-list li input[type="checkbox"] {
+          width: 0.8em;
+          margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+          vertical-align: middle;
+        }
+        /* CSS for syntax highlighting */
+        pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+          }
+        pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+        div.sourceCode
+          {   }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+    </style>
+    
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+        <script id="quarto-search-options" type="application/json">{
+          "location": "navbar",
+          "copy-button": false,
+          "collapse-after": 3,
+          "panel-placement": "end",
+          "type": "overlay",
+          "limit": 50,
+          "keyboard-shortcut": [
+            "f",
+            "/",
+            "s"
+          ],
+          "language": {
+            "search-no-results-text": "No results",
+            "search-matching-documents-text": "matching documents",
+            "search-copy-link-title": "Copy link to search",
+            "search-hide-matches-text": "Hide additional matches",
+            "search-more-match-text": "more match in this document",
+            "search-more-matches-text": "more matches in this document",
+            "search-clear-button-title": "Clear",
+            "search-text-placeholder": "",
+            "search-detached-cancel-button-title": "Cancel",
+            "search-submit-button-title": "Submit",
+            "search-label": "Search"
+          }
+        }</script>
+        <style>html{ scroll-behavior: smooth; }</style>
+        <link rel="preconnect" href="https://plausible.io">
+        <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
+        <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+    
+            <link rel="stylesheet" href="../../../_assets/css/styles.css">
+    </head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+        <div id="quarto-search-results"></div>
+          <header id="quarto-header" class="headroom fixed-top">
+            <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+              <div class="navbar-container container-fluid">
+              <div class="navbar-brand-container mx-auto">
+            <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+            <img src="../../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+            </a>
+            <a class="navbar-brand" href="../../../index.html">
+            <span class="navbar-title">Autonity Documentation</span>
+            </a>
+          </div>
+                <div class="quarto-navbar-tools tools-end">
+        </div>
+                  <div id="quarto-search" class="" title="Search"></div>
+              </div> <!-- /container-fluid -->
+            </nav>
+          <nav class="quarto-secondary-nav">
+            <div class="container-fluid d-flex">
+              <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+                <i class="bi bi-layout-text-sidebar-reverse"></i>
+              </button>
+                <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Connect Smartcard hardware wallet</li></ol></nav>
+                <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+                </a>
+            </div>
+          </nav>
+        </header>
+        <!-- content -->
+        <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+        <!-- sidebar -->
+          <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+            <div class="sidebar-menu-container"> 
+            <ul class="list-unstyled mt-1">
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Getting started</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../overview/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Overview</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+         <span class="menu-text">Concepts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Architecture</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">System model</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus Committee</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Tendermint BFT consensus</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client (AGC)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle network</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server (AOS)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/validator/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Staking</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability and fault detection (AFD)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton Stabilization Mechanism (ASM)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol assets</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Newton</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Auton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+         <span class="menu-text">Networks</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bakerloo Testnet</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Piccadilly Testnet</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+         <span class="menu-text">Accounts</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setup the Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Create an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Fund an account</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a transaction from the Autonity Utility tool (aut)</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+         <span class="menu-text">Running a Node</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Connecting to your Node</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Set up node monitoring</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../node-operators/migrate-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Migrate Autonity</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+         <span class="menu-text">Running an Oracle Server</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Install Autonity Oracle Server in your environment</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Run Autonity Oracle Server</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+         <span class="menu-text">Running a Validator</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Register as a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Pause and reactivate a Validator</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Change Validator Commission Rate</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../validators/migrate-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Migrate Validator</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+         <span class="menu-text">Staking</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Bond and unbond stake</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Claim Staking Rewards</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Transfer Liquid Newton</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+         <span class="menu-text">Borrowing by CDP in the ASM</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Open and manage a CDP</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquidate a CDP</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+         <span class="menu-text">Development</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Submit a governance transaction from Autonity Utility Tool (aut)</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Deploy smart contracts to an Autonity network with Brownie</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Setting up custom networks</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+         <span class="menu-text">Reference</span></a>
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Command-line</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Go Client Command-line</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Oracle Server Command-line</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../reference/api/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Interfaces</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Web3 Namespace</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Accountability Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ASM Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">ACU Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Supply Control Contract Interface</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Stabilization Contract Interface</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Autonity Contract Interface</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth3 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Governance and Protocol Only Reference</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+              </ul>
+          </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Codebase</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/genesis/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Genesis</span></a>
+          </div>
+        </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Protocol Parameters</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../glossary/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Glossary</span></a>
+          </div>
+        </li>
+                <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../issues/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Known issues</span></a>
+          </div>
+        </li>
+            </ul>
+            </div>
+        </nav>
+        <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+        <!-- margin-sidebar -->
+            <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+                <nav id="TOC" role="doc-toc" class="toc-active">
+            <h2 id="toc-title">On this page</h2>
+           
+          <ul>
+          <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
+          <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+          <li><a href="#setup-status-keycard" id="toc-setup-status-keycard" class="nav-link" data-scroll-target="#setup-status-keycard">Setup Status keycard</a></li>
+          <li><a href="#use-status-keycard-wallet-with-the-autonity-client" id="toc-use-status-keycard-wallet-with-the-autonity-client" class="nav-link" data-scroll-target="#use-status-keycard-wallet-with-the-autonity-client">Use Status Keycard wallet with the Autonity client</a></li>
+          </ul>
+        </nav>
+            </div>
+        <!-- main -->
+        <main class="content" id="quarto-document-content">
+    
+        <header id="title-block-header" class="quarto-title-block default">
+        <div class="quarto-title">
+        <h1 class="title">Connect Smartcard hardware wallet</h1>
+        </div>
+
+        <div>
+          <div class="description">
+            How to setup and use go-ethereum supported hardware wallets with an Autonity Go Client node, using the NodeJS Console
+          </div>
+        </div>
+
+
+        <div class="quarto-title-meta">
+
+            
+          
+            
+          </div>
+          
+
+
+        </header>    
+            
+    <section id="prerequisites" class="level2">
+    <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+    <ul>
+    <li><p>physical access to a running local instance of an Autonity Go Client <a href="../../../node-operators/run-aut/">connected to an Autonity network</a></p></li>
+    <li><p>a running instance of the Autonity NodeJS Console attached to your node, configured for your account as described in Submit a transaction from Autonity NodeJS Console</p></li>
+    <li><p>a running Linux <a href="https://linux.die.net/man/8/pcscd">pcsc daemon</a> service (if you need to install <code>sudo apt install pcscd</code>)</p></li>
+    <li><p>a Status Keycard hardware wallet</p></li>
+    <li><p>an ISO 7816 compliant USB smart card reader</p></li>
+    <li><p>installed applications for the Smartcard hardware wallet:</p>
+    <ul>
+    <li><a href="https://github.com/status-im/keycard-cli">keycard-cli</a> command-line tool. For how to install see the GitHub repository’s <a href="https://github.com/status-im/keycard-cli#installation">Installation</a> section. For how to use shell scripts with it, see keycard.tech posts:
+    <ul>
+    <li><a href="https://news.keycard.tech/upgrading-updating-your-keycard-how-why/">Upgrading &amp; Updating your Keycard - How and Why?</a></li>
+    <li><a href="https://news.keycard.tech/using-the-keycard-cli-shell/">Using the Keycard CLI &amp; Shell Software</a></li>
+    </ul></li>
+    <li>(Optional) Status Desktop app. Refer to the Download page <a href="https://status.im/get/">https://status.im/get/</a> and linked <a href="https://status.im/user_guides/desktop_beta_install.html">Desktop Beta Installation</a> guide.</li>
+    <li>(Optional) Status for Mobile app. Refer to the Download page <a href="https://status.im/get/">https://status.im/get/</a>.</li>
+    <li>.</li>
+    <li>Status Keycard app. Refer to the status <a href="https://status.im/get/">Get Status</a> page to download and the discussion <a href="https://discuss.status.im/t/get-your-node-running/1488">Get your node running</a> linked from the status FAQ <a href="https://status.im/faq/">Can I run go-ethereum myself or on a server?</a>.</li>
+    </ul></li>
+    </ul>
+    </section>
+    <section id="overview" class="level2">
+    <h2 class="anchored" data-anchor-id="overview">Overview</h2>
+    <p>This how to describes the workflow for connecting Trezor, Ledger Nano S, and Status Keycard hardware wallets to an Autonity Go Client, signing and sending transactions with the NodeJS Console.</p>
+    <p>Autonity maintains go-ethereum’s out-the-box support for external hardware secure wallets. Before connecting a USB external hardware wallet to a Linux machine you will need to configure the Linux Udev subsystem with device-specific rules for the external drive to be recognised. For how to setup <code>udev</code> rules see prerequisites above.</p>
+    </section>
+    <section id="setup-status-keycard" class="level2">
+    <h2 class="anchored" data-anchor-id="setup-status-keycard">Setup Status keycard</h2>
+    <p>Initialise and setup the Status Keycard ready for use with the Autonity client.</p>
+    <ol type="1">
+    <li><p>Verify the <code>pcsc</code> daemon is running:</p>
+    <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">`</span><span class="ex">/etc/init.d/pcscd</span> status</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>If stopped run <code>/etc/init.d/pcscd start</code></p></li>
+    <li><p>Plug the USB card reader into the host machine and insert the keycard.</p></li>
+    <li><p>Verify the keycard-cli binary is connected to the smart card. Navigate to the working directory where you have installed the keycard CLI and run:</p>
+    <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./keycard</span> info <span class="at">-l</span> debug</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>The <code>INFO</code> messages should report card found and connected to.</p>
+    <p>::: {.callout-note title=“Tip” collapse=“false”} If you get a bash permission denied error, then this indicates you do not have execution privileges for the keycard binary. Login as sudo and run <code>chmod u+x keycard</code> to grant execution privilege over the binary. If you run <code>ls -la</code> in your installation directory <code>keycard</code> should show your <code>/usr/</code> has <code>rwx</code> and not just <code>rw</code> permissions. :::</p>
+    <p>Follow the instructions in the <a href="https://github.com/status-im/keycard-cli/">keycard-cli</a> repository’s README <a href="https://github.com/status-im/keycard-cli#usage">Usage</a> section to:</p>
+    <ul>
+    <li>install the keycard application (applet) on the keycard if necessary - the keycard should come with the applet already installed.</li>
+    <li>list wallets - the keycard will show as pending initiaisation:</li>
+    </ul>
+    <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">web3.personal.listWallets()</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span> { url: <span class="st">'keycard://c2f98801'</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="er">status:</span> <span class="er">'Empty,</span> <span class="ex">waiting</span> for initialization<span class="st">' } ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <ul>
+    <li>initialise the wallet. This will initialise the smartcard wallet ready for use and print to console the credentials you need to open the wallet and pair with the card: PIN, PUK, pairing phrase. On initialisation you should see something like this:</li>
+    </ul>
+    <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./keycard</span> init</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO</span> [03-30<span class="kw">|</span><span class="ex">14:36:11.257]</span> waiting for a card                        package=status-go/cmd/keycard</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO</span> [03-30<span class="kw">|</span><span class="ex">14:36:11.257]</span> card found                                package=status-go/cmd/keycard index=0</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO</span> [03-30<span class="kw">|</span><span class="ex">14:36:11.319]</span> initialization started                    package=status-go/cmd/keycard</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO</span> [03-30<span class="kw">|</span><span class="ex">14:36:11.390]</span> select keycard applet                     package=status-go/cmd/keycard</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">INFO</span> [03-30<span class="kw">|</span><span class="ex">14:36:11.423]</span> initializing                              package=status-go/cmd/keycard</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">PIN</span> 012345</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">PUK</span> 012345678901</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Pairing</span> password: a1z2AbCdefGhijKL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>Remember the PIN, PUK, pairing password for future use. Without them you will not be able to access the wallet or accounts within it.</p></li>
+    </ol>
+    </section>
+    <section id="use-status-keycard-wallet-with-the-autonity-client" class="level2">
+    <h2 class="anchored" data-anchor-id="use-status-keycard-wallet-with-the-autonity-client">Use Status Keycard wallet with the Autonity client</h2>
+    <ol type="1">
+    <li><p>Start the <code>pcscd</code> service if not already running.</p></li>
+    <li><p>Plug USB card reader into the host machine and insert Status Keycard.</p></li>
+    <li><p>Start the Autonity client and connect to your chosen Autonity network. Connect NodeJS Console to the node</p></li>
+    <li><p>Get the URL of the smartcard wallet by calling from NodeJS Console:</p>
+    <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">web3.personal.listWallets()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>The result will look something like this:</p>
+    <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span> { url: <span class="st">'keycard://c2f98801'</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a> <span class="er">status:</span> <span class="er">'Unpaired,</span> <span class="ex">waiting</span> for pairing password<span class="st">' } ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+    <li><p>Open the wallet and pair the keycard with your Autonity client, using your keycard initialisation details:</p>
+    <ul>
+    <li><pairing_pwd> - the pairing password returned from keycard initialisation</pairing_pwd></li>
+    <li><pin> is the PIN number returned from keycard initialisation</pin></li>
+    <li><url> is the keycard URL</url></li>
+    </ul>
+    <pre><code>web3.personal.openWallet("&lt;URL&gt;","&lt;PAIRING_PWD&gt;")   web3.personal.openWallet("&lt;URL&gt;","&lt;PIN&gt;")</code></pre>
+    <p>To view status, run listWallets again. The wallet will show as online:</p>
+    <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">web3.personal.listWallets()</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span> { url: <span class="st">'keycard://c2f98801'</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="er">status:</span> <span class="er">'Empty,</span> <span class="ex">waiting</span> for initialization<span class="st">' } ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+    <li><p>Add an account to the wallet. This will generate an account and return a seed string of 24 words:</p>
+    <pre><code>web3.personal.initializeWallet("&lt;URL&gt;")</code></pre>
+    <p>You should see something like:</p>
+    <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.personal.initializeWallet</span><span class="er">(</span><span class="st">"keycard://c2f98801"</span><span class="kw">)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">'seed ... ... words'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>Note your seed phrase for account recovery and keep it in a safe place. Your wallet is now initialised with an account.</p>
+    <p>Run list wallet again - the keycard should show as online:</p>
+    <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">const</span> listWallets = web3.personal.listWallets<span class="er">(</span><span class="kw">)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">undefined</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">console.log</span><span class="er">(</span><span class="ex">JSON.stringify</span><span class="er">(</span><span class="ex">listWallets,null,3</span><span class="kw">))</span> <span class="kw">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"url"</span>: <span class="st">"keycard://c2f98801"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="er">"status":</span> <span class="er">"Online",</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"accounts"</span><span class="ex">:</span> [</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">{</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"address"</span><span class="ex">:</span> <span class="st">"0x144e0d78d2e83ff083d4182a40bf9435a5a7c6a2"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"url"</span><span class="ex">:</span> <span class="st">"keycard://c1g7/m/44'/60'/0'/0/0"</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">}</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">]</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>   <span class="er">}</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="ex">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+    </ol>
+    <p>EDIT</p>
+    <ol start="8" type="1">
+    <li><p>Verify the wallet account is functioning. Send a test transaction:</p>
+    <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">web3.eth.sendTransaction</span><span class="er">(</span><span class="ex">{from:</span> <span class="op">&lt;</span>ADDRESS<span class="op">&gt;</span>, to: <span class="op">&lt;</span>ADDRESS<span class="op">&gt;</span>}<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>You will be prompted by keycard-cli to confirm the transaction.</p></li>
+    </ol>
+    <p>To transfer value, you will need to specify transaction fee values, configuring the NodeJS Console with a <code>gas</code> constant as described in the How to Submit a transaction from Autonity NodeJS Console. For example, to transfer an amount of <em>newton</em> stake token to another address by calling the Autonity Protocol Contract using Trezor:</p>
+    <div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">const</span> gas = 10000000<span class="kw">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">autonity.transfer</span><span class="er">(</span><span class="st">'&lt;TO_ADDRESS&gt;'</span><span class="ex">,</span> <span class="op">&lt;</span>AMOUNT<span class="op">&gt;</span><span class="kw">)</span><span class="ex">.send</span><span class="er">(</span><span class="ex">{from:</span> myAddress, gas: gas}<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    <p>You will be prompted on the wallet to confirm the transaction.</p>
+    
+    
+    </section>
+
+        </main> <!-- /main -->
+        <script id="quarto-html-after-body" type="application/javascript">
+        window.document.addEventListener("DOMContentLoaded", function (event) {
+          const toggleBodyColorMode = (bsSheetEl) => {
+            const mode = bsSheetEl.getAttribute("data-mode");
+            const bodyEl = window.document.querySelector("body");
+            if (mode === "dark") {
+              bodyEl.classList.add("quarto-dark");
+              bodyEl.classList.remove("quarto-light");
+            } else {
+              bodyEl.classList.add("quarto-light");
+              bodyEl.classList.remove("quarto-dark");
+            }
+          }
+          const toggleBodyColorPrimary = () => {
+            const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+            if (bsSheetEl) {
+              toggleBodyColorMode(bsSheetEl);
+            }
+          }
+          toggleBodyColorPrimary();  
+          const icon = "";
+          const anchorJS = new window.AnchorJS();
+          anchorJS.options = {
+            placement: 'right',
+            icon: icon
+          };
+          anchorJS.add('.anchored');
+          const isCodeAnnotation = (el) => {
+            for (const clz of el.classList) {
+              if (clz.startsWith('code-annotation-')) {                     
+                return true;
+              }
+            }
+            return false;
+          }
+          const clipboard = new window.ClipboardJS('.code-copy-button', {
+            text: function(trigger) {
+              const codeEl = trigger.previousElementSibling.cloneNode(true);
+              for (const childEl of codeEl.children) {
+                if (isCodeAnnotation(childEl)) {
+                  childEl.remove();
+                }
+              }
+              return codeEl.innerText;
+            }
+          });
+          clipboard.on('success', function(e) {
+            // button target
+            const button = e.trigger;
+            // don't keep focus
+            button.blur();
+            // flash "checked"
+            button.classList.add('code-copy-button-checked');
+            var currentTitle = button.getAttribute("title");
+            button.setAttribute("title", "Copied!");
+            let tooltip;
+            if (window.bootstrap) {
+              button.setAttribute("data-bs-toggle", "tooltip");
+              button.setAttribute("data-bs-placement", "left");
+              button.setAttribute("data-bs-title", "Copied!");
+              tooltip = new bootstrap.Tooltip(button, 
+                { trigger: "manual", 
+                  customClass: "code-copy-button-tooltip",
+                  offset: [0, -8]});
+              tooltip.show();    
+            }
+            setTimeout(function() {
+              if (tooltip) {
+                tooltip.hide();
+                button.removeAttribute("data-bs-title");
+                button.removeAttribute("data-bs-toggle");
+                button.removeAttribute("data-bs-placement");
+              }
+              button.setAttribute("title", currentTitle);
+              button.classList.remove('code-copy-button-checked');
+            }, 1000);
+            // clear code selection
+            e.clearSelection();
+          });
+            var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+            var mailtoRegex = new RegExp(/^mailto:/);
+              var filterRegex = new RegExp("https:\/\/autonity\.github\.io\/docs\.autonity\.org\/");
+            var isInternal = (href) => {
+                return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+            }
+            // Inspect non-navigation links and adorn them if external
+         	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+            for (var i=0; i<links.length; i++) {
+              const link = links[i];
+              if (!isInternal(link.href)) {
+                // undo the damage that might have been done by quarto-nav.js in the case of
+                // links that we want to consider external
+                if (link.dataset.originalHref !== undefined) {
+                  link.href = link.dataset.originalHref;
+                }
+                  // target, if specified
+                  link.setAttribute("target", "_blank");
+                  if (link.getAttribute("rel") === null) {
+                    link.setAttribute("rel", "noopener");
+                  }
+                  // default icon
+                  link.classList.add("external");
+              }
+            }
+          function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+            const config = {
+              allowHTML: true,
+              maxWidth: 500,
+              delay: 100,
+              arrow: false,
+              appendTo: function(el) {
+                  return el.parentElement;
+              },
+              interactive: true,
+              interactiveBorder: 10,
+              theme: 'quarto',
+              placement: 'bottom-start',
+            };
+            if (contentFn) {
+              config.content = contentFn;
+            }
+            if (onTriggerFn) {
+              config.onTrigger = onTriggerFn;
+            }
+            if (onUntriggerFn) {
+              config.onUntrigger = onUntriggerFn;
+            }
+            window.tippy(el, config); 
+          }
+          const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+          for (var i=0; i<noterefs.length; i++) {
+            const ref = noterefs[i];
+            tippyHover(ref, function() {
+              // use id or data attribute instead here
+              let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+              try { href = new URL(href).hash; } catch {}
+              const id = href.replace(/^#\/?/, "");
+              const note = window.document.getElementById(id);
+              if (note) {
+                return note.innerHTML;
+              } else {
+                return "";
+              }
+            });
+          }
+          const xrefs = window.document.querySelectorAll('a.quarto-xref');
+          const processXRef = (id, note) => {
+            // Strip column container classes
+            const stripColumnClz = (el) => {
+              el.classList.remove("page-full", "page-columns");
+              if (el.children) {
+                for (const child of el.children) {
+                  stripColumnClz(child);
+                }
+              }
+            }
+            stripColumnClz(note)
+            if (id === null || id.startsWith('sec-')) {
+              // Special case sections, only their first couple elements
+              const container = document.createElement("div");
+              if (note.children && note.children.length > 2) {
+                container.appendChild(note.children[0].cloneNode(true));
+                for (let i = 1; i < note.children.length; i++) {
+                  const child = note.children[i];
+                  if (child.tagName === "P" && child.innerText === "") {
+                    continue;
+                  } else {
+                    container.appendChild(child.cloneNode(true));
+                    break;
+                  }
+                }
+                if (window.Quarto?.typesetMath) {
+                  window.Quarto.typesetMath(container);
+                }
+                return container.innerHTML
+              } else {
+                if (window.Quarto?.typesetMath) {
+                  window.Quarto.typesetMath(note);
+                }
+                return note.innerHTML;
+              }
+            } else {
+              // Remove any anchor links if they are present
+              const anchorLink = note.querySelector('a.anchorjs-link');
+              if (anchorLink) {
+                anchorLink.remove();
+              }
+              if (window.Quarto?.typesetMath) {
+                window.Quarto.typesetMath(note);
+              }
+              // TODO in 1.5, we should make sure this works without a callout special case
+              if (note.classList.contains("callout")) {
+                return note.outerHTML;
+              } else {
+                return note.innerHTML;
+              }
+            }
+          }
+          for (var i=0; i<xrefs.length; i++) {
+            const xref = xrefs[i];
+            tippyHover(xref, undefined, function(instance) {
+              instance.disable();
+              let url = xref.getAttribute('href');
+              let hash = undefined; 
+              if (url.startsWith('#')) {
+                hash = url;
+              } else {
+                try { hash = new URL(url).hash; } catch {}
+              }
+              if (hash) {
+                const id = hash.replace(/^#\/?/, "");
+                const note = window.document.getElementById(id);
+                if (note !== null) {
+                  try {
+                    const html = processXRef(id, note.cloneNode(true));
+                    instance.setContent(html);
+                  } finally {
+                    instance.enable();
+                    instance.show();
+                  }
+                } else {
+                  // See if we can fetch this
+                  fetch(url.split('#')[0])
+                  .then(res => res.text())
+                  .then(html => {
+                    const parser = new DOMParser();
+                    const htmlDoc = parser.parseFromString(html, "text/html");
+                    const note = htmlDoc.getElementById(id);
+                    if (note !== null) {
+                      const html = processXRef(id, note);
+                      instance.setContent(html);
+                    } 
+                  }).finally(() => {
+                    instance.enable();
+                    instance.show();
+                  });
+                }
+              } else {
+                // See if we can fetch a full url (with no hash to target)
+                // This is a special case and we should probably do some content thinning / targeting
+                fetch(url)
+                .then(res => res.text())
+                .then(html => {
+                  const parser = new DOMParser();
+                  const htmlDoc = parser.parseFromString(html, "text/html");
+                  const note = htmlDoc.querySelector('main.content');
+                  if (note !== null) {
+                    // This should only happen for chapter cross references
+                    // (since there is no id in the URL)
+                    // remove the first header
+                    if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                      note.children[0].remove();
+                    }
+                    const html = processXRef(null, note);
+                    instance.setContent(html);
+                  } 
+                }).finally(() => {
+                  instance.enable();
+                  instance.show();
+                });
+              }
+            }, function(instance) {
+            });
+          }
+              let selectedAnnoteEl;
+              const selectorForAnnotation = ( cell, annotation) => {
+                let cellAttr = 'data-code-cell="' + cell + '"';
+                let lineAttr = 'data-code-annotation="' +  annotation + '"';
+                const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+                return selector;
+              }
+              const selectCodeLines = (annoteEl) => {
+                const doc = window.document;
+                const targetCell = annoteEl.getAttribute("data-target-cell");
+                const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+                const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+                const lineIds = lines.map((line) => {
+                  return targetCell + "-" + line;
+                })
+                let top = null;
+                let height = null;
+                let parent = null;
+                if (lineIds.length > 0) {
+                    //compute the position of the single el (top and bottom and make a div)
+                    const el = window.document.getElementById(lineIds[0]);
+                    top = el.offsetTop;
+                    height = el.offsetHeight;
+                    parent = el.parentElement.parentElement;
+                  if (lineIds.length > 1) {
+                    const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                    const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                    height = bottom - top;
+                  }
+                  if (top !== null && height !== null && parent !== null) {
+                    // cook up a div (if necessary) and position it 
+                    let div = window.document.getElementById("code-annotation-line-highlight");
+                    if (div === null) {
+                      div = window.document.createElement("div");
+                      div.setAttribute("id", "code-annotation-line-highlight");
+                      div.style.position = 'absolute';
+                      parent.appendChild(div);
+                    }
+                    div.style.top = top - 2 + "px";
+                    div.style.height = height + 4 + "px";
+                    div.style.left = 0;
+                    let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                    if (gutterDiv === null) {
+                      gutterDiv = window.document.createElement("div");
+                      gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                      gutterDiv.style.position = 'absolute';
+                      const codeCell = window.document.getElementById(targetCell);
+                      const gutter = codeCell.querySelector('.code-annotation-gutter');
+                      gutter.appendChild(gutterDiv);
+                    }
+                    gutterDiv.style.top = top - 2 + "px";
+                    gutterDiv.style.height = height + 4 + "px";
+                  }
+                  selectedAnnoteEl = annoteEl;
+                }
+              };
+              const unselectCodeLines = () => {
+                const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+                elementsIds.forEach((elId) => {
+                  const div = window.document.getElementById(elId);
+                  if (div) {
+                    div.remove();
+                  }
+                });
+                selectedAnnoteEl = undefined;
+              };
+                // Handle positioning of the toggle
+            window.addEventListener(
+              "resize",
+              throttle(() => {
+                elRect = undefined;
+                if (selectedAnnoteEl) {
+                  selectCodeLines(selectedAnnoteEl);
+                }
+              }, 10)
+            );
+            function throttle(fn, ms) {
+            let throttle = false;
+            let timer;
+              return (...args) => {
+                if(!throttle) { // first call gets through
+                    fn.apply(this, args);
+                    throttle = true;
+                } else { // all the others get throttled
+                    if(timer) clearTimeout(timer); // cancel #2
+                    timer = setTimeout(() => {
+                      fn.apply(this, args);
+                      timer = throttle = false;
+                    }, ms);
+                }
+              };
+            }
+              // Attach click handler to the DT
+              const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+              for (const annoteDlNode of annoteDls) {
+                annoteDlNode.addEventListener('click', (event) => {
+                  const clickedEl = event.target;
+                  if (clickedEl !== selectedAnnoteEl) {
+                    unselectCodeLines();
+                    const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+                    if (activeEl) {
+                      activeEl.classList.remove('code-annotation-active');
+                    }
+                    selectCodeLines(clickedEl);
+                    clickedEl.classList.add('code-annotation-active');
+                  } else {
+                    // Unselect the line
+                    unselectCodeLines();
+                    clickedEl.classList.remove('code-annotation-active');
+                  }
+                });
+              }
+          const findCites = (el) => {
+            const parentEl = el.parentElement;
+            if (parentEl) {
+              const cites = parentEl.dataset.cites;
+              if (cites) {
+                return {
+                  el,
+                  cites: cites.split(' ')
+                };
+              } else {
+                return findCites(el.parentElement)
+              }
+            } else {
+              return undefined;
+            }
+          };
+          var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+          for (var i=0; i<bibliorefs.length; i++) {
+            const ref = bibliorefs[i];
+            const citeInfo = findCites(ref);
+            if (citeInfo) {
+              tippyHover(citeInfo.el, function() {
+                var popup = window.document.createElement('div');
+                citeInfo.cites.forEach(function(cite) {
+                  var citeDiv = window.document.createElement('div');
+                  citeDiv.classList.add('hanging-indent');
+                  citeDiv.classList.add('csl-entry');
+                  var biblioDiv = window.document.getElementById('ref-' + cite);
+                  if (biblioDiv) {
+                    citeDiv.innerHTML = biblioDiv.innerHTML;
+                  }
+                  popup.appendChild(citeDiv);
+                });
+                return popup.innerHTML;
+              });
+            }
+          }
+        });
+        </script>
+        </div> <!-- /content -->
+        <footer class="footer">
+          <div class="nav-footer">
+            <div class="nav-footer-left">
+              <ul class="footer-items list-unstyled">
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://github.com/autonity/">
+              <i class="bi bi-github" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://twitter.com/autonity_">
+              <i class="bi bi-twitter" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://discord.com/invite/autonity">
+              <i class="bi bi-discord" role="img">
+        </i> 
+            </a>
+          </li>  
+            <li class="nav-item compact">
+            <a class="nav-link" href="https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ">
+              <i class="bi bi-youtube" role="img">
+        </i> 
+            </a>
+          </li>  
+        </ul>
+            </div>   
+            <div class="nav-footer-center">
+              &nbsp;
+            </div>
+            <div class="nav-footer-right">
+              &nbsp;
+            </div>
+          </div>
+        </footer>
+    
+
+<script>
+window.addEventListener('load', () => {
+    const anchor = location.hash;
+    if (anchor && document.querySelector(anchor)) {
+        document.querySelector(anchor).scrollIntoView();
+    }
+});
+</script>
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
