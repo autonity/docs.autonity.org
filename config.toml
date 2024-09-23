@@ -16,7 +16,12 @@ excludes = ["distributeRewards", "finalize", "setEpochPeriod"]
 excludes = ["setOperator", "setOracle", "update"]
 
 [contracts.Autonity]
-excludes = ["computeCommittee", "finalize", "finalizeInitialization"]
+excludes = [
+  "computeCommittee",
+  "finalize",
+  "finalizeInitialization",
+  "updateValidatorAndTransferSlashedFunds",
+]
 
 [contracts.Liquid]
 display_name = "Liquid Newton"
