@@ -388,7 +388,6 @@ img.footer-link-image {
 }
 
 .mutability-wrapper {
-    position: relative;
     width: 100%;
 }
 
@@ -397,7 +396,30 @@ img.footer-link-image {
     padding: 2px 12px;
     font-size: 12px;
     font-weight: bold;
-    position: absolute;
-    right: 0px;
-    top: -30px;
 }
+
+.mutability-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.method-title { 
+    margin-top: 1.35em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.method-title > h3 {
+    margin: 0;
+}
+
+.method-title > *:first-child {
+    flex-grow: 1;
+  }
+
+.method-title  > *:nth-child(2) {
+    flex-shrink: 1;
+    flex-basis: min-content;
+  }
+  
