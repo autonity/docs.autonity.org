@@ -195,7 +195,7 @@ def src_definition_regexp(
         ElementType.EVENT: f"event{sep}{signature}",
         # A contract function is either a Solidity `function` or an auto-generated
         # accessor function for a public contract property
-        ElementType.FUNCTION: f"(function{sep}{signature}|public.+{name}{sep}[;=])",
+        ElementType.FUNCTION: f"(function{sep}{signature}|public[^;]+{name}{sep}[;=])",
     }[element_type]
     return re.compile(regexp_for_element_type, re.MULTILINE | re.DOTALL)
 
