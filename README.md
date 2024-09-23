@@ -45,10 +45,14 @@ The repo is configured to publish:
 
 ## Development workflow
 
-- The `master` branch will always have the live production version of the website.
-- A hot-fix to the production site is published by creating a branch from `master` with the hot-fix, and creating a PR.  (Once the hot-fix has been merged, `master` should be merged to `develop` to ensure that the fix is propagated, and that conflicts are resolved in `develop`.)
-- The `develop` branch will always have the WIP next version of the website being prepared.
-- A new version of the production website is published by merging `develop` into `master`.
+- The `master` branch will always contain the live production version of the website.
+- The `develop` branch will be used for ongoing development and feature testing. All changes should be pushed to `develop` first, where they can be tested on a staging server before being merged into `master`.
+- Hot-fixes to the production site should be handled by creating a branch from `master`, implementing the fix, and creating a PR. Once the hot-fix is merged, `master` should be merged into `develop` to ensure the fix is propagated and conflicts are resolved.
+- A new version of the production website is published by merging `develop` into `master` after thorough testing.
+
+The staging site is available [here](https://autonity.github.io/docs.autonity.org/). The staging site is updated automatically on every push to the `staging` branch.
+  
+For further details on merging or rebasing branches, see the [Git Workflow Wiki Page](https://example.com/wiki).
 
 See the repo Wiki Page [Git Workflow](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow) for [when to `merge` or `rebase` branches when working on `game.autonity.org`](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow#when-to-merge-and-rebase-when-working-on-gameautonityorg) repo.
 
