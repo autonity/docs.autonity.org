@@ -98,6 +98,8 @@ website:
       - icon: youtube
         href: https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ
 filters:
+  - _filters/footer-navigation.lua
+  - _filters/mutability.lua
   - _filters/macro-substitution.lua
   - _filters/page-info.lua
   - _filters/card-substitution.lua
