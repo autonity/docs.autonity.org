@@ -62,6 +62,9 @@ $font-size-root: 0.95rem;
     --secondary-border: var(--border-thickness) solid var(--bs-body-color);
     --primary-border: var(--border-thickness) solid var(--bs-body-color);
     --border-thickness: 1.53px;
+    --green: #528f18;
+    --blue: #5656e9;
+    --purple: #906ce3;
 }
 /*-- scss:rules --*/
 body {
@@ -176,9 +179,69 @@ img.footer-link-image {
     color: var(--highlight-color);
 }
 
-
 @media (min-width: 1200px) {
     h3, .h3 {
         font-size: 1.25rem;
     }
+}
+
+table.table {
+    border: var(--primary-border);
+}
+
+.table>thead {
+    border-top-width: 0;
+    border: var(--primary-border);
+}
+
+.table>:not(caption)>*>* {
+    border: var(--primary-border);
+}
+td {
+    width: 33%;
+}
+
+
+.payable-tag {
+    color: var(--green);
+}
+
+.view-tag { 
+    color: var(--blue);
+}
+
+.pure-tag {
+    color: var(--purple);
+}
+
+.mutability-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.mutability-tag {
+    border: var(--primary-border);
+    padding: 2px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    right: 0px;
+    width: 74px;
+    text-align: center;
+    top: -30px;
+}
+
+TOC .nav-link {
+    width: 100%;
+    max-width: 250px;
+}
+#TOC ul li a {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.sidebar nav[role=doc-toc] ul>li>ul>li>a {
+    padding-left: 1.2em;
 }
