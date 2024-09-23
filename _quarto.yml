@@ -20,7 +20,6 @@ website:
    contents:
     - index.md
     - "overview/index.md"
-    - auto: "contracts"
     - section: "Concepts"
       contents:
       - "concepts/architecture/index.md"
@@ -76,6 +75,7 @@ website:
       - "developer/custom-networks/index.md"
     - section: "Reference"
       contents:
+      - auto: reference/contracts
       - auto: reference/cli
       - auto: reference/api  
       - "reference/codebase/index.md"

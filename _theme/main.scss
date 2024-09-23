@@ -155,6 +155,11 @@ header.headroom--unpinned {
     transform: translateY(-140%);
 }
 
+header.headroom { 
+    background-color: var(--background-color);
+    transition: background-color 0s ease;
+}
+
 .navbar-brand:hover, .navbar-brand:focus {
     color: var(--background-color);
 }
