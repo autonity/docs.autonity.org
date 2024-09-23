@@ -1,1 +1,1 @@
-Sitemap: https://github.com/autonity/docs.autonity.org/sitemap.xml
+Sitemap: https://autonity.github.io/docs.autonity.org/sitemap.xml

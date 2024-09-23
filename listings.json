@@ -1,35 +1,5 @@
 [
   {
-    "listing": "/reference/cli/index.html",
-    "items": [
-      "/reference/cli/agc/index.html",
-      "/reference/cli/oracle/index.html"
-    ]
-  },
-  {
-    "listing": "/reference/api/index.html",
-    "items": [
-      "/reference/api/asm/acu/index.html",
-      "/reference/api/asm/index.html",
-      "/reference/api/accountability/index.html",
-      "/reference/api/aut/index.html",
-      "/reference/api/aut/op-prot/index.html",
-      "/reference/api/liquid-newton/index.html",
-      "/reference/api/oracle/index.html",
-      "/reference/api/asm/stabilization/index.html",
-      "/reference/api/asm/supplycontrol/index.html",
-      "/reference/api/web3/index.html"
-    ]
-  },
-  {
-    "listing": "/reference/api/asm/index.html",
-    "items": [
-      "/reference/api/asm/acu/index.html",
-      "/reference/api/asm/stabilization/index.html",
-      "/reference/api/asm/supplycontrol/index.html"
-    ]
-  },
-  {
     "listing": "/account-holders/index.html",
     "items": [
       "/account-holders/key-mgt/clef/index.html",
@@ -48,10 +18,10 @@
     ]
   },
   {
-    "listing": "/networks/index.html",
+    "listing": "/concepts/consensus/index.html",
     "items": [
-      "/networks/testnet-bakerloo/index.html",
-      "/networks/testnet-piccadilly/index.html"
+      "/concepts/consensus/committee/index.html",
+      "/concepts/consensus/pos/index.html"
     ]
   },
   {
@@ -60,6 +30,43 @@
       "/developer/deploy-brownie/index.html",
       "/developer/custom-networks/index.html",
       "/developer/submit-trans-gov-acct/index.html"
+    ]
+  },
+  {
+    "listing": "/reference/api/asm/index.html",
+    "items": [
+      "/reference/api/asm/acu/index.html",
+      "/reference/api/asm/stabilization/index.html",
+      "/reference/api/asm/supplycontrol/index.html"
+    ]
+  },
+  {
+    "listing": "/reference/api/index.html",
+    "items": [
+      "/reference/api/asm/acu/index.html",
+      "/reference/api/asm/index.html",
+      "/reference/api/accountability/index.html",
+      "/reference/api/aut/index.html",
+      "/reference/api/aut/op-prot/index.html",
+      "/reference/api/liquid-newton/index.html",
+      "/reference/api/oracle/index.html",
+      "/reference/api/asm/stabilization/index.html",
+      "/reference/api/asm/supplycontrol/index.html",
+      "/reference/api/web3/index.html"
+    ]
+  },
+  {
+    "listing": "/reference/cli/index.html",
+    "items": [
+      "/reference/cli/agc/index.html",
+      "/reference/cli/oracle/index.html"
+    ]
+  },
+  {
+    "listing": "/networks/index.html",
+    "items": [
+      "/networks/testnet-bakerloo/index.html",
+      "/networks/testnet-piccadilly/index.html"
     ]
   },
   {
@@ -75,13 +82,6 @@
       "/concepts/protocol-assets/auton/index.html",
       "/concepts/protocol-assets/liquid-newton/index.html",
       "/concepts/protocol-assets/newton/index.html"
-    ]
-  },
-  {
-    "listing": "/concepts/consensus/index.html",
-    "items": [
-      "/concepts/consensus/committee/index.html",
-      "/concepts/consensus/pos/index.html"
     ]
   }
 ]
