@@ -19,7 +19,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-    <meta name="description" content="Auton Currency Unit Contract functions">
+    <meta name="description" content="Autonomous Currency Unit Contract functions">
 
     <title>Autonity Documentation - ACU Contract Interface</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
@@ -78,8 +78,7 @@
         <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
         <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
     
-    
-        <link rel="stylesheet" href="../../../../_assets/css/styles.css">
+            <link rel="stylesheet" href="../../../../_assets/css/styles.css">
     </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -151,12 +150,29 @@
          <span class="menu-text">System model</span></a>
           </div>
         </li>
+                  <li class="sidebar-item sidebar-item-section">
+              <div class="sidebar-item-container"> 
+                    <a href="../../../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus</span></a>
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                    <i class="bi bi-chevron-right ms-2"></i>
+                  </a> 
+              </div>
+              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
-         <span class="menu-text">Consensus</span></a>
+          <a href="../../../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Consensus Committee</span></a>
           </div>
         </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Tendermint BFT consensus</span></a>
+          </div>
+        </li>
+              </ul>
+          </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
@@ -203,11 +219,17 @@
               <div class="sidebar-item-container"> 
                     <a href="../../../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Protocol assets</span></a>
-                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton</span></a>
+          </div>
+        </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
@@ -220,48 +242,42 @@
          <span class="menu-text">Auton</span></a>
           </div>
         </li>
-                  <li class="sidebar-item">
-          <div class="sidebar-item-container"> 
-          <a href="../../../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
-         <span class="menu-text">Liquid Newton</span></a>
-          </div>
-        </li>
               </ul>
           </li>
               </ul>
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
          <span class="menu-text">Networks</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-                  <li class="sidebar-item">
-          <div class="sidebar-item-container"> 
-          <a href="../../../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
-         <span class="menu-text">Piccadilly Testnet</span></a>
-          </div>
-        </li>
+              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Bakerloo Testnet</span></a>
           </div>
         </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Piccadilly Testnet</span></a>
+          </div>
+        </li>
               </ul>
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
          <span class="menu-text">Accounts</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
@@ -290,13 +306,13 @@
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
          <span class="menu-text">Running a Node</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
@@ -321,17 +337,23 @@
          <span class="menu-text">Set up node monitoring</span></a>
           </div>
         </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../node-operators/migrate-aut/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Migrate Autonity</span></a>
+          </div>
+        </li>
               </ul>
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
          <span class="menu-text">Running an Oracle Server</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
@@ -348,13 +370,13 @@
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
          <span class="menu-text">Running a Validator</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
@@ -373,17 +395,23 @@
          <span class="menu-text">Change Validator Commission Rate</span></a>
           </div>
         </li>
+                  <li class="sidebar-item">
+          <div class="sidebar-item-container"> 
+          <a href="../../../../validators/migrate-vali/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Migrate Validator</span></a>
+          </div>
+        </li>
               </ul>
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
          <span class="menu-text">Staking</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
@@ -406,13 +434,13 @@
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
          <span class="menu-text">Borrowing by CDP in the ASM</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
@@ -429,13 +457,13 @@
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
          <span class="menu-text">Development</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
@@ -458,22 +486,22 @@
           </li>
                 <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
          <span class="menu-text">Reference</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
                     <a href="../../../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Command-line</span></a>
-                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
@@ -492,15 +520,15 @@
               <div class="sidebar-item-container"> 
                     <a href="../../../../reference/api/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Interfaces</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 show">  
+              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
-         <span class="menu-text">Oracle Contract Interface</span></a>
+          <a href="../../../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Liquid Newton Contract Interface</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
@@ -511,8 +539,8 @@
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
-         <span class="menu-text">Liquid Newton Contract Interface</span></a>
+          <a href="../../../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+         <span class="menu-text">Oracle Contract Interface</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
@@ -525,11 +553,11 @@
               <div class="sidebar-item-container"> 
                     <a href="../../../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">ASM Contract Interface</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 show">  
+              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link active">
@@ -554,11 +582,11 @@
               <div class="sidebar-item-container"> 
                     <a href="../../../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Contract Interface</span></a>
-                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth3 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
           <a href="../../../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
@@ -645,7 +673,7 @@
 
         <div>
           <div class="description">
-            <p>Auton Currency Unit Contract functions</p>
+            <p>Autonomous Currency Unit Contract functions</p>
           </div>
         </div>
 
@@ -660,7 +688,7 @@
 
         </header>    
             
-    <p>Interfaces for interacting with the ASM Auton Currency Unit Contract functions using:</p>
+    <p>Interfaces for interacting with the ASM Autonomous Currency Unit Contract functions using:</p>
     <ul>
     <li>The <code>aut</code> command-line RPC client to submit calls to inspect state and state-affecting transactions.</li>
     </ul>
@@ -1136,6 +1164,14 @@
         </footer>
     
 
+<script>
+window.addEventListener('load', () => {
+    const anchor = location.hash;
+    if (anchor && document.querySelector(anchor)) {
+        document.querySelector(anchor).scrollIntoView();
+    }
+});
+</script>
 
 <script src="../../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

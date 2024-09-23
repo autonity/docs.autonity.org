@@ -5,5 +5,83 @@
       "/reference/cli/agc/index.html",
       "/reference/cli/oracle/index.html"
     ]
+  },
+  {
+    "listing": "/reference/api/index.html",
+    "items": [
+      "/reference/api/asm/acu/index.html",
+      "/reference/api/asm/index.html",
+      "/reference/api/accountability/index.html",
+      "/reference/api/aut/index.html",
+      "/reference/api/aut/op-prot/index.html",
+      "/reference/api/liquid-newton/index.html",
+      "/reference/api/oracle/index.html",
+      "/reference/api/asm/stabilization/index.html",
+      "/reference/api/asm/supplycontrol/index.html",
+      "/reference/api/web3/index.html"
+    ]
+  },
+  {
+    "listing": "/reference/api/asm/index.html",
+    "items": [
+      "/reference/api/asm/acu/index.html",
+      "/reference/api/asm/stabilization/index.html",
+      "/reference/api/asm/supplycontrol/index.html"
+    ]
+  },
+  {
+    "listing": "/account-holders/index.html",
+    "items": [
+      "/account-holders/key-mgt/clef/index.html",
+      "/account-holders/key-mgt/usb-wallets/index.html",
+      "/account-holders/create-acct/index.html",
+      "/account-holders/fund-acct/index.html",
+      "/account-holders/setup-aut/index.html",
+      "/account-holders/submit-trans-aut/index.html"
+    ]
+  },
+  {
+    "listing": "/account-holders/key-mgt/index.html",
+    "items": [
+      "/account-holders/key-mgt/clef/index.html",
+      "/account-holders/key-mgt/usb-wallets/index.html"
+    ]
+  },
+  {
+    "listing": "/networks/index.html",
+    "items": [
+      "/networks/testnet-bakerloo/index.html",
+      "/networks/testnet-piccadilly/index.html"
+    ]
+  },
+  {
+    "listing": "/developer/index.html",
+    "items": [
+      "/developer/deploy-brownie/index.html",
+      "/developer/custom-networks/index.html",
+      "/developer/submit-trans-gov-acct/index.html"
+    ]
+  },
+  {
+    "listing": "/cdp/index.html",
+    "items": [
+      "/cdp/liquidate-cdp/index.html",
+      "/cdp/open-cdp/index.html"
+    ]
+  },
+  {
+    "listing": "/concepts/protocol-assets/index.html",
+    "items": [
+      "/concepts/protocol-assets/auton/index.html",
+      "/concepts/protocol-assets/liquid-newton/index.html",
+      "/concepts/protocol-assets/newton/index.html"
+    ]
+  },
+  {
+    "listing": "/concepts/consensus/index.html",
+    "items": [
+      "/concepts/consensus/committee/index.html",
+      "/concepts/consensus/pos/index.html"
+    ]
   }
 ]

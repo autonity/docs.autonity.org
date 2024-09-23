@@ -530,3 +530,19 @@ textarea.has-content {
 span.resource {
 	font-size: 11px;
 }
+
+.callout-collapse {
+    padding: 0px 8px 0px 8px;
+}
+
+.navbar {
+    background-color: #000000;
+    color: #fff;
+}
+.content, .content * {
+    overflow-wrap: break-word;
+}
+
+td, td * {
+    word-break: break-all;
+}

@@ -19,9 +19,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-    <meta name="description" content="How to identify and liquidate a CDP in the Auton Stabilization Mechanism.">
+    <meta name="description" content="How to migrate an Autonity node to a new instance in your own environment">
 
-    <title>Autonity Documentation - Liquidate a CDP</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Autonity Documentation - Migrate Autonity</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         code{white-space: pre-wrap;}
         span.smallcaps{font-variant: small-caps;}
@@ -33,40 +33,6 @@
           width: 0.8em;
           margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
           vertical-align: middle;
-        }
-        /* CSS for syntax highlighting */
-        pre > code.sourceCode { white-space: pre; position: relative; }
-        pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-        pre > code.sourceCode > span:empty { height: 1.2em; }
-        .sourceCode { overflow: visible; }
-        code.sourceCode > span { color: inherit; text-decoration: inherit; }
-        div.sourceCode { margin: 1em 0; }
-        pre.sourceCode { margin: 0; }
-        @media screen {
-        div.sourceCode { overflow: auto; }
-        }
-        @media print {
-        pre > code.sourceCode { white-space: pre-wrap; }
-        pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-        }
-        pre.numberSource code
-          { counter-reset: source-line 0; }
-        pre.numberSource code > span
-          { position: relative; left: -4em; counter-increment: source-line; }
-        pre.numberSource code > span > a:first-child::before
-          { content: counter(source-line);
-            position: relative; left: -1em; text-align: right; vertical-align: baseline;
-            border: none; display: inline-block;
-            -webkit-touch-callout: none; -webkit-user-select: none;
-            -khtml-user-select: none; -moz-user-select: none;
-            -ms-user-select: none; user-select: none;
-            padding: 0 4px; width: 4em;
-          }
-        pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-        div.sourceCode
-          {   }
-        @media screen {
-        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
         }
     </style>
     
@@ -139,7 +105,7 @@
               <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
                 <i class="bi bi-layout-text-sidebar-reverse"></i>
               </button>
-              <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../cdp/open-cdp/index.html">Borrowing by CDP in the ASM</a></li><li class="breadcrumb-item"><a href="../../cdp/liquidate-cdp/index.html">Liquidate a CDP</a></li></ol></nav>
+              <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../node-operators/install-aut/index.html">Running a Node</a></li><li class="breadcrumb-item"><a href="../../node-operators/migrate-aut/index.html">Migrate Autonity</a></li></ol></nav>
               <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
               </a>
             </div>
@@ -373,7 +339,7 @@
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../node-operators/migrate-aut/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../node-operators/migrate-aut/index.html" class="sidebar-item-text sidebar-link active">
          <span class="menu-text">Migrate Autonity</span></a>
           </div>
         </li>
@@ -483,7 +449,7 @@
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link active">
+          <a href="../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Liquidate a CDP</span></a>
           </div>
         </li>
@@ -673,14 +639,14 @@
             <h2 id="toc-title">On this page</h2>
            
           <ul>
-          <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a></li>
-          <li><a href="#discover-if-a-cdp-is-liquidatable" id="toc-discover-if-a-cdp-is-liquidatable" class="nav-link" data-scroll-target="#discover-if-a-cdp-is-liquidatable">Discover if a CDP is liquidatable</a>
+          <li><a href="#maintaining-node-identity" id="toc-maintaining-node-identity" class="nav-link active" data-scroll-target="#maintaining-node-identity">Maintaining node identity</a></li>
+          <li><a href="#migrating-an-autonity-go-client" id="toc-migrating-an-autonity-go-client" class="nav-link" data-scroll-target="#migrating-an-autonity-go-client">Migrating an Autonity Go Client</a>
           <ul class="collapse">
-          <li><a href="#step-1.-get-cdp-accounts" id="toc-step-1.-get-cdp-accounts" class="nav-link" data-scroll-target="#step-1.-get-cdp-accounts">Step 1. Get CDP accounts</a></li>
-          <li><a href="#step-2.-determine-if-a-cdp-is-liquidatable" id="toc-step-2.-determine-if-a-cdp-is-liquidatable" class="nav-link" data-scroll-target="#step-2.-determine-if-a-cdp-is-liquidatable">Step 2. Determine if a CDP is liquidatable</a></li>
-          <li><a href="#step-3.-get-cdp-economic-state" id="toc-step-3.-get-cdp-economic-state" class="nav-link" data-scroll-target="#step-3.-get-cdp-economic-state">Step 3. Get CDP economic state</a></li>
+          <li><a href="#step-1-preserve-node-identity" id="toc-step-1-preserve-node-identity" class="nav-link" data-scroll-target="#step-1-preserve-node-identity">Step 1: Preserve node identity</a></li>
+          <li><a href="#step-2-install-node-software-to-new-environment" id="toc-step-2-install-node-software-to-new-environment" class="nav-link" data-scroll-target="#step-2-install-node-software-to-new-environment">Step 2: Install node software to new environment</a></li>
+          <li><a href="#step-3-migrate-node-autonitykeys-keyfile" id="toc-step-3-migrate-node-autonitykeys-keyfile" class="nav-link" data-scroll-target="#step-3-migrate-node-autonitykeys-keyfile">Step 3: Migrate node <code>autonityKeys</code> keyfile</a></li>
+          <li><a href="#step-4-start-the-node-preserving-ipport-configuration" id="toc-step-4-start-the-node-preserving-ipport-configuration" class="nav-link" data-scroll-target="#step-4-start-the-node-preserving-ipport-configuration">Step 4: Start the node preserving IP/Port configuration</a></li>
           </ul></li>
-          <li><a href="#liquidate-a-cdp" id="toc-liquidate-a-cdp" class="nav-link" data-scroll-target="#liquidate-a-cdp">Liquidate a CDP</a></li>
           </ul>
         </nav>
             </div>
@@ -689,12 +655,12 @@
     
         <header id="title-block-header" class="quarto-title-block default">
         <div class="quarto-title">
-        <h1 class="title">Liquidate a CDP</h1>
+        <h1 class="title">Migrate Autonity</h1>
         </div>
 
         <div>
           <div class="description">
-            <p>How to identify and liquidate a CDP in the Auton Stabilization Mechanism.</p>
+            <p>How to migrate an Autonity node to a new instance in your own environment</p>
           </div>
         </div>
 
@@ -709,190 +675,120 @@
 
         </header>    
             
-    <section id="prerequisites" class="level2">
-    <h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
-    <ul>
-    <li><p>An <a href="../../account-holders/create-acct/">account</a> that has been <a href="../../account-holders/fund-acct/">funded</a> with Auton (to pay for transaction gas costs)</p></li>
-    <li><p>A running instance of <a href="https://github.com/autonity/aut"><code>aut</code></a> configured to <a href="../../account-holders/submit-trans-aut/">submit a transaction from your account</a>.</p></li>
-    </ul>
-    <div class="callout callout-style-default callout-note callout-titled" title="Protocol contract calls">
+    <div class="callout callout-style-default callout-note callout-titled" title="Prerequisites">
     <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
     <div class="callout-title-container flex-fill">
-    Protocol contract calls
+    Prerequisites
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
     <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
-    <p>The guide uses the <code>aut contract call</code> and <code>aut contract tx</code> commands for contract interactions.</p>
-    <p><code>aut contract</code> usage requires that you specify the <a href="../../glossary/#application-binary-interface-abi">ABI</a> file and the protocol contract address of the contract being called. To complete the guide you will need to call the Stabilization Contract (<code>Stabilization.abi</code>) with the protocol contract address <code>0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f</code>.</p>
-    <p>The <code>abi</code> files are generated when building the client from source and can be found in your <code>autonity</code> installation directory at <code>./params/generated/Autonity.abi</code> and <code>./params/generated/Stabilization.abi</code>. Alternatively, you can generate the ABI using the <code>abigen</code> <code>cmd</code> utility if you built the utility when building from source (See <a href="../../node-operators/install-aut/#install-source">Install Autonity, Build from source code</a>).</p>
-    <p>The guide explicitly sets the path to the ABI file and contract address to be clear the Stabilization Contract is being called. Note that the ABI file and contract address can be set as defaults in <code>aut</code>’s configuration file <code>.autrc</code> using the <code>contract_address</code> and <code>contract_abi</code> flags:</p>
-    <pre><code>contract_abi = Stabilization.abi
-contract_address = 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f
-</code></pre>
-    <p>The guide assumes the ABI files are in the directory from which the <code>aut</code> command is run.</p>
+    <ul>
+    <li>Ensure that the host machine meets the <a href="../../node-operators/install-aut/#requirements">minimum requirements</a></li>
+    </ul>
     </div>
     </div>
     </div>
-    </section>
-    <section id="discover-if-a-cdp-is-liquidatable" class="level2">
-    <h2 class="anchored" data-anchor-id="discover-if-a-cdp-is-liquidatable">Discover if a CDP is liquidatable</h2>
-    <ul>
-    <li>get the CDP’s <code>accounts()</code></li>
-    <li>call <code>isLiquidatable()</code></li>
-    <li>call <code>underCollateralized()</code></li>
-    <li>can you call other functions to forecast if it will be liquidatable or under collateralised based on interest due/accruing, or?
-    <ul>
-    <li>e.g.&nbsp;if the collateralPrice falls etc</li>
-    <li>i.e.&nbsp;liquidationRatio</li>
-    <li>i.e.&nbsp;collateralizationRatio</li>
-    </ul></li>
-    </ul>
-    <section id="step-1.-get-cdp-accounts" class="level3">
-    <h3 class="anchored" data-anchor-id="step-1.-get-cdp-accounts">Step 1. Get CDP accounts</h3>
-    <p>Query for open CDPs by calling the <a href="../../reference/api/asm/stabilization/#accounts"><code>accounts()</code></a> function of the Stabilization Contract using the <code>aut contract call</code> command:</p>
-    <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>An array of open CDPs is returned. For example:</p>
-    <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[</span><span class="st">"0x1f790c60D974F5A8f88558CA90F743a71F009641"</span><span class="ex">,</span> <span class="st">"0xfd1ac0e99E9BD153F49080A96eb44843211E5C9f"</span>, <span class="st">"0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    </section>
-    <section id="step-2.-determine-if-a-cdp-is-liquidatable" class="level3">
-    <h3 class="anchored" data-anchor-id="step-2.-determine-if-a-cdp-is-liquidatable">Step 2. Determine if a CDP is liquidatable</h3>
-    <p>Determine if a CDP is liquidatable by calling the <a href="../../reference/api/asm/stabilization/#isliquidatable"><code>isLiquidatable()</code></a> function of the Stabilization Contract using the <code>aut contract call</code> command. Pass in parameter:</p>
-    <ul>
-    <li><code>&lt;ACCOUNT&gt;</code>: the CDP account address</li>
-    </ul>
-    <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable <span class="op">&lt;</span>ACCOUNT<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>The call will return a boolean value indicating if the CDP is liquidatable or not.</p>
-    <p>For example, using the results returned from Step 1:</p>
-    <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p><code>false</code> is returned for <code>0x1f790c60D974F5A8f88558CA90F743a71F009641</code> - the CDP is not liquidatable.</p>
-    </section>
-    <section id="step-3.-get-cdp-economic-state" class="level3">
-    <h3 class="anchored" data-anchor-id="step-3.-get-cdp-economic-state">Step 3. Get CDP economic state</h3>
-    <p>Next, inspect CDP state to understand the economic costs and returns of liquidation - i.e.&nbsp;cost of repaying the debt (principal, accrued interest) and the collateral token that will be transferred to the position’s liquidator.</p>
-    <p>There are two steps to do this:</p>
-    <ul>
-    <li><a href="../../#get-debt-amount">Get CDP debt amount</a>, to calculate the current outstanding debt amount of Auton that must be repaid to liquidate the CDP.</li>
-    <li><a href="../../#get-collateral">Get CDP collateral amount</a>, to return the amount of collateral token deposited to the CDP.</li>
-    </ul>
-    <section id="get-collateral" class="level4">
-    <h4 class="anchored" data-anchor-id="get-collateral">Get CDP collateral amount</h4>
-    <p>As described in the Concept page for ASM <a href="../../concepts/asm/#stabilization">Stabilization</a> section, for each CDP, the Stabilization Contract records:</p>
-    <ul>
-    <li><code>timestamp</code>: the timestamp of the last borrow or repayment</li>
-    <li><code>collateral</code>: the collateral deposited with the Stabilization Contract</li>
-    <li><code>principal</code>: the principal debt outstanding as of <code>timestamp</code>.</li>
-    <li><code>interest</code>: the interest debt that is due at the <code>timestamp</code>.</li>
-    </ul>
-    <div class="callout callout-style-default callout-important callout-titled" title="Warning">
+    <section id="maintaining-node-identity" class="level2">
+    <h2 class="anchored" data-anchor-id="maintaining-node-identity">Maintaining node identity</h2>
+    <p>To migrate a node to a new instance the node identity must be preserved. This is done by simply using the existing <a href="../../concepts/validator/#p2p-node-keys-autonitykeys">P2P node keys: autonityKeys</a> and the node’s host <a href="../../node-operators/install-aut/#network">ip address</a> for the new node instance. By doing this the new node instance will have the same node <a href="../../concepts/validator/#validator-identifier">identifier</a> address and <a href="../../glossary/#enode">enode url</a> as the old instance.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Additional checks if you are migrating a registered validator node">
     <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
     <div class="callout-title-container flex-fill">
-    Warning
+    Additional checks if you are migrating a registered validator node
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
     <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
-    <p>The important data point is the <code>collateral</code> amount value as this gives you the economic benefit of liquidating the CDP.</p>
-    <p>The other data should be ignored. The <code>timestamp</code> reflects the time point that the CDP was last borrowed from or repaid to so the <code>principal</code> and <code>interest</code> data is out of date. To get the <em>current CDP debt amount</em> due you will need to call <a href="../../reference/api/asm/stabilization/#debtamount"><code>debtAmount()</code></a>, which is done in the next step <a href="../../cdp/liquidate-cdp/#get-debt-amount">Get CDP debt amount</a>.</p>
+    <ol type="1">
+    <li>Make sure that your validator is not an active member of the consensus committee during the migration. It is recommended that your validator is in a <a href="../../concepts/validator/#validator-pausing"><code>paused</code></a> state before beginning the migration.</li>
+    <li>Verify the node’s new IP/Port address is the same as that in your registered enode URL. You can check this by calling <code>aut validator info --validator</code> to view the registered enode URL.</li>
+    </ol>
+    <p>If you are operating a validator node it is possible to change your IP/Port address as described in the guide <a href="../../validators/migrate-vali/#migrating-validator-node-to-a-new-ipport-address">Migrating validator node to a new IP/Port address</a>.</p>
     </div>
     </div>
     </div>
-    <p>CDP state is maintained in memory as a public mapping <code>cdps</code> and may be inspected by calling the getter function automatically generated for it when the Stabilization Contract is compiled.</p>
-    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    <!--
+    ::: {.callout-note title="Static IP Address is required" collapse="false"}
+    Running an Autonity node requires maintaining a static ip address as described in the guide [Install Autonity, Networking](/node-operators/install-aut/#network) section.
+
+    If you are using a cloud provider for node hosting, then a static IP address for your cloud space should be a stated hosting requirement if you intend to migrate the node. Cloud vendors typically don't supply a static IP address unless it is purchased explicitly.
+    :::
+    -->
+    </section>
+    <section id="migrating-an-autonity-go-client" class="level2">
+    <h2 class="anchored" data-anchor-id="migrating-an-autonity-go-client">Migrating an Autonity Go Client</h2>
+    <p>To migrate, reinstall the node and migrate your node’s <code>autonitykeys</code>.</p>
+    <section id="step-1-preserve-node-identity" class="level3">
+    <h3 class="anchored" data-anchor-id="step-1-preserve-node-identity">Step 1: Preserve node identity</h3>
+    <p>Copy the <a href="../../concepts/validator/#p2p-node-keys-autonitykeys">P2P node keys: autonityKeys</a> file to a safe location. Ensure the new hosting environment maintains your existing IP address.</p>
+    </section>
+    <section id="step-2-install-node-software-to-new-environment" class="level3">
+    <h3 class="anchored" data-anchor-id="step-2-install-node-software-to-new-environment">Step 2: Install node software to new environment</h3>
+    <p>Install the node as described in the <a href="../../node-operators/install-aut/">install autonity</a> guide</p>
+    </section>
+    <section id="step-3-migrate-node-autonitykeys-keyfile" class="level3">
+    <h3 class="anchored" data-anchor-id="step-3-migrate-node-autonitykeys-keyfile">Step 3: Migrate node <code>autonityKeys</code> keyfile</h3>
+    <p>Migrate the <code>autonitykeys</code> saved in <a href="../../node-operators/migrate-aut/#step-1-preserve-node-identity">Step 1</a> above <strong>before</strong> running the node:</p>
+    <ul>
+    <li><p>Copy your original <code>autonitykeys</code> to the directory location you will use to hold the key when <a href="../../node-operators/run-aut/">running the node</a>.</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Default location for AGC's node and consensus private keys file  `autonitykeys`">
     <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
     <div class="callout-title-container flex-fill">
-    Note
+    Default location for AGC’s node and consensus private keys file <code>autonitykeys</code>
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
     <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
-    <p>The <code>cdps</code> getter function definition can be found in the <code>Stabilization.abi</code> file by searching for <code>"name": "cdps"</code>.</p>
+    <p>On starting, by default AGC will automatically generate an <code>autonitykeys</code> file containing your node key and consensus key within the <code>autonity</code> subfolder of the <code>--datadir</code> specified when running the node. If you choose not to store your key in the default location, then specify the path to where you are keeping your <code>autonitykeys</code> file using the <code>--autonitykeys</code> option in the run command.</p>
     </div>
     </div>
-    </div>
-    <div class="callout callout-style-default callout-note callout-titled" title="Note">
+    </div></li>
+    </ul>
+    </section>
+    <section id="step-4-start-the-node-preserving-ipport-configuration" class="level3">
+    <h3 class="anchored" data-anchor-id="step-4-start-the-node-preserving-ipport-configuration">Step 4: Start the node preserving IP/Port configuration</h3>
+    <p>Start the node as described in the guide <a href="../../node-operators/run-aut/">Run Autonity</a>, maintaining the original IP address values for:</p>
+    <ul>
+    <li><code>--nat extip:&lt;IP_ADDRESS&gt;</code>.</li>
+    <li>(Optional) <code>--consensus-nat extip:&lt;IP_ADDRESS&gt;</code> if you are not using AGC’s default settings for the consensus gossiping channel and have set <code>extip</code>.</li>
+    </ul>
+    <p>Autonity will detect and use the original <code>autonitykeys</code>. The new node installation will have the same identity as the original.</p>
+    <p>Be sure to fully decommission the original validator node installation environment!</p>
+    <div class="callout callout-style-default callout-note callout-titled" title="Additional Step if you are migrating a registered validator node">
     <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
     <div class="callout-icon-container">
     <i class="callout-icon"></i>
     </div>
     <div class="callout-title-container flex-fill">
-    Note
+    Additional Step if you are migrating a registered validator node
     </div>
     <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
     </div>
     <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
     <div class="callout-body-container callout-body">
-    <p>The <code>cdps</code> function cannot currently be called from <code>aut</code> using the <code>aut contract call</code> command. This is a known issue logged as an <code>autonity.py</code> GitHub issue <a href="https://github.com/autonity/autonity.py/issues/37">AssertionError on returning tuple #37</a>.</p>
+    <p>You will need to transition your validator back to an active state so it is once again considered by protocol for consensus committee selection.</p>
+    <p>To do this <a href="../../validators/pause-vali/#re-activate-a-validator">re-activate the validator</a> instance after migration completes.</p>
     </div>
     </div>
     </div>
-    <p>The auto-generated <code>cdps</code> method can be called to return the CDP data, simply passing in the CDP account address as the parameter.</p>
-    <p>This can be done using a simple <code>web3.py</code> script using the <code>web3.eth.contract</code> module to call the <code>cdps</code> function. Where:</p>
-    <ul>
-    <li><code>&lt;RPC_ENDPOINT&gt;</code>: is the HTTP address for the node endpoint being called</li>
-    <li><code>&lt;ACCOUNT&gt;</code>: is the <a href="../../concepts/asm/#cdp-identifiers">CDP account address</a> identifier.</li>
-    </ul>
-    <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> web3 <span class="im">import</span> Web3, HTTPProvider</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"Stabilization.abi"</span>) <span class="im">as</span> f:</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    abi <span class="op">=</span> info_json <span class="op">=</span> json.load(f)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>w3 <span class="op">=</span> Web3(HTTPProvider(<span class="st">'&lt;RPC_ENDPOINT&gt;'</span>))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>stabilizationContractAddress <span class="op">=</span> <span class="st">"0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f"</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>contract_instance <span class="op">=</span> w3.eth.contract(address<span class="op">=</span>stabilizationContractAddress, abi<span class="op">=</span>abi)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># read state: call the cdps function passing in the CDP identifier address &lt;ACCOUNT&gt;:</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(contract_instance.functions.cdps(<span class="st">"&lt;ACCOUNT&gt;"</span>).call())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>For example, for the CDP account <code>0x1f790c60D974F5A8f88558CA90F743a71F009641</code> it returns:</p>
-    <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">%</span> python3 aut_cdps.py</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[1695737259,</span> 410000024269118276, 300010815663118114, 0]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    </section>
-    <section id="get-debt-amount" class="level4">
-    <h4 class="anchored" data-anchor-id="get-debt-amount">Get CDP debt amount</h4>
-    <p>The debt of a CDP consists of the Auton borrowed (the ‘principal’) and accrued interest due charged at the borrow interest rate.</p>
-    <p>To get the current debt owed on a CDP and so the cost of liquidating the CDP, call <a href="../../reference/api/asm/stabilization/#debtamount"><code>debtAmount()</code></a>function of the Stabilization Contract using the <code>aut contract call</code> command. Pass in parameters for:</p>
-    <ul>
-    <li><code>&lt;ACCOUNT&gt;</code>: the CDP account address</li>
-    <li><code>&lt;TIMESTAMP&gt;</code>: the timestamp at which you want to value the debt. The timestamp is provided as a <a href="../../glossary/#unix-time">Unix time</a> value.</li>
-    </ul>
-    <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount <span class="op">&lt;</span>ACCOUNT<span class="op">&gt;</span> <span class="op">&lt;</span>TIMESTAMP<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>The call will return the total amount owed on the CDP, <code>debt + accrued interest</code>. The result is returned as an integer value in <a href="../../glossary/#ton"><code>ton</code></a>, Autonity’s equivalent of Ethereum’s <code>wei</code>.</p>
-    <p>In this example the debt amount for CDP <code>0x1f790c60D974F5A8f88558CA90F743a71F009641</code> is returned as <code>0.3008...</code> ATN at time point October 17 2023 14:16:37 GMT:</p>
-    <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ubuntu@vps-c7c3e8c7:~/TEST/autcli$</span> aut contract call <span class="at">--abi</span> Stabilization.abi <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1697552197</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>Returning:</p>
-    <div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">300875359676920667</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    </section>
-    </section>
-    </section>
-    <section id="liquidate-a-cdp" class="level2">
-    <h2 class="anchored" data-anchor-id="liquidate-a-cdp">Liquidate a CDP</h2>
-    <p>To liquidate a CDP in a liquidatable state submit a <code>liquidate</code> transaction to the <a href="../../reference/api/asm/stabilization/#liquidate"><code>liquidate()</code></a> function of the Stabilization Contract using the <code>aut contract call</code> command. Pass in parameter:</p>
-    <ul>
-    <li><code>&lt;ACCOUNT&gt;</code>: the CDP account address to liquidate</li>
-    <li><code>&lt;AMOUNT&gt;</code>: the payment amount, sufficient to repay the outstanding debt of the CDP</li>
-    </ul>
-    <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aut</span> contract tx <span class="at">--address</span> 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f <span class="at">--value</span> <span class="op">&lt;</span>AMOUNT<span class="op">&gt;</span> liquidate <span class="op">&lt;</span>ACCOUNT<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-    <p>The transaction will revert if the CDP is not liquidatable or the payment is insufficient to repay the debt.</p>
-    <p>On success, the CDP’s collateral token and any surplus Auton remaining from the payment are transferred to your account.</p>
+    <hr>
+    <p>If you need help, you can chat to us on Autonity <a href="https://discord.gg/autonity">Discord Server</a>!</p>
     
     
+    </section>
     </section>
 
         </main> <!-- /main -->
