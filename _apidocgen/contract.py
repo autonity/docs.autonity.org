@@ -57,8 +57,6 @@ def generate_contract_doc(
 
     if "notice" in userdoc:
         doc.add_paragraph(userdoc["notice"])
-    if "details" in devdoc:
-        doc.add_paragraph(devdoc["details"])
 
     for element_type in (ElementType.EVENT, ElementType.FUNCTION):
         if abi_elements := eth_utils.filter_abi_by_type(str(element_type), abi):  # type: ignore
@@ -75,21 +73,19 @@ def generate_contract_doc(
                 if abi_element["name"] in config.get("excludes", []):
                     continue
 
-                signature = eth_utils.abi_to_signature(abi_element)
+                signature = eth_utils.abi.abi_to_signature(abi_element)
                 userdoc_element = userdoc_elements.get(signature, {})
                 devdoc_element = devdoc_elements.get(signature, {})
 
                 if "custom:exclude" in devdoc_element:
                     continue
-                if not (userdoc_element or devdoc_element):
-                    logger.warning("%s is undocumented", signature)
 
                 title_parts = []
                 mutability = ""
 
                 if element_type is ElementType.FUNCTION:
-                    function_selector = eth_utils.to_hex(
-                        eth_utils.function_abi_to_4byte_selector(abi_element)
+                    function_selector = eth_utils.conversions.to_hex(
+                        eth_utils.abi.function_abi_to_4byte_selector(abi_element)
                     )
                     title_parts.append(function_selector)
                     mutability = doc.format_macro(
@@ -109,12 +105,15 @@ def generate_contract_doc(
 
                 if notice := userdoc_element.get("notice"):
                     doc.add_paragraph(notice)
-
-                if details := devdoc_element.get("details"):
-                    doc.add_paragraph(details)
+                else:
+                    logger.warning("%s is missing @notice", signature)
 
                 if emitted_events := devdoc_element.get("custom:event"):
                     doc.add_paragraph(emitted_events)
+
+                devdoc_params = devdoc_element.get("params", {})
+                if not devdoc_params:
+                    logger.warning("%s is missing @params", signature)
 
                 inputs_table = []
                 for abi_input in abi_element.get("inputs", []):
@@ -122,7 +121,7 @@ def generate_contract_doc(
                         [
                             abi_input["name"],
                             abi_input["type"],
-                            devdoc_element.get("params", {}).get(abi_input["name"], ""),
+                            devdoc_params.get(abi_input["name"], ""),
                         ]
                     )
                 if inputs_table:
@@ -130,6 +129,10 @@ def generate_contract_doc(
                     doc.add_table(["Name", "Type", "Description"], inputs_table)
 
                 if abi_element.get("stateMutability") in ("view", "pure"):
+                    devdoc_returns = devdoc_element.get("returns", {})
+                    if not devdoc_returns:
+                        logger.warning("%s is missing @returns", signature)
+
                     outputs_table = []
                     for i, abi_output in enumerate(abi_element.get("outputs", [])):
                         output_name = abi_output["name"] or f"_{i}"
@@ -137,7 +140,7 @@ def generate_contract_doc(
                             [
                                 abi_output["name"],
                                 abi_output["type"],
-                                devdoc_element.get("returns", {}).get(output_name, ""),
+                                devdoc_returns.get(output_name, ""),
                             ]
                         )
                     if outputs_table:
