@@ -103,6 +103,7 @@ filters:
   - _filters/page-info.lua
   - _filters/card-substitution.lua
   - _filters/footer-navigation.lua
+  - _filters/mutability.lua
 format:
   html:    
     link-external-icon: true

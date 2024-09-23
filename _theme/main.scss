@@ -68,8 +68,12 @@ $font-family-monospace: 'Berkeley Mono', monospace;
     --header-size: 25px;
     --bold: 600;
     --gutter-spacing: 1.25em;
+    --green: #528f18;
+    --blue: #5656e9;
+    --purple: #cb6ce3;
     
 }
+
 /* For Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
     width: 3px;   /* Scrollbar width */
@@ -181,7 +185,6 @@ div#quarto-margin-sidebar {
 }
 
 nav#TOC {
-    border: var(--primary-border);
     padding: var(--standard-spacing);
     overflow-x: hidden;
 }
@@ -370,4 +373,36 @@ img.footer-link-image {
     h3, .h3 {
         font-size: 16px;
     }
+}
+
+.mutability-tag {
+    border: 1px solid var(--secondary-color);
+    padding: 2px 12px;    
+    font-size: 12px;
+}
+
+.payable-tag {
+    color: var(--green);
+}
+
+.view-tag { 
+    color: var(--blue);
+}
+
+.pure-tag {
+    color: var(--purple);
+}
+
+.mutability-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.mutability-tag {
+    border: 1px solid var(--secondary-color);
+    padding: 2px 12px;
+    font-size: 12px;
+    position: absolute;
+    right: 0px;
+    top: -30px;
 }

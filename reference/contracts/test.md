@@ -199,14 +199,19 @@ called by the Autonity Contract at block finalization, before processing reward 
 | tuple[] |
 
 ### [handleEvent(tuple)](https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L143)
+::: {.mutability mutability-type="payable"}
+:::
 
 #### Parameters
 
 | Name | Type |
 | --- | --- |
 | _event | tuple |
-
+::: {.method-title}
 ### [setEpochPeriod(uint256)](https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L523)
+::: {.mutability mutability-type="view"}
+:::
+:::
 
 called by the Autonity Contract when the epoch period is updated.
 
@@ -217,6 +222,8 @@ called by the Autonity Contract when the epoch period is updated.
 | _newPeriod | uint256 | the new epoch period. |
 
 ### [slashingHistory(address,uint256)](https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L86)
+::: {.mutability mutability-type="pure"}
+:::
 
 #### Parameters
 
