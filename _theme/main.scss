@@ -375,12 +375,6 @@ img.footer-link-image {
     }
 }
 
-.mutability-tag {
-    border: 1px solid var(--secondary-color);
-    padding: 2px 12px;    
-    font-size: 12px;
-}
-
 .payable-tag {
     color: var(--green);
 }
@@ -402,6 +396,7 @@ img.footer-link-image {
     border: 1px solid var(--secondary-color);
     padding: 2px 12px;
     font-size: 12px;
+    font-weight: bold;
     position: absolute;
     right: 0px;
     top: -30px;
