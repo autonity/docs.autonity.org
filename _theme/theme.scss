@@ -58,7 +58,11 @@ $text-muted: #6a737b;
 $font-family-monospace: 'Berkeley Mono', monospace;
 $font-size-root: 0.95rem;
 
-
+:root {
+    --secondary-border: var(--border-thickness) solid var(--bs-body-color);
+    --primary-border: var(--border-thickness) solid var(--bs-body-color);
+    --border-thickness: 1.53px;
+}
 /*-- scss:rules --*/
 body {
     font-family: proxima nova,sans-serif;
@@ -129,4 +133,52 @@ h5 {
 */
 .footer-list {
     white-space: nowrap;
+}
+
+
+.footer-link {
+    border: var(--primary-border);
+    font-family: var(--header-font);
+    padding: 30px;
+    width: 50%;
+}
+
+.footer-link:hover {
+    border-color: var(--highlight-color);
+}
+
+.footer-link > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: var(--foreground-color);
+}
+
+.footer-navigation {
+    display: flex;
+    gap: 15px;
+}
+img.footer-link-image {
+    width: 15px;
+}
+.footer-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.prev-link>a>.footer-link-text {    
+    align-items: end;
+}
+
+.footer-link:hover .contract-name {
+    color: var(--highlight-color);
+}
+
+
+@media (min-width: 1200px) {
+    h3, .h3 {
+        font-size: 1.25rem;
+    }
 }
