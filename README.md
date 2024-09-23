@@ -52,8 +52,6 @@ The repo is configured to publish:
 
 The staging site is available [here](https://autonity.github.io/docs.autonity.org/). The staging site is updated automatically on every push to the `staging` branch.
   
-For further details on merging or rebasing branches, see the [Git Workflow Wiki Page](https://example.com/wiki).
-
 See the repo Wiki Page [Git Workflow](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow) for [when to `merge` or `rebase` branches when working on `game.autonity.org`](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow#when-to-merge-and-rebase-when-working-on-gameautonityorg) repo.
 
 ## Other Piccadilly site resources
