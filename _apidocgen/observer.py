@@ -7,7 +7,7 @@ To be used with the --watch option.
 import logging
 import time
 from os import path
-from typing import Callable
+from typing import Callable, TypeAlias
 
 from watchdog.events import DirModifiedEvent, FileModifiedEvent, FileSystemEventHandler
 from watchdog.observers import Observer
@@ -18,7 +18,7 @@ DEBOUNCE_TIME = 3
 logger = logging.getLogger("Watch")
 _most_recent_calls: dict[str, float] = {}
 
-CallbackFunction = Callable[[], None]
+CallbackFunction: TypeAlias = Callable[[], None]
 
 
 class _EventHandler(FileSystemEventHandler):

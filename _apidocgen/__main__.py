@@ -8,7 +8,6 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from os import path
 
-from . import DEBUG
 from .compiler import compile_contracts
 from .config import load_toml, validate_config
 from .contract import (
@@ -27,7 +26,7 @@ DEFAULT_CONFIG_FILE = "config.toml"
 
 
 def main() -> None:
-    if not DEBUG:
+    if os.environ.get("DEBUG") not in ("1", "true", "True"):
         sys.tracebacklimit = 0
 
     args = parse_args()

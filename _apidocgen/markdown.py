@@ -7,6 +7,18 @@ from os import path
 class MarkdownDocument:
     _text = ""
 
+    @staticmethod
+    def format_link(text: str, url: str) -> str:
+        return f"[{text}]({url})"
+
+    @staticmethod
+    def format_header(level: int, text: str) -> str:
+        return "#" * level + " " + text + "\n"
+
+    @staticmethod
+    def format_macro(text: str) -> str:
+        return "::: " + text + "\n:::\n"
+
     def add_meta(self, metadata: dict[str, str]) -> None:
         self._text += (
             "---\n"
@@ -15,13 +27,13 @@ class MarkdownDocument:
         )
 
     def add_header(self, level: int, text: str) -> None:
-        self._text += "#" * level + " " + text + "\n\n"
+        self._text += self.format_header(level, text) + "\n"
 
-    def add_paragraph(self, text: str):
+    def add_paragraph(self, text: str) -> None:
         self._text += text + "\n\n"
 
-    def add_macro(self, text: str):
-        self._text += "::: " + text + "\n:::\n\n"
+    def add_macro(self, text: str) -> None:
+        self._text += self.format_macro(text) + "\n"
 
     def add_table(
         self,
@@ -45,9 +57,6 @@ class MarkdownDocument:
         for row in rows:
             self._text += "| " + " | ".join(row) + " |\n"
         self._text += "\n"
-
-    def format_link(self, text: str, url: str) -> str:
-        return f"[{text}]({url})"
 
     def write_to_file(self, file: str) -> None:
         os.makedirs(path.dirname(file), exist_ok=True)

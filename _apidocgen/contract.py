@@ -5,23 +5,25 @@ Loads and parses contract artefacts and converts data into Markdown.
 
 import logging
 import re
-from enum import Enum
+from enum import StrEnum
 from os import path
-from typing import TypeAlias
+from typing import TypeAlias, cast
 
-from . import DEBUG
+import eth_utils
+from eth_typing import ABI
+
 from .paths import Paths
 from .markdown import MarkdownDocument
 
 NATSPEC_VERSION = 1
 
-ContractArtefactTuple: TypeAlias = tuple[list[dict], dict, dict]  # abi, devdoc, userdoc
+ContractArtefactTuple: TypeAlias = tuple[ABI, dict, dict]  # abi, devdoc, userdoc
 ContractConfigTuple: TypeAlias = tuple[str, dict]  # contract_name, contract_config
-ItemType = Enum("ItemType", ("CONTRACT", "FUNCTION", "EVENT"))
+ElementType = StrEnum("ElementType", ("FUNCTION", "EVENT"))
 
 
 def load_contract_artefacts(name: str, paths: Paths) -> ContractArtefactTuple:
-    abi = paths.load_abi(name)
+    abi = cast(ABI, paths.load_abi(name))
     devdoc = paths.load_devdoc(name)
     userdoc = paths.load_userdoc(name)
 
@@ -39,7 +41,7 @@ def load_contract_artefacts(name: str, paths: Paths) -> ContractArtefactTuple:
 def generate_contract_doc(
     name: str,
     config: dict,
-    abi: list[dict],
+    abi: ABI,
     devdoc: dict,
     userdoc: dict,
     prev_config: dict | None,
@@ -48,7 +50,7 @@ def generate_contract_doc(
 ) -> None:
     logger = logging.getLogger(name)
 
-    abi = sorted(abi, key=lambda item: item.get("name", ""))
+    abi = sorted(abi, key=lambda element: element.get("name", ""))  # type: ignore
 
     doc = MarkdownDocument()
     doc.add_meta({"title": config["display_name"]})
@@ -58,78 +60,84 @@ def generate_contract_doc(
     if "details" in devdoc:
         doc.add_paragraph(devdoc["details"])
 
-    for item_type in (ItemType.EVENT, ItemType.FUNCTION):
-        if abi_items := filter_abi_items(abi, item_type):
-            userdoc_items = filter_natspec_items(userdoc, item_type)
-            devdoc_items = filter_natspec_items(devdoc, item_type)
+    for element_type in (ElementType.EVENT, ElementType.FUNCTION):
+        if abi_elements := eth_utils.filter_abi_by_type(str(element_type), abi):  # type: ignore
+            userdoc_elements = filter_natspec_by_type(element_type, userdoc)
+            devdoc_elements = filter_natspec_by_type(element_type, devdoc)
 
             subtitle = {
-                ItemType.EVENT: "Events",
-                ItemType.FUNCTION: "Functions",
-            }[item_type]
+                ElementType.EVENT: "Events",
+                ElementType.FUNCTION: "Functions",
+            }[element_type]
             doc.add_header(2, subtitle)
 
-            for abi_item in abi_items:
-                if abi_item["name"] in config.get("excludes", []):
+            for abi_element in abi_elements:
+                if abi_element["name"] in config.get("excludes", []):
                     continue
 
-                signature_for_lookup = get_abi_signature_for_lookup(abi_item)
-                userdoc_item = userdoc_items.get(signature_for_lookup, {})
-                devdoc_item = devdoc_items.get(signature_for_lookup, {})
+                signature = eth_utils.abi_to_signature(abi_element)
+                userdoc_element = userdoc_elements.get(signature, {})
+                devdoc_element = devdoc_elements.get(signature, {})
 
-                signature_for_title = get_abi_signature_for_title(abi_item)
-
-                if "custom:exclude" in devdoc_item:
+                if "custom:exclude" in devdoc_element:
                     continue
-                if not (userdoc_item or devdoc_item):
-                    logger.warning("%s is undocumented", signature_for_title)
+                if not (userdoc_element or devdoc_element):
+                    logger.warning("%s is undocumented", signature)
 
-                if link := paths.get_github_src_url(
-                    name, src_definition_regexp(abi_item, item_type)
-                ):
-                    item_title = doc.format_link(signature_for_title, link)
-                elif DEBUG:
-                    raise RuntimeError(
-                        f"{signature_for_lookup} could not be linked to source code"
-                    )
-                else:
-                    logger.warning(
-                        "%s could not be linked to source code", signature_for_lookup
-                    )
-                    item_title = signature_for_title
-                doc.add_header(3, item_title)
+                title_parts = []
+                mutability = ""
 
-                if notice := userdoc_item.get("notice"):
+                if element_type is ElementType.FUNCTION:
+                    function_selector = eth_utils.to_hex(
+                        eth_utils.function_abi_to_4byte_selector(abi_element)
+                    )
+                    title_parts.append(function_selector)
+                    mutability = doc.format_macro(
+                        '{.mutability mutability-type="'
+                        + abi_element["stateMutability"]
+                        + '"}'
+                    )
+
+                title_parts.append(abi_element["name"])
+                github_src_url = paths.get_github_src_url(
+                    name, src_definition_regexp(abi_element, element_type)
+                )
+                github_src_link = doc.format_link(" ".join(title_parts), github_src_url)
+                header = doc.format_header(3, github_src_link)
+
+                doc.add_macro("{.method-title}\n" + header + mutability)
+
+                if notice := userdoc_element.get("notice"):
                     doc.add_paragraph(notice)
 
-                if details := devdoc_item.get("details"):
+                if details := devdoc_element.get("details"):
                     doc.add_paragraph(details)
 
-                if emitted_events := devdoc_item.get("custom:event"):
+                if emitted_events := devdoc_element.get("custom:event"):
                     doc.add_paragraph(emitted_events)
 
                 inputs_table = []
-                for abi_input in abi_item.get("inputs", []):
+                for abi_input in abi_element.get("inputs", []):
                     inputs_table.append(
                         [
                             abi_input["name"],
                             abi_input["type"],
-                            devdoc_item.get("params", {}).get(abi_input["name"], ""),
+                            devdoc_element.get("params", {}).get(abi_input["name"], ""),
                         ]
                     )
                 if inputs_table:
                     doc.add_header(4, "Parameters")
                     doc.add_table(["Name", "Type", "Description"], inputs_table)
 
-                if item_type is ItemType.FUNCTION and is_view_function(abi_item):
+                if abi_element.get("stateMutability") in ("view", "pure"):
                     outputs_table = []
-                    for i, abi_output in enumerate(abi_item.get("outputs", [])):
+                    for i, abi_output in enumerate(abi_element.get("outputs", [])):
                         output_name = abi_output["name"] or f"_{i}"
                         outputs_table.append(
                             [
                                 abi_output["name"],
                                 abi_output["type"],
-                                devdoc_item.get("returns", {}).get(output_name, ""),
+                                devdoc_element.get("returns", {}).get(output_name, ""),
                             ]
                         )
                     if outputs_table:
@@ -162,68 +170,34 @@ def generate_contract_doc(
     logger.info("Generated %s", output_file)
 
 
-def get_abi_signature_for_title(abi_item: dict) -> str:
-    # Doesn't expand struct types
-    abi_inputs = abi_item.get("inputs", [])
-    return abi_item["name"] + "({})".format(
-        ",".join(abi_input["type"] for abi_input in abi_inputs)
-    )
-
-
-def get_abi_signature_for_lookup(abi_item: dict) -> str:
-    # Expands struct types
-    params = [
-        _abi_input_to_singature_type(abi_input)
-        for abi_input in abi_item.get("inputs", [])
+def filter_natspec_by_type(element_type: ElementType, natspec: dict) -> dict:
+    natspec_key = {ElementType.FUNCTION: "methods", ElementType.EVENT: "events"}[
+        element_type
     ]
-    return abi_item["name"] + "({})".format(",".join(params))
-
-
-def _abi_input_to_singature_type(abi_input: dict) -> str:
-    if abi_input["type"] == "tuple":
-        tuple_elems = [
-            _abi_input_to_singature_type(abi_component)
-            for abi_component in abi_input["components"]
-        ]
-        return "({})".format(",".join(tuple_elems))
-    return abi_input["type"]
-
-
-def is_view_function(abi_item: dict) -> bool:
-    return abi_item["stateMutability"] in ("view", "pure")
-
-
-def filter_abi_items(abi: list[dict], item_type: ItemType) -> list[dict]:
-    abi_type = {ItemType.FUNCTION: "function", ItemType.EVENT: "event"}[item_type]
-    return [item for item in abi if item["type"] == abi_type]
-
-
-def filter_natspec_items(natspec: dict, item_type: ItemType) -> dict:
-    natspec_key = {ItemType.FUNCTION: "methods", ItemType.EVENT: "events"}[item_type]
     return natspec.get(natspec_key, {})
 
 
 def src_definition_regexp(
-    abi_item: dict,
-    item_type: ItemType,
+    abi_element: dict,
+    element_type: ElementType,
 ) -> re.Pattern:
-    name = abi_item["name"]
+    name = abi_element["name"]
     parameter_types = [
         abi_type_to_sol_type_regexp(input["internalType"])
-        for input in abi_item.get("inputs", [])
+        for input in abi_element.get("inputs", [])
     ]
 
     # Match e.g. `vote(uint256 _commit, int256[] memory _reports, uint256 _salt )`
     sep = r"[\s\n]*"
     signature = rf"{name}{sep}\({sep}" + rf".+,{sep}".join(parameter_types) + r".+\)"
 
-    regexp_for_item_type = {
-        ItemType.EVENT: f"event{sep}{signature}",
+    regexp_for_element_type = {
+        ElementType.EVENT: f"event{sep}{signature}",
         # A contract function is either a Solidity `function` or an auto-generated
         # accessor function for a public contract property
-        ItemType.FUNCTION: f"(function{sep}{signature}|public.+{name}{sep}[;=])",
-    }[item_type]
-    return re.compile(regexp_for_item_type, re.MULTILINE | re.DOTALL)
+        ElementType.FUNCTION: f"(function{sep}{signature}|public.+{name}{sep}[;=])",
+    }[element_type]
+    return re.compile(regexp_for_element_type, re.MULTILINE | re.DOTALL)
 
 
 def abi_type_to_sol_type_regexp(internal_type: str) -> str:

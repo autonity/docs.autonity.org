@@ -1,4 +1,6 @@
 # API documentation generator dependencies
+eth-hash[pycryptodome]
+eth-utils
 schema
 toml
 watchdog

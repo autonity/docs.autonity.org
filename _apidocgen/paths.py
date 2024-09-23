@@ -48,7 +48,7 @@ class Paths:
             self.output_dir, contract_display_name.replace(" ", "-") + ".md"
         )
 
-    def get_github_src_url(self, contract_name: str, regexp: re.Pattern) -> str | None:
+    def get_github_src_url(self, contract_name: str, regexp: re.Pattern) -> str:
         src_files = [self.find_src_file(contract_name)]
         visited_files = []
 
@@ -66,7 +66,10 @@ class Paths:
                 if abs_import not in visited_files:
                     src_files.append(abs_import)
 
-        return None
+        raise RuntimeError(
+            f"Failed to find event or function definition in {contract_name} source "
+            f"code using regexp: {regexp}"
+        )
 
     @cache
     def find_src_file(self, contract_name: str) -> str:
