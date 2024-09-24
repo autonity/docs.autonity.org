@@ -41,10 +41,10 @@ into `./contracts/<autonity-tag>/`.
 
 1. If there are new contracts to document, add them to [`apidoc.toml`](./apidoc.toml).
    The configuration is documented [here](./_apidocgen/README.md#configuration).
-2. Switch to the release tag in Autonity, e.g. for v0.14.0:
+2. Switch to the release tag in Autonity, e.g. for v0.15.0:
    ```sh
    cd autonity
-   git checkout v0.14.0
+   git checkout v0.15.0
    ```
 3. Compile the protocol contracts:
    ```sh
@@ -60,7 +60,13 @@ into `./contracts/<autonity-tag>/`.
 The documents are saved into a subdirectory under `contracts` that is named after the
 Git tag of the Autonity release. If there have been additional commits since the last
 release in the Autonity repository, the commit ID is added to the tag and it looks like
-e.g. `v0.14.0-1-g0c79355c0`.
+e.g. `v0.15.0-1-g0c79355c0`.
+
+> [!NOTE]
+> Old Autonity branches (releases <= v0.14.1) do not build NatSpec data files.
+> To generate API documentation for these branches, run `patch-autonity` in the
+> root of this repository before step 3 to apply a patch to `autonity/Makefile`
+> that modifies `solc` compiler options.
 
 ### Developing contract documentation
 

@@ -4,6 +4,7 @@ import glob
 import json
 import re
 import subprocess
+import sys
 import time
 from functools import cache
 from itertools import chain
@@ -38,10 +39,10 @@ class Paths:
         return load_json(path.join(self.build_dir, f"{contract_name}.abi"))
 
     def load_userdoc(self, contract_name: str) -> dict[str, Any]:
-        return load_json(path.join(self.build_dir, f"{contract_name}.docuser"))
+        return load_natspec(path.join(self.build_dir, f"{contract_name}.docuser"))
 
     def load_devdoc(self, contract_name: str) -> dict[str, Any]:
-        return load_json(path.join(self.build_dir, f"{contract_name}.docdev"))
+        return load_natspec(path.join(self.build_dir, f"{contract_name}.docdev"))
 
     def get_output_file_path(self, contract_display_name: str) -> str:
         return path.join(
@@ -88,6 +89,18 @@ class Paths:
 def load_json(file: str) -> Any:
     with open(file) as f:
         return json.load(f)
+
+
+def load_natspec(file: str) -> dict[str, Any]:
+    try:
+        return load_json(file)
+    except FileNotFoundError:
+        print(
+            "Note: For Autonity <= v0.14.1 run `patch-autonity` "
+            "to patch `make contracts` to build .docuser and .docdev files.",
+            file=sys.stderr,
+        )
+        raise
 
 
 def get_git_tag(repo_root: str) -> str:
