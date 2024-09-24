@@ -10,29 +10,100 @@ github_url = "https://github.com/autonity/autonity"
 output_dir = "contracts"
 
 [contracts.Accountability]
-excludes = ["distributeRewards", "finalize", "setEpochPeriod"]
+excludes = [
+  # onlyAutonity
+  "distributeRewards",
+  "finalize",
+  "setEpochPeriod",
+  # onlyValidator
+  "handleEvent",
+]
 
 [contracts.ACU]
-excludes = ["setOperator", "setOracle", "update"]
+excludes = [
+  # onlyAutonity
+  "setOperator",
+  "setOracle",
+  "update",
+]
 
 [contracts.Autonity]
 excludes = [
+  # onlyAccountability
+  "updateValidatorAndTransferSlashedFunds",
+  # onlyOperator
+  "burn",
+  "mint",
+  "setAccountabilityContract",
+  "setAcuContract",
+  "setCommitteeSize",
+  "setEpochPeriod",
+  "setInflationControllerContract",
+  "setMaxBondAppliedGas",
+  "setMaxRewardsDistributionGas",
+  "setMaxUnbondAppliedGas",
+  "setMaxUnbondReleasedGas",
+  "setMinimumBaseFee",
+  "setNonStakableVestingContract",
+  "setOperatorAccount",
+  "setOracleContract",
+  "setStabilizationContract",
+  "setStakingGasPrice",
+  "setSupplyControlContract",
+  "setTreasuryAccount",
+  "setTreasuryFee",
+  "setUnbondingPeriod",
+  "setUpgradeManagerContract",
+  # onlyProtocol
   "computeCommittee",
   "finalize",
   "finalizeInitialization",
-  "updateValidatorAndTransferSlashedFunds",
 ]
 
 [contracts.Liquid]
 display_name = "Liquid Newton"
-excludes = ["burn", "lock", "mint", "redistribute", "setCommissionRate", "unlock"]
+excludes = [
+  # onlyAutonity
+  "burn",
+  "lock",
+  "mint",
+  "redistribute",
+  "setCommissionRate",
+  "unlock",
+]
 
 [contracts.Oracle]
-excludes = ["finalize", "setOperator", "setVoters"]
+excludes = [
+  # onlyAutonity
+  "finalize",
+  "setOperator",
+  "setVoters",
+  # onlyOperator
+  "setSymbols",
+  # onlyVoters
+  "vote",
+]
 
 [contracts.Stabilization]
-excludes = ["setOperator", "setOracle"]
+excludes = [
+  # onlyAutonity
+  "setOperator",
+  "setOracle",
+  # onlyOperator
+  "setLiquidationRatio",
+  "setMinCollateralizationRatio",
+  "setMinDebtRequirement",
+  "setSupplyControl",
+]
 
 [contracts.SupplyControl]
 display_name = "Supply Control"
-excludes = ["setOperator"]
+excludes = [
+  # onlyAutonity
+  "setOperator",
+  # onlyOperator
+  "setStabilizer",
+  # onlyStabilizer
+  "burn",
+  "mint",
+]
