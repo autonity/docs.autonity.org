@@ -17,7 +17,7 @@ A (symlink to a) clone of the [Autonity repository](https://github.com/autonity/
 is assumed to be in the working directory, or its path can be specified with the
 `--autonity` command line option.
 
-The configuration is read from a TOML file. This defaults to `config.toml` in the
+The configuration is read from a TOML file. This defaults to `apidoc.toml` in the
 working directory, or its path can be specified with the `--config` command line
 option.
 

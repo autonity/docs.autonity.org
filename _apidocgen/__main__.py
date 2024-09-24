@@ -22,7 +22,7 @@ from .observer import run_file_observer
 PROG = "apidocgen"
 
 DEFAULT_AUTONITY_PATH = "autonity"
-DEFAULT_CONFIG_FILE = "config.toml"
+DEFAULT_CONFIG_FILE = "apidoc.toml"
 
 
 def main() -> None:

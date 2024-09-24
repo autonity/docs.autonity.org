@@ -28,7 +28,7 @@ comments from Autonity protocol contracts and converts them into Markdown files.
 
 **TL/DR:** Symlink an [autonity](https://github.com/autonity/autonity) repository
 clone into the root of this repository and run [`apidocgen`](./_apidocgen/). The
-configuration is in [`config.toml`](./config.toml); the generated files are saved
+configuration is in [`apidoc.toml`](./apidoc.toml); the generated files are saved
 into `./contracts/<autonity-tag>/`.
 
 ### Setup
@@ -39,7 +39,7 @@ into `./contracts/<autonity-tag>/`.
 
 ### Adding API documentation for a new Autonity release
 
-1. If there are new contracts to document, add them to [`config.toml`](./config.toml).
+1. If there are new contracts to document, add them to [`apidoc.toml`](./apidoc.toml).
    The configuration is documented [here](./_apidocgen/README.md#configuration).
 2. Switch to the release tag in Autonity, e.g. for v0.14.0:
    ```sh
