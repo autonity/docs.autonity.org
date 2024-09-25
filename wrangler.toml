@@ -1,5 +1,4 @@
 name = "docs.autonity.org"
-type = "javascript"
 account_id = "$CLOUDFLARE_ACCOUNT_ID"
 workers_dev = true
 pages_build_output_dir = "./docs"
@@ -9,8 +8,7 @@ name = "QUARTO_VERSION"
 value = "1.5.56"
 
 [build]
-command = "wget https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb && sudo dpkg -i quarto-${QUARTO_VERSION}-linux-amd64.deb
- && quarto render"
+command = "wget https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb && sudo dpkg -i quarto-${QUARTO_VERSION}-linux-amd64.deb && quarto render"
 
 [build.upload]
 dir = "./docs"
