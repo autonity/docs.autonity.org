@@ -30,20 +30,7 @@ jobs:
             projectName: docs-autonity-org
             directory: ./docs
             gitHubToken: ${{ secrets.GITHUB_TOKEN }}                                  
-        - name: Post Cloudflare Preview Comment
-          uses: actions/github-script@v6
+        - uses: mshick/add-pr-comment@v2
           with:
-            script: |
-                const url = `{{ steps.cloudflare_deploy.outputs.url }}`;
-                const environment = `{{ steps.cloudflare_deploy.outputs.environment }}`;
-                const comment = `
-                ## Cloudflare Deployment Details
-                - **Preview URL**: [${url}](${url})
-                - **Environment**: ${environment}
-                `;                
-                github.rest.issues.createComment({
-                    issue_number: context.payload.pull_request.number,
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    body: comment
-                });
+              message: |
+                🚀 This branch can be previewed at ${{ steps.cloudflare_deploy.outputs.url }}
