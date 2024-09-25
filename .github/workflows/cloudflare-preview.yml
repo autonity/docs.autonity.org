@@ -28,17 +28,14 @@ jobs:
             accountId:  ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
             projectName: docs-autonity-org
             directory: ./docs
-            gitHubToken: ${{ secrets.GITHUB_TOKEN }} 
-          # Step to extract the Cloudflare preview URL from the logs
-        - name: Extract Cloudflare Preview URL
-          id: extract_url
+            gitHubToken: ${{ secrets.GITHUB_TOKEN }}                            
+      # Docs state that cloudflare provide URL as an output.
+        - name: Log Cloudflare Pages Outputs
           run: |
-            # Search for the Cloudflare preview URL in the deploy step output
-            CF_URL=$(cat $GITHUB_STEP_SUMMARY | grep -oP 'https://[a-z0-9-]+\.docs-autonity-org\.pages\.dev')
-            echo "Cloudflare Preview URL: $CF_URL"
-                echo "CF_URL=$CF_URL" >> $GITHUB_ENV
-
-        # Post a comment with the Cloudflare Preview URL
+            echo "Cloudflare Deployment ID: ${{ steps.cloudflare_deploy.outputs.id }}"
+            echo "Cloudflare Deployment URL: ${{ steps.cloudflare_deploy.outputs.url }}"
+            echo "Cloudflare Deployment Alias: ${{ steps.cloudflare_deploy.outputs.alias }}"
+            echo "Cloudflare Deployment Environment: ${{ steps.cloudflare_deploy.outputs.environment }}"
         - name: Post Cloudflare Preview Comment
           uses: actions/github-script@v6
           env:
