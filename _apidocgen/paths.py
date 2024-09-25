@@ -39,7 +39,7 @@ class Paths:
 
         self.output_dir = path.join(
             output_dir,
-            f"wip-{int(time.time())}" if wip_mode else get_git_tag(self.autonity_dir),
+            f"wip-{int(time.time())}" if wip_mode else self.get_document_version()
         )
         self.github_url = autonity_config["github_url"]
 
@@ -90,8 +90,20 @@ class Paths:
 
     def construct_github_src_url(self, src_file: str, lineno: int) -> str:
         relpath = path.relpath(src_file, self.autonity_dir)
-        git_tag = get_git_tag(self.autonity_dir)
-        return f"{self.github_url}/tree/{git_tag}/{relpath}#L{lineno}"
+        commit_id = get_commit_id(self.autonity_dir)
+        return f"{self.github_url}/blob/{commit_id}/{relpath}#L{lineno}"
+
+    def get_document_version(self) -> str:
+        version = []
+        # Convert 'heads/develop' to 'develop' or
+        # 'tags/v0.14.0' to 'v0.14.0' or 'tags/v0.14.0-1-gc157e1344' to 'v0.14.0'
+        version.append(
+            get_git_object(self.autonity_dir).split("/", 1)[-1].split("-")[0]
+        )
+        version.append(get_commit_id(self.autonity_dir)[:8])
+        if is_repo_dirty(self.src_dir):
+            version.append("dirty")
+        return "-".join(version)
 
 
 def load_json(file: str) -> Any:
@@ -111,10 +123,23 @@ def load_natspec(file: str) -> dict[str, Any]:
         raise
 
 
-def get_git_tag(repo_root: str) -> str:
+def get_git_object(repo_dir: str) -> str:
     return subprocess.check_output(
-        ["git", "describe", "--tags"], cwd=repo_root, text=True
+        ["git", "describe", "--all"], cwd=repo_dir, text=True
     ).strip()
+
+
+def get_commit_id(repo_dir: str) -> str:
+    return subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=repo_dir, text=True
+    ).strip()
+
+
+def is_repo_dirty(repo_dir: str) -> bool:
+    process = subprocess.run(
+        ["git", "diff-index", "--quiet", "HEAD", "."], cwd=repo_dir
+    )
+    return process.returncode > 0
 
 
 @cache
