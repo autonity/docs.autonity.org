@@ -80,26 +80,33 @@ def generate_contract_doc(
                 if "custom:exclude" in devdoc_element:
                     continue
 
-                title_parts = []
+                selector = ""
                 mutability = ""
 
                 if element_type is ElementType.FUNCTION:
-                    function_selector = eth_utils.conversions.to_hex(
+                    selector_bytes = eth_utils.conversions.to_hex(
                         eth_utils.abi.function_abi_to_4byte_selector(abi_element)
                     )
-                    title_parts.append(function_selector)
+                    selector = (
+                        doc.format_inline_html(
+                            selector_bytes, "span", {"class": "selector"}
+                        )
+                        + " "
+                    )
+
                     mutability = doc.format_macro(
                         '{.mutability mutability-type="'
                         + abi_element["stateMutability"]
                         + '"}'
                     )
 
-                title_parts.append(abi_element["name"])
-                github_src_url = paths.get_github_src_url(
-                    name, src_definition_regexp(abi_element, element_type)
+                github_src_link = doc.format_link(
+                    abi_element["name"],
+                    paths.get_github_src_url(
+                        name, src_definition_regexp(abi_element, element_type)
+                    ),
                 )
-                github_src_link = doc.format_link(" ".join(title_parts), github_src_url)
-                header = doc.format_header(3, github_src_link)
+                header = doc.format_header(3, selector + github_src_link)
 
                 doc.add_macro("{.method-title}\n" + header + mutability)
 

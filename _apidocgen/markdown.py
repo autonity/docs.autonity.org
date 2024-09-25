@@ -12,6 +12,15 @@ class MarkdownDocument:
         return f"[{text}]({url})"
 
     @staticmethod
+    def format_inline_html(text: str, tagname: str, attributes: dict) -> str:
+        return (
+            f"<{tagname}"
+            + (" " if attributes else "")
+            + " ".join([f'{key}="{value}"' for key, value in attributes.items()])
+            + f">{text}</{tagname}>"
+        )
+
+    @staticmethod
     def format_header(level: int, text: str) -> str:
         return "#" * level + " " + text + "\n"
 
