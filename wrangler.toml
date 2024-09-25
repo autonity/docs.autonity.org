@@ -1,4 +1,4 @@
-name = "docs.autonity.org"
+name = "docs-autonity-org"
 account_id = "$CLOUDFLARE_ACCOUNT_ID"
 workers_dev = true
 pages_build_output_dir = "./docs"
