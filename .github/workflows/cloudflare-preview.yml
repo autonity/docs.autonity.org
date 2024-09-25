@@ -22,19 +22,21 @@ jobs:
           with:
             to: html
         - name: Publish to Cloudflare Pages
+          id: cloudflare_deploy
           uses: cloudflare/pages-action@v1
           with:
             apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
             accountId:  ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
             projectName: docs-autonity-org
             directory: ./docs
-            gitHubToken: ${{ secrets.GITHUB_TOKEN }}                            
- 
+            gitHubToken: ${{ secrets.GITHUB_TOKEN }}                                  
         - name: Log Cloudflare Pages Outputs
           run: |
-            echo "All Cloudflare Pages Outputs:"
-            echo "${{ toJSON(steps.cloudflare_deploy.outputs) }}"
-
+            echo "Cloudflare Deployment ID: ${{ steps.cloudflare_deploy.outputs.id }}"
+            echo "Cloudflare Deployment URL: ${{ steps.cloudflare_deploy.outputs.url }}"
+            echo "Cloudflare Deployment Alias: ${{ steps.cloudflare_deploy.outputs.alias }}"
+            echo "Cloudflare Deployment Environment: ${{ steps.cloudflare_deploy.outputs.environment }}"
+            echo "Cloudflare Deployment Status: ${{ steps.cloudflare_deploy.outputs.status }}"
         - name: Post Cloudflare Preview Comment
           uses: actions/github-script@v6
           env:
