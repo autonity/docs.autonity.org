@@ -5,7 +5,6 @@ import json
 import re
 import subprocess
 import sys
-import time
 from itertools import chain
 from os import path
 from typing import Any
@@ -23,23 +22,16 @@ class Paths:
         output_dir: str,
         autonity_dir: str,
         autonity_config: dict[str, str],
-        wip_mode: bool = False,
     ):
         self.autonity_dir = path.abspath(path.realpath(autonity_dir))
         assert_directory_exists(self.autonity_dir)
         assert_git_repository(self.autonity_dir)
 
-        self.build_dir = path.join(self.autonity_dir, autonity_config["build_dir"])
-        if not wip_mode:
-            assert_directory_exists(self.build_dir)
-
         self.src_dir = path.join(self.autonity_dir, autonity_config["src_dir"])
         assert_directory_exists(self.src_dir)
 
-        self.output_dir = path.join(
-            output_dir,
-            f"wip-{int(time.time())}" if wip_mode else self.get_document_version()
-        )
+        self.build_dir = path.join(self.autonity_dir, autonity_config["build_dir"])
+        self.output_dir = path.join(output_dir, self.get_document_version())
         self.github_url = autonity_config["github_url"]
 
     def load_abi(self, contract_name: str) -> list[dict[str, Any]]:
