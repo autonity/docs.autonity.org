@@ -6,7 +6,6 @@ import re
 import subprocess
 import sys
 import time
-from functools import cache
 from itertools import chain
 from os import path
 from typing import Any
@@ -80,7 +79,6 @@ class Paths:
             f"code using regexp: {regexp}"
         )
 
-    @cache
     def find_src_file(self, contract_name: str) -> str:
         if paths := glob.glob(
             path.join(self.src_dir, "**", f"{contract_name}.sol"), recursive=True
@@ -142,7 +140,6 @@ def is_repo_dirty(repo_dir: str) -> bool:
     return process.returncode > 0
 
 
-@cache
 def read_file(file: str) -> str:
     with open(file) as f:
         return f.read()
