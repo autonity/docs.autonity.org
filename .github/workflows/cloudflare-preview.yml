@@ -9,6 +9,7 @@ jobs:
       permissions:
         contents: write
         deployments: write
+        pull-requests: write
       steps:
         - name: Check out repository
           uses: actions/checkout@v4
@@ -28,3 +29,29 @@ jobs:
             projectName: docs-autonity-org
             directory: ./docs
             gitHubToken: ${{ secrets.GITHUB_TOKEN }} 
+          # Step to extract the Cloudflare preview URL from the logs
+        - name: Extract Cloudflare Preview URL
+          id: extract_url
+          run: |
+            # Search for the Cloudflare preview URL in the deploy step output
+            CF_URL=$(cat $GITHUB_STEP_SUMMARY | grep -oP 'https://[a-z0-9-]+\.docs-autonity-org\.pages\.dev')
+            echo "Cloudflare Preview URL: $CF_URL"
+                echo "CF_URL=$CF_URL" >> $GITHUB_ENV
+
+        # Post a comment with the Cloudflare Preview URL
+        - name: Post Cloudflare Preview Comment
+          uses: actions/github-script@v6
+          env:
+            CF_URL: ${{ env.CF_URL }}
+          with:
+            script: |
+                const comment = `
+                ## Cloudflare Preview URL
+                - **Preview**: [${process.env.CF_URL}](${process.env.CF_URL})
+                `;
+                github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+                });
