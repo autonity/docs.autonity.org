@@ -1,7 +1,7 @@
 on:
     pull_request:
         branches:
-        - develoop   
+        - develop   
 name: Cloudflare-preview
 jobs:
     build-deploy:
