@@ -12,6 +12,4 @@ value = "1.5.56"  # The version of Quarto you want to install
 command = "./install-quarto.sh && quarto render"
 
 [build.upload]
-# Path to your rendered static files after running Quarto render
 dir = "./docs"
-
