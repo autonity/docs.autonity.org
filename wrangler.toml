@@ -1,10 +1,6 @@
 name = "docs-autonity-org"
 pages_build_output_dir = "./docs"
 
-[[build.environment]]
-name = "QUARTO_VERSION"
-value = "1.5.56"
-
 [build]
-command = "wget https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb && sudo dpkg -i quarto-${QUARTO_VERSION}-linux-amd64.deb && quarto render"
+command = "wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.5.56/quarto-1.5.56-linux-amd64.deb && sudo dpkg -i quarto-${QUARTO_VERSION}-linux-amd64.deb && quarto render"
 
