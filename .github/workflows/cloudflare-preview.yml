@@ -30,26 +30,20 @@ jobs:
             projectName: docs-autonity-org
             directory: ./docs
             gitHubToken: ${{ secrets.GITHUB_TOKEN }}                                  
-        - name: Log Cloudflare Pages Outputs
-          run: |
-            echo "Cloudflare Deployment ID: ${{ steps.cloudflare_deploy.outputs.id }}"
-            echo "Cloudflare Deployment URL: ${{ steps.cloudflare_deploy.outputs.url }}"
-            echo "Cloudflare Deployment Alias: ${{ steps.cloudflare_deploy.outputs.alias }}"
-            echo "Cloudflare Deployment Environment: ${{ steps.cloudflare_deploy.outputs.environment }}"
-            echo "Cloudflare Deployment Status: ${{ steps.cloudflare_deploy.outputs.status }}"
         - name: Post Cloudflare Preview Comment
           uses: actions/github-script@v6
-          env:
-            CF_URL: ${{ env.CF_URL }}
           with:
             script: |
+                const url = `{{ steps.cloudflare_deploy.outputs.url }}`;
+                const environment = `{{ steps.cloudflare_deploy.outputs.environment }}`;
                 const comment = `
-                ## Cloudflare Preview URL
-                - **Preview**: [${process.env.CF_URL}](${process.env.CF_URL})
-                `;
+                ## Cloudflare Deployment Details
+                - **Preview URL**: [${url}](${url})
+                - **Environment**: ${environment}
+                `;                
                 github.rest.issues.createComment({
-                issue_number: context.payload.pull_request.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: comment
+                    issue_number: context.payload.pull_request.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body: comment
                 });
