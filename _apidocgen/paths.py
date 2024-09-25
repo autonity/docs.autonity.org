@@ -27,8 +27,16 @@ class Paths:
         wip_mode: bool = False,
     ):
         self.autonity_dir = path.abspath(path.realpath(autonity_dir))
+        assert_directory_exists(self.autonity_dir)
+        assert_git_repository(self.autonity_dir)
+
         self.build_dir = path.join(self.autonity_dir, autonity_config["build_dir"])
+        if not wip_mode:
+            assert_directory_exists(self.build_dir)
+
         self.src_dir = path.join(self.autonity_dir, autonity_config["src_dir"])
+        assert_directory_exists(self.src_dir)
+
         self.output_dir = path.join(
             output_dir,
             f"wip-{int(time.time())}" if wip_mode else get_git_tag(self.autonity_dir),
@@ -123,3 +131,11 @@ def parse_solidity_imports(file: str) -> list[str]:
         re.MULTILINE,
     )
     return [item for item in chain(*[match[1:] for match in matches]) if item != ""]
+
+
+def assert_directory_exists(dir: str) -> None:
+    assert path.isdir(dir), f"{dir}: no such directory"
+
+
+def assert_git_repository(dir: str) -> None:
+    assert path.isdir(path.join(dir, ".git")), f"{dir}: not a Git repository"
