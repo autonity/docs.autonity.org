@@ -1,0 +1,17 @@
+name = "docs.autonity.org"
+type = "javascript"
+account_id = "$CLOUDFLARE_ACCOUNT_ID"
+workers_dev = true
+compatibility_date = "2024-09-25"
+
+[[build.environment]]
+name = "QUARTO_VERSION"
+value = "1.5.56"  # The version of Quarto you want to install
+
+[build]
+command = "./install-quarto.sh && quarto render"
+
+[build.upload]
+# Path to your rendered static files after running Quarto render
+dir = "./docs"
+
