@@ -49,12 +49,10 @@ def generate_contract_doc(
     paths: Paths,
 ) -> None:
     logger = logging.getLogger(name)
-
     abi = sorted(abi, key=lambda element: element.get("name", ""))  # type: ignore
-
     doc = MarkdownDocument()
-    doc.add_meta({"title": config["display_name"]})
 
+    doc.add_meta({"title": config["display_name"]})
     if "notice" in userdoc:
         doc.add_paragraph(userdoc["notice"])
 
@@ -150,13 +148,13 @@ def generate_contract_doc(
 
     output_file = paths.get_output_file_path(config["display_name"])
 
-    nav_links = []
+    footer_attrs = [f'version="{paths.get_document_version()}"']
     if prev_config:
         link = path.relpath(
             paths.get_output_file_path(prev_config["display_name"]),
             path.dirname(output_file),
         )
-        nav_links.append(
+        footer_attrs.append(
             f'prev-url="{link}" prev-contract="{prev_config["display_name"]}"'
         )
     if next_config:
@@ -164,11 +162,10 @@ def generate_contract_doc(
             paths.get_output_file_path(next_config["display_name"]),
             path.dirname(output_file),
         )
-        nav_links.append(
+        footer_attrs.append(
             f'next-url="{link}" next-contract="{next_config["display_name"]}"'
         )
-    if nav_links:
-        doc.add_macro("{.footer-navigation " + " ".join(nav_links) + "}")
+    doc.add_macro("{.footer " + " ".join(footer_attrs) + "}")
 
     doc.write_to_file(output_file)
     logger.info("Generated %s", output_file)

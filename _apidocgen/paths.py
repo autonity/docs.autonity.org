@@ -31,7 +31,7 @@ class Paths:
         assert_directory_exists(self.src_dir)
 
         self.build_dir = path.join(self.autonity_dir, autonity_config["build_dir"])
-        self.output_dir = path.join(output_dir, self.get_document_version())
+        self.output_dir = output_dir
         self.github_url = autonity_config["github_url"]
 
     def load_abi(self, contract_name: str) -> list[dict[str, Any]]:
