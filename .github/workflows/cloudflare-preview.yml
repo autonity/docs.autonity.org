@@ -29,13 +29,12 @@ jobs:
             projectName: docs-autonity-org
             directory: ./docs
             gitHubToken: ${{ secrets.GITHUB_TOKEN }}                            
-      # Docs state that cloudflare provide URL as an output.
+ 
         - name: Log Cloudflare Pages Outputs
           run: |
-            echo "Cloudflare Deployment ID: ${{ steps.cloudflare_deploy.outputs.id }}"
-            echo "Cloudflare Deployment URL: ${{ steps.cloudflare_deploy.outputs.url }}"
-            echo "Cloudflare Deployment Alias: ${{ steps.cloudflare_deploy.outputs.alias }}"
-            echo "Cloudflare Deployment Environment: ${{ steps.cloudflare_deploy.outputs.environment }}"
+            echo "All Cloudflare Pages Outputs:"
+            echo "${{ toJSON(steps.cloudflare_deploy.outputs) }}"
+
         - name: Post Cloudflare Preview Comment
           uses: actions/github-script@v6
           env:
