@@ -6,7 +6,7 @@ pages_build_output_dir = "./docs"
 
 [[build.environment]]
 name = "QUARTO_VERSION"
-value = "1.5.56"  # The version of Quarto you want to install
+value = "1.5.56"
 
 [build]
 command = "./install-quarto.sh && quarto render"
