@@ -80,23 +80,17 @@ def generate_contract_doc(
                 if "custom:exclude" in devdoc_element:
                     continue
 
-                selector = ""
-                mutability = ""
+                metadata = ""
 
                 if element_type is ElementType.FUNCTION:
-                    selector_bytes = eth_utils.conversions.to_hex(
+                    selector = eth_utils.conversions.to_hex(
                         eth_utils.abi.function_abi_to_4byte_selector(abi_element)
                     )
-                    selector = (
-                        doc.format_inline_html(
-                            selector_bytes, "span", {"class": "selector"}
-                        )
-                        + " "
-                    )
-
-                    mutability = doc.format_macro(
-                        '{.mutability mutability-type="'
+                    metadata = doc.format_macro(
+                        '{.meta-data mutability-type="'
                         + abi_element["stateMutability"]
+                        + '" selector="'
+                        + selector
                         + '"}'
                     )
 
@@ -106,9 +100,9 @@ def generate_contract_doc(
                         name, src_definition_regexp(abi_element, element_type)
                     ),
                 )
-                header = doc.format_header(3, selector + github_src_link)
+                header = doc.format_header(3, github_src_link)
 
-                doc.add_macro("{.method-title}\n" + header + mutability)
+                doc.add_macro("{.method-title}\n" + header + metadata)
 
                 if notice := userdoc_element.get("notice"):
                     doc.add_paragraph(notice)
