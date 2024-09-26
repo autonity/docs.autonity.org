@@ -38,9 +38,12 @@ def main() -> None:
         config["autonity"],
     )
     configs = sorted(
-        (key, value)
-        for key, value in config["contracts"].items()
-        if key != "output_dir"
+        [
+            (name, value)
+            for name, value in config["contracts"].items()
+            if name != "output_dir"
+        ],
+        key=lambda item: item[0].casefold(),
     )
 
     if args.watch:
