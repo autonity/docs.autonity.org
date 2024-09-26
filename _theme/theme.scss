@@ -254,3 +254,8 @@ TOC .nav-link {
 .footer-version {
     color: var(--tertiary-color);
 }
+.contract-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
