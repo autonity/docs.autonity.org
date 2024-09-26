@@ -1732,6 +1732,45 @@
     ]
   },
   {
+    "objectID": "reference/contracts/autonity/test.html",
+    "href": "reference/contracts/autonity/test.html",
+    "title": "Oracle",
+    "section": "",
+    "text": "Event emitted after receiving a proof-of-innocence cancelling an accusation.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted after receiving an accusation, the reported validator has a certain amount of time to submit a proof-of-innocence, otherwise, he gets slashed.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _severity\n    uint256\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted when a fault proof has been submitted. The reported validator will be silencied and slashed at the end of the current epoch.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _severity\n    uint256\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted after a successful slashing.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    validator\n    address\n    \n    \n    amount\n    uint256\n    \n    \n    releaseBlock\n    uint256\n    \n    \n    isJailbound\n    bool\n    \n    \n    eventId\n    uint256",
+    "crumbs": [
+      "Reference",
+      "Contracts",
+      "Autonity",
+      "Oracle"
+    ]
+  },
+  {
+    "objectID": "reference/contracts/autonity/test.html#events",
+    "href": "reference/contracts/autonity/test.html#events",
+    "title": "Oracle",
+    "section": "",
+    "text": "Event emitted after receiving a proof-of-innocence cancelling an accusation.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted after receiving an accusation, the reported validator has a certain amount of time to submit a proof-of-innocence, otherwise, he gets slashed.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _severity\n    uint256\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted when a fault proof has been submitted. The reported validator will be silencied and slashed at the end of the current epoch.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _severity\n    uint256\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted after a successful slashing.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    validator\n    address\n    \n    \n    amount\n    uint256\n    \n    \n    releaseBlock\n    uint256\n    \n    \n    isJailbound\n    bool\n    \n    \n    eventId\n    uint256",
+    "crumbs": [
+      "Reference",
+      "Contracts",
+      "Autonity",
+      "Oracle"
+    ]
+  },
+  {
+    "objectID": "reference/contracts/autonity/test.html#functions",
+    "href": "reference/contracts/autonity/test.html#functions",
+    "title": "Oracle",
+    "section": "Functions",
+    "text": "Functions\n    \n    beneficiaries(address)\n    \n    Parameters\n    \n    \n    \n    Type\n    \n    \n    \n    \n    address\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    address\n    \n    \n    \n    \n    \n    \n    canAccuse(address,uint8,uint256)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _rule\n    uint8\n    \n    \n    _block\n    uint256\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _result\n    bool\n    \n    \n    _deadline\n    uint256\n    \n    \n    \n    \n    \n    \n    canSlash(address,uint8,uint256)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _rule\n    uint8\n    \n    \n    _block\n    uint256\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    bool\n    \n    \n    \n    \n    \n    \n    config()\n    \n    Returns\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    innocenceProofSubmissionWindow\n    uint256\n    \n    \n    baseSlashingRateLow\n    uint256\n    \n    \n    baseSlashingRateMid\n    uint256\n    \n    \n    collusionFactor\n    uint256\n    \n    \n    historyFactor\n    uint256\n    \n    \n    jailFactor\n    uint256\n    \n    \n    slashingRatePrecision\n    uint256\n    \n    \n    \n    \n    \n    \n    distributeRewards(address,uint256)\n    called by the Autonity Contract at block finalization, to reward the reporter of a valid proof.\n    \n    Parameters\n    \n    \n    \n    \n    \n    \n    \n    \n    Name\n    Type\n    Description\n    \n    \n    \n    \n    _validator\n    address\n    validator account which got slashed.\n    \n    \n    _ntnReward\n    uint256\n    total amount of ntn to be transferred to the repoter. MUST BE AVAILABLE in the accountability contract balance.\n    \n    \n    \n    \n    \n    \n    epochPeriod()\n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    uint256\n    \n    \n    \n    \n    \n    \n    events(uint256)\n    \n    Parameters\n    \n    \n    \n    Type\n    \n    \n    \n    \n    uint256\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    chunks\n    uint8\n    \n    \n    chunkId\n    uint8\n    \n    \n    eventType\n    uint8\n    \n    \n    rule\n    uint8\n    \n    \n    reporter\n    address\n    \n    \n    offender\n    address\n    \n    \n    rawProof\n    bytes\n    \n    \n    id\n    uint256\n    \n    \n    block\n    uint256\n    \n    \n    epoch\n    uint256\n    \n    \n    reportingBlock\n    uint256\n    \n    \n    messageHash\n    uint256\n    \n    \n    \n    \n    \n    \n    finalize(bool)\n    called by the Autonity Contract at block finalization, before processing reward redistribution.\n    \n    Parameters\n    \n    \n    \n    \n    \n    \n    \n    \n    Name\n    Type\n    Description\n    \n    \n    \n    \n    _epochEnd\n    bool\n    whether or not the current block is the last one from the epoch.\n    \n    \n    \n    \n    \n    \n    getValidatorAccusation(address)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _val\n    address\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    tuple\n    \n    \n    \n    \n    \n    \n    getValidatorFaults(address)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _val\n    address\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    tuple[]\n    \n    \n    \n    \n    \n    \n    handleEvent(tuple)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _event\n    tuple\n    \n    \n    \n    \n    \n    \n    setEpochPeriod(uint256)\n    called by the Autonity Contract when the epoch period is updated.\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    Description\n    \n    \n    \n    \n    _newPeriod\n    uint256\n    the new epoch period.\n    \n    \n    \n    \n    \n    \n    slashingHistory(address,uint256)\n    \n    Parameters\n    \n    \n    \n    Type\n    \n    \n    \n    \n    address\n    \n    \n    uint256\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    uint256\n    \n    \n    \n            \n                        \n                \n                 \n                \n                  Previous\n                  Previous Contract Name\n                             \n                \n              \n                      \n                \n                  \n                    Next\n                    Next Contract Name",
+    "crumbs": [
+      "Reference",
+      "Contracts",
+      "Autonity",
+      "Oracle"
+    ]
+  },
+  {
     "objectID": "reference/cli/oracle/index.html",
     "href": "reference/cli/oracle/index.html",
     "title": "Autonity Oracle Server Command-line",
@@ -2663,6 +2702,42 @@
     "crumbs": [
       "Reference",
       "Autonity Command-line"
+    ]
+  },
+  {
+    "objectID": "reference/contracts/test.html",
+    "href": "reference/contracts/test.html",
+    "title": "Accountability",
+    "section": "",
+    "text": "Event emitted after receiving a proof-of-innocence cancelling an accusation.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted after receiving an accusation, the reported validator has a certain amount of time to submit a proof-of-innocence, otherwise, he gets slashed.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _severity\n    uint256\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted when a fault proof has been submitted. The reported validator will be silencied and slashed at the end of the current epoch.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _severity\n    uint256\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted after a successful slashing.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    validator\n    address\n    \n    \n    amount\n    uint256\n    \n    \n    releaseBlock\n    uint256\n    \n    \n    isJailbound\n    bool\n    \n    \n    eventId\n    uint256",
+    "crumbs": [
+      "Reference",
+      "Contracts",
+      "Accountability"
+    ]
+  },
+  {
+    "objectID": "reference/contracts/test.html#events",
+    "href": "reference/contracts/test.html#events",
+    "title": "Accountability",
+    "section": "",
+    "text": "Event emitted after receiving a proof-of-innocence cancelling an accusation.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted after receiving an accusation, the reported validator has a certain amount of time to submit a proof-of-innocence, otherwise, he gets slashed.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _severity\n    uint256\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted when a fault proof has been submitted. The reported validator will be silencied and slashed at the end of the current epoch.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _severity\n    uint256\n    \n    \n    _id\n    uint256\n    \n    \n    \n    \n    \n    \n    \n    Event emitted after a successful slashing.\n    \n    \n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    validator\n    address\n    \n    \n    amount\n    uint256\n    \n    \n    releaseBlock\n    uint256\n    \n    \n    isJailbound\n    bool\n    \n    \n    eventId\n    uint256",
+    "crumbs": [
+      "Reference",
+      "Contracts",
+      "Accountability"
+    ]
+  },
+  {
+    "objectID": "reference/contracts/test.html#functions",
+    "href": "reference/contracts/test.html#functions",
+    "title": "Accountability",
+    "section": "Functions",
+    "text": "Functions\n    \n    beneficiaries(address)\n    \n    Parameters\n    \n    \n    \n    Type\n    \n    \n    \n    \n    address\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    address\n    \n    \n    \n    \n    \n    \n    canAccuse(address,uint8,uint256)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _rule\n    uint8\n    \n    \n    _block\n    uint256\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _result\n    bool\n    \n    \n    _deadline\n    uint256\n    \n    \n    \n    \n    \n    \n    canSlash(address,uint8,uint256)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _offender\n    address\n    \n    \n    _rule\n    uint8\n    \n    \n    _block\n    uint256\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    bool\n    \n    \n    \n    \n    \n    \n    config()\n    \n    Returns\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    innocenceProofSubmissionWindow\n    uint256\n    \n    \n    baseSlashingRateLow\n    uint256\n    \n    \n    baseSlashingRateMid\n    uint256\n    \n    \n    collusionFactor\n    uint256\n    \n    \n    historyFactor\n    uint256\n    \n    \n    jailFactor\n    uint256\n    \n    \n    slashingRatePrecision\n    uint256\n    \n    \n    \n    \n    \n    \n    distributeRewards(address,uint256)\n    called by the Autonity Contract at block finalization, to reward the reporter of a valid proof.\n    \n    Parameters\n    \n    \n    \n    \n    \n    \n    \n    \n    Name\n    Type\n    Description\n    \n    \n    \n    \n    _validator\n    address\n    validator account which got slashed.\n    \n    \n    _ntnReward\n    uint256\n    total amount of ntn to be transferred to the repoter. MUST BE AVAILABLE in the accountability contract balance.\n    \n    \n    \n    \n    \n    \n    epochPeriod()\n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    uint256\n    \n    \n    \n    \n    \n    \n    events(uint256)\n    \n    Parameters\n    \n    \n    \n    Type\n    \n    \n    \n    \n    uint256\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    chunks\n    uint8\n    \n    \n    chunkId\n    uint8\n    \n    \n    eventType\n    uint8\n    \n    \n    rule\n    uint8\n    \n    \n    reporter\n    address\n    \n    \n    offender\n    address\n    \n    \n    rawProof\n    bytes\n    \n    \n    id\n    uint256\n    \n    \n    block\n    uint256\n    \n    \n    epoch\n    uint256\n    \n    \n    reportingBlock\n    uint256\n    \n    \n    messageHash\n    uint256\n    \n    \n    \n    \n    \n    \n    finalize(bool)\n    called by the Autonity Contract at block finalization, before processing reward redistribution.\n    \n    Parameters\n    \n    \n    \n    \n    \n    \n    \n    \n    Name\n    Type\n    Description\n    \n    \n    \n    \n    _epochEnd\n    bool\n    whether or not the current block is the last one from the epoch.\n    \n    \n    \n    \n    \n    \n    getValidatorAccusation(address)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _val\n    address\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    tuple\n    \n    \n    \n    \n    \n    \n    getValidatorFaults(address)\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _val\n    address\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    tuple[]\n    \n    \n    \n    \n    \n    \n    handleEvent(tuple)\n                    payable\n                \n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    \n    \n    \n    \n    _event\n    tuple\n    \n    \n    \n    \n    \n    \n    setEpochPeriod(uint256)\n                    view\n                \n    \n    called by the Autonity Contract when the epoch period is updated.\n    \n    Parameters\n    \n    \n    \n    Name\n    Type\n    Description\n    \n    \n    \n    \n    _newPeriod\n    uint256\n    the new epoch period.\n    \n    \n    \n    \n    \n    slashingHistory(address,uint256)\n                    pure\n                \n    \n    Parameters\n    \n    \n    \n    Type\n    \n    \n    \n    \n    address\n    \n    \n    uint256\n    \n    \n    \n    \n    \n    Returns\n    \n    \n    \n    Type\n    \n    \n    \n    \n    uint256\n    \n    \n    \n            \n                        \n                \n                 \n                \n                  Previous\n                  Previous Contract Name",
+    "crumbs": [
+      "Reference",
+      "Contracts",
+      "Accountability"
     ]
   },
   {

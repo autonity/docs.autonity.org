@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
-    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
-    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff2" as="font" type="font/woff2" crossorigin="">
     
 
-    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
-    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
-    <link rel="preload" href="../../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Regular.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Bold.woff" as="font" type="font/woff" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/berkeley/BerkeleyMono-Italic.woff" as="font" type="font/woff" crossorigin="">
 
 
-    <link rel="preload" href="../../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
-    <link rel="preload" href="../../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
-    <link rel="preload" href="../../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin="">
+    <link rel="preload" href="../../_theme/fonts/noto/NotoSans-Italic.ttf" as="font" type="font/ttf" crossorigin="">    
 
     <meta charset="utf-8">
     <meta name="generator" content="quarto-1.4.551">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-    <meta name="description" content="Auton Stabilization Mechanism Contract functions">
 
-    <title>Autonity Documentation - ASM Contract Interface</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Autonity Documentation - Accountability</title>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         code{white-space: pre-wrap;}
         span.smallcaps{font-variant: small-caps;}
@@ -36,25 +35,23 @@
         }
     </style>
     
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<link href="../../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
-<script src="../../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
         <script id="quarto-search-options" type="application/json">{
           "location": "navbar",
           "copy-button": false,
@@ -81,43 +78,12 @@
             "search-label": "Search"
           }
         }</script>
-        <script>
-
-          window.document.addEventListener("DOMContentLoaded", function (_event) {
-            const listingTargetEl = window.document.querySelector('#listing-listing .list');
-            if (!listingTargetEl) {
-              // No listing discovered, do not attach.
-              return; 
-            }
-
-            const options = {
-              valueNames: ['listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-              
-              searchColumns: ["listing-title","listing-author"],
-            };
-
-            window['quarto-listings'] = window['quarto-listings'] || {};
-            window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-            if (window['quarto-listing-loaded']) {
-              window['quarto-listing-loaded']();
-            }
-          });
-
-          window.addEventListener('hashchange',() => {
-            if (window['quarto-listing-loaded']) {
-              window['quarto-listing-loaded']();
-            }
-          })
-          </script>
         <style>html{ scroll-behavior: smooth; }</style>
         <link rel="preconnect" href="https://plausible.io">
         <script defer="" data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
         <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
     
-            <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-            <link rel="stylesheet" href="../../../_assets/css/styles.css">
+            <link rel="stylesheet" href="../../_assets/css/styles.css">
     </head>
 
 <body class="nav-sidebar docked nav-fixed">
@@ -127,10 +93,10 @@
             <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
               <div class="navbar-container container-fluid">
               <div class="navbar-brand-container mx-auto">
-            <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
-            <img src="../../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+            <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+            <img src="../../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
             </a>
-            <a class="navbar-brand" href="../../../index.html">
+            <a class="navbar-brand" href="../../index.html">
             <span class="navbar-title">Autonity Documentation</span>
             </a>
           </div>
@@ -144,7 +110,7 @@
               <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
                 <i class="bi bi-layout-text-sidebar-reverse"></i>
               </button>
-                <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Reference</li><li class="breadcrumb-item"><a href="../../../reference/api/index.html">Autonity Interfaces</a></li><li class="breadcrumb-item"><a href="../../../reference/api/asm/index.html">ASM Contract Interface</a></li></ol></nav>
+                <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Reference</li><li class="breadcrumb-item"><a href="../../reference/contracts/test.html">Contracts</a></li><li class="breadcrumb-item"><a href="../../reference/contracts/test.html">Accountability</a></li></ol></nav>
                 <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
                 </a>
             </div>
@@ -158,13 +124,13 @@
             <ul class="list-unstyled mt-1">
                 <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Getting started</span></a>
           </div>
         </li>
                 <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../overview/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../overview/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Overview</span></a>
           </div>
         </li>
@@ -179,19 +145,19 @@
               <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/architecture/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Architecture</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/system-model/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">System model</span></a>
           </div>
         </li>
                   <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a href="../../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
+                    <a href="../../concepts/consensus/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Consensus</span></a>
                   <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
@@ -200,13 +166,13 @@
               <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/consensus/committee/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Consensus Committee</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/consensus/pos/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Tendermint BFT consensus</span></a>
           </div>
         </li>
@@ -214,49 +180,49 @@
           </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/client/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Go Client (AGC)</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/oracle-network/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Oracle network</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/oracle-server/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Oracle Server (AOS)</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/validator/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/validator/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Validator</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/staking/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Staking</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/accountability/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Accountability and fault detection (AFD)</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/asm/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Auton Stabilization Mechanism (ASM)</span></a>
           </div>
         </li>
                   <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a href="../../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
+                    <a href="../../concepts/protocol-assets/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Protocol assets</span></a>
                   <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
@@ -265,19 +231,19 @@
               <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/protocol-assets/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Liquid Newton</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/protocol-assets/newton/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Newton</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../concepts/protocol-assets/auton/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Auton</span></a>
           </div>
         </li>
@@ -296,13 +262,13 @@
               <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../networks/testnet-bakerloo/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Bakerloo Testnet</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../networks/testnet-piccadilly/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Piccadilly Testnet</span></a>
           </div>
         </li>
@@ -319,25 +285,25 @@
               <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../account-holders/setup-aut/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Setup the Autonity Utility Tool (aut)</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../account-holders/create-acct/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Create an account</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../account-holders/fund-acct/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Fund an account</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../account-holders/submit-trans-aut/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Submit a transaction from the Autonity Utility tool (aut)</span></a>
           </div>
         </li>
@@ -354,31 +320,31 @@
               <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../node-operators/install-aut/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Install Autonity in your environment</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../node-operators/run-aut/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Run Autonity</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../node-operators/connect/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Connecting to your Node</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../node-operators/setup-node-monitoring/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Set up node monitoring</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../node-operators/migrate-aut/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../node-operators/migrate-aut/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Migrate Autonity</span></a>
           </div>
         </li>
@@ -395,13 +361,13 @@
               <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../oracle/install-oracle/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Install Autonity Oracle Server in your environment</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../oracle/run-oracle/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Run Autonity Oracle Server</span></a>
           </div>
         </li>
@@ -418,25 +384,25 @@
               <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../validators/register-vali/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Register as a Validator</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../validators/pause-vali/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Pause and reactivate a Validator</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../validators/change-commission-rate/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Change Validator Commission Rate</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../validators/migrate-vali/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../validators/migrate-vali/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Migrate Validator</span></a>
           </div>
         </li>
@@ -453,19 +419,19 @@
               <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../delegators/bond-stake/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Bond and unbond stake</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../delegators/claim-rewards/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Claim Staking Rewards</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../delegators/transfer-lntn/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Transfer Liquid Newton</span></a>
           </div>
         </li>
@@ -482,13 +448,13 @@
               <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../cdp/open-cdp/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Open and manage a CDP</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../cdp/liquidate-cdp/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Liquidate a CDP</span></a>
           </div>
         </li>
@@ -505,19 +471,19 @@
               <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../developer/submit-trans-gov-acct/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Submit a governance transaction from Autonity Utility Tool (aut)</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../developer/deploy-brownie/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Deploy smart contracts to an Autonity network with Brownie</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../developer/custom-networks/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Setting up custom networks</span></a>
           </div>
         </li>
@@ -534,16 +500,16 @@
               <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
                   <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+                    <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
          <span class="menu-text">Contracts</span></a>
-                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+              <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 show">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/contracts/test.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/contracts/test.html" class="sidebar-item-text sidebar-link active">
          <span class="menu-text">Accountability</span></a>
           </div>
         </li>
@@ -558,7 +524,7 @@
               <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/contracts/autonity/test.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/contracts/autonity/test.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Oracle</span></a>
           </div>
         </li>
@@ -568,7 +534,7 @@
           </li>
                   <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a href="../../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
+                    <a href="../../reference/cli/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Command-line</span></a>
                   <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
@@ -577,13 +543,13 @@
               <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/cli/agc/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Go Client Command-line</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/cli/oracle/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Oracle Server Command-line</span></a>
           </div>
         </li>
@@ -591,61 +557,61 @@
           </li>
                   <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a href="../../../reference/api/index.html" class="sidebar-item-text sidebar-link">
+                    <a href="../../reference/api/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Interfaces</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 show">  
+              <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/api/liquid-newton/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Liquid Newton Contract Interface</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/api/web3/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Web3 Namespace</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/api/oracle/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Oracle Contract Interface</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/api/accountability/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Accountability Contract Interface</span></a>
           </div>
         </li>
                   <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a href="../../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link active">
+                    <a href="../../reference/api/asm/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">ASM Contract Interface</span></a>
-                  <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="true" aria-label="Toggle section">
+                  <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
                   </a> 
               </div>
-              <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth3 show">  
+              <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth3 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/api/asm/acu/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">ACU Contract Interface</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/api/asm/supplycontrol/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Supply Control Contract Interface</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/api/asm/stabilization/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Stabilization Contract Interface</span></a>
           </div>
         </li>
@@ -653,7 +619,7 @@
           </li>
                   <li class="sidebar-item sidebar-item-section">
               <div class="sidebar-item-container"> 
-                    <a href="../../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
+                    <a href="../../reference/api/aut/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Autonity Contract Interface</span></a>
                   <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" aria-expanded="false" aria-label="Toggle section">
                     <i class="bi bi-chevron-right ms-2"></i>
@@ -662,7 +628,7 @@
               <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth3 ">  
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/api/aut/op-prot/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Governance and Protocol Only Reference</span></a>
           </div>
         </li>
@@ -672,19 +638,19 @@
           </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/codebase/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Codebase</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/genesis/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/genesis/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Genesis</span></a>
           </div>
         </li>
                   <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../reference/protocol/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Protocol Parameters</span></a>
           </div>
         </li>
@@ -692,13 +658,13 @@
           </li>
                 <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../glossary/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../glossary/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Glossary</span></a>
           </div>
         </li>
                 <li class="sidebar-item">
           <div class="sidebar-item-container"> 
-          <a href="../../../issues/index.html" class="sidebar-item-text sidebar-link">
+          <a href="../../issues/index.html" class="sidebar-item-text sidebar-link">
          <span class="menu-text">Known issues</span></a>
           </div>
         </li>
@@ -708,21 +674,44 @@
         <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
         <!-- margin-sidebar -->
             <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-                
+                <nav id="TOC" role="doc-toc" class="toc-active">
+            <h2 id="toc-title">On this page</h2>
+           
+          <ul>
+          <li><a href="#events" id="toc-events" class="nav-link active" data-scroll-target="#events">Events</a>
+          <ul class="collapse">
+          <li><a href="#innocenceprovenaddressuint256" id="toc-innocenceprovenaddressuint256" class="nav-link" data-scroll-target="#innocenceprovenaddressuint256">InnocenceProven(address,uint256)</a></li>
+          <li><a href="#newaccusationaddressuint256uint256" id="toc-newaccusationaddressuint256uint256" class="nav-link" data-scroll-target="#newaccusationaddressuint256uint256">NewAccusation(address,uint256,uint256)</a></li>
+          <li><a href="#newfaultproofaddressuint256uint256" id="toc-newfaultproofaddressuint256uint256" class="nav-link" data-scroll-target="#newfaultproofaddressuint256uint256">NewFaultProof(address,uint256,uint256)</a></li>
+          <li><a href="#slashingeventaddressuint256uint256booluint256" id="toc-slashingeventaddressuint256uint256booluint256" class="nav-link" data-scroll-target="#slashingeventaddressuint256uint256booluint256">SlashingEvent(address,uint256,uint256,bool,uint256)</a></li>
+          </ul></li>
+          <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+          <ul class="collapse">
+          <li><a href="#beneficiariesaddress" id="toc-beneficiariesaddress" class="nav-link" data-scroll-target="#beneficiariesaddress">beneficiaries(address)</a></li>
+          <li><a href="#canaccuseaddressuint8uint256" id="toc-canaccuseaddressuint8uint256" class="nav-link" data-scroll-target="#canaccuseaddressuint8uint256">canAccuse(address,uint8,uint256)</a></li>
+          <li><a href="#canslashaddressuint8uint256" id="toc-canslashaddressuint8uint256" class="nav-link" data-scroll-target="#canslashaddressuint8uint256">canSlash(address,uint8,uint256)</a></li>
+          <li><a href="#config" id="toc-config" class="nav-link" data-scroll-target="#config">config()</a></li>
+          <li><a href="#distributerewardsaddressuint256" id="toc-distributerewardsaddressuint256" class="nav-link" data-scroll-target="#distributerewardsaddressuint256">distributeRewards(address,uint256)</a></li>
+          <li><a href="#epochperiod" id="toc-epochperiod" class="nav-link" data-scroll-target="#epochperiod">epochPeriod()</a></li>
+          <li><a href="#eventsuint256" id="toc-eventsuint256" class="nav-link" data-scroll-target="#eventsuint256">events(uint256)</a></li>
+          <li><a href="#finalizebool" id="toc-finalizebool" class="nav-link" data-scroll-target="#finalizebool">finalize(bool)</a></li>
+          <li><a href="#getvalidatoraccusationaddress" id="toc-getvalidatoraccusationaddress" class="nav-link" data-scroll-target="#getvalidatoraccusationaddress">getValidatorAccusation(address)</a></li>
+          <li><a href="#getvalidatorfaultsaddress" id="toc-getvalidatorfaultsaddress" class="nav-link" data-scroll-target="#getvalidatorfaultsaddress">getValidatorFaults(address)</a></li>
+          <li><a href="#handleeventtuple" id="toc-handleeventtuple" class="nav-link" data-scroll-target="#handleeventtuple">handleEvent(tuple)</a></li>
+          <li><a href="#setepochperioduint256" id="toc-setepochperioduint256" class="nav-link" data-scroll-target="#setepochperioduint256">setEpochPeriod(uint256)</a></li>
+          <li><a href="#slashinghistoryaddressuint256" id="toc-slashinghistoryaddressuint256" class="nav-link" data-scroll-target="#slashinghistoryaddressuint256">slashingHistory(address,uint256)</a></li>
+          </ul></li>
+          </ul>
+        </nav>
             </div>
         <!-- main -->
         <main class="content" id="quarto-document-content">
     
-        <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Reference</li><li class="breadcrumb-item"><a href="../../../reference/api/index.html">Autonity Interfaces</a></li><li class="breadcrumb-item"><a href="../../../reference/api/asm/index.html">ASM Contract Interface</a></li></ol></nav>
+        <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Reference</li><li class="breadcrumb-item"><a href="../../reference/contracts/test.html">Contracts</a></li><li class="breadcrumb-item"><a href="../../reference/contracts/test.html">Accountability</a></li></ol></nav>
         <div class="quarto-title">
-        <h1 class="title">ASM Contract Interface</h1>
+        <h1 class="title">Accountability</h1>
         </div>
 
-        <div>
-          <div class="description">
-            <p>Auton Stabilization Mechanism Contract functions</p>
-          </div>
-        </div>
 
 
         <div class="quarto-title-meta">
@@ -735,76 +724,632 @@
 
 
         </header>    
-    
-    <p>Interfaces for interacting with Auton Stabilization Mechanism Contract functions using:</p>
-    <ul>
-    <li>The <code>aut</code> command-line RPC client to submit calls to inspect state and state-affecting transactions.</li>
-    </ul>
-    <div class="callout callout-style-default callout-note callout-titled" title="Info">
-    <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
-    <div class="callout-icon-container">
-    <i class="callout-icon"></i>
-    </div>
-    <div class="callout-title-container flex-fill">
-    Info
-    </div>
-    <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-    </div>
-    <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-    <div class="callout-body-container callout-body">
-    <p>Examples for calling functions from <code>aut</code> use the setup described in the How to <a href="../../../account-holders/submit-trans-aut/">Submit a transaction from Autonity Utility Tool (aut)</a>.</p>
-    <p>Usage and Examples illustrate using the ASM Contracts’ generated ABI and the <code>aut</code> tool’s <code>contract</code> command to call the ASM Contract functions. See <code>aut contract call --help</code>.</p>
-    <p>Usage and Examples assume the path to the ABI file has been set in <code>aut</code>’s configuration file <code>.autrc</code>. The contract <code>.abi</code> files are generated when building the client from source and can be found in your <code>autonity</code> installation directory at <code>./params/generated/</code>. Alternatively, you can generate the ABI using the <code>abigen</code> <code>cmd</code> utility if you built from source (See <a href="../../../node-operators/install-aut/#install-source">Install Autonity, Build from source code</a>).</p>
-    </div>
-    </div>
-    </div>
-    
-    
-    
-
-        <div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-    <table class="quarto-listing-table table">
+            
+    <section id="events" class="level2">
+    <h2 class="anchored" data-anchor-id="events">Events</h2>
+    <section id="innocenceprovenaddressuint256" class="level3">
+    <h3 class="anchored" data-anchor-id="innocenceprovenaddressuint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/interfaces/IAccountability.sol#L39">InnocenceProven(address,uint256)</a></h3>
+    <p>Event emitted after receiving a proof-of-innocence cancelling an accusation.</p>
+    <section id="parameters" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
+    <table class="table">
     <thead>
-    <tr>
-    <th>
-    Title
-    </th>
-    <th>
-    Description
-    </th>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
     </tr>
     </thead>
-    <tbody class="list">
-    <tr data-index="0" data-listing-file-modified-sort="1727341257384" data-listing-reading-time-sort="2" data-listing-word-count-sort="315" data-listing-title-sort="ACU Contract Interface" data-listing-filename-sort="index.md">
-    <td>
-    <a href="../../../reference/api/asm/acu/index.html" class="title listing-title">ACU Contract Interface</a>
-    </td>
-    <td>
-    <span class="listing-description">Autonomous Currency Unit Contract functions </span>
-    </td>
+    <tbody>
+    <tr class="odd">
+    <td>_offender</td>
+    <td>address</td>
     </tr>
-    <tr data-index="1" data-listing-file-modified-sort="1727341257384" data-listing-reading-time-sort="13" data-listing-word-count-sort="2509" data-listing-title-sort="Stabilization Contract Interface" data-listing-filename-sort="index.md">
-    <td>
-    <a href="../../../reference/api/asm/stabilization/index.html" class="title listing-title">Stabilization Contract Interface</a>
-    </td>
-    <td>
-    <span class="listing-description">Stabilization Contract functions </span>
-    </td>
-    </tr>
-    <tr data-index="2" data-listing-file-modified-sort="1727341257384" data-listing-reading-time-sort="2" data-listing-word-count-sort="302" data-listing-title-sort="Supply Control Contract Interface" data-listing-filename-sort="index.md">
-    <td>
-    <a href="../../../reference/api/asm/supplycontrol/index.html" class="title listing-title">Supply Control Contract Interface</a>
-    </td>
-    <td>
-    <span class="listing-description">Supply Control Contract functions </span>
-    </td>
+    <tr class="even">
+    <td>_id</td>
+    <td>uint256</td>
     </tr>
     </tbody>
     </table>
-    <div class="listing-no-matching d-none">
-    No matching items
-    </div>
-    </div></main> <!-- /main -->
+    </section>
+    </section>
+    <section id="newaccusationaddressuint256uint256" class="level3">
+    <h3 class="anchored" data-anchor-id="newaccusationaddressuint256uint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/interfaces/IAccountability.sol#L34">NewAccusation(address,uint256,uint256)</a></h3>
+    <p>Event emitted after receiving an accusation, the reported validator has a certain amount of time to submit a proof-of-innocence, otherwise, he gets slashed.</p>
+    <section id="parameters-1" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-1">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_offender</td>
+    <td>address</td>
+    </tr>
+    <tr class="even">
+    <td>_severity</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="odd">
+    <td>_id</td>
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="newfaultproofaddressuint256uint256" class="level3">
+    <h3 class="anchored" data-anchor-id="newfaultproofaddressuint256uint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/interfaces/IAccountability.sol#L28">NewFaultProof(address,uint256,uint256)</a></h3>
+    <p>Event emitted when a fault proof has been submitted. The reported validator will be silencied and slashed at the end of the current epoch.</p>
+    <section id="parameters-2" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-2">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_offender</td>
+    <td>address</td>
+    </tr>
+    <tr class="even">
+    <td>_severity</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="odd">
+    <td>_id</td>
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="slashingeventaddressuint256uint256booluint256" class="level3">
+    <h3 class="anchored" data-anchor-id="slashingeventaddressuint256uint256booluint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/interfaces/IAccountability.sol#L44">SlashingEvent(address,uint256,uint256,bool,uint256)</a></h3>
+    <p>Event emitted after a successful slashing.</p>
+    <section id="parameters-3" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-3">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>validator</td>
+    <td>address</td>
+    </tr>
+    <tr class="even">
+    <td>amount</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="odd">
+    <td>releaseBlock</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="even">
+    <td>isJailbound</td>
+    <td>bool</td>
+    </tr>
+    <tr class="odd">
+    <td>eventId</td>
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    </section>
+    <section id="functions" class="level2">
+    <h2 class="anchored" data-anchor-id="functions">Functions</h2>
+    <section id="beneficiariesaddress" class="level3">
+    <h3 class="anchored" data-anchor-id="beneficiariesaddress"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L75">beneficiaries(address)</a></h3>
+    <section id="parameters-4" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-4">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>address</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="returns" class="level4">
+    <h4 class="anchored" data-anchor-id="returns">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>address</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="canaccuseaddressuint8uint256" class="level3">
+    <h3 class="anchored" data-anchor-id="canaccuseaddressuint8uint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L180">canAccuse(address,uint8,uint256)</a></h3>
+    <section id="parameters-5" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-5">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_offender</td>
+    <td>address</td>
+    </tr>
+    <tr class="even">
+    <td>_rule</td>
+    <td>uint8</td>
+    </tr>
+    <tr class="odd">
+    <td>_block</td>
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="returns-1" class="level4">
+    <h4 class="anchored" data-anchor-id="returns-1">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_result</td>
+    <td>bool</td>
+    </tr>
+    <tr class="even">
+    <td>_deadline</td>
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="canslashaddressuint8uint256" class="level3">
+    <h3 class="anchored" data-anchor-id="canslashaddressuint8uint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L172">canSlash(address,uint8,uint256)</a></h3>
+    <section id="parameters-6" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-6">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_offender</td>
+    <td>address</td>
+    </tr>
+    <tr class="even">
+    <td>_rule</td>
+    <td>uint8</td>
+    </tr>
+    <tr class="odd">
+    <td>_block</td>
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="returns-2" class="level4">
+    <h4 class="anchored" data-anchor-id="returns-2">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>bool</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="config" class="level3">
+    <h3 class="anchored" data-anchor-id="config"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L72">config()</a></h3>
+    <section id="returns-3" class="level4">
+    <h4 class="anchored" data-anchor-id="returns-3">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>innocenceProofSubmissionWindow</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="even">
+    <td>baseSlashingRateLow</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="odd">
+    <td>baseSlashingRateMid</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="even">
+    <td>collusionFactor</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="odd">
+    <td>historyFactor</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="even">
+    <td>jailFactor</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="odd">
+    <td>slashingRatePrecision</td>
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="distributerewardsaddressuint256" class="level3">
+    <h3 class="anchored" data-anchor-id="distributerewardsaddressuint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L120">distributeRewards(address,uint256)</a></h3>
+    <p>called by the Autonity Contract at block finalization, to reward the reporter of a valid proof.</p>
+    <section id="parameters-7" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-7">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_validator</td>
+    <td>address</td>
+    <td>validator account which got slashed.</td>
+    </tr>
+    <tr class="even">
+    <td>_ntnReward</td>
+    <td>uint256</td>
+    <td>total amount of ntn to be transferred to the repoter. MUST BE AVAILABLE in the accountability contract balance.</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="epochperiod" class="level3">
+    <h3 class="anchored" data-anchor-id="epochperiod"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L21">epochPeriod()</a></h3>
+    <section id="returns-4" class="level4">
+    <h4 class="anchored" data-anchor-id="returns-4">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="eventsuint256" class="level3">
+    <h3 class="anchored" data-anchor-id="eventsuint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L71">events(uint256)</a></h3>
+    <section id="parameters-8" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-8">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="returns-5" class="level4">
+    <h4 class="anchored" data-anchor-id="returns-5">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>chunks</td>
+    <td>uint8</td>
+    </tr>
+    <tr class="even">
+    <td>chunkId</td>
+    <td>uint8</td>
+    </tr>
+    <tr class="odd">
+    <td>eventType</td>
+    <td>uint8</td>
+    </tr>
+    <tr class="even">
+    <td>rule</td>
+    <td>uint8</td>
+    </tr>
+    <tr class="odd">
+    <td>reporter</td>
+    <td>address</td>
+    </tr>
+    <tr class="even">
+    <td>offender</td>
+    <td>address</td>
+    </tr>
+    <tr class="odd">
+    <td>rawProof</td>
+    <td>bytes</td>
+    </tr>
+    <tr class="even">
+    <td>id</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="odd">
+    <td>block</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="even">
+    <td>epoch</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="odd">
+    <td>reportingBlock</td>
+    <td>uint256</td>
+    </tr>
+    <tr class="even">
+    <td>messageHash</td>
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="finalizebool" class="level3">
+    <h3 class="anchored" data-anchor-id="finalizebool"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L105">finalize(bool)</a></h3>
+    <p>called by the Autonity Contract at block finalization, before processing reward redistribution.</p>
+    <section id="parameters-9" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-9">Parameters</h4>
+    <table class="table">
+    <colgroup>
+    <col style="width: 33%">
+    <col style="width: 33%">
+    <col style="width: 33%">
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_epochEnd</td>
+    <td>bool</td>
+    <td>whether or not the current block is the last one from the epoch.</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="getvalidatoraccusationaddress" class="level3">
+    <h3 class="anchored" data-anchor-id="getvalidatoraccusationaddress"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L197">getValidatorAccusation(address)</a></h3>
+    <section id="parameters-10" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-10">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_val</td>
+    <td>address</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="returns-6" class="level4">
+    <h4 class="anchored" data-anchor-id="returns-6">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>tuple</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="getvalidatorfaultsaddress" class="level3">
+    <h3 class="anchored" data-anchor-id="getvalidatorfaultsaddress"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L202">getValidatorFaults(address)</a></h3>
+    <section id="parameters-11" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-11">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_val</td>
+    <td>address</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="returns-7" class="level4">
+    <h4 class="anchored" data-anchor-id="returns-7">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>tuple[]</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="handleeventtuple" class="level3">
+    <h3 class="anchored" data-anchor-id="handleeventtuple"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L143">handleEvent(tuple)</a></h3>
+                    <div class="mutability-wrapper"><span class="mutability-tag payable-tag">payable</span></div>
+                
+    <section id="parameters-12" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-12">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_event</td>
+    <td>tuple</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    </section>
+    <section id="setepochperioduint256" class="level3 method-title">
+    <h3 class="anchored" data-anchor-id="setepochperioduint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L523">setEpochPeriod(uint256)</a></h3>
+                    <div class="mutability-wrapper"><span class="mutability-tag view-tag">view</span></div>
+                
+    </section>
+    <p>called by the Autonity Contract when the epoch period is updated.</p>
+    <section id="parameters-13" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-13">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>_newPeriod</td>
+    <td>uint256</td>
+    <td>the new epoch period.</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="slashinghistoryaddressuint256" class="level3">
+    <h3 class="anchored" data-anchor-id="slashinghistoryaddressuint256"><a href="https://github.com/autonity/autonity/tree/v0.14.1/autonity/solidity/contracts/Accountability.sol#L86">slashingHistory(address,uint256)</a></h3>
+                    <div class="mutability-wrapper"><span class="mutability-tag pure-tag">pure</span></div>
+                
+    <section id="parameters-14" class="level4">
+    <h4 class="anchored" data-anchor-id="parameters-14">Parameters</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>address</td>
+    </tr>
+    <tr class="even">
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+    </section>
+    <section id="returns-8" class="level4">
+    <h4 class="anchored" data-anchor-id="returns-8">Returns</h4>
+    <table class="table">
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>uint256</td>
+    </tr>
+    </tbody>
+    </table>
+            <div class="footer-navigation">
+                        <div class="footer-link prev-link">
+                <a href="previous-page.qmd">
+                 <img class="footer-link-image" src="../../_assets/images/chevron-left.svg">
+                <div class="footer-link-text">
+                  <span>Previous</span>
+                  <span class="contract-name">Previous Contract Name</span>
+                </div>             
+                </a>
+              </div>
+            
+            </div>
+          
+    
+    
+    </section>
+    </section>
+    </section>
+
+        </main> <!-- /main -->
         <script id="quarto-html-after-body" type="application/javascript">
         window.document.addEventListener("DOMContentLoaded", function (event) {
           const toggleBodyColorMode = (bsSheetEl) => {
@@ -1271,5 +1816,5 @@ window.addEventListener('load', () => {
 });
 </script>
 
-<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
