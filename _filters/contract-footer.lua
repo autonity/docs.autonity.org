@@ -74,7 +74,7 @@ function Div(el)
       if version then
         version_html = string.format([[
           <div class="footer-version">
-            <span>Version: %s</span>
+            <span>%s</span>
           </div>
         ]], version)
       end
