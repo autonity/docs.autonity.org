@@ -143,7 +143,7 @@ h5 {
 .footer-link {
     border: var(--primary-border);
     font-family: var(--header-font);
-    padding: 30px;
+    padding: 12px 30px;
     width: 50%;
 }
 
@@ -254,8 +254,10 @@ TOC .nav-link {
 .footer-version {
     color: var(--tertiary-color);
 }
+
 .contract-footer {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-top: 1.5rem;
 }
