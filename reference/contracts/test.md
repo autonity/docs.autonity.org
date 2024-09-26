@@ -238,5 +238,5 @@ called by the Autonity Contract when the epoch period is updated.
 | --- |
 | uint256 |
 
-::: {.footer-navigation prev-url="previous-page.qmd" prev-contract="Previous Contract Name"}
+::: {.footer prev-url="previous-page.qmd" prev-contract="Previous Contract Name" version="v0.14.3"}
 :::

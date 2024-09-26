@@ -65,6 +65,7 @@ $font-size-root: 0.95rem;
     --green: #528f18;
     --blue: #5656e9;
     --purple: #906ce3;
+    --tertiary-color: #9d9d9d;
 }
 /*-- scss:rules --*/
 body {
@@ -244,4 +245,12 @@ TOC .nav-link {
 }
 .sidebar nav[role=doc-toc] ul>li>ul>li>a {
     padding-left: 1.2em;
+}
+
+.footer-meta-data {
+    display: flex;
+    justify-content: flex-end;
+}
+.footer-version {
+    color: var(--tertiary-color);
 }
