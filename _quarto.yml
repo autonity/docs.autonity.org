@@ -86,6 +86,89 @@ website:
   navbar:  
     background: dark
     logo: "_assets/images/logo-autonity.svg"
+    right:
+      - text: "Home"   
+        menu:
+          - text: "Architecture"
+            href: concepts/architecture/index.qmd
+          - text: "System Model"
+            href: concepts/system-model/index.qmd
+          - text: "Consensus"
+            href: concepts/consensus.qmd
+          - text: "Client"
+            href: concepts/client/index.qmd
+          - text: "Oracle Network"
+            href: concepts/oracle-network/index.qmd
+          - text: "Oracle Server"
+            href: concepts/oracle-server/index.qmd
+          - text: "Validator"
+            href: concepts/validator/index.qmd
+          - text: "Staking"
+            href: concepts/staking/index.qmd
+          - text: "Accountability"
+            href: concepts/accountability/index.qmd
+          - text: "ASM"
+            href: concepts/asm/index.qmd
+          - text: "Protocol Assets"
+            href: concepts/protocol-assets.qmd
+          - text: "Networks"
+            href: networks/index.qmd
+          - text: "Setup AUT"
+            href: account-holders/setup-aut/index.qmd
+          - text: "Create Account"
+            href: account-holders/create-acct/index.qmd
+          - text: "Fund Account"
+            href: account-holders/fund-acct/index.qmd
+          - text: "Submit Transaction"
+            href: account-holders/submit-trans-aut/index.qmd     
+          - text: "Install AUT"
+            href: node-operators/install-aut/index.qmd
+          - text: "Run AUT"
+            href: node-operators/run-aut/index.qmd
+          - text: "Connect"
+            href: node-operators/connect/index.qmd
+          - text: "Node Monitoring"
+            href: node-operators/setup-node-monitoring/index.qmd
+          - text: "Migrate AUT"
+            href: node-operators/migrate-aut/index.qmd      
+          - text: "Register Validator"
+            href: validators/register-vali/index.qmd
+          - text: "Pause Validator"
+            href: validators/pause-vali/index.qmd
+          - text: "Change Commission Rate"
+            href: validators/change-commission-rate/index.qmd
+          - text: "Migrate Validator"
+            href: validators/migrate-vali/index.qmd   
+          - text: "Bond Stake"
+            href: delegators/bond-stake/index.qmd
+          - text: "Claim Rewards"
+            href: delegators/claim-rewards/index.qmd
+          - text: "Transfer LNTN"
+            href: delegators/transfer-lntn/index.qmd
+          - text: "Open CDP"
+            href: cdp/open-cdp/index.qmd
+          - text: "Liquidate CDP"
+            href: cdp/liquidate-cdp/index.qmd
+          - text: "Submit Gov Account Transaction"
+            href: developer/submit-trans-gov-acct/index.qmd
+          - text: "Deploy Brownie"
+            href: developer/deploy-brownie/index.qmd
+          - text: "Custom Networks"
+            href: developer/custom-networks/index.qmd
+          - text: "CLI"
+            href: reference/cli.qmd
+          - text: "API"
+            href: reference/api.qmd
+          - text: "Codebase"
+            href: reference/codebase/index.qmd
+          - text: "Genesis"
+            href: reference/genesis/index.qmd
+          - text: "Protocol"
+            href: reference/protocol/index.qmd
+          - text: "Glossary"
+            href: glossary/index.qmd
+          - text: "Issues"
+            href: issues/index.qmd
   page-footer:
     left:
       - icon: github
