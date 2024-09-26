@@ -7,7 +7,7 @@ src_dir = "autonity/solidity/contracts"
 github_url = "https://github.com/autonity/autonity"
 
 [contracts]
-output_dir = "contracts"
+output_dir = "reference/api"
 
 [contracts.Accountability]
 excludes = [
