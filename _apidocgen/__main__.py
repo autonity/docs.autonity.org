@@ -2,7 +2,6 @@
 
 import argparse
 import os
-import shutil
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from os import path
@@ -71,7 +70,7 @@ def generate_contract_docs(
         config["display_name"] = config.get("display_name", name)
 
     # Remove old bindings because the config might have been changed
-    shutil.rmtree(paths.output_dir, ignore_errors=True)
+    paths.clear_output_dir()
 
     pending_tasks = []
     executor = ThreadPoolExecutor()

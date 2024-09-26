@@ -2,6 +2,7 @@
 
 import glob
 import json
+import os
 import re
 import subprocess
 import sys
@@ -94,6 +95,11 @@ class Paths:
         if is_repo_dirty(self.src_dir):
             version.append("dirty")
         return "-".join(version)
+
+    def clear_output_dir(self) -> None:
+        for file in glob.glob(path.join(self.output_dir, "**", "*.md"), recursive=True):
+            if file != path.join(self.output_dir, "index.md"):
+                os.remove(file)
 
 
 def load_json(file: str) -> Any:

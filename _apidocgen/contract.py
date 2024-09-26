@@ -55,6 +55,8 @@ def generate_contract_doc(
     doc.add_meta({"title": config["display_name"]})
     if "notice" in userdoc:
         doc.add_paragraph(userdoc["notice"])
+    else:
+        logger.warning("contract is missing @notice")
 
     for element_type in (ElementType.EVENT, ElementType.FUNCTION):
         if abi_elements := eth_utils.filter_abi_by_type(str(element_type), abi):  # type: ignore
