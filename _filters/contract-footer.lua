@@ -17,7 +17,7 @@
 ]]--
 
 function Div(el)
-    if el.classes:includes("footer-navigation") then
+    if el.classes:includes("footer") then
       
       local prev_url = el.attributes["prev-url"]
       local prev_contract = el.attributes["prev-contract"] or "Previous contract"
@@ -26,10 +26,17 @@ function Div(el)
       local next_url = el.attributes["next-url"]
       local next_contract = el.attributes["next-contract"] or "Next contract"
       local next_text = "Next"
+
+      local version = el.attributes["version"] or "latest"
       
       local wrapper_html = [[
-        <div class="footer-navigation">
-          %s
+        <div class="contract-footer">
+          <div class="footer-navigation">
+            %s
+          </div>
+          <div class="footer-meta-data">
+            %s
+          </div>
         </div>
       ]]
       
@@ -63,10 +70,19 @@ function Div(el)
         ]], next_url, next_text, next_contract)
       end
 
+      local version_html = ""
+      if version then
+        version_html = string.format([[
+          <div class="footer-version">
+            <span>Version: %s</span>
+          </div>
+        ]], version)
+      end
+
       local combined_html = string.format('%s%s', prev_html, next_html)
 
       if combined_html ~= "" then
-        local wrapped_html = string.format(wrapper_html, combined_html)
+        local wrapped_html = string.format(wrapper_html, combined_html, version_html)
         return pandoc.RawBlock('html', wrapped_html)
       end
     end
