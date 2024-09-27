@@ -2,8 +2,6 @@
 
 import argparse
 import os
-import shutil
-import signal
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from os import path
@@ -37,12 +35,14 @@ def main() -> None:
         config["contracts"]["output_dir"],
         args.autonity,
         config["autonity"],
-        args.watch,
     )
     configs = sorted(
-        (key, value)
-        for key, value in config["contracts"].items()
-        if key != "output_dir"
+        [
+            (name, value)
+            for name, value in config["contracts"].items()
+            if name != "output_dir"
+        ],
+        key=lambda item: item[0].casefold(),
     )
 
     if args.watch:
@@ -50,13 +50,6 @@ def main() -> None:
         def compile_and_generate() -> None:
             artefacts = compile_contracts(configs, paths)
             generate_contract_docs(artefacts, configs, paths)
-
-        def clean(signum: int, _) -> None:
-            shutil.rmtree(paths.output_dir, ignore_errors=True)
-            sys.exit(128 + signum)
-
-        signal.signal(signal.SIGINT, clean)
-        signal.signal(signal.SIGTERM, clean)
 
         compile_and_generate()
         run_file_observer(paths.src_dir, ".sol", compile_and_generate)
@@ -77,7 +70,7 @@ def generate_contract_docs(
         config["display_name"] = config.get("display_name", name)
 
     # Remove old bindings because the config might have been changed
-    shutil.rmtree(paths.output_dir, ignore_errors=True)
+    paths.clear_output_dir()
 
     pending_tasks = []
     executor = ThreadPoolExecutor()

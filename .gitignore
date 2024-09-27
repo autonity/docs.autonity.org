@@ -20,4 +20,3 @@ devenv.local.nix
 
 # For the API doc generator
 /autonity
-/contracts/wip-*/

@@ -2,11 +2,10 @@
 
 import glob
 import json
+import os
 import re
 import subprocess
 import sys
-import time
-from functools import cache
 from itertools import chain
 from os import path
 from typing import Any
@@ -24,23 +23,16 @@ class Paths:
         output_dir: str,
         autonity_dir: str,
         autonity_config: dict[str, str],
-        wip_mode: bool = False,
     ):
         self.autonity_dir = path.abspath(path.realpath(autonity_dir))
         assert_directory_exists(self.autonity_dir)
         assert_git_repository(self.autonity_dir)
 
-        self.build_dir = path.join(self.autonity_dir, autonity_config["build_dir"])
-        if not wip_mode:
-            assert_directory_exists(self.build_dir)
-
         self.src_dir = path.join(self.autonity_dir, autonity_config["src_dir"])
         assert_directory_exists(self.src_dir)
 
-        self.output_dir = path.join(
-            output_dir,
-            f"wip-{int(time.time())}" if wip_mode else get_git_tag(self.autonity_dir),
-        )
+        self.build_dir = path.join(self.autonity_dir, autonity_config["build_dir"])
+        self.output_dir = output_dir
         self.github_url = autonity_config["github_url"]
 
     def load_abi(self, contract_name: str) -> list[dict[str, Any]]:
@@ -80,7 +72,6 @@ class Paths:
             f"code using regexp: {regexp}"
         )
 
-    @cache
     def find_src_file(self, contract_name: str) -> str:
         if paths := glob.glob(
             path.join(self.src_dir, "**", f"{contract_name}.sol"), recursive=True
@@ -90,8 +81,25 @@ class Paths:
 
     def construct_github_src_url(self, src_file: str, lineno: int) -> str:
         relpath = path.relpath(src_file, self.autonity_dir)
-        git_tag = get_git_tag(self.autonity_dir)
-        return f"{self.github_url}/tree/{git_tag}/{relpath}#L{lineno}"
+        commit_id = get_commit_id(self.autonity_dir)
+        return f"{self.github_url}/blob/{commit_id}/{relpath}#L{lineno}"
+
+    def get_document_version(self) -> str:
+        version = []
+        # Convert 'heads/develop' to 'develop' or
+        # 'tags/v0.14.0' to 'v0.14.0' or 'tags/v0.14.0-1-gc157e1344' to 'v0.14.0'
+        version.append(
+            get_git_object(self.autonity_dir).split("/", 1)[-1].split("-")[0]
+        )
+        version.append(get_commit_id(self.autonity_dir)[:8])
+        if is_repo_dirty(self.src_dir):
+            version.append("dirty")
+        return "-".join(version)
+
+    def clear_output_dir(self) -> None:
+        for file in glob.glob(path.join(self.output_dir, "**", "*.md"), recursive=True):
+            if file != path.join(self.output_dir, "index.md"):
+                os.remove(file)
 
 
 def load_json(file: str) -> Any:
@@ -111,13 +119,25 @@ def load_natspec(file: str) -> dict[str, Any]:
         raise
 
 
-def get_git_tag(repo_root: str) -> str:
+def get_git_object(repo_dir: str) -> str:
     return subprocess.check_output(
-        ["git", "describe", "--tags"], cwd=repo_root, text=True
+        ["git", "describe", "--all"], cwd=repo_dir, text=True
     ).strip()
 
 
-@cache
+def get_commit_id(repo_dir: str) -> str:
+    return subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=repo_dir, text=True
+    ).strip()
+
+
+def is_repo_dirty(repo_dir: str) -> bool:
+    process = subprocess.run(
+        ["git", "diff-index", "--quiet", "HEAD", "."], cwd=repo_dir
+    )
+    return process.returncode > 0
+
+
 def read_file(file: str) -> str:
     with open(file) as f:
         return f.read()
