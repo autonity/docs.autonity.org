@@ -27,7 +27,7 @@ function Div(el)
       local next_contract = el.attributes["next-contract"] or "Next contract"
       local next_text = "Next"
 
-      local version = el.attributes["version"] or "latest"
+      local version = el.attributes["version"] or ""
       
       local wrapper_html = [[
         <div class="contract-footer">
