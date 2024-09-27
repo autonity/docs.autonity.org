@@ -28,8 +28,7 @@ comments from Autonity protocol contracts and converts them into Markdown files.
 
 **TL/DR:** Symlink an [autonity](https://github.com/autonity/autonity) repository
 clone into the root of this repository and run [`apidocgen`](./_apidocgen/). The
-configuration is in [`apidoc.toml`](./apidoc.toml); the generated files are saved
-into `./contracts/<autonity-tag>/`.
+configuration is in [`apidoc.toml`](./apidoc.toml).
 
 ### Setup
 
@@ -56,11 +55,6 @@ into `./contracts/<autonity-tag>/`.
    apidocgen
    ```
 5. Review and commit the created Markdown files.
-
-The documents are saved into a subdirectory under `contracts` that is named after the
-Git tag of the Autonity release. If there have been additional commits since the last
-release in the Autonity repository, the commit ID is added to the tag and it looks like
-e.g. `v0.15.0-1-g0c79355c0`.
 
 > [!NOTE]
 > Old Autonity branches (releases <= v0.14.1) do not build NatSpec data files.

@@ -47,7 +47,7 @@ github_url = "https://github.com/autonity/autonity"
 [contracts]
 # The directory in this repository where
 # the generated API documentation is saved
-output_dir = "contracts"
+output_dir = "reference/api"
 
 [contracts.Liquid]
 # Optional contract name to use as the title of the generated document
