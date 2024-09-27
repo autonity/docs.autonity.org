@@ -40,7 +40,8 @@ function Div(el)
         </div>
       ]]
       
-      local prev_html = ""
+      local prev_html = '<div class="footer-link hidden-link"></div>'
+
       if prev_url then
         prev_html = string.format([[
           <div class="footer-link prev-link">
@@ -49,13 +50,13 @@ function Div(el)
             <div class="footer-link-text">
               <span>%s</span>
               <span class="contract-name">%s</span>
-            </div>             
+            </div>
             </a>
-          </div>
+           </div>
         ]], prev_url, prev_text, prev_contract)
       end
 
-      local next_html = ""
+      local next_html = '<div class="footer-link hidden-link"></div>'
       if next_url then
         next_html = string.format([[
           <div class="footer-link next-link">
