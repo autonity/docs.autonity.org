@@ -98,7 +98,7 @@ website:
         href: https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ
 filters:
   - _filters/contract-footer.lua
-  - _filters/mutability.lua
+  - _filters/method-meta-data.lua
   - _filters/macro-substitution.lua
   - _filters/page-info.lua
   - _filters/card-substitution.lua

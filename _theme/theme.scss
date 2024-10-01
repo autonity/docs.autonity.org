@@ -214,28 +214,6 @@ td {
 .pure-tag {
     color: var(--purple);
 }
-
-.mutability-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-.mutability-tag {
-    border: var(--primary-border);
-    padding: 2px 12px;
-    font-size: 12px;
-    font-weight: bold;
-    position: absolute;
-    right: 0px;
-    width: 74px;
-    text-align: center;
-    top: -30px;
-}
-
-TOC .nav-link {
-    width: 100%;
-    max-width: 250px;
-}
 #TOC ul li a {
     display: block;
     white-space: nowrap;
@@ -245,6 +223,46 @@ TOC .nav-link {
 }
 .sidebar nav[role=doc-toc] ul>li>ul>li>a {
     padding-left: 1.2em;
+}
+
+.selector {    
+    font-weight: 500;
+}
+
+section:target::before {
+    content: unset !important;
+    display: unset;
+    height: 53px;
+    margin: 0;
+}
+
+.method-title {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    margin-bottom: 7.6px;
+}
+
+.method-title > h3 {
+    margin: 0;
+}
+
+.method-title > :first-child {
+    flex: 0 1 auto;
+  }
+ 
+
+.method-meta-data-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+.method-meta-data-wrapper > div { 
+    border: var(--primary-border);
+    padding: 2px 12px;
+    font-size: .75em;
+    font-weight: bold;
+    text-align: center;
 }
 
 .footer-meta-data {
