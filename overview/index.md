@@ -1,7 +1,7 @@
 ---
 title: Overview
 toc: false
-description: An overview of the Autonity blockchain protocol and key concepts of the underlying technology
+description: A concise overview of the Autonity blockchain protocol and key concepts of the underlying technology
 ---
 ## What is Autonity?
 
