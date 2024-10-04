@@ -259,7 +259,7 @@ section:target::before {
 .method-title {
     display: flex;
     justify-content: space-between;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
     margin-bottom: 7.6px;
 }
 
@@ -283,4 +283,14 @@ section:target::before {
     font-size: .75em;
     font-weight: bold;
     text-align: center;
+}
+
+section#events h4,
+section#functions h4 {
+    margin: 0px;
+}
+
+section#events p,
+section#functions p {
+    margin-bottom: 8px;
 }
