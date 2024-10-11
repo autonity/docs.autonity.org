@@ -14,9 +14,8 @@
 Run `devenv shell` in the terminal to enter a Bash shell with all dependencies
 installed. Alternatively, use `direnv` to manage this automatically.
 
-once in the devenv shell the following usage can be executed.
+Once in the `devenv` shell:
 
-Usage:
 - Run `quarto render` to render the site to the `docs/` folder
 - Run `quarto preview` to serve the site in Quarto's local webserver
 - Review the [`_quarto.yml`](_quarto.yml) file and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details
