@@ -1,10 +1,11 @@
+name: Deploy to Cloudflare Pages
 on:
   pull_request:
     branches:
       - develop
-name: Cloudflare-preview
 jobs:
-  build-deploy:
+  cloudflare-deploy:
+    name: Deploy to Cloudflare Pages
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -21,6 +22,7 @@ jobs:
         uses: quarto-dev/quarto-actions/render@v2
         with:
           to: html
+
       - name: Publish to Cloudflare Pages
         id: cloudflare_deploy
         uses: cloudflare/pages-action@v1
@@ -30,7 +32,9 @@ jobs:
           projectName: docs-autonity-org
           directory: ./docs
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-      - uses: mshick/add-pr-comment@v2
+
+      - name: Add PR Comment
+        uses: mshick/add-pr-comment@v2
         with:
             message: |
               🚀 This branch can be previewed at ${{ steps.cloudflare_deploy.outputs.url }}
