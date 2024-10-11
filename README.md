@@ -36,10 +36,19 @@ For best results, clone into a new directory. However, if you are unable to do t
 
 ## Development workflow
 
-- The `master` branch will always have the live production version of the website.
-- A hot-fix to the production site is published by creating a branch from `master` with the hot-fix, and creating a PR.  (Once the hot-fix has been merged, `master` should be merged to `develop` to ensure that the fix is propagated, and that conflicts are resolved in `develop`.)
-- The `develop` branch will always have the WIP next version of the website being prepared.
-- A new version of the production website is published by merging `develop` into `master`.
+For changes to *content* relating to the *current version* of Autonity, raise a PR against the `master` branch. If the changes relate to the *next version* of Autonity, raise a PR against the `develop` branch.
+
+The `develop` branch is regularly rebased on `master` to pick up the latest changes. When a new version of Autonity is released, the `develop` branch is merged to `master`.
+
+For changes to site *styling* and/or *configuration*, raise a PR against the `master` branch. If these changes need to be gated, _use feature flags to keep them hidden or disabled_ in `master` until the time they need to go live. Activate feature flags by means of a PR against `master` or as a commit in the `develop` branch.
+
+In summary:
+
+| change type | autonity version | git branch |
+|-|-|-|
+| new/updated content | current version | `master` |
+| new/updated content | next version | `develop` |
+| styling/configuration | - | `master` |
 
 ## Contributing
 
