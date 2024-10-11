@@ -21,19 +21,6 @@ Usage:
 - Run `quarto preview` to serve the site in Quarto's local webserver
 - Review the [`_quarto.yml`](_quarto.yml) file and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details
 
-## Migrating from Hugo
-
-For best results, clone into a new directory. However, if you are unable to do that, Delete the following directories as they will conflict and prevent Quarto from building:
-
-``` env
- - themes/     # contains docys shortcodes
- - archetypes/ # contains docsy shortcodes
- - layouts/    # contains Markup for docsy templating
- - data/       # is empty and no longer required
- - docs/       # holds the content in a format that works for Hugo (and not Quarto).
- - content/    # holds the content in a format that works for Hugo (and not Quarto). 
-```
-
 ## Development workflow
 
 For changes to *content* relating to the *current version* of Autonity, raise a PR against the `master` branch. If the changes relate to the *next version* of Autonity, raise a PR against the `develop` branch.
@@ -49,6 +36,19 @@ In summary:
 | new/updated content | current version | `master` |
 | new/updated content | next version | `develop` |
 | styling/configuration | - | `master` |
+
+## Migrating from Docsy/Hugo
+
+For best results, clone this repo into a new directory. If you are working with a clone of this repo that used Docsy and Hugo, delete the following directories as they will conflict and prevent Quarto from building:
+
+``` env
+ - themes/     # contains docsy shortcodes
+ - archetypes/ # contains docsy shortcodes
+ - layouts/    # contains Markup for docsy templating
+ - data/       # is empty and no longer required
+ - docs/       # holds the content in a format that works for Hugo (and not Quarto).
+ - content/    # holds the content in a format that works for Hugo (and not Quarto). 
+```
 
 ## Contributing
 
