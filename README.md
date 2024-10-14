@@ -1,4 +1,4 @@
-# Piccadilly Circus Games Competition Website
+# docs.autonity.org
 
 ## Getting started
 
