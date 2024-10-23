@@ -6,7 +6,7 @@ description: >
 
 All nodes on the Autonity network exchange blocks and transactions with other nodes, keeping track of the current state of the blockchain. Running a node offers the possibility of having a dedicated RPC endpoint for querying and for accepting transactions.  DApps running on the network may take advantage of dedicated nodes for any "backend" or off-chain operations.
 
-This guide describes the steps to install, configure and run an instance of the Autonity Go Client (AGC) on an Autonity testnet, and describes how to use the Autonity Utility Tool [`aut`](/account-holders/setup-aut/) to connect to the node and perform some basic operations.
+This guide describes the steps to install, configure and run an instance of the Autonity Go Client (AGC) on an Autonity testnet, and describes how to use [Autonity CLI](/account-holders/setup-aut/) to connect to the node and perform some basic operations.
 
 It is assumed that you have setup `aut` and have an [account](/account-holders/create-acct/) with [funds](/account-holders/fund-acct/) that is able to submit transactions to the network.  See the [Account Holder Guide](/account-holders/) for details.
 

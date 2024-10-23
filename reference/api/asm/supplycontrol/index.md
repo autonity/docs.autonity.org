@@ -10,7 +10,7 @@ Interfaces for interacting with the ASM Supply Control Contract functions using:
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 
 ::: {.callout-note title="Protocol contract calls" collapse="false"}
-Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
+Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 
 Usage and Examples illustrate using the Supply Control Contract's generated ABI and the `aut` tool's `contract` command to call the Supply Control Contract address `0x47c5e40890bcE4a473A49D7501808b9633F29782`. See `aut contract call --help`.
 

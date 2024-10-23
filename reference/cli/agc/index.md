@@ -15,7 +15,7 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `init` | The command is deprecated and has been replaced by a `--genesis` command option to give the path to the genesis configuration file `genesis.json`. For example: `--genesis ./genesis.json` |
 | `clique` | The Clique Proof of Authority consensus functionality has been removed |
 | `wallet` | The command for managing Ethereum presale wallets has been removed |
-| `attach` and `console` | The Geth JavaScript console is deprecated in favour of the Autonity Utility Tool `aut` |
+| `attach` and `console` | The Geth JavaScript console is deprecated in favour of Autonity CLI |
 | `makecache` and `makedag`| The commands are removed. They are specific to ethash Proof of Work consensus and not required by Autonity's Tendermint consensus |
 | ETHEREUM OPTIONS: ||
 | `piccadilly` and `bakerloo` | Options for connecting to the Autonity test networks 'Piccadilly' and `Bakerloo` are added (Options for connecting to the Ethereum test networks are removed) |

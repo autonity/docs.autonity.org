@@ -25,6 +25,6 @@ Each participant maintains a local state database synchronised to world state, u
 The client provides interfaces for:
 
 - Autonity Contract Interfaces and JSON-RPC APIs - see [Autonity Interfaces](/reference/api/) Reference
-- RPC calls from the Autonity Utility Tool `aut`. `aut` provides a [command-line interface](/reference/cli/#command-line-facilities) to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.
+- RPC calls from Autonity CLI that provides a [command-line interface](/reference/cli/#command-line-facilities) to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.
 - Command line options for client configuration and interaction - see [Command-line options](/reference/cli/agc/#command-line-options) Reference
 - Metrics and logging, see [Command-line options](/reference/cli/agc/#command-line-options). For `go-metrics`, see the Autonity GitHub [/metrics/README](https://github.com/autonity/autonity/blob/master/metrics/README.md).

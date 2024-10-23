@@ -1,11 +1,11 @@
 ---
-title: Setup the Autonity Utility Tool (aut)
+title: Setup Autonity CLI
 description: How to install and configure the `aut` command-line tool on your local machine.
 ---
 
-The recommended way of interacting with the Autonity network is via the [Autonity Utility Tool](https://github.com/autonity/aut) `aut`, which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality.  In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
+The recommended way of interacting with the Autonity network is via [Autonity CLI](https://github.com/autonity/autonity-cli), which provides a command-line interface to Autonity-specific queries and operations, as well as much of the base Ethereum functionality. In general it only needs to be installed on _local_ machines, to connect to the RPC endpoint of an Autonity Go Client (either your own node, or a node providing public RPC access).
 
-For full details and to report any issues, see the [`aut` repository](https://github.com/autonity/aut).
+For full details and to report any issues, see its [repository](https://github.com/autonity/autonity-cli).
 
 ## Installation {#install}
 
@@ -16,8 +16,10 @@ A working Python install with the `pip` tool is required.
 The tool can be installed using [pipx](https://github.com/pypa/pipx). To get the latest release run:
 
 ```bash
-pipx install --force git+https://github.com/autonity/aut
+pipx install autonity-cli
 ```
+
+Once installed, the tool can be invoked with the `aut` command.
 
 ::: {.callout-note title="Note" collapse="false"}
 If you are experiencing errors such as:
@@ -26,14 +28,18 @@ If you are experiencing errors such as:
 ImportError: cannot import name 'NodeAddress' from 'autonity.validator'
 ```
 
-You are using an earlier version of `aut`. Please upgrade your `aut` tool to use the latest release using the installation command above.
+You are using an earlier version. Please upgrade your Autonity CLI to use the latest release with the installation command:
 
-It is highly recommended to also follow the [instructions in the repository](https://github.com/autonity/aut) to set up command-line completion.
+```bash
+pipx upgrade autonity-cli
+```
+
+It is highly recommended to also follow the [instructions in the repository](https://github.com/autonity/autonity-cli) to set up command-line completion.
 :::
 
 ## Configuration using the `.autrc` file {#configure}
 
-As detailed in the [`aut` repository](https://github.com/autonity/aut#configuration-using-autrc-files), some configuration parameters can be set in an `.autrc` file in the working directory or any parent directory.  As a minimal configuration, it is recommended to create an `.autrc` containing the end-point to use for RPC operations:
+As detailed in its [repository](https://github.com/autonity/autonity-cli#configuration-using-autrc-files), some configuration parameters can be set in an `.autrc` file in the working directory or any parent directory.  As a minimal configuration, it is recommended to create an `.autrc` containing the end-point to use for RPC operations:
 
 ```
 [aut]
@@ -44,7 +50,7 @@ See the [list of available networks](/networks/) to determine the correct endpoi
 
 ## Usage {#usage}
 
-The tool is intended to be self documenting via `aut --help`, `aut <command> --help` etc.  Some example commands can be found in the [`aut` repository](https://github.com/autonity/aut).
+The tool is intended to be self documenting via `aut --help`, `aut <command> --help` etc. Some example commands can be found in its [repository](https://github.com/autonity/autonity-cli).
 
 We suggest trying the following command (which retrieves some basic information about the connected node and network) to confirm that the install and configuration have been successful:
 
