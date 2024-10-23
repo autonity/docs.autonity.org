@@ -16,7 +16,7 @@ Interfaces for interacting with Auton Stabilization Mechanism Contract functions
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 
 ::: {.callout-note title="Info" collapse="false"}
-Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
+Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 
 Usage and Examples illustrate using the ASM Contracts' generated ABI and the `aut` tool's `contract` command to call the ASM Contract functions. See `aut contract call --help`.
 

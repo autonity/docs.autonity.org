@@ -1,13 +1,13 @@
 ---
-title: Submit a transaction from the Autonity Utility tool (aut)
+title: Submit a transaction with Autonity CLI
 description: How to submit transactions to an Autonity network using `aut`, the Python3 interface to the RPC API's
 ---
 
 ## Prerequisites
 
-To submit transactions to a client node from `aut` you need:
+To submit transactions to a client node with Autonity CLI you need:
 
-- An installation of [`aut`](https://github.com/autonity/aut) - see the [howto](/account-holders/setup-aut/) for further help.
+- An installation of [Autonity CLI](https://github.com/autonity/autonity-cli) - see the [howto](/account-holders/setup-aut/) for further help.
 
 - An [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs.
 

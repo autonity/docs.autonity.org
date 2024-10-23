@@ -7,11 +7,11 @@ description: >
 
 Interface for interacting with Autonity Contract functions using:
 
-- The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
+- Autonity CLI to submit calls to inspect state and state-affecting transactions.
 - JSON-RPC methods to submit calls to inspect state.
 
 ::: {.callout-note title="Info" collapse="false"}
-Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
+Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 :::
 
 ## activateValidator

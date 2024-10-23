@@ -9,7 +9,7 @@ Interface for interacting with Autonity Oracle Contract functions using:
 - The `aut` command-line RPC client to submit calls to inspect state and state-affecting transactions.
 
 ::: {.callout-note title="Protocol contract calls" collapse="false"}
-Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
+Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 
 Usage and Examples illustrate using the Oracle Contract's generated ABI and the `aut` tool's `contract` command to call the Oracle Contract address `0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D`. See `aut contract call --help`.
 

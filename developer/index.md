@@ -15,7 +15,7 @@ The steps in this section describe how to set up a local testnet for development
 
 It is assumed that you have:
 
-- [Setup the Autonity Utility Tool (aut)](/account-holders/setup-aut/).
+- [Setup Autonity CLI](/account-holders/setup-aut/).
 
 - Have an [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with auton, to pay for transaction gas costs:
 	

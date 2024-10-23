@@ -7,7 +7,7 @@ description: >
 ## Prerequisites
 
 - An Autonity Go Client registered as a validator in an active state.
-- A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction from Autonity Utility Tool (aut)](/account-holders/submit-trans-aut/).
+- A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 - Your validator's validator's [`treasury account`](/concepts/validator/#treasury-account) is [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
 
 ::: {.callout-note title="Note" collapse="false"}
