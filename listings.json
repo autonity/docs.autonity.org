@@ -8,18 +8,10 @@
     ]
   },
   {
-    "listing": "/developer/index.html",
+    "listing": "/concepts/consensus/index.html",
     "items": [
-      "/developer/deploy-brownie/index.html",
-      "/developer/custom-networks/index.html",
-      "/developer/submit-trans-gov-acct/index.html"
-    ]
-  },
-  {
-    "listing": "/networks/index.html",
-    "items": [
-      "/networks/testnet-bakerloo/index.html",
-      "/networks/testnet-piccadilly/index.html"
+      "/concepts/consensus/committee/index.html",
+      "/concepts/consensus/pos/index.html"
     ]
   },
   {
@@ -38,6 +30,27 @@
       "/account-holders/fund-acct/index.html",
       "/account-holders/setup-aut/index.html",
       "/account-holders/submit-trans-aut/index.html"
+    ]
+  },
+  {
+    "listing": "/networks/index.html",
+    "items": [
+      "/networks/testnet-bakerloo/index.html",
+      "/networks/testnet-piccadilly/index.html"
+    ]
+  },
+  {
+    "listing": "/cdp/index.html",
+    "items": [
+      "/cdp/liquidate-cdp/index.html",
+      "/cdp/open-cdp/index.html"
+    ]
+  },
+  {
+    "listing": "/reference/cli/index.html",
+    "items": [
+      "/reference/cli/agc/index.html",
+      "/reference/cli/oracle/index.html"
     ]
   },
   {
@@ -64,24 +77,11 @@
     ]
   },
   {
-    "listing": "/reference/cli/index.html",
+    "listing": "/developer/index.html",
     "items": [
-      "/reference/cli/agc/index.html",
-      "/reference/cli/oracle/index.html"
-    ]
-  },
-  {
-    "listing": "/cdp/index.html",
-    "items": [
-      "/cdp/liquidate-cdp/index.html",
-      "/cdp/open-cdp/index.html"
-    ]
-  },
-  {
-    "listing": "/concepts/consensus/index.html",
-    "items": [
-      "/concepts/consensus/committee/index.html",
-      "/concepts/consensus/pos/index.html"
+      "/developer/deploy-brownie/index.html",
+      "/developer/custom-networks/index.html",
+      "/developer/submit-trans-gov-acct/index.html"
     ]
   }
 ]

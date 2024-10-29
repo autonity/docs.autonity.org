@@ -1,307 +1,299 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/architecture/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.379Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/delegators/claim-rewards/index.html</loc>
+    <lastmod>2024-10-29T11:46:20.064Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/accountability/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.379Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/delegators/bond-stake/index.html</loc>
+    <lastmod>2024-10-29T11:46:21.292Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/asm/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.379Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/delegators/transfer-lntn/index.html</loc>
+    <lastmod>2024-10-29T11:46:22.196Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/consensus/committee/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/delegators/index.html</loc>
+    <lastmod>2024-10-29T11:46:22.528Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/client/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.379Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/oracle/index.html</loc>
+    <lastmod>2024-10-29T11:46:22.868Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/oracle-server/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/oracle/run-oracle/index.html</loc>
+    <lastmod>2024-10-29T11:46:23.752Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/staking/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/oracle/install-oracle/index.html</loc>
+    <lastmod>2024-10-29T11:46:24.464Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/protocol-assets/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/staking/index.html</loc>
+    <lastmod>2024-10-29T11:46:26.596Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/protocol-assets/liquid-newton/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/asm/index.html</loc>
+    <lastmod>2024-10-29T11:46:27.480Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/cdp/liquidate-cdp/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.379Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/client/index.html</loc>
+    <lastmod>2024-10-29T11:46:27.852Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/developer/deploy-brownie/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.382Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/protocol-assets/newton/index.html</loc>
+    <lastmod>2024-10-29T11:46:28.204Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/developer/submit-trans-gov-acct/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.382Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/protocol-assets/liquid-newton/index.html</loc>
+    <lastmod>2024-10-29T11:46:28.580Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/developer/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.382Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/protocol-assets/index.html</loc>
+    <lastmod>2024-10-29T11:46:28.944Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/delegators/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.381Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/protocol-assets/auton/index.html</loc>
+    <lastmod>2024-10-29T11:46:29.320Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/networks/testnet-piccadilly/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/validator/index.html</loc>
+    <lastmod>2024-10-29T11:46:30.828Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/networks/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.382Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/consensus/pos/index.html</loc>
+    <lastmod>2024-10-29T11:46:31.240Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/node-operators/connect/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/consensus/index.html</loc>
+    <lastmod>2024-10-29T11:46:31.584Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/node-operators/install-aut/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/consensus/committee/index.html</loc>
+    <lastmod>2024-10-29T11:46:32.020Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/node-operators/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/oracle-network/index.html</loc>
+    <lastmod>2024-10-29T11:46:32.708Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/oracle/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/index.html</loc>
+    <lastmod>2024-10-29T11:46:33.028Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.382Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/oracle-server/index.html</loc>
+    <lastmod>2024-10-29T11:46:33.524Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/account-holders/submit-trans-aut/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.378Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/architecture/index.html</loc>
+    <lastmod>2024-10-29T11:46:34.568Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/account-holders/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.377Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/accountability/index.html</loc>
+    <lastmod>2024-10-29T11:46:35.992Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/account-holders/setup-aut/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.378Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/concepts/system-model/index.html</loc>
+    <lastmod>2024-10-29T11:46:37.296Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/validators/register-vali/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.386Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/overview/index.html</loc>
+    <lastmod>2024-10-29T11:46:37.884Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/validators/migrate-vali/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.386Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/glossary/index.html</loc>
+    <lastmod>2024-10-29T11:46:38.804Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/validators/pause-vali/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.386Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/account-holders/fund-acct/index.html</loc>
+    <lastmod>2024-10-29T11:46:39.144Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/accountability/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.384Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/account-holders/setup-aut/index.html</loc>
+    <lastmod>2024-10-29T11:46:40.264Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/aut/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.384Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/account-holders/key-mgt/usb-wallets/index.html</loc>
+    <lastmod>2024-10-29T11:46:40.684Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/asm/supplycontrol/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.384Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/account-holders/key-mgt/clef/index.html</loc>
+    <lastmod>2024-10-29T11:46:41.224Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/asm/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.384Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/account-holders/index.html</loc>
+    <lastmod>2024-10-29T11:46:42.484Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/account-holders/submit-trans-aut/index.html</loc>
+    <lastmod>2024-10-29T11:46:43.848Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/liquid-newton/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/account-holders/create-acct/index.html</loc>
+    <lastmod>2024-10-29T11:46:45.548Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/codebase/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/node-operators/connect/index.html</loc>
+    <lastmod>2024-10-29T11:46:45.932Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/contracts/autonity/test.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/node-operators/install-aut/index.html</loc>
+    <lastmod>2024-10-29T11:46:46.616Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/cli/oracle/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/node-operators/setup-node-monitoring/index.html</loc>
+    <lastmod>2024-10-29T11:46:47.160Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/cli/agc/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/node-operators/run-aut/index.html</loc>
+    <lastmod>2024-10-29T11:46:47.672Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/issues/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.382Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/node-operators/index.html</loc>
+    <lastmod>2024-10-29T11:46:48.024Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/glossary/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.382Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/node-operators/migrate-aut/index.html</loc>
+    <lastmod>2024-10-29T11:46:48.452Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/cli/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/networks/testnet-bakerloo/index.html</loc>
+    <lastmod>2024-10-29T11:46:48.888Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.386Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/networks/index.html</loc>
+    <lastmod>2024-10-29T11:46:49.236Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/contracts/test.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/networks/testnet-piccadilly/index.html</loc>
+    <lastmod>2024-10-29T11:46:49.660Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/genesis/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.386Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/index.html</loc>
+    <lastmod>2024-10-29T11:46:50.016Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/protocol/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.386Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/cdp/open-cdp/index.html</loc>
+    <lastmod>2024-10-29T11:46:50.804Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/web3/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/cdp/index.html</loc>
+    <lastmod>2024-10-29T11:46:51.184Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/oracle/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/cdp/liquidate-cdp/index.html</loc>
+    <lastmod>2024-10-29T11:46:51.728Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/asm/acu/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.384Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/validators/migrate-vali/index.html</loc>
+    <lastmod>2024-10-29T11:46:52.188Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/asm/stabilization/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.384Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/validators/change-commission-rate/index.html</loc>
+    <lastmod>2024-10-29T11:46:52.604Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/reference/api/aut/op-prot/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.385Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/validators/pause-vali/index.html</loc>
+    <lastmod>2024-10-29T11:46:53.020Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/validators/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.386Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/validators/index.html</loc>
+    <lastmod>2024-10-29T11:46:53.348Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/validators/change-commission-rate/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.386Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/validators/register-vali/index.html</loc>
+    <lastmod>2024-10-29T11:46:53.992Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/account-holders/create-acct/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.377Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/codebase/index.html</loc>
+    <lastmod>2024-10-29T11:46:54.316Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/account-holders/key-mgt/usb-wallets/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.378Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/cli/oracle/index.html</loc>
+    <lastmod>2024-10-29T11:46:55.060Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/account-holders/key-mgt/clef/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.378Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/cli/agc/index.html</loc>
+    <lastmod>2024-10-29T11:46:55.572Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/account-holders/fund-acct/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.377Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/cli/index.html</loc>
+    <lastmod>2024-10-29T11:46:55.916Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/oracle/run-oracle/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.384Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/oracle/index.html</loc>
+    <lastmod>2024-10-29T11:46:56.836Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/oracle/install-oracle/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/asm/index.html</loc>
+    <lastmod>2024-10-29T11:46:57.212Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/node-operators/migrate-aut/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/asm/supplycontrol/index.html</loc>
+    <lastmod>2024-10-29T11:46:57.816Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/node-operators/run-aut/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/asm/stabilization/index.html</loc>
+    <lastmod>2024-10-29T11:46:59.208Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/node-operators/setup-node-monitoring/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/asm/acu/index.html</loc>
+    <lastmod>2024-10-29T11:46:59.804Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/networks/testnet-bakerloo/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.383Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/liquid-newton/index.html</loc>
+    <lastmod>2024-10-29T11:47:00.436Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/delegators/transfer-lntn/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.381Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/index.html</loc>
+    <lastmod>2024-10-29T11:47:00.864Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/delegators/bond-stake/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.381Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/aut/index.html</loc>
+    <lastmod>2024-10-29T11:47:04.432Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/delegators/claim-rewards/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.381Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/aut/op-prot/index.html</loc>
+    <lastmod>2024-10-29T11:47:06.920Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/overview/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.384Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/web3/index.html</loc>
+    <lastmod>2024-10-29T11:47:07.236Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/developer/custom-networks/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.382Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/api/accountability/index.html</loc>
+    <lastmod>2024-10-29T11:47:08.156Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/cdp/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.379Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/index.html</loc>
+    <lastmod>2024-10-29T11:47:08.464Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/cdp/open-cdp/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.379Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/protocol/index.html</loc>
+    <lastmod>2024-10-29T11:47:08.928Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/protocol-assets/newton/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/reference/genesis/index.html</loc>
+    <lastmod>2024-10-29T11:47:10.108Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/protocol-assets/auton/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/developer/submit-trans-gov-acct/index.html</loc>
+    <lastmod>2024-10-29T11:47:11.400Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/developer/index.html</loc>
+    <lastmod>2024-10-29T11:47:11.796Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/oracle-network/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/developer/deploy-brownie/index.html</loc>
+    <lastmod>2024-10-29T11:47:12.356Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/consensus/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/developer/custom-networks/index.html</loc>
+    <lastmod>2024-10-29T11:47:13.228Z</lastmod>
   </url>
   <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/consensus/pos/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.380Z</lastmod>
-  </url>
-  <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/system-model/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.381Z</lastmod>
-  </url>
-  <url>
-    <loc>https://autonity.github.io/docs.autonity.org/concepts/validator/index.html</loc>
-    <lastmod>2024-09-26T09:00:57.381Z</lastmod>
+    <loc>https://github.com/autonity/docs.autonity.org/issues/index.html</loc>
+    <lastmod>2024-10-29T11:47:13.556Z</lastmod>
   </url>
 </urlset>
