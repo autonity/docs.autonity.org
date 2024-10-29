@@ -52,11 +52,15 @@ def generate_contract_doc(
     abi = sorted(abi, key=lambda element: element.get("name", ""))  # type: ignore
     doc = MarkdownDocument()
 
-    doc.add_meta({"title": config["display_name"]})
-    if "notice" in userdoc:
-        doc.add_paragraph(userdoc["notice"])
-    else:
+    if "notice" not in userdoc:
         logger.warning("contract is missing @notice")
+
+    doc.add_meta(
+        {
+            "title": config["display_name"],
+            "description": userdoc.get("notice", " "),
+        }
+    )
 
     for element_type in (ElementType.EVENT, ElementType.FUNCTION):
         if abi_elements := eth_utils.filter_abi_by_type(str(element_type), abi):  # type: ignore

@@ -546,3 +546,7 @@ span.resource {
 td, td * {
     word-break: break-all;
 }
+
+.listing-description {
+    word-break: normal;
+}
