@@ -11,6 +11,10 @@ output_dir = "reference/api"
 
 [contracts.Accountability]
 excludes = [
+  # onlyAFDReporter
+  "handleAccusation",
+  "handleInnocenceProof",
+  "handleMisbehaviour",
   # onlyAutonity
   "distributeRewards",
   "finalize",
@@ -60,7 +64,7 @@ excludes = [
   "finalizeInitialization",
 ]
 
-[contracts.Liquid]
+[contracts.LiquidLogic]
 display_name = "Liquid Newton"
 excludes = [
   # onlyAutonity
