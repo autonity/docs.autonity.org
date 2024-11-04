@@ -4,6 +4,8 @@ project:
   preview:
     port: 3000
     browser: false
+metadata-files:
+  - _metadata/_navigation.yml
 execute:
   freeze: auto
   echo: true

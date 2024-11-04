@@ -1,0 +1,9 @@
+website:
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        href: index.md
+      - text: "Concepts"
+        href: concepts/index.md
