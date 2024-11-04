@@ -4,6 +4,8 @@ project:
   preview:
     port: 3000
     browser: false
+  pre-render:
+    - featuretoggle.py
 execute:
   freeze: auto
   echo: true
