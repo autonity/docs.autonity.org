@@ -9,17 +9,6 @@ Welcome to the documentation site for the [Autonity Go Client (AGC)](https://git
 
 AGC is a fork of [Geth <i class='fas fa-external-link-alt'></i>](https://geth.ethereum.org/) and is the reference implementation of the Autonity Protocol. The protocol provides an EVM-based blockchain that utilises Tendermint BFT for delegated proof of stake consensus, has a dual native coin design for tokenomics, and provides liquid staking for capital efficiency.
 
-::: {.content-hidden unless-meta="metadata.feature1"}
-
-This content will be hidden unless there exists a metadata entry like such:
-
-```yml
-path:
-  to:
-    metadata: true
-```
-:::
-
 This documentation describes key concepts and functionality of the Autonity protocol, main client, and oracle server. It explains how to use the software and connect to an Autonity network.
 
 ## Getting started
