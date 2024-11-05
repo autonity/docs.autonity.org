@@ -69,6 +69,30 @@ The staging site is available [here](https://autonity.github.io/docs.autonity.or
   
 See the repo Wiki Page [Git Workflow](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow) for [when to `merge` or `rebase` branches when working on `game.autonity.org`](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow#when-to-merge-and-rebase-when-working-on-gameautonityorg) repo.
 
+## Feature flags
+
+If content must be added but is not ready to be displayed. Please wrap it in a feature flag for example:
+
+```Markdown
+::: {.content-hidden unless-meta="metadata.feature1"}
+
+This content will be hidden unless there exists a metadata entry in the `_features.yml` file like such:
+    feature1: true
+:::
+```
+Then update the `_features.yml` file to include the feature flag:
+
+```YAML
+  feature1: true
+```
+
+CSS classes that you have created can also be omitted from rendering, by adding them to the `css_classes` list in the same file:
+
+```YAML
+css_classes:
+  - navbar
+```
+
 ## Other Piccadilly site resources
 
 For overall site structure, see [Autonity Sitemap](https://ideal-funicular-f02b8485.pages.github.io/autonity-www.html)
