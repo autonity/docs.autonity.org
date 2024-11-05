@@ -4,8 +4,8 @@ project:
   preview:
     port: 3000
     browser: false
-  pre-render:
-    - featuretoggle.py
+  post-render:
+    - scripts/feature-filter.py
 execute:
   freeze: auto
   echo: true
@@ -114,7 +114,7 @@ format:
       light: [cosmo, _theme/theme.scss]
     code-copy: true
     code-overflow: wrap
-    css: _assets/css/styles.css
+    css: _assets/css/styles.scss
     toc: true
     include-in-header:
       - text: |

@@ -1,0 +1,11 @@
+.navbar {
+  background-color: #000000;
+  color: #ffffff;
+}
+.content, .content * {
+    overflow-wrap: break-word;
+}
+
+td, td * {
+    word-break: break-all;
+}
