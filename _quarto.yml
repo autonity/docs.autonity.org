@@ -6,6 +6,8 @@ project:
     browser: false
   post-render:
     - scripts/feature-filter.py
+metadata-files:
+  - _features.yml
 execute:
   freeze: auto
   echo: true
