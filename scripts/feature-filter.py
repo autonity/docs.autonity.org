@@ -35,7 +35,7 @@ def modify_css_files(css_directory, classes_to_remove):
 if __name__ == "__main__":
     print("Feature filter script started.")
     config = load_features_config(feature_config.resolve())
-    if config and 'css' in config:
+    if config and 'css_classes' in config:
         classes_to_remove = config['css_classes']
         print(f"Removing: {classes_to_remove}")
         modify_css_files(css_directory, classes_to_remove)
