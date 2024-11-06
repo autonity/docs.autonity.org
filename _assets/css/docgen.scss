@@ -1,0 +1,156 @@
+/**
+* Handle footer content, prevent wrapping
+*/
+.footer-list {
+    white-space: nowrap;
+}
+
+
+.footer-link {
+    border: var(--primary-border);
+    font-family: var(--header-font);
+    padding: 12px 30px;
+    width: 50%;
+}
+
+.footer-link:hover {
+    border-color: var(--highlight-color);
+}
+
+.footer-link > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: var(--foreground-color);
+}
+
+.footer-navigation {
+    display: flex;
+    gap: 15px;
+}
+img.footer-link-image {
+    width: 15px;
+}
+.footer-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.prev-link>a>.footer-link-text {    
+    align-items: end;
+}
+
+.footer-link:hover .contract-name {
+    color: var(--highlight-color);
+}
+
+table.table {
+    border: var(--primary-border);
+}
+
+.table>thead {
+    border-top-width: 0;
+    border: var(--primary-border);
+}
+
+.table>:not(caption)>*>* {
+    border: var(--primary-border);
+}
+td {
+    width: 33%;
+}
+
+
+.payable-tag {
+    color: var(--green);
+}
+
+.view-tag { 
+    color: var(--blue);
+}
+
+.pure-tag {
+    color: var(--purple);
+}
+#TOC ul li a {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.sidebar nav[role=doc-toc] ul>li>ul>li>a {
+    padding-left: 1.2em;
+}
+
+.footer-meta-data {
+    display: flex;
+    justify-content: flex-end;
+}
+.footer-version {
+    color: var(--tertiary-color);
+}
+
+.contract-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 1.5rem;
+}
+
+.footer-link.hidden-link {
+    visibility: hidden;
+}
+
+
+.selector {    
+    font-weight: 500;
+}
+
+section:target::before {
+    content: unset !important;
+    display: unset;
+    height: 53px;
+    margin: 0;
+}
+
+.method-title {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+    margin-bottom: 7.6px;
+}
+
+.method-title > h3 {
+    margin: 0;
+}
+
+.method-title > :first-child {
+    flex: 0 1 auto;
+  }
+ 
+
+.method-meta-data-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+.method-meta-data-wrapper > div { 
+    border: var(--primary-border);
+    padding: 2px 12px;
+    font-size: .75em;
+    font-weight: bold;
+    text-align: center;
+}
+
+section#events h4,
+section#functions h4 {
+    margin: 0px;
+}
+
+section#events p,
+section#functions p {
+    margin-bottom: 8px;
+}
