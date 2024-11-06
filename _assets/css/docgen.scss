@@ -137,12 +137,15 @@ section:target::before {
     gap: 15px;
 }
 
-.method-meta-data-wrapper > div { 
+.method-meta-data-wrapper > div {
     border: var(--primary-border);
     padding: 2px 12px;
     font-size: .75em;
     font-weight: bold;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 section#events h4,
