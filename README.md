@@ -74,10 +74,16 @@ See the repo Wiki Page [Git Workflow](https://github.com/autonity/game.autonity.
 If content must be added but is not ready to be displayed. Please wrap it in a feature flag for example:
 
 ```Markdown
-::: {.content-hidden unless-meta="metadata.feature1"}
+::: {.content-hidden unless-meta="feature1"}
 
-This content will be hidden unless there exists a metadata entry in the `_features.yml` file like such:
-    feature1: true
+This content will be hidden unless there exists a metadata entry like such:
+
+```yml
+path:
+  to:
+    metadata: true
+```
+
 :::
 ```
 Then update the `_features.yml` file to include the feature flag:

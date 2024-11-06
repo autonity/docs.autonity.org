@@ -1,3 +1,7 @@
 feature1: true
+feature2: false
+
+# List of classes that will be excluded from the main document.
+# Changes to this list are only reflected when you run quarto render
 css_classes:
   - navbar
