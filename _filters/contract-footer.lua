@@ -38,14 +38,15 @@ function Div(el)
       local prev_html = '<div class="footer-link hidden-link"></div>'
       if prev_url then
         prev_html = string.format([[
+          <div class="footer-link prev-link">
             <a href="%s">
              <img class="footer-link-image" src="/_assets/images/chevron-left.svg" class="img-fluid">
-            <div class="footer-link-text">
-              <span>%s</span>
-              <span class="contract-name">%s</span>
-            </div>
+              <div class="footer-link-text">
+                <span>%s</span>
+                <span class="contract-name">%s</span>
+              </div>
             </a>
-           </div>
+          </div>
         ]], prev_url, prev_text, prev_contract)
       end
       local next_html = '<div class="footer-link hidden-link"></div>'
