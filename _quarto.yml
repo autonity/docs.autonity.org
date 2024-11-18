@@ -116,7 +116,7 @@ format:
       light: [cosmo, _theme/theme.scss]
     code-copy: true
     code-overflow: wrap
-    css: 
+    css:
       - _assets/css/styles.scss
       - _assets/css/docgen.scss
     toc: true

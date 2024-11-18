@@ -43,7 +43,7 @@ def modify_css_files(css_directory, classes_to_remove, files_to_exclude):
 if __name__ == "__main__":
     print("Feature filter script started.")
     config = load_features_config(feature_config.resolve())
-    
+
     if config:
         classes_to_remove = config.get('css_classes', [])
         files_to_exclude = config.get('css_files', [])
@@ -54,4 +54,3 @@ if __name__ == "__main__":
         modify_css_files(css_directory, classes_to_remove, files_to_exclude)
     else:
         print("No valid configuration found.")
-

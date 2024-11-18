@@ -1,7 +1,7 @@
 --[[
   This script adds footer navigation buttons to the bottom of the page.
   it is called with:
-  ::: {.footer-navigation ....} 
+  ::: {.footer-navigation ....}
   :::
 
   and takes the following attributes:
@@ -18,17 +18,13 @@
 
 function Div(el)
     if el.classes:includes("footer") then
-      
       local prev_url = el.attributes["prev-url"]
       local prev_contract = el.attributes["prev-contract"] or "Previous contract"
       local prev_text = "Previous"
-      
       local next_url = el.attributes["next-url"]
       local next_contract = el.attributes["next-contract"] or "Next contract"
       local next_text = "Next"
-
       local version = el.attributes["version"] or ""
-      
       local wrapper_html = [[
         <div class="contract-footer">
           <div class="footer-navigation">
@@ -39,12 +35,9 @@ function Div(el)
           </div>
         </div>
       ]]
-      
       local prev_html = '<div class="footer-link hidden-link"></div>'
-
       if prev_url then
         prev_html = string.format([[
-          <div class="footer-link prev-link">
             <a href="%s">
              <img class="footer-link-image" src="/_assets/images/chevron-left.svg" class="img-fluid">
             <div class="footer-link-text">
@@ -55,7 +48,6 @@ function Div(el)
            </div>
         ]], prev_url, prev_text, prev_contract)
       end
-
       local next_html = '<div class="footer-link hidden-link"></div>'
       if next_url then
         next_html = string.format([[

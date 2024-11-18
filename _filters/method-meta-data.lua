@@ -26,7 +26,6 @@ function Div(el)
             %s
             </div>
         ]]
-        
         local tag_html = ""
         if color_class ~= "" then
             tag_html = string.format([[

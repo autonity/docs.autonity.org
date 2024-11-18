@@ -38,7 +38,7 @@ img.footer-link-image {
     gap: 8px;
 }
 
-.prev-link>a>.footer-link-text {    
+.prev-link>a>.footer-link-text {
     align-items: end;
 }
 
@@ -67,7 +67,7 @@ td {
     color: var(--green);
 }
 
-.view-tag { 
+.view-tag {
     color: var(--blue);
 }
 
@@ -105,7 +105,7 @@ td {
 }
 
 
-.selector {    
+.selector {
     font-weight: 500;
 }
 
@@ -130,7 +130,6 @@ section:target::before {
 .method-title > :first-child {
     flex: 0 1 auto;
   }
- 
 
 .method-meta-data-wrapper {
     display: flex;
