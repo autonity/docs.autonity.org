@@ -66,7 +66,7 @@ The repo is configured to publish:
 - A new version of the production website is published by merging `develop` into `master` after thorough testing.
 
 The staging site is available [here](https://autonity.github.io/docs.autonity.org/). The staging site is updated automatically on every push to the `staging` branch.
-  
+
 See the repo Wiki Page [Git Workflow](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow) for [when to `merge` or `rebase` branches when working on `game.autonity.org`](https://github.com/autonity/game.autonity.org/wiki/Git-Workflow#when-to-merge-and-rebase-when-working-on-gameautonityorg) repo.
 
 ## Feature flags
