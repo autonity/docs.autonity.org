@@ -25,11 +25,13 @@ def remove_css_classes(content, classes_to_remove):
 def empty_css_file(filepath):
     """Empty the content of the specified -compiled- CSS file."""
     with open(filepath, 'w') as file:
+        print("Emptying file:", filepath)
         file.write("")
 
 def modify_css_files(css_directory, classes_to_remove, files_to_exclude):
     """Find and modify CSS files in the specified directory."""
-    for css_file in css_directory.glob("*.scss"):
+
+    for css_file in css_directory.glob("*.*css"):
         if css_file.name in files_to_exclude:
             empty_css_file(css_file)
         else:
