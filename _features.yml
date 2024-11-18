@@ -6,4 +6,4 @@
 
 # List of scss files that will be excluded from the main document
 css_files:
-  - docgen.scss
+  - docgen.css
