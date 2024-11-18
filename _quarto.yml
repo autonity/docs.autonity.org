@@ -113,12 +113,9 @@ format:
     fontcolor: "#333333"
     smooth-scroll: true
     theme:
-      light: [cosmo, _theme/theme.scss]
+      light: [cosmo, _theme/theme.scss, _assets/css/styles.scss, _assets/css/docgen.scss]
     code-copy: true
     code-overflow: wrap
-    css:
-      - _assets/css/styles.scss
-      - _assets/css/docgen.scss
     toc: true
     include-in-header:
       - text: |
