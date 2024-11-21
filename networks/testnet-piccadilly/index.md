@@ -20,7 +20,7 @@ Piccadilly is for participants interested in:
 |**Field**|**Input**|
 |------|----------|
 |Network Name|`Autonity Piccadilly (Barada) Testnet`|
-|New RPC URL|`https://rpc1.piccadilly.autonity.org/`|
+|New RPC URL|Please select one from [Chainlist](https://chainlist.org/?testnets=true&search=piccadilly)|
 |ChainID |`65100003`|
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
