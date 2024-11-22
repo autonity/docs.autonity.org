@@ -148,7 +148,7 @@ const KeystoreProvider = require("truffle-keystore-provider")
 
 var ACCOUNT = 'alice.key';
 var DATA_DIR = '../../';
-var PROVIDER_URL = 'https://rpc1.piccadilly.autonity.org';
+var PROVIDER_URL = '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>';
 var NETWORK_ID = 65100000 ;
 var GAS_PRICE = 20000000000 ;
 

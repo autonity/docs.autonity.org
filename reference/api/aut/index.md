@@ -467,7 +467,7 @@ aut protocol config [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol config -r https://rpc1.piccadilly.autonity.org
+aut protocol config -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 {
   "policy": {
     "treasury_fee": 10000000000000000,
@@ -541,7 +541,7 @@ aut protocol deployer [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol deployer --rpc-endpoint https://rpc1.piccadilly.autonity.org
+aut protocol deployer --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 0x0000000000000000000000000000000000000000
 ```
 
@@ -640,7 +640,7 @@ aut protocol epoch-reward [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol epoch-reward --rpc-endpoint https://rpc1.piccadilly.autonity.org
+aut protocol epoch-reward --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 121166000000000
 ```
 ## RPC
@@ -688,7 +688,7 @@ aut protocol epoch-total-bonded-stake [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol epoch-total-bonded-stake --rpc-endpoint https://rpc1.piccadilly.autonity.org
+aut protocol epoch-total-bonded-stake --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 61338
 ```
 ## RPC
@@ -736,7 +736,7 @@ aut protocol block-period [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol block-period --rpc-endpoint https://rpc1.piccadilly.autonity.org
+aut protocol block-period --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 1
 ```
 ## RPC
@@ -923,7 +923,7 @@ aut protocol epoch-from-block [OPTIONS] BLOCK
 ## aut
 
 ``` {.aut}
-aut protocol epoch-from-block --rpc-endpoint https://rpc1.piccadilly.autonity.org 3293857
+aut protocol epoch-from-block --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> 3293857
 1829
 ```
 
@@ -979,7 +979,7 @@ aut protocol epoch-period [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol epoch-period --rpc-endpoint https://rpc1.piccadilly.autonity.org
+aut protocol epoch-period --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 1800
 ```
 ## RPC
@@ -1024,7 +1024,7 @@ aut protocol last-epoch-block [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol last-epoch-block -r https://rpc1.piccadilly.autonity.org
+aut protocol last-epoch-block -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 12981684
 ```
 ## RPC
@@ -1548,7 +1548,7 @@ aut validator info [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut validator info --rpc-endpoint https://rpc1.piccadilly.autonity.org --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
+aut validator info --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
 {
   "treasury": "0x61EE7d3244642E5f6D654416a098DEabFBF5306e",
   "node_address": "0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C",
@@ -1648,7 +1648,7 @@ aut validator list [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut validator list --rpc-endpoint https://rpc1.piccadilly.autonity.org
+aut validator list --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 0x32F3493Ef14c28419a98Ff20dE8A033cf9e6aB97
 0x31870f96212787D181B3B2771F58AF2BeD0019Aa
 0x6EBb5A45728be7Cd9fE9c007aDD1e8b3DaFF6B3B
@@ -1778,7 +1778,7 @@ aut token name [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut token name --ntn -r https://rpc1.piccadilly.autonity.org
+aut token name --ntn -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 Newton
 ```
 ## RPC
@@ -1795,7 +1795,7 @@ To return the `name` for an ERC20 (e.g. a Liquid Newton token) token contract sp
 ## aut
 
 ``` {.aut}
-aut token name --rpc-endpoint https://rpc1.piccadilly.autonity.org --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
+aut token name --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
 LNTN-4
 ```
 :::
@@ -1980,7 +1980,7 @@ aut token symbol [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut token symbol --ntn --rpc-endpoint https://rpc1.piccadilly.autonity.org
+aut token symbol --ntn --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 NTN
 ```
 ## RPC
@@ -2039,7 +2039,7 @@ aut protocol atn-total-redistributed [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol atn-total-redistributed -r https://rpc1.piccadilly.autonity.org
+aut protocol atn-total-redistributed -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 47981813599875371606
 ```
 ## RPC
@@ -2090,7 +2090,7 @@ To return total supply for the Newton stake token specify the `--ntn` option:
 ## aut
 
 ``` {.aut}
-aut token total-supply --ntn -r https://rpc1.piccadilly.autonity.org
+aut token total-supply --ntn -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 63402
 ```
 ## RPC
@@ -2107,7 +2107,7 @@ To return the total supply for an ERC20 contract token (e.g. Liquid Newton) spec
 ## aut
 
 ``` {.aut}
-aut token total-supply --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37   -r https://rpc1.piccadilly.autonity.org
+aut token total-supply --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37   -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
 10087
 ```
 :::
