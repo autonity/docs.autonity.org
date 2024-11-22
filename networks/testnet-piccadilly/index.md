@@ -71,7 +71,7 @@ The current iteration of the Piccadilly network is built using:
 
 ## Public endpoints
 
-Please select one from [Chainlist](https://chainlist.org/?testnets=true&search=piccadilly. For questions related to rate limits or other usage questions, please speak to the owner of the RPC endpoint directly.
+Please select one from [Chainlist](https://chainlist.org/?testnets=true&search=piccadilly). For questions related to rate limits or other usage questions, please speak to the owner of the RPC endpoint directly.
 
 
 ## Block explorer
