@@ -123,7 +123,7 @@ $ aut token allowance --ntn 0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
 
 ## RPC
 ``` {.rpc}
-curl -X GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_allowance", "params":["0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C","0xD9B99BAe9E9550A6Ac2F74bA7DdE483a4462C548"], "id":1}'
+curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_allowance", "params":["0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C","0xD9B99BAe9E9550A6Ac2F74bA7DdE483a4462C548"], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":100}
 ```
 :::
@@ -254,7 +254,7 @@ aut token balance-of --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
 ## RPC
 
 ``` {.rpc}
-curl -X GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_balanceOf", "params":["0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4"], "id":1}'
+curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_balanceOf", "params":["0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4"], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1000}
 ```
 :::
@@ -548,7 +548,7 @@ aut protocol deployer --rpc-endpoint https://rpc1.piccadilly.autonity.org
 ## RPC
 
 ``` {.rpc}
-curl -X GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>'  --header 'Content-Type: application/json' --data '{"method":"aut_deployer", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_deployer", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x0000000000000000000000000000000000000000"}
 ```
 :::
@@ -591,14 +591,14 @@ aut protocol epoch-id [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol epoch-id --rpc-endpoint https://rpc1.bakerloo.autonity.org
+aut protocol epoch-id --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=bakerloo>
 7371
 ```
 
 ## RPC
 
 ``` {.rpc}
-curl -X GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>'  --header 'Content-Type: application/json' --data '{"method":"aut_epochID", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_epochID", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":7371}
 ```
 :::
@@ -793,7 +793,7 @@ aut protocol committee [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol committee -r https://rpc1.bakerloo.autonity.org
+aut protocol committee -r <RPC FROM https://chainlist.org/?testnets=true&search=bakerloo>
 [
   {
     "address": "0xBaf935b88066021a0B0BD34cEB2Ba10389b6Aa0D",
@@ -812,7 +812,7 @@ aut protocol committee -r https://rpc1.bakerloo.autonity.org
 ## RPC
 
 ``` {.rpc}
-curl -X GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}' | jq .
+curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}' | jq .
 {"jsonrpc":"2.0","id":1,"result":[
     {
       "addr": "0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d",
@@ -871,14 +871,14 @@ aut protocol committee-enodes [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol committee-enodes -r https://rpc1.bakerloo.autonity.org
+aut protocol committee-enodes -r <RPC FROM https://chainlist.org/?testnets=true&search=bakerloo>
 ['enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303', 'enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303', 'enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303', 'enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308', 'enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309', 'enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310', 'enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303', 'enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303', 'enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303']
 ```
 
 ## RPC
 
 ``` {.rpc}
-curl -X GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommitteeEnodes", "params":[], "id":1}'
+curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommitteeEnodes", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":["enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303","enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303","enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303","enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308","enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309","enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310","enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303","enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303","enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303"]}
 ```
 :::
@@ -930,7 +930,7 @@ aut protocol epoch-from-block --rpc-endpoint https://rpc1.piccadilly.autonity.or
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>' \
+curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1080,7 +1080,7 @@ aut protocol max-committee-size --rpc-endpoint <RPC FROM https://chainlist.org/?
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>' \
+curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1136,7 +1136,7 @@ aut protocol minimum-base-fee --rpc-endpoint <RPC FROM https://chainlist.org/?te
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>' \
+curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1188,7 +1188,7 @@ None.
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>' \
+curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1245,7 +1245,7 @@ aut protocol operator -r <RPC FROM https://chainlist.org/?testnets=true&search=p
 ## RPC
 
 ``` {.rpc}
-curl -X GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getOperator", "params":[], "id":1}'
+curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getOperator", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x293039dDC627B1dF9562380c0E5377848F94325A"}
 ```
 :::
@@ -1334,7 +1334,7 @@ aut protocol proposer -r <RPC FROM https://chainlist.org/?testnets=true&search=p
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>' \
+curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1732,7 +1732,7 @@ aut protocol version -r <RPC FROM https://chainlist.org/?testnets=true&search=pi
 ## RPC
 
 ``` {.rpc}
-curl -X GET '<RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>'  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getVersion", "params":[], "id":1}'
+curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getVersion", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1}
 ```
 :::
