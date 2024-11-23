@@ -20,7 +20,7 @@ Examples for calling functions from `aut` use the setup described in the How to 
 
 Changes the state of a paused validator on an Autonity Network from `paused` to `active`. (See [`pauseValidator`](/reference/api/aut/#pausevalidator) method.)
 
-The `activateValidator` method provides as argument the validator identifier address.
+The `activateValidator` method provides as argument the [validator identifier](/concepts/validator/#validator-identifier) address.
 
 On method execution the `Validator.state` object data property is updated in memory and set to `active`.
 
@@ -37,7 +37,7 @@ Validator re-activation is executed on transaction commit. New stake delegations
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_address` | `address` | the validator identifier account address |
+| `_address` | `address` | the [validator identifier](/concepts/validator/#validator-identifier) account address |
 
 ### Response
 
@@ -205,12 +205,11 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
-
 ##  balanceOf
 
-Returns the amount of unbonded Newton stake token held by an account.
+Returns the amount of unbonded Newton stake token held by an account (ERC-20).
 
-Using `aut` you can return the account balance for an ERC20 token contract account, e.g. a Liquid Newton account.
+You can return the account balance for an ERC20 token contract account using the `aut token` command group, which is for interacting with ERC-20 token contracts. For example, of a Liquid Newton account.
 
 ### Parameters
 
@@ -225,7 +224,6 @@ Using `aut` you can return the account balance for an ERC20 token contract accou
 | `amount` | `uint256` | the amount of unbonded Newton token held by the account |
 
 ### Usage
-
 
 ::: {.panel-tabset}
 ## aut
@@ -297,7 +295,7 @@ On successful processing of the method call:
 | Field | Datatype | Description |
 | --| --| --|
 | `delegator` | `address payable` | account address of the account bonding stake |
-| `delegatee` | `address` | validator identifier account address of the validator to which stake is being bonded |
+| `delegatee` | `address` | [validator identifier](/concepts/validator/#validator-identifier) account address of the validator to which stake is being bonded |
 | `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
 | `requestBlock` | `uint256` | the block number at which a bonding transaction was committed |
 
@@ -358,7 +356,7 @@ Changes the percentage fee of staking rewards deducted by a validator as commiss
 
 Validators may change commission rate at any time after registration.
 
-The `changeCommissionRate` method provides as arguments the validator identifier address and the new commission rate expressed as basis points (bps).
+The `changeCommissionRate` method provides as arguments the [validator identifier](/concepts/validator/#validator-identifier) address and the new commission rate expressed as basis points (bps).
 
 On method execution the `Validator.commissionRate` object data property is updated in memory and set to the new rate.
 
@@ -374,7 +372,7 @@ The rate change is applied at the next unbonding period modulo epoch.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_validator` | `address` | the validator identifier account address |
+| `_validator` | `address` | the [validator identifier](/concepts/validator/#validator-identifier) account address |
 | `_rate` | `uint256 ` | the new commission rate in basis points (bps), value range between 0-10000 (10000 = 100%) |
 
 ### Response
@@ -398,9 +396,7 @@ aut validator change-commission-rate [OPTIONS] RATE
 ```
 :::
 
-
 ### Example
-
 
 ::: {.panel-tabset}
 ## aut
@@ -413,6 +409,61 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
+
+## circulatingSupply
+
+Returns the amount of Newton stake token circulating in the network.
+
+::: {.callout-note title="What is the difference between the total and circulating supply of Newton?" collapse="true"}
+
+Total supply is the total amount of Newton that has been minted. Minted Newton may be locked in a contract and released into circulation over time by unlocking according to a schedule. 
+
+Newton stake token that is locked in schedules does not contribute to circulating supply. 
+
+Circulating supply is simply the total supply minus the sum of any minted NTN locked in a contract according to a schedule and pending unlocking. It becomes part of the circulating supply when it unlocks.
+
+To return the total supply of NTN see [`totalSupply()`](/reference/api/aut/#totalsupply).
+:::
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype| Description |
+| --| --| --|
+| `stakeCirculating` | `uint256` | the supply of Newton in circulation on the network |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
 
 
 ## config
@@ -768,9 +819,9 @@ Returns a `committee` array of `CommitteeMember` objects, each object consisting
 
 | Field | Datatype | Description |
 | --| --| --|
-| `addr` | `address` | account address of the committee member |
-| `votingPower` | `uint256` | the amount of Newton stake token bonded to the committee member |
-| `consensusKey` | `bytes` | the public consensus key of the validator |
+| `addr` | `address` | the `nodeAddress` of the validator node, its unique [`validator identifier`](/concepts/validator/#validator-identifier) |
+| `votingPower` | `uint256` | the amount of Newton stake token bonded to the validator |
+| `consensusKey` | `bytes` | the bls public key in bytes that the validator node is using in consensus |
 
 ### Usage
 
@@ -886,9 +937,107 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 :::
 
 
+## getCurrentEpochPeriod
+
+Returns the epoch period from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+
+## getEpochByHeight
+
+Returns the epoch info for a given block height.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_height` | `uint256` | the input block number |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochInfos` | `EpochInfo` | epoch info object for the requested block height |
+
+### Response
+
+Returns an `epochInfo` object providing metadata about the consensus committee and epoch. See [`getEpochInfo()`](/reference/api/aut/#getepochinfo) for the description of `EpochInfo` object properties.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+
 ## getEpochFromBlock
 
-Returns the unique identifier of the epoch block epoch associated with a block as an integer value.
+Returns the unique identifier of the epoch associated with a block height.
 
 ### Parameters
 
@@ -918,7 +1067,6 @@ aut protocol epoch-from-block [OPTIONS] BLOCK
 ```
 :::
 
-
 ### Example
 
 ::: {.panel-tabset}
@@ -944,10 +1092,65 @@ curl --location --request GET $RPC_URL \
 ```
 :::
 
+## getEpochInfo
+
+Returns the current epoch info of the chain.    
+
+### Parameters
+
+None.
+
+### Response
+
+Returns an `epochInfo` object consisting of:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `committee` | `CommitteeMember[]` | an array of `CommitteeMember` objects recording the consensus committee of the epoch |
+| `previousEpochBlock` | `uint256` | The previous epoch block number |
+| `epochBlock` | `uint256` | The epoch block number |
+| `nextEpochBlock` | `uint256` | The next epoch block number |
+| `delta` | `uint256` | the current value for delta (omission failure) |
+
+For each committee member [`validator identifier`](/concepts/validator/#validator-identifier) address, [voting power](/glossary/#voting-power), and [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys) is returned. See [`getCommittee()`](/reference/api/aut/#getcommittee) for the description of `CommitteeMember` object properties.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
 
 ## getEpochPeriod
 
-Returns the epoch period from the protocol configuration.
+Returns the epoch period. If there will be an update at epoch end, the new epoch period is returned.
 
 ### Parameters
 
@@ -957,7 +1160,7 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
+| `newEpochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
 
 ### Usage
 
@@ -995,13 +1198,13 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method
 
 ## getLastEpochBlock
 
-Returns the number of the last block in the preceding epoch at the block height of the call.
+Returns the last epoch's end block height.
 
 ### Response
 
 | Field | Datatype | Description |
 | --| --| --|
-| `lastEpochBlock` | `uint256` | the number of the last block in the preceding epoch |
+| `epochBlock` | `uint256` | the number of the last block in the preceding epoch |
 
 ### Usage
 
@@ -1038,7 +1241,6 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method
 :::
 
 
-
 ##  getMaxCommitteeSize
 
 Returns the protocol setting for the maximum number of validators that can be selected to the consensus committee.
@@ -1055,7 +1257,6 @@ None.
 
 ### Usage
 
-
 ::: {.panel-tabset}
 ## aut
 
@@ -1068,7 +1269,6 @@ aut protocol max-committee-size [OPTIONS]
 {"method": "aut_getMaxCommitteeSize", "params":[]}
 ```
 :::
-
 
 ### Example
 
@@ -1094,6 +1294,50 @@ curl --location --request GET $RPC_URL \
 ```
 :::
 
+
+## getMaxScheduleDuration
+
+Returns the max allowed duration of any schedule or contract from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype| Description |
+| --| --| --|
+| `maxScheduleDuration` | `uint256` | the maximum duration allowed for a schedule or contract for locked Newton |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
 
 
 ##  getMinimumBaseFee
@@ -1125,7 +1369,6 @@ aut protocol minimum-base-fee [OPTIONS]
 ```
 :::
 
-
 ### Example
 
 ::: {.panel-tabset}
@@ -1150,7 +1393,6 @@ curl --location --request GET $RPC_URL \
 {"jsonrpc":"2.0","id":1,"result":500000000}
 ```
 :::
-
 
 
 ##  getNewContract
@@ -1183,7 +1425,6 @@ None.
 ```
 :::
 
-
 ### Example
 
 ::: {.panel-tabset}
@@ -1199,6 +1440,47 @@ curl --location --request GET $RPC_URL \
         "id":1
 }'
 {"jsonrpc":"2.0","id":1,"result":["",""]}
+```
+:::
+
+## getNextEpochBlock
+
+Returns the next epoch's block.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `nextEpochBlock` | `uint256` | the number of the first block in the following epoch |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
 ```
 :::
 
@@ -1398,7 +1680,7 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 
 ## getTreasuryFee
 
-Returns the percentage of staking rewards deducted from staking rewards by the protocol. Treasury fees ared sent to the Autonity Treasury account for community funding before staking rewards are distributed.
+Returns the percentage of staking rewards deducted from staking rewards by the protocol. Treasury fees are sent to the Autonity Treasury account for community funding before staking rewards are distributed.
 
 ### Parameters
 
@@ -1472,7 +1754,6 @@ aut protocol unbonding-period [OPTIONS]
 ```
 :::
 
-
 ### Example
 
 ::: {.panel-tabset}
@@ -1491,15 +1772,68 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method
 :::
 
 
-## getValidator
+## getUnbondingShare
 
-Returns the data for a designated validator identifier address from system state. The method response may be empty if there is no associated validator object for the address argument provided.
+Returns the amount of unbonding shares for an unbonding request.
 
 ### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_addr` | `address` | the validator identifier account address |
+| `_unbondingID ` | `uint256` | the unique identifier of the unbonding request |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `unbondingShare` | `uint256` | the amount of shares issued for the unbonding staking pool that the unbonding amount represents. See [`unbond()`](/reference/api/aut/#unbond) |
+
+### Response
+
+Returns an `epochInfo` object providing metadata about the consensus committee and epoch. See [`getEpochInfo()`](/reference/api/aut/#getepochinfo) for the description of `EpochInfo` object properties.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+
+## getValidator
+
+Returns the data for a designated [validator identifier](/concepts/validator/#validator-identifier) address from system state. The method response may be empty if there is no associated validator object for the address argument provided.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_addr` | `address` | the [validator identifier](/concepts/validator/#validator-identifier) account address |
 
 ### Response
 
@@ -1508,7 +1842,7 @@ Returns a `Validator` object consisting of:
 | Field | Datatype | Description |
 | --| --| --|
 | `treasury` | `address payable` | the address that will receive staking rewards the validator earns |
-| `nodeAddress` | `address` | the validator identifier account address |
+| `nodeAddress` | `address` | the [validator identifier](/concepts/validator/#validator-identifier) account address |
 | `oracleAddress` | `address` | the identifier account address of the validator's oracle server |
 | `enode` | `string` | the enode url of the validator node |
 | `commissionRate` | `uint256` | the percentage commission that the validator will charge on staking rewards from delegated stake |
@@ -1519,14 +1853,14 @@ Returns a `Validator` object consisting of:
 | `selfUnbondingStake` | `uint256` | the total amount of NTN in the self-unbonding staking pool |
 | `selfUnbondingShares` | `uint256` | the total amount of shares in the self-unbonding staking pool |
 | `selfUnbondingStakeLocked` | `uint256` | the total amount of NTN in the self-unbonding staking pool that is locked pending unbonding |
-| `liquidContract` | `Liquid` | the address of the validator's Liquid Newton contract |
+| `liquidStateContract` | `Liquid` | the address of the validator's Liquid Newton contract |
 | `liquidSupply` | `uint256` | the total amount of Liquid Newton in circulation |
 | `registrationBlock` | `uint256` | the block number in which the registration of the validator was committed to state|
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
 | `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height). Set to `0` when the validator is in an active or jailbound state |
-| `provableFaultCount` | `uint256` | a counter of the number of times that a validator has been penalised for accountability and omission faults since registration |
 | `consensusKey` | `bytes` | the public consensus key of the validator |
 | `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `0`: active, `1`: paused, `2`: jailed, `3`: jailbound |
+
 
 ### Usage
 
@@ -1563,12 +1897,11 @@ aut validator info --rpc-endpoint $RPC_URL --validator 0x21bb01ae8eb831fff68ebe1
   "self_bonded_stake": 10000000000000000000000,
   "self_unbonding_stake": 0,
   "self_unbonding_shares": 0,
-  "liquid_contract": "0x0000000000000000000000000000000000000000",
+  "liquid_state_contract": "0x0000000000000000000000000000000000000000",
   "liquid_supply": 1397840815523076466699159265359708166239426845751,
   "registration_block": 0,
   "total_slashed": 0,
   "jail_release_block": 0,
-  "provable_fault_count": 0,
   "state": 0
 }
 ```
@@ -1593,12 +1926,11 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
     "selfUnbondingStake": 0,
     "selfUnbondingShares": 0,
     "selfUnbondingStakeLocked": 0,
-    "liquidContract": "0x2b0f159443599fbb6723cdb33d0db94f96b95d0f",
+    "liquidStateContract": "0x2b0f159443599fbb6723cdb33d0db94f96b95d0f",
     "liquidSupply": 0,
     "registrationBlock": 171322,
     "totalSlashed": 0,
     "jailReleaseBlock": 0,
-    "provableFaultCount": 0,
     "consensusKey": "reWv9AU/mGkTEaSlmcXAghXQrXITz6WOABRU51+Scig/1LeC4gia6FQKQDzQj83W",
     "state": 0
   }
@@ -1607,12 +1939,11 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 :::
 
 
-
 ##  getValidators
 
 Returns the current list of validators from system state.
 
-The response is returned as a list of validator identifier addresses, sorted by registration index in ascending order. I.E. the last value in the array is always the last processed registration request.
+The response is returned as a list of [validator identifier](/concepts/validator/#validator-identifier) addresses, sorted by registration index in ascending order. I.E. the last value in the array is always the last processed registration request.
 
 ### Parameters
 
@@ -1689,12 +2020,56 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 :::
 
 
+## getValidatorState
+
+Returns the state of a designated validator.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_addr` | `address` | the [validator identifier](/concepts/validator/#validator-identifier) account address |
+
+### Response
+
+| Field | Datatype| Description |
+| --| --| --|
+| `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `0`: active, `1`: paused, `2`: jailed, `3`: jailbound, `4`: jailedForInactivity, `5`: jailboundForInactivity |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
 
 ##  getVersion
 
-Returns the version of the Autonity Protocol Contract.
-
-Versioning is recorded by a single-digit incrementing version number.
+Returns the current Autonity Protocol Contract version.
 
 ### Parameters
 
@@ -1739,6 +2114,52 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 ```
 :::
 
+
+## isUnbondingReleased
+
+Returns a boolean flag specifying if stake for an unbonding request has been released or not.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_unbondingID ` | `uint256` | the unique identifier of the unbonding request |
+
+### Response
+
+Returns `true` if unbonding is released and `false` otherwise.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
 
 
 ## name
@@ -1888,7 +2309,6 @@ On method execution a `Validator` object data structure is constructed in memory
 | `registrationBlock` | `uint256` | Set to current block number (the number of the block that the register validator transaction will be committed in) |
 | `totalSlashed` | `uint256` | Set to `0`. (The total amount of stake that a validator has had slashed for accountability and omission faults since registration.) |
 | `jailReleaseBlock` | `uint256` | Set to `0`. (The block number at which a validator jail period applied for an accountability or omission fault ends.) |
-| `provableFaultCount` | `uint256` | Set to `0`. (Counter recording the number of times the validator has been penalised for accountability and omission faults.) |
 | `consensusKey` | `bytes` | Set to the `_consensusKey` parameter value provided in the `registerValidator` method call transaction |
 | `ValidatorState` | `state` | Set to `active`. |
 
@@ -2055,9 +2475,16 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 
 ## totalSupply
 
-Returns the total supply of Newton stake token in circulation.
+Returns the amount of Newton stake token issued.
 
-Using `aut` you can return the allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
+You can return the total supply for an ERC20 token contract using the `aut token` command group, which is for interacting with ERC-20 token contracts. For example, of a Liquid Newton account.
+
+::: {.callout-note title="What is the difference between the total and circulating supply of Newton?" collapse="true"}
+
+Total supply is the total amount of Newton that has been minted. Circulating supply is simply the total supply minus the sum of any minted NTN that is locked and released into circulation over time by unlocking according to a schedule.
+
+To return the circulating supply of NTN see [`circulatingSupply()`](/reference/api/aut/#circulatingsupply).
+:::
 
 ### Parameters
 
@@ -2343,7 +2770,7 @@ Enter passphrase (or CTRL-d to exit):
 
 Updates the enode URL of a registered validator on an Autonity Network.
 
-The `updateEnode` method provides as argument the validator identifier and the [enode](/glossary/#enode) URL of the validator node.
+The `updateEnode` method provides as argument the [validator identifier](/concepts/validator/#validator-identifier) and the [enode](/glossary/#enode) URL of the validator node.
 
 Constraint checks are applied:
 
@@ -2391,4 +2818,3 @@ aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576
 aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode 0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d enode://0be363cfa0c81ee12cfc7e144cf6611a1418344a1fa6a0ca04aaa9b09f68dfe2a8d70b8de22026807728424122937721f8f3570bf296c8d445183e37c87b152d@35.197.223.249:30303
 
 :::
-
