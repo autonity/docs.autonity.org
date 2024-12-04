@@ -10,6 +10,8 @@ Interface for interacting with Autonity Contract functions using:
 - Autonity CLI to submit calls to inspect state and state-affecting transactions.
 - JSON-RPC methods to submit calls to inspect state.
 
+Given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=piccadilly>.
+
 ::: {.callout-note title="Info" collapse="false"}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 :::
@@ -123,7 +125,7 @@ $ aut token allowance --ntn 0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
 
 ## RPC
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_allowance", "params":["0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C","0xD9B99BAe9E9550A6Ac2F74bA7DdE483a4462C548"], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_allowance", "params":["0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C","0xD9B99BAe9E9550A6Ac2F74bA7DdE483a4462C548"], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":100}
 ```
 :::
@@ -254,7 +256,7 @@ aut token balance-of --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_balanceOf", "params":["0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4"], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_balanceOf", "params":["0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4"], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1000}
 ```
 :::
@@ -467,7 +469,7 @@ aut protocol config [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol config -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol config -r $RPC_URL
 {
   "policy": {
     "treasury_fee": 10000000000000000,
@@ -496,7 +498,7 @@ aut protocol config -r <RPC FROM https://chainlist.org/?testnets=true&search=pic
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_config", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_config", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":[{"treasuryFee":10000000000000000,"minBaseFee":500000000,"delegationRate":1000,"unbondingPeriod":21600,"treasuryAccount":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"},{"accountabilityContract":"0x5a443704dd4b594b382c22a083e2bd3090a6fef3","oracleContract":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d","acuContract":"0x8be503bcded90ed42eff31f56199399b2b0154ca","supplyControlContract":"0x47c5e40890bce4a473a49d7501808b9633f29782","stabilizationContract":"0x29b2440db4a256b0c1e6d3b4cdcaa68e2440a08f"},{"operatorAccount":"0xd32c0812fa1296f082671d5be4cbb6beeedc2397","epochPeriod":1800,"blockPeriod":1,"committeeSize":100},1]}
 ```
 :::
@@ -541,14 +543,14 @@ aut protocol deployer [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol deployer --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol deployer --rpc-endpoint $RPC_URL
 0x0000000000000000000000000000000000000000
 ```
 
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_deployer", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_deployer", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x0000000000000000000000000000000000000000"}
 ```
 :::
@@ -591,14 +593,14 @@ aut protocol epoch-id [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol epoch-id --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=bakerloo>
+aut protocol epoch-id --rpc-endpoint $RPC_URL
 7371
 ```
 
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_epochID", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_epochID", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":7371}
 ```
 :::
@@ -640,13 +642,13 @@ aut protocol epoch-reward [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol epoch-reward --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol epoch-reward --rpc-endpoint $RPC_URL
 121166000000000
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_epochReward", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_epochReward", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":121166000000000}
 ```
 :::
@@ -688,13 +690,13 @@ aut protocol epoch-total-bonded-stake [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol epoch-total-bonded-stake --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol epoch-total-bonded-stake --rpc-endpoint $RPC_URL
 61338
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_epochTotalBondedStake", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_epochTotalBondedStake", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":61338}
 ```
 :::
@@ -736,13 +738,13 @@ aut protocol block-period [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol block-period --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol block-period --rpc-endpoint $RPC_URL
 1
 ```
 ## RPC
 
 ``` {.aut}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_getBlockPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getBlockPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1}
 ```
 :::
@@ -793,7 +795,7 @@ aut protocol committee [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol committee -r <RPC FROM https://chainlist.org/?testnets=true&search=bakerloo>
+aut protocol committee -r $RPC_URL
 [
   {
     "address": "0xBaf935b88066021a0B0BD34cEB2Ba10389b6Aa0D",
@@ -812,7 +814,7 @@ aut protocol committee -r <RPC FROM https://chainlist.org/?testnets=true&search=
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}' | jq .
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}' | jq .
 {"jsonrpc":"2.0","id":1,"result":[
     {
       "addr": "0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d",
@@ -871,14 +873,14 @@ aut protocol committee-enodes [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol committee-enodes -r <RPC FROM https://chainlist.org/?testnets=true&search=bakerloo>
+aut protocol committee-enodes -r $RPC_URL
 ['enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303', 'enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303', 'enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303', 'enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308', 'enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309', 'enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310', 'enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303', 'enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303', 'enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303']
 ```
 
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommitteeEnodes", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommitteeEnodes", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":["enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303","enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303","enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303","enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308","enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309","enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310","enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303","enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303","enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303"]}
 ```
 :::
@@ -923,14 +925,14 @@ aut protocol epoch-from-block [OPTIONS] BLOCK
 ## aut
 
 ``` {.aut}
-aut protocol epoch-from-block --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> 3293857
+aut protocol epoch-from-block --rpc-endpoint $RPC_URL 3293857
 1829
 ```
 
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
+curl --location --request GET $RPC_URL \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -979,13 +981,13 @@ aut protocol epoch-period [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol epoch-period --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol epoch-period --rpc-endpoint $RPC_URL
 1800
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_getEpochPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getEpochPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1800}
 ```
 :::
@@ -1024,13 +1026,13 @@ aut protocol last-epoch-block [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol last-epoch-block -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol last-epoch-block -r $RPC_URL
 12981684
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_getLastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getLastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":12981684}
 ```
 :::
@@ -1074,13 +1076,13 @@ aut protocol max-committee-size [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol max-committee-size --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol max-committee-size --rpc-endpoint $RPC_URL
 50
 ```
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
+curl --location --request GET $RPC_URL \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1130,13 +1132,13 @@ aut protocol minimum-base-fee [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol minimum-base-fee --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol minimum-base-fee --rpc-endpoint $RPC_URL
 500000000
 ```
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
+curl --location --request GET $RPC_URL \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1188,7 +1190,7 @@ None.
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
+curl --location --request GET $RPC_URL \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1239,13 +1241,13 @@ aut protocol operator [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol operator -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol operator -r $RPC_URL
 0x293039dDC627B1dF9562380c0E5377848F94325A
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getOperator", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getOperator", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x293039dDC627B1dF9562380c0E5377848F94325A"}
 ```
 :::
@@ -1281,7 +1283,7 @@ None.
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_getOracle", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getOracle", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d"}
 ```
 :::
@@ -1328,13 +1330,13 @@ aut protocol proposer [OPTIONS] HEIGHT ROUND
 ## aut
 
 ``` {.aut}
-aut protocol proposer -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> 4576868 0
+aut protocol proposer -r $RPC_URL 4576868 0
 0x0c7dC2aB00c7b5934EDA097a8585f56367A94dA4
 ```
 ## RPC
 
 ``` {.rpc}
-curl --location --request GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> \
+curl --location --request GET $RPC_URL \
 --header 'Content-Type: application/json' \
 --data-raw '{
         "jsonrpc":"2.0",
@@ -1382,13 +1384,13 @@ aut protocol treasury-account [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol treasury-account -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol treasury-account -r $RPC_URL
 0xF74c34Fed10cD9518293634C6f7C12638a808Ad5
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryAccount", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryAccount", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"}
 ```
 :::
@@ -1429,13 +1431,13 @@ aut protocol treasury-fee [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol treasury-fee -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol treasury-fee -r $RPC_URL
 10000000000000000
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryFee", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryFee", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":10000000000000000}
 ```
 :::
@@ -1477,13 +1479,13 @@ aut protocol unbonding-period [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol unbonding-period -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol unbonding-period -r $RPC_URL
 21600
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_getUnbondingPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getUnbondingPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":21600}
 ```
 :::
@@ -1548,7 +1550,7 @@ aut validator info [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut validator info --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
+aut validator info --rpc-endpoint $RPC_URL --validator 0x21bb01ae8eb831fff68ebe1d87b11c85a766c94c
 {
   "treasury": "0x61EE7d3244642E5f6D654416a098DEabFBF5306e",
   "node_address": "0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C",
@@ -1573,7 +1575,7 @@ aut validator info --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0x439926f9a819e86ae284ceaa7e87909777cf8c84"], "id":1}' .|jq
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0x439926f9a819e86ae284ceaa7e87909777cf8c84"], "id":1}' .|jq
 
 {
   "jsonrpc": "2.0",
@@ -1648,7 +1650,7 @@ aut validator list [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut validator list --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut validator list --rpc-endpoint $RPC_URL
 0x32F3493Ef14c28419a98Ff20dE8A033cf9e6aB97
 0x31870f96212787D181B3B2771F58AF2BeD0019Aa
 0x6EBb5A45728be7Cd9fE9c007aDD1e8b3DaFF6B3B
@@ -1681,7 +1683,7 @@ aut validator list --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidators", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidators", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":["0x32f3493ef14c28419a98ff20de8a033cf9e6ab97","0x31870f96212787d181b3b2771f58af2bed0019aa","0x6ebb5a45728be7cd9fe9c007add1e8b3daff6b3b","0xac245af88265e72881cd9d21efb9ddc32e174b69","0x36288c1f8c990fd66a1c5040a61d6f3ecf3a49c1","0xb3a3808c698d82790ac52a42c05e4bcb3dfcd3db","0x467d99ea9dacc495e6d1174b8f3dd20ddd531335","0xa940eb48368324e2032b97723be487505981edce","0xba35a25badb802cb3c0702e0e2df392e00511ca2","0x1114fe559b302403bb3a89806bc08f7fa5299e99","0x9fd408bdb83be1c8504ff13ebcce7f490dccc2cf","0xe03d1de3a2fb5fec85041655f218f18c9d4dac55","0x52b89afa0d1dee274bb5e4395ee102aafbf372ea","0x914d06dbaaa3c51085692f59230769eaa32f3a94","0xfae912badb5e0db5ec0116fe6552e8d6bdb4e82b","0x7fc0ae4918c0d8eaa1a259fa455b32a2ceb58ea4","0x82b6eaca5014dca39b3a37d68c246f1466b15aa9","0xe4ece2266ea7b7468ad3e381d08c962641b567f2","0xcd46183d0075116175c62dcde568f2e0c4736597","0xcd50c31356fddbd9e704cf58751a0ed2b178d8b0","0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","0xeb25090aa0fd5c940f87a172aaf62413eb625b63","0x2af517e6edf3c01f8256e609122f004457024e67","0x9d458e21b15c0c1a95db65c5fae639d1477ce4dc","0x724e26894a5fcf0233fdc5849aaf0fbb2dd5b0e8","0xe9ce74fba6f04345516c9a3028292a1d62a409b3","0x9f793d2c7e1d5a72a020281f383bfc5e3086aca9","0xde5aeb71cc4aaa99cf6a23f68bffdddd7e8231fe"]}
 ```
 :::
@@ -1726,13 +1728,13 @@ aut protocol version [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol version -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>8545/
+aut protocol version -r $RPC_URL8545/
 1
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getVersion", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getVersion", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":1}
 ```
 :::
@@ -1778,13 +1780,13 @@ aut token name [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut token name --ntn -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut token name --ntn -r $RPC_URL
 Newton
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"method":"aut_name", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_name", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"Newton"}
 ```
 :::
@@ -1795,7 +1797,7 @@ To return the `name` for an ERC20 (e.g. a Liquid Newton token) token contract sp
 ## aut
 
 ``` {.aut}
-aut token name --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly> --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
+aut token name --rpc-endpoint $RPC_URL --token 0xC500751c4F96d49B954D20EAE42Fa29278B96beB
 LNTN-4
 ```
 :::
@@ -1980,13 +1982,13 @@ aut token symbol [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut token symbol --ntn --rpc-endpoint <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut token symbol --ntn --rpc-endpoint $RPC_URL
 NTN
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_symbol", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_symbol", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"NTN"}
 ```
 :::
@@ -2039,13 +2041,13 @@ aut protocol atn-total-redistributed [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol atn-total-redistributed -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut protocol atn-total-redistributed -r $RPC_URL
 47981813599875371606
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_atnTotalRedistributed", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_atnTotalRedistributed", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":47981813599875371606}
 ```
 :::
@@ -2090,13 +2092,13 @@ To return total supply for the Newton stake token specify the `--ntn` option:
 ## aut
 
 ``` {.aut}
-aut token total-supply --ntn -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut token total-supply --ntn -r $RPC_URL
 63402
 ```
 ## RPC
 
 ``` {.rpc}
-curl -X GET <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_totalSupply", "params":[], "id":1}'
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_totalSupply", "params":[], "id":1}'
 {"jsonrpc":"2.0","id":1,"result":63402}
 ```
 :::
@@ -2107,7 +2109,7 @@ To return the total supply for an ERC20 contract token (e.g. Liquid Newton) spec
 ## aut
 
 ``` {.aut}
-aut token total-supply --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37   -r <RPC FROM https://chainlist.org/?testnets=true&search=piccadilly>
+aut token total-supply --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37   -r $RPC_URL
 10087
 ```
 :::
