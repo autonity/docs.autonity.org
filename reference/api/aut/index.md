@@ -1728,7 +1728,7 @@ aut protocol version [OPTIONS]
 ## aut
 
 ``` {.aut}
-aut protocol version -r $RPC_URL8545/
+aut protocol version -r $RPC_URL
 1
 ```
 ## RPC
