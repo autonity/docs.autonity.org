@@ -14,7 +14,7 @@ Using [pipx](https://github.com/pypa/pipx) or any other python package manager, 
 pipx install eth-brownie
 ```
 
-Add the testnet you would like to deploy the contract to, given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=piccadilly>::
+Add the testnet you would like to deploy the contract to, given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=piccadilly>:
 ```bash
 brownie networks add Ethereum piccadilly host=$RPC_URL chainid=65100003
 ```
