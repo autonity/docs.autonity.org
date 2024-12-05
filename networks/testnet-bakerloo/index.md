@@ -16,7 +16,7 @@ Bakerloo is for participants interested in:
 |**Field**|**Input**|
 |------|----------|
 |Network Name|`Autonity Bakerloo (Barada) Testnet`|
-|New RPC URL|`https://rpc1.bakerloo.autonity.org`|
+|New RPC URL|Please select one from [Chainlist](https://chainlist.org/?testnets=true&search=bakerloo)|
 |ChainID |`65010003`|
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://bakerloo.autonity.org/`|
@@ -70,10 +70,7 @@ The current iteration of the Bakerloo network is built using:
 
 ## Public endpoints
 
-Default rate limit on calls to `wss` and `https` public endpoints combined  is 250 requests per second per IP.
-
-- RPC: [https://rpc1.bakerloo.autonity.org](https://rpc1.bakerloo.autonity.org)
-- WebSocket: [wss://rpc1.bakerloo.autonity.org/ws](wss://rpc1.bakerloo.autonity.org/ws)
+Please select one from [Chainlist](https://chainlist.org/?testnets=true&search=bakerloo). For questions related to rate limits or other usage questions, please speak to the owner of the RPC endpoint directly.
 
 ## Block explorer
 

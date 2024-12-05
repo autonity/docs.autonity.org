@@ -20,7 +20,7 @@ Piccadilly is for participants interested in:
 |**Field**|**Input**|
 |------|----------|
 |Network Name|`Autonity Piccadilly (Barada) Testnet`|
-|New RPC URL|`https://rpc1.piccadilly.autonity.org/`|
+|New RPC URL|Please select one from [Chainlist](https://chainlist.org/?testnets=true&search=piccadilly)|
 |ChainID |`65100003`|
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
@@ -71,10 +71,8 @@ The current iteration of the Piccadilly network is built using:
 
 ## Public endpoints
 
-Default rate limit on calls to `wss` and `https` public endpoints combined  is 250 requests per second per IP.
+Please select one from [Chainlist](https://chainlist.org/?testnets=true&search=piccadilly). For questions related to rate limits or other usage questions, please speak to the owner of the RPC endpoint directly.
 
-- RPC: [https://rpc1.piccadilly.autonity.org](https://rpc1.piccadilly.autonity.org)
-- WebSocket: [wss://rpc1.piccadilly.autonity.org/ws](wss://rpc1.piccadilly.autonity.org/ws)
 
 ## Block explorer
 
