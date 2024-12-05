@@ -10,7 +10,7 @@ Interface for interacting with Autonity Contract functions using:
 - Autonity CLI to submit calls to inspect state and state-affecting transactions.
 - JSON-RPC methods to submit calls to inspect state.
 
-Given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=piccadilly>.
+Given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=autonity>.
 
 ::: {.callout-note title="Info" collapse="false"}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
