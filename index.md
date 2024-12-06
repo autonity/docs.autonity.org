@@ -1,6 +1,7 @@
 
 ---
 # title: "Welcome to Autonity!"
+
 ---
 
 ![](/_assets/images/text-logo-autonity.svg)
