@@ -2,7 +2,7 @@ name: Publish Site to Github pages - Staging
 on:
   workflow_dispatch:
   push:
-    branches: staging
+    branches: develop
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
