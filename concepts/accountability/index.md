@@ -144,7 +144,8 @@ On *permanent* jailing the validator enters a `jailbound` state and is *permanen
 
 Accountability event lifecycle management comprises: accountability event submission on-chain, event handling on-chain, accusations, innocence, fault promotion, and slashing. Rule infractions are detected by validators and submitted on-chain. As noted under [Protocol Primitives](/concepts/accountability/#protocol-primitives) above, [Faults](/concepts/accountability/#faults) may be directly submitted as `FaultProofs` or promoted from `Accusations`.
 
- Rule infractions can be directly submitted as a _fault_ proof by a _reporting validator_ or promoted from an accusation. In the latter case, they they are promoted when:
+Rule infractions can be directly submitted as a _fault_ proof by a _reporting validator_ or promoted from an accusation. In the latter case, they are promoted when:
+
   - reported as an _accusation_, submitted by a _reporting validator_ against an _offending validator_
   - eventually defended by an _innocence_ proof, submitted by the _offending validator_ within a proof submission window measured in blocks
   - if not defended, promoted to _fault_ by the protocol once the innocence window has expired.
