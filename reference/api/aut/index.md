@@ -478,23 +478,37 @@ None.
 
 Returns a `Config` object consisting of:
 
-| Field | Datatype | Description |
-| --| --| --|
-| `treasuryFee` | `uint256` | the percentage of staking rewards deducted from staking rewards and sent to the Autonity Treasury account for community funding before staking rewards are distributed |
-| `minBaseFee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
-| `delegationRate` | `uint256` | the percentage of staking rewards deducted by validators as a commission from delegated stake |
-| `unbondingPeriod` | `uint256` | the period of time for which bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction, defined as a number of blocks |
-| `treasuryAccount` | `address payable` | the address of the Autonity Treasury account for community funds |
-| `accountabilityContract` | `address` | the address of the Autonity Accountability Contract |
-| `oracleContract` | `address` | the address of the Autonity Oracle Contract |
-| `acuContract` | `address` | the address of the Autonity ASM ACU Contract |
-| `supplyControlContract` | `address` | the address of the Autonity ASM Supply Control Contract |
-| `stabilizationContract` | `address` | the address of the Autonity ASM Stabilization Contract |
-| `operatorAccount` | `address` | the address of the Autonity governance account |
-| `epochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
-| `blockPeriod` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
-| `committeeSize` | `uint256` | the maximum number of validators that may be members of a consensus committee on the network |
-| `contractVersion` | `uint256 ` | the version number of the Autonity Protocol Contract. An integer value set by default to `1` and incremented by `1` on contract upgrade |
+| Object | Field | Datatype | Description |
+| --| --| --| --|
+| `Policy` | n/a | `struct` | the Autonity network's configuration of economic and staking protocol parameters |
+| | `treasuryFee` | `uint256` | the percentage of staking rewards deducted from staking rewards and sent to the Autonity Treasury account for community funding before staking rewards are distributed |
+| | `minBaseFee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
+| | `delegationRate` | `uint256` | the percentage of staking rewards deducted by validators as a commission from delegated stake |
+| | `unbondingPeriod` | `uint256` | the period of time for which bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction, defined as a number of blocks |
+| | `initialInflationReserve` | `uint256` | the amount of Newton held in reserve for Newton inflation rewards |
+| | `withholdingThreshold` | `uint256` | the inactivity threshold at which committee member Auton (staking) and Newton (Newton inflation) rewards are withheld and sent to the Withheld Rewards Pool account. Inactivity is based on omission accountability and the validator's inactivity score |
+| | `proposerRewardRate` | `uint256` | the percentage of epoch staking rewards allocated for proposer rewarding based on activity proof |
+| | `oracleRewardRate` | `uint256` | the percentage of staking rewards deducted for oracles as a reward for correct price reporting |
+| | `withheldRewardsPool` | `address payable` | the address of the Autonity Withheld Rewards account, the pool to which withheld inflation rewards are sent for holding. Set to the Autonity Treasury account at genesis, but can be changed |
+| | `treasuryAccount` | `address payable` | the address of the Autonity Treasury account for community funds |
+| `contracts` | n/a | `struct` | the deployed contract addresses of the Autonity network's [Protocol contracts](/concepts/architecture/#protocol-contracts) |
+| | `accountabilityContract` | `address` | the address of the Autonity accountable fault detection Accountability Contract |
+| | `oracleContract` | `address` | the address of the Autonity Oracle Contract |
+| | `acuContract` | `address` | the address of the Autonity ASM ACU Contract |
+| | `supplyControlContract` | `address` | the address of the Autonity ASM Supply Control Contract |
+| | `stabilizationContract` | `address` | the address of the Autonity ASM Stabilization Contract |
+| | `upgradeManagerContract` | `address` | the address of the Autonity Protocol contract upgrade mechanism's Upgrade Manager Contract |
+| | `inflationControllerContract` | `address` | the address of the Autonity Newton inflation reward mechanism Control Contract |
+| | `omissionAccountabilityContract` | `address` | the address of the Autonity Accountability Contract |
+| `Protocol` | n/a | `struct` | the Autonity network's configuration of governance, consensus committee, and duration (NTN unlocking schedule, epoch and block interval) protocol parameters |
+| | `OperatorAccount` | `address` | the address of the Autonity governance account |
+| | `EpochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
+| | `BlockPeriod` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
+| | `CommitteeSize` | `uint256` | the maximum number of validators that may be members of a consensus committee on the network |
+| | `MaxScheduleDuration` | `uint256` | the maximum allowed duration in seconds of an NTN locking schedule or contract |
+| `ContractVersion` | `uint256 ` | the version number of the Autonity Protocol Contract. An integer value set by default to `1` and incremented by `1` on contract upgrade |
+
+
 
 ### Usage
 
@@ -549,8 +563,8 @@ aut protocol config -r $RPC_URL
 ## RPC
 
 ``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_config", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":[{"treasuryFee":10000000000000000,"minBaseFee":500000000,"delegationRate":1000,"unbondingPeriod":21600,"treasuryAccount":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"},{"accountabilityContract":"0x5a443704dd4b594b382c22a083e2bd3090a6fef3","oracleContract":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d","acuContract":"0x8be503bcded90ed42eff31f56199399b2b0154ca","supplyControlContract":"0x47c5e40890bce4a473a49d7501808b9633f29782","stabilizationContract":"0x29b2440db4a256b0c1e6d3b4cdcaa68e2440a08f"},{"operatorAccount":"0xd32c0812fa1296f082671d5be4cbb6beeedc2397","epochPeriod":1800,"blockPeriod":1,"committeeSize":100},1]}
+curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_config", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":{"Policy":{"TreasuryFee":10000000000000000,"MinBaseFee":500000000,"DelegationRate":1000,"UnbondingPeriod":21600,"InitialInflationReserve":40000000000000000000000000,"WithholdingThreshold":0,"ProposerRewardRate":1000,"OracleRewardRate":1000,"WithheldRewardsPool":"0xf74c34fed10cd9518293634c6f7c12638a808ad5","TreasuryAccount":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"},"Contracts":{"AccountabilityContract":"0x5a443704dd4b594b382c22a083e2bd3090a6fef3","OracleContract":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d","AcuContract":"0x8be503bcded90ed42eff31f56199399b2b0154ca","SupplyControlContract":"0x47c5e40890bce4a473a49d7501808b9633f29782","StabilizationContract":"0x29b2440db4a256b0c1e6d3b4cdcaa68e2440a08f","UpgradeManagerContract":"0x3c368b86af00565df7a3897cfa9195b9434a59f9","InflationControllerContract":"0x3bb898b4bbe24f68a4e9be46cfe72d1787fd74f4","OmissionAccountabilityContract":"0x684c903c66d69777377f0945052160c9f778d689"},"Protocol":{"OperatorAccount":"0xd32c0812fa1296f082671d5be4cbb6beeedc2397","EpochPeriod":1800,"BlockPeriod":1,"CommitteeSize":30,"MaxScheduleDuration":126230400},"ContractVersion":1}}
 ```
 :::
 
