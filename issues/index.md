@@ -22,7 +22,7 @@ The Autonity Protocol Contract Interface function [`getProposer()`](/reference/a
 - height = `h - 1`.
 - round = `r`.
 
-# Light client syncing is not supported
+## Light client syncing is not supported
 
 Autonity does not currently support light clients and the LES Protocol. The blockchain sync mode "light" should not be set: `--syncmode light` is not supported.
 
@@ -45,3 +45,11 @@ The Autonity Liquid Newton Contract Interface function [`wal()`](/reference/api/
 
 The interface documentation shows the correct output in the [`wal()` example output](/reference/api/liquid-newton/#example-1) and [`lsend()` example output](/reference/api/liquid-newton/#example-4).
 -->
+
+## RPC `aut_acnPeers` returns empty result
+
+As part of addressing AGC issue [Revise the `aut` JSON-RPC Namespace #1034](), the `acnPeers` RPC call was moved from the `admin` to `aut` namespace.
+
+Calling `aut_acnPeers` will return an empty result. This will be fixed by PR [fix api to fetch acn peer infos #1108](https://github.com/autonity/autonity/pull/1108).
+
+Until that PR is merged information about a validator nodes acn peers can still be returned by a call to `admin_acnPeers`.
