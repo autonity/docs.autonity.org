@@ -7,6 +7,7 @@ description: >
 
 The `aut` API gives access to Autonity-specific RPC methods to return protocol configuration and Autonity network peer information that cannot be replicated through `eth_call`.
 
+Given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=autonity>.
 
 ## aut_address
 
@@ -38,7 +39,7 @@ None.
 ## RPC
 
 ``` {.rpc}
-curl -X GET 'https://rpc1.piccadilly.autonity.org'  --header 'Content-Type: application/json' --data '{"method":"aut_address", "params":[], "jsonrpc":"2.0", "id":1}'
+curl -X GET $RPC_URL --header 'Content-Type: application/json' --data '{"method":"aut_address", "params":[], "jsonrpc":"2.0", "id":1}'
 {"jsonrpc":"2.0","id":1,"result":"0xbd770416a3345f91e4b34576cb804a576fa48eb1"}
 ```
 :::
@@ -80,11 +81,6 @@ Returns an array of objects providing information about each peer node the queri
 
 ::: {.panel-tabset}
 
-``` {.aut}
-## aut
-TO DO
-```
-
 ## RPC
 
 ``` {.rpc}
@@ -102,16 +98,10 @@ This is a known issue and a PR with the fix is pending. See [Known issue, RPC `a
 :::
 
 ::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
-```
-
 ## RPC
 
 ``` {.rpc}
-curl -X GET 'http://31.1412.41.41:8545/'  --header 'Content-Type: application/json' --data '{"method":"admin_acnPeers", "params":[], "jsonrpc":"2.0", "id":1}' | jq .
+curl -X GET $RPC_URL --header 'Content-Type: application/json' --data '{"method":"admin_acnPeers", "params":[], "jsonrpc":"2.0", "id":1}' | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  1109  100  1044  100    65   2691    167 --:--:-- --:--:-- --:--:--  2865
