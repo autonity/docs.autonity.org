@@ -20,6 +20,13 @@ There are 2 types of account:
 ## account state
 A part of [system state](/glossary/#system-state) that is specific to an [account](/glossary/#account) [address](/glossary/#address). Account state comprises: the account’s native coin balance (_auton_), the count of transactions sent from the account (nonce), and, if a contract account, a hash (storageRoot) of the associated account storage and hash (codeHash) of the associated EVM code.
 
+## acn
+Acronym for Autonity Consensus Network.
+
+At the P2P level, Autonity separates transaction and consensus traffic on to separate channels on different TCP ports.
+
+For transaction gossiping between nodes the Ethereum wire protocol is used for P2P propagation of block announcements and transactions. For consensus gossiping a separate consensus protocol runs alongside the ethwire protocol for the execution of Autonity’s BFT Tendermint Consensus algorithm. For detail see [Communication layer](/concepts/architecture/#communication-layer) in the *Architecture* Concept.
+
 ## address{#address}
 A 64 character hex string providing the unique identifier of an [account](/glossary/#account).
 

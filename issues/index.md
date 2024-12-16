@@ -52,4 +52,4 @@ As part of addressing AGC issue [Revise the `aut` JSON-RPC Namespace #1034](), t
 
 Calling `aut_acnPeers` will return an empty result. This will be fixed by PR [fix api to fetch acn peer infos #1108](https://github.com/autonity/autonity/pull/1108).
 
-Until that PR is merged information about a validator nodes acn peers can still be returned by a call to `admin_acnPeers`.
+Until that PR is merged information about a validator node's acn peers can still be returned by a call to `admin_acnPeers`.
