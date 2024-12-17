@@ -63,7 +63,7 @@ The current iteration of the Piccadilly network is built using:
 
 - Autonity Go Client (AGC) Release: [v1.0.2-alpha](https://github.com/autonity/autonity/releases/tag/v1.0.2-alpha). The docker image release is: [`ghcr.io/autonity/autonity:v1.0.2-alpha`](https://github.com/autonity/autonity/pkgs/container/autonity)
 
-- Autonity Oracle Server (AOS) Release: [v0.2.2](https://github.com/autonity/autonity-oracle/releases/tag/v0.2.2). The docker image release is: [`ghcr.io/autonity/autonity-oracle:latest`](https://github.com/orgs/autonity/packages/container/package/autonity-oracle)
+- Autonity Oracle Server (AOS) Release: [v0.2.3](https://github.com/autonity/autonity-oracle/releases/tag/v0.2.3). The docker image release is: [`ghcr.io/autonity/autonity-oracle:v0.2.3`](https://github.com/orgs/autonity/packages/container/package/autonity-oracle)
 
 ## Faucet
 
