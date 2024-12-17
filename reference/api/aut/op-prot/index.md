@@ -283,7 +283,7 @@ Constraint checks are applied:
 
 No response object is returned on successful execution of the call.
 
-The updated parameter can be retrieved from state by a call to the [`epochPeriod()`](/reference/api/aut/#epochperiod) public variable.
+The updated parameter can be retrieved using [`getEpochPeriod()`](/reference/api/aut/#getepochperiod).
 
 #### Event
 
@@ -309,6 +309,133 @@ aut governance set-epoch-period 1000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xdf3b3eb316a3070a591621d8cc450ca6d1af3a6d57a0455714b5bff72eb06b92
+```
+:::
+
+
+###  setInnocenceProofSubmissionWindow (Accountability Contract)
+
+Sets the innocence proof submission window protocol parameter. 
+       
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_window ` | `uint256` | the new value for the window (in blocks) |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+###  setBaseSlashingRates (Accountability Contract)
+
+Sets the `low`, `mid`, and `high` base slashing rates protocol parameters.
+
+The new base slashing rate values must be scaled per the [slashing rate scale factor](/concepts/accountability/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration.
+
+Constraint checks are applied:
+
+- the `low` slashing rate cannot exceed the `high` slashing rate
+- the `mid` slashing rate cannot exceed the `high` slashing rate
+- the `high` slashing rate cannot exceed the slashing rate scale factor.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_rates ` | `uint256` | comma separated list of the new `low`, `mid` and `high` values for the base slashing rates |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
+###  setFactors (Accountability Contract)
+
+Sets the `collusion`, `history`, and `jail` punishment factor protocol parameters.
+
+The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/accountability/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration. 
+Constraint checks are applied:
+
+- the `collusion factor` cannot exceed the slashing rate scale factor.
+- the `history factor` cannot exceed the slashing rate scale factor.
+
+The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/accountability/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration. 
+Constraint checks are applied:
+The jail factor is specified as a number of epochs.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_rates ` | `uint256` | comma separated list of the new `CollusionFactor`, `HistoryFactor` and `JailFactor` values for the base slashing rates |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
 ```
 :::
 
@@ -977,7 +1104,7 @@ For each fault the protocol performs slashing over faulty validators at the end 
 
 The function checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue, to quantify validator collusion. It then applies slashing for each fault in the slashing queue:
 
-- Computes the slashing. The slashing rate and amount are computed taking into account the number of fault offences committed in the epoch by the offending validator and all validators globally. The slashing amount is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate precision`.
+- Computes the slashing. The slashing rate and amount are computed taking into account the number of fault offences committed in the epoch by the offending validator and all validators globally. The slashing amount is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate scale factor`.
 - Applies the slashing penalty. Slashing is applied to the offending validator's stake, subtracting the slashing amount from the validator's bonded stake according to the protocol's [Penalty Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model ([self-bonded](/glossary/#self-bonded) stake before [delegated](/glossary/#delegated) stake)
 - Computes the jail period of the offending validator. If the validator stake slashing is 100% of bonded stake, permanent validator jailing is applied and the validator state is set to `jailbound`. Else, jailing is temporary and a jail period is calculated, using the formula `current block number + jail factor * proven offence fault count * epoch period` to compute a jail release block number. The validator state is set to `jailed`.
 - Updates validator state. The validator's proven fault counter is incremented by `1` to record the slashing occurrence in the validator's reputational slashing history. The jail release block number is recorded, set to the computed value if `jailed` or set to `0` if `jailbound`. Bonded stake amounts are adjusted for the slashing amount and the slashed stake token are transferred to the Autonity Protocol global `treasury` account for community funding.
