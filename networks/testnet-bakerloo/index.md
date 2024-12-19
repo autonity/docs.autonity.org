@@ -2,6 +2,7 @@
 title: "Bakerloo Testnet"
 description: >
  The _stable_ public Testnet running the current or an earlier version of the Autonity protocol
+draft: true
 ---
 
 Bakerloo is a public Testnet providing a stable testing environment for those developing a project on top of Autonity.

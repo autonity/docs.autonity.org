@@ -34,7 +34,7 @@ website:
       - auto: concepts/protocol-assets
     - section: "Networks"
       contents:
-      - auto: "networks/**"
+      - "networks/testnet-piccadilly/index.md"
     - section: "Accounts"
       contents:
       - "account-holders/setup-aut/index.md"

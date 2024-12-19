@@ -41,9 +41,11 @@ It is highly recommended to also follow the [instructions in the repository](htt
 
 As detailed in its [repository](https://github.com/autonity/autonity-cli#configuration-using-autrc-files), some configuration parameters can be set in an `.autrc` file in the working directory or any parent directory.  As a minimal configuration, it is recommended to create an `.autrc` containing the end-point to use for RPC operations:
 
+Given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=autonity>.
+
 ```
 [aut]
-rpc_endpoint=https://rpc1.<NETWORK_NAME>.autonity.org
+rpc_endpoint=$RPC_URL
 ```
 
 See the [list of available networks](/networks/) to determine the correct endpoint to use.
