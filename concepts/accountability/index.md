@@ -144,7 +144,8 @@ On *permanent* jailing the validator enters a `jailbound` state and is *permanen
 
 Accountability event lifecycle management comprises: accountability event submission on-chain, event handling on-chain, accusations, innocence, fault promotion, and slashing. Rule infractions are detected by validators and submitted on-chain. As noted under [Protocol Primitives](/concepts/accountability/#protocol-primitives) above, [Faults](/concepts/accountability/#faults) may be directly submitted as `FaultProofs` or promoted from `Accusations`.
 
- Rule infractions can be directly submitted as a _fault_ proof by a _reporting validator_ or promoted from an accusation. In the latter case, they they are promoted when:
+Rule infractions can be directly submitted as a _fault_ proof by a _reporting validator_ or promoted from an accusation. In the latter case, they are promoted when:
+
   - reported as an _accusation_, submitted by a _reporting validator_ against an _offending validator_
   - eventually defended by an _innocence_ proof, submitted by the _offending validator_ within a proof submission window measured in blocks
   - if not defended, promoted to _fault_ by the protocol once the innocence window has expired.
@@ -179,7 +180,7 @@ Accountability protocol parameters are set by default to:
 | _collusion factor_ | a factor that measures the number of validators committing slashable offences in the same epoch. The factor is applied as a multiplicand to the total number of slashable offences committed in the epoch when computing the slashing amount of a penalty | `500` (5%) |
 | _history factor_ | a factor that measures the number of proven faults committed by a validator since registration. The factor is applied as a multiplicand to that proven fault count when computing the slashing amount of a penalty | `750` (7.5%) |
 | _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of a validator. The factor is applied when computing the jail period of an _offending validator_ | `48` (1 day at 30 mins epochs)|
-| _slashing rate precision_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` |
+| _slashing rate scale factor_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` |
 
 ### Slashing amount calculation
 
@@ -192,7 +193,7 @@ The _slashing rate_ is calculated by the formula `base rate + epoch offences cou
 - `history`: is the count of proven faults committed by the offending validator since it first registered
 - `collusion factor` and `history factor`: are used to compute a percentage of individual and total validator offence counts to supplement the `base rate` and scale the slashing rate according to the individual validator history and evidence of general validator collusion in the current epoch.
 
-The _slashing amount_ is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate precision`, applying the computed _slashing rate_ as a multiplier to the validator's bonded stake amount divided by the [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) _slashing rate precision_.
+The _slashing amount_ is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate scale factor`, applying the computed _slashing rate_ as a multiplier to the validator's bonded stake amount divided by the [slashing protocol configuration](/concepts/accountability/#slashing-protocol-configuration) _slashing rate scale factor_.
 
 The slashing fine is then applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model: [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake. The validator state is updated: (a) the self-bonded and total staked amounts adjusted, (b) the slashing amount is added to the validator's `totalSlashed` counter. The slashed NTN stake token is then transferred to the Autonity Protocol global `treasury` account for community funding.
 
