@@ -9,7 +9,7 @@ description: >
 
 Functions with the `onlyOperator` access constraint that can only be called by the governance operator account.
 
-###  burn
+### burn
 
 Burns the specified amount of Newton stake token from an account. When `x` amount of newton is burned, then `x` is simply deducted from the account’s balance and from the total supply of newton in circulation.
 
@@ -54,7 +54,55 @@ Enter passphrase (or CTRL-d to exit):
 :::
 
 
-###  mint
+###  createSchedule
+
+Creates a new schedule for a non-stakeable vesting contract, specifying how much Newton is to be locked, twhen the schedule will begin to release Newton into circulation, and the total duration of the locking schedule.
+
+Constraint checks are applied:
+
+- the `maxScheduleDurtion` protocol parameter value is greater than or equal to the new schedule's `_totalDuration`
+
+On success the designated amount of Newton is minted to the vesting contract address and the amount of Newton in the circulating supply reduced by that amount.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_scheduleVault` | `address` | the contract account address of the vesting contract (or 'vault') that will hold the locked Newton |
+| `_amount ` | `uint256` | a positive integer value for the total value amount of the schedule, denominated in Newton |
+| `_startTime ` | `uint256` | the start time of the schedule in seconds |
+| `_totalDuration ` | `uint256` | the total duration of the schedule in seconds |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The new supply of Newton in circulation can be retrieved from state by calling the [`circulatingSupply()`](/reference/api/aut/#circulatingsupply) method.
+
+#### Event
+
+On a successful call the function emits a `NewSchedule` event, logging: `_scheduleVault`, `_amount`, `_startTime`, `_totalDuration`.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+
+### mint
 
 Mints new stake token and adds it to the recipient's account balance. When `x` amount of newton is minted, then `x` is simply added to the account’s balance and to the total supply of newton in circulation.       
         
@@ -104,7 +152,7 @@ Enter passphrase (or CTRL-d to exit):
 The Auton mint function, called by the Stabilization Contract to mint Auton to recipients while processing a CDP borrowing. 
 
 The protocol calls the function using by the `stabilizer` account, the Stabilization Contract address
-The recipient cannot be the `stabilizer` account or the `0` zero address. The minted `amount` cannot be equal to `0` or greater than the Supply Control Contract's available auton `balance`.
+The recipient cannot be the `stabilizer` account or the zero address. The minted `amount` cannot be equal to `0` or greater than the Supply Control Contract's available auton `balance`.
     
 When `x` amount of auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
         
@@ -193,7 +241,6 @@ aut governance set-accountability-contract [OPTIONS] CONTRACT-ADDRESS
 :::
 
 
-
 ###  setAcuContract
 
 Sets a new value for the [ASM Autonomous Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
@@ -222,135 +269,6 @@ aut governance set-acu-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
-
-###  setCommitteeSize
-
-Sets a new value for the `committeeSize` protocol parameter. 
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `_size` | `uint256` | a positive integer value for the maximum committee size |
-
-#### Response
-
-No response object is returned on successful execution of the method call.
-
-The updated parameter can be retrieved from state by calling the [`getMaxCommitteeSize()`](/reference/api/aut/#getmaxcommitteesize) method.
-
-#### Usage
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-aut governance set-committee-size [OPTIONS] COMMITTEE_SIZE
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-$ aut governance set-committee-size 50 | aut tx sign - | aut tx send -
-(consider using 'KEYFILEPWD' env var).
-Enter passphrase (or CTRL-d to exit): 
-0x3dbe5afbb89267b1549f735d09ac3acd6a4894eccbab8dca125497806c8fdc2d
-```
-:::
-
-
-###  setEpochPeriod
-
-Sets a new value for the `epochPeriod` protocol parameter. 
-
-The `epochPeriod` period value must be less than the `unbondingPeriod` protocol parameter.
-
-Constraint checks are applied:
-
-- if decreasing the epoch period, checks the current chain head has not already exceeded the new epoch period window: if `block.number >= lastEpochBlock + _period`, then the transaction reverts.
-        
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `_period` | `uint256` | a positive integer value specifying the number of blocks defining the duration of an epoch on the network |
-
-#### Response
-
-No response object is returned on successful execution of the call.
-
-The updated parameter can be retrieved using [`getEpochPeriod()`](/reference/api/aut/#getepochperiod).
-
-#### Event
-
-On a successful call the function emits an `EpochPeriodUpdated` event, logging: `_period`.
-
-#### Usage
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-aut governance set-epoch-period [OPTIONS] EPOCH_PERIOD
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-aut governance set-epoch-period 1000 | aut tx sign - | aut tx send -
-(consider using 'KEYFILEPWD' env var).
-Enter passphrase (or CTRL-d to exit): 
-0xdf3b3eb316a3070a591621d8cc450ca6d1af3a6d57a0455714b5bff72eb06b92
-```
-:::
-
-
-###  setInnocenceProofSubmissionWindow (Accountability Contract)
-
-Sets the innocence proof submission window protocol parameter. 
-       
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `_window ` | `uint256` | the new value for the window (in blocks) |
-
-#### Response
-
-No response object is returned on successful execution of the call.
-
-#### Event
-
-None.
-
-#### Usage
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
-
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
-```
-:::
 
 ###  setBaseSlashingRates (Accountability Contract)
 
@@ -400,6 +318,102 @@ TO DO
 :::
 
 
+###  setCommitteeSize
+
+Sets the maximum size of the consensus committee. 
+
+Constraint checks are applied:
+
+- the new committee size must be greater than 0.
+   
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_size` | `uint256` | a positive integer value for the maximum committee size |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The updated parameter can be retrieved from state by calling the [`getMaxCommitteeSize()`](/reference/api/aut/#getmaxcommitteesize) method.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut governance set-committee-size [OPTIONS] COMMITTEE_SIZE
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+$ aut governance set-committee-size 50 | aut tx sign - | aut tx send -
+(consider using 'KEYFILEPWD' env var).
+Enter passphrase (or CTRL-d to exit): 
+0x3dbe5afbb89267b1549f735d09ac3acd6a4894eccbab8dca125497806c8fdc2d
+```
+:::
+
+
+###  setEpochPeriod
+
+Sets a new value for the `epochPeriod` protocol parameter. The change will be applied at epoch end.
+
+The `epochPeriod` period value must be less than the `unbondingPeriod` protocol parameter.
+
+Constraint checks are applied:
+
+- The new epoch period value cannot be `0`.
+- If the new value is decreasing the current epoch period, checks the current chain head has not already exceeded the new epoch period window. The new epoch period needs to be greater than `delta+lookbackWindow-1`.
+-  The new epoch period is less than or equal to `votePeriod * 2` (a check to ensure there is sufficient time for any oracle voter changes before epoch end).
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_period` | `uint256` | a positive integer value specifying the number of blocks defining the duration of an epoch on the network. Value must respect the equation `epochPeriod > delta+lookback-1` |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+The updated parameter can be retrieved using [`getEpochPeriod()`](/reference/api/aut/#getepochperiod).
+
+#### Event
+
+On a successful call the function emits an `EpochPeriodUpdated` event, logging: `period`, `appliedAtBlock`.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut governance set-epoch-period [OPTIONS] EPOCH_PERIOD
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut governance set-epoch-period 1000 | aut tx sign - | aut tx send -
+(consider using 'KEYFILEPWD' env var).
+Enter passphrase (or CTRL-d to exit): 
+0xdf3b3eb316a3070a591621d8cc450ca6d1af3a6d57a0455714b5bff72eb06b92
+```
+:::
+
+
 ###  setFactors (Accountability Contract)
 
 Sets the `collusion`, `history`, and `jail` punishment factor protocol parameters.
@@ -440,6 +454,75 @@ TO DO
 :::
 
 
+###  setInflationControllerContract
+
+Sets a new value for the [Inflation Controller Contract](/concepts/architecture/#inflation-controller-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Stabilization Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut governance set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS
+```
+:::
+
+
+###  setInnocenceProofSubmissionWindow (Accountability Contract)
+
+Sets the innocence proof submission window protocol parameter. 
+       
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_window ` | `uint256` | the new value for the window (in blocks) |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
 ###  setLiquidationRatio (ASM Stabilization Contract)
 
 Sets a new value for the `liquidationRatio` protocol parameter in the ASM Stabilization Contract configuration. 
@@ -471,9 +554,79 @@ You can interact with the contract using the `aut contract` command group. See `
 :::
 
 
+###  setLiquidLogicContract
+
+Sets a new value for the liquid newton logic contract address.
+
+Constraint checks are applied:
+
+- The provided address must not be the zero address.
+
+   
+::: {.callout-note title="Liquid Newton contract architecture" collapse="false"}
+The Liquid Newton contract implements a Proxy Pattern to ensure upgradability. The logic and state are separated in two separate contracts.
+
+For more information on the Proxy Pattern, see <https://docs.openzeppelin.com/upgrades-plugins/1.x/proxies>.
+:::
+     
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_contract` | `address` |  the ethereum formatted address of the liquid logic contract|
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+
+###  setMaxScheduleDuration
+
+Sets the max allowed duration of any schedule or vesting contract.
+       
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_newMaxDuration` | `uint256` | a positive integer value specifying the duration in seconds |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+The updated parameter can be retrieved from state by calling the [`getMaxScheduleDuration()`](/reference/api/aut/#getmaxscheduleduration) method.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
 ###  setMinCollateralizationRatio (ASM Stabilization Contract)
 
-Sets a new value for the `minCollateralizationRatio` protocol parameter in the ASM Stabilization Contract configuration
+Sets a new value for the `minCollateralizationRatio` protocol parameter in the ASM Stabilization Contract configuration.
     
 Constraint checks are applied:
 
@@ -549,7 +702,7 @@ The updated parameter can be retrieved from state by calling the [`getMinimumBas
 
 #### Event
 
-On a successful call the function emits a `MinimumBaseFeeUpdated` event, logging: `_price`.
+On a successful call the function emits a `MinimumBaseFeeUpdated` event, logging: `gasPrice`.
 
 #### Usage
 
@@ -575,6 +728,35 @@ Enter passphrase (or CTRL-d to exit):
 :::
 
 
+###  setOmissionAccountabilityContract
+
+Sets a new value for the [Autonity Omission Accountability Contract](/concepts/architecture/#autonity-omission-accountability-contract) address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Omission Accountability Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
 ###  setOperatorAccount
 
 Sets a new governance account address as the protocol parameter for the [Autonity Protocol Contracts](/concepts/architecture/#application-layer-protocol-contracts):
@@ -584,8 +766,8 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
 - [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract)
-- [upgradeManagerContract](/concepts/architecture/#protocol-contract-upgrade).
-
+- [upgradeManagerContract](/concepts/architecture/#protocol-contract-upgrade)
+- [Omission Accountability Contract](/concepts/architecture/#autonity-omission-accountability-contract).
 
 #### Parameters
    
@@ -654,6 +836,104 @@ None.
 
 ``` {.aut}
 aut governance set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut governance set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
+```
+:::
+
+
+###  setOracleRewardRate
+
+Sets the oracle reward rate for the protocol policy configuration. See [`config()`](/reference/api/aut/#config) for policy properties.
+
+Constraint checks are applied:
+
+- The reward rate must not exceed 100%.
+- The proposer reward rate plus the oracle reward rate must not exceed 100%.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_oracleRewardRate ` | `uint256` | the new reward rate for oracles (scaled by `10^4`). |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO 
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO 
+```
+:::
+
+
+###  setProposerRewardRate
+
+Sets the block proposer reward rate for the protocol policy configuration. See [`config()`](/reference/api/aut/#config) for policy properties.
+
+Constraint checks are applied:
+
+- The reward rate must not exceed 100%.
+- The proposer reward rate plus the oracle reward rate must not exceed 100%.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_proposerRewardRate` | `uint256` | the new reward rate for the block proposer (scaled by `10^4`). |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO 
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO 
 ```
 :::
 
@@ -860,7 +1140,7 @@ The `unbondingPeriod` period value must be greater than the `epochPeriod` protoc
 
 No response object is returned on successful execution of the method call.
 
-The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
+The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration or [`getUnbondingPeriod()`](/reference/api/aut/#getunbondingperiod).
 
 #### Usage
 
@@ -934,6 +1214,91 @@ None.
 #### Event
 
 None.
+
+
+###  setWithheldRewardsPool
+
+Sets the address of the pool to which withheld Newton inflation rewards will be sent. See [`config()`](/reference/api/aut/#config) for policy properties.
+
+Constraint checks are applied:
+
+- The provided address must not be the zero address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_pool ` | `address payable` | the address of the withheld rewards pool |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO 
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO 
+```
+:::
+
+###  setWithholdingThreshold
+
+Sets the withholding threshold for the policy configuration. See [`config()`](/reference/api/aut/#config) for policy properties.
+
+Constraint checks are applied:
+
+- The threshold must not exceed 100%.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_withholdingThreshold` | `uint256` | the new withholding threshold (scaled by `10^4`). |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO 
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO 
+```
+:::
 
 
 ## Protocol only
@@ -1070,8 +1435,8 @@ If an upgrade is available for a protocol contract, this is executed by the prot
 
 On successful reward distribution the function emits:
 
-- a `Rewarded` event for each staking reward distribution, logging: recipient address `addr` and reward amount `amount`.
-- a `NewEpoch` event signalling the beginning of a new epoch, logging: unique identifier for the new epoch `epochID`.
+- a `Rewarded` event for each staking reward distribution, logging: recipient address `addr`, `atnAmount`m `ntnAmount`.
+- a `NewEpoch` event signalling the beginning of a new epoch, logging: `epoch`, the unique identifier for the new epoch.
 
 
 ###  finalize (Accountability Contract)
@@ -1280,7 +1645,7 @@ Mints Auton and sends it to a recipient account, increasing the amount of Auton 
 Constraint checks are applied:
 
 - the caller is the `stabilizer` account, the Stabilization Contract address
-- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the `0` zero address
+- invalid recipient: the `recipient` cannot be the `stabilizer` account, the Stabilization Contract address, or the zero address
 - invalid amount: the `amount` is not equal to `0` or greater than the Supply Control Contract's available Auton `balance`.
     
 When `x` amount of Auton is minted, then `x` is simply added to the account’s balance, increasing the total supply of Auton in circulation and reducing the supply of Auton available for minting.       
