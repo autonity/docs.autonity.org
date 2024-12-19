@@ -28,8 +28,9 @@ Constraint checks are applied:
 
 - the `address` of the validator is registered
 - the `msg.sender` address of the transaction is equal to the validator's `treasury` address
-- the validator state must not be `active`; it must be `paused` or `jailed`
-- if the validator state is `jailed`, the validator's `jailReleaseBlock` is less than the current block number at the time of the call
+- the validator state must not be `active`; it must be `paused`, `jailed`, or `jailedForInactivity`
+- if the validator state is `jailed` or `jailedForInactivity`, the validator's `jailReleaseBlock` is less than the current block number at the time of the call
+- the validator state must not be in a permanently jailed state of `jailbound` or `jailboundForInactivity`
 
 Validator re-activation is executed on transaction commit. New stake delegations to the validator are accepted and the validator is included in the consensus committee selection algorithm at epoch end.
 
@@ -47,7 +48,7 @@ The updated state can be viewed by calling the [`getValidator`](/reference/api/a
 
 ### Event
 
-On a successful call the function emits an `ActivatedValidator` event, logging: `val.treasury`, `_address`, `effectiveBlock`.
+On a successful call the function emits an `ActivatedValidator` event, logging: `treasury`, `addr`, `effectiveBlock`.
 
 ### Usage
 
@@ -77,7 +78,7 @@ Enter passphrase (or CTRL-d to exit):
 
 Returns the amount of stake token that remains available for a spender to withdraw from a Newton stake token owner's account.
 
-Using `aut` you can return the allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
+Using `aut` you can return the allowance for an ERC-20 token contract account, e.g. a Liquid Newton account.
 
 ### Parameters
 
@@ -130,7 +131,7 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 ```
 :::
 
-To return a spender's allowance for an ERC20 contract token (e.g. Liquid Newton) account specify the `--token` option:
+To return a spender's allowance for an ERC-20 contract token (e.g. Liquid Newton) account specify the `--token` option:
 
 ::: {.panel-tabset}
 ## aut
@@ -150,7 +151,7 @@ Constraint checks:
 - The `owner` cannot be the zero address
 - The `spender` cannot be the zero address
 
-Using `aut` you can approve a `spender` account allowance for an ERC20 token contract account, e.g. a Liquid Newton account.
+Using `aut` you can approve a `spender` account allowance for an ERC-20 token contract account, e.g. a Liquid Newton account.
 
 ### Parameters
 
@@ -193,7 +194,7 @@ Enter passphrase (or CTRL-d to exit):
 :::
 
 
-To approve a spender for an ERC20 contract token (e.g. Liquid Newton) account specify the `--token` option:
+To approve a spender for an ERC-20 contract token (e.g. Liquid Newton) account specify the `--token` option:
 
 ::: {.panel-tabset}
 ## aut
@@ -209,7 +210,7 @@ Enter passphrase (or CTRL-d to exit):
 
 Returns the amount of unbonded Newton stake token held by an account (ERC-20).
 
-You can return the account balance for an ERC20 token contract account using the `aut token` command group, which is for interacting with ERC-20 token contracts. For example, of a Liquid Newton account.
+You can return the account balance for an ERC-20 token contract account using the `aut token` command group, which is for interacting with ERC-20 token contracts. For example, of a Liquid Newton account.
 
 ### Parameters
 
@@ -259,7 +260,7 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 ```
 :::
 
-To return an ERC20 contract token (e.g. Liquid Newton) balance for an account specify the `--token` option:
+To return an ERC2-0 contract token (e.g. Liquid Newton) balance for an account specify the `--token` option:
 
 
 ::: {.panel-tabset}
@@ -295,7 +296,7 @@ On successful processing of the method call:
 | Field | Datatype | Description |
 | --| --| --|
 | `delegator` | `address payable` | account address of the account bonding stake |
-| `delegatee` | `address` | [validator identifier](/concepts/validator/#validator-identifier) account address of the validator to which stake is being bonded |
+| `delegatee` | `address` | [validator identifier](/concepts/validator/#validator-identifier) address of the validator to which stake is being bonded |
 | `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
 | `requestBlock` | `uint256` | the block number at which a bonding transaction was committed |
 
@@ -568,6 +569,55 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method
 ```
 :::
 
+
+
+## decimals
+
+Returns the number of decimals the NTN token uses (ERC-20).
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `uint8` | the number of decimals set in the Newton ERC-20 contract |
+
+### Usage
+
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+
+## RPC
+
+``` {.rpc}
+TO DO
+```
+:::
 
 
 ## deployer
@@ -2178,9 +2228,9 @@ TO DO
 
 ## name
 
-Returns the name of the Newton stake token as a human-readable string. Set as contract metadata to the value of `Newton`.
+Returns the name of the Newton stake token as a human-readable string (ERC-20). Set as contract metadata to the value of `Newton`.
 
-Using `aut` you can return the name for an ERC20 token contract account, e.g. a Liquid Newton contract.
+Using `aut` you can return the name for an ERC-20 token contract account, e.g. a Liquid Newton contract.
 
 ### Parameters
 
@@ -2226,7 +2276,7 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method
 ```
 :::
 
-To return the `name` for an ERC20 (e.g. a Liquid Newton token) token contract specify the `--token` option:
+To return the `name` for an ERC-20 (e.g. a Liquid Newton token) token contract specify the `--token` option:
 
 ::: {.panel-tabset}
 ## aut
@@ -2259,7 +2309,7 @@ Validator pausing is executed on transaction commit. New stake delegations are r
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_address` | `address` | the validator identifier account address |
+| `_addr` | `address` | the validator identifier account address |
 
 ### Response
 
@@ -2269,7 +2319,7 @@ The updated state can be viewed by calling the [`getValidator`](/reference/api/a
 
 ### Event
 
-On a successful call the function emits a `PausedValidator` event, logging: `val.treasury`, `_address`, `effectiveBlock`.
+On a successful call the function emits a `PausedValidator` event, logging: `treasury`, `addr`, `effectiveBlock`.
 
 ### Usage
 
@@ -2354,7 +2404,7 @@ The validator registration entry can be retrieved from state by calling the [`ge
 
 ### Event
 
-On a successful call the function emits a `RegisteredValidator` event, logging: `msg.sender`, `_val.nodeAddress`, `_oracleAddress`, `_enode`, `address(_val.liquidContract)`.
+On a successful call the function emits a `RegisteredValidator` event, logging: `treasury`, `_addr` (validator identifier (nodeAddress)), `oracleAddress`, `enode`, `liquidStateContract`.
 
 ### Usage
 
@@ -2381,9 +2431,9 @@ aut validator register enode://c36481d70943dd046d8013f3d302cf0d2a17f5f5f3398cd47
 
 ## symbol
 
-Returns the three-letter symbol of the Newton stake token as a string. Set as contract metadata to the value of `NTN`.
+Returns the three-letter symbol of the Newton stake token as a string (ERC-20). Set as contract metadata to the value of `NTN`.
 
-Using `aut` you can return the symbol for an ERC20 token contract account, e.g. a Liquid Newton contract.
+Using `aut` you can return the symbol for an ERC-20 token contract account, e.g. a Liquid Newton contract.
 
 ### Parameters
 
@@ -2427,7 +2477,7 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 ```
 :::
 
-To return the `symbol` for an ERC20 (e.g. a Liquid Newton token) token contract specify the `--token` option:
+To return the `symbol` for an ERC-20 (e.g. a Liquid Newton token) token contract specify the `--token` option:
 
 
 ::: {.panel-tabset}
@@ -2489,9 +2539,9 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 
 ## totalSupply
 
-Returns the amount of Newton stake token issued.
+Returns the amount of Newton stake token issued (ERC-20).
 
-You can return the total supply for an ERC20 token contract using the `aut token` command group, which is for interacting with ERC-20 token contracts. For example, of a Liquid Newton account.
+You can return the total supply for an ERC-20 token contract using the `aut token` command group, which is for interacting with ERC-20 token contracts. For example, of a Liquid Newton account.
 
 ::: {.callout-note title="What is the difference between the total and circulating supply of Newton?" collapse="true"}
 
@@ -2544,7 +2594,7 @@ curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrp
 ```
 :::
 
-To return the total supply for an ERC20 contract token (e.g. Liquid Newton) specify the `--token` option:
+To return the total supply for an ERC-20 contract token (e.g. Liquid Newton) specify the `--token` option:
 
 ::: {.panel-tabset}
 ## aut
@@ -2565,7 +2615,7 @@ Constraint checks:
 - the `amount` value is `>= 0`
 - the caller's account balance is `>= amount`
 
-Using `aut` you can transfer from an ERC20 token contract account, e.g. a Liquid Newton account.
+Using `aut` you can transfer from an ERC-20 token contract account, e.g. a Liquid Newton account.
 
 ### Parameters
 
@@ -2607,7 +2657,7 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
-To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the contract address with the `--token` option:
+To transfer an amount from an ERC-20 contract token (e.g. Liquid Newton) to a recipient specify the contract address with the `--token` option:
 
 ::: {.panel-tabset}
 ## aut
@@ -2623,7 +2673,7 @@ Enter passphrase (or CTRL-d to exit):
 
 ##  transferFrom
 
-Transfers a designated amount of Newton stake token from a specified sender account to a recipient account using the ERC20 [`approve()'](/reference/api/aut/#approve) and [`allowance()'](/reference/api/aut/#allowance) mechanisms.
+Transfers a designated amount of Newton stake token from a specified sender account to a recipient account using the ERC-20 [`approve()'](/reference/api/aut/#approve) and [`allowance()'](/reference/api/aut/#allowance) mechanisms.
 
 The `transferFrom` method is used for withdraw workflows where the token owner account (the `sender`) has authorised the method caller, the `spender` (the `msg.sender`), to transfer tokens on the owner's behalf.
 
@@ -2633,7 +2683,7 @@ Constraint checks:
 - the `msg.sender` (`spender`) has been approved by the owner (the `sender`) to withdraw tokens from their account
 - the `msg.sender`'s remaining allowance to withdraw the `owner`'s tokens is `>= amount`
 
-Using `aut` you can call `transferFrom` on an ERC20 token contract (e.g. Liquid Newton) account.
+Using `aut` you can call `transferFrom` on an ERC-20 token contract (e.g. Liquid Newton) account.
 
 ### Parameters
 
@@ -2678,7 +2728,7 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
-To transfer an amount from an ERC20 contract token (e.g. Liquid Newton) to a recipient specify the contract address with the `--token` option:
+To transfer an amount from an ERC-20 contract token (e.g. Liquid Newton) to a recipient specify the contract address with the `--token` option:
 
 ::: {.panel-tabset}
 ## aut
@@ -2724,6 +2774,7 @@ On successful processing of the method call, an `UnbondingRequest` object for th
 | `unbondingShare` | `uint256` | the amount of shares issued for the unbonding staking pool that the unbonding amount represents |
 | `requestBlock` | `uint256` | the block number at which an unbonding transaction was committed and from which the unbonding period begins |
 | `unlocked` | `bool` | Boolean value indicating if the stake being unbonded is subject to a lock or not |
+| `released` | `bool` | Boolean value indicating if the stake being unbonded has been released or not |
 | `selfDelegation` | `bool` | Boolean value indicating if the unbonding is for [self-bonded](/glossary/#self-bonded) stake |
 
 The [unbonding period](/glossary/#unbonding-period) begins in the next block. The `UnbondingRequest` is tracked in memory. At the end of the epoch in which the unbond request was processed:
@@ -2779,6 +2830,7 @@ Enter passphrase (or CTRL-d to exit):
 0x3ac340e33f5ddfdab04ffe85ce4b564986b2f1a877720cb79bc9d31c11c8f318
 ```
 :::
+
 
 ## updateEnode
 
