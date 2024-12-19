@@ -362,6 +362,41 @@ Enter passphrase (or CTRL-d to exit):
 :::
 
 
+### setDelta (Omission Accountability Contract)
+
+Sets the `delta` protocol parameter of the Omission Accountability protocol's configuration. It will get updated at epoch end.
+
+Constraint checks are applied:
+
+- the `delta` needs to be at least `2` (it cannot be 1 due to optimistic block building).
+- the epoch period needs to be greater than `delta+lookbackWindow-1`.
+    
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_delta ` | `uint256` | the new value for delta |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
+
+
 ###  setEpochPeriod
 
 Sets a new value for the `epochPeriod` protocol parameter. The change will be applied at epoch end.
@@ -418,21 +453,52 @@ Enter passphrase (or CTRL-d to exit):
 
 Sets the `collusion`, `history`, and `jail` punishment factor protocol parameters.
 
-The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/accountability/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration. 
+The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/accountability/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration. The jail factor is specified as a number of epochs.
+
 Constraint checks are applied:
 
 - the `collusion factor` cannot exceed the slashing rate scale factor.
 - the `history factor` cannot exceed the slashing rate scale factor.
-
-The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/accountability/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration. 
-Constraint checks are applied:
-The jail factor is specified as a number of epochs.
         
 #### Parameters
    
 | Field | Datatype | Description |
 | --| --| --| 
 | `_rates ` | `uint256` | comma separated list of the new `CollusionFactor`, `HistoryFactor` and `JailFactor` values for the base slashing rates |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
+
+###  setInactivityThreshold (Omission Accountability Contract)
+
+Sets the `inactivityThreshold` protocol parameter of the Omission Accountability protocol's configuration.
+
+Constraint checks are applied:
+
+- the `inactivity threshold` cannot exceed the omission accountability scale factor.
+- the `inactivity threshold` needs to be greater or equal to `pastPerformanceWeight`.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_inactivityThreshold` | `uint256` | the new value for  inactivity threshold |
 
 #### Response
 
@@ -479,6 +545,100 @@ None.
 
 ``` {.aut}
 aut governance set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS
+```
+:::
+
+
+### setInitialJailingPeriod (Omission Accountability Contract)
+
+Sets the `initialJailingPeriod` protocol parameter of the Omission Accountability protocol's configuration.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_initialJailingPeriod` | `uint256` | the new value for the initial jailing period |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
+
+
+### setInitialProbationPeriod (Omission Accountability Contract)
+
+Sets the `initialProbationPeriod` protocol parameter of the Omission Accountability protocol's configuration.
+     
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_initialProbationPeriod` | `uint256` | the new value for the initial probation period |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
+
+
+### setInitialSlashingRate (Omission Accountability Contract)
+
+Sets the `initialSlashingRate` protocol parameter of the Omission Accountability protocol's configuration.
+
+Constraint checks are applied:
+
+- the initial slashing rate  cannot exceed the slashing rate scale factor.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_initialSlashingRate` | `uint256` | the new value for the initial slashing rate |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
 ```
 :::
 
@@ -577,11 +737,57 @@ For more information on the Proxy Pattern, see <https://docs.openzeppelin.com/up
 
 #### Response
 
-None.
+No response object is returned on successful execution of the call.
 
 #### Event
 
 None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
+
+
+### setLookbackWindow (Omission Accountability Contract)
+
+Sets the `lookbackWindow` protocol parameter of the Omission Accountability protocol's configuration. It will get updated at epoch end.
+
+Constraint checks are applied:
+
+- the lookback window cannot be `0`.
+- the epoch period needs to be greater than `delta+lookbackWindow-1`.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_lookbackWindow` | `uint256` | the new value for the lookback window |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
+```
+:::
 
 
 ###  setMaxScheduleDuration
@@ -863,7 +1069,7 @@ Constraint checks are applied:
    
 | Field | Datatype | Description |
 | --| --| --| 
-| `_oracleRewardRate ` | `uint256` | the new reward rate for oracles (scaled by `10^4`). |
+| `_oracleRewardRate` | `uint256` | the new reward rate for oracles (scaled by `10^4`). |
 
 #### Response
 
@@ -890,6 +1096,41 @@ TO DO
 
 ``` {.aut}
 TO DO 
+```
+:::
+
+
+###  setPastPerformanceWeight (Omission Accountability Contract)
+
+Sets the `pastPerformanceWeight` protocol parameter of the Omission Accountability protocol's configuration.
+
+Constraint checks are applied:
+
+- the `past performance weight` cannot exceed the omission accountability scale factor.
+- the `past performance weight` cannot be greater than the `inactivity threshold`.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_pastPerformanceWeight` | `uint256` | the new value for the past performance weight|
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+
 ```
 :::
 
