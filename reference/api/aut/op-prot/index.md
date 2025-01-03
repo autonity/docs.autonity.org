@@ -1437,10 +1437,13 @@ Provides new contract creation code for an Autonity Protocol Contract.
 
 The function calls an in-protocol EVM replace mechanism. The contract creation code is compiled and the new contract bytecode and abi appended to the contract storage buffer.
 
-::: {.callout-note title="Note" collapse="false"}
+::: {.callout-note title="How upgrade works" collapse="true"}
 The contract storage buffer length is checked during block finalization and if a contract upgrade is ready it is applied - see [`finalize()`](/reference/api/aut/op-prot/#finalize).
+
+When an upgrade is initiated a `getNewContract()` method retrieves the compiled EVM bytecode and Contract ABI of the new Autonity Protocol Contract, and performs an upgrade.
+
 :::
-  
+
 #### Parameters
    
 | Field | Datatype | Description |

@@ -73,6 +73,52 @@ Enter passphrase (or CTRL-d to exit):
 :::
 
 
+## address
+
+Returns the address of the Autonity Protocol Contract.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `address` | the Autonity Protocol contract account address |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut protocol contract-address
+```
+
+## RPC
+
+``` {.rpc}
+{"method": "aut_address", "params":[]}
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut protocol contract-address
+0xBd770416a3345F91E4B34576cb804a576fa48EB1
+```
+
+## RPC
+
+``` {.rpc}
+curl -X GET $RPC_URL --header 'Content-Type: application/json' --data '{"method":"aut_address", "params":[], "jsonrpc":"2.0", "id":1}'
+{"jsonrpc":"2.0","id":1,"result":"0xbd770416a3345f91e4b34576cb804a576fa48eb1"}
+```
+:::
+
 
 ## allowance
 
@@ -102,13 +148,6 @@ Using `aut` you can return the allowance for an ERC-20 token contract account, e
 ``` {.aut}
 aut token allowance [OPTIONS] OWNER
 ```
-
-## RPC
-
-``` {.rpc}
-{"method": "aut_allowance", "params":["owner", "spender"]}
-```
-
 :::
 
 
@@ -122,12 +161,6 @@ To return a spender's allowance for a Newton stake token account specify the `--
 ``` {.aut}
 $ aut token allowance --ntn 0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C
 100.000000000000000000
-```
-
-## RPC
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_allowance", "params":["0x11A87b260Dd85ff7189d848Fd44b28Cc8505fa9C","0xD9B99BAe9E9550A6Ac2F74bA7DdE483a4462C548"], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":100}
 ```
 :::
 
@@ -206,6 +239,42 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
+## atnTotalRedistributed
+
+Returns the total amount of Auton staking rewards distributed since genesis minus treasury fee.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `uint256` | the amount of Auton utility token distributed as staking rewards |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol atn-total-redistributed [OPTIONS]
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol atn-total-redistributed -r $RPC_URL
+47981813599875371606
+```
+:::
+
+
 ##  balanceOf
 
 Returns the amount of unbonded Newton stake token held by an account (ERC-20).
@@ -232,12 +301,6 @@ You can return the account balance for an ERC-20 token contract account using th
 ``` {.aut}
 aut token balance-of [OPTIONS] ACCOUNT
 ```
-
-## RPC
-
-``` {.rpc}
-{"method": "aut_balanceOf", "params":["_addr"]}
-```
 :::
 
 
@@ -251,12 +314,6 @@ To return the Newton stake token balance for an account specify the `--ntn` opti
 ``` {.aut}
 aut token balance-of --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
 1000.000000000000000000
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_balanceOf", "params":["0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4"], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":1000}
 ```
 :::
 
@@ -444,11 +501,7 @@ None.
 ``` {.aut}
 TO DO
 ```
-## RPC
 
-``` {.rpc}
-TO DO
-```
 :::
 
 ### Example
@@ -459,11 +512,7 @@ TO DO
 ``` {.aut}
 TO DO
 ```
-## RPC
 
-``` {.rpc}
-TO DO
-```
 :::
 
 
@@ -516,8 +565,8 @@ Returns a `Config` object consisting of:
 
 ::: {.panel-tabset}
 
-``` {.aut}
 ## aut
+``` {.aut}
 aut protocol config [OPTIONS]
 ```
 
@@ -594,12 +643,6 @@ None.
 ``` {.aut}
 TO DO
 ```
-
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 
@@ -609,12 +652,6 @@ TO DO
 ## aut
 
 ``` {.aut}
-TO DO
-```
-
-## RPC
-
-``` {.rpc}
 TO DO
 ```
 :::
@@ -643,12 +680,6 @@ None.
 ``` {.aut}
 aut protocol deployer [OPTIONS]
 ```
-
-## RPC
-
-``` {.rpc}
-{"method":"aut_deployer", "params":[]}
-```
 :::
 
 
@@ -660,13 +691,6 @@ aut protocol deployer [OPTIONS]
 ``` {.aut}
 aut protocol deployer --rpc-endpoint $RPC_URL
 0x0000000000000000000000000000000000000000
-```
-
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_deployer", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":"0x0000000000000000000000000000000000000000"}
 ```
 :::
 
@@ -693,12 +717,6 @@ None.
 ``` {.aut}
 aut protocol epoch-id [OPTIONS]
 ```
-
-## RPC
-
-``` {.rpc}
-{"method":"aut_epochID", "params":[]}
-```
 :::
 
 
@@ -710,13 +728,6 @@ aut protocol epoch-id [OPTIONS]
 ``` {.aut}
 aut protocol epoch-id --rpc-endpoint $RPC_URL
 7371
-```
-
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_epochID", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":7371}
 ```
 :::
 
@@ -743,12 +754,6 @@ None.
 ``` {.aut}
 aut protocol epoch-reward [OPTIONS]
 ```
-
-## RPC
-
-``` {.rpc}
-{"method":"aut_epochReward", "params":[]}
-```
 :::
 
 ### Example
@@ -759,12 +764,6 @@ aut protocol epoch-reward [OPTIONS]
 ``` {.aut}
 aut protocol epoch-reward --rpc-endpoint $RPC_URL
 121166000000000
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_epochReward", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":121166000000000}
 ```
 :::
 
@@ -791,11 +790,6 @@ None.
 ``` {.aut}
 aut protocol epoch-total-bonded-stake [OPTIONS]
 ```
-## RPC
-
-``` {.rpc}
-{"method":"aut_epochTotalBondedStake", "params":[]}
-```
 :::
 
 
@@ -807,12 +801,6 @@ aut protocol epoch-total-bonded-stake [OPTIONS]
 ``` {.aut}
 aut protocol epoch-total-bonded-stake --rpc-endpoint $RPC_URL
 61338
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_epochTotalBondedStake", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":61338}
 ```
 :::
 
@@ -839,11 +827,6 @@ None.
 ``` {.aut}
 aut protocol block-period [OPTIONS]
 ```
-## RPC
-
-``` {.rpc}
-{"method": "aut_getBlockPeriod", "params":[]}
-```
 :::
 
 
@@ -855,12 +838,6 @@ aut protocol block-period [OPTIONS]
 ``` {.aut}
 aut protocol block-period --rpc-endpoint $RPC_URL
 1
-```
-## RPC
-
-``` {.aut}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getBlockPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":1}
 ```
 :::
 
@@ -895,12 +872,6 @@ Returns a `committee` array of `CommitteeMember` objects, each object consisting
 ``` {.aut}
 aut protocol committee [OPTIONS]
 ```
-## RPC
-
-``` {.rpc}
-{"method": "aut_getCommittee", "params":[]}
-
-```
 :::
 
 
@@ -924,26 +895,6 @@ aut protocol committee -r $RPC_URL
   },
   ...
 ]
-```
-
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommittee", "params":[], "id":1}' | jq .
-{"jsonrpc":"2.0","id":1,"result":[
-    {
-      "addr": "0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d",
-      "votingPower": 114000000000000000000000,
-      "consensusKey": "sNKH2mNluevPachJhYd6daWedElpmiraCrtC8+NBT+8/FAbdEaHpyw7iFUwpg953"
-    },
-    {
-      "addr": "0x889dcd8ca57ab1108e73e9b02b2c2cb09ea9b19e",
-      "votingPower": 114000000000000000000000,
-      "consensusKey": "qDpp+woJGJhb6peYEqv22YtnTV/GYZuLH6Z/hRWu5joCTYkT60UwZkWmvFxJZHac"
-    },
-    ...
-  ]
-}
 ```
 :::
 
@@ -974,11 +925,6 @@ Returns a `committeeNodes` list of committee member enode URL addresses consisti
 ``` {.aut}
 aut protocol committee-enodes [OPTIONS]
 ```
-## RPC
-
-``` {.rpc}
-{"method": "aut_getCommitteeEnodes", "params":[]}
-```
 :::
 
 
@@ -990,13 +936,6 @@ aut protocol committee-enodes [OPTIONS]
 ``` {.aut}
 aut protocol committee-enodes -r $RPC_URL
 ['enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303', 'enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303', 'enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303', 'enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308', 'enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309', 'enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310', 'enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303', 'enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303', 'enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303']
-```
-
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getCommitteeEnodes", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":["enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303","enode://e3b8ea9ddef567225530bcbae68af5d46f59a2b39acc04113165eba2744f6759493027237681f10911d4c12eda729c367f8e64dfd4789c508b7619080bb0861b@35.189.64.207:30303","enode://00c6c1704c103e74a26ad072aa680d82f6c677106db413f0afa41a84b5c3ab3b0827ea1a54511f637350e4e31d8a87fdbab5d918e492d21bea0a399399a9a7b5@34.105.163.137:30303","enode://dffaa985bf36c8e961b9aa7bcdd644f1ad80e07d7977ce8238ac126d4425509d98da8c7f32a3e47e19822bd412ffa705c4488ce49d8b1769b8c81ee7bf102249@35.177.8.113:30308","enode://1bd367bfb421eb4d21f9ace33f9c3c26cd1f6b257cc4a1af640c9af56f338d865c8e5480c7ee74d5881647ef6f71d880104690936b72fdc905886e9594e976d1@35.179.46.181:30309","enode://a7465d99513715ece132504e47867f88bb5e289b8bca0fca118076b5c733d901305db68d1104ab838cf6be270b7bf71e576a44644d02f8576a4d43de8aeba1ab@3.9.98.39:30310","enode://c6ae16b58cf2e073649ec34ed59550c57389fcb949f51b806d6f7de26e7961cfc33794fde67b484ce9966a30e5ab5331c610b1b659249a6d66cc9e6d8a3d23d1@143.198.240.242:30303","enode://06facaec377a55fe8fd9e30cc922bedc7ee97e292294435635fa3b053c30215b87954daa27c79a73e3a5013124318b084907c81f518bcf36f88dad4d01e952ec@138.68.118.4:30303","enode://0c71d8076f0543505aae22901471d5437f1fd92b3d154d154edcec5baf0d7b121e6e8dc85ae725daf77cbc50ff5616727d59d36c2606751401000580e155e2bc@5.181.104.29:30303"]}
 ```
 :::
 
@@ -1023,11 +962,6 @@ None.
 ``` {.aut}
 TO DO
 ```
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 ### Example
@@ -1036,11 +970,6 @@ TO DO
 ## aut
 
 ``` {.aut}
-TO DO
-```
-## RPC
-
-``` {.rpc}
 TO DO
 ```
 :::
@@ -1074,12 +1003,6 @@ Returns an `epochInfo` object providing metadata about the consensus committee a
 ``` {.aut}
 TO DO
 ```
-
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 ### Example
@@ -1091,11 +1014,6 @@ TO DO
 TO DO
 ```
 
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 
@@ -1124,11 +1042,6 @@ Returns the unique identifier of the epoch associated with a block height.
 aut protocol epoch-from-block [OPTIONS] BLOCK
 ```
 
-## RPC
-
-``` {.rpc}
-{"method": "aut_getEpochFromBlock", "params":[_block]}
-```
 :::
 
 ### Example
@@ -1141,19 +1054,6 @@ aut protocol epoch-from-block --rpc-endpoint $RPC_URL 3293857
 1829
 ```
 
-## RPC
-
-``` {.rpc}
-curl --location --request GET $RPC_URL \
---header 'Content-Type: application/json' \
---data-raw '{
-        "jsonrpc":"2.0",
-        "method":"aut_getEpochFromBlock",
-        "params":[1900],
-        "id":1500
-}'
-{"jsonrpc":"2.0","id":1,"result":1}
-```
 :::
 
 ## getEpochInfo
@@ -1187,11 +1087,6 @@ For each committee member [`validator identifier`](/concepts/validator/#validato
 TO DO
 ```
 
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 
@@ -1204,11 +1099,6 @@ TO DO
 TO DO
 ```
 
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 
@@ -1234,11 +1124,7 @@ None.
 ``` {.aut}
 aut protocol epoch-period [OPTIONS]
 ```
-## RPC
 
-``` {.rpc}
-{"method": "aut_getEpochPeriod", "params":[]}
-```
 :::
 
 
@@ -1251,12 +1137,7 @@ aut protocol epoch-period [OPTIONS]
 aut protocol epoch-period --rpc-endpoint $RPC_URL
 1800
 ```
-## RPC
 
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getEpochPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":1800}
-```
 :::
 
 
@@ -1280,11 +1161,6 @@ Returns the last epoch's end block height.
 aut protocol last-epoch-block [OPTIONS]
 ```
 
-## RPC
-
-``` {.rpc}
-{"method":"aut_getLastEpochBlock", "params":[]}
-```
 :::
 
 ### Example
@@ -1296,12 +1172,7 @@ aut protocol last-epoch-block [OPTIONS]
 aut protocol last-epoch-block -r $RPC_URL
 12981684
 ```
-## RPC
 
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getLastEpochBlock", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":12981684}
-```
 :::
 
 
@@ -1327,11 +1198,7 @@ None.
 ``` {.aut}
 aut protocol max-committee-size [OPTIONS]
 ```
-## RPC
 
-``` {.rpc}
-{"method": "aut_getMaxCommitteeSize", "params":[]}
-```
 :::
 
 ### Example
@@ -1343,19 +1210,7 @@ aut protocol max-committee-size [OPTIONS]
 aut protocol max-committee-size --rpc-endpoint $RPC_URL
 50
 ```
-## RPC
 
-``` {.rpc}
-curl --location --request GET $RPC_URL \
---header 'Content-Type: application/json' \
---data-raw '{
-        "jsonrpc":"2.0",
-        "method":"aut_getMaxCommitteeSize",
-        "params":[],
-        "id":1
-}'
-{"jsonrpc":"2.0","id":1,"result":50}
-```
 :::
 
 
@@ -1381,11 +1236,7 @@ None.
 ``` {.aut}
 TO DO
 ```
-## RPC
 
-``` {.rpc}
-TO DO
-```
 :::
 
 ### Example
@@ -1396,11 +1247,7 @@ TO DO
 ``` {.aut}
 TO DO
 ```
-## RPC
 
-``` {.rpc}
-TO DO
-```
 :::
 
 
@@ -1426,11 +1273,7 @@ None.
 ``` {.aut}
 aut protocol minimum-base-fee [OPTIONS]
 ```
-## RPC
 
-``` {.rpc}
-{"method": "aut_getMinimumBaseFee", "params":[]}
-```
 :::
 
 ### Example
@@ -1442,70 +1285,9 @@ aut protocol minimum-base-fee [OPTIONS]
 aut protocol minimum-base-fee --rpc-endpoint $RPC_URL
 500000000
 ```
-## RPC
 
-``` {.rpc}
-curl --location --request GET $RPC_URL \
---header 'Content-Type: application/json' \
---data-raw '{
-        "jsonrpc":"2.0",
-        "method":"aut_getMinimumBaseFee",
-        "params":[],
-        "id":1
-}'
-
-{"jsonrpc":"2.0","id":1,"result":500000000}
-```
 :::
 
-
-##  getNewContract
-
-The getNewContract method is used as part of the Autonity Protocol Contract upgrade process. It provides a getter function to retrieve the compiled EVM bytecode and Contract ABI of a new Autonity Protocol Contract when an upgrade is initiated.
-
-The method retrieves the compiled Solidity code and JSON formatted Contract ABI representation, and performs an upgrade.
-
-See also the `onlyOperator` function [`upgradeContract`](/reference/api/aut/op-prot/#upgradecontract).
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `newContractBytecode` | `bytes` | the EVM bytecode compiled from the new Autonity Protocol Contract's source Solidity |
-| `newContractABI` | `string` | the Application Binary Interface (ABI) of the new Autonity Protocol Contract as a JSON representation |
-
-### Usage
-
-
-::: {.panel-tabset}
-## aut
-
-``` {.rpc}
-{"method": "aut_getNewContract", "params":[]}
-```
-:::
-
-### Example
-
-::: {.panel-tabset}
-## RPC
-
-``` {.rpc}
-curl --location --request GET $RPC_URL \
---header 'Content-Type: application/json' \
---data-raw '{
-        "jsonrpc":"2.0",
-        "method":"aut_getNewContract",
-        "params":[],
-        "id":1
-}'
-{"jsonrpc":"2.0","id":1,"result":["",""]}
-```
-:::
 
 ## getNextEpochBlock
 
@@ -1525,12 +1307,6 @@ Returns the next epoch's block.
 ``` {.aut}
 TO DO
 ```
-
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 ### Example
@@ -1539,11 +1315,6 @@ TO DO
 ## aut
 
 ``` {.aut}
-TO DO
-```
-## RPC
-
-``` {.rpc}
 TO DO
 ```
 :::
@@ -1572,12 +1343,6 @@ None.
 ``` {.aut}
 aut protocol operator [OPTIONS]
 ```
-
-## RPC
-
-``` {.rpc}
-{"method":"aut_getOperator", "params":[]}
-```
 :::
 
 
@@ -1589,12 +1354,6 @@ aut protocol operator [OPTIONS]
 ``` {.aut}
 aut protocol operator -r $RPC_URL
 0x293039dDC627B1dF9562380c0E5377848F94325A
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getOperator", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":"0x293039dDC627B1dF9562380c0E5377848F94325A"}
 ```
 :::
 
@@ -1616,21 +1375,20 @@ None.
 ### Usage
 
 ::: {.panel-tabset}
-## RPC
+## aut
 
 ``` {.rpc}
-{"method": "aut_getOracle", "params":[]}
+TO DO
 ```
 :::
 
 ### Example
 
 ::: {.panel-tabset}
-## RPC
+## aut
 
 ``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getOracle", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":"0x47e9fbef8c83a1714f1951f142132e6e90f5fa5d"}
+TO DO
 ```
 :::
 
@@ -1662,11 +1420,7 @@ The proposer is selected from the committee via weighted random sampling, with s
 ``` {.aut}
 aut protocol proposer [OPTIONS] HEIGHT ROUND
 ```
-## RPC
 
-``` {.rpc}
-{"method": "aut_getProposer", "params":[height, round]}
-```
 :::
 
 
@@ -1679,19 +1433,7 @@ aut protocol proposer [OPTIONS] HEIGHT ROUND
 aut protocol proposer -r $RPC_URL 4576868 0
 0x0c7dC2aB00c7b5934EDA097a8585f56367A94dA4
 ```
-## RPC
 
-``` {.rpc}
-curl --location --request GET $RPC_URL \
---header 'Content-Type: application/json' \
---data-raw '{
-        "jsonrpc":"2.0",
-        "method":"aut_getProposer",
-        "params":[4576868,0],
-        "id":1
-}'
-{"jsonrpc":"2.0","id":1,"result":"0x0c7dc2ab00c7b5934eda097a8585f56367a94da4"}
-```
 :::
 
 
@@ -1717,11 +1459,7 @@ None.
 ``` {.aut}
 aut protocol treasury-account [OPTIONS]
 ```
-## RPC
 
-``` {.rpc}
-{"method":"aut_getTreasuryAccount", "params":[]}
-```
 :::
 
 ### Example
@@ -1733,12 +1471,7 @@ aut protocol treasury-account [OPTIONS]
 aut protocol treasury-account -r $RPC_URL
 0xF74c34Fed10cD9518293634C6f7C12638a808Ad5
 ```
-## RPC
 
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryAccount", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":"0xf74c34fed10cd9518293634c6f7c12638a808ad5"}
-```
 :::
 
 
@@ -1764,11 +1497,7 @@ None.
 ``` {.aut}
 aut protocol treasury-fee [OPTIONS]
 ```
-## RPC
 
-``` {.rpc}
-{"method":"aut_getTreasuryFee", "params":[]}
-```
 :::
 
 ### Example
@@ -1780,12 +1509,7 @@ aut protocol treasury-fee [OPTIONS]
 aut protocol treasury-fee -r $RPC_URL
 10000000000000000
 ```
-## RPC
 
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getTreasuryFee", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":10000000000000000}
-```
 :::
 
 
@@ -1811,11 +1535,7 @@ None.
 ``` {.aut}
 aut protocol unbonding-period [OPTIONS]
 ```
-## RPC
 
-``` {.rpc}
-{"method": "aut_getUnbondingPeriod", "params":[]}
-```
 :::
 
 ### Example
@@ -1827,12 +1547,7 @@ aut protocol unbonding-period [OPTIONS]
 aut protocol unbonding-period -r $RPC_URL
 21600
 ```
-## RPC
 
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_getUnbondingPeriod", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":21600}
-```
 :::
 
 
@@ -1865,11 +1580,6 @@ Returns an `epochInfo` object providing metadata about the consensus committee a
 TO DO
 ```
 
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 ### Example
@@ -1881,11 +1591,6 @@ TO DO
 TO DO
 ```
 
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 
@@ -1934,11 +1639,7 @@ Returns a `Validator` object consisting of:
 ``` {.aut}
 aut validator info [OPTIONS]
 ```
-## RPC
 
-``` {.rpc}
-{"method": "aut_getValidator", "params":[_addr]}
-```
 :::
 
 
@@ -1969,37 +1670,7 @@ aut validator info --rpc-endpoint $RPC_URL --validator 0x21bb01ae8eb831fff68ebe1
   "state": 0
 }
 ```
-## RPC
 
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidator", "params":["0x439926f9a819e86ae284ceaa7e87909777cf8c84"], "id":1}' .|jq
-
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": {
-    "treasury": "0xf47fdd88c8f6f80239e177386cc5ae3d6bcdeeea",
-    "nodeAddress": "0x439926f9a819e86ae284ceaa7e87909777cf8c84",
-    "oracleAddress": "0xf75cadcbf252708d7f030978929dd68d5046fbca",
-    "enode": "enode://02ad2d5ae371983f9aecadaee6fd300d3241b946d10c29ec59724ed6bcc41c05bedae9318fe566a2f2180be9783fd552f05a0d212a094304cdfbc8d87e70b0a3@86.182.102.239:30303",
-    "commissionRate": 1000,
-    "bondedStake": 0,
-    "unbondingStake": 0,
-    "unbondingShares": 0,
-    "selfBondedStake": 0,
-    "selfUnbondingStake": 0,
-    "selfUnbondingShares": 0,
-    "selfUnbondingStakeLocked": 0,
-    "liquidStateContract": "0x2b0f159443599fbb6723cdb33d0db94f96b95d0f",
-    "liquidSupply": 0,
-    "registrationBlock": 171322,
-    "totalSlashed": 0,
-    "jailReleaseBlock": 0,
-    "consensusKey": "reWv9AU/mGkTEaSlmcXAghXQrXITz6WOABRU51+Scig/1LeC4gia6FQKQDzQj83W",
-    "state": 0
-  }
-}
-```
 :::
 
 
@@ -2026,11 +1697,6 @@ None.
 
 ``` {.aut}
 aut validator list [OPTIONS]
-```
-## RPC
-
-``` {.rpc}
-{"method": "aut_getValidators", "params":[]}
 ```
 :::
 
@@ -2075,12 +1741,6 @@ aut validator list --rpc-endpoint $RPC_URL
 0x9f793D2c7E1D5a72A020281F383bfc5e3086AcA9
 0xde5aeb71cc4Aaa99cf6a23F68bFfDdDD7e8231Fe
 ```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getValidators", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":["0x32f3493ef14c28419a98ff20de8a033cf9e6ab97","0x31870f96212787d181b3b2771f58af2bed0019aa","0x6ebb5a45728be7cd9fe9c007add1e8b3daff6b3b","0xac245af88265e72881cd9d21efb9ddc32e174b69","0x36288c1f8c990fd66a1c5040a61d6f3ecf3a49c1","0xb3a3808c698d82790ac52a42c05e4bcb3dfcd3db","0x467d99ea9dacc495e6d1174b8f3dd20ddd531335","0xa940eb48368324e2032b97723be487505981edce","0xba35a25badb802cb3c0702e0e2df392e00511ca2","0x1114fe559b302403bb3a89806bc08f7fa5299e99","0x9fd408bdb83be1c8504ff13ebcce7f490dccc2cf","0xe03d1de3a2fb5fec85041655f218f18c9d4dac55","0x52b89afa0d1dee274bb5e4395ee102aafbf372ea","0x914d06dbaaa3c51085692f59230769eaa32f3a94","0xfae912badb5e0db5ec0116fe6552e8d6bdb4e82b","0x7fc0ae4918c0d8eaa1a259fa455b32a2ceb58ea4","0x82b6eaca5014dca39b3a37d68c246f1466b15aa9","0xe4ece2266ea7b7468ad3e381d08c962641b567f2","0xcd46183d0075116175c62dcde568f2e0c4736597","0xcd50c31356fddbd9e704cf58751a0ed2b178d8b0","0xab471b6f6e59dfd81ba9988f0d0b6950c5c3fec1","0xeb25090aa0fd5c940f87a172aaf62413eb625b63","0x2af517e6edf3c01f8256e609122f004457024e67","0x9d458e21b15c0c1a95db65c5fae639d1477ce4dc","0x724e26894a5fcf0233fdc5849aaf0fbb2dd5b0e8","0xe9ce74fba6f04345516c9a3028292a1d62a409b3","0x9f793d2c7e1d5a72a020281f383bfc5e3086aca9","0xde5aeb71cc4aaa99cf6a23f68bffdddd7e8231fe"]}
-```
 :::
 
 
@@ -2108,11 +1768,6 @@ Returns the state of a designated validator.
 ``` {.aut}
 TO DO
 ```
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 ### Example
@@ -2121,11 +1776,6 @@ TO DO
 ## aut
 
 ``` {.aut}
-TO DO
-```
-## RPC
-
-``` {.rpc}
 TO DO
 ```
 :::
@@ -2153,11 +1803,6 @@ None.
 ``` {.aut}
 aut protocol version [OPTIONS]
 ```
-## RPC
-
-``` {.rpc}
-{"method": "aut_getVersion", "params":[]}
-```
 :::
 
 
@@ -2169,12 +1814,6 @@ aut protocol version [OPTIONS]
 ``` {.aut}
 aut protocol version -r $RPC_URL
 1
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_getVersion", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":1}
 ```
 :::
 
@@ -2202,11 +1841,6 @@ Returns `true` if unbonding is released and `false` otherwise.
 TO DO
 ```
 
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 ### Example
@@ -2218,11 +1852,6 @@ TO DO
 TO DO
 ```
 
-## RPC
-
-``` {.rpc}
-TO DO
-```
 :::
 
 
@@ -2251,11 +1880,6 @@ None.
 ``` {.aut}
 aut token name [OPTIONS]
 ```
-## RPC
-
-``` {.rpc}
-{"method":"aut_name", "params":[]}
-```
 :::
 
 
@@ -2267,12 +1891,6 @@ aut token name [OPTIONS]
 ``` {.aut}
 aut token name --ntn -r $RPC_URL
 Newton
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"method":"aut_name", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":"Newton"}
 ```
 :::
 
@@ -2286,7 +1904,6 @@ aut token name --rpc-endpoint $RPC_URL --token 0xC500751c4F96d49B954D20EAE42Fa29
 LNTN-4
 ```
 :::
-
 
 
 ## pauseValidator
@@ -2453,11 +2070,6 @@ None.
 ``` {.aut}
 aut token symbol [OPTIONS]
 ```
-## RPC
-
-``` {.rpc}
-{"method":"aut_symbol", "params":[]}
-```
 :::
 
 ### Example
@@ -2468,12 +2080,6 @@ aut token symbol [OPTIONS]
 ``` {.aut}
 aut token symbol --ntn --rpc-endpoint $RPC_URL
 NTN
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_symbol", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":"NTN"}
 ```
 :::
 
@@ -2486,53 +2092,6 @@ To return the `symbol` for an ERC-20 (e.g. a Liquid Newton token) token contract
 ``` {.aut}
 aut token symbol --token 0xf4D9599aFd90B5038b18e3B551Bc21a97ed21c37
 LNTN-0
-```
-:::
-
-
-## atnTotalRedistributed
-
-Returns the total amount of Auton staking rewards distributed since genesis minus treasury fee.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `uint256` | the amount of Auton utility token distributed as staking rewards |
-
-### Usage
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-aut protocol atn-total-redistributed [OPTIONS]
-```
-## RPC
-
-``` {.rpc}
-{"method":"aut_atnTotalRedistributed", "params":[]}
-```
-:::
-
-### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-aut protocol atn-total-redistributed -r $RPC_URL
-47981813599875371606
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_atnTotalRedistributed", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":47981813599875371606}
 ```
 :::
 
@@ -2568,11 +2127,7 @@ None.
 ``` {.aut}
 aut token total-supply [OPTIONS]
 ```
-## RPC
 
-``` {.rpc}
-{"method": "aut_totalSupply", "params":[]}
-```
 :::
 
 ### Example
@@ -2585,12 +2140,6 @@ To return total supply for the Newton stake token specify the `--ntn` option:
 ``` {.aut}
 aut token total-supply --ntn -r $RPC_URL
 63402
-```
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL  --header 'Content-Type: application/json' --data '{"jsonrpc":"2.0", "method":"aut_totalSupply", "params":[], "id":1}'
-{"jsonrpc":"2.0","id":1,"result":63402}
 ```
 :::
 
@@ -2871,8 +2420,7 @@ None.
 
 ## aut
 ``` {.aut}
-aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode _nodeAddress _enode
-
+aut validator update-enode [OPTIONS] ENODE
 ```
 :::
 
@@ -2881,6 +2429,7 @@ aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576
 ::: {.panel-tabset}
 
 ## aut
-aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode 0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d enode://0be363cfa0c81ee12cfc7e144cf6611a1418344a1fa6a0ca04aaa9b09f68dfe2a8d70b8de22026807728424122937721f8f3570bf296c8d445183e37c87b152d@35.197.223.249:30303
-
+```
+aut validator update-enode --validator  0xbaf935b88066021a0b0bd34ceb2ba10389b6aa0d enode://0be363cfa0c81ee12cfc7e144cf6611a1418344a1fa6a0ca04aaa9b09f68dfe2a8d70b8de22026807728424122937721f8f3570bf296c8d445183e37c87b152d@35.197.223.249:30303
+```
 :::
