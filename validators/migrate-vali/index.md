@@ -30,34 +30,13 @@ Call `aut protocol get-committee` to verify that your validator address does not
 
 ### Step 2: Update enode URL with new IP/Port address
 
-::: {.callout-note title="Protocol contract calls" collapse="false"}
-The guide uses the `aut contract call` and `aut contract tx` commands for the contract interaction.
-
-`aut contract` usage requires that you specify the [ABI](/glossary/#application-binary-interface-abi) file and the protocol contract address of the contract being called. To complete the guide you will need to call 2 protocol contracts:
-
-- the Autonity Protocol Contract (`Autonity.abi`)  with the protocol contract address `0xBd770416a3345F91E4B34576cb804a576fa48EB1`.
-
-The [Autonity Protocol Contract Interfaces](/reference/api/aut/) is called to update the validator enode URL.
-
-The `abi` files are generated when building the client from source and `Autonity.abi` can be found in your `autonity` installation directory at `./params/generated/Autonity.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built the utility when building from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
-
-The guide explicitly sets the path to the ABI file and contract address for clarity. Note that the ABI file and contract address can be set as defaults in `aut`'s configuration file `.autrc` using the `contract_address` and `contract_abi` flags:
-
-```
-#contract_abi = Autonity.abi
-#contract_address = 0xBd770416a3345F91E4B34576cb804a576fa48EB1
-```
-
-The guide assumes the ABI file is in the directory from which the `aut` command is run, and `aut` is configured to use the validator [treasury account](/concepts/validator/#treasury-account) keyfile.
-:::
-
 Call [`updateEnode()`](/reference/api/aut/#updateenode) passing in parameters for:
 
   - `<NODE_ADDRESS>`: the [validator identifier](/concepts/validator/#validator-identifier) address of the validator node
   - `<ENODE>`: the new enode URL value
 
   ```bash
-aut contract tx --abi Autonity.abi --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 updateEnode <NODE_ADDRESS> <ENODE> | aut tx sign - | aut tx send -
+aut validator update-enode --validator <NODE_ADDRESS> <ENODE> | aut tx sign - | aut tx send -
 ```
   
 On commit, the transaction will update the validator's registered enode URL in system state. you can view the updated enode using `aut validator info --validator`.
