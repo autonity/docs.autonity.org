@@ -11,41 +11,13 @@ Given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=autonity>.
 
 ## aut_address
 
-Returns the address of the Autonity Contract.
+Returns the address of the Autonity Protocol Contract.
 
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| value | `address` | the Autonity Protocol contract account address |
-
-### Usage
-
-::: {.panel-tabset}
-## RPC
-
-``` {.rpc}
-{"method": "aut_address", "params":[]}
-```
-:::
-
-### Example
-
-::: {.panel-tabset}
-## RPC
-
-``` {.rpc}
-curl -X GET $RPC_URL --header 'Content-Type: application/json' --data '{"method":"aut_address", "params":[], "jsonrpc":"2.0", "id":1}'
-{"jsonrpc":"2.0","id":1,"result":"0xbd770416a3345f91e4b34576cb804a576fa48eb1"}
-```
-:::
-
+See Autonity Contract Interface [`address()`](/reference/api/aut/#address).
 
 ## aut_config
+
+Returns the Autonity Network configuration at the block height the call was submitted.
 
 See Autonity Contract Interface [`config()`](/reference/api/aut/#config).
 
