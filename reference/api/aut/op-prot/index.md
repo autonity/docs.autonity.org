@@ -60,7 +60,7 @@ Creates a new schedule for a non-stakeable vesting contract, specifying how much
 
 Constraint checks are applied:
 
-- the `maxScheduleDurtion` protocol parameter value is greater than or equal to the new schedule's `_totalDuration`
+- the `maxScheduleDuration` protocol parameter value is greater than or equal to the new schedule's `_totalDuration`
 
 On success the designated amount of Newton is minted to the vesting contract address and the amount of Newton in the circulating supply reduced by that amount.
 
