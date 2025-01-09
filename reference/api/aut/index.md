@@ -1628,8 +1628,7 @@ Returns a `Validator` object consisting of:
 | `totalSlashed` | `uint256` | the total amount of stake that a validator has had slashed for accountability and omission faults since registration |
 | `jailReleaseBlock` | `uint256` | the block number at which a validator jail period applied for an accountability or omission fault ends (the validator can be re-activated after this block height). Set to `0` when the validator is in an active or jailbound state |
 | `consensusKey` | `bytes` | the public consensus key of the validator |
-| `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `0`: active, `1`: paused, `2`: jailed, `3`: jailbound |
-
+| `state` | `ValidatorState` | the state of the validator. `ValidatorState` is an enumerated type with enumerations: `0`: active, `1`: paused, `2`: jailed, `3`: jailbound, `4`:  jailedForInactivity, `5`:  jailboundForInactivity |
 
 ### Usage
 
