@@ -29,8 +29,7 @@ Constraint checks are applied:
 - the `msg.sender` address has a Newton balance greater than  or equal to the amount deposited to the new vesting contract.
 - the identifier for the new vesting contract will be a valid contract ID.
 
-
-The new stakeable vesting contract is then created with the deposited amount of Newton stake token.
+The new stakeable vesting contract is then created for the stated amount of Newton stake token.
 
 #### Parameters
 
@@ -65,7 +64,7 @@ On successful processing of the transaction the beneficiary address change is ap
 | Field | Datatype | Description |
 | --| --| --|
 | `_beneficiary` | `address` | the beneficiary address whose contract will be canceled |
-| `_contractID` | `uint256` | new contract id numbered from 0 to (n-1); n = total contracts entitled to the beneficiary (excluding already canceled ones)
+| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the  total number of contracts entitled to the beneficiary (excluding already canceled ones) |
 | `_recipient` | `address` | the new beneficiary to whom the contract is being transferred |
 
 #### Response
@@ -133,7 +132,7 @@ Returns the address of the stakeable vesting contract for the provided beneficia
 | Field | Datatype | Description |
 | --| --| --|
 | `_beneficiary` | `address =` | the address of the beneficiary of the contract |
-| `_id` | `uint256` | contract id numbered from 0 to (n-1); n = total contracts entitled to the beneficiary (excluding already canceled ones) |
+| `_id` | `uint256` | contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones) |
 
 #### Response
 
@@ -216,8 +215,8 @@ Returns an array of `Contract` objects, each object consisting of:
 | `currentNTNAmount` | `uint256` | the amount of NTN currently locked in the contract |
 | `withdrawnValue` | `uint256` | the amount of NTN that has been withdrawn from the contract to date |
 | `start` | `uint256` | the start time at which the contract unlocking schedule will begin; the start time is in Unix Timestamp format |
-| `cliffDuration` | `uint256` | the length of time over which the contract will unlock; the duration is in seconds |
-| `totalDuration` | `uint256` | the length of time between the contract `start` time and the time at which the contract unlocking schedule will begin to unlock; the cliff is in seconds |
+| `cliffDuration` | `uint256` | the length of time after the contract `start` time that must elapse before unlocked funds can be withdrawn; the cliff is in seconds |
+| `totalDuration` | `uint256` | the length of time over which the contract will unlock; the duration is in seconds |
 | `canStake` | `bool` | Boolean flag indicating if the Newton locked in the contract can be staked or not (`true`: yes, `false`: no) |
 
 
