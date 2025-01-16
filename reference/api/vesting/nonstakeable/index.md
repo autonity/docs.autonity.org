@@ -18,6 +18,7 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 :::
 
 ## Operator only
+
 ### newContract (Non Stakeable Vesting Manager Contract)
 
 Creates a new non stakeable vesting contract for a beneficiary. The non stakeable vesting contract subscribes to a vesting schedule which sets the vesting terms for the contract.
@@ -159,14 +160,24 @@ A beneficiary can have multiple non stakeable vesting contracts. The identifier 
 
 #### Response
 
-None
+None.
 
 #### Usage
+
+::: {.callout-tip title="How to: call `releaseAllNTN()` on the vesting contract you are releasing funds from using the `NonStakeableVesting.abi` file" collapse="true" }
+
+The `releaseAllNTN()` function is defined in the Non Stakeable Vesting Solidity contract. To call it you will need to use the `NonStakeableVesting.abi` file and the Non Stakeable Vesting Contract `0x6901F7206A34E441Ac5020b5fB53598A65547A23`instance address as the `--abi` and `--address` OPTIONS in the `aut contract tx` command.
+
+Remember to send the transaction using your beneficiary address, otherwise the call will fail with the message "`execution reverted: caller is not beneficiary of the contract`".
+
+:::
 
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call [OPTIONS] releaseAllNTN [PARAMETERS]
+aut contract tx [OPTIONS] releaseAllNTN [PARAMETERS] \
+| aut tx sign - \
+| aut tx send -
 ```
 :::
 
@@ -175,7 +186,7 @@ aut contract call [OPTIONS] releaseAllNTN [PARAMETERS]
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 releaseAllNTN 0
+aut contract tx --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 releaseAllNTN 0 | aut tx sign - | aut tx send -
 ```
 :::
 
@@ -198,14 +209,24 @@ Constraint checks are applied:
 
 #### Response
 
-None
+None.
 
 #### Usage
+
+::: {.callout-tip title="How to: call `releaseNTN()` on the vesting contract you are releasing funds from using the `NonStakeableVesting.abi` file" collapse="true" }
+
+The `releaseNTN()` function is defined in the Non Stakeable Vesting Solidity contract. To call it you will need to use the `NonStakeableVesting.abi` file and the Non Stakeable Vesting Contract `0x6901F7206A34E441Ac5020b5fB53598A65547A23`instance address as the `--abi` and `--address` OPTIONS in the `aut contract tx` command.
+
+Remember to send the transaction using your beneficiary address, otherwise the call will fail with the message "`execution reverted: caller is not beneficiary of the contract`".
+
+:::
 
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call [OPTIONS] releaseNTN [PARAMETERS]
+aut contract tx [OPTIONS] releaseNTN [PARAMETERS] \
+| aut tx sign - \
+| aut tx send -
 ```
 :::
 
@@ -214,7 +235,7 @@ aut contract call [OPTIONS] releaseNTN [PARAMETERS]
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 releaseNTN 100 0
+aut contract tx --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 releaseNTN 100 0 | aut tx sign - | aut tx send -
 ```
 :::
 
@@ -233,7 +254,7 @@ A beneficiary can have multiple non stakeable vesting contracts. The beneficiary
 
 #### Response
 
-None
+Returns the amount of withdrawable vested funds amount as an integer value.
 
 #### Usage
 
@@ -270,7 +291,7 @@ A beneficiary can have multiple non stakeable vesting contracts. The beneficiary
 
 #### Response
 
-None
+Returns the vested funds amount as an integer value.
 
 #### Usage
 
@@ -310,7 +331,7 @@ A beneficiary can have multiple non stakeable vesting contracts. The beneficiary
 
 #### Response
 
-None
+Returns the expired funds amount as an integer value.
 
 #### Usage
 
