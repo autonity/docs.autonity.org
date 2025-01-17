@@ -18,6 +18,7 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 :::
 
 ## Operator only
+
 ### newContract (Stakeable Vesting Manager Contract)
 
 Creates a new stakeable vesting contract for a beneficiary.
@@ -98,6 +99,105 @@ None.
 
 
 ## Beneficiary
+
+### bond
+
+Used by a beneficiary to delegate an amount of Newton stake token from a stakeable vesting contract to a designated validator.
+
+All bondings of stakeable vesting Newton are treated as [delegated](/glossary/#delegated) and [Liquid Newton](/glossary/#liquid-newton) will be issued for the bonding.
+
+::: {.callout-note title="Locking and vesting of Liquid Newton from stake delegations" collapse="true"}
+
+When a beneficiary bonds Newton locked in a stakeable vesting contract then the stake [delegation](/glossary/#delegation) is always treated as [delegated](/glossary/#delegated) and [Liquid Newton](/glossary/#liquid-newton) is issued. 
+
+The stake [delegation](/glossary/#delegation) is technically made by the stakeable vesting contract and the Liquid Newton is locked in the vesting contract until it has vested, just as the locked Newton is.
+
+After NTN and LNTN token has vested and become unlocked, the beneficiary is able to release their unlocked Newton and Liquid Newton from the vesting contract and transfer it to their beneficiary account. For how to do this see [`releaseFunds()`](/reference/api/vesting/stakeable/#releasefunds) and the other `release...()` and `update...()` functions on this page.
+:::
+
+The bonding request will be tracked in memory and applied at epoch end. 
+
+On successful processing of the method call:
+
+- a `PendingStakingRequest` object for the necessary voting power change is created:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochID` | `uint256` | the unique identifier of the block epoch in which the bonding request was created |
+| `validator` | `address` | the validator identifier address |
+| `amount` | `uint256` | the amount of Newton bonded to the validator |
+| `requestID` | `uint256` | the unique identifier of the staking request; `0` for a bonding request |
+
+The `PendingStakingRequest` is enqueued to an indexed `StakingRequestQueue` and tracked in memory by the non stakeable vesting contract logic until applied at epoch end. 
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validator` | `address` | the address of the validator |
+| `_amount` | `uint256` | the amount of NTN to bond |
+
+#### Response
+
+Returns the unique identifier for the bonding request in the Autonity Contract on successful execution of the method call.
+
+A `PendingStakingRequest` object is created:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `epochID` | `uint256` | the unique identifier of the block epoch in which the bonding request was created |
+| `validator` | `address` | the validator identifier address |
+| `amount` | `uint256` | the amount of Newton bonded to the validator |
+| `requestID` | `uint256` | the unique identifier of the bonding request |
+
+The pending staking request is enqueued to a staking request queue and tracked in memory until applied in the following epoch.
+
+#### Event
+
+None.
+
+The bonding is executed by the Autonity Protocol Contract, which will emit on success, a `NewBondingRequest` event or on revert, a `BondingRejected` event. See [Autonity Contract Interface](/reference/api/aut/), [`bond()`](/reference/api/aut/#bond) for details.
+
+#### Usage
+
+::: {.callout-tip title="How to: call `bond()` on the vesting contract you are bonding Newton from using the `StakeableVestingLogic.abi` file" collapse="true" }
+
+The `bond()` function is called against the _specific_ stakeable vesting contract instance that the beneficiary is bonding Newton from. The function is called using the contract beneficiary address.
+
+The function is defined in the Stakeable Vesting Logic Solidity contract. To call it you will need to use the `StakeableVestingLogic.abi` file and the vesting contract instance address as the `--abi` and `--address` OPTIONS in the `aut contract tx` command.
+
+To determine the stakeable vesting contract you want to release funds from you can:
+
+- retrieve your stakeable vesting contract address(es). Use [`getContractAccount()`](/reference/api/vesting/stakeable/#getcontractaccount). If you have multiple stakeable vesting contracts use [`getContractAccounts()`](/reference/api/vesting/stakeable/#getcontractaccounts) to return a list of your vesting contracts
+- view the state of your vesting contract(s) to verify your available funds amounts. Use [`getContracts()`](/reference/api/vesting/stakeable/#getcontracts) to return metadata about your vesting contract(s). 
+
+Having determined which vesting contract to release funds from, call the `bond()` function specifying:
+
+- for `--abi`: the path to `./StakeableVestingLogic.abi`
+- for `--address`: the address of your stakeable vesting contract
+
+Remember to send the transaction using your beneficiary address, otherwise the call will fail with the message "`execution reverted: caller is not beneficiary of the contract`".
+
+:::
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract tx [OPTIONS] bond [PARAMETERS] \
+| aut tx sign - \
+| aut tx send -
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract tx --abi ../scripts/abi/v1.0.2-alpha/StakeableVestingLogic.abi  --address 0x2456ea48f393F71dE908CE099716215CC5d421c6 bond 0x551f3300FCFE0e392178b3542c009948008B2a9F 100 | aut tx sign - | aut tx send -
+```
+:::
+
 
 ### getContractAccount
 
@@ -491,10 +591,6 @@ Constraint checks are applied:
 
 - the amount of unlocked LNTN for the validator stake delegation is greater than or equal to the requested amount
 - the requested amount of LNTN is greater than `0`
- 
-#### Event
-
-On a successful call the function emits a `FundsReleased` event, logging `beneficiary`, `_validator`, `_amount`.
 
 #### Parameters
 
@@ -506,6 +602,10 @@ On a successful call the function emits a `FundsReleased` event, logging `benefi
 #### Response
 
 None.
+
+#### Event
+
+On a successful call the function emits a `FundsReleased` event, logging `beneficiary`, `_validator`, `_amount`.
 
 #### Usage
 
@@ -715,4 +815,3 @@ aut contract tx [OPTIONS] updateFundsAndGetContract \
 aut contract tx --abi ../scripts/abi/v1.0.2-alpha/StakeableVestingLogic.abi  --address 0x2456ea48f393F71dE908CE099716215CC5d421c6 updateFundsAndGetContract | aut tx sign - | aut tx send -
 ```
 :::
-
