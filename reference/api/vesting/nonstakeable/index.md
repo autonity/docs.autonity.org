@@ -146,212 +146,6 @@ On a successful call the function emits a `BeneficiaryChanged` event, logging: `
 
 ## Beneficiary
 
-### releaseAllNTN
-
-Used by a beneficiary to release all unlocked NTN from a non stakeable vesting contract and transfer the NTN to the beneficiary's address.
-
-A beneficiary can have multiple non stakeable vesting contracts. The identifier of the contract from which funds are to be released is passed in as the identifier argument.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_id` | `uint256` | Unique id of the contract numbered from `0` to `(n-1)` where `n` = the total number of contracts entitled to the beneficiary (excluding canceled ones). |
-
-#### Response
-
-None.
-
-#### Usage
-
-::: {.callout-tip title="How to: call `releaseAllNTN()` on the vesting contract you are releasing funds from using the `NonStakeableVesting.abi` file" collapse="true" }
-
-The `releaseAllNTN()` function is defined in the Non Stakeable Vesting Solidity contract. To call it you will need to use the `NonStakeableVesting.abi` file and the Non Stakeable Vesting Contract `0x6901F7206A34E441Ac5020b5fB53598A65547A23`instance address as the `--abi` and `--address` OPTIONS in the `aut contract tx` command.
-
-Remember to send the transaction using your beneficiary address, otherwise the call will fail with the message "`execution reverted: caller is not beneficiary of the contract`".
-
-:::
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract tx [OPTIONS] releaseAllNTN [PARAMETERS] \
-| aut tx sign - \
-| aut tx send -
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract tx --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 releaseAllNTN 0 | aut tx sign - | aut tx send -
-```
-:::
-
-### releaseNTN
-
-Used by a beneficiary to release a specific amount of unlocked NTN from a non stakeable vesting contract and transfer the NTN to the beneficiary's address.
-
-A beneficiary can have multiple non stakeable vesting contracts. The identifier of the contract from which funds are to be released and the required amount are passed in as arguments.
-
-Constraint checks are applied:
-
-- the requested amount is less than or equal to the amount of withdrawable vested funds available to the beneficiary from the contract.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_amount` | `uint256` | The amount of NTN to release from the contract |
-| `_id` | `uint256` | Unique id of the contract numbered from `0` to `(n-1)` where `n` = the total number of contracts entitled to the beneficiary (excluding canceled ones). |
-
-#### Response
-
-None.
-
-#### Usage
-
-::: {.callout-tip title="How to: call `releaseNTN()` on the vesting contract you are releasing funds from using the `NonStakeableVesting.abi` file" collapse="true" }
-
-The `releaseNTN()` function is defined in the Non Stakeable Vesting Solidity contract. To call it you will need to use the `NonStakeableVesting.abi` file and the Non Stakeable Vesting Contract `0x6901F7206A34E441Ac5020b5fB53598A65547A23`instance address as the `--abi` and `--address` OPTIONS in the `aut contract tx` command.
-
-Remember to send the transaction using your beneficiary address, otherwise the call will fail with the message "`execution reverted: caller is not beneficiary of the contract`".
-
-:::
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract tx [OPTIONS] releaseNTN [PARAMETERS] \
-| aut tx sign - \
-| aut tx send -
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract tx --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 releaseNTN 100 0 | aut tx sign - | aut tx send -
-```
-:::
-
-### withdrawableVestedFunds
-
-Returns the amount of funds vested and withdrawable by the beneficiary upto the end time of the last epoch.
-
-A beneficiary can have multiple non stakeable vesting contracts. The beneficiary address and the identifier of the contract from which funds are to be released are passed in as arguments.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_beneficiary` | `address` | the address of the contract beneficiary |
-| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones)
-
-#### Response
-
-Returns the amount of withdrawable vested funds amount as an integer value.
-
-#### Usage
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call [OPTIONS] withdrawableVestedFunds [PARAMETERS]
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 withdrawableVestedFunds 0x3F3FeE9C908c43138d7e892CE33cAF85BDEc83e6 0
-184119648021308980213089
-```
-:::
-
-
-### vestedFunds
-
-Returns the amount of funds vested upto the end time of the last epoch.
-
-A beneficiary can have multiple non stakeable vesting contracts. The beneficiary address and the identifier of the contract are passed in as arguments.
-   
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_beneficiary` | `address` | the address of the contract beneficiary |
-| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones)
-
-#### Response
-
-Returns the vested funds amount as an integer value.
-
-#### Usage
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call [OPTIONS] vestedFunds [PARAMETERS]
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 vestedFunds 0x3F3FeE9C908c43138d7e892CE33cAF85BDEc83e6 0
-184119648021308980213089
-```
-:::
-
-### getExpiredFunds
-
-Returns the amount of funds vested and withdrawable by the beneficiary upto the end time of the last epoch.
-
-Returns the amount of funds that have expired from the contract due to creation of the contract being after the non stakeable vesting contract's schedule has started.
-
-The expired funds are not due to the beneficiary but belong to autonity treasury account instead.
-
-A beneficiary can have multiple non stakeable vesting contracts. The beneficiary address and the identifier of the contract from which funds are to be released are passed in as arguments.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_beneficiary` | `address` | the address of the contract beneficiary |
-| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones)
-
-#### Response
-
-Returns the expired funds amount as an integer value.
-
-#### Usage
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call [OPTIONS] getExpiredFunds [PARAMETERS]
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getExpiredFunds 0x3F3FeE9C908c43138d7e892CE33cAF85BDEc83e6 0
-0
-```
-:::
-
 ### getContract
 
 Returns metadata about a non stakeable vesting contract(s) that a given beneficiary has Newton locked in.
@@ -439,6 +233,47 @@ aut contract call [OPTIONS] getContracts [PARAMETERS]
 ``` {.aut}
 aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getContracts 0x6d49071fb4D3eC08b99e89Bb06208B5FA8cF7907
 [{"currentNTNAmount": 9089791666666700000000000, "withdrawnValue": 0, "start": 1733922000, "cliffDuration": 0, "totalDuration": 60444000, "canStake": false}]
+```
+:::
+
+
+### getExpiredFunds
+
+Returns the amount of funds vested and withdrawable by the beneficiary upto the end time of the last epoch.
+
+Returns the amount of funds that have expired from the contract due to creation of the contract being after the non stakeable vesting contract's schedule has started.
+
+The expired funds are not due to the beneficiary but belong to autonity treasury account instead.
+
+A beneficiary can have multiple non stakeable vesting contracts. The beneficiary address and the identifier of the contract from which funds are to be released are passed in as arguments.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_beneficiary` | `address` | the address of the contract beneficiary |
+| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones)
+
+#### Response
+
+Returns the expired funds amount as an integer value.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call [OPTIONS] getExpiredFunds [PARAMETERS]
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getExpiredFunds 0x3F3FeE9C908c43138d7e892CE33cAF85BDEc83e6 0
+0
 ```
 :::
 
@@ -556,5 +391,172 @@ aut contract call [OPTIONS] getTotalSchedules [PARAMETERS]
 ``` {.aut}
 aut contract call --abi ../scripts/abi/v1.0.2-alpha/Autonity.abi  --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 getTotalSchedules 0x6901F7206A34E441Ac5020b5fB53598A65547A23
 1
+```
+:::
+
+
+### releaseAllNTN
+
+Used by a beneficiary to release all unlocked NTN from a non stakeable vesting contract and transfer the NTN to the beneficiary's address.
+
+A beneficiary can have multiple non stakeable vesting contracts. The identifier of the contract from which funds are to be released is passed in as the identifier argument.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_id` | `uint256` | Unique id of the contract numbered from `0` to `(n-1)` where `n` = the total number of contracts entitled to the beneficiary (excluding canceled ones). |
+
+#### Response
+
+None.
+
+#### Usage
+
+::: {.callout-tip title="How to: call `releaseAllNTN()` on the vesting contract you are releasing funds from using the `NonStakeableVesting.abi` file" collapse="true" }
+
+The `releaseAllNTN()` function is defined in the Non Stakeable Vesting Solidity contract. To call it you will need to use the `NonStakeableVesting.abi` file and the Non Stakeable Vesting Contract `0x6901F7206A34E441Ac5020b5fB53598A65547A23`instance address as the `--abi` and `--address` OPTIONS in the `aut contract tx` command.
+
+Remember to send the transaction using your beneficiary address, otherwise the call will fail with the message "`execution reverted: caller is not beneficiary of the contract`".
+
+:::
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract tx [OPTIONS] releaseAllNTN [PARAMETERS] \
+| aut tx sign - \
+| aut tx send -
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract tx --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 releaseAllNTN 0 | aut tx sign - | aut tx send -
+```
+:::
+
+### releaseNTN
+
+Used by a beneficiary to release a specific amount of unlocked NTN from a non stakeable vesting contract and transfer the NTN to the beneficiary's address.
+
+A beneficiary can have multiple non stakeable vesting contracts. The identifier of the contract from which funds are to be released and the required amount are passed in as arguments.
+
+Constraint checks are applied:
+
+- the requested amount is less than or equal to the amount of withdrawable vested funds available to the beneficiary from the contract.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_amount` | `uint256` | The amount of NTN to release from the contract |
+| `_id` | `uint256` | Unique id of the contract numbered from `0` to `(n-1)` where `n` = the total number of contracts entitled to the beneficiary (excluding canceled ones). |
+
+#### Response
+
+None.
+
+#### Usage
+
+::: {.callout-tip title="How to: call `releaseNTN()` on the vesting contract you are releasing funds from using the `NonStakeableVesting.abi` file" collapse="true" }
+
+The `releaseNTN()` function is defined in the Non Stakeable Vesting Solidity contract. To call it you will need to use the `NonStakeableVesting.abi` file and the Non Stakeable Vesting Contract `0x6901F7206A34E441Ac5020b5fB53598A65547A23`instance address as the `--abi` and `--address` OPTIONS in the `aut contract tx` command.
+
+Remember to send the transaction using your beneficiary address, otherwise the call will fail with the message "`execution reverted: caller is not beneficiary of the contract`".
+
+:::
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract tx [OPTIONS] releaseNTN [PARAMETERS] \
+| aut tx sign - \
+| aut tx send -
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract tx --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 releaseNTN 100 0 | aut tx sign - | aut tx send -
+```
+:::
+
+
+### vestedFunds
+
+Returns the amount of funds vested upto the end time of the last epoch.
+
+A beneficiary can have multiple non stakeable vesting contracts. The beneficiary address and the identifier of the contract are passed in as arguments.
+   
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_beneficiary` | `address` | the address of the contract beneficiary |
+| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones)
+
+#### Response
+
+Returns the vested funds amount as an integer value.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call [OPTIONS] vestedFunds [PARAMETERS]
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 vestedFunds 0x3F3FeE9C908c43138d7e892CE33cAF85BDEc83e6 0
+184119648021308980213089
+```
+:::
+
+### withdrawableVestedFunds
+
+Returns the amount of funds vested and withdrawable by the beneficiary upto the end time of the last epoch.
+
+A beneficiary can have multiple non stakeable vesting contracts. The beneficiary address and the identifier of the contract from which funds are to be released are passed in as arguments.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_beneficiary` | `address` | the address of the contract beneficiary |
+| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones)
+
+#### Response
+
+Returns the amount of withdrawable vested funds amount as an integer value.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call [OPTIONS] withdrawableVestedFunds [PARAMETERS]
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --abi ../scripts/abi/v1.0.2-alpha/NonStakeableVesting.abi  --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 withdrawableVestedFunds 0x3F3FeE9C908c43138d7e892CE33cAF85BDEc83e6 0
+184119648021308980213089
 ```
 :::
