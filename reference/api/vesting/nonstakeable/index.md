@@ -19,6 +19,68 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 
 ## Operator only
 
+### changeContractBeneficiary (Non Stakeable Vesting Manager Contract)
+
+Changes the beneficiary of a non stakeable vesting contract to a new recipient address.
+
+On successful processing of the transaction the beneficiary address change is applied.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_beneficiary` | `address` | the beneficiary address whose contract will be canceled |
+| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones)
+| `_recipient` | `address` | the new beneficiary to whom the contract is being transferred |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits a `BeneficiaryChanged` event, logging: `_recipient`, `_beneficiary`, `_contractID`.
+
+
+### createSchedule (Autonity Contract)
+
+Creates a new schedule setting the vesting terms for a non stakeable vesting contract.
+
+The schedule is utilised by creating new non stakeable vesting contract(s) that subscribe to the new vesting schedule.
+
+Constraint checks are applied:
+
+- the amount of unsubscribed funds available in the referenced schedule is greater than or equal to the amount of the new contract
+- the identifier for the new vesting contract will be a valid contract ID.
+
+Note that NTN token locked in schedules does not contribute to the circulating supply of NTN. On creating a new schedule the amount of NTN minted to the new schedule is subtracted from the circulating supply of NTN (see [`circulatingSupply()`](/reference/api/aut/#circulatingsupply)).
+
+Constraint checks are applied:
+
+- the schedule vault address cannot be the zero address
+- the total duration specified for the schedule does not exceed maximum  allowed duration specified by the protocol parameter setting for `maxScheduleDuration`
+- the total duration must be greater than `0` and cannot be zero
+- the start time must be greater than or equal to the block timestamp; the schedule cannot start before its creation
+- the amount of NTN locked in the schedule must be a positive value greater than `0`
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_scheduleVault` | `address` | the address of the vault contract holding the NTN token locked by the schedule |
+| `_amount` | `uint256` | the total amount of NTN locked in the schedule vault  |
+| `_startTime` | `uint256` | the start time at which the schedule will begin to unlock NTN from the vault contract; the start time is in Unix Timestamp format |
+| `_totalDuration` | `uint256` | the length of time over which the contract will unlock; the duration is in seconds |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits a `NewSchedule` event, logging `_scheduleVault`, `_amount`, `_startTime`, `_totalDuration`.
+
+
 ### newContract (Non Stakeable Vesting Manager Contract)
 
 Creates a new non stakeable vesting contract for a beneficiary. The non stakeable vesting contract subscribes to a vesting schedule which sets the vesting terms for the contract.
@@ -82,67 +144,6 @@ None.
 
 None.
 
-
-### createSchedule (Autonity Contract)
-
-Creates a new schedule setting the vesting terms for a non stakeable vesting contract.
-
-The schedule is utilised by creating new non stakeable vesting contract(s) that subscribe to the new vesting schedule.
-
-Constraint checks are applied:
-
-- the amount of unsubscribed funds available in the referenced schedule is greater than or equal to the amount of the new contract
-- the identifier for the new vesting contract will be a valid contract ID.
-
-Note that NTN token locked in schedules does not contribute to the circulating supply of NTN. On creating a new schedule the amount of NTN minted to the new schedule is subtracted from the circulating supply of NTN (see [`circulatingSupply()`](/reference/api/aut/#circulatingsupply)).
-
-Constraint checks are applied:
-
-- the schedule vault address cannot be the zero address
-- the total duration specified for the schedule does not exceed maximum  allowed duration specified by the protocol parameter setting for `maxScheduleDuration`
-- the total duration must be greater than `0` and cannot be zero
-- the start time must be greater than or equal to the block timestamp; the schedule cannot start before its creation
-- the amount of NTN locked in the schedule must be a positive value greater than `0`
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_scheduleVault` | `address` | the address of the vault contract holding the NTN token locked by the schedule |
-| `_amount` | `uint256` | the total amount of NTN locked in the schedule vault  |
-| `_startTime` | `uint256` | the start time at which the schedule will begin to unlock NTN from the vault contract; the start time is in Unix Timestamp format |
-| `_totalDuration` | `uint256` | the length of time over which the contract will unlock; the duration is in seconds |
-
-#### Response
-
-None.
-
-#### Event
-
-On a successful call the function emits a `NewSchedule` event, logging `_scheduleVault`, `_amount`, `_startTime`, `_totalDuration`.
-
-
-### changeContractBeneficiary (Non Stakeable Vesting Manager Contract)
-
-Changes the beneficiary of a non stakeable vesting contract to a new recipient address.
-
-On successful processing of the transaction the beneficiary address change is applied.
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `_beneficiary` | `address` | the beneficiary address whose contract will be canceled |
-| `_contractID` | `uint256` | new contract id numbered from `0` to `(n-1)`; `n` = the total number of contracts entitled to the beneficiary (excluding already canceled ones)
-| `_recipient` | `address` | the new beneficiary to whom the contract is being transferred |
-
-#### Response
-
-None.
-
-#### Event
-
-On a successful call the function emits a `BeneficiaryChanged` event, logging: `_recipient`, `_beneficiary`, `_contractID`.
 
 ## Beneficiary
 
