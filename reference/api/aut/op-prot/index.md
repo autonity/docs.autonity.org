@@ -88,16 +88,7 @@ On a successful call the function emits a `NewSchedule` event, logging: `_schedu
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-TO DO
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-TO DO
+aut governance create-schedule [OPTIONS] ADDRESS AMOUNT START_TIME TOTAL_DURATION
 ```
 :::
 
@@ -205,11 +196,7 @@ None.
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The ASM ACU Contract Interface is not currently supported by `aut`.
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
-:::
 
 
 ###  setAccountabilityContract
@@ -298,23 +285,10 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The `setBaseSlashingRates()` function is not currently supported by the `aut governance` command group.
 
-``` {.aut}
-TO DO
-
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
-```
+You can interact with the Accountability Contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -387,13 +361,10 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The Omission Accountability Contract Interface is not currently supported by `aut`.
 
-``` {.aut}
-TO DO
-
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -476,14 +447,12 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The `setFactors()` function is not currently supported by the `aut governance` command group.
 
-``` {.aut}
-TO DO
-
-```
+You can interact with the Accountability Contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
+
 
 ###  setInactivityThreshold (Omission Accountability Contract)
 
@@ -510,13 +479,10 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The Omission Accountability Contract Interface is not currently supported by `aut`.
 
-``` {.aut}
-TO DO
-
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -544,7 +510,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut governance set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS
+aut governance set-inflation-controller-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -569,13 +535,10 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The Omission Accountability Contract Interface is not currently supported by `aut`.
 
-``` {.aut}
-TO DO
-
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -599,13 +562,10 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The Omission Accountability Contract Interface is not currently supported by `aut`.
 
-``` {.aut}
-TO DO
-
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -633,13 +593,10 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The Omission Accountability Contract Interface is not currently supported by `aut`.
 
-``` {.aut}
-TO DO
-
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -663,23 +620,10 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The `setInnocenceProofSubmissionWindow()` function is not currently supported by the `aut governance` command group.
 
-``` {.aut}
-TO DO
-
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
-```
+You can interact with the Accountability Contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -749,8 +693,7 @@ None.
 ## aut
 
 ``` {.aut}
-TO DO
-
+aut governance set-liquid-logic-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -778,15 +721,10 @@ No response object is returned on successful execution of the call.
 
 None.
 
-#### Usage
+::: {.callout-note title="Note" collapse="false"}
+The Omission Accountability Contract Interface is not currently supported by `aut`.
 
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
-
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -816,19 +754,10 @@ None.
 ## aut
 
 ``` {.aut}
-TO DO
+aut governance set-max-schedule-duration [OPTIONS] DURATION
 ```
 :::
 
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
-```
-:::
 
 ###  setMinCollateralizationRatio (ASM Stabilization Contract)
 
@@ -958,7 +887,7 @@ None.
 ## aut
 
 ``` {.aut}
-TO DO
+aut governance set-omission-accountability-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -1045,16 +974,6 @@ aut governance set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-aut governance set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
-```
-:::
-
 
 ###  setOracleRewardRate
 
@@ -1085,17 +1004,7 @@ None.
 ## aut
 
 ``` {.aut}
-TO DO 
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO 
+aut governance set-oracle-reward-rate [OPTIONS] ORACLE_REWARD_RATE
 ```
 :::
 
@@ -1125,13 +1034,10 @@ None.
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The Omission Accountability Contract Interface is not currently supported by `aut`.
 
-``` {.aut}
-TO DO
-
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -1164,17 +1070,36 @@ None.
 ## aut
 
 ``` {.aut}
-TO DO 
+aut governance set-proposer-reward-rate [OPTIONS] PROPOSER_REWARD_RATE
 ```
 :::
 
-#### Example
+
+###  setSlasher
+
+Sets a new value for the Accountability Slasher Contract address.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Slasher Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+#### Usage
 
 ::: {.panel-tabset}
 ## aut
 
 ``` {.aut}
-TO DO 
+aut governance set-slasher [OPTIONS] SLASHER-ADDRESS
 ```
 :::
 
@@ -1265,6 +1190,12 @@ None.
 On a successful call the function emits a `NewSymbols` event, logging: a string array of the new currency pair `_symbol` and the following round number at which the new symbols become effective  `round+1`.
 
 #### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Oracle Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
 
 ::: {.panel-tabset}
 ## aut
@@ -1415,7 +1346,6 @@ Sets a new value for the [Upgrade Manager Contract](/concepts/architecture/#prot
 This is a development function only used for internal testing purposes. A value other than `0x3C368B86AF00565Df7a3897Cfa9195B9434A59f9` will break the upgrade function.
 :::
 
-     
 #### Parameters
    
 | Field | Datatype | Description |
@@ -1429,6 +1359,16 @@ None.
 #### Event
 
 None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut governance set-upgrade-manager-contract [OPTIONS] CONTRACT-ADDRESS
+```
+:::
 
 
 ###  upgrade
@@ -1488,17 +1428,8 @@ None.
 ## aut
 
 ``` {.aut}
-TO DO 
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO 
+aut governance set-withheld-rewards-pool -h
+Usage: aut governance set-withheld-rewards-pool [OPTIONS] POOL_ADDRESS
 ```
 :::
 
@@ -1530,17 +1461,7 @@ None.
 ## aut
 
 ``` {.aut}
-TO DO 
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO 
+aut governance set-withholding-threshold [OPTIONS] WITHHOLDING_THRESHOLD
 ```
 :::
 
