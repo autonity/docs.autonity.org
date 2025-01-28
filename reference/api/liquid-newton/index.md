@@ -23,17 +23,67 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 You will need to specify the validator's Liquid Newton contract address. This can be retrieved using the `aut` command `aut validator info` - for usage see Autonity Contract Interface and [`getValidator()`](/reference/api/aut/#getvalidator).
 :::
 
-## unclaimedRewards
-
-Queries the contract and returns the total rewards owed to a given account.
-
-This function is used by the `aut validator unclaimed-rewards` command of [`aut`](/account-holders/setup-aut/).  Further details are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#get-reward-balance) section.
 
 ## claimRewards
 
 Computes the total rewards owed to the caller, and sends the appropriate amount of auton.
 
 The `aut validator claim-rewards` command uses this function.  Usage details and examples are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#claim-rewards) section.
+
+## claimTreasuryATN
+
+Computes the total rewards owed to the validator treasury from commission charged on [delegated](/glossary/#delegated) stake, and sends the appropriate amount of auton to the validator's  `treasury` account.
+
+Constraint checks are applied:
+
+- the caller is the validator `treasury` address.
+
+### Parameters
+   
+None.
+
+### Response
+
+None.
+
+### Event
+
+None.
+
+### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The `claimTreasuryATN()` function in the Liquid Newton Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+## getTreasuryUnclaimedATN
+
+Queries the contract and returns the total unclaimed ATN rewards earned by a validator from commission charged on [delegated](/glossary/#delegated) stake.
+
+The rewards are claimed and sent to the validator's `treasury` by the validator operator calling [`claimTreasuryATN()`](/reference/api/liquid-newton/#claimtreasuryatn).
+
+### Parameters
+   
+None.
+
+### Response
+
+None.
+
+### Event
+
+None.
+
+### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The `getTreasuryUnclaimedATN()` function in the Liquid Newton Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract call -h` for how to submit a transaction calling the interface function.
+:::
+
 
 ##  lockedBalanceOf
 
@@ -105,3 +155,10 @@ aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 unlockedB
 0
 ```
 :::
+
+
+## unclaimedRewards
+
+Queries the contract and returns the total rewards owed to a given account.
+
+This function is used by the `aut validator unclaimed-rewards` command of [`aut`](/account-holders/setup-aut/).  Further details are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#get-reward-balance) section.
