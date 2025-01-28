@@ -781,7 +781,13 @@ aut contract call --abi ../scripts/abi/v1.0.2-alpha/StakeableVestingLogic.abi  -
 
 ### lockedLiquidBalance
 
-Returns the amount of locked (not unvested) Liquid Newton stake token bonded to a designated validator from a stakeable vesting contract.
+Returns the amount of locked (unbonding) Liquid Newton stake token bonded to a designated validator from a stakeable vesting contract.
+
+::: {.callout-note title="Unbonding constraints" collapse="false" }
+During unbonding staked NTN is subject to locking as described in concept [Staking, unbonding period](/concepts/staking/#unbondingperiod).
+
+During this period the liquid stake token is locked and cannot be transferred. Calling `lockedLiquidBalance()` queries the vesting contract and returns the amount of locked Liquid Newton held by the vesting contract for the beneficiary.
+:::
 
 #### Parameters
 
