@@ -30,8 +30,7 @@ To run an Autonity Go Client node, we recommend using a host machine (physical o
 
 | Requirement	 | At least | Recommended|
 |-------------|----------|------------|
-| OS | Ubuntu 20.04	LTS | Ubuntu 20.04 LTS |
-| CPU | 3.10 GHz with 8 CPU's | 3.10 GHz with 16 CPU's |
+| CPU | x86_64 architecture, 3.10 GHz with 8 CPU's | x86_64 architecture, 3.10 GHz with 16 CPU's |
 | RAM | 8GB | 16GB |
 | Storage | 1024GB free storage for full nodes and Validators | 1024 GB free storage for full nodes and validators |
 | Network interface	| 200 Mbit/s | 200 Mbit/s |
@@ -51,12 +50,12 @@ The enode provides the network location of the node client for p2p networking. C
 Incoming traffic must be allowed on the following:
 
 * `TCP, UDP 30303` for node p2p (DEVp2p) communication for transaction gossiping.
+* `TCP 20203` for node p2p (DEVp2p) communication for consensus gossiping  (required if you are operating a validator node).
 
 You may also choose to allow traffic on the following ports:
 
 * `TCP 8545` to make http RPC connections to the node.
 * `TCP 8546` to make WebSocket RPC connections to the node (for example, if you are operating a validator node and your oracle server is hosted on a separate dedicated machine).
-* `TCP 20203` for node p2p (DEVp2p) communication for consensus gossiping  (required if you are operating a validator node).
 * `TCP 6060` to export Autonity metrics (recommended but not required)
 
 <!-- who collects the metrics? -->

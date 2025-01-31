@@ -28,9 +28,8 @@ To run an Autonity Oracle Server, we recommend using a host machine (physical or
 
 | Requirement	 | At least | Recommended|
 |-------------|----------|------------|
-| OS | Ubuntu 20.04 LTS | Ubuntu 20.04 LTS |
-| CPU |1.9GHz with 4CPU's |  1.9GHz with 4CPU's |
-| RAM |2GB |  4GB |
+| CPU | x86_64 architecture, 1.9GHz with 4CPU's |  x86_64 architecture, 1.9GHz with 4CPU's |
+| RAM | 2GB |  4GB |
 | Storage |32GB |  64GB |
 | Network interface	| 64Mbit/s |  128Mbit/s |
 
