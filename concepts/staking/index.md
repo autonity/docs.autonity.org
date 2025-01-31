@@ -141,7 +141,7 @@ The validator operator's account address. The `treasury` is used as the account:
 - Identifying the validator operator entity itself.
 - For submitting transactions to protocol contracts to register and operate the validator's [node](/concepts/client/) and [oracle server](/concepts/oracle-server/).
 - Receiving [staking rewards](/concepts/staking/#staking-rewards) from the protocol's reward distribution mechanism for distribution to the validator's stake delegators.
-- Receiving [slashing rewards](/concepts/accountability/#slashing-rewards) distributed by the [accountability and fault detection protocol](/concepts/accountability/) for reporting provable faults committed by an offending validator failing to follow consensus rules.
+- Receiving [slashing rewards](/concepts/afd/#slashing-rewards) distributed by the [accountability and fault detection protocol](/concepts/afd/) for reporting provable faults committed by an offending validator failing to follow consensus rules.
 
 See the `treasury` parameter of the `config.autonity.validators` object in the [Protocol](/reference/protocol#configautonityvalidators-object) parameter reference.
 
@@ -210,7 +210,7 @@ Staking transitions are changes to stake bonded to validators caused by stake bo
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end, staking transitions are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures. They can be read by listening for and viewing `NewBondingRequest` and `NewUnbondingRequest` events emitted by the [`bond()`](/reference/api/aut/#bond) and [`unbond()`](/reference/api/aut/#unbond) functions of the Autonity Protocol Contract.
 
-In Autonity's [AFD](/concepts/accountability/) protocol, slashable faults are likewise processed throughout an epoch. Any changes to delegated stake that are caused by stake slashing are applied to unbonding and bonded stake at the epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. This takes place before staking transitions are applied. 
+In Autonity's [AFD](/concepts/afd/) protocol, slashable faults are likewise processed throughout an epoch. Any changes to delegated stake that are caused by stake slashing are applied to unbonding and bonded stake at the epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. This takes place before staking transitions are applied. 
 
 As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to [slashing](/concepts/staking/#slashing) penalties:
 
@@ -279,15 +279,15 @@ Note that the amount of Newton released to Alice may be less than the original u
 
 ## Slashing
 
-Bonded stake is subject to economic [slashing penalties](/concepts/accountability/#slashing-penalties) if misbehavior by the staked validator node is detected by the [accountability and fault detection (AFD) protocol](/concepts/accountability/). The AFD protocol detects infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members.
+Bonded stake is subject to economic [slashing penalties](/concepts/afd/#slashing-penalties) if misbehavior by the staked validator node is detected by the [accountability and fault detection (AFD) protocol](/concepts/afd/). The AFD protocol detects infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members.
 
 ### Economic penalties
 
-[Slashing penalties](/concepts/accountability/#slashing-penalties) are applied by autonomous protocol action at epoch end as voting power cannot change mid epoch.
+[Slashing penalties](/concepts/afd/#slashing-penalties) are applied by autonomous protocol action at epoch end as voting power cannot change mid epoch.
 
 Economic penalties vary in severity and are applied according to the type of fault detected and the risk created for network security.
 
-See concept [Accountability and fault detection](/concepts/accountability/) and [slashing penalties](/concepts/accountability/#slashing-penalties) for protocol logic and penalty computation.
+See concept [Accountability and fault detection](/concepts/afd/) and [slashing penalties](/concepts/afd/#slashing-penalties) for protocol logic and penalty computation.
 
 ### Consequences for stake redemption
 

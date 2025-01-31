@@ -21,7 +21,7 @@ Autonity extends Ethereum at three logical layers:
 
 	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, and staking rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
-	- **Accountability Contract** implementing protocol primitives for accountability and fault detection, enforcing adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules by committee members, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model.
+	- **Accountability Contract** implementing protocol primitives for accountability and fault detection, enforcing adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules by committee members, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model.
 	- **Autonity Oracle Contract** implementing protocol primitives for computing median price data from external price data and managing the set of currency pairs for which Autonity's [oracle network](/concepts/oracle-network/) provides price data.
 	
 	Autonity Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
@@ -86,7 +86,7 @@ For all parameter definitions and the subset of modifiable parameters see the [P
 #### State finalization
 The Autonity Protocol Contract manages state finalization, maintaining [system state](/glossary/#system-state). Contract logic triggers block finalization:
 
-- invoking the [Accountability Contract](/concepts/architecture/#autonity-accountability-contract) to apply [slashing](/concepts/accountability/#slashing) penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
+- invoking the [Accountability Contract](/concepts/architecture/#autonity-accountability-contract) to apply [slashing](/concepts/afd/#slashing) penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
 - at epoch end:
   - [distributing staking rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
   - applying [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
@@ -150,7 +150,7 @@ To learn more about the concept see [Staking rewards and distribution](/concepts
 ### Autonity Accountability Contract
 The contract implementing the accountability and fault detection (AFD) protocol extensions, including primitives for misbehaviour accusations, proving innocence against an accusation, proven faults, slashing, and jailing.
 
-The contract stores static [slashing protocol configuration parameters](/concepts/accountability/#slashing-protocol-configuration) used to compute slashing penalties. Contract functions are called by validators whilst participating in the AFD protocol to:
+The contract stores static [slashing protocol configuration parameters](/concepts/afd/#slashing-protocol-configuration) used to compute slashing penalties. Contract functions are called by validators whilst participating in the AFD protocol to:
 
 - Return a committee member's proven faults
 - Determine if a new accusation can be made and is slashable
@@ -158,7 +158,7 @@ The contract stores static [slashing protocol configuration parameters](/concept
 
 Function calls to compute accountability each block and apply slashing penalties at epoch end are restricted to protocol.
 
-All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/accountability/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
+All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/afd/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
 
 #### Accountability event handling
@@ -173,10 +173,10 @@ The Autonity Accountability Contract implements logic for handling accountabilit
 
 The Autonity Accountability Contract manages the computation of slashing penalties for proven faults at epoch end. A slashing model is implemented where a committee member is only slashed for the highest severity fault committed in an epoch. The contract implements logic to:
 
-- Calculate slashing amount based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/accountability/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/accountability/#autonity-slashing-amount-calculation).
-- Apply slashing according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
+- Calculate slashing amount based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/afd/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/afd/#autonity-slashing-amount-calculation).
+- Apply slashing according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
 
-To learn more about the concept see [Accountability and fault detection](/concepts/accountability/).
+To learn more about the concept see [Accountability and fault detection](/concepts/afd/).
 
 ### Autonity Oracle Contract
 

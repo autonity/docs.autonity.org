@@ -1149,9 +1149,9 @@ The unbonding request is enqueued to a staking request queue and tracked in memo
 ::: {.callout-important title="Warning" collapse="false"}
 The unbonding request will only be effective after the unbonding period, rounded to the next epoch.
 
-If the validator has a [slashing](/concepts/accountability/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
+If the validator has a [slashing](/concepts/afd/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
 
-See Concept [Accountability and fault detection (AFD)](/concepts/accountability/) for Autonity's slashing mechanism.
+See Concept [Accountability and fault detection (AFD)](/concepts/afd/) for Autonity's slashing mechanism.
 :::
 
 On successful processing of the method call:

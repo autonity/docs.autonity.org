@@ -17,8 +17,9 @@ Key technical features of the Autonity Protocol are:
 - Delegated Proof of Stake consensus for committee selection and blockchain management, using the [Tendermint BFT consensus algorithm](/concepts/consensus/pos/).
 - Native [protocol assets](/concepts/protocol-assets/) and [stabilization mechanism](/concepts/asm/): _Auton_ utility coin used in the transaction fee mechanism; _Newton_ staking coin for securing the network. Auton price stability is by a CDP-based stabilization mechanism, the [Auton Stabilization Mechanism (ASM)](/concepts/asm/); the stabilization target is the [Autonomous Currency Unit (ACU)](/concepts/asm/#acu), a base-invariant, volatility-minimized index.
 - [Liquid staking](/concepts/staking/#liquid-staking) for capital efficiency and a [Penalty-Absorbing Stake](/concepts/staking/#penalty-absorbing-stake-pas) model. [Delegated](/glossary/#delegated) _Newton_ stake yields transferrable _Liquid Newton_ tokens, which can be used to redeem the underlying _Newton_ by unbonding stake. [Self-bonded](/glossary/#self-bonded) stake by validator operators does not yield _Liquid Newton_ and is slashed before delegated stake to assure validator integrity and 'skin in the game'.
-- [Accountability and fault detection (AFD)](/concepts/accountability/): a protocol for detecting infractions of consensus rules by validators participating in block proposal and voting as a committee member. Failure to adhere to these rules is a rule infraction and AFD will detect and apply slashing penalties for proven rule infractions.
-- [Oracle network](/concepts/oracle-network/): a protocol for consensus-computed median price data for selected FX currency pairs as an L1 platform feature. The submission of price data for aggregation and voting is a validator responsibility; validator nodes form an oracle network. 
+- Accountability protocol for [Accountable fault detection (AFD)](/concepts/afd/) and [Omission fault detection (OFD)](/concepts/ofd/): a protocol for detecting infractions of consensus rules by validators participating in block proposal and voting as a committee member. Failure to adhere to these rules is a rule infraction and AFD will detect and apply slashing penalties for proven rule infractions.
+- [Oracle network](/concepts/oracle-network/): a protocol for consensus-computed median price data for selected FX currency pairs as an L1 platform feature. The submission of price data for aggregation and voting is a validator responsibility; validator nodes form an oracle network.
+- [Oracle accountability and fault detection (OAFD)](/concepts/oafd/): a protocol for detecting infractions of consensus rules by validator oracles participating in oracle voting rounds and price reporting as a committee member. Failure to adhere to these rules is a rule infraction and OAFD will detect and apply slashing penalties for proven rule infractions.
 
 
 ## Technology
@@ -39,7 +40,7 @@ For explanations of core concepts refer to:
 - [Autonity Oracle Server (AOS)](/concepts/oracle-server/) for an overview of AOS features.
 - [Validator](/concepts/validator) for the role of validators and the functions they perform in securing an Autonity network.
 - [Staking](/concepts/staking/) for protocol staking mechanisms and Autonity's model for liquid staking.
-- [Accountability and fault detection (AFD)](/concepts/accountability/) protocol for proving and applying economic slashing penalties to consensus committee members found guilty of Byzantine behavior.
+- [Accountability and fault detection (AFD)](/concepts/afd/) protocol for proving and applying economic slashing penalties to consensus committee members found guilty of Byzantine behavior.
 - [Auton Stabilization Mechanism (ASM)](/concepts/asm/) for protocol mechanisms to stabilize Auton price in a CDP-based stabilization mechanism where Auton is borrowed in return for depositing collateral token.
 - [Protocol assets](/concepts/protocol-assets/) for the protocol's native coins and tokens:  _Auton_ utility coin, _Newton_ stake token, and _Liquid Newton_ liquid stake token.
 - The [Glossary](/glossary/#participant) for definitions of terms and concepts used in the documentation.
@@ -72,7 +73,7 @@ In addition to Ethereum concepts such as `address`, `gas`, and `node`, the disti
 | [Penalty-Absorbing Stake](/concepts/staking/#penalty-absorbing-stake-pas) |  A stake slashing model whereby [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events. PAS incentivises honest validator behavior. |
 | [Consensus Committee](/concepts/consensus/committee/) | The subset of _validator_ nodes that participate in the consensus protocol. The Consensus Committee is updated periodically (every epoch), according to an algorithm prescribed by protocol. |
 | [Oracle network](/concepts/oracle-network) | The network of validator-operated oracles that submits price data from off-chain external data providers on-chain and votes on agreeing an aggregated median price data according to an oracle protocol. |
-| [Accountability and fault detection (AFD)](/concepts/accountability/) | A protocol for detecting infractions of consensus rules by validators participating in consensus as _consensus committee_ members. |
+| [Accountability and fault detection (AFD)](/concepts/afd/) | A protocol for detecting infractions of consensus rules by validators participating in consensus as _consensus committee_ members. |
 | [Auton Stabilization Mechanism (ASM)](/concepts/asm/) | The protocol mechanism used to maintain [Auton](/concepts/protocol-assets/auton/) price stability. The Stabilization Mechanism is CDP, [Auton](/concepts/protocol-assets/auton/) borrowed against [Newton](/concepts/protocol-assets/newton/) or [Liquid Newton](/concepts/protocol-assets/liquid-newton/) collateral. |
 
 For all Autonity terminology and concepts see the [Glossary](/glossary/).

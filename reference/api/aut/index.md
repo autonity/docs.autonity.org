@@ -2798,9 +2798,9 @@ The amount specifies Newton stake token if the delegator is unbonding [self-bond
 ::: {.callout-important title="Warning" collapse="false"}
 The unbonding request will only be effective after the unbonding period, rounded to the next epoch.
 
-If the validator has a [slashing](/concepts/accountability/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
+If the validator has a [slashing](/concepts/afd/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
 
-See Concept [Accountability and fault detection (AFD)](/concepts/accountability/) for Autonity's slashing mechanism.
+See Concept [Accountability and fault detection (AFD)](/concepts/afd/) for Autonity's slashing mechanism.
 :::
 
 Constraint checks are applied. The  `validator` address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is `<=` to the `msg.sender`'s bonded stake amount. For delegated stake this is done by checking the `msg.Sender`'s Liquid Newton balance is `>=` to the requested amount, and for self-bonded stake this is done by checking the validator's `selfBondedStake` balance is`>=` to the requested unbonding amount.
