@@ -261,7 +261,7 @@ aut governance set-acu-contract [OPTIONS] CONTRACT-ADDRESS
 
 Sets the `low`, `mid`, and `high` base slashing rates protocol parameters.
 
-The new base slashing rate values must be scaled per the [slashing rate scale factor](/concepts/accountability/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration.
+The new base slashing rate values must be scaled per the [slashing rate scale factor](/concepts/afd/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration.
 
 Constraint checks are applied:
 
@@ -424,7 +424,7 @@ Enter passphrase (or CTRL-d to exit):
 
 Sets the `collusion`, `history`, and `jail` punishment factor protocol parameters.
 
-The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/accountability/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration. The jail factor is specified as a number of epochs.
+The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/afd/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration. The jail factor is specified as a number of epochs.
 
 Constraint checks are applied:
 
@@ -1635,7 +1635,7 @@ For each fault the protocol performs slashing over faulty validators at the end 
 The function checks the total number of faults committed by **all**  validators in the epoch, counting the number of fault proofs in the slashing queue, to quantify validator collusion. It then applies slashing for each fault in the slashing queue:
 
 - Computes the slashing. The slashing rate and amount are computed taking into account the number of fault offences committed in the epoch by the offending validator and all validators globally. The slashing amount is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate scale factor`.
-- Applies the slashing penalty. Slashing is applied to the offending validator's stake, subtracting the slashing amount from the validator's bonded stake according to the protocol's [Penalty Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model ([self-bonded](/glossary/#self-bonded) stake before [delegated](/glossary/#delegated) stake)
+- Applies the slashing penalty. Slashing is applied to the offending validator's stake, subtracting the slashing amount from the validator's bonded stake according to the protocol's [Penalty Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model ([self-bonded](/glossary/#self-bonded) stake before [delegated](/glossary/#delegated) stake)
 - Computes the jail period of the offending validator. If the validator stake slashing is 100% of bonded stake, permanent validator jailing is applied and the validator state is set to `jailbound`. Else, jailing is temporary and a jail period is calculated, using the formula `current block number + jail factor * proven offence fault count * epoch period` to compute a jail release block number. The validator state is set to `jailed`.
 - Updates validator state. The validator's proven fault counter is incremented by `1` to record the slashing occurrence in the validator's reputational slashing history. The jail release block number is recorded, set to the computed value if `jailed` or set to `0` if `jailbound`. Bonded stake amounts are adjusted for the slashing amount and the slashed stake token are transferred to the Autonity Protocol global `treasury` account for community funding.
 - Updates global slashing state. The pending slashing fault queue is reset ready for the next epoch, and the reporting validator is added to the array of reward beneficiaries that will receive rewards for offence reporting
