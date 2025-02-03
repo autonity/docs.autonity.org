@@ -19,10 +19,12 @@ Autonity extends Ethereum at three logical layers:
 
 - Protocol smart contracts: the Autonity protocol is deployed in part via protocol smart contracts:
 
-	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, and staking rewards distribution.
+	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, accountability and fault detection, and staking rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
-	- **Accountability Contract** implementing protocol primitives for accountability and fault detection, enforcing adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules by committee members, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model.
+	- **Accountability Contracts** implementing protocol primitives for accountability and fault detection for validators participating in the consensus committee. Accountability covers participation in consensus and oracle protocols The consensus accountability protocol enforces validator liveness and adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model. The oracle accountability control enforces timely participation in oracle voting rounds by valdiators in oracle and the submission of accurate oracle price reports.
 	- **Autonity Oracle Contract** implementing protocol primitives for computing median price data from external price data and managing the set of currency pairs for which Autonity's [oracle network](/concepts/oracle-network/) provides price data.
+	- **Inflation Controller Contract** implementing logic for controlling [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions according to the Newton inflation schedule.
+	- **Auton Stabilization Mechanism Contracts** implementing a [Stabilization Mechanism](/concepts/asm/) for the protocol's native coin [Auton](/concepts/protocol-assets/auton/) via a Collateralized Debt Position or CDP-based stabilization mechanism. Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Autonomous Currency Unit (ACU)](/glossary/#acu).
 	
 	Autonity Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
@@ -47,14 +49,18 @@ Consequently, the Autonity Protocol Contract addresses for a network are determi
 
 The order of deployment and computed addresses is:
 
-| Account `nonce` | Contract | Address |
-|:--:|:--|:--:|
-| `0` | Autonity Protocol Contract | `0xBd770416a3345F91E4B34576cb804a576fa48EB1` |
-| `1` | Accountability Contract | `0x5a443704dd4B594B382c22a083e2BD3090A6feF3` |
-| `2` | Oracle Contract | `0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D` |
-| `3` | ACU Contract | `0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA` |
-| `4` | Supply Control Contract | `0x47c5e40890bcE4a473A49D7501808b9633F29782` |
-| `5` | Stabilization Contract | `0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f` |
+| Contract | Address |
+|:--:|:--|
+| Autonity Protocol Contract | `0xBd770416a3345F91E4B34576cb804a576fa48EB1` |
+| Accountability Contract | `0x5a443704dd4B594B382c22a083e2BD3090A6feF3` |
+| Oracle Contract | `0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D` |
+| ACU Contract | `0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA` |
+| Supply Control Contract | `0x47c5e40890bcE4a473A49D7501808b9633F29782` |
+| Stabilization Contract | `0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f` |
+| Upgrade Manager Contract | `0x3C368B86AF00565Df7a3897Cfa9195B9434A59f9` |
+| Inflation Controller Contract | `0x3BB898B4Bbe24f68A4e9bE46cFE72D1787FD74F4` |
+| OmissionAccountabilityContractAddress | `0x684c903c66D69777377f0945052160C9f778d689` |
+
 
 ### Autonity Protocol Contract
 The contract implements many of the Autonity protocol extensions, including primitives for governance, staking, validators, consensus committee selection, and staking reward distribution.

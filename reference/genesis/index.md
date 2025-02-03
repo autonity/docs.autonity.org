@@ -76,7 +76,7 @@ Genesis configuration file JSON objects:
 |---------|-----------|-----|
 | `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
-| `accountability` | Autonity Accountability and Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
+| `accountability` | Autonity Accountability Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
 | `asm` | Auton Stabilization Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
 | `oracle` | Oracle protocol configuration parameters | See [`config.oracle` object](#configoracle-object) |
 
@@ -154,7 +154,7 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 
 #### config.accountability object
 
-Object structure for the Accountability and Fault Detection (AFD) protocol configuration at genesis.
+Object structure for the Accountability Fault Detection (AFD) protocol configuration at genesis.
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
@@ -168,7 +168,7 @@ Object structure for the Accountability and Fault Detection (AFD) protocol confi
 
 #### config.accountability object
 
-Object structure for the Accountability and Fault Detection (AFD) protocol configuration at genesis.
+Object structure for the Accountability Fault Detection (AFD) protocol configuration at genesis.
 
 |Parameter|Description|Value|
 |---------|-----------|-----|

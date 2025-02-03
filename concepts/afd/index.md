@@ -1,15 +1,15 @@
 
 ---
-title: "Accountability and fault detection (AFD)"
+title: "Accountability fault detection (AFD)"
 description: >
   Autonity's Accountability Fault Detection model -- reporting mechanism, temporal constraints, and economics for reporting offences and penalties for Byzantine behavior.
 ---
 
 ## Overview
 
-This section describes the Autonity accountability and fault detection protocol, the role of validators in submitting and verifying accountability event proofs (fault, accusation, innocence), the lifecycle for fault accountability and detection, and slashing.
+This section describes the Autonity accountability fault detection protocol, the role of validators in submitting and verifying accountability event proofs (fault, accusation, innocence), the lifecycle for fault accountability and detection, and slashing.
 
-Autonity implements an _accountability and fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behavior while participating in block proposal and voting. Failure to adhere to these rules is a _rule infraction_.
+Autonity implements an _accountability fault detection_ (AFD) protocol for detecting infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members. [Consensus](/glossary/#consensus) rules govern committee behavior while participating in block proposal and voting. Failure to adhere to these rules is a _rule infraction_.
 
 Proven rule infractions are reported as _faults_ and slashing makes faults _accountable_. Faults are _detected_ by validators and submitted on chain as _accountability events_ providing proof of misbehavior. Proofs are derived from cryptographically signed messages broadcast between committee members during Tendermint consensus rounds as validators propose, prevote, and precommit blocks (see the concept description [Consensus round and internal state](/concepts/consensus/pos/#consensus-round-and-internal-state)). The proofs are then submitted on-chain to the Accountability Contract.
 
@@ -31,7 +31,7 @@ Rewards are paid for reporting a slashable _fault_ at epoch end. The offending_ 
 
 To participate in AFD a [validator](/glossary/#validator) must be a [consensus committee](/glossary/#consensus-committee) member.
 
-## Accountability and Fault Detection protocol
+## Accountability Fault Detection protocol
 
 AFD roles, core concepts, and the lifecycle of accountability event processing from accusation to slashing.
 
@@ -138,7 +138,7 @@ The _offending validator_ will remain in a `jailed` state even after jail period
 The protocol **does not** automatically revert validator state from `jailed` to `active` at the jail release block number. 
 :::
 
-On *permanent* jailing the validator enters a `jailbound` state and is *permanently* jailed. It becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the [accountability and fault detection protocol](/concepts/afd/) of a fault with a 100% stake slashing penalty as a member of the consensus committee.
+On *permanent* jailing the validator enters a `jailbound` state and is *permanently* jailed. It becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the [accountability fault detection protocol](/concepts/afd/) of a fault with a 100% stake slashing penalty as a member of the consensus committee.
 
 ### Accountability event lifecycle
 
