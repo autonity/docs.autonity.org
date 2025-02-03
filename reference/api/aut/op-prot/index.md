@@ -261,7 +261,7 @@ aut governance set-acu-contract [OPTIONS] CONTRACT-ADDRESS
 
 Sets the `low`, `mid`, and `high` base slashing rates protocol parameters.
 
-The new base slashing rate values must be scaled per the [slashing rate scale factor](/concepts/afd/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration.
+The new base slashing rate values must be scaled per the [slashing rate scale factor](/concepts/afd/#slashing-protocol-configuration) of the Accountability Fault Detection protocol's configuration.
 
 Constraint checks are applied:
 
@@ -424,7 +424,7 @@ Enter passphrase (or CTRL-d to exit):
 
 Sets the `collusion`, `history`, and `jail` punishment factor protocol parameters.
 
-The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/afd/#slashing-protocol-configuration) of the Accountability and Fault Detection protocol's configuration. The jail factor is specified as a number of epochs.
+The new collusion and history factor values must not exceed the [slashing rate scale factor](/concepts/afd/#slashing-protocol-configuration) of the Accountability Fault Detection protocol's configuration. The jail factor is specified as a number of epochs.
 
 Constraint checks are applied:
 
