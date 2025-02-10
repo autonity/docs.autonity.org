@@ -11,11 +11,13 @@ documentation site via [Quarto](https://quarto.org/).
 
 ## Usage
 
-The tool can be executed simply with `apidocgen` inside the devenv shell.
+The tool can be executed with the `apidocgen` command inside the devenv shell.
 
 A (symlink to a) clone of the [Autonity repository](https://github.com/autonity/autonity)
 is assumed to be in the working directory, or its path can be specified with the
-`--autonity` command line option.
+`--autonity` command line option. Prior to generating the docs, the Autonity contract
+ABI and NatSpec files should be built by executing the `make contracts` command in the
+Autonity repository root.
 
 The configuration is read from a TOML file. This defaults to `apidoc.toml` in the
 working directory, or its path can be specified with the `--config` command line
