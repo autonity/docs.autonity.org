@@ -12,7 +12,6 @@ from .contract import (
     ContractArtefactTuple,
     ContractConfigTuple,
     generate_contract_doc,
-    load_contract_artefacts,
 )
 from .paths import Paths
 from .observer import run_file_observer
@@ -45,17 +44,13 @@ def main() -> None:
         key=lambda item: item[0].casefold(),
     )
 
-    if args.watch:
-
-        def compile_and_generate() -> None:
-            artefacts = compile_contracts(configs, paths)
-            generate_contract_docs(artefacts, configs, paths)
-
-        compile_and_generate()
-        run_file_observer(paths.src_dir, ".sol", compile_and_generate)
-    else:
-        artefacts = [load_contract_artefacts(name, paths) for name, _ in configs]
+    def compile_and_generate() -> None:
+        artefacts = compile_contracts(configs, paths)
         generate_contract_docs(artefacts, configs, paths)
+
+    compile_and_generate()
+    if args.watch:
+        run_file_observer(paths.src_dir, ".sol", compile_and_generate)
 
 
 def generate_contract_docs(

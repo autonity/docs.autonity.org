@@ -2,7 +2,6 @@
 # See: ./_apidocgen/README.md
 
 [autonity]
-build_dir = "params/generated"
 src_dir = "autonity/solidity/contracts"
 github_url = "https://github.com/autonity/autonity"
 

@@ -13,7 +13,6 @@ from typing import Any
 
 class Paths:
     autonity_dir: str
-    build_dir: str
     output_dir: str
     src_dir: str
     github_url: str
@@ -31,18 +30,8 @@ class Paths:
         self.src_dir = path.join(self.autonity_dir, autonity_config["src_dir"])
         assert_directory_exists(self.src_dir)
 
-        self.build_dir = path.join(self.autonity_dir, autonity_config["build_dir"])
         self.output_dir = output_dir
         self.github_url = autonity_config["github_url"]
-
-    def load_abi(self, contract_name: str) -> list[dict[str, Any]]:
-        return load_json(path.join(self.build_dir, f"{contract_name}.abi"))
-
-    def load_userdoc(self, contract_name: str) -> dict[str, Any]:
-        return load_natspec(path.join(self.build_dir, f"{contract_name}.docuser"))
-
-    def load_devdoc(self, contract_name: str) -> dict[str, Any]:
-        return load_natspec(path.join(self.build_dir, f"{contract_name}.docdev"))
 
     def get_output_file_path(self, contract_display_name: str) -> str:
         return path.join(

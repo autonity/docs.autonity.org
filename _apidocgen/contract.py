@@ -7,7 +7,7 @@ import logging
 import re
 from enum import StrEnum
 from os import path
-from typing import TypeAlias, cast
+from typing import TypeAlias
 
 import eth_utils
 from eth_typing import ABI
@@ -20,22 +20,6 @@ NATSPEC_VERSION = 1
 ContractArtefactTuple: TypeAlias = tuple[ABI, dict, dict]  # abi, devdoc, userdoc
 ContractConfigTuple: TypeAlias = tuple[str, dict]  # contract_name, contract_config
 ElementType = StrEnum("ElementType", ("FUNCTION", "EVENT"))
-
-
-def load_contract_artefacts(name: str, paths: Paths) -> ContractArtefactTuple:
-    abi = cast(ABI, paths.load_abi(name))
-    devdoc = paths.load_devdoc(name)
-    userdoc = paths.load_userdoc(name)
-
-    assert isinstance(abi, list), "Invalid ABI file format"
-    assert isinstance(userdoc, dict), "Invalid NatSpec file format"
-    assert isinstance(devdoc, dict), "Invalid NatSpec file format"
-    assert devdoc["version"] == NATSPEC_VERSION, "Unsupported NatSpec version"
-    assert devdoc["kind"] == "dev", "Unexpected NatSpec document 'kind'"
-    assert userdoc["version"] == NATSPEC_VERSION, "Unsupported NatSpec version"
-    assert userdoc["kind"] == "user", "Unexpected NatSpec document 'kind'"
-
-    return (abi, devdoc, userdoc)
 
 
 def generate_contract_doc(
