@@ -16,9 +16,12 @@ installed. Alternatively, use `direnv` to manage this automatically.
 
 Once in the `devenv` shell:
 
-- Run `quarto render` to render the site to the `docs/` folder
-- Run `quarto preview` to serve the site in Quarto's local webserver
+- Run `site-render` to render the site to the `docs/` folder
+- Run `site-preview` to serve the site in Quarto's local webserver
 - Review the [`_quarto.yml`](_quarto.yml) file and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details
+
+Create a symlink to a local clone of Autonity in the root of this repository in
+order to re-generate contract API documentation with the above commands.
 
 ## Development workflow
 
