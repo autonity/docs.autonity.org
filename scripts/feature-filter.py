@@ -17,6 +17,10 @@ def load_features_config(filepath):
 
 def remove_css_classes(content, classes_to_remove):
     """Remove specified CSS classes."""
+
+    if not classes_to_remove:
+        return content
+
     for css_class in classes_to_remove:
         pattern = rf'\.{css_class}\s*\{{[^}}]*\}}'
         content = re.sub(pattern, '', content, flags=re.MULTILINE)
@@ -47,8 +51,8 @@ if __name__ == "__main__":
     config = load_features_config(feature_config.resolve())
 
     if config:
-        classes_to_remove = config.get('css_classes', [])
-        files_to_exclude = config.get('css_files', [])
+        classes_to_remove = config.get('css_classes') or []
+        files_to_exclude = config.get('css_files') or []
 
         print(f"Removing classes: {classes_to_remove}")
         print(f"Excluding files: {files_to_exclude}")
