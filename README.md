@@ -21,7 +21,8 @@ Once in the `devenv` shell:
 - Review the [`_quarto.yml`](_quarto.yml) file and [Github Actions workflow](.github/workflows/gh-pages.yml) for more details
 
 Create a symlink to a local clone of Autonity in the root of this repository in
-order to re-generate contract API documentation with the above commands.
+order to re-generate contract API documentation with the above commands. See
+the [`apidocgen` documentation](./_apidocgen/README.md) for details.
 
 ## Development workflow
 
