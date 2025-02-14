@@ -2,156 +2,156 @@
 * Handle footer content, prevent wrapping
 */
 .footer-list {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
-
 .footer-link {
-    border: var(--primary-border);
-    font-family: var(--header-font);
-    padding: 12px 30px;
-    width: 50%;
+  border: var(--primary-docgen-border);
+  font-family: var(--header-font);
+  padding: 12px 30px;
+  width: 50%;
 }
 
 .footer-link:hover {
-    border-color: var(--highlight-color);
+  border-color: var(--highlight-color);
 }
 
 .footer-link > a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-decoration: none;
-    color: var(--foreground-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: var(--foreground-color);
 }
 
 .footer-navigation {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 img.footer-link-image {
-    width: 15px;
+  width: 15px;
 }
 .footer-link-text {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.prev-link>a>.footer-link-text {
-    align-items: end;
+.prev-link > a > .footer-link-text {
+  align-items: end;
 }
 
 .footer-link:hover .contract-name {
-    color: var(--highlight-color);
+  color: var(--highlight-color);
 }
 
 table.table {
-    border: var(--primary-border);
+  border: unset;
 }
 
-.table>thead {
-    border-top-width: 0;
-    border: var(--primary-border);
+.table > thead > tr > th {
+  border-top-width: 0;
+  /*border-bottom: var(--secondary-docgen-border);*/
+  border: var(--primary-docgen-border);
 }
 
-.table>:not(caption)>*>* {
-    border: var(--primary-border);
+.table > :not(caption) > * > * {
+  /*border-bottom: var(--primary-docgen-border);*/
+  border: var(--primary-docgen-border);
 }
 td {
-    width: 33%;
+  width: 33%;
 }
 
-
 .payable-tag {
-    color: var(--green);
+  color: var(--green);
 }
 
 .view-tag {
-    color: var(--blue);
+  color: var(--blue);
 }
 
 .pure-tag {
-    color: var(--purple);
+  color: var(--purple);
 }
 #TOC ul li a {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
-.sidebar nav[role=doc-toc] ul>li>ul>li>a {
-    padding-left: 1.2em;
+.sidebar nav[role="doc-toc"] ul > li > ul > li > a {
+  padding-left: 1.2em;
 }
 
 .footer-meta-data {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 .footer-version {
-    color: var(--tertiary-color);
+  color: var(--tertiary-color);
 }
 
 .contract-footer {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 1.5rem;
 }
 
 .footer-link.hidden-link {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .selector {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 section:target::before {
-    content: unset !important;
-    display: unset;
-    height: 53px;
-    margin: 0;
+  content: unset !important;
+  display: unset;
+  height: 53px;
+  margin: 0;
 }
 
 .method-title {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2.5rem;
-    margin-bottom: 7.6px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  margin-bottom: 7.6px;
 }
 
 .method-title > h3 {
-    margin: 0;
+  margin: 0;
 }
 
 .method-title > :first-child {
-    flex: 0 1 auto;
-  }
+  flex: 0 1 auto;
+}
 
 .method-meta-data-wrapper {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .method-meta-data-wrapper > div {
-    border: var(--primary-border);
-    padding: 2px 12px;
-    font-size: .75em;
-    font-weight: bold;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  border: var(--primary-docgen-border);
+  padding: 2px 12px;
+  font-size: 0.75em;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 section#events h4,
 section#functions h4 {
-    margin: 0px;
+  margin: 0px;
 }
 
 section#events p,
 section#functions p {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
