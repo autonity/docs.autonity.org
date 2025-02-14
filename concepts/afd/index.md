@@ -122,7 +122,7 @@ In certain cases, a validator can be slashed for committing a fault in an epoch 
 
 Rule infraction _severity_ has two key influences. Firstly, it will determine if a new _fault_ is created or not. New fault creation is conditional on whether the _offending validator_ already has an existing _fault_ with a _severity_ `>=` to that of the candidate new _fault_ for the epoch. Secondly, _severity_ will determine the amount of the slashing applied.
 
-The slashing amount is calculated from a number of parameters, including _severity_. For slashing calculation and parameters see [Slashing](/concepts/afd/#slashing). For the severity taxonomy see [Rule severity](/concepts/afd/#rule-severity).
+The slashing amount is calculated from a number of parameters, including _severity_. For slashing calculation and parameters see [Slashing](/concepts/afd/#slashing). For the severity taxonomy see [Rules](/concepts/afd/#rules).
 
 #### Jail
 
@@ -188,7 +188,7 @@ The economic cost of a stake slashing is calculated by applying  a _slashing rat
 
 The _slashing rate_ is calculated by the formula `base rate + epoch offences count * collusion factor + history * history factor` where:
 
-- `base rate`: is determined by the [severity](/concepts/afd/#rule-severity) of the rule infraction
+- `base rate`: is determined by the [severity](/concepts/afd/#slashing-and-severity) of the [rule](/concepts/afd/#rules) infraction
 - `epoch offences count`: is the count of proven faults created by all validators in the epoch, which is used as evidence of collusion
 - `history`: is the count of proven faults committed by the offending validator since it first registered
 - `collusion factor` and `history factor`: are used to compute a percentage of individual and total validator offence counts to supplement the `base rate` and scale the slashing rate according to the individual validator history and evidence of general validator collusion in the current epoch.
@@ -220,8 +220,6 @@ To learn more about PAS, see the section on [Penalty-Absorbing Stake (PAS)](/con
 
 ## Rules
 
-### Accountability rules
-
 Accountability rules are applied to detect faults in the three Tendermint consensus round phases *propose*, *prevote*, and *precommit*.
 
 The table below lists each of the rules defined in the AFD rule engine, identified by a unique Rule ID.
@@ -235,27 +233,22 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 
 :::
 
-| Rule ID | Description |
-| --| --|
-| `PN` - `PO` | Propose step related consensus rule infraction. | 
-| `PVN` - `PVO` - `PVO12` - `PVO3` | Prevote step related consensus rule infraction. |
-| `C` - `C1` | Precommit step related consensus rule infraction. |
-| `InvalidProposal` | Proposer has proposed a block that fails blockchain validation. |
-| `InvalidProposer` | Proposer of a block proposal is not the committee's elected Proposer. |
-| `Equivocation` | Validator has sent conflicting messages during a consensus round: a committee member sending multiple prevotes/precommits for different values, or a proposer has broadcast conflicting block proposals to different committee members. |
-| `InvalidRoundStep` | Consensus round message contains invalid round number or step. |
-| `WrongValidRound` | Consensus round message contains wrong valid round number. |
-| `GarbageMessage` | Consensus round message was signed by sender, but it cannot be decoded. |
+Rules are assigned a severity rating according to the risk that failure to adhere to the rule brings to blockchain finality and integrity. The severity taxonomy is:
 
-### Rule severity
+- `Low`: severity `1`
+- `Mid`: severity `2`
+- `High`: severity `2`
 
-Rules are given a severity rating according to the risk that failure to adhere to the rule brings to block chain finality and integrity.
 
-::: {.callout-note title="Note" collapse="false"}
-In this release all offences are treated as `Mid` severity.
+| Rule ID | Severity | Description | 
+| --| --| --|
+| `PN` - `PO` | `Mid` | Propose step related consensus rule infraction. | 
+| `PVN` - `PVO` - `PVO12` | `Mid` | Prevote step related consensus rule infraction. |
+| `C` - `C1` | `Mid` | Precommit step related consensus rule infraction. |
+| `InvalidProposal` | `High` | Proposer has proposed a block that fails blockchain validation. |
+| `InvalidProposer` | `High` | Proposer of a block proposal is not the committee's elected Proposer. |
+| `Equivocation` | `Low` | Validator has sent conflicting messages during a consensus round: a committee member sending multiple prevotes/precommits for different values, or a proposer has broadcast conflicting block proposals to different committee members. |
 
-Future releases will introduce an offence scale range. 
-:::
 
 ## Events
 
