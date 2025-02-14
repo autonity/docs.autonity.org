@@ -189,7 +189,10 @@ A protocol action that excludes a validator from selection to the [consensus com
 
 
 ## jailbound
-A state in which a validator is permanently barred from selection to the consensus committee. A validator may only enter a jailbound state if a 100% [slashing penalty](/glossary/#slashing-penalty) is applied.
+A state in which a validator is permanently barred from selection to the consensus committee. A validator may only enter a jailbound state if:
+
+- A 100% [slashing penalty](/glossary/#slashing-penalty) is applied by [Accountability fault detection](/concepts/afd/#jail-period-calculation)
+- The validator is found inactive while on probation by [Omission fault detection](/concepts/ofd/#jail-period-calculation).
 
 ## jail period
 The period of time for which a validator is temporarily barred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
@@ -279,7 +282,7 @@ Stake delegation transactions submitted from other stakeholder accounts result i
 A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
 
 ## slashing penalty
-An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: stake [slashing](/glossary/#slashing), stake freezing, [jailing](/glossary/#jailing).
+An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: stake [slashing](/glossary/#slashing), loss of [staking rewards](/glossary/#staking-rewards), [jailing](/glossary/#jailing).
 
 ## smart contract
 The program code for encoding and executing decentralised application logic in the [EVM](/glossary/#ethereum-virtual-machine-evm). Smart contracts are written in a higher level programming language such as 'Solidity' and compiled to [bytecode](/glossary/#bytecode) for execution in the EVM. A smart contract stores the application's state.
