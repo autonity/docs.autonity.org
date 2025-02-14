@@ -128,7 +128,7 @@ The slashing amount is calculated from a number of parameters, including _severi
 
 Jailing is a protocol action that excludes a validator from [consensus committee selection](/concepts/consensus/committee/#committee-member-selection). Jailing may be applied as part of a slashing penalty depending on the _severity_ of the _fault_ being _slashed_.
 
-Jailing transitions the _offending validator_ from an `active` to a `jailed` or `jailbound` state. Jailing is either *temporary* or *permanent*:
+Jailing transitions the _offending validator_ from an `active` to a `jailed` or `jailbound` state. Jailing is either *temporary* or *permanent*.
 
 On *temporary* jailing the validator enters a `jailed` state and is *impermanently* jailed for a number of blocks, the [jail period](/glossary/#jail-period). The validator's jail release block number is computed based on its proven fault history as described in [Jail period calculation](/concepts/afd/#jail-period-calculation). After expiry of the jail period a validator may get out of jail by [re-activating](/concepts/validator/#validator-re-activation) to revert to an `active` state and resume [eligibility for consensus committee selection](/concepts/validator/#eligibility-for-selection-to-consensus-committee).
 
@@ -168,7 +168,7 @@ Slashing penalties are computed by the protocol and applied for proven faults at
 
 Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, AFD will apply slashing for proven _faults_ to validator stake, slashing stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing.
 
-### Slashing protocol configuration
+### Accountability protocol configuration
 
 Accountability protocol parameters are set by default to:
 
@@ -180,7 +180,7 @@ Accountability protocol parameters are set by default to:
 | _collusion factor_ | a factor that measures the number of validators committing slashable offences in the same epoch. The factor is applied as a multiplicand to the total number of slashable offences committed in the epoch when computing the slashing amount of a penalty | `500` (5%) |
 | _history factor_ | a factor that measures the number of proven faults committed by a validator since registration. The factor is applied as a multiplicand to that proven fault count when computing the slashing amount of a penalty | `750` (7.5%) |
 | _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of a validator. The factor is applied when computing the jail period of an _offending validator_ | `48` (1 day at 30 mins epochs)|
-| _slashing rate scale factor_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` |
+| _slashing rate scale factor_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` (0.01%) |
 
 ### Slashing amount calculation
 
