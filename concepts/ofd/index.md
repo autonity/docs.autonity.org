@@ -117,22 +117,35 @@ The _lookback window_ is extended by 1 for each empty $ActivityProof$ it include
 The _lookback window_ default value is set in the OFD [protocol configuration](/concepts/ofd/#omission-accountability-protocol-configuration) at genesis. It can be changed post-genesis by governance [`setLookbackWindow()`](/reference/api/aut/op-prot/#setlookbackwindow-omission-accountability-contract).
 
 
-#### Inactivity score, probation and thresholds
+#### Inactivity score
 
-The OFD protocol will apply penalties to an _offending validator_ for proven omission faults. Penalties are influenced by the average offline percentage of a committee member during an epoch and its historical performance. The offline percentage is measured as the % of blocks in an epoch that the validator has failed to participate in consensus for. This measure is used to record a validator's _inactivity score_ and _thresholds_ which if broken trigger omission penalties. The _inactivity threshold_ sets a floor for the % of blocks in an epoch that a validator must be active for else it will be determined to be an _offending validator_ at the end of the epoch. The _withholding threshold_ sets a floor which if broken triggers withholding of staking rewards. The _negligible threshold_ sets a floor which if broken triggers jailing.
+The average offline percentage of a committee member for an epoch is computed as an _inactivity score_. The offline percentage is measured as the % of blocks in an epoch that the validator has failed to participate in consensus for.
 
-The average offline percentage of a committee member for the current and preceding epoch is recorded as an aggregated _inactivity score_. Penalties are applied only if a committee member's _inactivity score_ breaks the _inactivity threshold_ during an epoch. Penalties are then computed according based on the validator's historical _omission fault_ history and a _probation period_. Historical _omission faults_ are maintained by an _offence_ counter, incrementing by `1` for each _omission fault_. The _offence_ count is used as a weighting when computing penalties. To incentivise liveness OFD also sets a _probation period_ measured in epochs. The duration of the _probation period_ for a validator is determined by the protocol's _initial probation period_ configured value multiplied by the individual validator's _offence_ count squared. Until the validator has committed a first _offence_ its _probation period_ is nil (`0`) epochs. Once offence count is `>0` the validator is in _probation_ and its _probation period_ will begin to number epochs. As soon as an _offending validator_ completes an entire _probation period_ without offences its _offence_ count is reset to `0`, taking the validator out of _probation_ and so incentivising liveness.
+The _inactivity scores_ for the current and past epoch are aggregated to computes an _aggregated inactivity score_. Penalties are applied only if a committee member's _aggregated inactivity score_ breaks the _inactivity threshold_ during an epoch. Penalties are then computed according based on the validator's historical _omission fault_ history and a _probation period_. Historical _omission faults_ are maintained by an _offence_ counter, incrementing by `1` for each _omission fault_. The validator's _aggregated inactivity score_, _offence_ count, and _probation_ are used as weighting factors when computing omission penalties.
 
+#### Probation
+
+To incentivise liveness OFD sets a _probation period_ measured in epochs. The duration of the _probation period_ for a validator is determined by the protocol's _initial probation period_ configured value multiplied by the individual validator's _offence_ count squared. Until the validator has committed a first _offence_ its _probation period_ is nil (`0`) epochs. Once offence count is `>0` the validator is in _probation_ and its _probation period_ will begin to number epochs. As soon as an _offending validator_ completes an entire _probation period_ without offences its _offence_ count is reset to `0`, taking the validator out of _probation_ and so incentivising liveness.
+
+#### Thresholds
+
+The _threshold_ sets a floor which if broken triggers omission penalties. OFD has multiple thresholds:
+
+- The _inactivity threshold_ sets a floor for the % of blocks in an epoch that a validator must be active for else it will be determined to be an _offending validator_ at the end of the epoch. 
 On breaking the _inactivity threshold_ at the end of the epoch the validator is determined to be an offender and subject to penalties.
+- The _withholding threshold_ sets a floor which if broken triggers _withholding_ of staking rewards and Newton inflation rewards.
+- The _negligible threshold_ sets a floor which if broken triggers _jailing_.
 
-Penalties applied to an _offending validator_ are:
+
+#### Inactivity penalties
+
+The OFD protocol will apply penalties to an _offending validator_ for proven omission faults after a _threshold_ has been crossed. Penalties applied to an _offending validator_ are:
 
 - on breaking the _withholding threshold_: withholding of staking rewards and newton inflation rewards for the epoch proportionally to the validator's _inactivity score_ in the epoch. The lost rewards are transferred to the withheld rewards pool for community funding.
 
 - on breaking the _negligible threshold_: jailing and withholding of all staking rewards and newton inflation rewards for the epoch. The _offending validator_ is jailed for a number of epochs determined by the protocol's _initial jailing period_ configured value and the number of inactivity _offences_ committed by the validator. The lost rewards are transferred to the withheld rewards pool for community funding.
 
-- on committing an _offence_ when on _probation_: slashing and permanent jailing. The _offending validator_ is slashed according to the protocol's _initial slashing rate_ configured value, validator's offences squared, and the number of other validators committing omission offences in the epoch (collusion degree). The validator is permanently jailed.
-
+- on committing an _offence_ when on _probation_: slashing and permanent jailing. The _offending validator_ is slashed according to the protocol's _initial slashing rate_ configured value, validator's offences squared, and the number of other validators committing omission offences in the epoch (_collusion degree_). The validator is permanently jailed.
 
 #### Jail
 
@@ -165,10 +178,13 @@ If a validator has been jailed by OFD then all staking rewards earned by the val
 
 ## Slashing
 
-Slashing penalties are computed by the protocol and applied for proven omission faults at epoch end. The penalty amount is computed based on an initial slashing rate and slashing factors including the total number of omission offences committed in the epoch and the individual _offending validator's_ own omission offence history. For parameters see [slashing protocol configuration](/concepts/ofd/#slashing-protocol-configuration) beneath.
+Slashing penalties for an _offending validator_ are computed by the protocol based on the offending validator's _aggregated inactivity score_, its _offence_ history, if it is on _probation_, and the total number of offences committed in the current and preceding epoch by other committee members, i.e. a _collusion degree_. For the omission fault parameters see [slashing protocol configuration](/concepts/ofd/#slashing-protocol-configuration) beneath.
+
+Applied slashing penalties cover withholding of ATN staking rewards and NTN Newton inflation rewards proportional to the % of offline blocks in the epoch, probation, jailing, and slashing a percentage of stake. Slashing and probation scale up quadratically by the number of repeated offences.
+
+Penalties are applied for proven omission faults at epoch end. 
 
 Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, OFD will apply slashing for proven _omission faults_ to withhold ATN staking rewards and NTN inflation rewards, slash validator stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing if detected committing an _omission fault_ while on _probation_.
-
 
 ### Omission accountability protocol configuration
 
@@ -185,3 +201,172 @@ OFD protocol parameters are set by default to:
 | _delta_ | the number of blocks to wait before generating am activity proof. E.g. activity proof of block `x` is for block `x - delta` | `5` (5 blocks) |
 | _slashing rate scale factor_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` (0.01%) |
 
+::: {.callout-important title="A note on the initial value settings" collapse="false"}
+
+Initial values for jailing, probation, and slashing are used to determine the scaling up a validator's _jailing period_, _probation period_, and _slashing percentage_ by the number of repeated offences quadratically.
+
+Slashing will also scale up quadratically with the collusion degree, since it helps to safeguard the liveness of the network.
+:::
+
+### Inactivity score calculation
+
+Validator inactivity is calculated as an _aggregated inactivity score_, which is computed based upon the validator's active participation in consensus during the current and preceding epochs.
+
+If the score is above the OFD thresholds, then penalties are applied accordingly.
+
+The inactivity score of a validator for one epoch is computed as:
+
+$$in_{i}(e) = \frac{Nin_{i}(e)}{el(e)}$$
+
+where
+
+- $in_{i}(e)$ is the inactivity score for validator $i$ at epoch $e$
+- $Nin_{i}(e)$ is the number of block(s) during which validator $i$ was deemed as inactive in epoch $e$
+- $el(e)$ is the epoch length (in blocks) of epoch $e$
+
+The aggregated epoched inactivity score is a weighted sum of the validator's current epoch performance and the past epoch's performance:
+
+$$Ain_{i}(e) = in_{i}(e) * (1-k) + Ain_{i}(e-1) * k$$
+
+where
+
+- $Ain_{i}(e)$ is the **aggregated** inactivity score for validator $i$ at epoch $e$
+- $in_{i}(e)$ is the inactivity score for validator $i$ at epoch $e$
+- $k$ is the governable protocol parameter **past performance weight** which determines how much weight is given to the validator's past performance. It has to respect the relation $0 =< k < 1$.
+
+### Rewards withholding calculation
+
+The epoch rewards withheld amount of a validator for the epoch is computed as:
+
+$$ewh_{i}(e) = EpochReward_{i}(e) * Ain_{i}(e)$$
+
+where
+
+- $ewh_{i}(e)$ means the withheld reward of validator $i$ at epoch $e$.
+- $EpochReward_{i}(e)$ means the original PoS distributed reward of validator $i$ at epoch $e$ without accounting the omission fault.
+- $Ain_{i}(e)$ is the **aggregated** inactivity score for validator $i$ at epoch $e$
+
+::: {.callout-note title="Applied to the reward withholding calculation for both ATN and NTN rewards" collapse="false"}
+
+This calculation is used to compute the withholding of rewards for both ATN staking rewards _and_ NTN Newton inflation rewards.
+
+At code-level the ATN and NTN rewards for a validator are calculated proportionally to the validator's [voting power](/glossary/#voting-power) share of the consensus committee's _total voting power_.
+:::
+
+### Jailing period calculation
+
+The jailing period for a validator is calculated as:
+
+$$JailingPeriod_{i} = InitialJailingPeriod * {offence_{i}}^2$$
+
+where
+
+- $JailingPeriod_{i}$ is the number of epochs validator $i$ will be jailed for
+- $InitialJailingPeriod$ is a governable protocol parameter
+- $offence_{i}$ is the number of repeated offences committed by validator $i$.
+  
+  The $offence_{i}$ counter is reset as soon as an entire $ProbationPeriod$ is completed without offence.
+
+### Probation period calculation
+
+The probation period for a validator is calculated as:
+
+$$ProbationPeriod_{i} = InitialProbationPeriod * {offence_{i}}^2$$
+
+where
+
+- $ProbationPeriod_{i}$ is the number of epochs validator $i$ will be set under probation for
+- $InitialProbationPeriod$ is a governable protocol parameter
+- $offence_{i}$ is the number of repeated offences committed by validator $i$.
+  
+  The $offence_{i}$ counter is reset as soon as an entire $ProbationPeriod$ is completed without offence.
+
+### Slashing amount calculation
+
+The _slashing_ amount is calculated by the formula:
+
+<!-- markdownlint-disable-next-line line-length -->
+$$ep_{i} = BondedStake_{i} * InitialSlashingRatio * {offence_{i}}^2 * {CollusionDegree_{e}} $$
+
+where
+
+- $ep_{i}$ means the epoch omission fault slashing penalty of validator $i$.
+- $BondedStake_{i}$ means the bonded stake of validator $i$.
+- $InitialSlashingRatio$ is the system parameter of the initial slashing percentage which is configurable.
+- $offence_{i}$ means the number of offences (jailed times) that a
+  validator $i$ committed in the history. This counter gets reset as
+  soon as an entire $ProbationPeriod$ is completed without offences.
+- $CollusionDegree_{e}$ means the number of omission faulty nodes that are addressed on current epoch $e$, it indicate that the more omission faulty node there are, the heavier slashing will be applied. Only validators which get jailed due to omission are counted for collusion.
+
+The slashing fine is then applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/ofd/#penalty-absorbing-stake-pas) model: [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake. The validator state is updated: (a) the self-bonded and total staked amounts adjusted, (b) the slashing amount is added to the validator's `totalSlashed` counter. The slashed NTN stake token is then transferred to the Autonity Protocol global `treasury` account for community funding.
+
+
+### Proposer reward calculation
+
+Block proposer rewards are calculated by the formula:
+
+$$epr_{i} = er_{e} * aprr_{e} * {cs_{e} \over MCS} * {eec_{i}
+\over \displaystyle\sum_{k=1}^{cs_{e}} eec_k }$$
+
+where:
+
+- $epr_{i}$ means the epoch proposer reward for validator $i$.
+- $er_{e}$ means the accumulated fee reward of the epoch $e$.
+- $aprr_{e}$ means the activity proof reward ratio of the epoch $e$, it is configurable
+  and it describe a fraction of the epoch fee reward.
+- $cs_{e}$ means the committee size of epoch $e$.
+- $MCS$ means the maximum committee size of the protocol.
+- $eec_{i}$ means the epoch effort count, it counts the efforts/signatures  for more than quorum of the voting power.
+
+::: {.callout-note title="Info" collapse="false"}
+
+Proposer rewards are an incentive for the proposer to include as many signatures as possible in an [activity proof](/concepts/ofd/#activity-proof).
+
+A percentage of both the ATN staking rewards coming from transaction fees and NTN rewards coming from the Newton inflation mechanism are allocated for proposer incentivisation.
+
+Only signatures that contribute further than the $\frac{2}{3}$ voting power are incentivized. In other words:
+
+- if the proposer provided an empty $ActivityProof$ and we are not at the first $\Delta$ block of the epoch, the proposer is considered as faulty and does not receive any incentive.
+- if the proposer includes signatures for exactly $\frac{2}{3}$ of the voting power, the $ActivityProof$ is valid BUT the proposer does not receive any incentive.
+- if the proposer includes signatures for more than $\frac{2}{3}$ of the voting power, then he starts to get incentives.
+
+:::
+
+## OFD economics
+
+There are two aspects to omission fault detection economics of slashing: inactivity penalties for _offending validators_ and proposer rewards for _block proposers_.
+
+### Inactivity penalties
+
+The economic loss to consensus committee members and their delegators from inactivity penalties covers loss of staking and Newton inflation rewards, block proposer rewards, jailing, and stake slashing.
+
+| Economic loss | Receiving account | Distribution | Description |
+|:-- |:--|:--|:--|
+| Loss of current epoch staking rewards | [`withheldRewardsPool`](/reference/genesis/#config.autonity-object) account  | epoch end | The _offending validator_ loses a % of staking rewards proportional to its _inactivity score_ in the epoch the omission penalty is applied. The forfeited rewards are transferred to the _withheld rewards pool_ account for community funding. Amount is determined by the [Rewards withholding calculation](/concepts/ofd/#rewards-withholding-calculation). |
+| Loss of current epoch Newton inflation rewards | [`withheldRewardsPool`](/reference/genesis/#config.autonity-object) account  | epoch end | The _offending validator_ loses a % of Newton inflation rewards proportional to its _inactivity score_ in the epoch the omission penalty is applied. The forfeited rewards are transferred to the _withheld rewards pool_ account for community funding. Amount is determined by the [Rewards withholding calculation](/concepts/ofd/#rewards-withholding-calculation). |
+| Loss of current epoch block proposer rewards | n/a  | n/a | The _block proposer_ does not earn proposer rewards for a block outside the [_delta_ $\Delta$](/concepts/ofd/#delta-delta) if it includes an [_activity proof_](/concepts/ofd/#activity-proof) that does not contain signatures for $> \frac{2}{3}$ of block quorum voting power. The forfeited proposer rewards are simply not deducted from the total ATN and NTN rewards earned for the epoch and so remain in the ATN and NTN rewards distributed to the committee stake delegators at epoch end. See [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) formula.|
+| Loss of future staking rewards - '_jailing_' | n/a | n/a | If the inactivity penalty applies [jailing](/glossary/#jailing) for the fault, then the validator is temporarily or permanently barred from selection to the consensus committee. The _offending validator_ loses the opportunity to earn future staking rewards as a committee member until it resumes an `active` state. Jail period determined by the [Jailing period calculation](/concepts/ofd/#jailing-period-calculation). |
+| Slashing of stake token | Autonity Protocol [`treasury`](/reference/genesis/#config.autonity-object) account | epoch end | The _offending validator's_ bonded stake is slashed for the omission penalty amount. Slashing is applied at epoch end according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. Amount determined by the [Slashing amount calculation](/concepts/ofd/#slashing-amount-calculation). |
+
+
+### Rewards
+
+Economic rewards are provided to _block proposers_ and through the withholding of staking and Newton inflation rewards to the _community_.
+
+Proposer rewards are distributed as incentive for _block proposers_ that have included [activity proofs](/concepts/ofd/#activity-proof) in blocks where the number of signatures is greater than the $\frac{2}{3}$ quorum of voting power required for consensus. See [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) for the formula.
+
+Withheld rewards distributed to the _community_ are conditional on the extent to which the _offending validator_ was inactive during the epoch, if it was jailed, and the amount of stake delegated to _offending validator_.
+
+::: {.callout-note title="Rewards are ATN and NTN" collapse="false"}
+
+Both _proposer rewards_ and _withheld rewards_ comprise ATN and NTN that the _offending validator_ has earned in the epoch:
+
+- ATN staking rewards from transaction fees, withheld for inactivity
+- NTN rewards from the Newton inflation mechanism, withheld for jailed validators.
+
+:::
+
+| Economic gain | Receiving account | Distribution | Description |
+|:-- |:--|:--|:--|
+| proposer rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The block proposer rewards earned by the validator for the epoch. Amount determined by the [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) formula. |
+| withheld rewards | [`withheldRewardsPool`](/reference/genesis/#config.autonity-object) account | epoch end | ATN staking rewards and NTN inflation rewards earned by the _offending validator_ for the epoch are forfeited and are sent to the withheld pools account for community funding. Amount determined by the validator's share of the committee's [voting power](/glossary/#voting-power), the number of transactions processed during the epoch, the emission of the [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation). |
