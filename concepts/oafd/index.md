@@ -141,10 +141,159 @@ See [Confidence score calculation](/concepts/oafd/#confidence-score-calculation)
 
 The _threshold_ sets a floor which if broken triggers oracle accountability penalties. OAFD has outlier thresholds:
 
-- The _outlier detection threshold_ defines the threshold for flagging _outliers_. A % range that a submitted price for a _symbol_ can vary from the median index value of all prices submitted for that _symbol_ in a _voting round_.
-- The _outlier slashing threshold_ defines the threshold for slashing
-penalties, controlling the sensitivity of the penalty model. Slashing is applied for outliers exceeding the threshold.
+- The _outlier detection threshold_ how far from the median price a report for a _symbol_ can be before it is flagges as an _outlier_.
+- The _outlier slashing threshold_ how far from the median price a report for a _symbol_ needs to be before the reporting validator gets slashed. For example, if a price reported satisfies the inequality `((price - median)/median)^2 > outlierSlashingThreshold`, then it's eligible for slashing.
 
 See protocol primitive [outlier](/concepts/oafd/#outlier).
 
+## Slashing
 
+### Oracle accountability protocol configuration
+
+OAFD protocol parameters are set by default to:
+
+| Protocol parameter | Description | Value |
+|:--:|:--|:--:|
+| `OutlierDetectionThreshold` | defines the threshold for flagging outliers | `10` (10%) |
+| `OutlierSlashingThreshold` | defines the threshold for slashing penalties, controlling the sensitivity of the penalty model | `225` (15%) |
+| `BaseSlashingRate` | defines the base slashing rate for penalizing outliers | `10 ` (0.1%) |
+| `OracleRewardRate` | defines the percentage of epoch rewards allocated for Oracle voting incentivization | `1000` (10%) |
+| `ORACLE_SLASHING_RATE_CAP` | the maximum amount of stake that can be slashed for oracle accountability | `1_000` (10%) |
+
+
+### Confidence score calculation
+
+The _confidence score_ is computed and assigned to price data by the validator according to the validator's trust in the quality of the data they are submitting to the oracle protocol on-chain.
+
+Formally, for each reporting validator $j$ and each price $i$, the submission of a reported price $p_{i,j}$  should come with a confidence score $w_{i,j}$ such that $0<w_i \leq 100$.
+
+The management and the assignment of the _confidence score_ value is not prescribed and is left to the reporting validator's Oracle Server implementation. For example, it could be manually set in a configuration file or automatically adjusted based on factors such as:
+
+- the number of data sources used to calculate the submitted price.
+- the calculated variance of prices from various publishers (e.g. a higher variance could reduce confidence, while lower variance would increase it).
+
+### Outlier detection calculation
+
+An _outlier_ is a price determined to be outside an acceptable % range from the median index value of all prices submitted for that _symbol_ in a _voting round_.
+
+_Outliers_ are detected by means of an _outlier detection threshold_ configuration parameter ( $O_t$ ) the value of which is in the range $(0,100)$.
+
+If $m_i$ the median value of all prices submitted by reporting validators $p_{j,i}$ for a specific symbol price $p$, then a price submission is deemed as _outlier_ if it satisfies the condition:
+
+$$
+\mid p_{j,i}/m_i - 1 \mid > O_t/100
+$$
+
+Detected _outliers_ are excluded from the set of prices used to compute the _aggregated median price_ for the symbol by the [final price calculation](/concepts/oafd/#final-price-calculation).
+
+### Slashing amount calculation
+
+The _slashing_ amount is calculated by the formula:
+
+<!-- markdownlint-disable-next-line line-length -->
+
+$$
+max(0, ( \frac{p_{j,i} - m_i}{m_i} )^2 - S_t ) * w_i*R
+$$
+
+Where,
+
+- $p_{j,i}$ means the reported price $p$ for each reporting validator $j$ and each price $i$.
+- $m_i$ means the median value of all prices $p$ submitted by all reporting validators for a specific _symbol_.
+- $S_t$ means the `OutlierSlashingThreshold`, which defines the threshold for slashing penalties and controls the sensitivity of the penalty model. Setting the threshold to $0$ would mean that any detected _outlier_ would be penalized.
+- $w_i$ means the confidence score $w$ price for each reported price $i$.
+- $R$ means the `BaseSlashingRate`, which defines the % of bonded stake that will be slashed to penalise _outliers_.
+
+The NTN slashing penalty is applied proportionally to the _confidence score_ provided for the _outlier_, discouraging inaccurate submissions with high confidence. To prevent excessively harsh penalties, the maximum
+slashing rate for a single penalty is capped by the `ORACLE_SLASHING_RATE_CAP`.
+
+### Final price calculation
+
+The final price $P_i$ is calculated as a weighted average of
+the submitted prices excluding any detected _outliers_.
+
+The _aggregated median price_ is calculated by the formula:
+
+<!-- markdownlint-disable-next-line line-length -->
+
+$$
+P_i=\frac{\sum_j{w_{j,i}p_{j,i}}}{\sum_j{w_{j,i}}}
+$$
+
+Where,
+
+- $P_i$ means the final price for a _symbol_, calculated as the median value of all _non-outlier_ prices $p$ submitted by reporting validators and weighted by _confidence score_.
+- $w_j,i$ means the _confidence score_ $w$ for a reported price for each reporting validator $j$ and each price $i$.
+- $p_j,i$ means the reported price $p$ for a _symbol_ for each reporting validator $j$ and each price $i$.
+
+In the edge case where no _price reports_ have been submitted in the current _voting round_, the aggregated price of the past _round_ is re-used as the current _round_ price.
+
+### Epoch performance score calculation
+
+Each reporting validator $v$ is assigned an _epoch performance score_ that is a summation of the _confidence scores_ for the _price reports_  submitted by $v$ in an epoch.
+
+The _epoch performance score_ amount is calculated by the formula:
+
+<!-- markdownlint-disable-next-line line-length -->
+
+$$
+P_v =  \sum_{i,j}{w_{i,j}}
+$$
+
+Where,
+
+- $P_v$ means the _epoch performance score_ of the validator $v$
+- ${i,j}$ means the index of summation, i.e. each price $i$ submitted by each validator $j$.
+- $w_i,j$ means the _confidence score_ $w$ for each reporting validator $j$ and each reported price $i$.
+
+This confidence summation accounts only for the $w_{i,j}$ values
+that contributed to the price calculations during the past epoch,
+excluding _outliers_, but including any past submissions if they
+are being re-used.
+
+
+### Oracle reward calculation WIP
+
+The _oracle reward_ for a validator is a percentage of the staking rewards earned by a validator for an epoch and the validator's _epoch performance score_ for an epoch. The reward is deducted from the rewards before they are distributed to stake delegation.
+
+The _oracle reward_ amount is calculated by the formula:
+
+<!-- markdownlint-disable-next-line line-length -->
+
+$$
+B_v = \frac{P_v}{ \sum_j{P_j}} * \text{ORACLE\_REWARD\_ALLOC} * \text{TOTAL\_EPOCH\_REWARD}
+$$
+
+Where,
+
+- $B_v$ means the _oracle reward_ for validator $v$ in an epoch.
+- $P_v$ means the _epoch performance score_ for the validator $v$ in an epoch.
+- ${\sum_j{P_j}}$ means the summation of the _epoch performance score_ for each validator $j$ in the epoch.
+- $\text{ORACLE\_REWARD\_ALLOC}$ means the percentage (`ORACLE_REWARD_RATE`) of epoch rewards allocated for Oracle voting incentivisation
+ the total validator rewards for Oracle incentivisation.
+- $\text{TOTAL\_EPOCH\_REWARD}$ means the amount of the validator $v$'s rewards earned during the epoch.
+
+
+## OAFD economics WIP
+
+There are two aspects to oracle accountability fault detection economics of slashing: penalties for _offending validators_ and rewards for _honest validators_.
+
+### Outlier penalties WIP
+
+The economic loss to consensus committee members and their delegators from reporting outlier prices covers stake slashing, and per the PAS model potential loss of staking rewards due to PAS slashign self-bonded stake in first priority.
+
+| Economic loss | Receiving account | Distribution | Description |
+|:-- |:--|:--|:--|
+| | [``]() account |  |  |
+
+### Rewards WIP
+
+| Economic gain | Receiving account | Distribution | Description |
+|:-- |:--|:--|:--|
+| | [``]() account |  |  |
+
+We introduce an economic incentive for Oracles to submit prices.
+Without this an Oracle could exploit the Accountability logic by
+submitting an outlier price, getting punished once, and then never
+submit any price again. In this scenario the misbehaving oracle would
+not get punished ever again.
