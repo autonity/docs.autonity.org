@@ -30,6 +30,9 @@ For transaction gossiping between nodes the Ethereum wire protocol is used for P
 ## address{#address}
 A 64 character hex string providing the unique identifier of an [account](/glossary/#account).
 
+## autobond
+The process by which NTN inflation emissions earned by [Newton](/glossary/#newton) [stake token](/glossary/#stake-token) [delegated](/glossary/#delegated) to a [validator](/glossary/#validator) are automatically [bonded](/glossary/#bond) to that validator in the name of the [stakeholder](/glossary/#stakeholder) by the [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
+
 ## Auton
 A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/concepts/protocol-assets/auton/).
 
@@ -98,7 +101,7 @@ A failure of consensus due to participant behaviour that does not accord with th
 ## Byzantine fault tolerance (BFT)
 The ability of a distributed system to operate and agree consensus according to protocol under [Byzantine failure](/glossary/#byzantine-failure) conditions.
 
-Autonity implements Tendermint BFT consensus, an asynchronous consensus protocol that can require up to 1/3 of committee members being at fault. Tendermint requires `3f+1` of participant validators behave correctly and is tolerant of `f` faults.
+Autonity implements Tendermint BFT consensus, an asynchronous consensus protocol that can require up to $\frac{1}{3}$ of committee members being at fault. Tendermint requires `3f+1` of participant validators behave correctly and is tolerant of `f` faults.
 
 ## calldata
 Data committed to state by arguments to a smart contract deployed on the blockchain. 'calldata' is accessed by the Solidity `.call()` function. Calldata is non-executable - it is [state](/glossary/#system-state) not [smart contract](/glossary/#smart-contract) [bytecode](/glossary/#bytecode).
