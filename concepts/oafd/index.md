@@ -3,6 +3,9 @@
 title: "Oracle accountability and fault detection (OAFD)"
 description: >
   Autonity's Oracle Accountability Fault Detection model -- reporting mechanism, temporal constraints, and economics for reporting offences and penalties for failures while participating in oracle voting rounds.
+
+from: markdown+emoji
+
 ---
 
 ## Overview
@@ -86,7 +89,7 @@ The economic impact of the OAFD protocol on a validator depends on their role.
 
 | Role | Economic impact |
 |:--|:--|
-| _offending validator_ | loss of stake, validator reputation, staking rewards for self-bonded stake slashed per [Autonity’s Penalty-Absorbing Stake (PAS) model](/glossary/#penalty-absorbing-stake-pas) |
+| _offending validator_ | loss of oracle rewards, validator reputation, slash staking for self-bonded stake slashed per [Autonity’s Penalty-Absorbing Stake (PAS) model](/glossary/#penalty-absorbing-stake-pas) |
 | _reporting validator_  | gain of OAFD oracle rewards for submitting valid  _price reports_ for _symbol(s)_ |
 
 The Autonity community is also a _beneficiary_ of OAFD processing. Slashed stake token will be used for community funds.
@@ -157,7 +160,7 @@ OAFD protocol parameters are set by default to:
 | `OutlierDetectionThreshold` | defines the threshold for flagging outliers | `10` (10%) |
 | `OutlierSlashingThreshold` | defines the threshold for slashing penalties, controlling the sensitivity of the penalty model | `225` (15%) |
 | `BaseSlashingRate` | defines the base slashing rate for penalizing outliers | `10 ` (0.1%) |
-| `OracleRewardRate` | defines the percentage of epoch rewards allocated for Oracle voting incentivization | `1000` (10%) |
+| `OracleRewardRate` | defines the percentage of epoch ATN staking and NTN inflation rewards allocated for Oracle voting incentivisation | `1000` (10%) |
 | `ORACLE_SLASHING_RATE_CAP` | the maximum amount of stake that can be slashed for oracle accountability | `1_000` (10%) |
 
 
@@ -252,16 +255,23 @@ excluding _outliers_, but including any past submissions if they
 are being re-used.
 
 
-### Oracle reward calculation WIP
+### Oracle reward calculation
 
-The _oracle reward_ for a validator is a percentage of the staking rewards earned by a validator for an epoch and the validator's _epoch performance score_ for an epoch. The reward is deducted from the rewards before they are distributed to stake delegation.
+The _oracle reward_ for a validator is a percentage of the ATN staking rewards and NTN inflation rewards earned by stake delegated to a validator for an epoch. The reward originates from ATN [staking rewards](/glossary/#staking-rewards) earned on transactions processed during the epoch, and [NTN inflation rewards](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) earned from the Newton inflation mechanism for [delegated](/glossary/#delegated) [stake](/glossary/#staking). The amount is dependent upon:
+
+- transactions processed in the epoch: how many transactions were processed and committed to blocks during the epoch
+- total stake bonded in the epoch: the total amount of stake delegated to *all* validators during the epoch
+- oracle performance in the epoch: the _epoch performance score_ of an oracle and how accurately the oracle has been reporting prices. See [Epoch performance score calculation](/concepts/oafd/#epoch-performance-score-calculation).
+
+
+The reward amount is then calculated based on the validator's _epoch performance score_ for an epoch and the `OracleRewardRate` configuration parameter. The reward is deducted from the rewards before they are distributed to stake delegation.
 
 The _oracle reward_ amount is calculated by the formula:
 
 <!-- markdownlint-disable-next-line line-length -->
 
 $$
-B_v = \frac{P_v}{ \sum_j{P_j}} * \text{ORACLE\_REWARD\_ALLOC} * \text{TOTAL\_EPOCH\_REWARD}
+B_v = \frac{P_v}{ \sum_j{P_j}} * \text{ORACLE\_REWARD\_RATE} * \text{TOTAL\_EPOCH\_REWARD}
 $$
 
 Where,
@@ -269,31 +279,48 @@ Where,
 - $B_v$ means the _oracle reward_ for validator $v$ in an epoch.
 - $P_v$ means the _epoch performance score_ for the validator $v$ in an epoch.
 - ${\sum_j{P_j}}$ means the summation of the _epoch performance score_ for each validator $j$ in the epoch.
-- $\text{ORACLE\_REWARD\_ALLOC}$ means the percentage (`ORACLE_REWARD_RATE`) of epoch rewards allocated for Oracle voting incentivisation
- the total validator rewards for Oracle incentivisation.
-- $\text{TOTAL\_EPOCH\_REWARD}$ means the amount of the validator $v$'s rewards earned during the epoch.
+- $\text{ORACLE\_REWARD\_RATE}$ means the `OracleRewardRate`, the % of `TOTAL\_EPOCH\_REWARD`s that is deducted and allocated for Oracle voting incentivisation.
+- $\text{TOTAL\_EPOCH\_REWARD}$ means the total amount of ATN staking rewards and NTN inflation rewards earned during an epoch.
 
 
-## OAFD economics WIP
+::: {.callout-note title="A note on total rewards and an analogy" collapse="false"}
 
-There are two aspects to oracle accountability fault detection economics of slashing: penalties for _offending validators_ and rewards for _honest validators_.
+The oracle rewards are a portion of the total rewards earned during the epoch - from transaction fees and from Newton inflation. This reward amount is then distributed to the validators in the consensus committee, each validator's final reward amount influenced by their own oracle reporting performance.
 
-### Outlier penalties WIP
+On distributing the rewards:
 
-The economic loss to consensus committee members and their delegators from reporting outlier prices covers stake slashing, and per the PAS model potential loss of staking rewards due to PAS slashign self-bonded stake in first priority.
+- :pie: a big slice gets redistributed based on stake-based logic
+- :pie: a small slice gets redistributed based on omission accountability performance
+- :pie: a small slice gets redistributed based on oracle performance
+
+:::
+
+## OAFD economics
+
+There are two aspects to oracle accountability fault detection economics of slashing: outlier penalties for _offending validators_ and oracle rewards for _honest validators_.
+
+| Role | Economic impact |
+|:--|:--|
+| _offending validator_ | loss of oracle rewards, validator reputation, slash staking for detected outliers per [Autonity’s Penalty-Absorbing Stake (PAS) model](/glossary/#penalty-absorbing-stake-pas) |
+| _reporting validator_  | gain of OAFD oracle rewards for submitting valid _price reports_ for _symbol(s)_ |
+
+### Outlier penalties
+
+The economic loss to consensus committee members and their delegators from reporting outlier prices covers stake slashing, and per the PAS model potential loss of staking rewards due to PAS slashing self-bonded stake in first priority.
 
 | Economic loss | Receiving account | Distribution | Description |
 |:-- |:--|:--|:--|
-| | [``]() account |  |  |
+| Loss of current epoch _oracle rewards_ | n/a  | epoch end | The _offending validator_ loses the opportunity to earn oracle rewards for prices flagged as _outliers_. Oracles earn oracle rewards for reported prices included in the [Final price  calculation](/concepts/oafd/#final-price-calculation). _Outlier_ prices are excluded from that calculation and from the oracle's _epoch performance score_, which influences the amount of the validator's _oracle rewards_. See [Epoch performance score calculation](/concepts/oafd/#epoch-performance-score-calculation) and [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation). |
+| Slashing of stake token | Autonity Protocol [`treasury`](/reference/genesis/#config.autonity-object) account | epoch end | The _offending validator's_ bonded stake is slashed for the oracle outlier penalty amount. Slashing is applied at epoch end according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. Amount determined by the [Slashing amount calculation](/concepts/oafd/#slashing-amount-calculation). |
 
-### Rewards WIP
+### Rewards
+
+Economic rewards are provided to _reporting validators_ as an economic incentive to submit prices in an epoch.
+
+_Oracle rewards_ comprise ATN and NTN: ATN staking rewards from transaction fees, and NTN inflation rewards from the [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
+
+The reward amount is influenced by the accuracy and confidence of prices reported by the validator's oracle in the epoch.
 
 | Economic gain | Receiving account | Distribution | Description |
 |:-- |:--|:--|:--|
-| | [``]() account |  |  |
-
-We introduce an economic incentive for Oracles to submit prices.
-Without this an Oracle could exploit the Accountability logic by
-submitting an outlier price, getting punished once, and then never
-submit any price again. In this scenario the misbehaving oracle would
-not get punished ever again.
+| oracle rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The ATN staking rewards and NTN inflation rewards earned for price reporting by the validator for the epoch. ATN is transferred to the validator's [`treasury`](/concepts/validator/#treasury-account) account and NTN inflation rewards are auto-bonded to the validator's [`treasury`](/concepts/validator/#treasury-account) account becoming self-gonded stake. Amount determined by the [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation) formula. |
