@@ -31,7 +31,13 @@ For transaction gossiping between nodes the Ethereum wire protocol is used for P
 A 64 character hex string providing the unique identifier of an [account](/glossary/#account).
 
 ## autobond
-The process by which NTN inflation emissions earned by [Newton](/glossary/#newton) [stake token](/glossary/#stake-token) [delegated](/glossary/#delegated) to a [validator](/glossary/#validator) are automatically [bonded](/glossary/#bond) to that validator in the name of the [stakeholder](/glossary/#stakeholder) by the [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
+The process by which [Newton inflation emissions](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) are automatically [bonded](/glossary/#bond).
+
+The [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emits [Newton](/glossary/#newton) [stake token](/glossary/#stake-token) as an inflationary reward for [delegated](/glossary/#delegated) to a [validator](/glossary/#validator) stake.
+
+The process takes the emission earned by a [stakeholder](/glossary/#stakeholder) for stake [delegated](/glossary/#delegated) to a [validator](/glossary/#validator) and automatically [bonds](/glossary/#bond) it to that validator in the name of that stakeholder.
+
+See [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded).
 
 ## Auton
 A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/concepts/protocol-assets/auton/).
