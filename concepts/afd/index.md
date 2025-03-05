@@ -208,7 +208,7 @@ If *temporary*, jailing will bar the validator from committee selection for a nu
 - `history`: The number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history over time.
 - [`epoch period`](/glossary/#epoch-period): The period of time for which a consensus committee is elected. This is defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
 
-If *permanent*, the validator becomes [jailbound](/glossary/#jailbound) and there i sno jail release block. Permanent jailing is only applied in the case where a validator suffers 100% stake slashing as a member of the consensus committee.
+If *permanent*, the validator becomes [jailbound](/glossary/#jailbound) and there is no jail release block. Permanent jailing is only applied in the case where a validator suffers 100% stake slashing as a member of the consensus committee.
 
 ### Penalty-Absorbing Stake (PAS) 
 
