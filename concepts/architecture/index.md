@@ -19,17 +19,17 @@ Autonity extends Ethereum at three logical layers:
 
 - Protocol smart contracts: the Autonity protocol is deployed in part via protocol smart contracts:
 
-	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics, liquid staking, accountability and fault detection, and staking rewards distribution.
+	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics,  liquid staking, block finalisation, and rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
-	- **Accountability Contracts** implementing protocol primitives for accountability and fault detection for validators participating in the consensus committee. Accountability covers participation in consensus and oracle protocols The consensus accountability protocol enforces validator liveness and adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model. The oracle accountability control enforces timely participation in oracle voting rounds by valdiators in oracle and the submission of accurate oracle price reports.
-	- **Autonity Oracle Contract** implementing protocol primitives for computing median price data from external price data and managing the set of currency pairs for which Autonity's [oracle network](/concepts/oracle-network/) provides price data.
-	- **Inflation Controller Contract** implementing logic for controlling [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions according to the Newton inflation schedule.
+	- **Accountability Contracts** implementing protocol primitives for accountable and omission fault detection for validators participating in the consensus committee. Accountability covers participation in consensus and oracle protocols. The consensus accountability protocol enforces validator liveness and adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model.
+	- **Autonity Oracle Contract** implementing protocol primitives for the oracle protocol. It provides functionality for computing aggregated median price data from external price data and managing the set of currency pairs for which Autonity's [oracle network](/concepts/oracle-network/) provides price data. It provides functionality for an oracle accountability protocol incentivising timely participation in oracle voting rounds and the submission of accurate oracle price reports by validators.
 	- **Auton Stabilization Mechanism Contracts** implementing a [Stabilization Mechanism](/concepts/asm/) for the protocol's native coin [Auton](/concepts/protocol-assets/auton/) via a Collateralized Debt Position or CDP-based stabilization mechanism. Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Autonomous Currency Unit (ACU)](/glossary/#acu).
+	- **Inflation Controller Contract** implementing logic for controlling [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions according to the Newton inflation schedule.
 	
 	Autonity Protocol smart contracts are part of the client binary. _Liquid Newton_ smart contracts are deployed on validator registration.
 
 - Consensus layer: blockchain consensus provided by the **Proof of Stake Tendermint BFT** protocol. Blocks are proposed by validators and selected by the committee for inclusion in the blockchain, with finality. The consensus mechanism enables dynamic consensus committee selection using a stake-weighting algorithm, maximising the amount of stake securing the system.
-- Communication layer: peer-to-peer networking is modified to enable the gossiping of transaction and consensus information among validators and participant nodes in separate channels.  See [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols).
+- Communication layer: peer-to-peer networking is modified to enable the gossiping of transaction and consensus information among validators and participant nodes in separate consensus and transaction gossiping channels.  See [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols).
 
 
 ## Protocol contracts
@@ -59,7 +59,7 @@ The order of deployment and computed addresses is:
 | Stabilization Contract | `0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f` |
 | Upgrade Manager Contract | `0x3C368B86AF00565Df7a3897Cfa9195B9434A59f9` |
 | Inflation Controller Contract | `0x3BB898B4Bbe24f68A4e9bE46cFE72D1787FD74F4` |
-| OmissionAccountabilityContractAddress | `0x684c903c66D69777377f0945052160C9f778d689` |
+| Omission Accountability Contract | `0x684c903c66D69777377f0945052160C9f778d689` |
 
 
 ### Autonity Protocol Contract
@@ -76,30 +76,31 @@ All functions are documented in the Reference [Autonity Interfaces](/reference/a
 Autonity system governance is executed:
 
 - At genesis, when the blockchain is initialised with the genesis state.
-- After genesis by the operator governance account, by calling the restricted functions of the protocol contract.
+- After genesis by the `operator` governance account, by calling the restricted functions of the protocol contract.
 
 Governance operations are used to modify protocol parameterisation set in the genesis system state and enable an Autonity network to evolve dynamically over time. System protocol parameters modifiable by governance include:
 
-- Governance operator account address.
-- Minimum base fee for submitting transactions to the network.
-- Consensus committee size and block epoch period.
-- Stake delegation unbonding period.
-- Protocol treasury account address for community funds and the treasury fee.
-- The set of currency pairs for which median price data is provided by the oracle network.
+- Governance and protocol contract account addresses.
+- Protocol parameters to adjust the network configuration after genesis.
 
-For all parameter definitions and the subset of modifiable parameters see the [Protocol Parameter](/reference/protocol/) reference.
+For all parameter definitions and the subset of modifiable parameters see the [Protocol Parameter](/reference/protocol/) reference and the Autonity Contract Interface [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
 #### State finalization
-The Autonity Protocol Contract manages state finalization, maintaining [system state](/glossary/#system-state). Contract logic triggers block finalization:
+The Autonity Protocol Contract manages state finalization, maintaining [system state](/glossary/#system-state). Contract logic triggers block finalization.
 
-- invoking the [Accountability Contract](/concepts/architecture/#autonity-accountability-contract) to apply [slashing](/concepts/afd/#slashing) penalties for proven faults by the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract)
-- at epoch end:
-  - [distributing staking rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
-  - applying [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
-  - applying pending [validator commission rate changes](/concepts/validator/#validator-commission-rate-change)
-  - [selecting a new consensus committee](/concepts/architecture/#committee-selection) for the following epoch
-  - invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection)
-- invoking the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) for the [computation of median price data](/concepts/architecture/#median-price-computation) at the end of an oracle voting round.
+At epoch end finalization:
+
+- invokes finalise on the accountability and oracle contracts:
+  - [Accountability Contract](/concepts/architecture/#autonity-accountability-contract) to apply [slashing](/concepts/afd/#slashing) penalties for proven accountability faults
+  - [Autonity Omission Accountability Contract](/concepts/architecture/#autonity-omission-accountability-contract) to apply [slashing](/concepts/afd/#slashing) penalties for proven omission accountability faults
+  - [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to apply [slashing](/concepts/afd/#slashing) penalties for proven oracle accountability faults
+- invokes the [Newton Inflation Controller Contract](/concepts/architecture/#newton-inflation-controller-contract) to compute Newton inflation emissions per the [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation)
+- invokes [distribution of ATN and NTN fees and rewards](/concepts/architecture/#reward-distribution) to Autonity protocol treasury, committee member validators, and stake delegators
+- applies [staking transitions](/concepts/staking/#staking-transitions) for stake bonding and unbonding
+- applies pending [validator commission rate changes](/concepts/validator/#validator-commission-rate-change)
+- selects a new [consensus committee](/concepts/architecture/#committee-selection) for the following epoch
+- invokes the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection)
+- invokes the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) for the [computation of median price data](/concepts/architecture/#median-price-computation) at the end of an [oracle voting round](/concepts/oracle-network/#voting-rounds).
 
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
@@ -108,10 +109,11 @@ The Autonity Protocol Contract manages liquid staking,  maintaining the ledger o
 
 - Maintain the ledger of _newton_ stake token in the system, implementing the ERC20 token contract interface.
 - Facilitate liquid staking by triggering the deployment of validator-specific _liquid newton_ ERC20 contracts as validators are registered on the system.
-- Provide stakeholders operations to bond and unbond stake from validators, managing _newton_ staking transitions and _liquid newton_ emission and redemption.
 - Provide stakeholders standard ERC20 token operations for accessing the _newton_ stake token ledger and metadata.
+- Provide stakeholders operations to bond and unbond stake from validators, managing _newton_ staking transitions and _liquid newton_ emission and redemption.
+- Provide an [autobond](/glossary/#autobond) operation to automatically bond [Newton inflation emissions](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
 - Manage staking transitions, tracking bond and unbond requests until staking transitions are applied at the end of the epoch.
-- Trigger application of stake slashing penalties, calling the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) which applies stake slashing at epoch end for accountable faults.
+- Trigger application of stake slashing penalties, calling the Autonity Accountability Contracts to apply slashing penalties at epoch end for [consensus accountability faults](/concepts/architecture/#autonity-accountability-contract), [consensus omission faults](/concepts/architecture/#autonity-omission-accountability-contract), and [oracle accountability faults](/concepts/architecture/#autonity-oracle-contract).
 
 To learn more about the concept see [Staking](/concepts/staking/).
 
@@ -133,9 +135,9 @@ To learn more about the concept see [Consensus](/concepts/consensus/) and  [Comm
 
 #### Reward distribution
 
-Validators and stake delegators are incentivised by the distribution of staking rewards to stake bonded to the active consensus committee. Rewards are paid in Auton.
+Validators and stake delegators are incentivised by the distribution of [staking rewards](/glossary/#staking-rewards) and Newton [inflation rewards](/glossary/#inflation-rewards) for stake bonded to the active consensus committee. Staking rewards are paid in Auton. Newton inflation rewards are [automatically bonded](/glossary/#autobond).
 
-Rewards accumulate from transaction fees collected by the transaction fee mechanism as blocks are finalized by the committee:
+Staking rewards accumulate from transaction fees collected by the transaction fee mechanism as blocks are finalized by the committee:
 
 - Block _priority fees_ are distributed to block proposers at time intervals matching block generation times.
 - Block _base fees_ are added to the rewards pool and distributed at the end of the epoch.
@@ -146,15 +148,21 @@ When distribution occurs:
 
 - A percentage determined by the protocol `treasuryFee` parameter is deducted and transferred to the protocol treasury account for community funds.
 - Rewards are distributed to the treasury account of each committee member (validator) on a _pro rata_ basis, depending on their share of the bonded stake in the consensus committee.
-- A percentage determined by the validator `delegationRate` parameter is deducted and transferred to the validator treasury account as a commission fee. The initial delegation rate is set globally for all validators in the network, specified by the `delegationRate` protocol parameter in the genesis configuration file.  It can be modified by individual validators after registration.
+- A percentage determined by the validator `commissionRate` parameter is deducted and transferred to the validator treasury account as a commission fee. The initial commission rate is set globally for all validators in the network, specified by the `delegationRate` protocol parameter in the genesis configuration file.  Individual validators can modify their commission rate after registration.
 - Rewards are distributed to stake delegator accounts _pro rata_ according to their share of the stake bonded to the validator.
-- Rewards accumulate until claimed by stake delegators 
+- Rewards accumulate until claimed by stake delegators. 
 
 To learn more about the concept see [Staking rewards and distribution](/concepts/staking/#staking-rewards-and-distribution) and [Staking accounts](/concepts/staking/#staking-accounts).
 
+Inflation rewards accumulate from the Newton inflation mechanism and awarded for Newton stake token that is delegated to validators. The emissions are:
+
+- Computed for delegated stake according to the Newton [inflation mechanism](/glossary/#inflation-mechanism) (note that _all_ delegated stake earns inflation rewards - there is no dependency on stake being delegated in the current consensus committee).
+- The Newton inflation emission is minted from the [inflation reserve](/glossary/#inflation-mechanism) and [automatically bonded](/glossary/#autobond) Block _base fees_ are added to the rewards pool and distributed at the end of the epoch.
+
+To learn more about the concept see [Total supply and newton inflation ](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) in the [Newton](/concepts/protocol-assets/newton) concept.
 
 ### Autonity Accountability Contract
-The contract implementing the accountability and fault detection (AFD) protocol extensions, including primitives for misbehaviour accusations, proving innocence against an accusation, proven faults, slashing, and jailing.
+The contract implementing the accountability fault detection (AFD) protocol extensions, including primitives for misbehaviour accusations, proving innocence against an accusation, proven faults, slashing, and jailing.
 
 The contract stores static [slashing protocol configuration parameters](/concepts/afd/#slashing-protocol-configuration) used to compute slashing penalties. Contract functions are called by validators whilst participating in the AFD protocol to:
 
@@ -162,41 +170,72 @@ The contract stores static [slashing protocol configuration parameters](/concept
 - Determine if a new accusation can be made and is slashable
 - Submit accountability events.
 
-Function calls to compute accountability each block and apply slashing penalties at epoch end are restricted to protocol.
+Function calls to compute accountability each block and apply accountability penalties at epoch end are restricted to protocol.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/afd/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
-
 
 #### Accountability event handling
 The Autonity Accountability Contract implements logic for handling accountability events submitted by committee members on-chain:
 
 - Accusations of misbehaviour for a committee member failing to follow consensus rules correctly.
-- Proofs of innocence submitted in defence against accusations. They must be presented within the constraints of a innocence window measured in blocks to be valid. An accusation successfully defended gets deleted.
-- Promotion of accusations to faults where feasible after expiry of the innocence window.
-- Direct submission of unforgeable faults. They lead to slashing without possibility of being defended by proof of innocence.
+- Proofs of innocence submitted in defence against accusations. They must be presented within the constraints of an innocence window measured in blocks to be valid. An accusation successfully defended gets deleted.
+- Promotion of accusations to faults when feasible after expiry of the innocence window.
+- Direct submission of unforgeable faults. These lead to slashing without possibility of being defended by proof of innocence.
 
 #### Slashing penalty computation
+The Autonity Accountability Contract manages the computation of accountability penalties for proven faults at epoch end. Penalties are slashing of stake token per Autonity’s Penalty-Absorbing Stake (PAS) model and validator jailing.
 
-The Autonity Accountability Contract manages the computation of slashing penalties for proven faults at epoch end. A slashing model is implemented where a committee member is only slashed for the highest severity fault committed in an epoch. The contract implements logic to:
+A slashing model is implemented where a committee member is only slashed for the highest severity fault committed in an epoch. The contract implements logic to:
 
-- Calculate slashing amount based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/afd/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/afd/#autonity-slashing-amount-calculation).
+- Calculate slashing penalties based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/afd/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/afd/#slashing-amount-calculation).
 - Apply slashing according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
+- Depending upon fault severity, a slashing penalty may also apply temporary or permanent validator jailing to bar the validator from committee selection. The severity of the jailing period is influenced by the severity of the fault committed and the validator's slashing history over time. See [Jail period calculation](/concepts/afd/#jail-period-calculation).
 
-To learn more about the concept see [Accountability and fault detection](/concepts/afd/).
+To learn more about the concept see [Accountability fault detection (AFD)](/concepts/afd/).
+
+### Autonity Omission Accountability Contract
+The contract implementing the omission fault detection (OFD) protocol extensions, including primitives for detecting failure to participate in consensus voting rounds, slashing, and jailing.
+
+The contract stores static [slashing protocol configuration parameters](/concepts/ofd/#slashing-protocol-configuration) used to compute slashing penalties.
+
+Function calls to detect validator inactivity each block and apply omission penalties at epoch end are restricted to protocol.
+
+All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/afd/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
+
+#### Inactivity scoring
+The Autonity Omission Accountability Contract implements logic for measuring if a consensus committee is actively participating in consensus voting rounds as a committee member:
+
+- Measures validator activity by recording committee member precommit messages as a cryptographically-verifiabe BLS aggregate signature as an $ActivityProof$ generated by the block proposer and included in the block headers.
+- Maintains an inactivity score for committee members during the epoch, computed as an offline percentage of blocks in an epoch that the validator has failed to participate in consensus for.
+
+#### Slashing penalty computation
+The Autonity Omission Accountability Contract manages the computation of omission penalties for proven faults at epoch end. A slashing model is implemented with penalties increasing in severity as inactivity thresholds are passed. The contract implements logic to:
+
+- Calculate penalties based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/ofd/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/ofd/#slashing-amount-calculation).
+
+Depending upon the validator's inactivity score the protocol will apply penalties to:
+
+- Withhold staking and newton inflation rewards. See [Rewards withholding calculation](/concepts/ofd/#rewards-withholding-calculation).
+- Withhold rewards and apply jailing coupled with a probation period. See [Probation period calculation](/concepts/ofd/#probation-period-calculation) and [Jail period calculation](/concepts/ofd/#jail-period-calculation).
+- Apply slashing and permanent jailing if repeat offending while on probation. See [Slashing amount calculation](/concepts/ofd/#slashing-amount-calculation). Slashing is applied according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
+
+To learn more about the concept see [Omission fault detection (OFD)](/concepts/ofd/).
 
 ### Autonity Oracle Contract
+The contract implementing the Oracle protocol extensions, including primitives for computing median price data, managing the set of currency pairs for which Autonity provides price data, and oracle accountability fault detection.
 
-The contract implementing the Oracle protocol extensions, including primitives for computing median price data, and managing the set of currency pairs for which Autonity provides price data.
+The contract stores:
 
-The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for which the oracle provides median price data and the interval over which an oracle round for submitting and voting on price data runs, measured in blocks. Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
+- [Protocol parameters](/reference/protocol/) for median price computation and oracle voting rounds. These specify the currency pairs for which the oracle provides median price data, the interval over which an oracle round for submitting and voting on price data runs.
+- Static [slashing protocol configuration parameters](/concepts/oafd/#slashing-protocol-configuration) used to compute slashing penalties.
 
-Contract functions for returning price data, currency pairs provided, and the oracle network voters can be called by all participants.  Function calls to govern (i.e. manage) the set of currency pairs provided by the oracle are restricted to the governance `operator` account.
+Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
+
+Contract functions for returning price data, currency pairs provided, and the oracle network voters can be called by all participants. Function calls to govern (i.e. manage) the set of currency pairs provided by the oracle are restricted to the governance `operator` account.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Oracle Contract Interface](/reference/api/oracle/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
 
-
 #### Median price computation
-
 The Autonity Oracle Contract manages the computation of median price data for currency pair price reports submitted by validator-operated oracle servers. The contract implements logic to:
 
 - Aggregate price report data submitted on-chain by validator-operated oracle servers and compute median prices for the currency pairs provided by the oracle network in voting rounds.
@@ -206,22 +245,30 @@ The Autonity Oracle Contract manages the computation of median price data for cu
 To learn more about the concept see [Oracle network](/concepts/oracle-network/).
 
 #### Voting rounds
-
 The Autonity Oracle Contract implements logic to manage submission of price data reports and calculation of median price over [voting rounds](/glossary/#voting-round) by protocol only functions:
 
 - Set oracle voters based on validators in the consensus committee and update the voter set as the consensus committee is re-selected at the end of an epoch.
 - Manage oracle voting rounds, triggering the initiation of a new voting period at the end of a round.
 
-
 #### Voter selection
-
 Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on median price computation by a protocol-only function. As the last block of an epoch is finalized, this function is executed to determine the oracle voters for the following epoch.
 
 Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
 
+#### Slashing penalty computation
+The Autonity Oracle Contract manages the computation of accountability penalties for proven oracle price reporting faults at epoch end. A slashing model is implemented with penalties applied for reporting "outlier" prices falling outside a tolerance threshold of the median prices reported by other oracles in the [oracle network](/concepts/oracle-network). The contract implements logic to:
+
+- Calculate penalties based on static (set in the contract, see [slashing protocol configuration parameters](/concepts/ofd/#slashing-protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/ofd/#slashing-amount-calculation).
+
+Depending upon the validator's inactivity score the protocol will apply penalties to:
+
+- Detect outliers by a threshold mechanism setting a percentage range that a reported price can differ from the median value of prices reported by other oracles. See [Outlier detection calculation](/concepts/oafd/#outlier-detection-calculation).
+- Adjust rewards and penalties for price reporting based on the confidence score an oracle places on a reported price and the oracle's price reporting performance over the epoch. See [Confidence score calculation](/concepts/oafd/#confidence-score-calculation) and [Epoch performance score calculation](/concepts/oafd/#epoch-performance-score-calculation).
+- Apply slashing for reporting outliers proportionally to the confidence score provided for the outlier. See [Slashing amount calculation](/concepts/oafd/#slashing-amount-calculation). Slashing is applied according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
+
+To learn more about the concept see [Oracle accountability fault detection (OAFD)](/concepts/oafd/).
 
 ### ASM ACU Contract
-
 The contract implementing the Autonomous Currency Unit (ACU) element of the Auton Stabilization Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
 
 The contract provides primitives for computing the ACU value and managing the basket currency symbols and quantities (i.e. weighting). The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for the basket, the quantities of those currencies in the basket, and the scale of precision for the ACU value. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
@@ -231,7 +278,6 @@ Contract functions for returning ACU value, basket symbols, and basket quantitie
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [ACU Contract Interface](/reference/api/asm/acu/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
 
 #### ACU value computation
-
 The Autonity ACU Contract manages the computation of the ACU value, i.e. price, for the ASM. The contract implements logic to:
 
 - Compute the ACU value from the currency basket using the latest median price data for the symbols computed by the Oracle Contract.
@@ -242,7 +288,6 @@ To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/conce
 
 
 ### ASM Supply Control Contract
-
 The contract implementing the Auton supply control element of the Auton Stability Mechanism. The contract controls the supply of Auton on an Autonity network by minting and burning invoked by the ASM Stabilization Contract.
 
 The contract provides primitives for managing the available supply of Auton in an Autonity network. The contract stores the [protocol parameter](/reference/protocol/) setting the network's available Auton supply. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
@@ -252,7 +297,6 @@ The contract function for returning the available supply of Auton for minting ca
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Supply Control Contract Interface](/reference/api/asm/supplycontrol/), mint and burn under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
 
 #### Auton supply control
-
 The Autonity Supply Control Contract manages the Auton supply. The contract implements logic to:
 
 - Mint and burn of Auton to take Auton in and out of circulation.
@@ -260,7 +304,6 @@ The Autonity Supply Control Contract manages the Auton supply. The contract impl
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
 
 ### ASM Stabilization Contract
-
 The contract implementing the CDP-based stabilization mechanism for the Auton. Auton is borrowed against Collateral Token using a Collateralized Debt Position (CDP) mechanism. The Stabilization Contract manages CDP's throughout the lifecycle, from initial borrowing through repayment and liquidation scenarios. Collateral Token is deposited into a CDP to borrow Auton. Auton is brought in and out of circulation on an Autonity network as CDP's are opened and closed.
 
 The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
@@ -277,7 +320,6 @@ Function calls to govern (i.e. manage) the stabilization configuration are restr
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Stabilization Contract Interface](/reference/api/asm/stabilization/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
 
 #### CDP ownership
-
 The Autonity Stabilization Contract implements logic for a CDP owner to:
 
 - Manage the lifecycle of a CDP through stages of initial borrowing, collateral withdrawal, and debt repayment.
@@ -287,7 +329,6 @@ The Autonity Stabilization Contract implements logic for a CDP owner to:
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
 
 #### CDP liquidation
-
 The Autonity Stabilization Contract implements logic for a liquidator to:
 
 - Determine if a CDP is liquidatable, i.e. if the CDP is under collateralized and the collateral value is less than the liquidation ratio requirement.
@@ -295,8 +336,16 @@ The Autonity Stabilization Contract implements logic for a liquidator to:
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
 
-### Protocol contract upgrade
 
+### Newton Inflation Controller Contract
+
+The contract implementing the Newton emission control element of the [Newton Inflation Mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
+
+The contract computes the amount of Newton to release into circulation from the [inflation reserve](/glossary/#inflation-mechanism) according to the inflation schedule.
+
+Newton [inflation rewards](/glossary/#inflation-rewards) are [earned for delegated stake](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) on an Autonity network. The amount of Newton inflation to release from the reserve is computed by the inflation controller contract. The Newton is then minted into circulation by the Autonity Protocol Contract on finalisation of the last block of each epoch. The inflation control contract configuration is set as an Autonity network [protocol parameter](/reference/protocol/). Per the Autonity Protocol Contract, inflation controller protocol parameters are initialised at network [genesis](/reference/genesis/).
+
+### Protocol contract upgrade
 Autonity protocol contracts are upgradable by governance calling the [`upgrade()`](/reference/api/aut/op-prot/#upgrade) function on the `upgradeManagerContract` to provide new contract bytecode and abi for a designated protocol contract address.
 
 Upgrade functions by replacing contract logic for a designated contract address. The contract address and replacement contract code is passed in as parameters to the `upgrade()` function call. The block [`finalize()`](/reference/api/aut/op-prot/#finalize) function checks if a contract upgrade is available. The protocol will then update the contract code of the autonity contract during the block finalization phase. Contract code is replaced in the EVM and existing contract state is maintained.
