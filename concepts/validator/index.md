@@ -140,7 +140,6 @@ For how to do this, see the concept [System model, Networking](/concepts/system-
 
 :::
 
-
 ### Validator identifier
 
 A unique identifier for the validator used as the validator identity in validator lifecycle management (registration, pausing, reactivation), staking, and accountability and omissions operations. It provides an unambiguous relationship between validator identity and node. For example, it is used to identify the validator in a bond stake function call.
@@ -171,16 +170,16 @@ The sequence of lifecycle events for a validator is:
 
 1. Join the network. The validator's main client software is admitted to the P2P network as a peer node, syncing state on connection.
 2. Configure oracle server and data sources. Pre-validator registration, the validator installs the oracle server software and configures data sources for price data provision. 
-3. Register as a validator. The validator's node is registered as a validator by the submission of registration parameters.
-4. Stake bonding. Stake is bonded to the validator, either by the validator itself or by delegation from a stake token holder. Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the [committee selection process](/concepts/consensus/committee/#committee-member-selection).
+3. Register as a validator. The validator's node is registered as a validator by the submission of registration parameters. The validator enters an `active` state.
+4. Stake bonding. Stake is [bonded](/glossary/#bond) to the validator, either by the validator itself or by delegation from a [stake token holder](/glossary/#stakeholder). Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the [committee selection process](/concepts/consensus/committee/#committee-member-selection).
 5. Selection to consensus committee. In the last block of an epoch, the [committee selection process](/concepts/consensus/committee/#committee-member-selection) is run and a validator may be selected to the consensus committee for the next epoch. Whilst a member of the consensus committee it is responsible for participating in (a) block validation, proposing and voting on new blocks, and (b) oracle price data submission and voting.
-6. Jailed for accountability fault. If a validator is found guilty by the [accountability and fault detection protocol](/concepts/afd/) of failing to adhere to consensus rules as a member of the consensus committee, then [jailing](/glossary/#jailing) may be applied. In this state the validator is [jailed and excluded from consensus committee selection](/concepts/validator/#jailing-and-exclusion-from-consensus-committee) for a computed duration.
+6. Jailed for accountability fault. If as a committee member the validator is found guilty for failing to adhere to consensus rules by the [Accountability fault detection protocol (AFD)](/concepts/afd/) or for failing to participate in consensus by the [Omission fault detection protocol (OFD)](/concepts/ofd/), then [jailing](/glossary/#jailing) may be applied. In this state the validator is [jailed and excluded from consensus committee selection](/concepts/validator/#jailing-and-exclusion-from-consensus-committee) for a computed duration.
 
-    Depending on the gravity of the fault committed, jailing may be temporary or permanent and the validator will enter a `jailed` or `jailbound` state:
+    Depending on the gravity of the fault committed, jailing may be temporary or permanent and the validator will enter a [jailed](/glossary/#jailed) or [jailbound](//glossary/#jailbound) state:
     
-    6.a. Temporary jailing: `jailed` state. The validator is *impermanently* jailed for a number of blocks. The block height at which the jail period ends is recorded in the validator's state as the [`jailReleaseBlock`](/reference/api/aut/#response-26) property. After expiry of the [jail period](/glossary/#jail-period) the validator may be [re-activated](/concepts/validator/#validator-re-activation) to resume an `active` state.
+    6.a. Temporary jailing: `jailed` or `jailedForInactivity` state. The validator is *impermanently* jailed for a number of blocks. The block height at which the jail period ends is recorded in the validator's state as the [`jailReleaseBlock`](/reference/api/aut/#response-26) property. After expiry of the [jail period](/glossary/#jail-period) the validator may be [re-activated](/concepts/validator/#validator-re-activation) to resume an `active` state.
     
-    6.b. Permanent jailing: `jailbound` state. In this state the validator is *permanently* jailed and becomes [jailbound](/glossary/#jailbound). Permanent jailing is only applied in the case where a validator is found guilty by the [accountability and fault detection protocol](/concepts/afd/) of a fault with a 100% stake slashing penalty as a member of the consensus committee.
+    6.b. Permanent jailing: `jailbound` or `jailboundForInactivity` state. In this state the validator is *permanently* jailed and becomes [jailbound](/glossary/#jailbound). Permanent jailing is only applied for committing a fault with a 100% stake slashing penalty by [AFD](/concepts/afd/) or for committing an inactivity offence while on probation by [OFD](/concepts/ofd/).
 
 7. Pause as a validator. The validator's node enters a `paused` state in which it is no longer included in the committee selection process. The validator is paused from active committee participation until [re-activated](/concepts/validator/#validator-re-activation). Stake is _not_ automatically unbonded.
 8. Re-activate as a validator. The validator's node transitions from a `paused` or `jailed` state to resume an `active` state in which it is eligible for inclusion in the committee selection process.
@@ -199,17 +198,17 @@ Eligible validators are included in the committee selection algorithm. The algor
 
 ### Jailing and exclusion from consensus committee
 
-A validator may be found guilty by the [accountability and fault detection protocol](/concepts/afd/) of failing to adhere to consensus rules when a member of the consensus committee. In this case, depending on the type of fault committed, [jailing](/glossary/#jailing) for a computed number of blocks may be applied as part of a slashing penalty.
+A validator may be found guilty of failing to adhere to consensus rules by the [Accountability fault detection protocol (AFD)](/concepts/afd/) or of failing to participate in consensus by the [Omission fault detection protocol (OFD)](/concepts/ofd/) when a member of the consensus committee. In this case, depending on the type of fault committed, [jailing](/glossary/#jailing) for a computed number of blocks may be applied as part of a slashing penalty.
 
-On entering a jailed state a validator is ignored by the consensus committee selection algorithm and cannot be elected as a consensus committee member. The duration of validator jailing may be *temporary* or *permanent* depending on how serious the committed accountability fault has been.  If *temporary*, the validator enters a `jailed` state. If permanent, the validator enters a `jailbound` state.
+On entering a jailed state a validator is ignored by the consensus committee selection algorithm and cannot be elected as a consensus committee member. The duration of validator jailing may be *temporary* or *permanent* depending on the gravity of the committed accountability fault.  If *temporary*, the validator enters a [jailed](/glossary/#jailed) state. If *permanent*, the validator enters a [jailbound](/glossary/#jailbound) state.
 
-For further detail see [Validator jailing](/concepts/validator/#validator-jailing) on this page.
+See [Validator jailing](/concepts/validator/#validator-jailing) on this page.
 
 ## Stake bonding and delegation
 
-Validators are staked with Autonity's [Newton](/concepts/protocol-assets/newton/) stake token. A genesis validator must bond stake at genesis. After genesis, a validator can bond their own Newton and have Newton staked to them by [delegation](/glossary/#delegation) from other Newton token holders at any time.
+Validators are staked with Autonity's [Newton](/concepts/protocol-assets/newton/) [stake token](/glossary/#stake-token). A genesis validator must [self-bond](/glossary/#self-bonded) stake at genesis. After genesis, a validator can [self-bond](/glossary/#self-bonded) their own Newton and have Newton staked to them by [delegation](/glossary/#delegation) from other Newton [stakeholders](/glossary/#stakeholder) at any time.
 
-Autonity implements a [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model and a [liquid staking](/concepts/staking/#liquid-staking) model.
+Autonity implements a [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model and a [liquid staking](/glossary/#liquid-staking) model.
 
 In this model:
 
@@ -243,21 +242,22 @@ In the case of unbonding: if the unbonding request is included in block `T`, the
 - For [delegated](/glossary/#delegated) stake, the unbonding request amount is stated in LNTN and the amount of newton redeemed depends upon the NTN-LNTN conversion rate for the validator (see [Staking, Liquid Newton](/concepts/staking/#liquid-newton)). At the end of the [`epoch`](/concepts/staking/#epoch) in which the [`unbond()`](/reference/api/aut/#unbond) transaction was processed the Liquid Newton is burned and the validator's total bonded stake amount is reduced. The due amount of newton is redeemed at epoch end after unbonding period expiry.
 
 ## Validator economics
-
 Validators active in the consensus committee are incentivised toward correct consensus behaviour by rewards and disincentivised from Byzantine behaviour by penalties.
 
-Incentives are economic gains from [staking rewards](/concepts/staking/#staking-rewards) and [slashing rewards](/concepts/afd/#slashing-rewards). [Staking rewards](/concepts/staking/#staking-rewards) are from transaction fee revenue for each block of transactions committed to system state. Consensus committee members receive a share of the transaction fee revenue earned _pro rata_ to their share of the [voting power](/glossary/#voting-power) (bonded stake) securing the system in that block. Consensus committee members are incentivised to report Byzantine behaviour by other committee members by [slashing rewards](/concepts/afd/#slashing-rewards) for reporting accountability faults resulting in a penalty.
+Incentives are economic gains from [validator commission](/glossary/#delegation-rate) on [staking rewards](/concepts/staking/#staking-rewards), [slashing rewards from AFD](/concepts/afd/#slashing-rewards), block proposer rewards, and rewards from the accountability protocols ([AFD](/concepts/afd/), [OFD](/concepts/ofd/), [OAFD](/concepts/oafd/)) for correct participation in consensus and oracle price reporting.
 
-Disincentives are economic losses incurred for proven validator faults committed while a member of the consensus committee. Disincentives are applied by an [accountability and fault detection protocol](/concepts/afd/) and include stake [slashing](/concepts/staking/#slashing), barring from selection to the consensus committee ('[jailing](/glossary/#jailing)'), and the loss of staking rewards. 
+Disincentives are economic losses incurred for proven validator faults committed while a member of the consensus committee. Disincentives are applied by the accountability protocols ([AFD](/concepts/afd/), [OFD](/concepts/ofd/), [OAFD](/concepts/oafd/)) and include stake [slashing](/concepts/staking/#slashing), barring from selection to the consensus committee ('[jailing](/glossary/#jailing)'), the loss of [staking rewards](/glossary/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards) . 
 
 ### Incentives
-
 Validator economic returns are earned from:
 
 - Staking rewards earned from their own [self-bonded](/glossary/#self-bonded) stake.
-- Commission charged on [delegated](/glossary/#delegated) stake per the delegation rate they charge as commission.
+- Commission charged on [staking rewards](/glossary/#staking-rewards) on [delegated](/glossary/#delegated) stake per the [delegation rate](/glossary/#delegation-rate) they charge as commission.
 - The priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
-- [Slashing rewards](/concepts/afd/#slashing-rewards) earned for reporting slashed faults in the [accountability and fault detection](/concepts/afd/) protocol. Slashing rewards are provided by forfeiture of an offending validator’s staking rewards.
+- Rewards from accountability protocols:
+  - [AFD rewards](/concepts/afd/#slashing-rewards) earned for reporting slashed faults.
+  - [OFD rewards](/concepts/ofd/#rewards) earned as a block proposer generating activity proofs that contain signatures for $> \frac{2}{3}$ of block quorum voting power.
+  - [OAFD rewards](/concepts/oafd/#rewards) earned for oracle price reporting
 
 Staking reward revenue potential is determined by the amount of stake bonded to them (their [voting power](/glossary/#voting-power)) and the frequency of their participation in the consensus committee. This is driven by:
 
@@ -267,24 +267,28 @@ Staking reward revenue potential is determined by the amount of stake bonded to 
 -  The amount of transaction revenue earned from transactions included in blocks committed when the validator is a member of the committee.
 -  The validator's commission rate on delegated stake. Commission is a percentage amount deducted by a validator from staking rewards before rewards are distributed to the validator's stake delegators. The rate can be any value in the range `0 - 100%`. At registration all validators have commission set to a default rate specified by the Autonity network's genesis configuration. (See Reference [Genesis, `delegationRate`](/reference/genesis/#configautonity-object).) After registration the validator can modify its commission rate - see [Validator commission rate change](/concepts/validator/#validator-commission-rate-change) on this page.
 
-Slashing rewards can be earned by a validator for reporting a slashable fault committed by another committee member per the [accountability and fault detection](/concepts/afd/) protocol. As reward the _reporting validator_ is awarded the staking rewards the _offending validator_ would have earned for the epoch.
-
 | Economic gain | Receiving account | Distribution | Description |
 |:-- |:--|:--|:--|
 | staking rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | This is from their own self-bonded stake |
 | commission revenue | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | This is commission on staking rewards for the total bonded stake bonded to the validator taken according to the validator's commission rate |
 | priority fee tips | [`validator identifier`](/concepts/validator/#validator-identifier) account | block finalisation | When a block proposer, priority fees for transactions included in the block are transferred directly to the validator node address, the [`validator identifier`](/concepts/validator/#validator-identifier) account |
-| slashing rewards |  [`treasury`](/concepts/validator/#treasury-account) account | epoch end | As the _reporting validator_ of an accountable fault a validator may receive slashing rewards. The staking rewards earned by the _offending validator_ for the epoch are forfeited and become the slashing rewards sent to the _reporting validator_ |
+| AFD slashing rewards |  [`treasury`](/concepts/validator/#treasury-account) account | epoch end | As the _reporting validator_ of an accountable fault a validator may receive slashing rewards. The staking rewards earned by the _offending validator_ for the epoch are forfeited and become the slashing rewards sent to the _reporting validator_. Amount determined by the [Slashing amount calculation](/concepts/afd/#slashing-amount-calculation). |
+| OFD block proposer rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The block proposer rewards earned by the validator for the epoch. Amount determined by the [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) formula. |
+| OAFD oracle rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The ATN staking rewards and NTN inflation rewards earned for price reporting by the validator for the epoch. ATN is transferred to the validator's [`treasury`](/concepts/validator/#treasury-account) account and NTN inflation rewards are auto-bonded to the validator's [`treasury`](/concepts/validator/#treasury-account) account becoming [self-bonded](/glossary/#self-bonded) stake. Amount determined by the [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation) formula. |
+
 
 ### Disincentives
-
 Validator economic losses are determined by any slashing penalties applied for accountable faults.
 
-Disincentives are slashing penalties applied at epoch end and take the form of slashing of stake token, loss of staking rewards, and loss of future earning opportunity by barring from the consensus committee ('jailing').
+Disincentives are slashing penalties applied at epoch end and take the form of slashing of [bonded](/glossary/#bond) stake token according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, loss of [staking rewards](/glossasry/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards), and loss of future earning opportunity by temporary or permanent barring from the consensus committee ('[jailing](/glossary/#jailing)').
 
-Bonded stake may be slashed and/or staking rewards may be reduced or forfeited by slashing penalties. The extent of the fine varies according to the severity of the fault committed. Slashing penalties may also apply temporary or permanent 'jailing', excluding the validator from future participation in the consens committee.
+The extent of the fine varies according to the severity of the fault committed. Slashing penalties may also apply temporary or permanent 'jailing', excluding the validator from future participation in the consensus committee.
 
-For a table of the economic losses from applied slashing penalties see [slashing economics](/concepts/afd/#slashing-economics) in the concept [accountability and fault detection protocol](/concepts/afd/).
+For a table of the economic losses from applied slashing penalties see the accountability protocol concept pages:
+
+- [Accountability fault detection protocol (AFD)](/concepts/afd/) [slashing penalties](/concepts/afd/#slashing-penalties).
+- [Omission fault detection protocol (OFD)](/concepts/ofd/) [inactivity penalties](/concepts/ofd/#inactivity-penalties-1).
+- [Oracle accountability fault detection protocol ()AFD)](/concepts/oafd/) [outlier penalties](/concepts/oafd/#outlier-penalties).
 
 ## Validator registration
 
@@ -345,27 +349,28 @@ Note that registration after genesis allows a validator to register with zero bo
 :::
 
 ## Validator accountability
+Validators are held accountable for failing to adhere to consensus rules or submit accurate prices from their oracles when a member of the consensus committee. There are 3 accountability protocols:
 
-Validators may be held accountable by the [Accountability and fault detection protocol (AFD)](/concepts/afd/) for failing to adhere to consensus rules when a member of the consensus committee.
+- [Accountability fault detection protocol (AFD)](/concepts/afd/) for failing to follow consensus rules 
+- [Omission fault detection protocol (OFD)](/concepts/ofd/) for failing to participate in consensus 
+- [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle protocol on-chain. 
 
-Depending on the severity of the accountability fault committed, a validator may suffer: stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, the loss of [staking rewards](/concepts/staking/#staking-rewards) earned as a member of the current consensus committee, and [validator jailing](/concepts/validator/#validator-jailing).
+Depending on the severity of the accountability fault committed, a validator may suffer: stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, the loss of [staking rewards](/concepts/staking/#staking-rewards) and Newton [inflation rewards](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation), and [validator jailing](/concepts/validator/#validator-jailing).
 
-Accountability is applied at the end of each epoch when the [AFD protocol](/concepts/afd/) processes slashable faults and for each offending validator:
+Accountability protocols detect and track faults as they are committed during the epoch. Penalties for faults are then calculated and applied at the end of each epoch according to the accountability protocol. Accountability protocols will for each offending validator:
 
-- Computes the [slashing amount](/concepts/afd/#autonity-slashing-amount-calculation) and [jailing](/glossary/#jailing) punishment, a count of blocks for which the validator is 'in jail' and excluded from selection to the consensus committee.
-- Applies the slashing amount fine.
-- Applies [validator jailing](/concepts/validator/#validator-jailing) if applicable, changing the validator's state from `active` to one of `jailed` or `jailbound`.
-- Emits a `SlashingEvent` event detailing: validator identifier address, slashing amount, jail release block: the block number at which the jail period expires or `0` if the validator is permanently jailed and in a `jailbound` state.
+- Calculate the severity of the detected fault(s).
+- Calculate economic disincentives and incentives for correct behaviour according to the accountability protocol.
+- Apply accountability penalties - stake slashing, forfeiture of [staking rewards](/glossary/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards), temporary or permanent [validator jailing](/concepts/validator/#validator-jailing).
 
 ## Validator jailing
+A validator can be jailed when serving as a member of the consensus committee as a penalty for failing to adhere to consensus rules by the [Accountability fault detection protocol (AFD)](/concepts/afd/) and for failing to participate in consensus by the [Omission fault detection protocol (OFD)](/concepts/ofd/). If an accountability penalty imposes [jailing](/glossary/#jailing), then this will be applied at epoch end by AFD or OFD. 
 
-A validator can be jailed by protocol as a penalty for failing to adhere to consensus rules when serving as a member of the consensus committee. If a slashing penalty imposes [jailing](/glossary/#jailing), this will be applied at epoch end when the penalty is processed. 
+Jailing is either temporary or permanent:
 
-On jailing the validator is transitioned by protocol from an `active` to a `jailed` or `jailbound` state. Jailing is either temporary or permanent:
-
-- On temporary jailing the validator enters a `jailed` state and is *impermanently* jailed for a number of blocks, the [jail period](/glossary/#jail-period). To get out of jail and resume an active state, the validator operator must [reactivate their validator](/concepts/validator/#validator-re-activation). This can be done at any point after expiry of the [jail period](/glossary/#jail-period). Returned to an `active` state, the validator is again eligible for selection to the consensus committee.
+- On temporary jailing the validator enters a `jailed` or `jailedForInactivity` state and is *impermanently* jailed for a number of blocks, the [jail period](/glossary/#jail-period). To get out of jail and resume an active state, the validator operator must [reactivate their validator](/concepts/validator/#validator-re-activation). This can be done at any point after expiry of the [jail period](/glossary/#jail-period). Returned to an `active` state, the validator is again eligible for selection to the consensus committee.
  
-- On permanent jailing the validator enters a `jailbound` state and is *permanently* jailed. It becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the [accountability and fault detection protocol](/concepts/afd/) of a fault with a 100% stake slashing penalty as a member of the consensus committee.
+- On permanent jailing the validator enters a `jailbound` or `jailboundForInactivity` state and is *permanently* jailed. It becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied for committing a fault with a 100% stake slashing penalty by [AFD](/concepts/afd/) or for committing an inactivity offence while on probation by [OFD](/concepts/ofd/).
 
 Note that:
 

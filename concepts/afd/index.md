@@ -288,7 +288,7 @@ See distinction between _direct_ and _promoted_ in [Faults](/concepts/afd/#fault
 | `reportingBlock` | `uint256` | The number of the block at which the accountability event was verified. Assigned during event handling by internal processing of raw proof data. |
 | `messageHash` | `uint256` | Hash of the main evidence for the accountability event. Assigned during event handling by internal processing of raw proof data. |
 
-## Slashing economics
+## AFD economics
 
 There are two aspects to the economics of slashing: slashing penalties for _offending validators_ and slashing rewards for _reporting validators_.
 
