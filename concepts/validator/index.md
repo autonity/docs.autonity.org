@@ -206,7 +206,20 @@ See [Validator jailing](/concepts/validator/#validator-jailing) on this page.
 
 ## Stake bonding and delegation
 
-Validators are staked with Autonity's [Newton](/concepts/protocol-assets/newton/) [stake token](/glossary/#stake-token). A genesis validator must [self-bond](/glossary/#self-bonded) stake at genesis. After genesis, a validator can [self-bond](/glossary/#self-bonded) their own Newton and have Newton staked to them by [delegation](/glossary/#delegation) from other Newton [stakeholders](/glossary/#stakeholder) at any time.
+Validators are staked with Autonity's [Newton](/concepts/protocol-assets/newton/) [stake token](/glossary/#stake-token). A genesis validator must have stake bonded to it at genesis, which is treated as [self-bonded](/glossary/#self-bonded) stake from the validator operator. Stake [delegation](/glossary/#delegation) by any Newton [stakeholders](/glossary/#stakeholder) can be done post genesis, as [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegated) stake.
+
+::: {.callout-important title="The distinction between self-bonded and delegated stake" collapse="true"}
+
+For clarity:
+
+- the account that self-bonds stake is the `treasury` account of a validator. I.e. the `msgSender()` address of the account that registered the validator by submitting a [`registerValidator()`](/reference/api/aut/#registervalidator) transaction to the Autonity Network.
+
+- when delegating stake to a specific validator, if the `msgSender()` address of the account submitting a [`bond()`](/reference/api/aut/#bond) transaction to the Autonity Network is:
+
+  - the `treasury` account of the validator, then the stake [delegation](/glossary/#delegation) is treated as [self-bonded](/glossary/#self-bonded)
+  - else, the stake delegation is treated as [delegated](/glossary/#delegated).
+
+:::
 
 Autonity implements a [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model and a [liquid staking](/glossary/#liquid-staking) model.
 
@@ -215,20 +228,22 @@ In this model:
 - [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas): [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake, ensuring the validator has "skin in the game" and incentivising reliable and honest validator operations and behaviour.
 - [Liquid staking](/concepts/staking/#liquid-staking): [delegated](/glossary/#delegated) stake has [Liquid Newton](/concepts/protocol-assets/liquid-newton/) minted to the staker in proportion to the amount of Newton staked to a validator.
 
-::: {.callout-note title="Note" collapse="false"}
+::: {.callout-important title="Note on Liquid Newton and Newton inflation rewards" collapse="false"}
 Note that:
+
   - [Liquid Newton](/concepts/protocol-assets/liquid-newton/) is **not** minted for [self-bonded](/glossary/#self-bonded) stake. For rationale see [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
-  - Staking rewards accrue to all bonded stake active in the current consensus committee; [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stakers earn staking rewards _pro rata_ to their share of the validator's total bonded stake.
+  - Newton [inflation rewards](/glossary/#inflation-rewards) accrue to all bonded stake irrespective of whether it is active in the current consensus committee or not. [Delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stakers earn Newton [inflation rewards](/glossary/#inflation-rewards) in accordance with the [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) schedule.
+  - This is in contrast to [staking rewards](/glossary/#staking-rewards) where staking rewards are only earned when the validator bonded to is active in the current consensus committee. The stakers will then earn staking rewards _pro rata_ to their share of the validator's total bonded stake.
 :::
 
-Account addresses owning liquid newton and receiving staking reward revenue are:
+Account addresses owning liquid newton and receiving staking and inflation rewards revenue are:
 
-- EOA accounts that have bonded [delegated](/glossary/#delegated) stake to a validator node, or have been recipients of a liquid newton transfer.
+- EOA accounts that have bonded ([delegated](/glossary/#delegated) or [self-bonded](/glossary/#self-bonded)) stake to a validator node, or have been recipients of a liquid newton transfer.
 - Contract accounts that have been recipients of a liquid newton transfer from an EOA or a contract account.
 
-For clarity, these are the `msgSender()` addresses of the account submitting [`registerValidator()`](/reference/api/aut/#registervalidator) and [`bond()`](/reference/api/aut/#bond) transactions to the Autonity Network.
+Autonity implements an 'active epoch' staking model, applying [staking transitions](/concepts/staking/#staking-transitions) for bonding and unbonding at the end of each block epoch.
 
-Autonity implements an 'active epoch' staking model, applying staking transitions for bonding and unbonding at the end of each block epoch.
+Stake is bonded and redeemed by Newton [stakeholders](/glossary/#stakeholder) submitting transaction requests to the Autonity Protocol Contract. These requests are recorded in state on submission as `BondingRequest` and `UnbondingRequest` data structures in the Autonity Protocol Contract state, but there is a temporal delay in effect. [Voting power](/glossary/#voting-power) cannot change mid-epoch and so staking transitions are applied at epoch end before the next committee selection is run.
 
 Stake is bonded and redeemed by Newton holders submitting transaction requests to the Autonity Protocol Contract. These requests are recorded in state on submission as `BondingRequest` and `UnbondingRequest` data structures in the Autonity Protocol Contract state, but there is a temporal delay in effect. Voting power cannot change mid-epoch and so staking transitions are applied at epoch end before the next committee selection is run.
 
@@ -244,22 +259,22 @@ In the case of unbonding: if the unbonding request is included in block `T`, the
 ## Validator economics
 Validators active in the consensus committee are incentivised toward correct consensus behaviour by rewards and disincentivised from Byzantine behaviour by penalties.
 
-Incentives are economic gains from [validator commission](/glossary/#delegation-rate) on [staking rewards](/concepts/staking/#staking-rewards), [slashing rewards from AFD](/concepts/afd/#slashing-rewards), block proposer rewards, and rewards from the accountability protocols ([AFD](/concepts/afd/), [OFD](/concepts/ofd/), [OAFD](/concepts/oafd/)) for correct participation in consensus and oracle price reporting.
+Incentives are economic gains from [validator commission](/glossary/#delegation-rate) on [staking rewards](/concepts/staking/#staking-rewards), block proposer rewards, and rewards from the accountability protocols ([AFD](/concepts/afd/), [OFD](/concepts/ofd/), [OAFD](/concepts/oafd/)) for correct participation in consensus and oracle price reporting.
 
 Disincentives are economic losses incurred for proven validator faults committed while a member of the consensus committee. Disincentives are applied by the accountability protocols ([AFD](/concepts/afd/), [OFD](/concepts/ofd/), [OAFD](/concepts/oafd/)) and include stake [slashing](/concepts/staking/#slashing), barring from selection to the consensus committee ('[jailing](/glossary/#jailing)'), the loss of [staking rewards](/glossary/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards) . 
 
 ### Incentives
 Validator economic returns are earned from:
 
-- Staking rewards earned from their own [self-bonded](/glossary/#self-bonded) stake.
+- Staking rewards earned from [self-bonded](/glossary/#self-bonded) stake.
 - Commission charged on [staking rewards](/glossary/#staking-rewards) on [delegated](/glossary/#delegated) stake per the [delegation rate](/glossary/#delegation-rate) they charge as commission.
-- The priority fee 'tip' that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
+- The [priority fee 'tip'](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm) that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
 - Rewards from accountability protocols:
   - [AFD rewards](/concepts/afd/#slashing-rewards) earned for reporting slashed faults.
   - [OFD rewards](/concepts/ofd/#rewards) earned as a block proposer generating activity proofs that contain signatures for $> \frac{2}{3}$ of block quorum voting power.
   - [OAFD rewards](/concepts/oafd/#rewards) earned for oracle price reporting
 
-Staking reward revenue potential is determined by the amount of stake bonded to them (their [voting power](/glossary/#voting-power)) and the frequency of their participation in the consensus committee. This is driven by:
+Staking reward revenue potential is determined by the amount of stake bonded to the validator (the validator's [voting power](/glossary/#voting-power)) and the frequency of the validator's participation in the consensus committee. This is driven by:
 
 -  The amount of stake the validator has bonded to it.
 -  The committee size and number of registered validators.
@@ -272,23 +287,23 @@ Staking reward revenue potential is determined by the amount of stake bonded to 
 | staking rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | This is from their own self-bonded stake |
 | commission revenue | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | This is commission on staking rewards for the total bonded stake bonded to the validator taken according to the validator's commission rate |
 | priority fee tips | [`validator identifier`](/concepts/validator/#validator-identifier) account | block finalisation | When a block proposer, priority fees for transactions included in the block are transferred directly to the validator node address, the [`validator identifier`](/concepts/validator/#validator-identifier) account |
-| AFD slashing rewards |  [`treasury`](/concepts/validator/#treasury-account) account | epoch end | As the _reporting validator_ of an accountable fault a validator may receive slashing rewards. The staking rewards earned by the _offending validator_ for the epoch are forfeited and become the slashing rewards sent to the _reporting validator_. Amount determined by the [Slashing amount calculation](/concepts/afd/#slashing-amount-calculation). |
-| OFD block proposer rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The block proposer rewards earned by the validator for the epoch. Amount determined by the [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) formula. |
-| OAFD oracle rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The ATN staking rewards and NTN inflation rewards earned for price reporting by the validator for the epoch. ATN is transferred to the validator's [`treasury`](/concepts/validator/#treasury-account) account and NTN inflation rewards are auto-bonded to the validator's [`treasury`](/concepts/validator/#treasury-account) account becoming [self-bonded](/glossary/#self-bonded) stake. Amount determined by the [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation) formula. |
+| AFD slashing rewards |  [`treasury`](/concepts/validator/#treasury-account) account | epoch end | As the _reporting validator_ of an accountable fault a validator may receive slashing rewards. The staking rewards earned by the _offending validator_ for the epoch are forfeited and become the slashing rewards sent to the _reporting validator_. Amount determined by the AFD [Slashing amount calculation](/concepts/afd/#slashing-amount-calculation). |
+| OFD block proposer rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The block proposer rewards earned by the validator for the epoch. Amount determined by the OFD [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation). |
+| OAFD oracle rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The ATN staking rewards and NTN inflation rewards earned for price reporting by the validator for the epoch. ATN is transferred to the validator's [`treasury`](/concepts/validator/#treasury-account) account and NTN inflation rewards are auto-bonded to the validator's [`treasury`](/concepts/validator/#treasury-account) account becoming [self-bonded](/glossary/#self-bonded) stake. Amount determined by the OAFD [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation). |
 
 
 ### Disincentives
-Validator economic losses are determined by any slashing penalties applied for accountable faults.
+Validator economic losses are determined by any penalties applied for accountable faults.
 
-Disincentives are slashing penalties applied at epoch end and take the form of slashing of [bonded](/glossary/#bond) stake token according to Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, loss of [staking rewards](/glossasry/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards), and loss of future earning opportunity by temporary or permanent barring from the consensus committee ('[jailing](/glossary/#jailing)').
+Penalties are applied at epoch end and take the form of slashing of [bonded](/glossary/#bond) stake token per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, loss of [staking rewards](/glossasry/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards), and loss of future earning opportunity by temporary or permanent barring from the consensus committee ('[jailing](/glossary/#jailing)').
 
-The extent of the fine varies according to the severity of the fault committed. Slashing penalties may also apply temporary or permanent 'jailing', excluding the validator from future participation in the consensus committee.
+The extent of the penalty varies according to the severity of the fault committed. For the economic losses from applied accountability penalties see:
 
-For a table of the economic losses from applied slashing penalties see the accountability protocol concept pages:
-
-- [Accountability fault detection protocol (AFD)](/concepts/afd/) [slashing penalties](/concepts/afd/#slashing-penalties).
-- [Omission fault detection protocol (OFD)](/concepts/ofd/) [inactivity penalties](/concepts/ofd/#inactivity-penalties-1).
-- [Oracle accountability fault detection protocol ()AFD)](/concepts/oafd/) [outlier penalties](/concepts/oafd/#outlier-penalties).
+| Accountability protocol | Disincentive penalty |
+|:-- |:--|
+| [Accountability fault detection protocol (AFD)](/concepts/afd/) | [slashing penalties](/concepts/afd/#slashing-penalties) |
+| [Omission fault detection protocol (OFD)](/concepts/ofd/) | [inactivity penalties](/concepts/ofd/#inactivity-penalties-1)|
+| [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) | [outlier penalties](/concepts/oafd/#outlier-penalties)|
 
 ## Validator registration
 
