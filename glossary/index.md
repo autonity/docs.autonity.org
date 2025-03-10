@@ -181,11 +181,13 @@ The JSON-formatted genesis configuration file that contains the data necessary t
 The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to denominate Autonity gas prices. 1 `gigaton` = 1,000,000,000 [ton](/glossary/#ton). The Autonity equivalent of wei is [ton](/glossary/#ton) and of gwei gigaton.
 
 ## inflation mechanism
-The mechanism by which a percentage of the total [newton](/glossary/#newton) supply is held in an "Inflation Reserve" and released over time as [inflation awards](/glossary/#inflation-awards).
+The mechanism by which a percentage of the total [newton](/glossary/#newton) supply is held in an "Inflation Reserve" and released over time as [inflation rewards](/glossary/#inflation-rewards).
 
 Newton total supply is capped at 100 million NTNs of which 40% is reserved for inflation awards in the short-to-medium term.
 
-Inflation awards are emitted in the form of newton inflation (i.e. newly minted newton supply) for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero as the Inflation Reserve is fixed.
+Inflation rewards are emitted in the form of newton inflation (i.e. newly minted newton supply) for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero as the Inflation Reserve is fixed.
+
+For more detail see the [Newton](/concepts/protocol-assets/newton/) concept and [Total supply and newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
 
 ## inflation rewards
 Inflation awards are a distribution of newly minted newton by the [inflation mechanism](/glossary/#inflation-mechanism) to all holders of bonded stake [participating](/glossary/#participation-rate) in securing the network.
