@@ -364,7 +364,7 @@ Note that registration after genesis allows a validator to register with zero bo
 :::
 
 ## Validator accountability
-Validators are held accountable for failing to adhere to consensus rules or submit accurate prices from their oracles when a member of the consensus committee. There are 3 accountability protocols:
+Validators are held accountable for failing to adhere to consensus rules or to submit accurate prices from their oracles when a member of the consensus committee. There are 3 accountability protocols:
 
 - [Accountability fault detection protocol (AFD)](/concepts/afd/) for failing to follow consensus rules 
 - [Omission fault detection protocol (OFD)](/concepts/ofd/) for failing to participate in consensus 
@@ -375,7 +375,8 @@ Depending on the severity of the accountability fault committed, a validator may
 Accountability protocols detect and track faults as they are committed during the epoch. Penalties for faults are then calculated and applied at the end of each epoch according to the accountability protocol. Accountability protocols will for each offending validator:
 
 - Calculate the severity of the detected fault(s).
-- Calculate economic disincentives and incentives for correct behaviour according to the accountability protocol.
+- Calculate economic incentives for correct behaviour according to the accountability protocol.
+- Calculate economic disincentives for failures to participate in consensus and oracle price reporting according to the accountability protocol.
 - Apply accountability penalties - stake slashing, forfeiture of [staking rewards](/glossary/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards), temporary or permanent [validator jailing](/concepts/validator/#validator-jailing).
 
 ## Validator jailing
