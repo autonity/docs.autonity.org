@@ -279,15 +279,28 @@ Note that the amount of Newton released to Alice may be less than the original u
 
 ## Slashing
 
-Bonded stake is subject to economic [slashing penalties](/concepts/afd/#slashing-penalties) if misbehavior by the staked validator node is detected by the [accountability and fault detection (AFD) protocol](/concepts/afd/). The AFD protocol detects infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members.
+Bonded stake is subject to economic [slashing penalties](/glossary/#slashing-penalty) if misbehavior by the staked validator node when a member of the [consensus committee](/glossary/#consensus-committee) is detected by an Autonity accountability protocol:
+
+- [Accountability fault detection protocol (AFD)](/concepts/afd/) for failing to follow consensus rules 
+- [Omission fault detection protocol (OFD)](/concepts/ofd/) for failing to participate in consensus 
+- [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle protocol on-chain. 
 
 ### Economic penalties
 
-[Slashing penalties](/concepts/afd/#slashing-penalties) are applied by autonomous protocol action at epoch end as voting power cannot change mid epoch.
+Economic penalties vary in severity and are applied according to the type of fault detected and the risk created for network security. 
 
-Economic penalties vary in severity and are applied according to the type of fault detected and the risk created for network security.
+Penalties are applied at epoch end and take the form of slashing of [bonded](/glossary/#bond) stake token per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, loss of [staking rewards](/glossasry/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards), and loss of future earning opportunity by temporary or permanent barring from the consensus committee ('[jailing](/glossary/#jailing)').
 
-See concept [Accountability and fault detection](/concepts/afd/) and [slashing penalties](/concepts/afd/#slashing-penalties) for protocol logic and penalty computation.
+The extent of the penalty varies according to the severity of the fault committed. For the economic disincentives of accountability penalties see:
+
+| Accountability protocol | Disincentive penalty |
+|:-- |:--|
+| [Accountability fault detection protocol (AFD)](/concepts/afd/) | [slashing penalties](/concepts/afd/#slashing-penalties) |
+| [Omission fault detection protocol (OFD)](/concepts/ofd/) | [inactivity penalties](/concepts/ofd/#inactivity-penalties-1)|
+| [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) | [outlier penalties](/concepts/oafd/#outlier-penalties)|
+
+[Slashing penalties](/glossary/#slashing-penalty) are applied by autonomous protocol action at [epoch](/glossary/#epoch) end as [voting power](/glossary/#voting-power) cannot change mid-epoch.
+
 
 ### Consequences for stake redemption
 
