@@ -14,11 +14,15 @@ Stake in an Autonity network is represented as the [Newton](/concepts/protocol-a
 
 Staking is open - any network participant is able to purchase stake token and bond stake by [delegation](/glossary/#delegation) to validators. 
 
+Stakers are financially rewarded by Auton [staking rewards](/concepts/staking/#staking-rewards) and [Newton inflation rewards](/concepts/staking/#newton-inflation-rewards).
+
 Staking rewards are distributed to [delegated](/glossary/#delegated) stake that is actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
+
+Newton inflation rewards are distributed to [participating](/glossary/#participation-rate) stake at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). The newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. Stake delegators receive a reward in proportion to the amount of Newton they have staked. Newton [inflation rewards](/glossary/#inflation-rewards) accrue to all bonded stake irrespective of whether it is active in the current committee or not.
 
 ::: {.callout-note title="Note" collapse="false"}
 
-Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and slashing rewards. See [validator economics](/concepts/validator/#validator-economics).
+Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and accountability protocol rewards. See [validator economics](/concepts/validator/#validator-economics).
 
 :::
 
@@ -90,8 +94,7 @@ By self-bonding stake, a validator puts "skin in the game" because this constitu
 :::
 
 ## Staking rewards
-
-Staking rewards are a distribution of fee revenue entitlement to all holders of bonded stake actively backing consensus. Reward distribution takes place _pro-rata_ to the share of total stake bonded to validators in the consensus committee. The fee revenue comes from the _base fees_ charged for computing transactions included in blocks committed to the system ledger. The optional _priority fee_ of a transaction is not included in the rewards pool but awarded to the block proposer according to the EIP 1559 transaction fee mechanism.
+[Staking rewards](/glossary/#staking-rewards) are a distribution of fee revenue entitlement to all holders of bonded stake actively backing consensus. Reward distribution takes place _pro-rata_ to the share of total stake bonded to validators in the consensus committee. The fee revenue comes from the _base fees_ charged for computing transactions included in blocks committed to the system ledger. The optional _priority fee_ of a transaction is not included in the rewards pool but awarded to the block proposer according to the EIP 1559 transaction fee mechanism.
 
 ::: {.callout-note title="Note" collapse="false"}
 For more detail on EIP 1559 and the distinction between _base fee_ and _priority fee_, see [Transaction fees](/concepts/system-model/#transaction-fees) in the System model.
@@ -108,10 +111,9 @@ As rewards are distributed, due fees are deducted from fee revenue by the protoc
 The remaining fee revenue is then distributed to stake delegators. 
 
 ### Reward distribution
-
 Stake delegation rewards are distributed to validator committee members at the end of each epoch. On finalization of the last block in the epoch rewards become claimable by stake delegators.
 
-The _priority fee_ reward is distributed to the block proposer when the block is finalised. It is sent to the validator node's [`validator identifier`](/concepts/validator/#validator-identifier) account.
+The _priority fee_ reward is distributed to the block proposer when the block is finalized. It is sent to the validator node's [`validator identifier`](/concepts/validator/#validator-identifier) account.
 
 ### Claiming rewards
 
@@ -120,6 +122,14 @@ Fees accumulate until claimed by delegators in a pull-based model. Staking rewar
 For details on how to claim and the functionality for claiming staking rewards, see:
 
 - How to [Claim Staking Rewards](/delegators/claim-rewards/).
+
+## Newton inflation rewards
+Newton [inflation rewards](/glossary/#inflation-rewards) are a distribution of newly minted newton by the Newton [inflation mechanism](/glossary/#inflation-mechanism) to all holders of bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network).
+
+For more detail see the [Newton](/concepts/protocol-assets/newton/) concept and [Total supply and newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
+
+### Reward distribution
+Newton [inflation rewards](/glossary/#inflation-rewards) are minted and distributed to stakers at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). On emission the newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. The bonded stake balances of the individual stake delegators (i.e. for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake) is incremented accordingly to reflect the inflation received.
 
 ## Staking accounts
 
@@ -299,7 +309,7 @@ The extent of the penalty varies according to the severity of the fault committe
 | [Omission fault detection protocol (OFD)](/concepts/ofd/) | [inactivity penalties](/concepts/ofd/#inactivity-penalties-1)|
 | [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) | [outlier penalties](/concepts/oafd/#outlier-penalties)|
 
-[Slashing penalties](/glossary/#slashing-penalty) are applied by autonomous protocol action at [epoch](/glossary/#epoch) end as [voting power](/glossary/#voting-power) cannot change mid-epoch.
+[Slashing penalties](/glossary/#slashing-penalty) are applied by autonomous protocol action at [epoch](/concepts/staking/#epoch) end as [voting power](/glossary/#voting-power) cannot change mid-epoch.
 
 
 ### Consequences for stake redemption
