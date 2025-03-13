@@ -9,13 +9,12 @@ description: >
 Genesis configuration for public Autonity networks is built into the client's configuration. If setting up a local testnet, for example a private devnet, configuration has to be specified when initialising the node.
 
 ## Public Autonity Network configuration
-Configuring the client to join a public network is done by setting the network as a [command-line option](/reference/cli/#command-line-options) when initialising the Autonity Go Client. The client will then auto-detect the network genesis configuration and bootnodes, connect, and sync.
+Configuring the client to join a public network is done by setting the network as a [command-line option](/reference/cli/#command-line-options) when [initialising and running the Autonity Go Client](/node-operators/run-aut/). The client will then auto-detect the network genesis configuration and bootnodes, connect, and sync.
 
 ### Public network flags
 
 |Network|Command-line option|Network settings|
 |-------|-------------------|----------------|
-|Bakerloo Testnet| [`--bakerloo` command-line option](/reference/cli/#command-line-options)| [Genesis configuration](/networks/testnet-bakerloo/#genesis-configuration) |
 |Piccadilly Testnet| [`--piccadilly` command-line option](/reference/cli/#command-line-options) | [Genesis configuration](/networks/testnet-piccadilly/#genesis-configuration) |
 
 
@@ -43,12 +42,14 @@ Genesis configuration file JSON objects:
 - [config](#config-object)
 - [config.autonity](#config.autonity-object)
 - [config.autonity.validators](#config.autonity.validators-object)
+- [config.accountability](#config.accountability-object)
+- [config.oracle](#config.oracle-object)
+- [config.inflationController](#config.inflationcontroller-object)
 - [config.asm](#config.asm-object)
 - [config.asm.acu](#config.asm.acu-object)
 - [config.asm.stabilization](#config.asm.stabilization-object)
 - [config.asm.supplyControl](#config.asm.supplycontrol-object)
-- [config.accountability](#config.accountability-object)
-- [config.oracle](#config.oracle-object)
+- [config.omissionAccountability](#config.omissionaccountability-object)
 - [alloc](#alloc-object)
 - [alloc.account object](#alloc.account-object)
 
@@ -76,10 +77,11 @@ Genesis configuration file JSON objects:
 |---------|-----------|-----|
 | `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
 | `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
-| `accountability` | Autonity Accountability Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
+| `accountability` | Accountability Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
+| `oracle` | Oracle protocol and Oracle Accountability Fault Detection protocol configuration parameters | See [`config.oracle` object](#configoracle-object) |
+| `inflationController` | Newton inflation mechanism configuration parameters | See [`config.inflationController` object](#config.inflationcontroller-object) |
 | `asm` | Auton Stabilization Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
-| `oracle` | Oracle protocol configuration parameters | See [`config.oracle` object](#configoracle-object) |
-
+| `omissionAccountability ` | Omission Fault Detection protocol configuration parameters | See [`config.omissionAccountability` object](#config.omissionaccountability-object)|
 
 #### config.autonity object
 
@@ -92,14 +94,19 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `abi` | The abi of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 |`bytecode`| The EVM bytecode of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 | `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivizes validators at genesis when transaction volumes are low | Set to: `500000000` |
-| `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Commonly known as 'block time' or 'block interval' | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
-| `unbondingPeriod` | The number of blocks bonded stake must wait after processing a stake unbond transaction before Newton is redeemed to the stake delegator. The `unbondingPeriod` must be longer than an `epochPeriod` | Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of `120` could be appropriate|
 | `epochPeriod` | The number of blocks in an epoch. The `epochPeriod` must be shorter than the `unbonding` period | Value is specific to network configuration. For a local devnet supporting rapid testing a value of `30` could be appropriate |
-| `treasury` | The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. Ethereum format address. | Value is specific to network configuration |
-| `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Value is specific to network configuration. For example, a setting of `10000000000000000` = 1% |
-| `delegationRate` | The percentage fee of staking rewards that is deducted by validators as a commission from delegated stake. The fee is sent to the validator's [`treasury`](/concepts/validator/#treasury-account) account at epoch end on reward distribution. The rate can be specified to the precision of 1 basis point. Specified as an integer value representing up to 3 decimal places of precision. | Value is specific to network configuration. For example, a setting of `1000` = 10% |
+| `unbondingPeriod` | The number of blocks bonded stake must wait after processing a stake unbond transaction before Newton is redeemed to the stake delegator. The `unbondingPeriod` must be longer than an `epochPeriod` | Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of `120` could be appropriate |
+| `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Commonly known as 'block time' or 'block interval' | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
 | `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `21` could be appropriate |
 | `operator` | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) | EOA account address |
+| `treasury` | The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. Ethereum format address. | Value is specific to network configuration |
+| `withheldRewardsPool` | The address of the Autonity Withheld Rewards account, the pool to which withheld Newton inflation rewards are sent for holding | Set to the Autonity `treasury` account at genesis |
+| `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Value is specific to network configuration. For example, a setting of `10000000000000000` = 1% |
+| `delegationRate` | The percentage fee of staking rewards that is deducted by validators as a commission from delegated stake. The fee is sent to the validator's [`treasury`](/concepts/validator/#treasury-account) account at epoch end on reward distribution. The rate can be specified to the precision of 1 basis point. Specified as an integer value representing up to 3 decimal places of precision. | Value is specific to network configuration. For example, a setting of `1000` = 10% |
+| `withholdingThreshold` | The inactivity threshold at which committee member staking and Newton inflation rewards are withheld and sent to the Withheld Rewards Pool account by the Omission Fault Detection protocol | Value is specific to network configuration. For example, a setting of `0` = 0%, no tolerance |
+| `proposerRewardRate` | The percentage of epoch staking rewards deducted for oracles as a reward for correct price reporting by the Oracle Accountability Fault Detection protocol | Value is specific to network configuration. For example, a setting of `1000` = 10%  |
+| `oracleRewardRate` | The percentage of epoch staking rewards allocated for proposer rewarding by the Omission Fault Detection protocol| Value is specific to network configuration. For example, a setting of `1000` = 10% |
+| `initialInflationReserve` | The amount of Newton held in reserve for Newton inflation rewards| Value is set to `40` Million (40% of the total supply of 100 M Newton) |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
 #### config.autonity.validators object
@@ -112,6 +119,46 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `oracleAddress` | The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address. | The Oracle Server's account address |
 | `bondedStake` | The amount of stake bonded to the validator node at genesis. Denominated in Newton. | Positive integer for stake amount. Value is specific to validator's stake at genesis. |
 
+#### config.accountability object
+
+Object structure for the Accountability Fault Detection (AFD) protocol configuration at genesis.
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set by default to `100` (100 blocks) |
+| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set by default to `400` (4%) |
+| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set by default to `600` (6%) |
+| `baseSlashingRateHigh` | The base slashing rate for a fault of _High_ severity | Set by default to `800` (8%) |
+| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set by default to `200` (2%) |
+| `historyFactor` | The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty | Set by default to `500` (5%) |
+| `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set by default to `48` (48 epochs, i.e. 1 day at a 30 mins epoch) |
+
+#### config.oracle object
+
+Object structure for the oracle and Oracle Accountability Fault Detection (OAFD) protocol configuration at genesis.
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
+| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
+| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "NTN-ATN"]` |
+| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Set by default to `30` (30 blocks, i.e. to initiate a new oracle voting round at 30-block intervals) |
+| `outlierDetectionThreshold` | Defines the threshold for flagging outliers | Set by default to `10` (10%) |
+| `outlierSlashingThreshold` | Defines the threshold for slashing penalties, controlling the sensitivity of the penalty model | Set by default to `225` (15%) |
+| `baseSlashingRate` | Defines the base slashing rate for penalising outliers | Set by default to `10` (0.1%) |
+	
+#### config.inflationController object 
+
+Configuration of the Inflation Controller of the Newton inflation mechanism.
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `inflationRateInitial` | Initial inflation rate | Set by default to 7.5% AR |
+| `inflationRateTransition` | Transition inflation rate | Set by default to 5.5% AR |
+| `inflationReserveDecayRate` | | Constant inflation rate | Set by default to 17.3168186793% AR |
+| `inflationTransitionPeriod` | Transition period | Set by default to (4+1/365) years |
+| `inflationCurveConvexity` | Convexity parameter | Set by default to -1.7794797758 |
+	
 #### config.asm object
 
 Configuration of the Auton Stabilization Mechanism (ASM).
@@ -128,9 +175,9 @@ Configuration of the Autonomous Currency Unit (ACU), an optimal currency basket 
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "USD-USD", "SEK-USD"]` |
-| `quantities` | The basket quantity corresponding to each symbol. | Set to `[21_300,18_700,14_300,10_400,1_760_000,18_000,141_000]` |
-| `scale` | The scale used to represent the basket `quantities` and ACU value. | Set to `5` |
+| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "USD-USD"]` |
+| `quantities` | The basket quantity corresponding to each symbol. | Set by default to `[1_744_583, 1_598_986, 1_058_522, 886_091, 175_605_573, 12_318_802, 1_148_285]` |
+| `scale` | The scale used to represent the basket `quantities` and ACU value. | Set by default to `7` |
 
 #### config.asm.stabilization object
 
@@ -138,11 +185,11 @@ Configuration of the Stabilization mechanism's Collateralized Debt Position (CDP
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set to 5%, `50_000_000_000_000_000` |
-| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set to 1.8, `1_800_000_000_000_000_000` |
-| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set to 2, `2_000_000_000_000_000_000` |
-| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` |
-| `targetPrice` | The ACU value of 1 unit of debt. | Set to 1, `1_000_000_000_000_000_000` |
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set by default to 5%, `50_000_000_000_000_000` |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set by default to 1.8, `1_800_000_000_000_000_000` |
+| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set by default to 2, `2_000_000_000_000_000_000` |
+| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set by default to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` |
+| `targetPrice` | The ACU value of 1 unit of debt. | Set by default to the Golden Ratio rounded to 5 dp `1.61804`, `1_618_034_000_000_000_000` |
 
 #### config.asm.supplyControl object
 
@@ -152,46 +199,20 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 |---------|-----------|-----|
 | `initialAllocation` | The initial allocation of Auton to the ASM | Value is specific to network configuration |
 
-#### config.accountability object
+#### config.omissionAccountability object
 
-Object structure for the Accountability Fault Detection (AFD) protocol configuration at genesis.
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set to `600` |
-| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set to `1000` (10%) |
-| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set to `2000` (20%) |
-| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set to `800` (8%) |
-| `historyFactor` | The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty | Set to `500` (5%) |
-| `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set to `2` |
-| `slashingRatePrecision` | The division precision used as the denominator when computing the slashing amount of a penalty | Set to `10000` |
-
-#### config.accountability object
-
-Object structure for the Accountability Fault Detection (AFD) protocol configuration at genesis.
+Object structure for the Omission Fault Detection (OFD) protocol configuration at genesis.
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set to `600` |
-| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set to `1000` (10%) |
-| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set to `2000` (20%) |
-| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set to `800` (8%) |
-| `historyFactor` | The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty | Set to `500` (5%) |
-| `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set to `2` |
-| `slashingRatePrecision` | The division precision used as the denominator when computing the slashing amount of a penalty | Set to `10000` |
-
-#### config.oracle object
-
-Object structure for the oracle network at genesis.
-
-|Parameter|Description|Value|
-|---------|-----------|-----|
-|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set to `"AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","SEK-USD","ATN-USD","NTN-USD","NTN-ATN"` |
-| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Value is specific to network configuration. For example, set to `30` for initiating a new oracle voting round at 30-block intervals |
-
-
+| `inactivityThreshold` | Defines the threshold for flagging validator inactivity | Set by default to`1000` (10%) |
+| `lookbackWindow` | The number of blocks over which the protocol will look for inactivity | Set by default to `40` (40 blocks) |
+| `pastPerformanceWeight` | Determines how much weight is given to past performance of the validator in the preceding epoch in the current epoch when computing the aggregated inactivity score | Set by default to `1000` (10%) |
+| `initialJailingPeriod` | The initial number of epoch(s) that a validator will be jailed for | Set by default to `10_000` (10000 blocks) |
+| `initialProbationPeriod` | the initial number of epoch(s) that a validator will be set under probation for | Set by default to  `24` (24 epochs) |
+| `initialSlashingRate` | the division precision used as the denominator when computing the slashing amount of a penalty | Set by default to `25` (0.25%) |
+| `delta` | the number of blocks to wait before generating an activity proof | Set by default to `5` (5 blocks) |
+		
 #### alloc object
 
 The `alloc` object is used to issue native coin and allows pre-deployment of smart contract accounts at network genesis.
@@ -220,12 +241,17 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
       "minBaseFee": 500000000,
       "delegationRate" : 1000,
       "blockPeriod": 1,
-      "maxCommitteeSize": 10,
+      "maxCommitteeSize": 100,
       "unbondingPeriod": 120,
       "epochPeriod": 30,
       "operator": "0x293039dDC627B1dF9562380c0E5377848F94325A",
       "treasury": "0x7f1B212dcDc119a395Ec2B245ce86e9eE551043E",
+      "withheldRewardsPool": "0x7f1B212dcDc119a395Ec2B245ce86e9eE551043E",
       "treasuryFee": 150000000,
+      "withholdingThreshold": 0,
+      "proposerRewardsRate": 1000,
+      "initialInflationReserve": "0x2116545850052128000000",
+      "oracleRewardRate": 1000,
       "validators": [
         {
           "enode": "enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303",
@@ -270,46 +296,6 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "bondedStake": 10000000000000000000000
         }
       ]
-    },
-    "asm": {
-      "acu" : {
-        "symbols" : ["AUD-USD","CAD-USD","EUR-USD","GBP-USD","JPY-USD","USD-USD","SEK-USD"],
-        "quantities" : [21_300, 18_700, 14_300, 10_400, 1_760_000, 18_000, 141_000],
-        "scale" : 5
-      },
-      "stabilization":{
-        "borrowInterestRate" : 50_000_000_000_000_000,
-        "liquidationRatio": 1_800_000_000_000_000_000,
-        "minCollateralizationRatio": 2_000_000_000_000_000_000,
-        "minDebtRequirement"  : 1_000_000,
-        "targetPrice" : 1_000_000_000_000_000_000
-      },
-      "supplyControl" : {
-        "initialAllocation": 1000
-      }
-    },
-    "accountability": {
-         "innocenceProofSubmissionWindow": 600,
-         "baseSlashingRateLow": 1000,
-         "baseSlashingRateMid": 2000,
-         "collusionFactor": 800,
-         "historyFactor": 500,
-         "jailFactor": 2,
-         "slashingRatePrecision": 10000
-       },
-     "oracle": {
-      "symbols":[
-            "AUD-USD",
-            "CAD-USD",
-            "EUR-USD",
-            "GBP-USD",
-            "JPY-USD",
-            "SEK-USD",
-            "ATN-USD",
-            "NTN-USD",
-            "NTN-ATN"
-         ],
-      "votePeriod": 30
     }
   },
   "nonce": "0x0",

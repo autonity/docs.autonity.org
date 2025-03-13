@@ -198,7 +198,7 @@ OFD protocol parameters are set by default to:
 | _initial jailing period_ | the initial number of epoch(s) that an _offending validator_ will be jailed for | `10_000` (10000 blocks) |
 | _initial probation period_ | the initial number of epoch(s) that an _offending validator_ will be set under probation for | `24` (24 epochs) |
 | _initial slashing rate_ | the division precision used as the denominator when computing the slashing amount of a penalty | `25` (0.25%) |
-| _delta_ | the number of blocks to wait before generating am activity proof. E.g. activity proof of block `x` is for block `x - delta` | `5` (5 blocks) |
+| _delta_ | the number of blocks to wait before generating an activity proof. E.g. activity proof of block `x` is for block `x - delta` | `5` (5 blocks) |
 | _slashing rate scale factor_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` (0.01%) |
 
 ::: {.callout-important title="A note on the initial value settings" collapse="false"}
