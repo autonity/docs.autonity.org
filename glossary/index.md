@@ -343,7 +343,12 @@ In Autonity's [liquid staking](/glossary/#liquid-staking) model stake can be unb
 ## unbonding period
 The period of time for which bonded stake remains locked after processing an unbonding transaction. Unbonding period is defined as a number of blocks.
 
+The unbonding period must be longer than the [epoch period](/glossary/#epoch-period).
+
 Proof of Stake consensus places constraints on the minimum length of the unbonding period. It must be long enough to allow the detection and reporting of consensus faults by validators, and not short enough to  allow unbonding before a [slashing penalty](/glossary/#slashing-penalty) can be applied. As such it is a security property of the network.
+
+After processing a stake [unbond](/glossary/#unbond) transaction  
+Newton is not redeemed to the stake [delegator](/glossary/#delegation) until the end of the [epoch](/glossary/#epoch) in which the unbonding period expires. 
 
 ## Unix time
 The Unix OS system for representing a point in time as a timestamp. Time is measured as the number of seconds since the Unix Epoch began - 1st January 1970 at 00:00:00 UTC. Unix time is used for Autonity timestamps. For detail and format see [Unix time](https://en.wikipedia.org/wiki/Unix_time).

@@ -6,7 +6,7 @@ description: >
   Setting genesis configuration for an Autonity Go Client
 ---
 
-Genesis configuration for public Autonity networks is built into the client's configuration. If setting up a local testnet, for example a private devnet, configuration has to be specified when initialising the node.
+The genesis configuration for public Autonity networks is built into the client's configuration. If setting up a local testnet, for example a private devnet, a local network configuration has to be specified when initialising the node.
 
 ## Public Autonity Network configuration
 Configuring the client to join a public network is done by setting the network as a [command-line option](/reference/cli/#command-line-options) when [initialising and running the Autonity Go Client](/node-operators/run-aut/). The client will then auto-detect the network genesis configuration and bootnodes, connect, and sync.
@@ -28,7 +28,7 @@ For launching a local Autonity network, genesis configuration and bootnodes need
   - protocol parameters configuring protocol rules of the network
   - validators from which the genesis consensus committee will be selected
   - oracle network configuration
-  - accounts to be created at network genesis: initial allocation of Auton to EOA accounts; contract accounts.
+  - accounts to be created at network genesis: initial allocation of Auton to accounts; addresses of EOA and contract accounts.
 - Bootnodes. Bootnodes can be provided statically as a file or as a command-line option when running the client.  To provide statically, specify a `static-nodes.json` file, or as a comma-separated list in the `--bootnodes` command-line option.
 
 
@@ -59,9 +59,9 @@ Genesis configuration file JSON objects:
 |-----------|-------------|-------|
 | `config` | Configuration variables for the Autonity Network blockchain | See [`config` object](#config-object) |
 | `nonce` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. | Set to `0` (`0x0` in hexadecimal) |
-| `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0` the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP)](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
-| `baseFee` | The base gas price for computing a transaction on an Autonity network after genesis. The base fee is adjusted per the [EIP 1559](https://eips.ethereum.org/EIPS/eip-1559) fee market mechanism. See Concepts, [EIP 1559 Transaction fee mechanism (TFM)](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm)| Set to: `15000000000` |
-| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. Denominated in [`ton`](/glossary/#ton). The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `20000000` |
+| `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0`, the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP)](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
+| `baseFee` | The base gas price for computing a transaction on an Autonity network after genesis.  Denominated in [`ton`](/glossary/#ton). The base fee is adjusted per the [EIP 1559](https://eips.ethereum.org/EIPS/eip-1559) fee market mechanism. See Concepts, [EIP 1559 Transaction fee mechanism (TFM)](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm) | Set to: `1000000000` (`1` [gigaton](/glossary/#gigaton)) |
+| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. The value is specified as the number of gas units allowed in a block. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `20000000` |
 | `difficulty` | Derived from Ethereum where it sets the difficulty for Ethereum's Ethash Proof of Work consensus. For Autonity's implementation of Tendermint BFT Proof of Stake consensus this must be assigned `0`. | Set to `0` (`0x0`) |
 | `coinbase` | Maintained for backward compatibility reasons in the EVM. Unused by the Autonity Protocol. Ethereum format address. | Set to `0x0000000000000000000000000000000000000000` |
 | `number ` | A value equal to the number of ancestor blocks. At genesis there are no ancestor blocks and it is assigned the value `0` | Set to `0` (`0x0`) |
@@ -76,9 +76,9 @@ Genesis configuration file JSON objects:
 |Parameter|Description|Value|
 |---------|-----------|-----|
 | `chainId` | Identifier for the Autonity blockchain network, specifying which chain the node will connect to. Introduced by [EIP 155](https://eips.ethereum.org/EIPS/eip-155) and used for transaction signature generation | 8-digit decimal integer value formed according to a naming scheme composed of 3 elements: `{A + Network Type + ID}`, where: `A` = `65`; `Network Type` = `00` (Public Mainnet) or `01` (Public General Purpose Testnet) or `10` (Public Special Purpose Testnet) or `11` (Private Internal Development Testnet); `ID` = `0000`-`9999` (unique identifier for the testnet). For example, Bakerloo Testnet has the `chainId` `65010000` |
-| `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#configautonity-object) |
-| `accountability` | Accountability Fault Detection protocol configuration parameters | See [`config.accountability` object](#configaccountability-object) |
-| `oracle` | Oracle protocol and Oracle Accountability Fault Detection protocol configuration parameters | See [`config.oracle` object](#configoracle-object) |
+| `autonity` | Autonity Protocol configuration parameters | See [`config.autonity` object](#config.autonity-object) |
+| `accountability` | Accountability Fault Detection protocol configuration parameters | See [`config.accountability` object](#config.accountability-object) |
+| `oracle` | Oracle protocol and Oracle Accountability Fault Detection protocol configuration parameters | See [`config.oracle` object](#config.oracle-object) |
 | `inflationController` | Newton inflation mechanism configuration parameters | See [`config.inflationController` object](#config.inflationcontroller-object) |
 | `asm` | Auton Stabilization Mechanism configuration parameters | See [`config.asm` object](#configasm-object) |
 | `omissionAccountability ` | Omission Fault Detection protocol configuration parameters | See [`config.omissionAccountability` object](#config.omissionaccountability-object)|
@@ -93,20 +93,21 @@ In current state the `operator` governance account is an EOA. It could be assign
 |---------|-----------|-----|
 | `abi` | The abi of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
 |`bytecode`| The EVM bytecode of an upgraded Autonity Protocol Contract to be deployed at genesis. By default the Autonity Protocol Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivizes validators at genesis when transaction volumes are low | Set to: `500000000` |
-| `epochPeriod` | The number of blocks in an epoch. The `epochPeriod` must be shorter than the `unbonding` period | Value is specific to network configuration. For a local devnet supporting rapid testing a value of `30` could be appropriate |
-| `unbondingPeriod` | The number of blocks bonded stake must wait after processing a stake unbond transaction before Newton is redeemed to the stake delegator. The `unbondingPeriod` must be longer than an `epochPeriod` | Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of `120` could be appropriate |
-| `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Commonly known as 'block time' or 'block interval' | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
-| `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `21` could be appropriate |
-| `operator` | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) | EOA account address |
-| `treasury` | The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. Ethereum format address. | Value is specific to network configuration |
-| `withheldRewardsPool` | The address of the Autonity Withheld Rewards account, the pool to which withheld Newton inflation rewards are sent for holding | Set to the Autonity `treasury` account at genesis |
-| `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Value is specific to network configuration. For example, a setting of `10000000000000000` = 1% |
-| `delegationRate` | The percentage fee of staking rewards that is deducted by validators as a commission from delegated stake. The fee is sent to the validator's [`treasury`](/concepts/validator/#treasury-account) account at epoch end on reward distribution. The rate can be specified to the precision of 1 basis point. Specified as an integer value representing up to 3 decimal places of precision. | Value is specific to network configuration. For example, a setting of `1000` = 10% |
-| `withholdingThreshold` | The inactivity threshold at which committee member staking and Newton inflation rewards are withheld and sent to the Withheld Rewards Pool account by the Omission Fault Detection protocol | Value is specific to network configuration. For example, a setting of `0` = 0%, no tolerance |
-| `proposerRewardRate` | The percentage of epoch staking rewards allocated for proposer rewarding by the Omission Fault Detection protocol  | Value is specific to network configuration. For example, a setting of `1000` = 10% |
-| `oracleRewardRate` | The percentage of epoch staking rewards deducted for oracles as a reward for correct price reporting by the Oracle Accountability Fault Detection protocol | Value is specific to network configuration. For example, a setting of `1000` = 10% |
-| `initialInflationReserve` | The amount of Newton held in reserve for Newton inflation rewards| Value is set to `40` Million (40% of the total supply of 100 M Newton) |
+| `minBaseFee` | See Protocol Parameter Reference [Autonity Config, `minBaseFee`](/reference/protocol/#autonity-config) | Value is specific to network configuration |
+| `epochPeriod` | See Protocol Parameter Reference [Autonity Config, `epochPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For a local devnet supporting rapid testing a value of `30` could be appropriate. The `epochPeriod` must be shorter than the `unbondingPeriod` |
+| `unbondingPeriod` | See Protocol Parameter Reference [Autonity Config, `unbondingPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of `120` could be appropriate. The `unbondingPeriod` must be longer than an `epochPeriod` |
+| `blockPeriod` | See Protocol Parameter Reference [Autonity Config, `blockPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
+| `maxCommitteeSize` | See Protocol Parameter Reference [Autonity Config, `maxCommitteeSize`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `20` could be appropriate |
+| `maxScheduleDuration` | See Protocol Parameter Reference [Autonity Config, `maxScheduleDuration`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `2592000` could be appropriate |
+| `operator` | See Protocol Parameter Reference [Autonity Config, `operator`](/reference/protocol/#autonity-config) | EOA account address. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) |
+| `treasury` | See Protocol Parameter Reference [Autonity Config, `treasury`](/reference/protocol/#autonity-config) | EOA account address |
+| `withheldRewardsPool` | See Protocol Parameter Reference [Autonity Config, `withheldRewardsPool`](/reference/protocol/#autonity-config) | Set by default to the Autonity `treasury` account at genesis unless specified |
+| `treasuryFee` | See Protocol Parameter Reference [Autonity Config, `treasuryFee`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `10000000000000000` = 1% |
+| `delegationRate` | See Protocol Parameter Reference [Autonity Config, `delegationRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
+| `withholdingThreshold` | See Protocol Parameter Reference [Autonity Config, `withholdingThreshold`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `0` = 0%, no tolerance |
+| `proposerRewardRate` | See Protocol Parameter Reference [Autonity Config, `proposerRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
+| `oracleRewardRate` | See Protocol Parameter Reference [Autonity Config, `oracleRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
+| `initialInflationReserve` | See Protocol Parameter Reference [Autonity Config, `initialInflationReserve`](/reference/protocol/#autonity-config) | Value is set to `40` Million (40% of the total supply of 100 M Newton) |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
 #### config.autonity.validators object
@@ -123,15 +124,15 @@ In current state the `operator` governance account is an EOA. It could be assign
 
 Object structure for the Accountability Fault Detection (AFD) protocol configuration at genesis.
 
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set by default to `100` (100 blocks) |
-| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set by default to `400` (4%) |
-| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set by default to `600` (6%) |
-| `baseSlashingRateHigh` | The base slashing rate for a fault of _High_ severity | Set by default to `800` (8%) |
-| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set by default to `200` (2%) |
-| `historyFactor` | The percentage factor applied to the proven fault count of an offending validator used as a factor when computing the slashing amount of a penalty | Set by default to `500` (5%) |
-| `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set by default to `48` (48 epochs, i.e. 1 day at a 30 mins epoch) |
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `innocenceProofSubmissionWindow` | See Protocol Parameter Reference [Accountability Config, `innocenceProofSubmissionWindow`](/reference/protocol/#accountability-config) |
+| `baseSlashingRateLow` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateLow`](/reference/protocol/#accountability-config) |
+| `baseSlashingRateMid` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateMid`](/reference/protocol/#accountability-config) |
+| `baseSlashingRateHigh` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateHigh`](/reference/protocol/#accountability-config) |
+| `collusionFactor` | See Protocol Parameter Reference [Accountability Config, `collusionFactor`](/reference/protocol/#accountability-config) |
+| `historyFactor` | See Protocol Parameter Reference [Accountability Config, `historyFactor`](/reference/protocol/#accountability-config) |
+| `jailFactor` | See Protocol Parameter Reference [Accountability Config, `jailFactor`](/reference/protocol/#accountability-config) |
 
 #### config.oracle object
 
