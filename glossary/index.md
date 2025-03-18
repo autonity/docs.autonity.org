@@ -357,10 +357,12 @@ The Unix OS system for representing a point in time as a timestamp. Time is meas
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
 
 ## vote period
-An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation) by the oracle network.
+An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation by the oracle network.
 
 ## voting period
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit and vote on price data reports to agree an aggregated data price for the [currency pair](/glossary/#currency-pair) symbols for which an Autonity network provides a median price. See [vote period](/glossary/#vote-period).
+The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-aos) submit and vote on price data reports for [currency pair](/glossary/#currency-pair) symbols supported by the oracle protocol.
+
+See [vote period](/glossary/#vote-period) and [voting round](/glossary/#voting-round).
 
 ## voting power
 The amount of stake bonded by [delegation](/glossary/#delegation) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
@@ -368,6 +370,8 @@ The amount of stake bonded by [delegation](/glossary/#delegation) to a [validato
 ## voting round
 An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
 
+For example, a [vote period](/glossary/#vote-period) of `30` will initiate a new oracle voting round at 30-block intervals.
+ 
 ## wallet
 A software application that provides functionality for a system user to access and manage their [accounts](/glossary/#account).
 

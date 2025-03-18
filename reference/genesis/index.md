@@ -138,27 +138,27 @@ Object structure for the Accountability Fault Detection (AFD) protocol configura
 
 Object structure for the oracle and Oracle Accountability Fault Detection (OAFD) protocol configuration at genesis.
 
-|Parameter|Description|Value|
-|---------|-----------|-----|
-|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed | Only specify if overriding default contract deployment |
-| `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "NTN-ATN"]` |
-| `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Set by default to `30` (30 blocks, i.e. to initiate a new oracle voting round at 30-block intervals) |
-| `outlierDetectionThreshold` | Defines the threshold for flagging outliers | Set by default to `10` (10%) |
-| `outlierSlashingThreshold` | Defines the threshold for slashing penalties, controlling the sensitivity of the penalty model | Set by default to `225` (15%) |
-| `baseSlashingRate` | Defines the base slashing rate for penalising outliers | Set by default to `10` (0.1%) |
+|Parameter|Description &amp; Value|
+|---------|----------------|
+|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed. Only specify if overriding default contract deployment |
+| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed. Only specify if overriding default contract deployment |
+| `symbols` | See Protocol Parameter Reference [Oracle Config, `symbols`](/reference/protocol/#oracle-config) |
+| `votePeriod` | See Protocol Parameter Reference [Oracle Config, `votePeriod`](/reference/protocol/#oracle-config) |
+| `outlierDetectionThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierDetectionThreshold`](/reference/protocol/#oracle-config) |
+| `outlierSlashingThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierSlashingThreshold`](/reference/protocol/#oracle-config) |
+| `baseSlashingRate` | See Protocol Parameter Reference [Oracle Config, `baseSlashingRate`](/reference/protocol/#oracle-config) |
 	
 #### config.inflationController object 
 
 Configuration of the Inflation Controller of the Newton inflation mechanism.
 
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `inflationRateInitial` | Initial inflation rate | Set by default to 7.5% AR |
-| `inflationRateTransition` | Transition inflation rate | Set by default to 5.5% AR |
-| `inflationReserveDecayRate` | | Constant inflation rate | Set by default to 17.3168186793% AR |
-| `inflationTransitionPeriod` | Transition period | Set by default to (4+1/365) years |
-| `inflationCurveConvexity` | Convexity parameter | Set by default to -1.7794797758 |
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `inflationRateInitial` | See Protocol Parameter Reference [Inflation Controller Config, `inflationRateInitial`](/reference/protocol/#inflation-controller-config) |
+| `inflationRateTransition` | See Protocol Parameter Reference [Inflation Controller Config, `inflationRateTransition`](/reference/protocol/#inflation-controller-config) |
+| `inflationReserveDecayRate` | See Protocol Parameter Reference [Inflation Controller Config, `inflationReserveDecayRate`](/reference/protocol/#inflation-controller-config) |
+| `inflationTransitionPeriod` | See Protocol Parameter Reference [Inflation Controller Config, `inflationTransitionPeriod`](/reference/protocol/#inflation-controller-config) |
+| `inflationCurveConvexity` | See Protocol Parameter Reference [Inflation Controller Config, `inflationCurveConvexity`](/reference/protocol/#inflation-controller-config) |
 	
 #### config.asm object
 
@@ -174,45 +174,45 @@ Configuration of the Auton Stabilization Mechanism (ASM).
 
 Configuration of the Autonomous Currency Unit (ACU), an optimal currency basket of 7 free-floating fiat currencies.
 
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "USD-USD"]` |
-| `quantities` | The basket quantity corresponding to each symbol. | Set by default to `[1_744_583, 1_598_986, 1_058_522, 886_091, 175_605_573, 12_318_802, 1_148_285]` |
-| `scale` | The scale used to represent the basket `quantities` and ACU value. | Set by default to `7` |
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `symbols` |  See Protocol Parameter Reference [ACU Config, `symbols`](/reference/protocol/#acu-config) |
+| `quantities` | See Protocol Parameter Reference [ACU Config, `quantities`](/reference/protocol/#acu-config) |
+| `scale` | See Protocol Parameter Reference [ACU Config, `scale`](/reference/protocol/#acu-config) |
 
 #### config.asm.stabilization object
 
 Configuration of the Stabilization mechanism's Collateralized Debt Position (CDP).
 
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set by default to 5%, `50_000_000_000_000_000` |
-| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set by default to 1.8, `1_800_000_000_000_000_000` |
-| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set by default to 2, `2_000_000_000_000_000_000` |
-| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set by default to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` |
-| `targetPrice` | The ACU value of 1 unit of debt. | Set by default to the Golden Ratio rounded to 5 dp `1.61804`, `1_618_034_000_000_000_000` |
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `borrowInterestRate` | See Protocol Parameter Reference [Stabilization Config, `borrowInterestRate`](/reference/protocol/#stabilization-config) |
+| `liquidationRatio` | See Protocol Parameter Reference [Stabilization Config, `liquidationRatio`](/reference/protocol/#stabilization-config) |
+| `minCollateralizationRatio` | See Protocol Parameter Reference [Stabilization Config, `minCollateralizationRatio`](/reference/protocol/#stabilization-config) |
+| `minDebtRequirement` | See Protocol Parameter Reference [Stabilization Config, `minDebtRequirement`](/reference/protocol/#stabilization-config) |
+| `targetPrice` | See Protocol Parameter Reference [Stabilization Config, `targetPrice`](/reference/protocol/#stabilization-config) |
 
 #### config.asm.supplyControl object
 
 Configuration of the Stabilization mechanism's initial Auton supply.
 
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `initialAllocation` | The initial allocation of Auton to the ASM | Value is specific to network configuration |
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `initialAllocation` | See Protocol Parameter Reference [Supply Control Config, `initialAllocation`](/reference/protocol/#supply-control-config) |
 
 #### config.omissionAccountability object
 
 Object structure for the Omission Fault Detection (OFD) protocol configuration at genesis.
 
-|Parameter|Description|Value|
-|---------|-----------|-----|
-| `inactivityThreshold` | Defines the threshold for flagging validator inactivity | Set by default to`1000` (10%) |
-| `lookbackWindow` | The number of blocks over which the protocol will look for inactivity | Set by default to `40` (40 blocks) |
-| `pastPerformanceWeight` | Determines how much weight is given to past performance of the validator in the preceding epoch in the current epoch when computing the aggregated inactivity score | Set by default to `1000` (10%) |
-| `initialJailingPeriod` | The initial number of epoch(s) that a validator will be jailed for | Set by default to `10_000` (10000 blocks) |
-| `initialProbationPeriod` | the initial number of epoch(s) that a validator will be set under probation for | Set by default to  `24` (24 epochs) |
-| `initialSlashingRate` | the division precision used as the denominator when computing the slashing amount of a penalty | Set by default to `25` (0.25%) |
-| `delta` | the number of blocks to wait before generating an activity proof | Set by default to `5` (5 blocks) |
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `inactivityThreshold` | See Protocol Parameter Reference [Supply Control Config, `inactivityThreshold`](/reference/protocol/#omission-accountability-config) |
+| `lookbackWindow` | See Protocol Parameter Reference [Supply Control Config, `lookbackWindow`](/reference/protocol/#omission-accountability-config) |
+| `pastPerformanceWeight` | See Protocol Parameter Reference [Supply Control Config, `pastPerformanceWeight`](/reference/protocol/#omission-accountability-config) |
+| `initialJailingPeriod` | See Protocol Parameter Reference [Supply Control Config, `initialJailingPeriod`](/reference/protocol/#omission-accountability-config) |
+| `initialProbationPeriod` | See Protocol Parameter Reference [Supply Control Config, `initialProbationPeriod`](/reference/protocol/#omission-accountability-config) |
+| `initialSlashingRate` | See Protocol Parameter Reference [Supply Control Config, `initialSlashingRate`](/reference/protocol/#omission-accountability-config) |
+| `delta` | See Protocol Parameter Reference [Supply Control Config, `delta`](/reference/protocol/#omission-accountability-config) |
 		
 #### alloc object
 

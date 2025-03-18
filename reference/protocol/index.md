@@ -8,45 +8,13 @@ description: >
 
 # Overview
 
-The protocol parameters are the configuration variables for the Autonity Network blockchain and Autonity Protocol Contracts. The parameterisation sets how the network will function by specifying economic, consensus, temporal, and governance settings. Protocol parameters are specified as part of the `genesis.json` file at network genesis and/or set in the Autonity software's default configuration.
+The protocol parameters are the configuration variables for the Autonity Network blockchain and Autonity Protocol Contracts. The parameterisation sets how the network will function by specifying economic, consensus, temporal, and governance settings.
 
-The values for [public Autonity networks](/reference/genesis/#public-autonity-network-configuration) are set as network presets in the genesis configuration of the Autonity software - i.e. the Autonity Go Client, Protocol Contracts, and Autonity Oracle Server.
+Protocol parameter values for [public Autonity networks](/reference/genesis/#public-autonity-network-configuration) are set as network presets in the genesis configuration of the Autonity software - i.e. the Autonity Go Client, Protocol Contracts, and Autonity Oracle Server.
 
-If specifying the values for a [local Autonity network](/reference/genesis/#local-autonity-network-configuration), the values are specified in the [`config` object](/reference/genesis/#config-object) of the local network's `genesis.json` file. In the [local Autonity network](/reference/genesis/#local-autonity-network-configuration) scenario then the local network operator can choose to use default settings or specify their own settings in place of those defaults in their `genesis.json` file as required by their use case.
+Protocol parameter values for a [local Autonity network](/reference/genesis/#local-autonity-network-configuration) are specified in the [`config` object](/reference/genesis/#config-object) of the local network's `genesis.json` file. The local network operator can choose to use default settings or specify their own custom settings in their `genesis.json` file as required by their use case.
 
 A subset of the protocol parameters may be updated by the network's governance account after genesis.
-
-## WIP NOTES / TO DO
-
-Above in parameters does this clearly state the params are:
-
-- the core blockchain settings (epoch, block, gas etc)?
-- the protocol contract settings (which includes the protocol contract addresses)?
-- that they are set in the core codebase genesis and protocol contract config, in Solidity contracts?
-
-Should the section protocol contract addresses be removed and move the set
-REVIEW CHECKS FOR THE DRAFT:
-
-- consistency of use of "None" vs "Contract upgrade" for the "Post Genesis Update Mechanism" column.
-- consistency of including for each protocolcontract config:
-  - parameters set in protocol constants contract
-  - parameters hard-coded in protocol contracts
-  - parameters set as protocol constants
-  - parameters set in autonity config - namely OFD and OAFD - rewards and accounts:  setOracleRewardRate, setProposerRewardRate,
-
-Chain Config:
-
-- add the EIP-1559 TFM parameters?
-
-Protocol Contracts
-
-- change row ordering to reflect order in [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses)?
-- should this be moved before Protocol constants?
-
-Scale factor notebox
-
-- remove second para as redundant or remove 1st para?
-
 
 ## Protocol Constants
 
@@ -54,9 +22,9 @@ Protocol Constants are protocol parameter constant values that may be used in on
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `SLASHING_RATE_DECIMALS` | The number of decimal points used for fixed-point arithmetic during computation of slashing penalties | `4` | Contract upgrade | 
-| `SLASHING_RATE_SCALE_FACTOR` | The division precision used as the denominator when computing the slashing amount of a penalty | `10 ** SLASHING_RATE_DECIMALS` (`10^4 = 10_000`, i.e. 0.01%)| Contract upgrade |
-| `ORACLE_SLASHING_RATE_CAP` | The % slashing rate for oracle accountability slashing penalties | `1_000` (10%) | Contract upgrade |
+| `SLASHING_RATE_DECIMALS` | The number of decimal points used for fixed-point arithmetic during computation of slashing penalties | `4` | None | 
+| `SLASHING_RATE_SCALE_FACTOR` | The division precision used as the denominator when computing the slashing amount of a penalty | `10 ** SLASHING_RATE_DECIMALS` (`10^4 = 10_000`, i.e. 0.01%)| None |
+| `ORACLE_SLASHING_RATE_CAP` | The % slashing rate for oracle accountability slashing penalties | `1_000` (10%) | None |
 
 ::: {.callout-note title="Scale factor" collapse="false"}
 
@@ -90,7 +58,7 @@ For example:
 | `omissionAccountability` contract address | The Omission Accountability Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setOmissionAccountabilityContract()`](/reference/api/aut/op-prot/#setomissionaccountabilitycontract) |
 
 
-## Chain Config
+## Chain Config Protocol Parameters
 
 Protocol parameters are set in the Autonity Network's `ChainConfig`, the core configuration object for the protocol.
 
@@ -150,94 +118,84 @@ Parameters for the Accountability Contract and the Accountability Fault Detectio
 | `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set by default to `200` (2%) | See [`setFactors()`](/reference/api/aut/op-prot/#setfactors-accountability-contract) |
 | `historyFactor` | The percentage factor applied to the total number of proven faults committed by a validator used as a factor when computing the slashing amount of a penalty | Set by default to `500` (5%) | See [`setFactors()`](/reference/api/aut/op-prot/#setfactors-accountability-contract) |
 | `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set by default to `48` (48 epochs, i.e. 1 day at a 30 mins epoch) | See [`setFactors()`](/reference/api/aut/op-prot/#setfactors-accountability-contract) |
-| `SLASHING_RATE_SCALE_FACTOR` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `SLASHING_RATE_SCALE_FACTOR` in [Protocol Constants](/reference/protocol/#protocol-constants) | Contract upgrade |
+| `SLASHING_RATE_SCALE_FACTOR` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `SLASHING_RATE_SCALE_FACTOR` in [Protocol Constants](/reference/protocol/#protocol-constants) | None |
 
 
-### Oracle Config DRAFT
+### Oracle Config
 
 Parameters for the Oracle Contract of the Oracle protocol and Oracle Accountability Fault Detection (OAFD) protocol.
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| Oracle `symbols` | the currency pairs that the oracle network provides data points for | See [`config.oracle object`](/reference/genesis/#configoracle-object) | See [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract) |
-| Oracle `votePeriod` | the time interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | See [`config.oracle object`](/reference/genesis/#config.oracle-object) | None |
-| `outlierDetectionThreshold` | Defines the threshold for flagging outliers | See [`config.oracle object`](/reference/genesis/#config.oracle-object) | None |
-| `outlierSlashingThreshold` | Defines the threshold for slashing penalties, controlling the sensitivity of the penalty model | See [`config.oracle object`](/reference/genesis/#config.oracle-object) | None |
-| `baseSlashingRate` | Defines the base slashing rate for penalising outliers | See [`config.oracle object`](/reference/genesis/#config.oracle-object) | None |
-| `OracleRewardRate` | Set in the Autonity Protocol Contract configuration | See [`config.autonity.oracleRewardRate`](/#autonity-contract-config) | Contract upgrade |
-| `ORACLE_SLASHING_RATE_CAP` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `ORACLE_SLASHING_RATE_CAP` in [Protocol Constants](/reference/protocol/#protocol-constants) | Contract upgrade |
+| Oracle `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "NTN-ATN"]` | See [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract) |
+| Oracle `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Set by default to `30` (30 blocks) | None |
+| `outlierDetectionThreshold` | Defines the threshold for flagging outliers | Set by default to `10` (10%) | None |
+| `outlierSlashingThreshold` | Defines the threshold for slashing penalties, controlling the sensitivity of the penalty model | Set by default to `225` (15%) | None |
+| `baseSlashingRate` | Defines the base slashing rate for penalising outliers | Set by default to `10` (0.1%) | None |
+| `OracleRewardRate` | Set in the Autonity Protocol Contract configuration | See [`config.autonity.oracleRewardRate`](/reference/protocol/#autonity-config) | See [`setOracleRewardRate()`](/reference/api/aut/op-prot/#setoraclerewardrate) |
+| `ORACLE_SLASHING_RATE_CAP` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `ORACLE_SLASHING_RATE_CAP` in [Protocol Constants](/reference/protocol/#protocol-constants) | None |
  
-
-
-### Inflation Controller Config DRAFT
+### Inflation Controller Config
 
 Parameters for the Inflation Controller Contract of the Newton inflation mechanism. 
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `inflationRateInitial` | Initial inflation rate | See [`config.InflationController object`](/reference/genesis/#configinflationcontroller-object) | None |
-| `inflationRateTransition` | Transition inflation rate | See [`config.InflationController object`](/reference/genesis/#configinflationcontroller-object) | None |
-| `inflationReserveDecayRate` | | Constant inflation rate | See [`config.InflationController object`](/reference/genesis/#configinflationcontroller-object) | None |
-| `inflationTransitionPeriod` | Transition period | See [`config.InflationController object`](/reference/genesis/#configinflationcontroller-object) | None |
-| `inflationCurveConvexity` | Convexity parameter | See [`config.InflationController object`](/reference/genesis/#configinflationcontroller-object) | None |
+| `inflationRateInitial` | Initial inflation rate | Set by default to `7.5%` AR | None |
+| `inflationRateTransition` | Transition inflation rate | Set by default to `5.5%` AR | None |
+| `inflationReserveDecayRate` | Constant inflation rate | Set by default to `17.3168186793%` AR | None |
+| `inflationTransitionPeriod` | Transition period | Set by default to `(4+1/365)` years | None |
+| `inflationCurveConvexity` | Convexity parameter | Set by default to `-1.7794797758` | None |
 | `InitialInflationReserve` | Set in the Autonity Protocol Contract configuration | See [`config.autonity.InitialInflationReserve`](/reference/protocol/#autonity-contract-config) | None |
 
 
 
-### ASM Config DRAFT
+### ASM Config
 
 Configuration of the Auton Stabilization Mechanism's (ASM) ACU, Stabilization, and Supply Control Contracts.
 
-
-
-#### ACU Config DRAFT
+#### ACU Config
 
 The ASM's Autonomous Currency Unit (ACU) currency basket configuration, an optimal currency basket of 7 free-floating fiat currencies.
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------| 
-| `symbols` | the [currency pair](/glossary/#currency-pair) symbols of the currencies in the basket | See [`config.asm.acu object`](/reference/genesis/#configasmacu-object) | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
-| `quantities` | the basket quantity corresponding to each of the `symbols` in the basket | See [`config.asm.acu object`](/reference/genesis/#configasmacu-object) | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
-| `scale` | the scale used to represent the basket `quantities` and ACU value | See [`config.asm.acu object`](/reference/genesis/#configasmacu-object) | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
+| `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "USD-USD"]` | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
+| `quantities` | The basket quantity corresponding to each symbol. | Set by default to `[1_744_583, 1_598_986, 1_058_522, 886_091, 175_605_573, 12_318_802, 1_148_285]` | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
+| `scale` | The scale used to represent the basket `quantities` and ACU value. | Set by default to `7` | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
 
-
-
-#### Stabilization Config DRAFT
+#### Stabilization Config
 
 The ASM's Stabilization mechanism CDP configuration.
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `borrowInterestRate` | the annual continuously-compounded interest rate for borrowing | See [`config.asm.stabilization object`](/reference/genesis/#configasmstabilization-object) | None |
-| `liquidationRatio` | the minimum ACU value of collateral required to maintain 1 ACU value of debt | See [`config.asm.stabilization object`](/reference/genesis/#configasmstabilization-object) | See [`setLiquidationRatio()`](/reference/api/aut/op-prot/#setliquidationratio-asm-stabilization-contract) |
-| `minCollateralizationRatio` | the minimum ACU value of collateral required to borrow 1 ACU value of debt | See [`config.asm.stabilization object`](/reference/genesis/#configasmstabilization-object) | See [`setMinCollateralizationRatio()`](/reference/api/aut/op-prot/#setmincollateralizationratio-asm-stabilization-contract) |
-| `minDebtRequirement` | the minimum amount of debt required to maintain a CDP | See [`config.asm.stabilization object`](/reference/genesis/#configasmstabilization-object) | See  [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract) |
-| `targetPrice` | the ACU value of 1 unit of debt | See [`config.asm.stabilization object`](/reference/genesis/#configasmstabilization-object) | None |
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set by default to 5%, `50_000_000_000_000_000` | None |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set by default to 1.8, `1_800_000_000_000_000_000` | See [`setLiquidationRatio()`](/reference/api/aut/op-prot/#setliquidationratio-asm-stabilization-contract) |
+| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set by default to 2, `2_000_000_000_000_000_000` | See [`setMinCollateralizationRatio()`](/reference/api/aut/op-prot/#setmincollateralizationratio-asm-stabilization-contract) |
+| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set by default to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` | See  [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract) |
+| `targetPrice` | The ACU value of 1 unit of debt. | Set by default to the Golden Ratio rounded to 5 dp `1.61804`, `1_618_034_000_000_000_000` | None |
 
-
-
-#### Supply Control Config DRAFT
+#### Supply Control Config
 
 Parameters for the ASM's Auton supply control configuration.
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `initialAllocation` | The initial allocation of Auton to the ASM | See [`config.asm.supplyControl object`](reference/genesis/#config.asm.supplycontrol-object) | None |
+| `initialAllocation` | The initial allocation of Auton to the ASM |   $2^{256} - 1 - GenesisATN$ (integer datatype minus the amount of ATN created by [allocation at genesis](/reference/genesis/#alloc-object) ($GenesisATN$)) | None |
 
-
-
-### Omission Accountability Config DRAFT
+### Omission Accountability Config
 
 Parameters for the Omission Accountability Contract and the Omission Fault Detection (OFD) protocol.
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `inactivityThreshold` | Defines the threshold for flagging validator inactivity | See [`config.omissionAccountability object`](/reference/genesis/#config.omissionaccountability-object) | See [`setInactivityThreshold()`](/reference/api/aut/op-prot/#setinactivitythreshold-omission-accountability-contract) |
-| `lookbackWindow` | The number of blocks over which the protocol will look for inactivity | See [`config.omissionAccountability object`](/reference/genesis/#config.omissionaccountability-object) | See [`setLookbackWindow()`](/reference/api/aut/op-prot/#setlookbackwindow-omission-accountability-contract) |
-| `pastPerformanceWeight` | Determines how much weight is given to past performance of the validator in the preceding epoch in the current epoch when computing the aggregated inactivity score | See [`config.omissionAccountability object`](/reference/genesis/#config.omissionaccountability-object) | See [`setPastPerformanceWeight()`](/reference/api/aut/op-prot/#setpastperformanceweight-omission-accountability-contract) |
-| `initialJailingPeriod` | The initial number of epoch(s) that a validator will be jailed for | See [`config.omissionAccountability object`](/reference/genesis/#config.omissionaccountability-object) | See [`setInitialJailingPeriod()`](/reference/api/aut/op-prot/#setinitialjailingperiod-omission-accountability-contract) |
-| `initialProbationPeriod` | the initial number of epoch(s) that a validator will be set under probation for | See [`config.omissionAccountability object`](/reference/genesis/#config.omissionaccountability-object) | See [`setInitialProbationPeriod()`](/reference/api/aut/op-prot/#setinitialprobationperiod-omission-accountability-contract) |
-| `initialSlashingRate` | the division precision used as the denominator when computing the slashing amount of a penalty | See [`config.omissionAccountability object`](/reference/genesis/#config.omissionaccountability-object) | See [`setDelta()`](/reference/api/aut/op-prot/#setdelta-omission-accountability-contract) |
-| `delta` | the number of blocks to wait before generating an activity proof | See [`config.omissionAccountability object`](/reference/genesis/#config.omissionaccountability-object) | See [`setPastPerformanceWeight()`](/reference/api/aut/op-prot/#setinactivitythreshold-omission-accountability-contract) |
-| `SCALE_FACTOR` | Used for fixed-point arithmetic during computation of inactivity score |  See `SCALE_FACTOR` in `OmissionAccountability.sol` | Contract upgrade |
-| `SLASHING_RATE_SCALE_FACTOR` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `SLASHING_RATE_SCALE_FACTOR` in [Protocol Constants](/reference/protocol/#protocol-constants) | Contract upgrade |
+| `inactivityThreshold` | Defines the threshold for flagging validator inactivity | Set by default to`1000` (10%) | See [`setInactivityThreshold()`](/reference/api/aut/op-prot/#setinactivitythreshold-omission-accountability-contract) |
+| `lookbackWindow` | The number of blocks over which the protocol will look for inactivity | Set by default to `40` (40 blocks) | See [`setLookbackWindow()`](/reference/api/aut/op-prot/#setlookbackwindow-omission-accountability-contract) |
+| `pastPerformanceWeight` | Determines how much weight is given to past performance of the validator in the preceding epoch in the current epoch when computing the aggregated inactivity score | Set by default to `1000` (10%) | See [`setPastPerformanceWeight()`](/reference/api/aut/op-prot/#setpastperformanceweight-omission-accountability-contract) |
+| `initialJailingPeriod` | The initial number of epoch(s) that a validator will be jailed for | Set by default to `10_000` (10000 blocks) | See [`setInitialJailingPeriod()`](/reference/api/aut/op-prot/#setinitialjailingperiod-omission-accountability-contract) |
+| `initialProbationPeriod` | The initial number of epoch(s) that a validator will be set under probation for | Set by default to  `24` (24 epochs) | See [`setInitialProbationPeriod()`](/reference/api/aut/op-prot/#setinitialprobationperiod-omission-accountability-contract) |
+| `initialSlashingRate` | The division precision used as the denominator when computing the slashing amount of a penalty | Set by default to `25` (0.25%) | See [`setInitialSlashingRate()`](/reference/api/aut/op-prot/#setinitialslashingrate-omission-accountability-contract) |
+| `delta` | The number of blocks to wait before generating an activity proof | Set by default to `5` (5 blocks) | See [`setDelta()`](/reference/api/aut/op-prot/#setdelta-omission-accountability-contract) |
+| `SCALE_FACTOR` | Used for fixed-point arithmetic during computation of inactivity score |  See `SCALE_FACTOR` in `OmissionAccountability.sol` | None |
+| `SLASHING_RATE_SCALE_FACTOR` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `SLASHING_RATE_SCALE_FACTOR` in [Protocol Constants](/reference/protocol/#protocol-constants) | None |
