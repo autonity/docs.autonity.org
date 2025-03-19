@@ -176,7 +176,7 @@ If a validator has been jailed by OFD then all staking rewards earned by the val
 
 :::
 
-## Slashing
+## Protocol configuration
 
 Slashing penalties for an _offending validator_ are computed by the protocol based on the offending validator's _aggregated inactivity score_, its _offence_ history, if it is on _probation_, and the total number of offences committed in the current and preceding epoch by other committee members, i.e. a _collusion degree_. For the omission fault parameters see [slashing protocol configuration](/concepts/ofd/#slashing-protocol-configuration) beneath.
 
@@ -186,7 +186,7 @@ Penalties are applied for proven omission faults at epoch end.
 
 Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, OFD will apply slashing for proven _omission faults_ to withhold ATN staking rewards and NTN inflation rewards, slash validator stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing if detected committing an _omission fault_ while on _probation_.
 
-### Omission accountability protocol configuration
+### Protocol parameters
 
 OFD protocol parameters are set by default to:
 

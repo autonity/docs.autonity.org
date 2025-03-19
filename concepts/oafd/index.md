@@ -149,9 +149,9 @@ The _threshold_ sets a floor which if broken triggers oracle accountability pena
 
 See protocol primitive [outlier](/concepts/oafd/#outlier).
 
-## Slashing
+## Protocol configuration
 
-### Oracle accountability protocol configuration
+### Protocol parameters
 
 OAFD protocol parameters are set by default to:
 
