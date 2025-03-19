@@ -11,7 +11,7 @@ AOS is the reference implementation of the Autonity Oracle Protocol and the orac
 ### Core logic
 
 - _Core_, the core off-chain Autonity Oracle Server (AOS) codebase. Core manages interactions with external price data source providers via data adaptor 'plugins' and the connected Autonity Go Client (AGC) validator node AOS serves. Core executes aggregation of data from external sources ("_off-chain aggregation_"), calculates an aggregated median price, and submits price report transactions on-chain to the Oracle Contract.
-- _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the ledger by AGC. The Oracle Contract manages the computation of median price data for currency pair price reports submitted by oracle servers. The contract provides operations for: computing median price ("_on-chain aggregation_") from submitted price report transactions in oracle voting rounds, providing median price data via interface, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concept [Client](/concepts/client/).
+- _Autonity Oracle Contract_, the oracle protocol contract logic deployed to the ledger by AGC. The Oracle Contract manages the computation of median price data for currency pair price reports submitted by oracle servers and oracle accountability fault detection. The contract provides operations for: computing median price ("_on-chain aggregation_") from submitted price report transactions in oracle voting rounds, providing median price data via interface, and managing the currency-pair symbols for which price data is provided by the Autonity oracle network. The contract also implements the oracle accountability protocol, providing operations to: detect price outliers to the median price reported by the oracle network for currency symbols, and to compute economic incentives for correct price reporting and penalty disincentives for outlier price reporting. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concepts  [Autonity Go Client (AGC)](/concepts/client/), [Oracle network](/concepts/oracle-network/), and [Oracle accountability fault detection (OAFD)](/concepts/oafd/).
 - _Networking_, the system uses WebSocket and HTTP network protocols. RPC calls are made to configured data source providers over HTTP, HTTPS, or WebSocket. The system establishes a connection to the AGC validator using WebSocket to (a) submit price report transactions and (b) listen for on-chain Oracle Contract events.
 
 The RPC calls to configured data source might have different network protocols, it may have HTTP, HTTPS, or even Web Socket, the plugin should implement this adaptation protocols, it depends on the provider's scheme.
@@ -43,8 +43,9 @@ Primary data providers for oracle data are:
 
 A basic set of data adaptor plugins for sourcing this price data is provided out the box with oracle server for testnet pre-Mainnet:
 
-- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
-- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `sim_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
+- Forex plugins: for connecting to public FX data sources for ASM basket currency prices. See the `forex_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Five forex plugins are currently provided.
+- Crypto plugins: for connecting to public CEX and DEX data sources for USD stablecoin and ATN, NTN prices. See the `crypto_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four crypto plugins are currently provided.
+- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `simulator_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
 
 ::: {.callout-note title="Info" collapse="false"}
 ATN and NTN symbols are preview listed but untraded:
@@ -53,6 +54,9 @@ ATN and NTN symbols are preview listed but untraded:
 - https://www.coingecko.com/en/coins/newton
 
 Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch.
+
+[Piccadilly Testnet](/networks/testnet-piccadilly/) validators can retrieve ATN/NTN price data from a Uniswap V2 AMM clone on the testnet using the `crypto_uniswap` plugin.
+
 :::
 
 #### Developing data plugins
