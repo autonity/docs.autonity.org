@@ -162,25 +162,27 @@ The sequence of lifecycle events for an accountability event is:
 - Validators are jailed. Validators may be [jailed](/concepts/afd/#jail) as part of the slashing penalty for a fault. The validator’s node transitions from `active` to a `jailed` state and is barred from consensus committee selection. (The validator will only resume an `active` state when `re-activated` by the validator operator after the [jail period](/glossary/#jail-period) expires.)
 
 
-## Slashing
+## Protocol configuration
 
 Slashing penalties are computed by the protocol and applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch and the individual _offending validator's_ own slashing history. For parameters see [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration) beneath.
 
 Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, AFD will apply slashing for proven _faults_ to validator stake, slashing stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing.
 
-### Accountability protocol configuration
+### Protocol parameters
 
 Accountability protocol parameters are set by default to:
 
 | Protocol parameter | Description | Value |
 |:--:|:--|:--:|
-| _innocence proof submission window_ | the number of blocks within which an accused _offending validator_ can submit a proof of innocence on-chain refuting an `accusation` | `100` |
-| _base slashing rate low_ | the base slashing rate for a fault of _Low_ severity | `1000` (10%) |
-| _base slashing rate mid_ | the base slashing rate for a fault of _Mid_ severity | `2000` (20%) |
-| _collusion factor_ | a factor that measures the number of validators committing slashable offences in the same epoch. The factor is applied as a multiplicand to the total number of slashable offences committed in the epoch when computing the slashing amount of a penalty | `500` (5%) |
-| _history factor_ | a factor that measures the number of proven faults committed by a validator since registration. The factor is applied as a multiplicand to that proven fault count when computing the slashing amount of a penalty | `750` (7.5%) |
-| _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of a validator. The factor is applied when computing the jail period of an _offending validator_ | `48` (1 day at 30 mins epochs)|
+| _innocence proof submission window_ | the number of blocks within which an accused _offending validator_ can submit a proof of innocence on-chain refuting an `accusation` | `100` (100 blocks) |
+| _base slashing rate low_ | the base slashing rate for a fault of _Low_ severity | `400` (4%) |
+| _base slashing rate mid_ | the base slashing rate for a fault of _Mid_ severity | `600` (6%) |
+| _base slashing rate high_ | the base slashing rate for a fault of _High_ severity | `800` (8%) |
+| _collusion factor_ | a factor that measures the number of validators committing slashable offences in the same epoch. The factor is applied as a multiplicand to the total number of slashable offences committed in the epoch when computing the slashing amount of a penalty | `200` (2%) |
+| _history factor_ | a factor that measures the number of proven faults committed by a validator since registration. The factor is applied as a multiplicand to that proven fault count when computing the slashing amount of a penalty | `500` (5%) |
+| _jail factor_ | the number of epochs applied as a multiplier to the proven fault count of a validator. The factor is applied when computing the jail period of an _offending validator_ | `48` (1 day at 30 mins epoch)|
 | _slashing rate scale factor_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` (0.01%) |
+
 
 ### Slashing amount calculation
 
