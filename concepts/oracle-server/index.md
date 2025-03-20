@@ -45,7 +45,7 @@ A basic set of data adaptor plugins for sourcing this price data is provided out
 
 - Forex plugins: for connecting to public FX data sources for ASM basket currency prices. See the `forex_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Five forex plugins are currently provided.
 - Crypto plugins: for connecting to public CEX and DEX data sources for USD stablecoin and ATN, NTN prices. See the `crypto_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four crypto plugins are currently provided.
-- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `simulator_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). 
+- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `simulator_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 
 ::: {.callout-note title="Info" collapse="false"}
 ATN and NTN symbols are preview listed but untraded:
