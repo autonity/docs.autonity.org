@@ -157,20 +157,49 @@ If plugins for external data sources or the symbols for which oracle server prov
    Oracle server will discover plugins in the `plugins` configuration, set them up, connect to external data sources using the providers set in the `plugins-conf.yml` configuration properties, and begin submitting price reports to the connected node.
 
 
-## Configure oracle server
+## Configure oracle server DRAFT
 
 The runtime configuration of oracle server can be specified using a configuration file, command line flags, or system environment variables. Using the configuration file `oracle-server.config` is the preferred default path.
 
-### Set up oracle server config file
+### Set up oracle server config file DRAFT
+
 The oracle server config file `oracle-server.config` can be found in the `/autonity-oracle/config` sub-directory.  Edit the file to set the config values where:
 
-   - `tip`: sets a gas priority fee cap for your oracle server data report transactions.
-   - `key.file`: is the path to your oracle server key file, e.g. `../aut/keystore/oracle.key`
-   - `key.password`: is the password to your oracle server key file
-   - `log.level`: sets the logging level. Values are: `0`: No logging, `1`: Trace, `2`:Debug, `3`: Info, `4`: Warn, `5`: Error.
-   - `ws`: is the WebSocket IP Address of your connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network)
-   - `plugin.dir` is the path to the directory containing the built data plugins.
-   - `plugin.conf` is the path to the plugins YAML configuration file `plugins-conf.yml` (defaults to `./plugins-conf.yml`).
+| Option | Description |
+|:-------|:------------|
+| `tip` | Sets a gas priority fee cap for your oracle server data report transactions. The gas priority fee cap is reimbursed by the Autonity network. Specify in [`ton`](/glossary/#ton). |
+| `key.file` | Path to the oracle server key file. e.g. `../aut/keystore/oracle.key`|
+| `key.password` | The password to the oracle server key file. |
+| `log.level` | Sets logging verbosity. Available logging levels: `0`: No logging, `1`: Trace, `2`: Debug, `3`: Info, `4`: Warn, `5`: Error |
+| `ws` | The WS-RPC server listening interface and port of the connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network). E.g.: `"ws://127.0.0.1:8546"` |
+| `plugin.dir` | The path to the directory containing the built data plugins. For example `"./plugins"` |
+| `plugin.conf` | The path to the plugins configuration file. For example `"./plugins-conf.yml"` |
+| `confidence.strategy` | The confidence strategy. Available strategies are: `0`: linear, `1`: fixed. |
+| `profile.dir` | The profiling report directory, where the profiling report (i.e. runtime state) will be saved to. For example `"."` |
+
+::: {.callout-tip title="Confidence strategy - linear vs. fixed" collapse="false"}
+
+Oracle prices are submitted with a _confidence score_ in the range $(0, 100)$ expressing the oracle's level of trust in the provided price (For detail on confidence score, see the concept description [Oracle accountability fault detection (OAFD)](/concepts/oafd/#confidence-score).
+
+`confidenceStrategy` provides two out-the-box options to compute the confidence score for a symbol:
+
+- `0`: linear, dynamic. The oracle server will use the number of price samples it retrieved during the [voting round](/glossary/#voting-round) for a symbol to compute the confidence score. The higher the number of samples, the higher the confidence score. The confidence score computed is capped at the maximum trust level of $100$.
+- `1`: fixed, set to $100$ the maximum trust level.
+
+:::
+
+::: {.callout-caution title="Always review and set `oracle-server.config` to your configuration before running oracle server" collapse="false"}
+
+The `oracle-server.config` file is preset to a testing configuration set to use the test credentials. 
+
+If you run the server without setting your own configuration, then the test configuration will _de facto_ be picked up and used as a default configuration. Without editing the key options (`key.file`, `key.assword`) at minimum, the server will error with an unable to load key message:
+
+```
+$ ./autoracle oracle-server.config 
+2025/03/20 11:52:09 cannot read key from oracle key file: ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe, open ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe: no such file or directory
+could not load key from key store: ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe with password, err: open ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe: no such file or directory
+```
+:::
 
    An example configuration for an oracle server binary could be:
 
@@ -182,9 +211,11 @@ The oracle server config file `oracle-server.config` can be found in the `/auton
    ws ws://127.0.0.1:8546
    plugin.dir ./build/bin/plugins
    plugin.conf ./config/plugins-conf.yml
+   confidence.strategy 0
+   profile.dir .
    ```
   
-   An example configuration for an oracle server Docker image could be per beneath. Note the mounted path is used for `key.file` and `plugin.conf` files. A mounted path is not used for the `plugin.dir` config which takes the Docker image plugins directory path `/usr/local/bin/plugins/`:
+   An example configuration for an oracle server Docker image could be per beneath. Note the mounted path is used for `key.file` and `plugin.conf` files. A mounted path is not used for the `plugin.dir`config which takes the Docker image plugins directory path `/usr/local/bin/plugins/`:
 
    ```
    tip 1
@@ -194,12 +225,15 @@ The oracle server config file `oracle-server.config` can be found in the `/auton
    ws ws://127.0.0.1:8546
    plugin.dir /usr/local/bin/plugins/
    plugin.conf /autoracle/plugins-conf.yml
+   confidence.strategy 0
+   profile.dir .
    ```
- 
-### Setup using command line flags or system env variables  
+
+### Setup using command line flags or system env variables DRAFT
+
 The oracle server configuration can also be set directly in the terminal as console flags or as system environment variables.
 
-For example, to start oracle server specifying command line flags when running the binary, simply specify the config as flags:
+   For example, to start oracle server specifying command line flags when running the binary, simply specify the config as flags:
 
    ```bash
    ./autoracle \
@@ -209,10 +243,12 @@ For example, to start oracle server specifying command line flags when running t
         --ws="ws://127.0.0.1:8546" \
         --plugin.dir="./plugins" \
         --plugin.conf="./plugins-conf.yml" \
+        --confidence.strategy="0" \
+        --profile.dir="."
         ;
    ```
 
-For example, to start oracle server specifying command line flags when running the Docker image, specify the Docker configuration and oracle server config as flags:
+   For example, to start oracle server specifying command line flags when running the Docker image, specify the Docker configuration and oracle server config as flags:
 
    ```bash
    docker run \
@@ -227,7 +263,9 @@ For example, to start oracle server specifying command line flags when running t
         -key.password="<PWD>" \
         -ws="<WS_ADDRESS>" \
         -plugin.dir="/usr/local/bin/plugins/" \
-        -plugin.conf="/autoracle/plugins-conf.yml"
+        -plugin.conf="/autoracle/plugins-conf.yml" \
+        -confidence.strategy="<CONFIDENCE_STRATEGY>" \
+        -profile.dir="<PROFILE_DIR>"
    ```
 
    where:
@@ -238,7 +276,10 @@ For example, to start oracle server specifying command line flags when running t
    - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle-bakerloo` or `ghcr.io/autonity/autonity-oracle-piccadilly`
    - `<TIP>` sets a gas priority fee cap for your oracle server data report transactions, e.g. `1`.
    - `<PWD>` is the password to your oracle server key file
-   - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node, e.g. "ws://172.17.0.2:8546", see [install Autonity, networks](/node-operators/install-aut/#network)). 
+   - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node, e.g. "ws://172.17.0.2:8546", see [install Autonity, networks](/node-operators/install-aut/#network)).
+   - `<CONFIDENCE_STRATEGY>` sets a confidence score strategy for your oracle server data report transactions, e.g. `0`.
+   - `<PROFILE_DIR>` is the path to the directory where your profile report data is saved to, e.g. `.`.
+
    
 ::: {.callout-note title="Note" collapse="false"}
 
@@ -251,36 +292,81 @@ For example, to start oracle server specifying command line flags when running t
 
 For how to set the flags as system environment variables see the [README](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [System Environment Variables](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#system-environment-variables).
 
-
-## Configure data source plugins
+## Configure data source plugins DRAFT
 
 The oracle server will need to provide FX, ATN and NTN currency pairs utilised in the Auton Stabilization Mechanism.
 
 A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet in the `autonity-oracle` GitHub repo [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins) directory:
 
-- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors. Four forex plugins are currently provided.
-- Simulator plugin: for simulated ATN/NTN data. See the `sim_plugin` adaptor.
+- Forex plugins: for connecting to public FX data sources for ASM basket currency prices. See the `forex_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Five forex plugins are currently provided.
+- Crypto plugins: for connecting to public CEX and DEX data sources for USD stablecoin and ATN, NTN prices. See the `crypto_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four crypto plugins are currently provided.
+- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. See the `simulator_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 
-### Set up plugins config file
-To configure FX data source plugins edit the `plugins_conf.yml` file to add a config entry for each plugin.  The oracle server release contains out-the-box plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
+Plugins are configured by default or explicit configuration in the `plugins-conf.yml` config file. Default configuration is set in the plugin source golang code as a `defaultConfig`. Explicit configuration is by editing the `plugins-conf.yml` file to add a config entry for each plugin explicitly configured.
 
-Navigate to the public GitHub repo [autonity-oracle](https://github.com/autonity/autonity-oracle) `README.md` [Configuration](https://github.com/autonity/autonity-oracle?tab=readme#configuration-of-oracle-server) section to view the supported FX endpoint providers.
+### Set up plugins configuration file DRAFT
 
-For each FX endpoint configured:
+Plugins can be configured by a default configuration set in the plugin source golang code, or by explicit specification in the `oracle_server.yml` config file.
 
-1. Get FX plugin API Key(s). Navigate to one of the listed FX endpoint websites and create an account. Make a note of the API Key.
-2. Add configuration entry to `plugins-conf.yml`. Edit the file to add an entry for each plugin you are configuring.
+by editing the `oracle_config.yml` file `pluginConfigs` section to add a config entry for each plugin being configured and review default config where .  edit the `oracle_config.yml` file `pluginConfigs` section to add a config entry for each plugin being configured. There are 3 types of price data -
 
-Configuration fields:
+The plugin configuration fields are:
 
 | Name | Datatype | Mandatory? | Description |
 | :-- | :--: | :--: | :-- |
 | `name` | string | required | the name of the plugin binary; use the name of the sub-directory in the `plugins` directory |
 | `key` | string | required | the API key granted by your data provider to access their data API |
-| `scheme` | string | optional | the data service http scheme, http or https. Default value is https. |
+| `scheme` | string | optional | the data service http scheme: http, https, ws or wss. Default value is https. |
 | `endpoint` | string | optional | the data service endpoint url of the data provider |
 | `timeout` | int | optional | the duration of the timeout period for an API request in seconds. Default value is 10. |
 | `refresh` | int | optional | the data update interval in seconds. Used for a rate limited provider's plugin to limit the request rate. Default value is 30. |
+| `ntnTokenAddress` | string | optional ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | The NTN ERC20 token address on the target blockchain. This is the [Autonity Protocol Contract Address](/concepts/architecture/#protocol-contract-addresses). |
+| `atnTokenAddress` | string | optional ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) |The Wrapped ATN erc20 token address on the target blockchain. |
+| `usdcTokenAddress` | string | optional ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | USDC ERC20 token address on the target blockchian. For Piccadilly Testnet this is the USDCx ERC20 token address. |
+| `swapAddress` | string | optional ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | UniSwap factory contract address or AirSwap SwapERC20 contract address on the target blockchain. For Piccadilly Testnet this is the Uniswap V2 AMM clone factory contract address. |
+| `disabled` | boolean |  optional | The flag to disable a plugin.
+```
+
+The plugin fields used depends on the type of plugin. An example minimal entry could be:
+
+```yaml
+- name: forex_currencyfreaks
+  key: 5490e15565e741129788f6100e022ec5
+```
+   
+::: {.callout-note title="Note" collapse="false"}
+The optional fields should be set as needed to fit the service level agreed with your rate provider.
+:::
+
+### TO HERE WIP
+
+### FX plugin config WIP
+
+The oracle server release contains out-the-box plugins for four publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more plugin source must be configured.
+
+Navigate to the public GitHub repo [autonity-oracle](https://github.com/autonity/autonity-oracle) `README.md` [Configuration](https://github.com/autonity/autonity-oracle?tab=readme#configuration-of-oracle-server) section to view the supported FX endpoint providers.
+
+For each data provider endpoint configured:
+
+1. Get API Key(s) for the FX and/or crypto plugins. Navigate to one of the listed FX or Crypto endpoint websites and create an account. Make a note of the API Key.
+2. Add configuration entry to `pluginConfigs ` in `oracle_server.yml`. Edit the file to add an entry for each plugin you are configuring.
+
+Plugin Configuration fields:
+
+| Name | Datatype | Mandatory? | Description |
+| :-- | :--: | :--: | :-- |
+| `name` | string | required | the name of the plugin binary; use the name of the sub-directory in the `plugins` directory |
+| `key` | string | required | the API key granted by your data provider to access their data API |
+| `scheme` | string | optional | the data service http scheme: http, https, ws or wss. Default value is https. |
+| `endpoint` | string | optional | the data service endpoint url of the data provider |
+| `timeout` | int | optional | the duration of the timeout period for an API request in seconds. Default value is 10. |
+| `refresh` | int | optional | the data update interval in seconds. Used for a rate limited provider's plugin to limit the request rate. Default value is 30. |
+| `ntnTokenAddress` | string | optional | The NTN ERC20 token address on the target blockchain. This is the [Autonity Protocol Contract Address](/concepts/architecture/#protocol-contract-addresses). |
+| `atnTokenAddress` | string | optional |The Wrapped ATN erc20 token address on the target blockchain. |
+| `usdcTokenAddress` | string | optional | USDC ERC20 token address on the target blockchian. For Piccadilly Testnet this is the USDCx ERC20 token address. |
+| `swapAddress` | string | optional | UniSwap factory contract address or AirSwap SwapERC20 contract address on the target blockchain. For Piccadilly Testnet this is the Uniswap V2 AMM clone factory contract address. |
+| `disabled` | boolean |  optional | The flag to disable a plugin.
+```
 
 An example minimal entry could be:
 
@@ -294,7 +380,7 @@ The optional fields should be set as needed to fit the service level agreed with
 :::
 
 
-### ATN and NTN data simulator plugin
+### ATN and NTN data simulator plugin TO REVIEW
 
 If you are connecting to Bakerloo testnet an ATN and NTN Simulator is deployed and available to provide simulated data for testnet use.  
 
@@ -318,12 +404,44 @@ cp e2e_test/plugins/simulator_plugins/sim_plugin build/bin/plugins/sim_plugin
 The simulator can also be built independently by running the `make simulator` command.
 :::
 
+
+### Default / Crypto plugin configuration TO DRAFT
+
+The crypto plugins have default configuration specified in the plugins' source golang files. To change the default configuration the `defaultConfig` structure in the plugins source golang file needs to be edited before running `make` to compile the plugin.
+
+The following plugins are configured by default and do not need to be specified in the `server_config.yml`:
+
+- `crypto_kraken`
+- `crypto_coingecko`
+- `crypto_coinbase`
+
+
+- the crypto CEX  specification  no additional action. T a defaultCrypto CEX plugins coingecko kraken coinbase - default config is specified in the .go therefore you don't need to set them in your oracle_server.yml.
+
+Crypto Uniswap, uniswap_usdcx plugin - default config is specified in the .go. The factory contract can be used as a 'service discovery' address to discover the available pairs in the AMM. The user should per comments in the .go:
+
+- endpoint -  edit the default config to replace the rpc1-internal endpoint with their own connected validator node endpoint.
+- scheme - only use Webxocket (ws or wss) in the default config
+
+
+profileDir config. profile - set up using influx. can be same or separate instance to the one used for agc. same config set up as for agc. so build your own grafana board for aos 
+
+confidence strategy. 1 = fixed, 100.  linear = dynamic, computes the number of available samples for a round to compute the confidence score. i.e. higher the number of samples the higher the confidence score, capped at the full score level of 100.
+
+
 ### Develop plugins
 Additional data adaptors for any external data source can be developed using the oracle server's plugin template. See:
 
 - Adaptor code template `template_plugin` in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`](https://github.com/autonity/autonity-oracle/blob/master/plugins/README.md).
 
+
+## Configure oracle profiling TO DRAFT
+
+
+### Setup oracle profile configuration TO DRAFT
+
+## Example minimal `oracle_server.yml` configuration TO DRAFT 
 
 ## Stopping the Autonity Oracle Server
 
