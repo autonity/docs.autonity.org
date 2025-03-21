@@ -54,7 +54,7 @@ On a successful call the function emits an `ActivatedValidator` event, logging: 
 
 ::: {.panel-tabset}
 ## aut
-``` {.aut}
+```yaml {.aut}
 aut validator activate --validator _address
 ```
 :::
