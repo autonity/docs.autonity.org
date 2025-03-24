@@ -44,13 +44,23 @@ A public-facing internet connection with static IP is required:
 ::: {.callout-note title="Why is a static IP Address required?" collapse="false"}
 Running an Autonity node requires that you maintain a static ip address because the ip address forms part of the node's network address, the [enode URL](/glossary/#enode). I.e. the IP address should not dynamically change due to resetting by the IP provider.
 
-The enode provides the network location of the node client for p2p networking. Changing the ip address will change the node's identity on the network, therefore. This is significant if you are operating a validator node as the enode is provided as part of the validator meta data when [registering a validator](/validators/register-vali/#step-3.-submit-the-registration-transaction). If a validator node needs moving to a new IP address after registration, then follow the steps in the guide [Migrating a validator node to an new IP/Port address](/validators/migrate-vali/#migrating-validator-node-to-a-new-ipport-address).
+The enode provides the network location of the node client for p2p networking. Changing the ip address will change the node's identity on the network, therefore. This is significant if you are operating a validator node as the enode is provided as part of the validator meta data when [registering the node as a validator](/validators/register-vali/#step-3.-submit-the-registration-transaction). If a validator node needs moving to a new IP address after registration, then follow the steps in the guide [Migrating a validator node to an new IP/Port address](/validators/migrate-vali/#migrating-validator-node-to-a-new-ipport-address).
 :::
 
 Incoming traffic must be allowed on the following:
 
-* `TCP, UDP 30303` for node p2p (DEVp2p) communication for transaction gossiping.
-* `TCP 20203` for node p2p (DEVp2p) communication for consensus gossiping  (required if you are operating a validator node).
+* `TCP, UDP 30303` for node p2p (DEVp2p) communication for *transaction gossiping*.
+
+Incoming traffic must also be allowed on the following if you are operating a validator node:
+
+* `TCP 20203` for node p2p (DEVp2p) communication for *consensus gossiping*.
+
+::: {.callout-caution title="Autonity's networking layer separates transaction and consensus gossiping" collapse="false"}
+
+Autonity logically and physically segregates [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols) into different channels for transaction and consensus gossiping. Transaction traffic runs on the ethereum wire protocol; consensus traffic runs alongside that as a separate Autonity Consensus Network (ACN). This ensures that queued transaction traffic does not delay  consensus traffic.
+
+If you are operating a validator node, then you will need to open the ports for both channels to incoming traffic. See [separate channels for transaction and consensus gossiping](/concepts/system-model/#separate-channels-for-transaction-and-consensus-gossiping) for more detail.
+:::
 
 You may also choose to allow traffic on the following ports:
 
@@ -126,7 +136,7 @@ The following should be installed in order to build the Autonity Go Client:
 2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
 
     ```bash
-    git checkout tags/v0.14.1 -b v0.14.1
+    git checkout tags/v1.0.2-alpha -b v1.0.2-alpha
     ```
 
 3. Build autonity:
@@ -198,19 +208,13 @@ sudo systemctl restart docker
 
 1. Pull the Autonity Go Client image from the Github Container Registry.
 
-   If you are deploying to the Bakerloo Testnet:
-   
-    ```bash
-    docker pull ghcr.io/autonity/autonity-bakerloo:latest
-    ```
-
    If you are deploying to the Piccadilly Testnet:
    
     ```bash
-    docker pull ghcr.io/autonity/autonity:v0.14.1
+    docker pull ghcr.io/autonity/autonity:latest
     ```
 
-   (where `latest` can be replaced with another version)
+   (where `latest` can be replaced with a specific version, i.e. `v1.0.2-alpha`)
 
    ::: {.callout-note title="Note" collapse="false"}
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
@@ -218,20 +222,13 @@ sudo systemctl restart docker
 
 2. Verify the authenticity of the Autonity Docker images against the official [image digests](https://github.com/autonity/autonity/pkgs/container/autonity/versions):
 
-   If you are deploying to the Bakerloo Testnet:
-   
-    ```bash
-    docker images --digests ghcr.io/autonity/autonity-bakerloo
-    REPOSITORY                           TAG       DIGEST                                                                    IMAGE ID       CREATED      SIZE
-    ghcr.io/autonity/autonity-bakerloo   latest    sha256:9927fc07f0db07e3d18d9c290fd1fbfc509558adf0250dec97b8d630fc7febc7   342dbfb45641   5 days ago   57MB
-    ```
-
    If you are deploying to the Piccadilly Testnet:
    
     ```bash
     docker images --digests ghcr.io/autonity/autonity
-    REPOSITORY                  TAG       DIGEST                                                                    IMAGE ID       CREATED         SIZE
-    ghcr.io/autonity/autonity   v0.14.1   sha256:0c2716615e47f22a5fb8b28f29f5b796ed45aaf75aa592ebed07f98de0a43374   c3e1d60a1853   22 hours ago    57.8MB
+REPOSITORY                  TAG            DIGEST                                                                    IMAGE ID       CREATED        SIZE
+ghcr.io/autonity/autonity   latest         sha256:6fdbaf8174da61da40a1fb6fe5b3f69e694ccd45ff00a7a25b96049c2fc64fbb   77e50240ec28   3 months ago   57.7MB
+ghcr.io/autonity/autonity   v1.0.2-alpha   sha256:6fdbaf8174da61da40a1fb6fe5b3f69e694ccd45ff00a7a25b96049c2fc64fbb   77e50240ec28   3 months ago   57.7MB
     ```
 
 ::: {.callout-note title="Info" collapse="false"}
@@ -248,12 +245,11 @@ $ ./autonity version
 ```
 ```
 Autonity
-Version: 0.14.1
-Git Commit: a5d0ecda73fab7ea81c5eaf648f83f393f1728ec
-Git Commit Date: 20240911
+Version: 1.0.2-alpha
+Git Commit: 8be1825ca7409a1bfd4d361356b2437839d4c383
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.22.0
+Go Version: go1.22.9
 Operating System: linux
 GOPATH=
 GOROOT=
@@ -262,15 +258,15 @@ GOROOT=
 If using Docker, the setup of the image can be verified with:
 
 ```bash
-$ docker run --rm ghcr.io/autonity/autonity:v0.14.1 version
+$ docker run --rm ghcr.io/autonity/autonity:latest version
 ```
 
 ```
 Autonity
-Version: 0.14.1
+Version: 1.0.2-alpha
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.22.0
+Go Version: go1.21.7
 Operating System: linux
 GOPATH=
 GOROOT=/usr/local/go

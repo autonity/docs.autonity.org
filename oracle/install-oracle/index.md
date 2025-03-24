@@ -170,16 +170,10 @@ sudo systemctl restart docker
    
 2. Pull the Autonity Oracle Server image from the GitHub Container Registry.
    
-   If you are deploying to the Bakerloo Testnet:
-   
-    ```bash
-    docker pull ghcr.io/autonity/autonity-oracle-bakerloo:latest
-    ```
-   
    If you are deploying to the Piccadilly Testnet:
    
     ```bash
-    docker pull ghcr.io/autonity/autonity-oracle-piccadilly:latest
+    docker pull ghcr.io/autonity/autonity-oracle:latest
     ```
 
    (where `latest` can be replaced with another version)
@@ -191,20 +185,12 @@ sudo systemctl restart docker
 3. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
 
 
-   If you are deploying to the Bakerloo Testnet:
-   
-    ```bash
-    docker images --digests ghcr.io/autonity/autonity-oracle-bakerloo
-    REPOSITORY                                  TAG       DIGEST                                                                    IMAGE ID       CREATED       SIZE
-    ghcr.io/autonity/autonity-oracle-bakerloo   latest    sha256:f37cdf332bab761426f94a6b6f8e670efc7b95e4470bc9a4ce1151d48baff791   d6cc39e078f6   2 weeks ago   111MB
-    ```
-   
    If you are deploying to the Piccadilly Testnet:
    
     ```bash
-    docker images --digests ghcr.io/autonity/autonity-oracle-piccadilly
-    REPOSITORY                                    TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
-    ghcr.io/autonity/autonity-oracle-piccadilly   latest    sha256:aa0192ce1d72b1a6d5ad971e8d10a8dbc32004f4ea1d3da7217b80ec8b6a363e   78446bd6c4b6   2 weeks ago    111MB
+    docker images --digests ghcr.io/autonity/autonity-oracle:latest
+    REPOSITORY                         TAG       DIGEST    IMAGE ID       CREATED        SIZE
+ghcr.io/autonity/autonity-oracle   latest    <none>    7cf33ad2a942   3 months ago   163MB
     ```
 
 4. Data source plugins. Note that the data source plugins are included as part of the Docker image at the directory path `/usr/local/bin/plugins`.
@@ -222,16 +208,16 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ ./build/bin/autoracle version
 ```
 ```
-v0.1.9
+v0.2.3
 ```
 
 If using Docker, the setup of the Piccadilly Testnet image can be verified with:
 
 ```bash
-docker run --rm ghcr.io/autonity/autonity-oracle-piccadilly:latest version 
+docker run --rm ghcr.io/autonity/autonity-oracle:latest version 
 ```
 ```
-v0.1.9
+v0.2.3
 ```
 
 ::: {.callout-note title="Note" collapse="false"}
