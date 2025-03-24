@@ -57,12 +57,12 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
     On running oracle server you should see something like:
     
     ```
-    2024/06/05 11:22:48 
+    2025/03/24 14:39:22 
     
-       Running autonity oracle server v0.1.9
-       with plugin directory: ./build/bin/plugins
+       Running autonity oracle server v0.2.3
+       with plugin directory: ./plugins
        by connecting to L1 node: ws://127.0.0.1:8546
-       on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
+       on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D 
     ```
 
 ::: {.callout-note title="Note" collapse="false"}
@@ -126,7 +126,7 @@ If plugins for external data sources or the symbols for which oracle server prov
    - `<PLUGINS_CONF_FILE>` is the path to the data plugins configuration file `plugins-conf.yml`. E.g. `./plugins-conf.yml`.
    - `<ORACLE_SERVER_CONF_FILE>` is the path to the oracle server configuration file `oracle-server.config`. E.g. `./oracle-server.config`.
    - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, i.e. `oracle-server-bakerloo` or `oracle-server-piccadilly`
-   - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle-bakerloo` or `ghcr.io/autonity/autonity-oracle-piccadilly`. 
+   - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle`. 
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
 
@@ -146,9 +146,9 @@ If plugins for external data sources or the symbols for which oracle server prov
 5. Start oracle server. On running the Docker you should see something like:
 
    ```
- 	2024/06/05 11:44:45
+ 	2025/03/25 11:44:45
 
- 	Running autonity oracle server v0.1.9
+ 	Running autonity oracle server v0.2.3
 	with plugin directory: /usr/local/bin/plugins/
  	by connecting to L1 node: ws://127.0.0.1:8546
  	on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
