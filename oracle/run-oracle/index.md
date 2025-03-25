@@ -215,7 +215,7 @@ could not load key from key store: ./UTC--2023-02-27T09-10-19.592765887Z--b749d3
    profile.dir .
    ```
   
-   An example configuration for an oracle server Docker image could be per beneath. Note the mounted path is used for `key.file` and `plugin.conf` files. A mounted path is not used for the `plugin.dir`config which takes the Docker image plugins directory path `/usr/local/bin/plugins/`:
+   An example configuration for an oracle server Docker image could be per beneath. Note the mounted path is used for `key.file` and `plugin.conf` files. A mounted path is not used for the `plugin.dir` config which takes the Docker image plugins directory path `/usr/local/bin/plugins/`:
 
    ```
    tip 1
@@ -272,8 +272,8 @@ The oracle server configuration can also be set directly in the terminal as cons
    
    - `<ORACLE_KEYFILE>` specifies the path to your oracle server key file. E.g. `../aut/keystore/oracle.key`
    - `<PLUGINS_CONF_FILE>` is the path to the data plugins configuration file `plugins-conf.yml`. E.g. `./plugins-conf.yml`.
-   - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, i.e. `oracle-server-bakerloo` or `oracle-server-piccadilly`
-   - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle-bakerloo` or `ghcr.io/autonity/autonity-oracle-piccadilly`
+   - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, e.g. `oracle-server-v0.2.3`
+   - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle`
    - `<TIP>` sets a gas priority fee cap for your oracle server data report transactions, e.g. `1`.
    - `<PWD>` is the password to your oracle server key file
    - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node, e.g. "ws://172.17.0.2:8546", see [install Autonity, networks](/node-operators/install-aut/#network)).
@@ -426,7 +426,7 @@ If a simulator has been deployed and is available to provide simulated data for 
 When running `make` on oracle server the simulator plugin is built to a test directory. So you can get the plugin by just copying the file to your plugins directory:
 
 ```bash
-cp e2e_test/plugins/simulator_plugins/sim_plugin build/bin/plugins/sim_plugin
+cp e2e_test/plugins/simulator_plugins/simulator_plugin build/bin/plugins/simulator_plugin
 ```
 
 The data source simulator can also be built independently by running the `make simulator` command as described in the [README](https://github.com/autonity/autonity-oracle/tree/v0.2.3?tab=readme-ov-file#other-build-helpers).
@@ -438,13 +438,6 @@ Additional data adaptors for any external data source can be developed using the
 
 - Adaptor code template `template_plugin` in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 - Guide for how _To write a new plugin_ using the template in [`/plugins/README`](https://github.com/autonity/autonity-oracle/blob/master/plugins/README.md).
-
-
-## Configure oracle profiling TO DRAFT
-
-### Setup oracle profile config TO DRAFT
-
-profileDir config. profile - set up using influx. can be same or separate instance to the one used for agc. same config set up as for agc. so build your own grafana board for aos 
 
 
 ## Stopping the Autonity Oracle Server
