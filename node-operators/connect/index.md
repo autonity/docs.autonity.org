@@ -60,7 +60,7 @@ aut block height
 ### Get maximum consensus committee size:
 
 ```bash
-aut protocol get-max-committee-size
+aut protocol max-committee-size
 ```
 ```bash
 100
@@ -69,7 +69,7 @@ aut protocol get-max-committee-size
 #### Get all nodes in the consensus committee:
 
 ```bash
-aut protocol get-committee
+aut protocol committee
 ```
 ```bash
 [
@@ -123,7 +123,7 @@ aut validator list
 aut account balance <_addr>
 ```
 ```bash
-9.00341
+0.456598469278611787
 ```
 
 ### Check the newton balance of an account:
@@ -132,7 +132,7 @@ aut account balance <_addr>
 aut account balance --ntn <_addr>
 ```
 ```bash
-3.73401
+35.041533341406333722
 ```
 
 ::: {.callout-note title="Info" collapse="false"}

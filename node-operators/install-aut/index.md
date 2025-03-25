@@ -19,7 +19,7 @@ It is recommended not run Autonity using Docker containers outside of a test env
 ::: {.callout-note title="Note" collapse="false"}
 Client source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity](https://github.com/autonity/autonity/).
 
-Before installing verify the correct Autonity Go Client release version to install for the network you are connecting to. See the [Networks](/networks/) pages [Bakerloo Testnet, Release](/networks/testnet-bakerloo/#release) and [Piccadilly Testnet, Release](/networks/testnet-piccadilly/#release) for the versions deployed.
+Before installing verify the correct Autonity Go Client release version to install for the network you are connecting to. See the [Networks](/networks/) page and [Piccadilly Testnet, Release](/networks/testnet-piccadilly/#release) for the versions deployed.
 :::
 
 ## Requirements
@@ -59,7 +59,7 @@ Incoming traffic must also be allowed on the following if you are operating a va
 
 Autonity logically and physically segregates [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols) into different channels for transaction and consensus gossiping. Transaction traffic runs on the ethereum wire protocol; consensus traffic runs alongside that as a separate Autonity Consensus Network (ACN). This ensures that queued transaction traffic does not delay  consensus traffic.
 
-If you are operating a validator node, then you will need to open the ports for both channels to incoming traffic. See [separate channels for transaction and consensus gossiping](/concepts/system-model/#separate-channels-for-transaction-and-consensus-gossiping) for more detail.
+**If you are operating a validator node, then you will need to open the ports for both transactin and consensus gossiping channels to incoming traffic. See [separate channels for transaction and consensus gossiping](/concepts/system-model/#separate-channels-for-transaction-and-consensus-gossiping) for more detail.**
 :::
 
 You may also choose to allow traffic on the following ports:

@@ -46,7 +46,7 @@ To connect to a network and sync, get the genesis and bootnode files if needed, 
    - `<IP_ADDRESS>` is the node's host IP Address, which can be determined with `curl ifconfig.me`.
    - (Optional) `<CONSENSUS_NAT>` specify the NAT port mapping for the consensus channel (one of "any", "none", "upnp", "pmp", "extip:<IP>") if the default value "any" is not to be used.
    - (Optional) `<CONSENSUS_PORT_NUMBER>` specify the network listening port for the consensus channel if the default port "20203" is not to be used.
-   - `--piccadilly` specifies that the node will connect to the Piccadilly testnet.  For other testnets, use the appropriate flag (for example, `--bakerloo`).
+   - `--piccadilly` specifies that the node will connect to the Piccadilly testnet.
 
 ::: {.callout-note title="Default location for AGC's node and consensus private keys file  `autonitykeys`" collapse="false"}
 On starting, by default AGC will automatically generate an `autonitykeys` file containing your node key and consensus key within the `autonity` subfolder of the `--datadir` specified when running the node.
@@ -106,7 +106,7 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
    - `<IP_ADDRESS>` is the node's host IP Address, which can be determined with `curl ifconfig.me`.
    - (Optional) `<CONSENSUS_NAT>` specify the NAT port mapping for the consensus channel (one of "any", "none", "upnp", "pmp", "extip:<IP>") if the default value "any" is not to be used.
    - (Optional) `<CONSENSUS_PORT_NUMBER>` specify the network listening port for the consensus channel if the default port "20203" is not to be used.
-   - `--piccadilly` specifies that the node will connect to the Piccadilly testnet.  For other testnets, use the appropriate flag (for example, `--bakerloo`).
+   - `--piccadilly` specifies that the node will connect to the Piccadilly testnet.
 
    See the [Autonity command-line reference](/reference/cli) for the full set of available flags.
 
