@@ -65,7 +65,7 @@ USAGE:
    autonity [options] [command] [command options] [arguments...]
    
 VERSION:
-   0.14.0-internal-a09e8d99-20240605
+   1.0.2-alpha
    
 COMMANDS:
    account                            Manage accounts
