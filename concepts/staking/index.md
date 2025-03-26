@@ -14,11 +14,15 @@ Stake in an Autonity network is represented as the [Newton](/concepts/protocol-a
 
 Staking is open - any network participant is able to purchase stake token and bond stake by [delegation](/glossary/#delegation) to validators. 
 
+Stakers are financially rewarded by Auton [staking rewards](/concepts/staking/#staking-rewards) and [Newton inflation rewards](/concepts/staking/#newton-inflation-rewards).
+
 Staking rewards are distributed to [delegated](/glossary/#delegated) stake that is actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
+
+Newton inflation rewards are distributed to [participating](/glossary/#participation-rate) stake at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). The newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. Stake delegators receive a reward in proportion to the amount of Newton they have staked. Newton [inflation rewards](/glossary/#inflation-rewards) accrue to all bonded stake irrespective of whether it is active in the current committee or not.
 
 ::: {.callout-note title="Note" collapse="false"}
 
-Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and slashing rewards. See [validator economics](/concepts/validator/#validator-economics).
+Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and accountability protocol rewards. See [validator economics](/concepts/validator/#validator-economics).
 
 :::
 
@@ -41,10 +45,18 @@ When [delegated](/glossary/#delegated) stake is bonded to a validator, Liquid Ne
              
 As consequence, the Liquid Newton minted is subject to any accountability and omissions penalties applied to the validator resulting in a stake slashing event:
 
-- If at the time of bonding a validator's [delegated](/glossary/#delegated) stake amount _has not_ been reduced by a stake slashing event, then Liquid Newton is minted `1:1` for the [delegated](/glossary/#delegated) Newton staked.
-- However, if the validator's existing [delegated](/glossary/#delegated) stake amount is less than the supply of issued Liquid Newton, then Liquid Newton is minted in proportion to the validator's [delegated](/glossary/#delegated) stake remaining, resulting in a `>1:1` issuance of Liquid Newton for Newton staked.
+- If at the time of bonding a validator's [delegated](/glossary/#delegated) stake amount _has not_ been reduced by a stake slashing event, then Liquid Newton is minted $1:1$ for the [delegated](/glossary/#delegated) Newton staked.
+- However, if the validator's existing [delegated](/glossary/#delegated) stake amount is less than the supply of issued Liquid Newton, then Liquid Newton is minted in proportion to the validator's [delegated](/glossary/#delegated) stake remaining, resulting in a $>1:1$ issuance of Liquid Newton for Newton staked.
 
 This tokenomic mechanism ensures that a validator's Liquid Newton tokens remain fungible as they are issued over time: the amount of Liquid Newton issued on bonding has a value matching that of the Newton being bonded.
+
+::: {.callout-note title="Note that autobonding does not mint Liquid Newton" collapse="false"}
+
+[Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions for delegated stake are [autobonded](/glossary/#autobond) by protocol.
+
+Note that Liquid Newton is not minted for [autobonded](/glossary/#autobond) stake delegations. The autobond process increases the Newton amount of the delegated stake of the validator without issuing new Liquid Newton tokens. This results in an increase in the LNTN/NTN conversion rate of delegations to the validator.
+
+:::
 
 The Liquid Newton has staking reward entitlement rights, is freely transferable, and represents the Liquid Newton holder's share of the total stake bonded to the validator (i.e. the holder's share of the validator's Liquid Newton pool).
 
@@ -62,7 +74,7 @@ The Liquid Newton holder can transfer ownership of the token by sending to anoth
 Redemption of Liquid Newton for Newton stake token is by unbonding. The Liquid Newton holder can unbond stake from a validator and redeem Newton at any time subject to the unbonding period set for the chain. On unbonding the bonded stake remains locked for the duration of an [unbonding period](/glossary/#unbonding-period) during which it is not transferrable and remains subject to any [slashing penalties](/glossary/#slashing-penalty) applied to the validator in that period. Stake redemption takes place at the end of the epoch in which the unbonding period falls. At this point the validator's stake pool is reduced by the unbonded amount and Newton is returned to the staker.
  
 ::: {.callout-note title="Note" collapse="false"}
-It's important to note that Liquid Newton is validator-specific and as such is not 1:1 fungible with Liquid Newton bonded to a different validator. A validator may or may not have had [slashing penalties](/glossary/#slashing-penalty) applied and the redemption value of Liquid Newton may vary across validators according to their fault slashing history.
+It's important to note that Liquid Newton is validator-specific and as such is not $1:1$ fungible with Liquid Newton bonded to a different validator. A validator may or may not have had [slashing penalties](/glossary/#slashing-penalty) applied and the redemption value of Liquid Newton may vary across validators according to their fault slashing history.
 :::
 
 ### Transferring Liquid Newton
@@ -85,8 +97,7 @@ By self-bonding stake, a validator puts "skin in the game" because this constitu
 :::
 
 ## Staking rewards
-
-Staking rewards are a distribution of fee revenue entitlement to all holders of bonded stake actively backing consensus. Reward distribution takes place _pro-rata_ to the share of total stake bonded to validators in the consensus committee. The fee revenue comes from the _base fees_ charged for computing transactions included in blocks committed to the system ledger. The optional _priority fee_ of a transaction is not included in the rewards pool but awarded to the block proposer according to the EIP 1559 transaction fee mechanism.
+[Staking rewards](/glossary/#staking-rewards) are a distribution of fee revenue entitlement to all holders of bonded stake actively backing consensus. Reward distribution takes place _pro-rata_ to the share of total stake bonded to validators in the consensus committee. The fee revenue comes from the _base fees_ charged for computing transactions included in blocks committed to the system ledger. The optional _priority fee_ of a transaction is not included in the rewards pool but awarded to the block proposer according to the EIP 1559 transaction fee mechanism.
 
 ::: {.callout-note title="Note" collapse="false"}
 For more detail on EIP 1559 and the distinction between _base fee_ and _priority fee_, see [Transaction fees](/concepts/system-model/#transaction-fees) in the System model.
@@ -103,10 +114,9 @@ As rewards are distributed, due fees are deducted from fee revenue by the protoc
 The remaining fee revenue is then distributed to stake delegators. 
 
 ### Reward distribution
-
 Stake delegation rewards are distributed to validator committee members at the end of each epoch. On finalization of the last block in the epoch rewards become claimable by stake delegators.
 
-The _priority fee_ reward is distributed to the block proposer when the block is finalised. It is sent to the validator node's [`validator identifier`](/concepts/validator/#validator-identifier) account.
+The _priority fee_ reward is distributed to the block proposer when the block is finalized. It is sent to the validator node's [`validator identifier`](/concepts/validator/#validator-identifier) account.
 
 ### Claiming rewards
 
@@ -115,6 +125,14 @@ Fees accumulate until claimed by delegators in a pull-based model. Staking rewar
 For details on how to claim and the functionality for claiming staking rewards, see:
 
 - How to [Claim Staking Rewards](/delegators/claim-rewards/).
+
+## Newton inflation rewards
+Newton [inflation rewards](/glossary/#inflation-rewards) are a distribution of newly minted newton by the Newton [inflation mechanism](/glossary/#inflation-mechanism) to all holders of bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network).
+
+For more detail see the [Newton](/concepts/protocol-assets/newton/) concept and [Total supply and newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
+
+### Reward distribution
+Newton [inflation rewards](/glossary/#inflation-rewards) are minted and distributed to stakers at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). On emission the newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. The bonded stake balances of the individual stake delegators (i.e. for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake) is incremented accordingly to reflect the inflation received.
 
 ## Staking accounts
 
@@ -136,7 +154,7 @@ The validator operator's account address. The `treasury` is used as the account:
 - Identifying the validator operator entity itself.
 - For submitting transactions to protocol contracts to register and operate the validator's [node](/concepts/client/) and [oracle server](/concepts/oracle-server/).
 - Receiving [staking rewards](/concepts/staking/#staking-rewards) from the protocol's reward distribution mechanism for distribution to the validator's stake delegators.
-- Receiving [slashing rewards](/concepts/accountability/#slashing-rewards) distributed by the [accountability and fault detection protocol](/concepts/accountability/) for reporting provable faults committed by an offending validator failing to follow consensus rules.
+- Receiving [slashing rewards](/concepts/afd/#slashing-rewards) distributed by the [accountability and fault detection protocol](/concepts/afd/) for reporting provable faults committed by an offending validator failing to follow consensus rules.
 
 See the `treasury` parameter of the `config.autonity.validators` object in the [Protocol](/reference/protocol#configautonityvalidators-object) parameter reference.
 
@@ -205,7 +223,7 @@ Staking transitions are changes to stake bonded to validators caused by stake bo
 
 Bonding and unbonding requests submitted during an epoch are processed and committed to state in the next available block, but the effect of such staking transitions is only applied at epoch end. Until epoch end, staking transitions are maintained in memory in `BondingRequest` and `UnbondingRequest` data structures. They can be read by listening for and viewing `NewBondingRequest` and `NewUnbondingRequest` events emitted by the [`bond()`](/reference/api/aut/#bond) and [`unbond()`](/reference/api/aut/#unbond) functions of the Autonity Protocol Contract.
 
-In Autonity's [AFD](/concepts/accountability/) protocol, slashable faults are likewise processed throughout an epoch. Any changes to delegated stake that are caused by stake slashing are applied to unbonding and bonded stake at the epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. This takes place before staking transitions are applied. 
+In Autonity's [AFD](/concepts/afd/) protocol, slashable faults are likewise processed throughout an epoch. Any changes to delegated stake that are caused by stake slashing are applied to unbonding and bonded stake at the epoch end according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model. This takes place before staking transitions are applied. 
 
 As noted in [Protocol assets](/concepts/protocol-assets/), Newton and Liquid Newton token can be in different states. Bonded and unbonding stake is liable to [slashing](/concepts/staking/#slashing) penalties:
 
@@ -230,7 +248,9 @@ Stake token is bonded to an active validator through a bonding operation. Once b
 On bonding Newton, the stake token is locked on execution of the `bond()` function and Liquid Newton is minted for [delegated](/glossary/#delegated) stake. Minting Liquid Newton is an autonomous protocol-only function. The resulting voting power change is tracked and the staking transition is applied at epoch end. From this point the stake is actively bonded and able to earn staking rewards. Note that a bond allocation cannot be changed after submission and before the bonding is applied at epoch end.
 
 ::: {.callout-note title="Note" collapse="false"}
-Alice sends `bond()` tx at time `T`, a block in an epoch. Newton is locked at `T`. The bonding request is tracked in memory for application at the end of the epoch. At this point, the validator's bonded stake is increased, and Liquid Newton is issued to Alice in the validator’s Liquid Newton ERC20 contract. Actual bonding is then executed at `T` + remainder of the epoch. Liquid Newton issuance is delayed and not tradable while bonding is pending.
+Alice submits a [`bond()`](/reference/api/aut/#bond) tx that is processed and included in a block at time $T$, where a `BondingRequest` object for the necessary voting power change is also created. Newton is locked at $T$.
+
+The bonding request is tracked in memory for application at the end of the epoch in which $T$ was processed. At this point, the validator's bonded stake is increased, and Liquid Newton is issued to Alice in the validator’s Liquid Newton ERC20 contract. Actual bonding is then executed at $T$ + remainder of the epoch. Liquid Newton issuance is delayed and not tradable while bonding is pending.
 :::
 
 Staking rewards are earned when a nominated validator is a consensus committee member. Bonding across more than one validator is allowed. The committee size is limited and staking rewards are limited to the number of validators in the current committee for the epoch.
@@ -254,56 +274,70 @@ Unbonding is triggered by a staker submitting an `unbond()` transaction. Unbondi
 - _at the end of the epoch in which the unbonding period expires_: NTN for the unbonding stake amount are released to the delegator
 
 ::: {.callout-note title="Note" collapse="false"}
-Alice submits an `unbond()` tx that is processed and included in a block at time `T`, where an `UnbondingRequest` object for the necessary voting power change is also created. At `T+1`, the [unbonding period](/glossary/#unbonding-period) begins.
+Alice submits an [`unbond()`](/reference/api/aut/#unbond) tx that is processed and included in a block at time $T$, where an `UnbondingRequest` object for the necessary voting power change is also created. At $T+1$, the [unbonding period](/glossary/#unbonding-period) begins.
 
-The unbonding request is tracked in memory for application at the end of the epoch in which `T` was processed, when the validator's bonded stake amount and voting power is reduced as follows:
+The unbonding request is tracked in memory for application at the end of the epoch in which $T$ was processed, when the validator's bonded stake amount and voting power is reduced as follows:
+
   - the designated amount of Liquid Newton amount is unlocked and burnt if the stake being unbonded is [delegated](/glossary/#delegated)
   - the amount of stake to reduce the unbonding pool by and Alice's share of the unbonding pool is calculated
   - the amount of Newton bonded to the validator is reduced by the unbonding amount, consequently reducing the validator's voting power
 
-Then, at the end of the epoch in which the unbonding period (`T+1` + `unbonding period`) expires, Newton redemption (i.e. 'release') occurs and the Newton that is due is minted to Alice's Newton account.
+Then, at the end of the epoch in which the unbonding period $(T+1 + unbonding~period)$ expires, Newton redemption (i.e. 'release') occurs and the Newton that is due is minted to Alice's Newton account.
 
-Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between `T` and the end of the epoch in which the `unbonding period` expires.
+Note that the amount of Newton released to Alice may be less than the original unbonded amount if the validator has been slashed between $T$ and the end of the [epoch](/glossary/#epoch) in which the [unbonding period](/glossary/#unbonding-period) expires.
 :::
 
 ## Slashing
 
-Bonded stake is subject to economic [slashing penalties](/concepts/accountability/#slashing-penalties) if misbehavior by the staked validator node is detected by the [accountability and fault detection (AFD) protocol](/concepts/accountability/). The AFD protocol detects infractions of consensus rules by validators participating in [consensus](/glossary/#consensus) as [consensus committee](/glossary/#consensus-committee) members.
+Bonded stake is subject to economic [slashing penalties](/glossary/#slashing-penalty) if misbehavior by the staked validator node when a member of the [consensus committee](/glossary/#consensus-committee) is detected by an Autonity accountability protocol:
+
+- [Accountability fault detection protocol (AFD)](/concepts/afd/) for failing to follow consensus rules 
+- [Omission fault detection protocol (OFD)](/concepts/ofd/) for failing to participate in consensus 
+- [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle protocol on-chain. 
 
 ### Economic penalties
 
-[Slashing penalties](/concepts/accountability/#slashing-penalties) are applied by autonomous protocol action at epoch end as voting power cannot change mid epoch.
+Economic penalties vary in severity and are applied according to the type of fault detected and the risk created for network security. 
 
-Economic penalties vary in severity and are applied according to the type of fault detected and the risk created for network security.
+Penalties are applied at epoch end and take the form of slashing of [bonded](/glossary/#bond) stake token per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, loss of [staking rewards](/glossasry/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards), and loss of future earning opportunity by temporary or permanent barring from the consensus committee ('[jailing](/glossary/#jailing)').
 
-See concept [Accountability and fault detection](/concepts/accountability/) and [slashing penalties](/concepts/accountability/#slashing-penalties) for protocol logic and penalty computation.
+The extent of the penalty varies according to the severity of the fault committed. For the economic disincentives of accountability penalties see:
+
+| Accountability protocol | Disincentive penalty |
+|:-- |:--|
+| [Accountability fault detection protocol (AFD)](/concepts/afd/) | [slashing penalties](/concepts/afd/#slashing-penalties) |
+| [Omission fault detection protocol (OFD)](/concepts/ofd/) | [inactivity penalties](/concepts/ofd/#inactivity-penalties-1)|
+| [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) | [outlier penalties](/concepts/oafd/#outlier-penalties)|
+
+[Slashing penalties](/glossary/#slashing-penalty) are applied by autonomous protocol action at [epoch](/concepts/staking/#epoch) end as [voting power](/glossary/#voting-power) cannot change mid-epoch.
+
 
 ### Consequences for stake redemption
 
 Bonding stake to a validator enters the staker in to a risk mutualization model shared with the validator, i.e. if the validator is penalized then the stake delegator may lose stake as consequence. This risk is realized when unbonding. Note, though, that Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model mitigates the risk to [delegated](/glossary/#delegated) stake.
 
-As described in [Liquid Newton](/concepts/staking/#liquid-newton), a conversion rate between Liquid Newton and Newton is maintained by the protocol's tokenomics to ensure that a validator's Liquid Newton tokens remain 1:1 fungible. As consequence, a staker can redeem staked Newton in full _unless_ there has been a slashing event. In this circumstance, the stake redemption will be affected. 
+As described in [Liquid Newton](/concepts/staking/#liquid-newton), a conversion rate between Liquid Newton and Newton is maintained by the protocol's tokenomics to ensure that a validator's Liquid Newton tokens remain $1:1$ fungible. As consequence, a staker can redeem staked Newton in full _unless_ there has been a slashing event. In this circumstance, the stake redemption will be affected. 
 
 To illustrate:
 
-- 100 Newton is bonded at time `T`:
+- 100 Newton is bonded at time $T$:
   - 100 Liquid Newton are issued, backed by 100 Newton
-  - If a slashing penalty of 20 is applied to the validator at `T + 1`, then bonded stake is reduced to 80 and the 100 Liquid Newton issued are now backed by 80 Newton
+  - If a slashing penalty of 20 is applied to the validator at $T + 1$, then bonded stake is reduced to 80 and the 100 Liquid Newton issued are now backed by 80 Newton
   - The 100 Liquid Newton have a redemption value of 80 Newton 
-- An additional 100 Newton are bonded post slashing at time `T + 2`:
-  - 125 LNTN are issued, i.e. `current LNTN supply * new bonding amount / current bonded stake`
+- An additional 100 Newton are bonded post slashing at time $T + 2$:
+  - 125 LNTN are issued, i.e. $current~LNTN~supply * new~bonding~amount / current~bonded~stake$.
 
 The LNTN issuance ratio has increased in light of the reduced bonded stake amount. This compensates for the lower redemption value of LNTN given the reduction in bonded stake, and maintains the fungibility of the validator's LNTN token.
 
-To exemplify redemption in this scenario for a validator `V`:
+To exemplify redemption in this scenario for a validator $V$:
 
 |Time|Event|Amount|Liquid Newton Issued|Liquid Newton Supply|Newton Redeemed|Bonded Stake Amount|
 |----|-----|------|-----------------------------|--------------------|---------------|-------------------|
-|`T` |Bond Event |100 NTN|100|100||100|
-|`T+1`|Slashing Event|20 NTN||100||80|
-|`T+2`|Bond Event|100 NTN|125|225||180|
-|`T+3`|Unbond Event|100 LNTN||125|80|100|
-|`T+4`|Unbond Event|125 LNTN||0|100|0|
+|$T$|Bond Event |100 NTN|100|100||100|
+|$T+1$|Slashing Event|20 NTN||100||80|
+|$T+2$|Bond Event|100 NTN|125|225||180|
+|$T+3$|Unbond Event|100 LNTN||125|80|100|
+|$T+4$|Unbond Event|125 LNTN||0|100|0|
 
 ::: {.callout-note title="Note" collapse="false"}
 In a trading context, if 100 Liquid Newton is purchased after this slashing event, then on redemption 80 Newton would be received. If the market price for Liquid Newton has dropped you would be purchasing it at a discount.

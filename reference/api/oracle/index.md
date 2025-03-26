@@ -17,16 +17,23 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 :::
 
 
-## getPrecision
+## getDecimals
 
-Returns the precision to be used with price reports.
+Returns the decimal places to be used with price reports.
 
-The precision is set as a constant to the integer value `10000000`.
-
-The precision is the multiplier applied to price data points before aggregation and calculation of a median price for symbols by the Oracle Contract. Data consumers can convert the aggregated value to decimal places by dividing with the precision value.
+The number of decimal places is set as a constant to the integer value `18`.
 
 ::: {.callout-note title="Conversion to decimal places" collapse="false"}
-For example, the symbol price for a currency pair is submitted with the value `1.001`. The price is multiplied with precision `10000000`, giving `10010000` which is the value submitted for price aggregation in the Oracle Contract. A data consumer can use the precision to convert the L2 aggregation value to decimal precision for their use case. For example, a median price of `12971000` converts to `1.2791`.
+Prices for currency symbols in oracle server price data reports are aggregated off-chain and computed to a price precision determined by the [Oracle protocol](/concepts/oracle-network/#oracle-protocol) decimal places configuration (i.e. `18`). However, the price reports are submitted on-chain for price aggregation in the Oracle Contract as integer values without precision, though. When requesting the price of a symbol on-chain from the Oracle Contract, therefore, the price point is returned as an integer value without precision.
+
+A data consumer can convert the L2 aggregation value to decimal precision for their use case by applying the number of decimal places as the precision.
+
+For example:
+
+`aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D latestRoundData "SEK-USD"
+{"round": 22936, "price": 90540157841600943, "timestamp": 1734622607, "success": true}`
+
+The  median price of `90540157841600943` converts to `0.090540157841600943`.
 :::
 
 ### Parameters
@@ -55,6 +62,43 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecis
 ``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecision
 10000000
+```
+:::
+
+## getNewVoters
+
+Returns the new voters in the committee.
+
+The response is returned as a list of oracle identifier addresses, sorted in descending dictionary order.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `address` | `address` array | a comma-separated list of oracle addresses for new participants in the oracle voting process |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getNewVoters
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
+["0x037b9420CA2983dc3EF87dF1C4994A2BDF6FF8BF", "0x0804A922ba6B7c0965928a8d9A10ecdeA0b3c41A",...]
+
 ```
 :::
 
@@ -216,7 +260,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePe
 
 ## getVoters
 
-Returns the current list of oracle voters from memory.
+Returns the current voters in the committee.
 
 The response is returned as a list of oracle identifier addresses, sorted in descending dictionary order.
 
@@ -228,7 +272,7 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `address` | `address` array | a comma-separated list of the oracle addresses for the current Oracle Voter set |
+| `address` | `address` array | a comma-separated list of oracle addresses for current participants in the oracle voting process |
 
 ### Usage
 
@@ -245,7 +289,7 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
 ## aut
 ``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters   
-["0xf8D8c4818Fd21B4be57a0ACD619fdD88ec7A858c", "0xd4d2874450a21f1Bf5E1C12260773d8716b526B8", "0x636d3D9711F0f3907313dC5E2Aa08e73c0608A03"]
+["0xf8D8c4818Fd21B4be57a0ACD619fdD88ec7A858c", "0xd4d2874450a21f1Bf5E1C12260773d8716b526B8", ...]
 ```
 :::
 
