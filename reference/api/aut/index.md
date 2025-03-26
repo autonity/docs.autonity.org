@@ -1636,6 +1636,45 @@ aut protocol epoch-period --rpc-endpoint $RPC_URL
 :::
 
 
+## get inflation reserve
+
+Returns the amount of Newton remaining in the [inflation reserve](/glossary/#inflation-mechanism) at the block height of the call.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_inflationReserve` | `uint256` | the amount of Newton in the inflation reserve. The value is returned in Newton's smallest unit `10^-18` (i.e. Newton's equivalent of ATN's [ton](/glossary/#ton)).  |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol inflation-reserve
+```
+
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol inflation-reserve
+38973492993331263556522187
+```
+
+:::
+
+
 ## getLastEpochBlock
 
 Returns the last epoch's end block height.
