@@ -31,6 +31,13 @@ Autonity’s inflation mechanism is a carefully crafted deterministic emission s
 
 A total of 40 million NTNs will be set aside for inflation rewards from a total supply of 100 million NTNs, ensuring a significant amount of value accrual to stakers over the lifetime of Autonity. NTN inflation rewards are minted and distributed to stakers at the end of each epoch. On emission the newton inflation reward is  [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where participating Newton is staked. The bonded stake balances of the individual stake delegators (i.e. for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake) is incremented accordingly to reflect the inflation received.
 
+::: {.callout-note title="Note" collapse="false"}
+
+Note that Liquid Newton is not minted for stake delegations bonded by [autobonding](/glossary/#autobond) of 
+[Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions.
+
+:::
+
 The exact parameters of the Mainnet inflation mechanism will be determined through active engagement with the community, but the overall curve will follow a slow decrease in inflation from genesis until $\sim~Month~36$, after which the inflation emissions will decay asymptotically to zero far into the future. This can best be summarised by an example curve, as seen below.
 
 ![Figure 1, example inflation curve. Note that parameters are purely illustrative and the Mainnet curve will likely change.](./images/example-inflation-curve.png)

@@ -188,14 +188,28 @@ Accountability protocol parameters are set by default to:
 
 The economic cost of a stake slashing is calculated by applying  a _slashing rate_ to a validator's bonded stake to compute a _slashing amount_.
 
-The _slashing rate_ is calculated by the formula `base rate + epoch offences count * collusion factor + history * history factor` where:
+The _slashing rate_ is calculated by the formula:
 
-- `base rate`: is determined by the [severity](/concepts/afd/#slashing-and-severity) of the [rule](/concepts/afd/#rules) infraction
-- `epoch offences count`: is the count of proven faults created by all validators in the epoch, which is used as evidence of collusion
-- `history`: is the count of proven faults committed by the offending validator since it first registered
-- `collusion factor` and `history factor`: are used to compute a percentage of individual and total validator offence counts to supplement the `base rate` and scale the slashing rate according to the individual validator history and evidence of general validator collusion in the current epoch.
+<!-- markdownlint-disable-next-line line-length -->
 
-The _slashing amount_ is calculated by the formula `(slashing rate * validator bonded stake)/slashing rate scale factor`, applying the computed _slashing rate_ as a multiplier to the validator's bonded stake amount divided by the [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration) _slashing rate scale factor_.
+$$
+\text{base rate} + \text{epoch offences count} * \text{collusion factor} + \text{history} * \text{history factor}
+$$
+
+Where,
+
+- $\text{base rate}$: is determined by the [severity](/concepts/afd/#slashing-and-severity) of the [rule](/concepts/afd/#rules) infraction
+- $\text{epoch offences count}$: is the count of proven faults created by all validators in the epoch, which is used as evidence of collusion
+- $\text{history}$: is the count of proven faults committed by the offending validator since it first registered
+- $\text{collusion factor}$ and $\text{history factor}$: are used to compute a percentage of individual and total validator offence counts to supplement the `base rate` and scale the slashing rate according to the individual validator history and evidence of general validator collusion in the current epoch.
+
+The _slashing amount_ is calculated by the formula:
+
+$$
+\frac{(\text{slashing rate} * \text{validator bonded stake})}{\text{slashing rate scale factor}}
+$$
+
+Applying the computed _slashing rate_ as a multiplier to the validator's bonded stake amount divided by the [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration) _slashing rate scale factor_.
 
 The slashing fine is then applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake. The validator state is updated: (a) the self-bonded and total staked amounts adjusted, (b) the slashing amount is added to the validator's `totalSlashed` counter. The slashed NTN stake token is then transferred to the Autonity Protocol global `treasury` account for community funding.
 
@@ -203,12 +217,18 @@ The slashing fine is then applied to validator bonded stake according to the pro
 
 Depending upon fault severity, a slashing penalty may apply *temporary* or *permanent* validator jailing.
 
-If *temporary*, jailing will bar the validator from committee selection for a number of blocks known as a `jail period`. The jail release block number is computed by the formula `current block number + jail factor * history * epoch period` where:
+If *temporary*, jailing will bar the validator from committee selection for a number of blocks known as a `jail period`. The jail release block number is computed by the formula:
 
-- `current block number`: The block number at the time of computation (i.e. the last block of an epoch when slashing is applied).
-- `jail factor`: A multiplier measured as a number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration).
-- `history`: The number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history over time.
-- [`epoch period`](/glossary/#epoch-period): The period of time for which a consensus committee is elected. This is defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
+$$
+current block number + jail factor * history * epoch period
+$$
+
+Where,
+
+- $\text{current block number}$: is the block number at the time of computation (i.e. the last block of an epoch when slashing is applied).
+- $\text{jail factor}$: is a multiplier measured as a number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration).
+- $\text{history}$: is the number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history over time.
+- $\text{epoch period}$: is the [period of time](/glossary/#epoch-period) for which a consensus committee is elected. This is defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
 
 If *permanent*, the validator becomes [jailbound](/glossary/#jailbound) and there is no jail release block. Permanent jailing is only applied in the case where a validator suffers 100% stake slashing as a member of the consensus committee.
 
