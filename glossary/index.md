@@ -33,9 +33,11 @@ A 64 character hex string providing the unique identifier of an [account](/gloss
 ## autobond
 The process by which [Newton inflation emissions](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) are automatically [bonded](/glossary/#bond).
 
-The [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emits [Newton](/glossary/#newton) [stake token](/glossary/#stake-token) as an inflationary reward for [delegated](/glossary/#delegated) to a [validator](/glossary/#validator) stake.
+The [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emits [Newton](/glossary/#newton) [stake token](/glossary/#stake-token) as an inflationary reward for [delegated](/glossary/#delegated) [validator](/glossary/#validator) stake.
 
-The process takes the emission earned by a [stakeholder](/glossary/#stakeholder) for stake [delegated](/glossary/#delegated) to a [validator](/glossary/#validator) and automatically [bonds](/glossary/#bond) it to that validator in the name of that stakeholder.
+The process takes the emission earned by a [stakeholder](/glossary/#stakeholder) for stake [delegated](/glossary/#delegated) to a [validator](/glossary/#validator) and automatically [bonds](/glossary/#bond) the emission to that [validator](/glossary/#validator) in the name of that stakeholder.
+
+The autobond process increases the Newton amount of the delegated stake of the validator without issuing new Liquid Newton tokens, resulting in an increase in the LNTN/NTN conversion ratio of the validator.
 
 See [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded).
 

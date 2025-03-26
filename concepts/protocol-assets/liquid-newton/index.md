@@ -20,3 +20,10 @@ The amount of liquid newton minted to a staker is governed autonomously by the v
 - On unbonding, the liquid newton unbonded is burnt and newton redeemed in proportion to the holder's share of the liquid newton pool according to the conversion rate.
 
 A validator may or may not have had slashing penalties applied and as such the redemption value of Liquid Newton may vary across validators according to their history.
+
+::: {.callout-note title="Note" collapse="false"}
+
+Note that Liquid Newton is not minted for stake delegations bonded by [autobonding](/glossary/#autobond) of 
+[Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions.
+
+:::
