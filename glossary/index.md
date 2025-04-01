@@ -183,10 +183,18 @@ The block height marking the end of a validator's jail period is recorded in val
 A pair of public and private cryptography keys used for signing and encryption. The private key is used to produce signatures that are publicly verifiable using the public key. The public key may also be used to encrypt messages intended for the private key holder who can decrypt them using the private key.
 
 ## Liquid Newton
-The liquid token representing [Newton](/glossary/#newton) stake token [delegated](/glossary/#delegated) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Unlike bonded [Newton](/glossary/#newton), Liquid Newton is transferrable and the holder receives due staking rewards. See also [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/).
+The liquid token representing bonded [Newton](/glossary/#newton) stake token [delegated](/glossary/#delegated) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Unlike bonded [Newton](/glossary/#newton), Liquid Newton is transferrable. The Liquid Newton holder receives due [staking rewards](/glossary/#staking-rewards). 
+
+Liquid Newton is redeemed for Newton by [unbonding](/glossary/#unbond). On unbonding the Liquid Newton is locked and is redeemable for Newton after an [unbonding period](/glossary/#unbonding-period). At that point the locked Liquid Newton is burned and the due amount of Newton redeemed
+
+See also [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/) and [Staking, Liquid staking](/concepts/staking/#liquid-staking).
 
 ## liquid staking
-A staking model in which funds staked to a Proof of Stake network have a liquid representation of staked assets in the form of a token. For Autonity's liquid staking model see [Staking, Liquid staking](/concepts/staking/#liquid-staking).
+A staking model in which funds staked to a Proof of Stake network have a liquid representation of staked assets in the form of a token.
+
+In Autonity's liquid staking model the token is [Liquid Newton](/glossary/#liquid-newton) and it is only minted for [delegated](/glossary/#delegated) stake.
+
+See also [Staking, Liquid staking](/concepts/staking/#liquid-staking).
 
 ## mesh network
 A network topology where each node is connected to one or more other network nodes. All nodes in the  mesh relay data and co-operate in the distribution of data across the network. A mesh topology can be _full_ or _partial_.
@@ -199,7 +207,9 @@ A cryptocurrency that is inherent to a decentralised computer network.
 Autonity tokenomics have the native coin [Auton](/glossary/#auton) and ERC20 tokens [Newton](/glossary/#newton) and [Liquid Newton](/glossary/#liquid-newton).
 
 ## Newton
-The stake token used to stake an [Autonity network](/glossary/#autonity-network). Once Newton is staked it is locked and only redeemable by [unbonding](/glossary/#unbond) after an [unbonding period](/glossary/#unbonding-period). Newton can be in three states (bonded, unbonded, unbonding) as described in [Protocol assets, Newton](/concepts/protocol-assets/newton/). See [Proof of Stake (PoS)](/glossary/#proof-of-stake-pos). 
+The stake token used to stake an [Autonity network](/glossary/#autonity-network). Once Newton is staked it is burned and only redeemable by [unbonding](/glossary/#unbond) after an [unbonding period](/glossary/#unbonding-period). 
+
+See also [Protocol assets, Newton](/concepts/protocol-assets/newton/) and [Proof of Stake (PoS)](/glossary/#proof-of-stake-pos). 
 
 ## node
 A participant running the Autonity Go Client software and able to connect to an Autonity network. See [peer](/glossary/#peer) [mesh network](/glossary/#mesh-network), [peer-to-peer network](/glossary/#peer-to-peer-network-p2p).
