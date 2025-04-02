@@ -183,7 +183,7 @@ The block height marking the end of a validator's jail period is recorded in val
 A pair of public and private cryptography keys used for signing and encryption. The private key is used to produce signatures that are publicly verifiable using the public key. The public key may also be used to encrypt messages intended for the private key holder who can decrypt them using the private key.
 
 ## Liquid Newton
-The liquid token representing bonded [Newton](/glossary/#newton) stake token [delegated](/glossary/#delegated) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Unlike bonded [Newton](/glossary/#newton), Liquid Newton is transferrable. The Liquid Newton holder receives due [staking rewards](/glossary/#staking-rewards). 
+The liquid token representing bonded [Newton](/glossary/#newton) stake token [delegated](/glossary/#delegated) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Liquid Newton is transferrable. The Liquid Newton holder receives due [staking rewards](/glossary/#staking-rewards). 
 
 Liquid Newton is redeemed for Newton by [unbonding](/glossary/#unbond). On unbonding the Liquid Newton is locked and is redeemable for Newton after an [unbonding period](/glossary/#unbonding-period). At that point the locked Liquid Newton is burned and the due amount of Newton redeemed
 
