@@ -185,7 +185,7 @@ A pair of public and private cryptography keys used for signing and encryption. 
 ## Liquid Newton
 The liquid token representing bonded [Newton](/glossary/#newton) stake token [delegated](/glossary/#delegated) to a validator in an Autonity Network (see stake [delegation](/glossary/#delegation)). Liquid Newton is transferrable. The Liquid Newton holder receives due [staking rewards](/glossary/#staking-rewards). 
 
-Liquid Newton is redeemed for Newton by [unbonding](/glossary/#unbond). On unbonding the Liquid Newton is locked and is redeemable for Newton after an [unbonding period](/glossary/#unbonding-period). At that point the locked Liquid Newton is burned and the due amount of Newton redeemed
+Liquid Newton is redeemed for Newton by [unbonding](/glossary/#unbond). On processing an unbonding tx the Liquid Newton is locked. At the end of the epoch in which that unbonding transaction was processed, the Liquid Newton is unlocked and burned, and unbonding shares are computed. At epoch end after [unbonding period](/glossary/#unbonding-period) expiry, Newton is minted to the stake holder based on the unbonding shares.
 
 See also [Protocol assets, Liquid Newton](/concepts/protocol-assets/liquid-newton/) and [Staking, Liquid staking](/concepts/staking/#liquid-staking).
 
@@ -297,7 +297,7 @@ The protocol mechanism for pricing the cost of processing a transaction on a blo
 ## unbond
 The operation of unbonding stake from a validator.
 
-In Autonity's [liquid staking](/glossary/#liquid-staking) model stake can be unbonded at any time, but staked Newton is not redeemable until an [unbonding period](/glossary/#unbonding-period) has elapsed.
+In Autonity's [liquid staking](/glossary/#liquid-staking) model stake can be unbonded at any time, but staked Newton is not redeemable until an [unbonding period](/glossary/#unbonding-period) has expired.
 
 ## unbonding period
 The period of time for which bonded stake remains locked after processing an unbonding transaction. Unbonding period is defined as a number of blocks.

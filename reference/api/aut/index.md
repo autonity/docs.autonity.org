@@ -291,7 +291,7 @@ Constraint checks:
 
 On successful processing of the method call:
 
-- the bonded Newton amount is deducted from the `msg.Sender`'s Newton account balance and the corresponding amount of Newton is burned
+- the bonded Newton amount is burned
 - a `BondingRequest` object for the necessary voting power change is created:
 
 | Field | Datatype | Description |
