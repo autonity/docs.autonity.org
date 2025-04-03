@@ -23,7 +23,7 @@ It has responsibilities to:
 - Vote in consensus rounds, exchanging consensus messages with committee members as the consensus protocol executes.
 - Maintain system state by committing new blocks to state as a consensus round completes.
 - Propagate new blocks to the network at the end of a consensus round, sending the full block if round leader otherwise sending a new block announcement.
-- Provide bonded stake to the Proof of Stake consensus mechanism, providing locked stake for network security economics.
+- Provide bonded stake to the Proof of Stake consensus mechanism, providing bonded stake for network security economics.
 - Participate in the accountability and fault detection protocol, detecting and submitting accountability events committed by other committee members. See concept [accountability and fault detection protocol](/concepts/accountability/).
 - Participate in the oracle protocol, inputting raw price data and voting for aggregated median price data for currency pairs provided by the Autonity network during oracle [voting rounds](/glossary/#voting-round). See concept [oracle network](/concepts/oracle-network/).
 
@@ -233,7 +233,14 @@ Autonity implements an 'active epoch' staking model, applying staking transition
 
 Stake is bonded and redeemed by Newton holders submitting transaction requests to the Autonity Protocol Contract. These requests are recorded in state on submission as `BondingRequest` and `UnbondingRequest` data structures in the Autonity Protocol Contract state, but there is a temporal delay in effect. Voting power cannot change mid-epoch and so staking transitions are applied at epoch end before the next committee selection is run.
 
-Stake is bonded by submitting a bonding request transaction to the `bond()` function and redeemed by the converse, to the `unbond()` function. In the bonding scenario, liquid newton is minted for [delegated](/glossary/#delegated) stake and the Validator's total bonded stake amount updated in the final block of the epoch. Stake redemption by contrast is an incremental process: liquid newton for [delegated](/glossary/#delegated) stake is burned immediately on processing of the `unbond()` function call, the validator's total bonded stake amount is updated at epoch end, the newton is issued (i.e. minted) to the staker at the end of the unbonding period. If the unbonding request is included in block `T`, then actual unbonding is then executed at `T` + `unbondingPeriod` + remainder of the epoch in which the unbonding period falls. At this point, the staker's due newton is minted to them.
+Stake is bonded by submitting a bonding request transaction to the [`bond()`](/reference/api/aut/#bond) function and redeemed by the converse, a transaction to the [`unbond()`](/reference/api/aut/#unbond) function. Bonding and unbonding is an incremental process.
+
+In the case of bonding: newton for the stake [delegation](/glossary/#delegation) amount is burned immediately on processing of the `bond()` function call and the corresponding amount of Newton is deducted from the stake delegator's Newton account balance. If the bonding request is included in block `T`, then actual bonding is executed at epoch end, i.e. `T` + remainder of the epoch. The validator's total bonded stake amount is then updated at epoch end when the staking transition is applied. When bonding liquid newton is minted for [delegated](/glossary/#delegated) stake only. The liquid newton is minted to the stake delegator's account at epoch end per the NTN-LNTN conversion rate for the validator (see [Staking, Liquid Newton](/concepts/staking/#liquid-newton)). Liquid newton is not minted for [self-bonded](/glossary/#self-bonded) stake.
+
+In the case of unbonding: if the unbonding request is included in block `T`, then actual unbonding is then executed at `T` + [`unbondingPeriod`](/concepts/staking/#unbondingperiod) + remainder of the [`epoch`](/concepts/staking/#epoch) in which the unbonding period falls. At this point, the staker's due newton is redeemed and minted to the staker. The redemption flow varies depending on whether the unbonding is for [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegated) stake:
+
+- For [self-bonded](/glossary/#self-bonded) stake, the unbonding request amount is stated in NTN and that amount of newton is redeemed at epoch end after unbonding period expiry.
+- For [delegated](/glossary/#delegated) stake, the unbonding request amount is stated in LNTN and the amount of newton redeemed depends upon the NTN-LNTN conversion rate for the validator (see [Staking, Liquid Newton](/concepts/staking/#liquid-newton)). At the end of the [`epoch`](/concepts/staking/#epoch) in which the [`unbond()`](/reference/api/aut/#unbond) transaction was processed the Liquid Newton is burned and the validator's total bonded stake amount is reduced. The due amount of newton is redeemed at epoch end after unbonding period expiry.
 
 ## Validator economics
 
