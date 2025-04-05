@@ -1,0 +1,9 @@
+# Example Features usage:
+# feature1: true - This will include any content wrapped in a conditional flag that depends on this variable being true
+# feature2: false - This will exclude any content wrapped in a conditional flag that depends on this variable being true
+# css_classes:
+#   - test-class - This will go through all scss files in _asstes/css and exclude any css classes in this list (note this is only for css classes.)
+
+# List of css files that will be excluded from the main document
+css_files:
+  - docgen.css

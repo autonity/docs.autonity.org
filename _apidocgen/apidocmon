@@ -5,6 +5,9 @@
 python3 -m _apidocgen --watch &
 APIDOCGEN_PID=$!
 
+# Wait for API docs to be generated so that Quarto picks up all files
+sleep 1
+
 quarto preview &
 QUARTO_PID=$!
 
