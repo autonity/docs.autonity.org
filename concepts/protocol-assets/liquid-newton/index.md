@@ -5,6 +5,8 @@ description: >
   Liquid Newton - liquid staking asset
 ---
 
+## Liquid Newton overview
+
 Liquid Newton is the [liquid staking](/concepts/staking/#liquid-staking) token of Autonity. Liquid Newton is minted and burned for [delegated](/glossary/#delegated) stake as stakeholders bond and redeem [Newton](/concepts/protocol-assets/newton/) stake token to validators in an Autonity system. Liquid Newton is validator-specific and represents the holder's share of the total [delegated](/glossary/#delegated) stake bonded to a [validator](/glossary/#validator). Liquid Newton has the [staking rewards](/glossary/#staking-rewards) entitlement rights due to [delegated](/glossary/#delegated) stake when the staked validator is participating in the [consensus committee](/glossary/#consensus-committee). The Liquid Newton of a validator has its own market price and is not fungible across validators. Liquid Newton is divisible up to 18 decimal places (the smallest unit is 10^-18 or 0.000000000000000001).
 
 A Liquid Newton token can be in one of two states:
@@ -18,3 +20,10 @@ The amount of liquid newton minted to a staker is governed autonomously by the v
 - On unbonding, the liquid newton unbonded is burnt and newton redeemed in proportion to the holder's share of the liquid newton pool according to the conversion rate.
 
 A validator may or may not have had slashing penalties applied and as such the redemption value of Liquid Newton may vary across validators according to their history.
+
+::: {.callout-note title="Note" collapse="false"}
+
+Note that Liquid Newton is not minted for stake delegations bonded by [autobonding](/glossary/#autobond) of 
+[Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions.
+
+:::
