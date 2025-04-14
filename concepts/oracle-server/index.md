@@ -53,9 +53,9 @@ ATN and NTN symbols are preview listed but untraded:
 - https://www.coingecko.com/en/coins/auton
 - https://www.coingecko.com/en/coins/newton
 
-Plugins for retrieving ATN/NTN price data are to be developed for Mainnet launch.
+Plugins for retrieving ATN-NTN price data are to be developed for Mainnet launch.
 
-[Piccadilly Testnet](/networks/testnet-piccadilly/) validators can retrieve ATN/NTN price data from a Uniswap V2 AMM clone on the testnet using the `crypto_uniswap` plugin.
+ATN-NTN price data for [Piccadilly Testnet](/networks/testnet-piccadilly/) is computed using mock 'USDCx'. Piccadilly Testnet validators can retrieve ATN-USDCx and NTN-USDCx price data from a Uniswap V2 AMM clone deployed on the testnet using the `crypto_uniswap` plugin. For how to configure this see the Guide _Running an Oracle Server_ and [Setup crypto plugin config](/oracle/run-oracle/#setup-crypto-plugin-config).
 
 :::
 
