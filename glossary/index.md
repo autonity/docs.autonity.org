@@ -33,13 +33,13 @@ A 64 character hex string providing the unique identifier of an [account](/gloss
 ## autobond
 The process by which [Newton inflation emissions](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) are automatically [bonded](/glossary/#bond).
 
-The [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emits [Newton](/glossary/#newton) [stake token](/glossary/#stake-token) as an inflationary reward for [delegated](/glossary/#delegated) [validator](/glossary/#validator) stake.
+The [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emits [Newton](/glossary/#newton) [stake token](/glossary/#stake-token) as an inflationary reward earned for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake [delegations](/glossary/#delegations) to a [validator](/glossary/#validator). Autobonding automatically [bonds](/glossary/#bond) the emission to that [validator](/glossary/#validator) in the name of the [stakeholder](/glossary/#stakeholder).
 
-The process takes the emission earned by a [stakeholder](/glossary/#stakeholder) for stake [delegated](/glossary/#delegated) to a [validator](/glossary/#validator) and automatically [bonds](/glossary/#bond) the emission to that [validator](/glossary/#validator) in the name of that stakeholder.
+The autobond process increases the Newton amount of the stake bonded to the validator without issuing new Liquid Newton tokens, resulting in an increase in the LNTN-NTN conversion rate of the validator.
 
-The autobond process increases the Newton amount of the delegated stake of the validator without issuing new Liquid Newton tokens, resulting in an increase in the LNTN/NTN conversion ratio of the validator.
+See [inflation rewards](/glossary/#inflation-rewards) and [inflation mechanism](/glossary/#inflation-mechanism).
 
-See [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded).
+See the staking concept for an explanation of the [LNTN-NTN conversion rate](/concepts/staking/#liquid-newton).
 
 ## Auton
 A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/concepts/protocol-assets/auton/).
