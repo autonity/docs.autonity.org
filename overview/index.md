@@ -21,7 +21,7 @@ Key technical features of the Autonity Protocol are:
   - [Accountable fault detection (AFD)](/concepts/afd/): a protocol for detecting infractions of consensus rules by committee members. Failure to adhere to these rules is a rule infraction and AFD will detect and apply slashing penalties for proven rule infractions.
   - [Omission fault detection (OFD)](/concepts/ofd/): a protocol for detecting failure to vote in [consensus rounds](/concepts/consensus/pos/#consensus-round-and-internal-state) by a committee member and the failure of block proposers to provide activity proofs in block headers [when required](/concepts/ofd/#delta-delta). Failure to participate is a loss of liveness and OFD will detect and apply slashing penalties for proven inactivity.
 - [Oracle network](/concepts/oracle-network/): a protocol for consensus-computed median price data for selected FX currency pairs as an L1 platform feature. The submission of price data for aggregation and voting is a validator responsibility; validator nodes form an oracle network.
-- [Oracle accountability and fault detection (OAFD)](/concepts/oafd/): a protocol for detecting infractions of consensus rules by validator oracles participating in oracle voting rounds and price reporting as a committee member. Failure to adhere to these rules is a rule infraction and OAFD will detect and apply slashing penalties for proven rule infractions.
+- [Oracle accountability and fault detection (OAFD)](/concepts/oafd/): a protocol for detecting misbehaving oracles, which will be filtered via outlier detection and slashed accordingly.
 
 
 ## Technology
