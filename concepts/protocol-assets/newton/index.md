@@ -23,7 +23,7 @@ As Newton is bonded and redeemed [Liquid Newton](/concepts/protocol-assets/liqui
 
 ## Total supply and newton inflation
 
-The total supply of Newton will be set to 100 million NTNs. 40% of the total supply is set aside as an "inflation reserve" for [inflation rewards](/glossary/#inflation-rewards) released into circulation over the short-to-medium term. Inflation rewards are emitted in the form of newton inflation, i.e. newly minted newton supply, for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero as the inflation reserve is fixed.
+The total supply of Newton will be set to 100 million NTNs. 40% of the total supply is set aside as an "inflation reserve" for [inflation rewards](/glossary/#inflation-rewards) released into circulation over the short-to-medium term. Inflation rewards are emitted in the form of newton inflation, i.e. newly minted newton supply, for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero.
 
 Inflation emissions to stakers and validators are crucial for incentivizing network security, ensuring that those contributing to the Newton [participation rate](/glossary/#participation-rate) are adequately rewarded for securing the blockchain. Newton inflation subsidizes the cost and risk of staking during the early stages of the network when transactional activity is low and Auton [staking rewards](/glossary/#staking-rewards) earned from transaction fees alone may not incentivize a sufficiently high staking participation rate. Inflation rewards also help decentralize the network by encouraging a broader base of Newton [stakeholders](/glossary/#stakeholder) to stake their tokens, reducing the risk of centralization. Additionally, these rewards can provide a predictable economic model, attracting long-term investment and commitment from the community.
 
@@ -42,7 +42,8 @@ The exact parameters of the Mainnet inflation mechanism will be determined throu
 
 ![Figure 1, example inflation curve. Note that parameters are purely illustrative and the Mainnet curve will likely change.](./images/example-inflation-curve.png)
 
-Please note that in the graph above, the y-axis percentage returns assume a 100% [participation rate](/glossary/#participation-rate) (i.e. all tokens are staked). To model for yourself the expected inflation yield, divide thevalue on the y-axis by an estimated participation rate (e.g. 0.7 for an expected participation rate of 70%, resulting in an inflation yield of 14.3% at genesis for an inflation rate of 10%).
+Please note that in the graph above, the y-axis percentage returns assume a 100% [participation rate](/glossary/#participation-rate) (i.e. all tokens are staked). To model for yourself the expected inflation yield, divide the
+value on the y-axis by an estimated participation rate (e.g. 0.7 for an expected participation rate of 70%, resulting in an inflation yield of 14.3% at genesis for an inflation rate of 10%).
 
 For the [Piccadilly Circus Games Competition ](https://game.autonity.org/) and the [Autonity Piccadilly Tiber Challenge](https://github.com/autonity/tiber-challenge) on the [Piccadilly Testnet](/networks/testnet-piccadilly/), a slightly different inflation schedule has been used to aid in testing. The PCGC Round 6 emission schedule can be seen below:
 
