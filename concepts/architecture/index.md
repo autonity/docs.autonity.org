@@ -217,7 +217,7 @@ Depending upon the validator's inactivity score the protocol will apply penaltie
 
 - Withhold staking and newton inflation rewards. See [Rewards withholding calculation](/concepts/ofd/#rewards-withholding-calculation).
 - Withhold rewards and apply jailing coupled with a probation period. See [Probation period calculation](/concepts/ofd/#probation-period-calculation) and [Jail period calculation](/concepts/ofd/#jail-period-calculation).
-- Apply slashing and permanent jailing if repeat offending while on probation. See [Slashing amount calculation](/concepts/ofd/#slashing-amount-calculation). Slashing is applied according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
+- Apply slashing and longer jailing if repeated offences are committed while on probation. See [Slashing amount calculation](/concepts/ofd/#slashing-amount-calculation). Slashing is applied according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
 
 To learn more about the concept see [Omission fault detection (OFD)](/concepts/ofd/).
 
