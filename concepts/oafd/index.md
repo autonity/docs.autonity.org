@@ -112,7 +112,7 @@ The oracle server generates a _price report_:
 - assigning a _confidence score_ rating to its price for a _symbol_
 - generating a _price report_ containing the price data for all _currency pair_ _symbols_ it has sourced.
 
-The _price report_ is then taken by the connected _validator node_ and submitted to the Oracle protocol contract on-chain for computation of an _aggregated median price_ for each _symbol_.
+The _price report_ is then taken by the connected _validator node_ and submitted to the Oracle protocol contract on-chain for computation of an _aggregated median price_ for each _symbol_. The gas cost for submitting the _price report_ transaction on-chain is reimbursed by the Autonity network.
 
 The aggregated median price is continually refreshed in a cycle of _voting rounds_. Each _voting round_ the newly computed price is emitted on-chain and recorded in [system state]() as _round data_.
 
