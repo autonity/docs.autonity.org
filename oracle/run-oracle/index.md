@@ -179,7 +179,7 @@ The oracle server config file `oracle-server.config` can be found in the `/auton
 
 ::: {.callout-tip title="Confidence strategy - linear vs. fixed" collapse="false"}
 
-Oracle prices are submitted with a _confidence score_ in the range $(0, 100)$ expressing the oracle's level of trust in the provided price (For detail on confidence score, see the concept description [Oracle accountability fault detection (OAFD)](/concepts/oafd/#confidence-score).
+Oracle prices are submitted with a _confidence score_ in the range $(0, 100]$ expressing the oracle's level of trust in the provided price (For detail on confidence score, see the concept description [Oracle accountability fault detection (OAFD)](/concepts/oafd/#confidence-score).
 
 `confidenceStrategy` provides two out-the-box options to compute the confidence score for a symbol:
 
