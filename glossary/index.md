@@ -359,18 +359,19 @@ The Unix OS system for representing a point in time as a timestamp. Time is meas
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
 
 ## vote period
-An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation by the oracle network.
+The period of time measured in [blocks](/glossary/#block) over which  price voting and aggregation by the [oracle network](/glossary/#oracle-network) takes place in a [voting round](/glossary/#voting-round).
 
-## voting period
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-aos) submit and vote on price data reports for [currency pair](/glossary/#currency-pair) symbols supported by the oracle protocol.
+During the vote period [Autonity oracles](/glossary/#autonity-oracle-server-aos) collect price data from data providers and submit price data reports on-chain for [currency pair](/glossary/#currency-pair) symbols supported by the [oracle protocol](/concepts/oracle-network/#oracle-protocol). At the end of the vote period the oracle contract on-chain computes median price data for the symbols, publishing the data on-chain as 'round data'. A new voting round is then initiated.
 
-See [vote period](/glossary/#vote-period) and [voting round](/glossary/#voting-round).
+See [voting round](/glossary/#voting-round).
 
 ## voting power
 The amount of stake bonded by [delegation](/glossary/#delegation) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
 
 ## voting round
-An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
+The voting cycle during which price voting and aggregation by an Autonity network's oracle network takes place.
+
+The duration of a voting round is determined by the [vote period](/glossary/#vote-period) set in the Autonity network's configuration.
 
 For example, a [vote period](/glossary/#vote-period) of `30` will initiate a new oracle voting round at 30-block intervals.
  
