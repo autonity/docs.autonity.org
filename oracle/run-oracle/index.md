@@ -393,7 +393,7 @@ Customise the `crypto_uniswap`plugin:
     - [`defaultConfig.Endpoint`](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/crypto_uniswap/crypto_uniswap.go#L28): change the `endpoint` to replace the `rpc1-internal` endpoint with the endpoint address of their own connected validator node.
     - [`defaultConfig.Scheme`](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/crypto_uniswap/crypto_uniswap.go#L29): update to the scheme used for the endpoint (http/s or ws/s).
 
-2. Build the plugin. If building oracle server from binary, then customise the plugin before running `make autoracle`. Alternatively, build the plugin individually a describ ed in [/plugins/README, Build it](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/README.md#build-it)]. In the `autonity-oracle` directory run:
+2. Build the plugin. If building oracle server from source, then customise the plugin before running `make autoracle`. Alternatively, build the plugin individually as described in [/plugins/README, Build it](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/README.md#build-it). In the `autonity-oracle` directory run:
    
      ```yaml
      go build -o ./build/bin/plugins/crypto_uniswap ./plugins/crypto_uniswap/crypto_uniswap.go
