@@ -32,7 +32,7 @@ The `aut validator claim-rewards` command uses this function.  Usage details and
 
 ## claimTreasuryATN
 
-Computes the total rewards owed to the validator treasury from commission charged on [delegated](/glossary/#delegated) stake, and sends the appropriate amount of auton to the validator's  `treasury` account.
+Sends to the treasury the ATN rewards accrued by the validator via the commission charged on [delegated](/glossary/#delegated) stake.
 
 Constraint checks are applied:
 
