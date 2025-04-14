@@ -205,7 +205,7 @@ A protocol action that excludes a validator from selection to the [consensus com
 A state in which a validator is permanently barred from selection to the consensus committee. A validator may only enter a jailbound state if:
 
 - A 100% [slashing penalty](/glossary/#slashing-penalty) is applied by [Accountability fault detection](/concepts/afd/#jail-period-calculation)
-- The validator is found inactive while on probation by [Omission fault detection](/concepts/ofd/#jail-period-calculation).
+- The validator is repeatedly found inactive while on probation by [Omission fault detection](/concepts/ofd/#jail-period-calculation), leading to a cumulative 100% slashing penalty.
 
 ## jail period
 The period of time for which a validator is temporarily barred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
