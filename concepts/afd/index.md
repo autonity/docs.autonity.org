@@ -259,7 +259,7 @@ Rules are assigned a severity rating according to the risk that failure to adher
 
 - `Low`: severity `1`
 - `Mid`: severity `2`
-- `High`: severity `2`
+- `High`: severity `3`
 
 
 | Rule ID | Severity | Description | 
