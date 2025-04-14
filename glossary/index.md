@@ -25,7 +25,7 @@ Acronym for Autonity Consensus Network.
 
 At the P2P level, Autonity separates transaction and consensus traffic on to separate channels on different TCP ports.
 
-For transaction gossiping between nodes the Ethereum wire protocol is used for P2P propagation of block announcements and transactions. For consensus gossiping a separate consensus protocol runs alongside the ethwire protocol for the execution of Autonity’s BFT Tendermint Consensus algorithm. For detail see [Communication layer](/concepts/architecture/#communication-layer) in the *Architecture* Concept.
+The Ethereum wire protocol is used for P2P propagation of blocks and transactions between nodes. For consensus gossiping a separate protocol runs alongside the ethwire protocol, allowing for the execution of Autonity’s BFT Tendermint Consensus algorithm. For detail see [Communication layer](/concepts/architecture/#communication-layer) in the *Architecture* Concept.
 
 ## address{#address}
 A 64 character hex string providing the unique identifier of an [account](/glossary/#account).
