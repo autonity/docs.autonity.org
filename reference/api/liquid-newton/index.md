@@ -159,6 +159,6 @@ aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 unlockedB
 
 ## unclaimedRewards
 
-Queries the contract and returns the total rewards owed to a given account.
+Queries the contract and returns the total ATN rewards owed to a given account.
 
 This function is used by the `aut validator unclaimed-rewards` command of [`aut`](/account-holders/setup-aut/).  Further details are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#get-reward-balance) section.
