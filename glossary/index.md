@@ -187,7 +187,7 @@ The mechanism by which a percentage of the total [newton](/glossary/#newton) sup
 
 Newton total supply is capped at 100 million NTNs of which 40% is reserved for inflation awards in the short-to-medium term.
 
-Inflation rewards are emitted in the form of newton inflation (i.e. newly minted newton supply) for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero as the Inflation Reserve is fixed.
+Inflation rewards are emitted in the form of newton inflation (i.e. newly minted newton supply) for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero.
 
 For more detail see the [Newton](/concepts/protocol-assets/newton/) concept and [Total supply and newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
 
