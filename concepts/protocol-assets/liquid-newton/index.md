@@ -23,7 +23,7 @@ A validator may or may not have had slashing penalties applied and as such the r
 
 ::: {.callout-note title="Note" collapse="false"}
 
-Note that Liquid Newton is not minted for stake delegations bonded by [autobonding](/glossary/#autobond) of 
+Note that Liquid Newton is not minted for [autobonding](/glossary/#autobond) of 
 [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions.
 
 :::
