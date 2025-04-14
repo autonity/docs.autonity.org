@@ -59,7 +59,7 @@ Incoming traffic must also be allowed on the following if you are operating a va
 
 Autonity logically and physically segregates [P2P networking protocols](/concepts/system-model/#p2p-networking-protocols) into different channels for transaction and consensus gossiping. Transaction traffic runs on the ethereum wire protocol; consensus traffic runs alongside that as a separate Autonity Consensus Network (ACN). This ensures that queued transaction traffic does not delay  consensus traffic.
 
-**If you are operating a validator node, then you will need to open the ports for both transactin and consensus gossiping channels to incoming traffic. See [separate channels for transaction and consensus gossiping](/concepts/system-model/#separate-channels-for-transaction-and-consensus-gossiping) for more detail.**
+**If you are operating a validator node, then you will need to open the ports for both transaction and consensus gossiping channels to incoming traffic. See [separate channels for transaction and consensus gossiping](/concepts/system-model/#separate-channels-for-transaction-and-consensus-gossiping) for more detail.**
 :::
 
 You may also choose to allow traffic on the following ports:
