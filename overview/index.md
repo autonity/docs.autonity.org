@@ -45,7 +45,7 @@ For explanations of core concepts refer to:
 - Accountability protocols for validators participating in consensus and submitting price reports to the oracle protocol on-chain as committee members:
   - [Accountability fault detection protocol (AFD)](/concepts/afd/) for failing to follow consensus rules.
   - [Omission fault detection protocol (OFD)](/concepts/ofd/) for failing to participate in consensus.
-  - [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle protocol on-chain.
+  - [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle on-chain contract.
 - [Auton Stabilization Mechanism (ASM)](/concepts/asm/) for protocol mechanisms to stabilize Auton price in a CDP-based stabilization mechanism where Auton is borrowed in return for depositing collateral token.
 - [Protocol assets](/concepts/protocol-assets/) for the protocol's native coins and tokens:  _Auton_ utility coin, _Newton_ stake token, and _Liquid Newton_ liquid stake token.
 - The [Glossary](/glossary/#participant) for definitions of terms and concepts used in the documentation.
