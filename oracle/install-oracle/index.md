@@ -17,7 +17,7 @@ We assume that the Autonity Oracle Server will run on a _host_ machine (a VPS or
 ::: {.callout-note title="Note" collapse="false"}
 Autonity Oracle Server source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity-oracle](https://github.com/autonity/autonity-oracle).
 
-Before installing verify the correct Autonity Oracle Server release version to use for the network you are connecting to. See the [Networks](/networks/) pages [Bakerloo Testnet, Release](/networks/testnet-bakerloo/#release) and [Piccadilly Testnet, Release](/networks/testnet-piccadilly/#release) for the versions deployed.
+Before installing verify the correct Autonity Oracle Server release version to use for the network you are connecting to. See the [Networks](/networks/) page and [Piccadilly Testnet, Release](/networks/testnet-piccadilly/#release) for the versions deployed.
 :::
 
 ## Requirements
@@ -28,9 +28,8 @@ To run an Autonity Oracle Server, we recommend using a host machine (physical or
 
 | Requirement	 | At least | Recommended|
 |-------------|----------|------------|
-| OS | Ubuntu 20.04 LTS | Ubuntu 20.04 LTS |
-| CPU |1.9GHz with 4CPU's |  1.9GHz with 4CPU's |
-| RAM |2GB |  4GB |
+| CPU | x86_64 architecture, 1.9GHz with 4CPU's |  x86_64 architecture, 1.9GHz with 4CPU's |
+| RAM | 2GB |  4GB |
 | Storage |32GB |  64GB |
 | Network interface	| 64Mbit/s |  128Mbit/s |
 
@@ -105,7 +104,7 @@ The following should be installed in order to build the Autonity Oracle Server:
     This will build the executable (`./build/bin/autoracle`) and create a subdirectory containing data source plugins packaged in the release (`./build/bin/plugins/`).
 
 
-    Adjust the `make` command according to the testnet you are connecting to.
+    <!-- Adjust the `make` command according to the testnet you are connecting to. -->
 
     If connecting to Piccadilly Testnet, run:
     
@@ -114,16 +113,9 @@ The following should be installed in order to build the Autonity Oracle Server:
     make autoracle
     ```
     
-    If connecting to Bakerloo Testnet, run:
-    
-    ```bash
-    cd autonity-oracle
-    make autoracle-bakerloo
-    ```
-    
-4. (Optional) Add data source plugins. Navigate to the `plugins` sub-directory of your working directory and add sub-directories for additional plugins you are installing. See [Installing data source plugins](/oracle/install-oracle/#install-plugin).
+3. (Optional) Add data source plugins. Navigate to the `plugins` sub-directory of your working directory and add sub-directories for additional plugins you are installing. See [Installing data source plugins](/oracle/install-oracle/#install-plugin).
 
-5. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH`:
+4. (Optional) Copy the generated binary to `/usr/local/bin` so it can be accessed by all users, or other location in your `PATH`:
 
     ```bash
     sudo cp build/bin/autoracle /usr/local/bin/autoracle
@@ -171,16 +163,10 @@ sudo systemctl restart docker
    
 2. Pull the Autonity Oracle Server image from the GitHub Container Registry.
    
-   If you are deploying to the Bakerloo Testnet:
-   
-    ```bash
-    docker pull ghcr.io/autonity/autonity-oracle-bakerloo:latest
-    ```
-   
    If you are deploying to the Piccadilly Testnet:
    
     ```bash
-    docker pull ghcr.io/autonity/autonity-oracle-piccadilly:latest
+    docker pull ghcr.io/autonity/autonity-oracle:latest
     ```
 
    (where `latest` can be replaced with another version)
@@ -192,20 +178,12 @@ sudo systemctl restart docker
 3. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
 
 
-   If you are deploying to the Bakerloo Testnet:
-   
-    ```bash
-    docker images --digests ghcr.io/autonity/autonity-oracle-bakerloo
-    REPOSITORY                                  TAG       DIGEST                                                                    IMAGE ID       CREATED       SIZE
-    ghcr.io/autonity/autonity-oracle-bakerloo   latest    sha256:f37cdf332bab761426f94a6b6f8e670efc7b95e4470bc9a4ce1151d48baff791   d6cc39e078f6   2 weeks ago   111MB
-    ```
-   
    If you are deploying to the Piccadilly Testnet:
    
     ```bash
-    docker images --digests ghcr.io/autonity/autonity-oracle-piccadilly
-    REPOSITORY                                    TAG       DIGEST                                                                    IMAGE ID       CREATED        SIZE
-    ghcr.io/autonity/autonity-oracle-piccadilly   latest    sha256:aa0192ce1d72b1a6d5ad971e8d10a8dbc32004f4ea1d3da7217b80ec8b6a363e   78446bd6c4b6   2 weeks ago    111MB
+    docker images --digests ghcr.io/autonity/autonity-oracle:latest
+    REPOSITORY                         TAG       DIGEST    IMAGE ID       CREATED        SIZE
+ghcr.io/autonity/autonity-oracle   latest    <none>    7cf33ad2a942   3 months ago   163MB
     ```
 
 4. Data source plugins. Note that the data source plugins are included as part of the Docker image at the directory path `/usr/local/bin/plugins`.
@@ -223,16 +201,16 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 $ ./build/bin/autoracle version
 ```
 ```
-v0.1.9
+v0.2.3
 ```
 
 If using Docker, the setup of the Piccadilly Testnet image can be verified with:
 
 ```bash
-docker run --rm ghcr.io/autonity/autonity-oracle-piccadilly:latest version 
+docker run --rm ghcr.io/autonity/autonity-oracle:latest version 
 ```
 ```
-v0.1.9
+v0.2.3
 ```
 
 ::: {.callout-note title="Note" collapse="false"}
@@ -245,11 +223,9 @@ Oracle server will need to provide price data for FX and ATN and NTN currency pa
 
 A basic set of data adaptor plugins for sourcing this data is provided out the box with oracle server for testnet pre-Mainnet:
 
-- Forex plugins: for connecting to public FX data sources. See the `forex_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four forex plugins are currently provided.
-- ATN and NTN plugins:
-  - For connecting to Piccadilly Testnet. See the `pcgc_cax` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). This provides ATN and NTN data from the Centralized Auton Exchange deployed to Piccadilly for the Piccadilly Circus Games Competition. See [game.autonity.org](https:game.autonity.org).
-  - For connecting to Bakerloo Testnet. See the `sim_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins/simulator_plugin). This provides simulated ATN and NTN data.
-
+- Forex plugins: for connecting to public FX data sources for ASM [ACU](/concepts/asm/#acu) basket currency prices. See the `forex_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Five forex plugins are currently provided.
+- Crypto plugins: for connecting to public CEX and DEX data sources for USD stablecoin and ATN, NTN prices. ATN NTN price data is used for the ASM [Stabilisation CDP](/concepts/asm/#stabilization) mechanism. See the `crypto_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four crypto plugins are currently provided.
+- Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. Used for testnet or local development purposes to provide ATN, NTN price data. See the `simulator_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 
 **These out the box plugins are built and included by default according to the installation method and Autonity testnet chosen.** They are:
 
@@ -260,7 +236,7 @@ A basic set of data adaptor plugins for sourcing this data is provided out the b
 - Included pre-built as part of oracle server Docker image and the pre-built executable. Install the Docker image for the Testnet you are connecting to as described in [Installing the Docker image](/oracle/install-oracle/#install-docker). The built plugins are included in the Docker container at the path `/usr/local/bin/plugins`.
 
 ::: {.callout-note title="Note" collapse="false"}
-The Simulator plugin for simulated ATN and NTN price data is built when building from source for Bakerloo Testnet. You can also build the Simulator plugin independently by running the command `make simulator`. This will build the `sim_plugin` in the `/plugins` directory. A local testnet could be a scenario for setting up and using a simulator.
+<!--The Simulator plugin for simulated ATN and NTN price data is built when building from source for Bakerloo Testnet. -->You can build the Simulator plugin independently by running the command `make simulator`. This will build the `simulator_plugin` in the `/plugins` directory. A local testnet could be a scenario for setting up and using a simulator.
 
 If you have developed your own plugins for external data sources using the oracle server's plugin template architecture, then you will need to build them and add to the `/plugins` directory.
 

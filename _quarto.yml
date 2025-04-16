@@ -29,12 +29,14 @@ website:
       - "concepts/oracle-server/index.md"
       - "concepts/validator/index.md"
       - "concepts/staking/index.md"
-      - "concepts/accountability/index.md"
+      - "concepts/afd/index.md"
+      - "concepts/ofd/index.md"
+      - "concepts/oafd/index.md"
       - "concepts/asm/index.md"
       - auto: concepts/protocol-assets
     - section: "Networks"
       contents:
-      - auto: "networks/**"
+      - "networks/testnet-piccadilly/index.md"
     - section: "Accounts"
       contents:
       - "account-holders/setup-aut/index.md"

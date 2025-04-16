@@ -20,8 +20,26 @@ There are 2 types of account:
 ## account state
 A part of [system state](/glossary/#system-state) that is specific to an [account](/glossary/#account) [address](/glossary/#address). Account state comprises: the account’s native coin balance (_auton_), the count of transactions sent from the account (nonce), and, if a contract account, a hash (storageRoot) of the associated account storage and hash (codeHash) of the associated EVM code.
 
+## acn
+Acronym for Autonity Consensus Network.
+
+At the P2P level, Autonity separates transaction and consensus traffic on to separate channels on different TCP ports.
+
+The Ethereum wire protocol is used for P2P propagation of blocks and transactions between nodes. For consensus gossiping a separate protocol runs alongside the ethwire protocol, allowing for the execution of Autonity’s BFT Tendermint Consensus algorithm. For detail see [Communication layer](/concepts/architecture/#communication-layer) in the *Architecture* Concept.
+
 ## address{#address}
 A 64 character hex string providing the unique identifier of an [account](/glossary/#account).
+
+## autobond
+The process by which [Newton inflation emissions](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) are automatically [bonded](/glossary/#bond).
+
+The [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emits [Newton](/glossary/#newton) [stake token](/glossary/#stake-token) as an inflationary reward earned for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake [delegations](/glossary/#delegations) to a [validator](/glossary/#validator). Autobonding automatically [bonds](/glossary/#bond) the emission to that [validator](/glossary/#validator) in the name of the [stakeholder](/glossary/#stakeholder).
+
+The autobond process increases the Newton amount of the stake bonded to the validator without issuing new Liquid Newton tokens, resulting in an increase in the LNTN-NTN conversion rate of the validator.
+
+See [inflation rewards](/glossary/#inflation-rewards) and [inflation mechanism](/glossary/#inflation-mechanism).
+
+See the staking concept for an explanation of the [LNTN-NTN conversion rate](/concepts/staking/#liquid-newton).
 
 ## Auton
 A [native coin](/glossary/#native-coin) of an Autonity Network. Auton is the native coin in which an [account](/glossary/#account) balance is denominated and is the coin used for paying gas fees within the Autonity Protocol. See also  [Protocol assets, Auton](/concepts/protocol-assets/auton/).
@@ -91,7 +109,7 @@ A failure of consensus due to participant behaviour that does not accord with th
 ## Byzantine fault tolerance (BFT)
 The ability of a distributed system to operate and agree consensus according to protocol under [Byzantine failure](/glossary/#byzantine-failure) conditions.
 
-Autonity implements Tendermint BFT consensus, an asynchronous consensus protocol that can require up to 1/3 of committee members being at fault. Tendermint requires `3f+1` of participant validators behave correctly and is tolerant of `f` faults.
+Autonity implements Tendermint BFT consensus, an asynchronous consensus protocol that can require up to $\frac{1}{3}$ of committee members being at fault. Tendermint requires `3f+1` of participant validators behave correctly and is tolerant of `f` faults.
 
 ## calldata
 Data committed to state by arguments to a smart contract deployed on the blockchain. 'calldata' is accessed by the Solidity `.call()` function. Calldata is non-executable - it is [state](/glossary/#system-state) not [smart contract](/glossary/#smart-contract) [bytecode](/glossary/#bytecode).
@@ -129,7 +147,7 @@ Stake delegation transactions submitted from the validator `treasury` account re
 ## delegation
 The process of bonding stake token to a [validator](/glossary/#validator) by a [stakeholder](/glossary/#stakeholder).
 
-See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, and [delegation rate](/glossary/#delegation-rate).
+See related concepts: [staking](/glossary/#staking), [delegated](/glossary/#delegated) stake, [self-bonded](/glossary/#self-bonded) stake, [delegation rate](/glossary/#delegation-rate), and [participation rate](/glossary/#participation-rate).
 
 ## delegation rate
 The percentage commission of earned [staking rewards](/glossary/#staking-rewards) that a [validator](/glossary/#validator) charges as a commission on [delegated](/glossary/#delegation) stake.
@@ -164,6 +182,18 @@ The JSON-formatted genesis configuration file that contains the data necessary t
 ## gigaton
 The denomination of Autonity's [auton](/glossary/#auton) cryptocurrency used to denominate Autonity gas prices. 1 `gigaton` = 1,000,000,000 [ton](/glossary/#ton). The Autonity equivalent of wei is [ton](/glossary/#ton) and of gwei gigaton.
 
+## inflation mechanism
+The mechanism by which a percentage of the total [newton](/glossary/#newton) supply is held in an "Inflation Reserve" and released over time as [inflation rewards](/glossary/#inflation-rewards).
+
+Newton total supply is capped at 100 million NTNs of which 40% is reserved for inflation awards in the short-to-medium term.
+
+Inflation rewards are emitted in the form of newton inflation (i.e. newly minted newton supply) for bonded stake [participating](/glossary/#participation-rate) in securing the [Autonity network](/glossary/#autonity-network). The quantity of newton emissions declines (in average) over time and asymptotically approaches zero.
+
+For more detail see the [Newton](/concepts/protocol-assets/newton/) concept and [Total supply and newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
+
+## inflation rewards
+Inflation awards are a distribution of newly minted newton by the [inflation mechanism](/glossary/#inflation-mechanism) to all holders of bonded stake [participating](/glossary/#participation-rate) in securing the network.
+
 ## incentivization scheme
 A cryptoeconomic mechanism where economic penalties are applied for incorrect actions or state transitions by network participants, enforced by cryptographic proofs of state or action.
 
@@ -172,7 +202,10 @@ A protocol action that excludes a validator from selection to the [consensus com
 
 
 ## jailbound
-A state in which a validator is permanently barred from selection to the consensus committee. A validator may only enter a jailbound state if a 100% [slashing penalty](/glossary/#slashing-penalty) is applied.
+A state in which a validator is permanently barred from selection to the consensus committee. A validator may only enter a jailbound state if:
+
+- A 100% [slashing penalty](/glossary/#slashing-penalty) is applied by [Accountability fault detection](/concepts/afd/#jail-period-calculation)
+- The validator is repeatedly found inactive while on probation by [Omission fault detection](/concepts/ofd/#jail-period-calculation), leading to a cumulative 100% slashing penalty.
 
 ## jail period
 The period of time for which a validator is temporarily barred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
@@ -226,6 +259,12 @@ A [peer](/glossary/#peer) [node](/glossary/#node) that is currently connected to
 
 A participant is able to sync state, and broadcast and receive transactions, and potentially be a [validator](/glossary/#validator) node.
 
+## participation rate
+
+The percentage of "circulating" [newton](/glossary/#newton) supply that is bonded to registered [validator](/glossary/#validator) nodes on an [Autonity network](/glossary/#autonity-network).
+
+The participation rate is a key dimension of the network’s security. It quantifies the staking cost for an attacker attempting to launch a $1/3$ superminority attack, and the slashing cost when detected. A higher participation rate results in higher economic security.
+
 ## peer
 A [node](/glossary/#node) which is currently connected to other nodes in a [peer-to-peer network](/glossary/#peer-to-peer-network-p2p) and is a [participant](/glossary/#participant) in that network.
 
@@ -243,7 +282,7 @@ A peer-to-peer network where access is open and public. Any node can connect to 
 ## Proof of Stake (PoS)
 A [consensus algorithm](/glossary/#consensus-algorithm) where the blockchain is secured by economic value through [bonding](/glossary/#bond) [stake token](/glossary/#stake-token) to [validators](/glossary/#validator). [Consensus committee](/glossary/#consensus-committee) members are chosen by a [selection mechanism](/concepts/consensus/committee/#committee-member-selection) that maximises the amount of stake backing the committee and so the economic value securing the network.
 
-If the protocol determines that a validator has failed to follow consensus rules, [slashing penalties](/glossary/#slashing-penalty) are applied according to Autonity's [accountability and fault detection protocol](/concepts/accountability/). 
+If the protocol determines that a validator has failed to follow consensus rules, [slashing penalties](/glossary/#slashing-penalty) are applied according to Autonity's [accountability and fault detection protocol](/concepts/afd/). 
 
 ## self-bonded
 Stake token bonded to a [validator](/glossary/#validator) where the validator is the [stakeholder](/glossary/#stakeholder). The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) is the validator `treasury` account.
@@ -256,7 +295,7 @@ Stake delegation transactions submitted from other stakeholder accounts result i
 A protocol action that reduces the amount of a validator's bonded stake as a [slashing penalty](/glossary/#slashing-penalty).
 
 ## slashing penalty
-An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: stake [slashing](/glossary/#slashing), stake freezing, [jailing](/glossary/#jailing).
+An economic penalty applied to a validator for misbehaviour. Examples of slashing penalty are: stake [slashing](/glossary/#slashing), loss of [staking rewards](/glossary/#staking-rewards), [jailing](/glossary/#jailing).
 
 ## smart contract
 The program code for encoding and executing decentralised application logic in the [EVM](/glossary/#ethereum-virtual-machine-evm). Smart contracts are written in a higher level programming language such as 'Solidity' and compiled to [bytecode](/glossary/#bytecode) for execution in the EVM. A smart contract stores the application's state.
@@ -272,8 +311,12 @@ A network participant that holds an amount of the [Newton](/glossary/#newton) st
 ## staking
 The process by which stake is delegated to a validator node in a Proof of Stake (PoS) blockchain. Validators with bonded stake participate in transaction validation if a member of the consensus committee. Stake can be [self-bonded](/glossary/#self-bonded) or [delegated](/glossary/#delegated).
 
+See related concepts: [staking rewards](/glossary/#staking-rewards), [delegation rate](/glossary/#delegation-rate), and [participation rate](/glossary/#participation-rate).
+
 ## staking rewards
-Revenue earned by bonded stake when it is actively securing the network during consensus. Only stake bonded to members of the current consensus committee earn staking rewards.
+Staking rewards are a distribution of fee revenue entitlement to all holders of bonded stake actively backing consensus. 
+
+Only stake bonded to members of the current consensus committee earn staking rewards.
 
 ## staking wallet account
 The [account](/glossary/#account) used by a [stakeholder](/glossary/#stakeholder) for stake delegation. This is the account address used to submit transactions for operations to:
@@ -302,7 +345,12 @@ In Autonity's [liquid staking](/glossary/#liquid-staking) model stake can be unb
 ## unbonding period
 The period of time for which bonded stake remains locked after processing an unbonding transaction. Unbonding period is defined as a number of blocks.
 
+The unbonding period must be longer than the [epoch period](/glossary/#epoch-period).
+
 Proof of Stake consensus places constraints on the minimum length of the unbonding period. It must be long enough to allow the detection and reporting of consensus faults by validators, and not short enough to  allow unbonding before a [slashing penalty](/glossary/#slashing-penalty) can be applied. As such it is a security property of the network.
+
+After processing a stake [unbond](/glossary/#unbond) transaction  
+Newton is not minted to the stake [delegator](/glossary/#delegation) until the end of the [epoch](/glossary/#epoch) in which the unbonding period expires. 
 
 ## Unix time
 The Unix OS system for representing a point in time as a timestamp. Time is measured as the number of seconds since the Unix Epoch began - 1st January 1970 at 00:00:00 UTC. Unix time is used for Autonity timestamps. For detail and format see [Unix time](https://en.wikipedia.org/wiki/Unix_time).
@@ -311,17 +359,22 @@ The Unix OS system for representing a point in time as a timestamp. Time is meas
 A [participant](/glossary/#participant) [node](/glossary/#node) that has registered as a validator on an [Autonity network](/glossary/#autonity-network). Validator nodes may be selected to the [consensus committee](/glossary/#consensus-committee) and participate in [consensus](/glossary/#consensus) if they have enough [bonded](/glossary/#bond) [stake](/glossary/#staking).
 
 ## vote period
-An Autonity network's configured [voting period](/glossary/#voting-period) for price voting and aggregation) by the oracle network.
+The period of time measured in [blocks](/glossary/#block) over which  price voting and aggregation by the [oracle network](/glossary/#oracle-network) takes place in a [voting round](/glossary/#voting-round).
 
-## voting period
-The period of time measured in [blocks](/glossary/#block) over which [Autonity oracles](/glossary/#autonity-oracle-server-oas) submit and vote on price data reports to agree an aggregated data price for the [currency pair](/glossary/#currency-pair) symbols for which an Autonity network provides a median price. See [vote period](/glossary/#vote-period).
+During the vote period [Autonity oracles](/glossary/#autonity-oracle-server-aos) collect price data from data providers and submit price data reports on-chain for [currency pair](/glossary/#currency-pair) symbols supported by the [oracle protocol](/concepts/oracle-network/#oracle-protocol). At the end of the vote period the oracle contract on-chain computes median price data for the symbols, publishing the data on-chain as 'round data'. A new voting round is then initiated.
+
+See [voting round](/glossary/#voting-round).
 
 ## voting power
 The amount of stake bonded by [delegation](/glossary/#delegation) to a [validator](/glossary/#validator). A validator's voting power may also be referred to as its _weight_. The sum of stake bonded to validators that are members of a [consensus committee](/glossary/#consensus-committee) may be referred to as the _total voting power_ of the committee.
 
 ## voting round
-An Autonity network's configured [voting period](/glossary/#voting-period) for computing median price data for currency pairs provided by the [oracle network](/glossary/#oracle-network).
+The voting cycle during which price voting and aggregation by an Autonity network's oracle network takes place.
 
+The duration of a voting round is determined by the [vote period](/glossary/#vote-period) set in the Autonity network's configuration.
+
+For example, a [vote period](/glossary/#vote-period) of `30` will initiate a new oracle voting round at 30-block intervals.
+ 
 ## wallet
 A software application that provides functionality for a system user to access and manage their [accounts](/glossary/#account).
 
