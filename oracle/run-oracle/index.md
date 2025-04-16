@@ -408,8 +408,6 @@ The other crypto CEX plugins require no customisation. No additional action is r
 
 ### ATN and NTN data simulator plugin
 
-If you are setting up or connecting to a local Autonity testnet an ATN and NTN Simulator plugin is available.
-
 If a simulator has been deployed and is available to provide simulated data for testnet use, this can be connected to by adding a config entry for the simulated source to your `plugins-conf.yml` file.
 
 1. Edit your `plugins-conf.yml` config file to point to the deployed ATN and NTN data simulator. Just add a `simulator_plugin` entry for the simulator data source, specifying `endpoint` and `scheme` at minimum.
