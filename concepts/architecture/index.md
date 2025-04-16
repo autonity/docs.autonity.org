@@ -164,7 +164,7 @@ To learn more about the concept see [Total supply and newton inflation ](/concep
 ### Autonity Accountability Contract
 The contract implementing the accountability fault detection (AFD) protocol extensions, including primitives for misbehaviour accusations, proving innocence against an accusation, proven faults, slashing, and jailing.
 
-The contract stores static [protocol configuration](/concepts/afd/#protocol-configuration) used to compute slashing penalties. Contract functions are called by validators whilst participating in the AFD protocol to:
+The contract stores [protocol configuration](/concepts/afd/#protocol-configuration) parameters used to compute slashing penalties. Contract functions are called by validators whilst participating in the AFD protocol to:
 
 - Return a committee member's proven faults
 - Determine if a new accusation can be made and is slashable
@@ -187,7 +187,7 @@ The Autonity Accountability Contract manages the computation of accountability p
 
 A slashing model is implemented where a committee member is only slashed for the highest severity fault committed in an epoch. The contract implements logic to:
 
-- Calculate slashing penalties based on static (set in the contract, see [protocol configuration](/concepts/afd/#protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/afd/#slashing-amount-calculation).
+- Calculate slashing penalties based on parameters set in the [protocol configuration](/concepts/afd/#protocol-configuration) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/afd/#slashing-amount-calculation).
 - Apply slashing according to Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: validator self-bonded stake is slashed first until exhausted, then delegated stake.
 - Depending upon fault severity, a slashing penalty may also apply temporary or permanent validator jailing to bar the validator from committee selection. The severity of the jailing period is influenced by the severity of the fault committed and the validator's slashing history over time. See [Jail period calculation](/concepts/afd/#jail-period-calculation).
 
@@ -196,7 +196,7 @@ To learn more about the concept see [Accountability fault detection (AFD)](/conc
 ### Autonity Omission Accountability Contract
 The contract implementing the omission fault detection (OFD) protocol extensions, including primitives for detecting failure to participate in consensus voting rounds, slashing, and jailing.
 
-The contract stores static [protocol configuration](/concepts/ofd/#protocol-configuration) used to compute slashing penalties.
+The contract stores [protocol configuration](/concepts/ofd/#protocol-configuration) parameters used to compute slashing penalties.
 
 Function calls to detect validator inactivity each block and apply omission penalties at epoch end are restricted to protocol.
 
@@ -211,7 +211,7 @@ The Autonity Omission Accountability Contract implements logic for measuring if 
 #### Slashing penalty computation
 The Autonity Omission Accountability Contract manages the computation of omission penalties for proven faults at epoch end. A slashing model is implemented with penalties increasing in severity as inactivity thresholds are passed. The contract implements logic to:
 
-- Calculate penalties based on static (set in the contract, see [protocol configuration](/concepts/ofd/#protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/ofd/#slashing-amount-calculation).
+- Calculate penalties based on parameters set in the [protocol configuration](/concepts/ofd/#protocol-configuration) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/ofd/#slashing-amount-calculation).
 
 Depending upon the validator's inactivity score the protocol will apply penalties to:
 
@@ -227,7 +227,7 @@ The contract implementing the Oracle protocol extensions, including primitives f
 The contract stores:
 
 - [Protocol parameters](/reference/protocol/) for median price computation and oracle voting rounds. These specify the currency pairs for which the oracle provides median price data, the interval over which an oracle round for submitting and voting on price data runs.
-- Static [protocol configuration](/concepts/oafd/#protocol-configuration) used to compute slashing penalties.
+- [Protocol configuration](/concepts/oafd/#protocol-configuration) used to compute slashing penalties.
 
 Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
 
@@ -258,7 +258,7 @@ Consensus committee membership is computed by the Autonity Protocol Contract; se
 #### Slashing penalty computation
 The Autonity Oracle Contract manages the computation of accountability penalties for proven oracle price reporting faults at epoch end. A slashing model is implemented with penalties applied for reporting "outlier" prices falling outside a tolerance threshold of the median prices reported by other oracles in the [oracle network](/concepts/oracle-network). The contract implements logic to:
 
-- Calculate penalties based on static (set in the contract, see [protocol configuration](/concepts/ofd/#protocol-configuration)) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/ofd/#slashing-amount-calculation).
+- Calculate penalties based on parameters set in the [protocol configuration](/concepts/ofd/#protocol-configuration) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/ofd/#slashing-amount-calculation).
 
 Depending upon the validator's inactivity score the protocol will apply penalties to:
 
