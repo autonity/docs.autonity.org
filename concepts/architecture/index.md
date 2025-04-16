@@ -198,7 +198,7 @@ The contract implementing the omission fault detection (OFD) protocol extensions
 
 The contract stores [protocol configuration](/concepts/ofd/#protocol-configuration) parameters used to compute slashing penalties.
 
-Function calls to detect validator inactivity each block and apply omission penalties at epoch end are restricted to protocol.
+Function calls to detect validator inactivity at each block and apply omission penalties at epoch end are restricted to protocol.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/afd/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
