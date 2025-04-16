@@ -22,7 +22,7 @@ Autonity extends Ethereum at three logical layers:
 	- **Autonity Protocol Contract** implementing protocol primitives for governance, tokenomics,  liquid staking, block finalisation, and rewards distribution.
 	- **Liquid Newton** contracts for validator-specific liquid stake tokens.
 	- **Accountability Contracts** implementing protocol primitives for accountable and omission fault detection for validators participating in the consensus committee. The consensus accountability protocol enforces validator liveness and adherence to the [Tendermint consensus](/concepts/consensus/pos/) rules, implementing slashing penalties and a [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model.
-	- **Autonity Oracle Contract** implementing protocol primitives for the oracle protocol. It provides functionality for computing aggregated median price data from external price data and managing the set of currency pairs for which Autonity's [oracle network](/concepts/oracle-network/) provides price data. It provides functionality for an oracle accountability protocol incentivising timely participation in oracle voting rounds and the submission of accurate oracle price reports by validators.
+	- **Autonity Oracle Contract** implementing protocol primitives for the oracle protocol. It provides functionality for computing aggregated weighted average price data from external price data and managing the set of currency pairs for which Autonity's [oracle network](/concepts/oracle-network/) provides price data. It provides functionality for an oracle accountability protocol incentivising timely participation in oracle voting rounds and the submission of accurate oracle price reports by validators.
 	- **Auton Stabilization Mechanism Contracts** implementing a [Stabilization Mechanism](/concepts/asm/) for the protocol's native coin [Auton](/concepts/protocol-assets/auton/) via a Collateralized Debt Position (CDP). Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Autonomous Currency Unit (ACU)](/glossary/#acu).
 	- **Inflation Controller Contract** implementing logic for controlling [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions according to the Newton inflation schedule.
 	
@@ -100,7 +100,7 @@ At epoch end finalization:
 - applies pending [validator commission rate changes](/concepts/validator/#validator-commission-rate-change)
 - selects a new [consensus committee](/concepts/architecture/#committee-selection) for the following epoch
 - invokes the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) to [select oracle voters for the following epoch](/concepts/architecture/#voter-selection)
-- invokes the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) for the [computation of median price data](/concepts/architecture/#median-price-computation) at the end of an [oracle voting round](/concepts/oracle-network/#voting-rounds).
+- invokes the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract) for the [computation of weighted average price data](/concepts/architecture/#weighted-average-price-computation) at the end of an [oracle voting round](/concepts/oracle-network/#voting-rounds).
 
 To learn more about the finalization logic see the protocol only `finalize()` functions in the [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
@@ -222,11 +222,11 @@ Depending upon the validator's inactivity score the protocol will apply penaltie
 To learn more about the concept see [Omission fault detection (OFD)](/concepts/ofd/).
 
 ### Autonity Oracle Contract
-The contract implementing the Oracle protocol extensions, including primitives for computing median price data, managing the set of currency pairs for which Autonity provides price data, and oracle accountability fault detection.
+The contract implementing the Oracle protocol extensions, including primitives for computing weighted average price data, managing the set of currency pairs for which Autonity provides price data, and oracle accountability fault detection.
 
 The contract stores:
 
-- [Protocol parameters](/reference/protocol/) for median price computation and oracle voting rounds. These specify the currency pairs for which the oracle provides median price data, the interval over which an oracle round for submitting and voting on price data runs.
+- [Protocol parameters](/reference/protocol/) for weighted average price computation and oracle voting rounds. These specify the currency pairs for which the oracle provides weighted average price data, the interval over which an oracle round for submitting and voting on price data runs.
 - [Protocol configuration](/concepts/oafd/#protocol-configuration) used to compute slashing penalties.
 
 Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
@@ -235,23 +235,23 @@ Contract functions for returning price data, currency pairs provided, and the or
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Oracle Contract Interface](/reference/api/oracle/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
 
-#### Median price computation
-The Autonity Oracle Contract manages the computation of median price data for currency pair price reports submitted by validator-operated oracle servers. The contract implements logic to:
+#### Weighted average price computation
+The Autonity Oracle Contract manages the computation of weighted average price data for currency pair price reports submitted by validator-operated oracle servers. The contract implements logic to:
 
-- Aggregate price report data submitted on-chain by validator-operated oracle servers and compute median prices for the currency pairs provided by the oracle network in voting rounds.
+- Aggregate price report data submitted on-chain by validator-operated oracle servers and compute weighted average prices for the currency pairs provided by the oracle network in voting rounds.
 - Manage the set of currency pair symbols for which the oracle network must provide price report data.
-- Provide contract operations for data consumers to determine the currency pair data provided and retrieve historical and latest computed median price data.
+- Provide contract operations for data consumers to determine the currency pair data provided and retrieve historical and latest computed weighted average price data.
 
 To learn more about the concept see [Oracle network](/concepts/oracle-network/).
 
 #### Voting rounds
-The Autonity Oracle Contract implements logic to manage submission of price data reports and calculation of median price over [voting rounds](/glossary/#voting-round) by protocol only functions:
+The Autonity Oracle Contract implements logic to manage submission of price data reports and the calculation of weighted average price data over [voting rounds](/glossary/#voting-round). This is managed autonomously by protocol only functions to:
 
 - Set oracle voters based on validators in the consensus committee and update the voter set as the consensus committee is re-selected at the end of an epoch.
 - Manage oracle voting rounds, triggering the initiation of a new voting period at the end of a round.
 
 #### Voter selection
-Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on median price computation by a protocol-only function. As the last block of an epoch is finalized, this function is executed to determine the oracle voters for the following epoch.
+Participation in the oracle protocol is a validator responsibility and validators in the consensus committee are automatically selected to vote on weighted average price computation by a protocol-only function. As the last block of an epoch is finalized, this function is executed to determine the oracle voters for the following epoch.
 
 Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
 
@@ -269,7 +269,7 @@ Depending upon the validator's inactivity score the protocol will apply penaltie
 To learn more about the concept see [Oracle accountability fault detection (OAFD)](/concepts/oafd/).
 
 ### ASM ACU Contract
-The contract implementing the Autonomous Currency Unit (ACU) element of the Auton Stabilization Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [median price data](/concepts/architecture/#median-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
+The contract implementing the Autonomous Currency Unit (ACU) element of the Auton Stabilization Mechanism. It computes the value of the ACU, an optimal currency basket of 7 free-floating fiat currencies. Value is computed for the basket currencies using [weighted average price data](/concepts/architecture/#weighted-average-price-computation) from the Oracle Contract. The basket quantity corresponding to each symbol is set to give ACU maximum stability.
 
 The contract provides primitives for computing the ACU value and managing the basket currency symbols and quantities (i.e. weighting). The contract stores [protocol parameters](/reference/protocol/) that specify the currency pairs for the basket, the quantities of those currencies in the basket, and the scale of precision for the ACU value. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
 
@@ -280,7 +280,7 @@ All functions are documented in the Reference [Autonity Interfaces](/reference/a
 #### ACU value computation
 The Autonity ACU Contract manages the computation of the ACU value, i.e. price, for the ASM. The contract implements logic to:
 
-- Compute the ACU value from the currency basket using the latest median price data for the symbols computed by the Oracle Contract.
+- Compute the ACU value from the currency basket using the latest weighted average price data for the symbols computed by the Oracle Contract.
 - Manage the ACU basket currency pair symbols, quantities, and ACU value scale precision.
 - Provide contract operations for data consumers to determine the ACU value, and basket symbols and quantities.
 
