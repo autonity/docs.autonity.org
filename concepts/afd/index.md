@@ -193,23 +193,23 @@ The _slashing rate_ is calculated by the formula:
 <!-- markdownlint-disable-next-line line-length -->
 
 $$
-\text{base rate} + \text{epoch offences count} * \text{collusion factor} + \text{history} * \text{history factor}
+\text{baseRate} + \text{epochOffencesCount} * \text{collusionFactor} + \text{history} * \text{historyFactor}
 $$
 
 Where,
 
-- $\text{base rate}$: is determined by the [severity](/concepts/afd/#slashing-and-severity) of the [rule](/concepts/afd/#rules) infraction
-- $\text{epoch offences count}$: is the count of proven faults created by all validators in the epoch, which is used as evidence of collusion
+- $\text{baseRate}$: is determined by the [severity](/concepts/afd/#slashing-and-severity) of the [rule](/concepts/afd/#rules) infraction
+- $\text{epochOffencesCount}$: is the count of proven faults created by all validators in the epoch, which is used as evidence of collusion
 - $\text{history}$: is the count of proven faults committed by the offending validator since it first registered
-- $\text{collusion factor}$ and $\text{history factor}$: are used to compute a percentage of individual and total validator offence counts to supplement the `base rate` and scale the slashing rate according to the individual validator history and evidence of general validator collusion in the current epoch.
+- $\text{collusionFactor}$ and $\text{historyFactor}$: are used to compute a percentage of individual and total validator offence counts to supplement the $\text{baseRate}$ and scale the $\text{slashingRate}$ according to the individual validator history and evidence of general validator collusion in the current epoch.
 
 The _slashing amount_ is calculated by the formula:
 
 $$
-\frac{(\text{slashing rate} * \text{validator bonded stake})}{\text{slashing rate scale factor}}
+\frac{(\text{slashingRate} * \text{validatorBondedStake})}{\text{slashingRateScaleFactor}}
 $$
 
-Applying the computed _slashing rate_ as a multiplier to the validator's bonded stake amount divided by the [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration) _slashing rate scale factor_.
+Applying the computed $\text{slashingRate}$ as a multiplier to the $\text{validatorBondedStake}$ amount divided by the [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration) $\text{slashingRateScaleFactor}$.
 
 The slashing fine is then applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/afd/#penalty-absorbing-stake-pas) model: [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake. The validator state is updated: (a) the self-bonded and total staked amounts adjusted, (b) the slashing amount is added to the validator's `totalSlashed` counter. The slashed NTN stake token is then transferred to the Autonity Protocol global `treasury` account for community funding.
 
@@ -220,15 +220,15 @@ Depending upon fault severity, a slashing penalty may apply *temporary* or *perm
 If *temporary*, jailing will bar the validator from committee selection for a number of blocks known as a `jail period`. The jail release block number is computed by the formula:
 
 $$
-current block number + jail factor * history * epoch period
+\text{currentBlockNumber + jailFactor * history * epochPeriod}
 $$
 
 Where,
 
-- $\text{current block number}$: is the block number at the time of computation (i.e. the last block of an epoch when slashing is applied).
-- $\text{jail factor}$: is a multiplier measured as a number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration).
+- $\text{currentBlockNumber}$: is the block number at the time of computation (i.e. the last block of an epoch when slashing is applied).
+- $\text{jailFactor}$: is a multiplier measured as a number of epochs, defined as a protocol parameter in the [slashing protocol configuration](/concepts/afd/#slashing-protocol-configuration).
 - $\text{history}$: is the number of faults that the validator has been slashed for since registration. This applies a reputational factor based on the validator's slashing history over time.
-- $\text{epoch period}$: is the [period of time](/glossary/#epoch-period) for which a consensus committee is elected. This is defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
+- $\text{epochPeriod}$: is the [period of time](/glossary/#epoch-period) for which a consensus committee is elected. This is defined as a number of blocks in the Autonity network's [protocol parameterisation](/reference/protocol/) and set in the network's [genesis configuration](/reference/genesis/#public-autonity-network-configuration).
 
 If *permanent*, the validator becomes [jailbound](/glossary/#jailbound) and there is no jail release block. Permanent jailing is only applied in the case where a validator suffers 100% stake slashing as a member of the consensus committee.
 
@@ -244,6 +244,12 @@ To learn more about PAS, see the section on [Penalty-Absorbing Stake (PAS)](/con
 
 Accountability rules are applied to detect faults in the three Tendermint consensus round phases *propose*, *prevote*, and *precommit*.
 
+Rules are assigned a severity rating according to (a) the risk that failure to adhere to the rule brings to blockchain finality and integrity, (b) if the fault is accidental or Byzantine in nature. The severity taxonomy is:
+
+- `Low`: severity `1`
+- `Mid`: severity `2`
+- `High`: severity `3`
+
 The table below lists each of the rules defined in the AFD rule engine, identified by a unique Rule ID.
 
 ::: {.callout-note title="Info" collapse="false"}
@@ -254,13 +260,6 @@ The ID prefixes `P`, `PV`, and `C` that are used in Rule IDs correspond to Tende
 - `C`: *precommit*
 
 :::
-
-Rules are assigned a severity rating according to the risk that failure to adhere to the rule brings to blockchain finality and integrity. The severity taxonomy is:
-
-- `Low`: severity `1`
-- `Mid`: severity `2`
-- `High`: severity `3`
-
 
 | Rule ID | Severity | Description | 
 | --| --| --|
