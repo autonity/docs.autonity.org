@@ -263,7 +263,7 @@ A participant is able to sync state, and broadcast and receive transactions, and
 
 The percentage of "circulating" [newton](/glossary/#newton) supply that is bonded to registered [validator](/glossary/#validator) nodes on an [Autonity network](/glossary/#autonity-network).
 
-The participation rate is a key dimension of the network’s security, as it quantifies the slashing cost to an attacker successfully launching a $1/3$ superminority attack. A higher participation rate results in higher economic security.
+The participation rate is a key dimension of the network’s security. It quantifies the staking cost for an attacker attempting to launch a $1/3$ superminority attack, and the slashing cost when detected. A higher participation rate results in higher economic security.
 
 ## peer
 A [node](/glossary/#node) which is currently connected to other nodes in a [peer-to-peer network](/glossary/#peer-to-peer-network-p2p) and is a [participant](/glossary/#participant) in that network.
