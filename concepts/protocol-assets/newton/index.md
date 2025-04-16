@@ -42,8 +42,7 @@ The exact parameters of the Mainnet inflation mechanism will be determined throu
 
 ![Figure 1, example inflation curve. Note that parameters are purely illustrative and the Mainnet curve will likely change.](./images/example-inflation-curve.png)
 
-Please note that in the graph above, the y-axis percentage returns assume a 100% [participation rate](/glossary/#participation-rate) (i.e. all tokens are staked). To model for yourself the expected inflation yield, divide the
-value on the y-axis by an estimated participation rate (e.g. 0.7 for an expected participation rate of 70%, resulting in an inflation yield of 14.3% at genesis for an inflation rate of 10%).
+Please note that in the graph above, the y-axis percentage returns assume a 100% [participation rate](/glossary/#participation-rate) (i.e. all tokens are staked). To model for yourself the expected inflation yield, divide the value on the y-axis by an estimated participation rate (e.g. 0.7 for an expected participation rate of 70%, resulting in an inflation yield of 14.3% at genesis for an inflation rate of 10%).
 
 For the [Piccadilly Circus Games Competition ](https://game.autonity.org/) and the [Autonity Piccadilly Tiber Challenge](https://github.com/autonity/tiber-challenge) on the [Piccadilly Testnet](/networks/testnet-piccadilly/), a slightly different inflation schedule has been used to aid in testing. The PCGC Round 6 emission schedule can be seen below:
 
