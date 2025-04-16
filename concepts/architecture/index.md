@@ -170,7 +170,7 @@ The contract stores [protocol configuration](/concepts/afd/#protocol-configurati
 - Determine if a new accusation can be made and is slashable
 - Submit accountability events.
 
-Function calls to compute accountability each block and apply accountability penalties at epoch end are restricted to protocol.
+Function calls to compute accountability at each block and apply accountability penalties at epoch end are restricted to protocol.
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Accountability Contract Interface](/reference/api/afd/), governance under [Governance and Protocol Only Reference](/reference/api/aut/op-prot/).
 
