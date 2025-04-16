@@ -154,9 +154,9 @@ When distribution occurs:
 
 To learn more about the concept see [Staking rewards and distribution](/concepts/staking/#staking-rewards-and-distribution) and [Staking accounts](/concepts/staking/#staking-accounts).
 
-Inflation rewards accumulate from the Newton inflation mechanism and awarded for Newton stake token that is delegated to validators. The emissions are:
+Inflation rewards accumulate from the Newton inflation mechanism and are awarded for Newton stake token that has been delegated to validators in the consensus committee. The emissions are:
 
-- Computed for delegated stake according to the Newton [inflation mechanism](/glossary/#inflation-mechanism) (note that _all_ delegated stake earns inflation rewards - there is no dependency on stake being delegated in the current consensus committee).
+- Computed for stake bonded to the consensus committee members according to the Newton [inflation mechanism](/glossary/#inflation-mechanism) (note inflation rewards are _only_ earned for stake actively securing the network - stake delegations to validators that _are not_ in the current consensus committee _will not_ earn inflation rewards).
 - The Newton inflation emission is minted from the [inflation reserve](/glossary/#inflation-mechanism) and [automatically bonded](/glossary/#autobond) Block _base fees_ are added to the rewards pool and distributed at the end of the epoch.
 
 To learn more about the concept see [Total supply and newton inflation ](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) in the [Newton](/concepts/protocol-assets/newton) concept.
