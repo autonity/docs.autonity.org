@@ -73,7 +73,7 @@ As a consensus committee member the validator may play the roles in the table be
 |:--|:--|
 | _committee member_ | as a validator in the consensus committee executing Autonity's consensus protocol. For OFD generating and validating _activity proofs_, maintaining system state for inactivity scores, and computing and applying slashing penalties |
 | _block proposer_ | as the validator proposing blocks, generating an _activity proof_ and including that in the block header for validation and submission on-chain |
-| _offending_ | as the validator found to be inactive by the OFD and the object of slashing penalties |
+| _offender_ | as the validator found to be inactive by the OFD and the object of slashing penalties |
 
 The economic impact of the OFD protocol on a validator depends on their role.
 
