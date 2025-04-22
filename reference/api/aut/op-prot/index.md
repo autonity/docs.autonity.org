@@ -1600,7 +1600,7 @@ If an upgrade is available for a protocol contract, this is executed by the prot
 
 On successful reward distribution the function emits:
 
-- a `Rewarded` event for each staking reward distribution, logging: recipient address `addr`, `atnAmount`m `ntnAmount`.
+- a `Rewarded` event for each staking reward distribution, logging: recipient address `addr`, `atnAmount` and `ntnAmount`.
 - a `NewEpoch` event signalling the beginning of a new epoch, logging: `epoch`, the unique identifier for the new epoch.
 
 
