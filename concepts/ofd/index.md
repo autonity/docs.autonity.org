@@ -112,7 +112,7 @@ The _lookback window_ ($L_{P}$) is a rolling window of blocks over which OFD sea
 A validator is considered _active_ for block $h-\Delta$ if its _precommit_ signature was included in at least 1 $ActivityProof$ in the range
 ($h - \Delta - L_{P},h-\Delta$].
 
-The _lookback window_ is extended by 1 for each empty $ActivityProof$ it includes. I.e. if there are 2 empty $ActivityProof$ in the _lookback window_, $L_{P}' = L_{P} + 2$, with $L_{P}$ being the default value).
+The _lookback window_ is extended by 1 for each empty $ActivityProof$ it includes. I.e. if there are 2 empty $ActivityProof$ in the _lookback window_, $L_{P}' = L_{P} + 2$, with $L_{P}$ being the default value.
 
 The _lookback window_ default value is set in the OFD [protocol configuration](/concepts/ofd/#omission-accountability-protocol-configuration) at genesis. It can be changed post-genesis by governance [`setLookbackWindow()`](/reference/api/aut/op-prot/#setlookbackwindow-omission-accountability-contract).
 
