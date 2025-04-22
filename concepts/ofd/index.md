@@ -125,7 +125,7 @@ The _inactivity scores_ for the current and past epoch are aggregated to compute
 
 #### Probation
 
-To incentivise liveness OFD sets a _probation period_ measured in epochs. The duration of the _probation period_ for a validator is determined by the protocol's _initial probation period_ configured value multiplied by the individual validator's _offence_ count squared. Until the validator has committed a first _offence_ its _probation period_ is nil (`0`) epochs. Once offence count is `>0` the validator is in _probation_ and its _probation period_ will begin to number epochs. As soon as an _offending validator_ completes an entire _probation period_ without offences its _offence_ count is reset to `0`, taking the validator out of _probation_ and so incentivising liveness.
+To incentivise liveness OFD sets a _probation period_ measured in epochs. The duration of the _probation period_ for a validator is determined by the protocol's _initial probation period_ configured value multiplied by the individual validator's _offence_ count squared. Until the validator has committed a first _offence_ its _probation period_ is nil (`0`) epochs. Once offence count is `>0` the validator is in _probation_ and its _probation period_ will begin to number epochs. As soon as an _offending validator_ completes an entire _probation period_ without offences its _offence_ count is reset to `0`, taking the validator out of _probation_.
 
 #### Thresholds
 
