@@ -178,7 +178,7 @@ If a validator has been jailed by OFD then all staking rewards earned by the val
 
 ## Protocol configuration
 
-Slashing penalties for an _offending validator_ are computed by the protocol based on the offending validator's _aggregated inactivity score_, its _offence_ history, if it is on _probation_, and the total number of offences committed in the current and preceding epoch by other committee members, i.e. a _collusion degree_. For the omission fault parameters see [slashing protocol configuration](/concepts/ofd/#slashing-protocol-configuration) beneath.
+Slashing penalties for an _offending validator_ are computed by the protocol based on the offending validator's _aggregated inactivity score_, its _offence_ history, if it is on _probation_, and the total number of offences committed in the current epoch by other committee members, i.e. a _collusion degree_. For the omission fault parameters see [slashing protocol configuration](/concepts/ofd/#slashing-protocol-configuration) beneath.
 
 Applied slashing penalties cover withholding of ATN staking rewards and NTN Newton inflation rewards proportional to the % of offline blocks in the epoch, probation, jailing, and slashing a percentage of stake. Slashing and probation scale up quadratically by the number of repeated offences.
 
