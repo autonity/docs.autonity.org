@@ -2641,7 +2641,7 @@ You can return the total supply for an ERC-20 token contract using the `aut toke
 
 ::: {.callout-note title="What is the difference between the total and circulating supply of Newton?" collapse="true"}
 
-Total supply is the total amount of Newton that has been minted. Circulating supply is simply the total supply minus the sum of any minted NTN that is locked and released into circulation over time by unlocking according to a schedule.
+Total supply is the total amount of Newton that has been minted. Circulating supply is simply the total supply minus the sum of any minted NTN that is locked and released into circulation over time according to a schedule.
 
 To return the circulating supply of NTN see [`circulatingSupply()`](/reference/api/aut/#circulatingsupply).
 :::
