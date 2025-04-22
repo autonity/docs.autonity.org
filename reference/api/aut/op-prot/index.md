@@ -265,7 +265,7 @@ The new base slashing rate values must be scaled per the [slashing rate scale fa
 
 Constraint checks are applied:
 
-- the `low` slashing rate cannot exceed the `high` slashing rate
+- the `low` slashing rate cannot exceed the `mid` slashing rate
 - the `mid` slashing rate cannot exceed the `high` slashing rate
 - the `high` slashing rate cannot exceed the slashing rate scale factor.
         
