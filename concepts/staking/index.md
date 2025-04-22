@@ -57,7 +57,7 @@ This tokenomic mechanism ensures that a validator's Liquid Newton tokens remain 
 
 ::: {.callout-note title="Note that autobonding does not mint Liquid Newton" collapse="false"}
 
-[Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) emissions for delegated stake are [autobonded](/glossary/#autobond) by protocol.
+[Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards are [autobonded](/glossary/#autobond) by protocol.
 
 Note that Liquid Newton is not minted for [autobonded](/glossary/#autobond) stake delegations. The autobond process increases the Newton amount of the delegated stake of the validator without issuing new Liquid Newton tokens. This results in an increase in the LNTN/NTN conversion rate of delegations to the validator.
 
