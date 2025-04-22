@@ -24,7 +24,7 @@ Returns the decimal places to be used with price reports.
 The number of decimal places is set as a constant to the integer value `18`.
 
 ::: {.callout-note title="Conversion to decimal places" collapse="false"}
-Prices for currency symbols in oracle server price data reports are aggregated off-chain and computed to a price precision determined by the [Oracle protocol](/concepts/oracle-network/#oracle-protocol) decimal places configuration (i.e. `18`). However, the price reports are submitted on-chain for price aggregation in the Oracle Contract as integer values without precision, though. When requesting the price of a symbol on-chain from the Oracle Contract, therefore, the price point is returned as an integer value without precision.
+Prices for currency symbols in oracle server price data reports are aggregated off-chain and computed to a price precision determined by the [Oracle protocol](/concepts/oracle-network/#oracle-protocol) decimal places configuration (i.e. `18`). However, the price reports are submitted on-chain for price aggregation in the Oracle Contract as integer values. When requesting the price of a symbol on-chain from the Oracle Contract, therefore, the price point is returned as an integer value without precision.
 
 A data consumer can convert the L2 aggregation value to decimal precision for their use case by applying the number of decimal places as the precision.
 
