@@ -100,7 +100,7 @@ The _delta_ $\Delta$ is a set number of blocks at the start of an epoch in which
 
 The $\Delta$ allows for two temporal factors, epoch periods and the network's semi-synchronous nature. Firstly, it allows for a fair start of an epoch and prevents the _block proposer_ looking for inactivity in the previous epoch where it would be unaware of the committee as the committee changes end of epoch. Secondly, it allows for the p2p networks _GST + Delta_ latency assumption for timely consensus gossiping.
 
-If the _activity proof_ is empty past the $\Delta$ period, then this is an _omission fault_ (_offence_) and the _block proposer_ is subject to penalty. The $\Delta$ period is set as a protocol configuration parameter.
+If the _activity proof_ is empty past the first $\Delta$ block of the epoch, then this is an _omission fault_ (_offence_) and the _block proposer_ is subject to penalty. The $\Delta$ period is set as a protocol configuration parameter.
 
 The delta size is set by default in the OFD [protocol configuration](/concepts/ofd/#omission-accountability-protocol-configuration) at genesis. It can be changed post-genesis by governance [`setDelta()`](/reference/api/aut/op-prot/#setdelta-omission-accountability-contract).
 
