@@ -62,7 +62,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 Queries the contract and returns the total unclaimed ATN rewards earned by a validator from commission charged on [delegated](/glossary/#delegated) stake.
 
-The rewards are claimed and sent to the validator's `treasury` by the validator operator calling [`claimTreasuryATN()`](/reference/api/liquid-newton/#claimtreasuryatn).
+The rewards can be claimed and sent to the validator's `treasury` by the validator operator calling [`claimTreasuryATN()`](/reference/api/liquid-newton/#claimtreasuryatn).
 
 ### Parameters
    
