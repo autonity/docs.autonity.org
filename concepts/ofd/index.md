@@ -184,7 +184,7 @@ Applied slashing penalties cover withholding of ATN staking rewards and NTN Newt
 
 Penalties are applied for proven omission faults at epoch end. 
 
-Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, OFD will apply slashing for proven _omission faults_ to withhold ATN staking rewards and NTN inflation rewards, slash validator stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing if detected committing an _omission fault_ while on _probation_.
+Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, OFD will apply penalties for proven _omission faults_ to withhold ATN staking rewards and NTN inflation rewards, slash validator stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing if detected committing an _omission fault_ while on _probation_.
 
 ### Protocol parameters
 
