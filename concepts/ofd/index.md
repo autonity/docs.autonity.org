@@ -26,7 +26,7 @@ $\Delta$ is the number of blocks committee members wait for before generating an
 ::: {.callout-note title="What is BLS signature aggregation?" collapse="false"}
 A BLS Signature is a digital signature using the BLS12-381 elliptic curve. An aggregation of signatures created with this curve can be efficiently verified.
 
-Autonity uses BLS signature aggregation verification to cryptographically verify which consensus committee members  posted a _precommit_ vote and so _actively_ participated in consensus. A large committee size is an Autonity design goal for scalability. The BLS curve property of verification efficiency makes it suited use as a signature aggregation algorithm in consensus computation.
+Autonity uses BLS signature aggregation verification to cryptographically verify which consensus committee members  posted a _precommit_ vote and so are _actively_ participated in consensus. A large committee size is an Autonity design goal for scalability. The BLS curve property of verification efficiency makes it suited use as a signature aggregation algorithm in consensus computation.
 
 Autonity Go Client uses the BLS12-381 [`blst`](https://github.com/supranational/blst) C library (<https://www.supranational.net/press/introducing-blst>).
 
