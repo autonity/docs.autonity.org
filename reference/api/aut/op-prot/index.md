@@ -56,7 +56,7 @@ Enter passphrase (or CTRL-d to exit):
 
 ###  createSchedule
 
-Creates a new schedule for a non-stakeable vesting contract, specifying how much Newton is to be locked, twhen the schedule will begin to release Newton into circulation, and the total duration of the locking schedule.
+Creates a new schedule for a non-stakeable vesting contract, specifying how much Newton is to be locked, when the schedule will begin to release Newton into circulation, and the total duration of the locking schedule.
 
 Constraint checks are applied:
 
