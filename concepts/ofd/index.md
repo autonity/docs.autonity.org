@@ -48,7 +48,7 @@ OFD functions, therefore, by submitting, verifying, and processing activity proo
 Omission slashing penalties are computed by protocol and applied to the validator proportionally to the validator's liveness history measured by an _inactivity score_ during the epoch. Penalties are threefold:
 
 - withholding of OFD proposer fee reward incentives proportionally to the offline % of in the epoch, measured by the % of blocks the validator was offline for in the epoch
-- withholding of proposer [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of in the epoch, measured by the % of blocks the validator was offline for in the epoch
+- withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of in the epoch, measured by the % of blocks the validator was offline for in the epoch
 - jailing if the validator's offline % in the epoch is greater than a permitted threshold set by protocol
 - stake slashing if the validator is seen as inactive when under probation after repeated jailings.
 
