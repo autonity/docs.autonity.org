@@ -194,7 +194,7 @@ OFD protocol parameters are set by default to:
 |:--:|:--|:--:|
 | _inactivity threshold_ | the threshold to determine if a committee member is an _offending validator_ at the end of the epoch | `1000` (10%) |
 | _lookback window_ | the number of blocks over which the protocol will look for inactivity | `40` (40 blocks) |
-| _past performance weight_ | a factor that determines how much weight is given to past performance of the validator in the preceding epoch. The factor is subtracted from the validator's performance in the current epoch when computing the aggregated inactivity score | `1000` (10%) |
+| _past performance weight_ | a factor that determines how much weight is given to past performance of the validator in the preceding epoch| `1000` (10%) |
 | _initial jailing period_ | the initial number of epoch(s) that an _offending validator_ will be jailed for | `10_000` (10000 blocks) |
 | _initial probation period_ | the initial number of epoch(s) that an _offending validator_ will be set under probation for | `24` (24 epochs) |
 | _initial slashing rate_ | the division precision used as the denominator when computing the slashing amount of a penalty | `25` (0.25%) |
