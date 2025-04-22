@@ -119,7 +119,7 @@ The _lookback window_ default value is set in the OFD [protocol configuration](/
 
 #### Inactivity score
 
-The average offline percentage of a committee member for an epoch is computed as an _inactivity score_. The offline percentage is measured as the % of blocks in an epoch that the validator has failed to participate in consensus for.
+The average offline percentage of a committee member for an epoch is computed as an _inactivity score_. The offline percentage is measured as the % of blocks in an epoch that the validator has failed to timely participate in consensus for.
 
 The _inactivity scores_ for the current and past epoch are aggregated to computes an _aggregated inactivity score_. Penalties are applied only if a committee member's _aggregated inactivity score_ breaks the _inactivity threshold_ during an epoch. Penalties are then computed according based on the validator's historical _omission fault_ history and a _probation period_. Historical _omission faults_ are maintained by an _offence_ counter, incrementing by `1` for each _omission fault_. The validator's _aggregated inactivity score_, _offence_ count, and _probation_ are used as weighting factors when computing omission penalties.
 
