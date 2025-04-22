@@ -92,7 +92,7 @@ Essential primitives of OFD are: activity proof; delta; lookback window; inactiv
 
 An _activity proof_ is a BLS signature aggregation of committee member _precommit_ votes submitted for a block during a Tendermint consensus voting round. The _block proposer_ includes an _activity proof_ in the block header and it is validated by the other committee members as part of block validation by all committee members.
 
-Each block header contains a historical record of committee activity at block height $h$ is computed at $h + \Delta$ and used for activity signalling.  
+Each block header $h$ contains a historical record of committee activity at block height $h - \Delta$. This information is used for activity signalling.  
 
 #### Delta $\Delta$
 
