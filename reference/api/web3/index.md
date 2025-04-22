@@ -7,7 +7,7 @@ description: >
 
 Autonity may be interacted with by sending requests to JSON-RPC APIs in Ethereum Web3 and Autonity namespaces.
 
-Recommended usage is to make JSON-RPC calls to Autonity Contract Interfaces using `eth_call` from the Web3 [eth namespace](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth) wherever possible. This avoids replicating functionality.
+Recommended usage is to make JSON-RPC calls to Autonity Contract Interfaces using `eth_call` from the Web3 [eth namespace](https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-eth) wherever possible.
 
 Autonity provides an `aut` namespace for Autonity Protocol JSON-RPC calls that cannot be replicated through `eth_call`.
 
