@@ -270,7 +270,7 @@ Validator economic returns are earned from:
 - Commission charged on [staking rewards](/glossary/#staking-rewards) on [delegated](/glossary/#delegated) stake per the [delegation rate](/glossary/#delegation-rate) they charge as commission.
 - The [priority fee 'tip'](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm) that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
 - Rewards from accountability protocols:
-  - [AFD rewards](/concepts/afd/#slashing-rewards) earned for reporting slashed faults.
+  - [AFD rewards](/concepts/afd/#slashing-rewards) earned for reporting faults.
   - [OFD rewards](/concepts/ofd/#rewards) earned as a block proposer generating activity proofs that contain signatures for $> \frac{2}{3}$ of block quorum voting power.
   - [OAFD rewards](/concepts/oafd/#rewards) earned for oracle price reporting
 
