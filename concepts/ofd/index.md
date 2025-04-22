@@ -205,7 +205,7 @@ OFD protocol parameters are set by default to:
 
 Initial values for jailing, probation, and slashing are used to determine the scaling up a validator's _jailing period_, _probation period_, and _slashing percentage_ by the number of repeated offences quadratically.
 
-Slashing will also scale up quadratically with the collusion degree, since it helps to safeguard the liveness of the network.
+Slashing will also scale up linearly with the collusion degree, since it helps to safeguard the liveness of the network.
 :::
 
 ### Inactivity score calculation
