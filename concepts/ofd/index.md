@@ -50,7 +50,7 @@ Omission slashing penalties are computed by protocol and applied to the validato
 - withholding of OFD proposer fee reward incentives proportionally to the offline % of in the epoch, measured by the % of blocks the validator was offline for in the epoch
 - withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of in the epoch, measured by the % of blocks the validator was offline for in the epoch
 - jailing if the validator's offline % in the epoch is greater than a permitted threshold set by protocol
-- stake slashing if the validator is seen as inactive when under probation after repeated jailings.
+- stake slashing if the validator is seen as inactive when under probation after being jailed.
 
 Penalties are applied as part of the state finalization function. As the last block of an epoch is finalized, the Autonity contract will: apply omission accountability for _inactivity_ to _offending validators_: witholding rewards, applying jailing, and slashing according to Autonity’s [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model.
 
