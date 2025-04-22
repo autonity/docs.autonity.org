@@ -317,7 +317,7 @@ aut token balance-of --ntn 0xd4eddde5d1d0d7129a7f9c35ec55254f43b8e6d4
 ```
 :::
 
-To return an ERC2-0 contract token (e.g. Liquid Newton) balance for an account specify the `--token` option:
+To return an ERC-20 contract token (e.g. Liquid Newton) balance for an account specify the `--token` option:
 
 
 ::: {.panel-tabset}
