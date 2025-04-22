@@ -35,7 +35,7 @@ For a deep-dive into BLS signature aggregation some great resources are the eth2
 
 It is important to note that OFD runs alongside Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: omission accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
 
-As noted above the block proposer generates and includes a BLS signature aggregation of _precommit_ signatures of height $h - \Delta$ into the $ActivityProof$ included in the header of $h$. Each block header contains a historical record of committee activity in the current epoch, allowing for the $\Delta$ discussed above.
+As noted above the block proposer generates and includes a BLS signature aggregation of _precommit_ signatures of height $h - \Delta$ into the $ActivityProof$ included in the header of $h$.
 
 OFD inspects the $ActivityProof$ to determine committee _inactivity_ historically over a block window defined by the OFD protocol configuration parameter $LookbackWindow$. The $ActivityProof$, like an AFD fault proof, is on-chain, therefore.
 
