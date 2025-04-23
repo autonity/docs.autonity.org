@@ -364,47 +364,25 @@ Remember that the oracle server auto-detects changes to the plugin configuration
 
 ### Setup crypto plugin config
 
-The `crypto_` plugins are configured by default and _are not_ explicitly specified in `plugins-conf.yml`. Default configuration is set in the source code and the plugins are run by default when oracle server is initialised. There are four plugins:
+The `crypto_` plugins have default configuration and run by default when oracle server is initialised. There are four plugins:
 
 - 1 DEX: `crypto_uniswap`. Connector to retrieve ATN, NTN USDC price data from an on-chain Uniswap V2 AMM on Piccadilly Testnet.
 - 3 CEX: `crypto_kraken`, `crypto_coingecko`, `crypto_coinbase`. Connectors to retrieve USDC-USD price data.
- 
+
+Configure the `crypto_uniswap` plugin to set the RPC endpoint of a Piccadilly Testnet Full Node (i.e. your own node or a [public rpc endpoint](/networks/testnet-piccadilly/#public-endpoints)). Un-comment and edit the `crypto_uniswap` entry in `plugins-conf.yml`. Edit the configuration fields:
+
+| Name | Datatype | Mandatory? | Description |
+| :-- | :--: | :--: | :-- |
+| `scheme` | string | required | edit to the scheme used for connecting to your full node: `http`, `https`, `ws` or `wss` |
+| `endpoint` | string | required | edit to the rpc endpoint address of your connected full node |
+
+No editing of default configuration is required for the 3 CEX connectors used to retrieve USDC-USD price data.
+
 ::: {.callout-note title="Why a USDC-USD price?" collapse="true"}
 The oracle server uses the USDC-USD pricing to convert the ATN, NTN USDC market prices from the Testnet Uniswap V2 AMM to ATN,NTN USD prices. The price report for ATN, NTN is then submitted on-chain with USD as the quote pair by the oracle server's connected validator node.
 
 On-chain, the oracle protocol is pricing in USD and not USDC.
 :::
-
-
-Default configuration is specified in the crypto plugins' source golang files in a `defaultConfig` structure. To change the default configuration that structure needs to be edited before building the plugin.
-
-::: {.callout-important title="Only the DEX `crypto_uniswap` plugin requires customisation of the default configuration" collapse="true"}
-The validator operator must re-configure the `crypto_uniswap` connector to provide data to their own validator node.
-
-This is because the `crypto_uniswap`plugin [`defaultConfig`](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/crypto_uniswap/crypto_uniswap.go#L26) is set to a testing configuration using an `rpc1-internal` endpoint on the Piccadilly Testnet. If the configured endpoint is not changed, then the plugin will be configured to take data from the rpc1-internal testnet node and not your own validator node state.
-
-It is better practice to retrieve ATN, NTN price data from on-chain using your own hosted validator node rather than testnet infrastructure.
-:::
-
-Customise the `crypto_uniswap`plugin:
-
-1. Edit the [`defaultConfig`](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/crypto_uniswap/crypto_uniswap.go#L26) in the source golang file must be edited to change:
-
-    - [`defaultConfig.Endpoint`](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/crypto_uniswap/crypto_uniswap.go#L28): change the `endpoint` to replace the `rpc1-internal` endpoint with the endpoint address of their own connected validator node.
-    - [`defaultConfig.Scheme`](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/crypto_uniswap/crypto_uniswap.go#L29): update to the scheme used for the endpoint (http/s or ws/s).
-
-2. Build the plugin. If building oracle server from source, then customise the plugin before running `make autoracle`. Alternatively, build the plugin individually as described in [/plugins/README, Build it](https://github.com/autonity/autonity-oracle/blob/v0.2.3/plugins/README.md#build-it). In the `autonity-oracle` directory run:
-   
-     ```yaml
-     go build -o ./build/bin/plugins/crypto_uniswap ./plugins/crypto_uniswap/crypto_uniswap.go
-     ```
-
-The other crypto CEX plugins require no customisation. No additional action is required. These can be run run out the box as-is:
-
-- `crypto_kraken`
-- `crypto_coingecko`
-- `crypto_coinbase`
-
 
 ### ATN and NTN data simulator plugin
 
