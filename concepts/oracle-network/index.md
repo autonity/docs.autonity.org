@@ -81,7 +81,7 @@ To coordinate the submission of source price data reports and computation of med
 
 In the last block of each [vote period](/glossary/#vote-period) the Oracle contract issues a `NewRound` event. The round event provides a tuple of round ID, block number, block timestamp, and vote period, which tells the oracle server that on the round with that ID a price report for that timestamp is required for submission by the oracle server. The  block number indicates the block height at which the new round begins, while the vote period is the length measured in blocks of the new round.
 
-The oracle server uses the metadata to estimate and manage data sampling for submission to the new round. The oracle server initiates a _data sampling window_ 5 seconds before the required timestamp. It pre samples data from its configured data sources throughout the window range, then submits a price data report - i.e. 'vote' - as close as possible to the required timestamp.
+The oracle server uses the metadata to estimate and manage data sampling for submission to the new round. The oracle server initiates a _data sampling window_ 5 blocks before the required timestamp. It pre samples data from its configured data sources throughout the window range, then submits a price data report - i.e. 'vote' - as close as possible to the required timestamp.
 
 ### Voter selection
 
@@ -142,11 +142,16 @@ Primary consumers of oracle data are:
 
 
 ## Oracle economics
-Participation in the oracle network is a validator responsibility and receives no specific reward beyond transaction fees for submitting oracle price vote transactions to the oracle contract. For validator revenue, see [Validator economics](/concepts/validator/#validator-economics) in the validator concept page.
+
+Participation in the oracle network as a consensus committee member is a validator responsibility. The costs of submitting vote transactions in voting rounds are refundable and so offset. Validators are made accountable for accurate and timely price reporting by economic incentives and disincentives by the [Oracle accountability fault detection (OAFD)](/concepts/oafd/) protocol. 
+
+### OAFD rewards and penalties for price reporting
+
+Committee members are incentivised towards correct price reporting by rewards and disincentivised from outlier price reporting by penalties. For detail see [OAFD, Oracle economics](/concepts/oafd/#oafd-economics) in the validator concept page.
 
 ### Transaction fee refund
 
-Oracle transactions are refunded if successfully committed.
+Oracle transaction fee costs for submitting price reports in voting rounds are refunded if successfully committed.
 
 The oracle account must be funded with a seed balance to cover at least one voting transaction.
 
