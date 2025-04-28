@@ -140,8 +140,6 @@ Object structure for the oracle and Oracle Accountability Fault Detection (OAFD)
 
 |Parameter|Description &amp; Value|
 |---------|----------------|
-|`bytecode`| The EVM bytecode of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Oracle Contract in the Autonity Go Client release is deployed. Only specify if overriding default contract deployment |
-| `abi` | The abi of an upgraded Autonity Oracle Contract to be deployed at genesis. By default the Autonity Oracle Contract in the Autonity Go Client release is deployed. Only specify if overriding default contract deployment |
 | `symbols` | See Protocol Parameter Reference [Oracle Config, `symbols`](/reference/protocol/#oracle-config) |
 | `votePeriod` | See Protocol Parameter Reference [Oracle Config, `votePeriod`](/reference/protocol/#oracle-config) |
 | `outlierDetectionThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierDetectionThreshold`](/reference/protocol/#oracle-config) |
