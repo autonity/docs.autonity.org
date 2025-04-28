@@ -357,15 +357,6 @@ Proposer rewards are distributed as incentive for _block proposers_ that have in
 
 Withheld rewards distributed to the _community_ are conditional on the extent to which the _offending validator_ was inactive during the epoch, if it was jailed, and the amount of stake delegated to _offending validator_.
 
-::: {.callout-note title="Rewards are ATN and NTN" collapse="false"}
-
-Both _proposer rewards_ and _withheld rewards_ comprise ATN and NTN that the _offending validator_ has earned in the epoch:
-
-- ATN staking rewards from transaction fees, withheld for inactivity
-- NTN rewards from the Newton inflation mechanism, withheld for jailed validators.
-
-:::
-
 | Economic gain | Receiving account | Distribution | Description |
 |:-- |:--|:--|:--|
 | proposer rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The block proposer rewards earned by the validator for the epoch. Amount determined by the [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) formula. |
