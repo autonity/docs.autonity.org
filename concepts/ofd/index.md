@@ -45,11 +45,11 @@ The Omission Accountability Contract is invoked on each block finalisation to de
 
 OFD functions, therefore, by submitting, verifying, and processing activity proofs for omission faults captured over a rolling block window by epoch.
 
-Omission slashing penalties are computed by protocol and applied to the validator proportionally to the validator's liveness history measured by an _inactivity score_ during the epoch. Penalties are threefold:
+Omission slashing penalties are computed by protocol and applied to the validator proportionally to the validator's liveness history measured by an _inactivity score_ during the epoch. The offline % of a validator in an epoch is measured by the % of blocks in the epoch that the validator failed to participate in consensus. Penalty scope covers:
 
-- withholding of OFD proposer fee reward incentives proportionally to the offline % of in the epoch, measured by the % of blocks the validator was offline for in the epoch
-- withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of in the epoch, measured by the % of blocks the validator was offline for in the epoch
-- jailing and probation if the validator's offline % in the epoch is greater than a permitted threshold set by protocol
+- withholding of ATN [staking rewards](/glossary/#staking-rewards) proportionally to the offline % of the validator in the epoch
+- withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of the validator in the epoch
+- jailing and probation if the validator's offline % in the epoch is greater than a permitted threshold set by the OFD protocol
 - stake slashing if the validator is seen as inactive when under probation after being jailed.
 
 Penalties are applied as part of the state finalization function. As the last block of an epoch is finalized, the Autonity contract will: apply omission accountability for _inactivity_ to _offending validators_: witholding rewards, applying jailing, and slashing according to Autonity’s [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model.
@@ -79,7 +79,7 @@ The economic impact of the OFD protocol on a validator depends on their role.
 
 | Role | Economic impact |
 |:--|:--|
-| _offender_ | loss of stake, validator reputation, OFD proposer fee reward revenue, Newton inflation rewards for self-bonded stake, and jailing as the _offending validator_ found inactive during an epoch |
+| _offender_ | loss of stake, validator reputation, withholding of ATN staking rewards and NTN inflation rewards, and jailing as the _offending validator_ found inactive during an epoch |
 | _block proposer_ | gain of OFD proposer fee rewards for generating _activity proofs_ with precommit signatures $> \frac{2}{3}$ quorum voting power |
 
 The Autonity community is also a _beneficiary_ of OFD processing. Slashed stake token, withheld proposer fee rewards, and withheld Newton inflation rewards will be used for community funds.
