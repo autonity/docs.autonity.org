@@ -16,9 +16,9 @@ Staking is open - any network participant is able to purchase stake token and bo
 
 Stakers are financially rewarded by Auton [staking rewards](/concepts/staking/#staking-rewards) and [Newton inflation rewards](/concepts/staking/#newton-inflation-rewards).
 
-Staking rewards are distributed to [delegated](/glossary/#delegated) stake that is actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
+Staking rewards are distributed to stake [delegations](/glossary/#delegation) that are actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
 
-Newton inflation rewards are distributed to [participating](/glossary/#participation-rate) stake at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). The newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. Stake delegators receive a reward in proportion to the amount of Newton they have staked. Newton [inflation rewards](/glossary/#inflation-rewards) accrue to all bonded stake irrespective of whether it is active in the current committee or not.
+Newton inflation rewards are distributed to [participating](/glossary/#participation-rate) stake active in the consensus committee at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). The newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. Stake delegators receive a reward in proportion to the amount of Newton they have staked.
 
 ::: {.callout-note title="Note" collapse="false"}
 
