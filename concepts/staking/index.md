@@ -257,9 +257,9 @@ On bonding Newton, the stake token is burned on execution of the `bond()` functi
 Autonity implements a [liquid staking](/concepts/staking/#liquid-staking) model and Liquid Newton is minted for [delegated](/glossary/#delegated) stake. Minting Liquid Newton is an autonomous protocol-only function.
 
 ::: {.callout-note title="Note" collapse="false"}
-Alice submits a [`bond()`](/reference/api/aut/#bond) tx that is processed and included in a block at time $T$, where a `BondingRequest` object for the necessary voting power change is also created. Newton is burnt at $T$.
+Alice submits a [`bond()`](/reference/api/aut/#bond) tx that is processed and included in a block at time $T$, where a `BondingRequest` object for the necessary voting power change is also created. Newton is burnt at $T$. Actual bonding is then executed at $T$ + remainder of the epoch. Liquid Newton issuance is delayed and not tradable while bonding is pending.
 
-The bonding request is tracked in memory for application at the end of the epoch in which $T$ was processed. At this point, the validator's bonded stake is increased, and Liquid Newton is issued to Alice in the validator’s Liquid Newton ERC20 contract. Actual bonding is then executed at $T$ + remainder of the epoch. Liquid Newton issuance is delayed and not tradable while bonding is pending.
+The bonding request is tracked in memory for application at the end of the epoch in which $T$ was processed. At this point, the validator's bonded stake is increased, and Liquid Newton is issued to Alice in the validator’s Liquid Newton ERC20 contract.
 :::
 
 Staking rewards are earned when a nominated validator is a consensus committee member. Bonding across more than one validator is allowed. The committee size is limited and staking rewards are limited to the number of validators in the current committee for the epoch.
