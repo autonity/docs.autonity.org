@@ -19,9 +19,7 @@ A committee member is considered online by another node if the latter receives t
 
 Note that every committee member node generates an activity report based on its _local view_ of network activity. Local views may differ across committee members depending on the network and individual committee member liveness. For example, node `X` sent a message which never arrived at node `Y` due to networking issues.
 
-Inactivity is _detected_ by the use of BLS signatures to prove activity. Validators sign consensus messages using their [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys). During block proposal, the block proposer for height $h$ will aggregate the _precommit_ signatures of height $h - \Delta$ into an $ActivityProof$, which is included in the header of $h$. $\Delta$ is defined as a number of blocks, so each block header contains a historical record of committee activity at block height $h - \Delta$.
-
-$\Delta$ is the number of blocks committee members wait for before generating an _activity proof_. The _activity proof_ for block height $h$ is not computed until block height $h+\Delta$. This constraint allows for the p2p network's _GST + Delta_ latency assumption for timely consensus gossiping, and that a _block proposer_ in the current epoch is unaware of consensus committee membership in the previous epoch.
+Inactivity is _detected_ by the use of BLS signatures to prove activity. Validators sign consensus messages using their [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys). During block proposal, the block proposer for height $h$ will aggregate the _precommit_ signatures of height $h - \Delta$ into an $ActivityProof$, which is included in the header of $h$. $\Delta$ is defined as a number of blocks, so each block header contains a historical record of committee activity at block height $h - \Delta$. For example, the _activity proof_ for block height $h$ is not computed until block height $h + \Delta$.
 
 ::: {.callout-note title="What is BLS signature aggregation?" collapse="true"}
 A BLS Signature is a digital signature using the BLS12-381 elliptic curve. An aggregation of signatures created with this curve can be efficiently verified.
@@ -96,9 +94,9 @@ Each block header $h$ contains a historical record of committee activity at bloc
 
 #### Delta $\Delta$
 
-The _delta_ $\Delta$ is a set number of blocks at the start of an epoch in which the protocol does not require _block proposers_ to provide an _activity proof_. During the _delta_ period the _activity proof_ is empty.
+The _delta_ $\Delta$ is the number of blocks that a _block proposer_ waits for before generating an _activity proof_.
 
-The $\Delta$ allows for two temporal factors, epoch periods and the network's semi-synchronous nature. Firstly, it allows for a fair start of an epoch and prevents the _block proposer_ looking for inactivity in the previous epoch where it would be unaware of the committee as the committee changes end of epoch. Secondly, it allows for the p2p networks _GST + Delta_ latency assumption for timely consensus gossiping.
+The $\Delta$ allows for the p2p network's [_GST + Delta_](/concepts/system-model/#networking) latency assumption for timely consensus gossiping.
 
 If the _activity proof_ is empty past the first $\Delta$ block of the epoch, then this is an _omission fault_ (_offence_) and the _block proposer_ is subject to penalty. The $\Delta$ period is set as a protocol configuration parameter.
 
