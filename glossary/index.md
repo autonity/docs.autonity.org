@@ -248,11 +248,11 @@ See also [Protocol assets, Newton](/concepts/protocol-assets/newton/) and [Proof
 A participant running the Autonity Go Client software and able to connect to an Autonity network. See [peer](/glossary/#peer) [mesh network](/glossary/#mesh-network), [peer-to-peer network](/glossary/#peer-to-peer-network-p2p).
 
 ## oracle network
-The network of validator-operated oracles that submits price data from off-chain external data providers on-chain and votes on agreeing an aggregated median price data according to an [oracle protocol](/glossary/#oracle-protocol).
+The network of validator-operated oracles that submits price data from off-chain external data providers on-chain and votes on agreeing an aggregated weighted average price data according to an [oracle protocol](/glossary/#oracle-protocol).
 
 The set of [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-oas) instances run by [validators](/glossary#validator) [nodes](/glossary/#node) logically forms an "Autonity oracle network".
 
-Median price data is computed by protocol in [voting rounds](/glossary/#voting-round).
+Weighted average price data is computed by protocol in [voting rounds](/glossary/#voting-round).
 
 ## participant
 A [peer](/glossary/#peer) [node](/glossary/#node) that is currently connected to other nodes in an Autonity network.
@@ -361,7 +361,7 @@ A [participant](/glossary/#participant) [node](/glossary/#node) that has registe
 ## vote period
 The period of time measured in [blocks](/glossary/#block) over which  price voting and aggregation by the [oracle network](/glossary/#oracle-network) takes place in a [voting round](/glossary/#voting-round).
 
-During the vote period [Autonity oracles](/glossary/#autonity-oracle-server-aos) collect price data from data providers and submit price data reports on-chain for [currency pair](/glossary/#currency-pair) symbols supported by the [oracle protocol](/concepts/oracle-network/#oracle-protocol). At the end of the vote period the oracle contract on-chain computes median price data for the symbols, publishing the data on-chain as 'round data'. A new voting round is then initiated.
+During the vote period [Autonity oracles](/glossary/#autonity-oracle-server-aos) collect price data from data providers and submit price data reports on-chain for [currency pair](/glossary/#currency-pair) symbols supported by the [oracle protocol](/concepts/oracle-network/#oracle-protocol). At the end of the vote period the oracle contract on-chain computes weighted average price data for the symbols, publishing the data on-chain as 'round data'. A new voting round is then initiated.
 
 See [voting round](/glossary/#voting-round).
 
