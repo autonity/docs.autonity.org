@@ -197,7 +197,7 @@ OFD protocol parameters are set by default to:
 | _past performance weight_ | a factor that determines how much weight is given to past performance of the validator in the preceding epoch| `1000` (10%) |
 | _initial jailing period_ | the initial number of epoch(s) that an _offending validator_ will be jailed for | `10_000` (10000 blocks) |
 | _initial probation period_ | the initial number of epoch(s) that an _offending validator_ will be set under probation for | `24` (24 epochs) |
-| _initial slashing rate_ | the division precision used as the denominator when computing the slashing amount of a penalty | `25` (0.25%) |
+| _initial slashing rate_ | the initial slashing rate used with the offence count and collusion degree when computing the slashing amount of a penalty | `25` (0.25%) |
 | _delta_ | the number of blocks to wait before generating an activity proof. E.g. activity proof of block `x` is for block `x - delta` | `5` (5 blocks) |
 | _slashing rate scale factor_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` (0.01%) |
 
