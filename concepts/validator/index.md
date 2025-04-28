@@ -229,11 +229,12 @@ In this model:
 - [Liquid staking](/concepts/staking/#liquid-staking): [delegated](/glossary/#delegated) stake has [Liquid Newton](/concepts/protocol-assets/liquid-newton/) minted to the staker in proportion to the amount of Newton staked to a validator.
 
 ::: {.callout-important title="Note on Liquid Newton and Newton inflation rewards" collapse="false"}
+
 Note that:
 
   - [Liquid Newton](/concepts/protocol-assets/liquid-newton/) is **not** minted for [self-bonded](/glossary/#self-bonded) stake. For rationale see [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas).
-  - Newton [inflation rewards](/glossary/#inflation-rewards) accrue to all bonded stake irrespective of whether it is active in the current consensus committee or not. [Delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stakers earn Newton [inflation rewards](/glossary/#inflation-rewards) in accordance with the [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) schedule.
-  - This is in contrast to [staking rewards](/glossary/#staking-rewards) where staking rewards are only earned when the validator bonded to is active in the current consensus committee. The stakers will then earn staking rewards _pro rata_ to their share of the validator's total bonded stake.
+  - Newton [inflation rewards](/glossary/#inflation-rewards) accrue to all bonded stake active in the current consensus committee. [Delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stakers earn Newton [inflation rewards](/glossary/#inflation-rewards) in accordance with the [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) schedule.
+
 :::
 
 Account addresses owning liquid newton and receiving staking and inflation rewards revenue are:
