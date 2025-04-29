@@ -119,7 +119,7 @@ The _lookback window_ default value is set in the OFD [protocol configuration](/
 
 The average offline percentage of a committee member for an epoch is computed as an _inactivity score_. The offline percentage is measured as the % of blocks in an epoch that the validator has failed to timely participate in consensus for.
 
-The _inactivity scores_ for the current and past epoch are aggregated to computes an _aggregated inactivity score_. Penalties are applied only if a committee member's _aggregated inactivity score_ breaks the _inactivity threshold_ during an epoch. Penalties are then computed according based on the validator's historical _omission fault_ history and a _probation period_. Historical _omission faults_ are maintained by an _offence_ counter, incrementing by `1` for each _omission fault_. The validator's _aggregated inactivity score_, _offence_ count, and _probation_ are used as weighting factors when computing omission penalties.
+The _inactivity scores_ for the current and past epoch are combined to compute an _aggregated inactivity score_. Penalties are applied only if a committee member's _aggregated inactivity score_ breaks the _inactivity threshold_ during an epoch. Penalties are then computed based on the validator's historical _omission fault_ history. A validator's history of _omission faults_ is maintained by an _offence_ counter. The counter increments by `1` for each _omission fault_ committed, but is reset to `0` if a validator's _probation period_ expires without the validator committing an _offence_ while on [_probation_](/concepts/ofd/#probation). The validator's _aggregated inactivity score_ and _offence_ count are used as weighting factors when computing omission penalties.
 
 #### Probation
 
@@ -127,13 +127,11 @@ To incentivise liveness OFD sets a _probation period_ measured in epochs. The du
 
 #### Thresholds
 
-The _threshold_ sets a floor which if broken triggers omission penalties. OFD has multiple thresholds:
+_Thresholds_ set floors which if broken trigger omission penalties. OFD has multiple thresholds:
 
-- The _inactivity threshold_ sets a floor for the % of blocks in an epoch that a validator must be active for else it will be determined to be an _offending validator_ at the end of the epoch. 
-On breaking the _inactivity threshold_ at the end of the epoch the validator is determined to be an offender and subject to penalties.
-- The _withholding threshold_ sets a floor which if broken triggers _withholding_ of staking rewards and Newton inflation rewards.
-- The _negligible threshold_ sets a floor which if broken triggers _jailing_.
+- The _inactivity threshold_ sets a floor for a validator's _inactivity score_ in an epoch, above which it will be determined to be an _offending validator_ at the end of the epoch.
 
+- The _withholding threshold_ sets a floor for a validator's _inactivity score_ in an epoch, which if exceeded triggers _withholding_ of staking rewards and Newton inflation rewards.
 
 #### Inactivity penalties
 
@@ -141,9 +139,9 @@ The OFD protocol will apply penalties to an _offending validator_ for proven omi
 
 - on breaking the _withholding threshold_: withholding of staking rewards and newton inflation rewards for the epoch proportionally to the validator's _inactivity score_ in the epoch. The lost rewards are transferred to the withheld rewards pool for community funding.
 
-- on breaking the _negligible threshold_: jailing and withholding of all staking rewards and newton inflation rewards for the epoch. The _offending validator_ is jailed for a number of epochs determined by the protocol's _initial jailing period_ configured value and the number of inactivity _offences_ committed by the validator. The lost rewards are transferred to the withheld rewards pool for community funding.
+- on breaking the _inactivity threshold_: jailing and withholding of all staking rewards and newton inflation rewards for the epoch. The _offending validator_ is jailed for a number of epochs determined by the protocol's _initial jailing period_ and the number of inactivity _offences_ committed by the validator. The lost rewards are transferred to the withheld rewards pool for community funding.
 
-- on committing an _offence_ when on _probation_: slashing and permanent jailing. The _offending validator_ is slashed according to the protocol's _initial slashing rate_ configured value, validator's offences squared, and the number of other validators committing omission offences in the epoch (_collusion degree_). The validator is permanently jailed.
+- on committing an _offence_ when on _probation_: slashing and jailing. The _offending validator_ is slashed according to the protocol's _initial slashing rate_ configuration, validator's offences squared, and the number of other validators committing omission offences in the epoch (_collusion degree_). If the slashing penalty is 100% of the validator's stake, then the validator is permanently jailed.
 
 #### Jail
 
@@ -160,7 +158,7 @@ The _offending validator_ will remain in a `jailedForInactivity` state even afte
 The protocol **does not** automatically revert validator state from `jailedForInactivity` to `active` at the jail release block number. 
 :::
 
-On *permanent* jailing the validator enters a `jailboundForInactivity` state and is *permanently* jailed. It becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied in the case where a validator is found guilty by the [omission fault detection protocol](/concepts/ofd/) of an omission fault while on _probation_ as a member of the consensus committee.
+On *permanent* jailing the validator enters a `jailboundForInactivity` state and is *permanently* jailed. The validator becomes [jailbound](/glossary/#jailbound) and cannot get out of jail. Permanent jailing is only applied in the case where a validator on _probation_ commits an _offence_ that results in 100% of the validator's stake being slashed.
 
 ::: {.callout-note title="How AFD and OFD differ in distributing staking rewards lost through validator jailing" collapse="false"}
 
