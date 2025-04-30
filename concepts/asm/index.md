@@ -7,7 +7,7 @@ description: >
 
 ## Overview
 
-This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. The Auton Stabilization Mechanism provides functions to compute the target value for the Auton [Auton (ATN)](/glossary/#auton) and methods to drive the Auton's actual market price towards the target through the supply of the Auton and [Newton (NTN)](/glossary/#newton).
+This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. The Auton Stabilization Mechanism provides functions to compute the target value for the [Auton (ATN)](/glossary/#auton) and methods to drive the Auton's actual market price towards the target through the supply of the Auton and [Newton (NTN)](/glossary/#newton).
 
 Autonity implements a Collateralized Debt Position or [CDP](/glossary/#cdp)-based stabilization mechanism. Auton tokens are minted and burned exclusively as a result of changing collateralized debt positions. 
 
