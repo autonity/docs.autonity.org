@@ -22,8 +22,8 @@ Note that every committee member node generates an activity report based on its 
 Inactivity is _detected_ by the use of BLS signatures to prove activity. Validators sign consensus messages using their [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys). During block proposal, the block proposer for height $h$ will aggregate the _precommit_ signatures of height $h - \Delta$ into an $ActivityProof$, which is included in the header of $h$. $\Delta$ is defined as a number of blocks, so each block header contains a historical record of committee activity at block height $h - \Delta$. For example, the _activity proof_ for block height $h$ is not computed until block height $h + \Delta$.
 
 ::: {.callout-note title="What is BLS signature aggregation?" collapse="true"}
-The BLS signature scheme is based on elliptic curve cryptograhy and has the following useful properties:
-- Allowing signature aggregation, therefore enabling storage compression.
+The BLS signature scheme is based on elliptic curve cryptography and provides the following useful properties:
+- Allowing signature aggregation, therefore enabling storage consumption reduction.
 - Efficient verification of aggregates, thus reducing CPU consumption.
 
 Autonity uses the BLS signature scheme to cryptographically verify which consensus committee members posted a _precommit_ vote and therefore are _actively_ participating in consensus. A large committee size is an Autonity design goal for scalability. The BLS property of verification efficiency makes it suited use as a signature aggregation algorithm in consensus computation.
@@ -37,8 +37,9 @@ It is important to note that OFD runs alongside Autonity's Tendermint proof of s
 
 As noted above the block proposer generates and includes a BLS aggregate of _precommit_ signatures of height $h - \Delta$ into the $ActivityProof$ included in the header of $h$. Then, at block finalisation, the Omission Accountability Contract is invoked to inspects the $ActivityProof$ and determine committee _inactivity_. Committee members are deemed _inactive_ based upon the current $ActivityProof$ and their historical performance over a rolling block window defined by configuration parameter $LookbackWindow$. The $ActivityProof$ is stored as a part of the blockchain, as it is included in the block header.
 
-Inactivity scores and consequent penalties are computed and applied at epoch end. The penalties are applied to the validator proportionally to the validator's inactivity history measured by an _inactivity score_ during the epoch. The _inactivity score_ of a validator in an epoch is simply the % of blocks in the epoch that the validator failed to participate in consensus. Penalty scope covers:
+Inactivity scores and consequent penalties are computed and applied at epoch end. The penalties are applied to the validator proportionally to its inactivity history measured by an _inactivity score_ during the epoch. The _inactivity score_ of a validator in an epoch is simply the % of blocks in the epoch that the validator failed to participate in consensus, aggregated with the previous epochs _inactivity score_. 
 
+Penalty scope covers:
 - withholding of ATN [staking rewards](/glossary/#staking-rewards) proportionally to the offline % of the validator in the epoch.
 - withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of the validator in the epoch.
 - jailing and probation if the validator's offline % in the epoch is greater than a permitted threshold set by the OFD protocol.
