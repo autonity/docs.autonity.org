@@ -23,6 +23,7 @@ Inactivity is _detected_ by the use of BLS signatures to prove activity. Validat
 
 ::: {.callout-note title="What is BLS signature aggregation?" collapse="true"}
 The BLS signature scheme is based on elliptic curve cryptography and provides the following useful properties:
+
 - Allowing signature aggregation, therefore enabling storage consumption reduction.
 - Efficient verification of aggregates, thus reducing CPU consumption.
 
@@ -40,6 +41,7 @@ As noted above the block proposer generates and includes a BLS aggregate of _pre
 Inactivity scores and consequent penalties are computed and applied at epoch end. The penalties are applied to the validator proportionally to its inactivity history measured by an _inactivity score_ during the epoch. The _inactivity score_ of a validator in an epoch is simply the % of blocks in the epoch that the validator failed to participate in consensus, aggregated with the previous epochs _inactivity score_. 
 
 Penalty scope covers:
+
 - withholding of ATN [staking rewards](/glossary/#staking-rewards) proportionally to the offline % of the validator in the epoch.
 - withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of the validator in the epoch.
 - jailing and probation if the validator's offline % in the epoch is greater than a permitted threshold set by the OFD protocol.
