@@ -25,6 +25,7 @@ Inactivity is _detected_ by the use of BLS signatures to prove activity. Validat
 The BLS signature scheme is based on elliptic curve cryptography and provides the following useful properties:
 
 - Allowing signature aggregation, therefore enabling storage consumption reduction.
+
 - Efficient verification of aggregates, thus reducing CPU consumption.
 
 Autonity uses the BLS signature scheme to cryptographically verify which consensus committee members posted a _precommit_ vote and therefore are _actively_ participating in consensus. A large committee size is an Autonity design goal for scalability. The BLS property of verification efficiency makes it suited use as a signature aggregation algorithm in consensus computation.
@@ -38,14 +39,17 @@ It is important to note that OFD runs alongside Autonity's Tendermint proof of s
 
 As noted above the block proposer generates and includes a BLS aggregate of _precommit_ signatures of height $h - \Delta$ into the $ActivityProof$ included in the header of $h$. Then, at block finalisation, the Omission Accountability Contract is invoked to inspects the $ActivityProof$ and determine committee _inactivity_. Committee members are deemed _inactive_ based upon the current $ActivityProof$ and their historical performance over a rolling block window defined by configuration parameter $LookbackWindow$. The $ActivityProof$ is stored as a part of the blockchain, as it is included in the block header.
 
-Inactivity scores and consequent penalties are computed and applied at epoch end. The penalties are applied to the validator proportionally to its inactivity history measured by an _inactivity score_ during the epoch. The _inactivity score_ of a validator in an epoch is simply the % of blocks in the epoch that the validator failed to participate in consensus, aggregated with the previous epochs _inactivity score_. 
+Inactivity scores and consequent penalties are computed and applied at epoch end. Penalty severity is proportional to validator's inactivity, which is measured by the _inactivity score_. The _inactivity score_ of a validator in an epoch is simply the % of blocks in the epoch in which the validator was deemed _inactive_ by the OFD, aggregated with the previous epochs _inactivity score_. 
 
 Penalty scope covers:
 
-- withholding of ATN [staking rewards](/glossary/#staking-rewards) proportionally to the offline % of the validator in the epoch.
-- withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of the validator in the epoch.
-- jailing and probation if the validator's offline % in the epoch is greater than a permitted threshold set by the OFD protocol.
-- stake slashing if the validator is deemed inactive while under probation.
+- withholding of ATN [staking rewards](/glossary/#staking-rewards) proportionally to the _inactivity score_ of the validator in the epoch.
+
+- withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the _inactivity score_ of the validator in the epoch.
+
+- jailing and probation if the validator's _inactivity score_ in the epoch is greater than a permitted threshold set by the OFD protocol.
+
+- stake slashing if the validator breaks the permitted threshold while in probation.
 
 Part of the epoch rewards are allocated to incentivize block proposers to include as many signatures in the $ActivityProof$ as possible. The block proposer's reward amount is computed based on the proposer effort that he provided in the epoch. The proposer effort of an $ActivityProof$ is determined as the voting power of the signatures exceeding the quorum value. ATN rewards are paid to the  _reporting validator_ `treasury` account, while NTN rewards are autobonded.
 
