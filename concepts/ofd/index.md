@@ -2,12 +2,12 @@
 ---
 title: "Omission fault detection (OFD)"
 description: >
-  Autonity's Omission Fault Detection model -- reporting mechanism, temporal constraints, and economics for reporting offences and penalties for failure to participate in consensus.
+  Autonity's Omission Fault Detection model -- reporting mechanism, temporal constraints, and economics for reporting consensus activity and penalties for failure to participate.
 ---
 
 ## Overview
 
-This section describes the Autonity omission fault detection protocol. It covers the role of the block proposer in creating proof of which committee members have participated in consensus voting of that block, the role of validators in validating that _activity proof_, and the incentives and disincentives applied to validators for proven inactivity during consensus.
+This section describes the Autonity omission fault detection protocol. It covers the role of the block proposer in creating proof of which committee members have participated in consensus voting, the role of validators in validating that _activity proof_, and the incentives and disincentives applied for proven inactivity during consensus.
 
 Autonity implements an _omission fault detection_ (OFD) protocol for detecting if [consensus committee](/glossary/#consensus-committee) members are _actively_ participating in [consensus](/glossary/#consensus) voting rounds. To ensure the maximum level of network liveness committee members should be online and participating in each [consensus](/glossary/#consensus) voting round. An _inactive committee member_ is a committee member that is failing to do this. To be _inactive_ the validator is either not sending consensus messages when it should (failure to vote) or it is sending consensus messages too late to be included in a consensus round (failure to vote on time). In either scenario the validator is considered to have lost liveness and is deemed _inactive_ by protocol.
 
@@ -22,9 +22,11 @@ Note that every committee member node generates an activity report based on its 
 Inactivity is _detected_ by the use of BLS signatures to prove activity. Validators sign consensus messages using their [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys). During block proposal, the block proposer for height $h$ will aggregate the _precommit_ signatures of height $h - \Delta$ into an $ActivityProof$, which is included in the header of $h$. $\Delta$ is defined as a number of blocks, so each block header contains a historical record of committee activity at block height $h - \Delta$. For example, the _activity proof_ for block height $h$ is not computed until block height $h + \Delta$.
 
 ::: {.callout-note title="What is BLS signature aggregation?" collapse="true"}
-A BLS Signature is a digital signature using the BLS12-381 elliptic curve. An aggregation of signatures created with this curve can be efficiently verified.
+The BLS signature scheme is based on elliptic curve cryptograhy and has the following useful properties:
+- Allowing signature aggregation, therefore enabling storage compression.
+- Efficient verification of aggregates, thus reducing CPU consumption.
 
-Autonity uses BLS signature aggregation verification to cryptographically verify which consensus committee members  posted a _precommit_ vote and so are _actively_ participated in consensus. A large committee size is an Autonity design goal for scalability. The BLS curve property of verification efficiency makes it suited use as a signature aggregation algorithm in consensus computation.
+Autonity uses the BLS signature scheme to cryptographically verify which consensus committee members posted a _precommit_ vote and therefore are _actively_ participating in consensus. A large committee size is an Autonity design goal for scalability. The BLS property of verification efficiency makes it suited use as a signature aggregation algorithm in consensus computation.
 
 Autonity Go Client uses the BLS12-381 [`blst`](https://github.com/supranational/blst) C library (<https://www.supranational.net/press/introducing-blst>).
 
@@ -33,26 +35,16 @@ For a deep-dive into BLS signature aggregation some great resources are the eth2
 
 It is important to note that OFD runs alongside Autonity's Tendermint proof of stake consensus implementation and is _fully automated_: omission accountability events are generated and processed by protocol; no manual intervention by validator operators is required. 
 
-As noted above the block proposer generates and includes a BLS signature aggregation of _precommit_ signatures of height $h - \Delta$ into the $ActivityProof$ included in the header of $h$.
+As noted above the block proposer generates and includes a BLS aggregate of _precommit_ signatures of height $h - \Delta$ into the $ActivityProof$ included in the header of $h$. Then, at block finalisation, the Omission Accountability Contract is invoked to inspects the $ActivityProof$ and determine committee _inactivity_. Committee members are deemed _inactive_ based upon the current $ActivityProof$ and their historical performance over a rolling block window defined by configuration parameter $LookbackWindow$. The $ActivityProof$ is stored as a part of the blockchain, as it is included in the block header.
 
-OFD inspects the $ActivityProof$ to determine committee _inactivity_ historically over a block window defined by the OFD protocol configuration parameter $LookbackWindow$. The $ActivityProof$, like an [AFD](/concepts/accountability/) fault proof, is therefore stored on-chain.
+Inactivity scores and consequent penalties are computed and applied at epoch end. The penalties are applied to the validator proportionally to the validator's inactivity history measured by an _inactivity score_ during the epoch. The _inactivity score_ of a validator in an epoch is simply the % of blocks in the epoch that the validator failed to participate in consensus. Penalty scope covers:
 
-Unlike [AFD](/concepts/accountability/) though, accountability events are not detected by committee member nodes and submitted to the AFD's Accountability Contract on chain as _accountability events_. For OFD the _activity proof_ is generated by the block proposer and included in the block header to submit on-chain. 
+- withholding of ATN [staking rewards](/glossary/#staking-rewards) proportionally to the offline % of the validator in the epoch.
+- withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of the validator in the epoch.
+- jailing and probation if the validator's offline % in the epoch is greater than a permitted threshold set by the OFD protocol.
+- stake slashing if the validator is deemed inactive while under probation.
 
-The Omission Accountability Contract is invoked on each block finalisation to determine inactivity and compute inactivity scores. Inactivity penalties are computed and applied at epoch end.
-
-OFD functions, therefore, by submitting, verifying, and processing activity proofs for omission faults captured over a rolling block window by epoch.
-
-Omission slashing penalties are computed by protocol and applied to the validator proportionally to the validator's liveness history measured by an _inactivity score_ during the epoch. The offline % of a validator in an epoch is measured by the % of blocks in the epoch that the validator failed to participate in consensus. Penalty scope covers:
-
-- withholding of ATN [staking rewards](/glossary/#staking-rewards) proportionally to the offline % of the validator in the epoch
-- withholding of [Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) rewards proportionally to the offline % of the validator in the epoch
-- jailing and probation if the validator's offline % in the epoch is greater than a permitted threshold set by the OFD protocol
-- stake slashing if the validator is seen as inactive when under probation after being jailed.
-
-Penalties are applied as part of the state finalization function. As the last block of an epoch is finalized, the Autonity contract will: apply omission accountability for _inactivity_ to _offending validators_: witholding rewards, applying jailing, and slashing according to Autonity’s [Penalty-Absorbing Stake (PAS)](/concepts/accountability/#penalty-absorbing-stake-pas) model.
-
-Rewards are paid to block proposers for including as many signatures in the $ActivityProof$ as possible. The _block proposer_ reward is a fraction of the epoch rewards. The block proposer's reward amount is computed based on the proposer effort that he provided in the epoch. The proposer effort of an $ActivityProof$ is determined as the voting power of the signatures exceeding the quorum value. ATN rewards are paid to the  _reporting validator_ `treasury` account, while NTN rewards are autobonded.
+Part of the epoch rewards are allocated to incentivize block proposers to include as many signatures in the $ActivityProof$ as possible. The block proposer's reward amount is computed based on the proposer effort that he provided in the epoch. The proposer effort of an $ActivityProof$ is determined as the voting power of the signatures exceeding the quorum value. ATN rewards are paid to the  _reporting validator_ `treasury` account, while NTN rewards are autobonded.
 
 ### Omission accountability prerequisites 
 
@@ -88,19 +80,17 @@ Essential primitives of OFD are: activity proof; delta; lookback window; inactiv
 
 #### Activity proof
 
-An _activity proof_ is a BLS signature aggregation of committee member _precommit_ votes submitted for a block during a Tendermint consensus voting round. The _block proposer_ includes an _activity proof_ in the block header and it is validated by the other committee members as part of block validation.
+An _activity proof_ is a BLS signature aggregation of committee member _precommit_ votes submitted for a block during a consensus round. The _block proposer_ includes an _activity proof_ in the block header, which is then validated by the other committee members as part of block validation.
 
 Each block header $h$ contains a historical record of committee activity at block height $h - \Delta$. This information is used for activity signalling.  
 
 #### Delta $\Delta$
 
-The _delta_ $\Delta$ is the number of blocks that a _block proposer_ waits for before generating an _activity proof_.
-
-The $\Delta$ allows for the p2p network's [_GST + Delta_](/concepts/system-model/#networking) latency assumption for timely consensus gossiping.
+The _delta_ $\Delta$ is the number of blocks that a _block proposer_ waits for before generating the _activity proof_ for a consensus instance. It allows for the p2p network's [_GST + Delta_](/concepts/system-model/#networking) latency assumption for timely consensus gossiping.
 
 If the _activity proof_ is empty past the first $\Delta$ block of the epoch, then this is an _omission fault_ (_offence_) and the _block proposer_ is subject to penalty. The $\Delta$ period is set as a protocol configuration parameter.
 
-The delta size is set by default in the OFD [protocol configuration](/concepts/ofd/#omission-accountability-protocol-configuration) at genesis. It can be changed post-genesis by governance [`setDelta()`](/reference/api/aut/op-prot/#setdelta-omission-accountability-contract).
+The initial delta value is set by default in the OFD [protocol configuration](/concepts/ofd/#omission-accountability-protocol-configuration) at genesis. It can be changed post-genesis by governance [`setDelta()`](/reference/api/aut/op-prot/#setdelta-omission-accountability-contract).
 
 
 #### Lookback window
@@ -127,11 +117,11 @@ To incentivise liveness OFD sets a _probation period_ measured in epochs. The du
 
 #### Thresholds
 
-_Thresholds_ set floors which if broken trigger omission penalties. OFD has multiple thresholds:
+_Thresholds_ set ceilings which if broken trigger omission penalties. OFD has multiple thresholds:
 
-- The _inactivity threshold_ sets a floor for a validator's _inactivity score_ in an epoch, above which it will be determined to be an _offending validator_ at the end of the epoch.
+- The _inactivity threshold_ sets a ceiling for a validator's _inactivity score_ in an epoch, above which it will be determined to be an _offending validator_ at the end of the epoch.
 
-- The _withholding threshold_ sets a floor for a validator's _inactivity score_ in an epoch, which if exceeded triggers _withholding_ of staking rewards and Newton inflation rewards.
+- The _withholding threshold_ sets a ceiling for a validator's _inactivity score_ in an epoch, which if exceeded triggers _withholding_ of staking rewards and Newton inflation rewards.
 
 #### Inactivity penalties
 
@@ -139,9 +129,9 @@ The OFD protocol will apply penalties to an _offending validator_ for proven omi
 
 - on breaking the _withholding threshold_: withholding of staking rewards and newton inflation rewards for the epoch proportionally to the validator's _inactivity score_ in the epoch. The lost rewards are transferred to the withheld rewards pool for community funding.
 
-- on breaking the _inactivity threshold_: jailing and withholding of all staking rewards and newton inflation rewards for the epoch. The _offending validator_ is jailed for a number of epochs determined by the protocol's _initial jailing period_ and the number of inactivity _offences_ committed by the validator. The lost rewards are transferred to the withheld rewards pool for community funding.
+- on breaking the _inactivity threshold_: jailing and withholding of all staking rewards and newton inflation rewards for the epoch. The _offending validator_ is jailed for a number of epochs determined by the protocol's _initial jailing period_ and the number of repeated inactivity _offences_ committed by the validator. The lost rewards are transferred to the withheld rewards pool for community funding.
 
-- on committing an _offence_ when on _probation_: slashing and jailing. The _offending validator_ is slashed according to the protocol's _initial slashing rate_ configuration, validator's offences squared, and the number of other validators committing omission offences in the epoch (_collusion degree_). If the slashing penalty is 100% of the validator's stake, then the validator is permanently jailed.
+- on committing an _offence_ while on _probation_: slashing and jailing. The _offending validator_ is slashed according to the protocol's _initial slashing rate_ configuration, validator's offences squared, and the number of other validators committing omission offences in the epoch (_collusion degree_). If the slashing penalty is 100% of the validator's stake, then the validator is permanently jailed.
 
 #### Jail
 
@@ -168,7 +158,7 @@ Both AFD and OFD have the concept of jailing, the distinction being OFD jails fo
 
 If a validator has been jailed by AFD then all staking rewards earned by the validator in the epoch are _forfeited_ and distributed to the _reporting validator_ as described in [Accountability fault Detection (AFD), Slashing penalties](/concepts/accountability/#slashing-penalties).
 
-If a validator has been jailed by OFD then all staking rewards earned by the validator in the epoch are _wittheld_ and distributed to the _withheld rewards pool account_ for community funding as described in [Slashing penalties](/concepts/ofd/#slashing-penalties) on this page.
+If a validator has been jailed by OFD then all staking rewards earned by the validator in the epoch are _withheld_ and distributed to the _withheld rewards pool account_ for community funding as described in [Slashing penalties](/concepts/ofd/#slashing-penalties) on this page.
 
 :::
 
@@ -178,9 +168,7 @@ Slashing penalties for an _offending validator_ are computed by the protocol bas
 
 Applied slashing penalties cover withholding of ATN staking rewards and NTN Newton inflation rewards proportional to the % of offline blocks in the epoch, probation, jailing, and slashing a percentage of stake. Slashing and probation scale up quadratically by the number of repeated offences.
 
-Penalties are applied for proven omission faults at epoch end. 
-
-Slashing is applied as part of the state finalization function. As the last block of an epoch is finalized, OFD will apply penalties for proven _omission faults_ to withhold ATN staking rewards and NTN inflation rewards, slash validator stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model, and applying validator jailing if detected committing an _omission fault_ while on _probation_.
+Penalties are applied as part of the state finalization function. As the last block of an epoch is finalized, OFD will apply penalties for proven _omission faults_, thus withholding ATN staking rewards and NTN inflation rewards, jailing validators and slashing validator stake per Autonity's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model if detected committing an _omission fault_ while on _probation_.
 
 ### Protocol parameters
 
@@ -189,24 +177,24 @@ OFD protocol parameters are set by default to:
 | Protocol parameter | Description | Value |
 |:--:|:--|:--:|
 | _inactivity threshold_ | the threshold to determine if a committee member is an _offending validator_ at the end of the epoch | `1000` (10%) |
-| _lookback window_ | the number of blocks over which the protocol will look for inactivity | `40` (40 blocks) |
-| _past performance weight_ | a factor that determines how much weight is given to past performance of the validator in the preceding epoch| `1000` (10%) |
-| _initial jailing period_ | the initial number of epoch(s) that an _offending validator_ will be jailed for | `10_000` (10000 blocks) |
+| _lookback window_ | the number of blocks over which the protocol will look for activity | `40` (40 blocks) |
+| _past performance weight_ | a factor that determines how much weight is given to _past_ performance of the validator | `1000` (10%) |
+| _initial jailing period_ | the initial number of block(s) that an _offending validator_ will be jailed for | `10_000` (10000 blocks) |
 | _initial probation period_ | the initial number of epoch(s) that an _offending validator_ will be set under probation for | `24` (24 epochs) |
-| _initial slashing rate_ | the initial slashing rate used with the offence count and collusion degree when computing the slashing amount of a penalty | `25` (0.25%) |
-| _delta_ | the number of blocks to wait before generating an activity proof. E.g. activity proof of block `x` is for block `x - delta` | `5` (5 blocks) |
+| _initial slashing rate_ | the initial slashing rate used together with the offence count and collusion degree when computing the slashing amount of a penalty | `25` (0.25%) |
+| _delta_ | the number of blocks to wait before generating an activity proof for a consensus instance. E.g. activity proof of block `x` is for block `x - delta` | `5` (5 blocks) |
 | _slashing rate scale factor_ | the division precision used as the denominator when computing the slashing amount of a penalty | `10_000` (0.01%) |
 
 ::: {.callout-important title="A note on the initial value settings" collapse="false"}
 
 Initial values for jailing, probation, and slashing are used to determine the scaling up a validator's _jailing period_, _probation period_, and _slashing percentage_ by the number of repeated offences quadratically.
 
-Slashing will also scale up linearly with the collusion degree, since it helps to safeguard the liveness of the network.
+Slashing will also scale up linearly with the collusion degree, thus helping to safeguard the liveness of the network.
 :::
 
 ### Inactivity score calculation
 
-Validator inactivity is calculated as an _aggregated inactivity score_, which is computed based upon the validator's active participation in consensus during the current and preceding epochs.
+Validator inactivity is calculated as an _aggregated inactivity score_, which is computed based upon the validator's participation in consensus during the current and preceding epochs.
 
 If the score is above the OFD thresholds, then penalties are applied accordingly.
 
@@ -349,11 +337,11 @@ The economic loss to consensus committee members and their delegators from inact
 
 Economic rewards are provided to _block proposers_ and through the withholding of staking and Newton inflation rewards to the _community_.
 
-Proposer rewards are distributed as incentive for _block proposers_ that have included [activity proofs](/concepts/ofd/#activity-proof) in blocks where the number of signatures is greater than the $\frac{2}{3}$ quorum of voting power required for consensus. See [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) for the formula.
+Proposer rewards are distributed as incentive for _block proposers_ that have submitted [activity proofs](/concepts/ofd/#activity-proof) where the number of signatures is greater than the $\frac{2}{3}$ quorum of voting power. See [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) for the formula.
 
-Withheld rewards distributed to the _community_ are conditional on the extent to which the _offending validator_ was inactive during the epoch, if it was jailed, and the amount of stake delegated to _offending validator_.
+Withheld rewards distributed to the _community_ are conditional on the extent to which the _offending validator_ was inactive during the epoch, if it was jailed, and the amount of stake delegated to it.
 
 | Economic gain | Receiving account | Distribution | Description |
 |:-- |:--|:--|:--|
-| proposer rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The block proposer rewards earned by the validator for the epoch. Amount determined by the [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) formula. |
+| proposer rewards | [`treasury`](/concepts/validator/#treasury-account) account | epoch end | The OFD proposer rewards earned by the validator for the epoch. Amount determined by the [Proposer reward calculation](/concepts/ofd/#proposer-reward-calculation) formula. |
 | withheld rewards | [`withheldRewardsPool`](/reference/genesis/#config.autonity-object) account | epoch end | ATN staking rewards and NTN inflation rewards earned by the _offending validator_ for the epoch are forfeited and are sent to the withheld pool account for community funding. Amount determined by the validator's share of the committee's [voting power](/glossary/#voting-power), the number of transactions processed during the epoch, the emission of the [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation). |
