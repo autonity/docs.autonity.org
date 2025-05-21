@@ -256,9 +256,7 @@ Participation in the oracle protocol is a validator responsibility and validator
 Consensus committee membership is computed by the Autonity Protocol Contract; see [committee selection](/concepts/architecture/#committee-selection).
 
 #### Slashing penalty computation
-The Autonity Oracle Contract manages the computation of accountability penalties for proven oracle price reporting faults at epoch end. A slashing model is implemented with penalties applied for reporting "outlier" prices falling outside a tolerance threshold of the median prices reported by other oracles in the [oracle network](/concepts/oracle-network). The contract implements logic to:
-
-- Calculate penalties based on parameters set in the [protocol configuration](/concepts/ofd/#protocol-configuration) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/ofd/#slashing-amount-calculation).
+The Autonity Oracle Contract manages the computation of accountability penalties for proven oracle price reporting faults at epoch end. A slashing model is implemented with penalties applied for reporting "outlier" prices falling outside a tolerance threshold of the median prices reported by other oracles in the [oracle network](/concepts/oracle-network). The contract calculates penalties based on parameters set in the [protocol configuration](/concepts/oafd/#protocol-configuration) and dynamic factors specific to the epoch circumstances. See [slashing amount calculation](/concepts/ofd/#slashing-amount-calculation).
 
 Depending upon the validator's inactivity score the protocol will apply penalties to:
 
