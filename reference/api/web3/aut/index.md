@@ -73,10 +73,7 @@ This is a known issue and a PR with the fix is pending. See [Known issue, RPC `a
 ## RPC
 
 ``` {.rpc}
-curl -X GET $RPC_URL --header 'Content-Type: application/json' --data '{"method":"admin_acnPeers", "params":[], "jsonrpc":"2.0", "id":1}' | jq .
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  1109  100  1044  100    65   2691    167 --:--:-- --:--:-- --:--:--  2865
+curl -s -X GET $RPC_URL --header 'Content-Type: application/json' --data '{"method":"aut_acnPeers", "params":[], "jsonrpc":"2.0", "id":1}' | jq .
 {
   "jsonrpc": "2.0",
   "id": 1,
