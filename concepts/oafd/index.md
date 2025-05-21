@@ -14,14 +14,7 @@ This section describes the Autonity oracle accountability fault detection protoc
 
 Autonity implements an _oracle accountability fault detection (OAFD)_ protocol for detecting if _consensus committee members_ are participating in the Autonity [_oracle protocol_](/concepts/oracle-network/#oracle-protocol) in a timely manner.
 
-Autonity provides consensus-computed median price data for a designated set of [_currency pair_](/glossary/#currency-pair) (AKA _symbols_) as an L1 platform feature for primary and secondary consumer use cases:
-
-- The primary consumer of the data is the [Auton Stabilisation Mechanism (ASM)](/concepts/asm/):
-
-  - FX price data: for the _currency pairs_ used as the FX currency basket in the [ACU](/concepts/asm/#acu) index, and,
-  - Autonity NTN and ATN [protocol assets](/concepts/protocol-assets/) price data: for ATN borrowing against NTN collateral by the [CDP](/concepts/asm/#stabilization) mechanism.
-
-- The secondary consumer of the data is use cases deployed on the Autonity L1.
+Autonity provides consensus-computed median price data for a designated set of [_currency pair_](/glossary/#currency-pair) (AKA _symbols_) as an L1 platform feature for primary and secondary consumer use cases. The primary consumer of the data is the [Auton Stabilisation Mechanism (ASM)](/concepts/asm/), which uses the _currency pairs_ as the FX currency basket in the [ACU](/concepts/asm/#acu) index. Also, Autonity NTN and ATN [protocol assets](/concepts/protocol-assets/) price data are used for ATN borrowing against NTN collateral by its [CDP](/concepts/asm/#stabilization) mechanism. The secondary consumer of the data is the use cases deployed on the Autonity L1.
 
 A median price for the supported _currency pair_ _symbols_ is computed according to the Autonity [_oracle protocol_](/concepts/oracle-network/#oracle-protocol).
 
