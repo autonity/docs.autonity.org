@@ -2384,8 +2384,7 @@ aut contract call [OPTIONS] isUnbondingReleased [PARAMETERS]
 ## aut
 
 ``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/Autonity.abi  --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1  isUnbondin
-gReleased 2
+aut contract call --abi ../scripts/abi/v1.0.2-alpha/Autonity.abi  --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1  isUnbondingReleased 2
 true
 ```
 
