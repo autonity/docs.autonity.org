@@ -139,7 +139,7 @@ Newton [inflation rewards](/glossary/#inflation-rewards) are a distribution of n
 For more detail see the [Newton](/concepts/protocol-assets/newton/) concept and [Total supply and newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
 
 ### Reward distribution
-Newton [inflation rewards](/glossary/#inflation-rewards) are minted and distributed to stakers at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). On emission the newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. The bonded stake balances of the individual stake delegators (i.e. for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake) is incremented accordingly to reflect the inflation received.
+Newton [inflation rewards](/glossary/#inflation-rewards) are minted and distributed to stakers at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). On emission the newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) newton is staked. The bonded stake balances of the individual stake delegators (i.e. for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake) is incremented accordingly to reflect the inflation received.
 
 ## Staking accounts
 
