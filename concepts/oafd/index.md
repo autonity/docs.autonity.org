@@ -282,9 +282,9 @@ The oracle rewards are a portion of the total rewards earned during the epoch - 
 
 On distributing the rewards:
 
-- :pie: a big slice gets redistributed based on stake-based logic
-- :pie: a small slice gets redistributed based on omission accountability performance
-- :pie: a small slice gets redistributed based on oracle performance
+- a big slice gets redistributed based on stake-based logic
+- a small slice gets redistributed based on omission accountability performance
+- a small slice gets redistributed based on oracle performance
 
 :::
 
