@@ -21,11 +21,9 @@ Returns the Autonity Network configuration at the block height the call was subm
 
 See Autonity Contract Interface [`config()`](/reference/api/aut/#config).
 
-
 ## aut_acnPeers
 
 Returns information about each consensus network peer connected to the queried validator node.
-
 
 ### Parameters
 
@@ -48,7 +46,6 @@ Returns an array of objects providing information about each peer node the queri
 | network `static` | `boolean` | true, if the node is configured as a static peer of the node queried (static peers connections are always maintained and retried if there are any failures) |
 | protocols `acn`  `version` | `string` | the acn protocol version. Returns `1`. (Note: this doesn't duplicate the `acn/1` returned under `caps`. `caps` returns a list of all capabilities. |
 
-
 ### Usage
 
 ::: {.panel-tabset}
@@ -60,14 +57,7 @@ Returns an array of objects providing information about each peer node the queri
 ```
 :::
 
-
 ### Example
-
-::: {.callout-caution title="Known issue" collapse="false"}
-The RPC call needs to be made using the deprecated RPC call `admin_acnPeers`.
-
-This is a known issue and a PR with the fix is pending. See [Known issue, RPC `aut_acnPeers` returns empty result](http://localhost:3000/issues/#rpc-aut_acnpeers-returns-empty-result).
-:::
 
 ::: {.panel-tabset}
 ## RPC
@@ -122,6 +112,3 @@ curl -s -X GET $RPC_URL --header 'Content-Type: application/json' --data '{"meth
 }
 ```
 :::
-
-
-

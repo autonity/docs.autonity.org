@@ -26,30 +26,3 @@ The Autonity Protocol Contract Interface function [`getProposer()`](/reference/a
 
 Autonity does not currently support light clients and the LES Protocol. The blockchain sync mode "light" should not be set: `--syncmode light` is not supported.
 
-<!--
-## Tendermint Namespace Interface is accessible but not meant for use by external clients
-
-
-Autonity has a Tendermint Interface used by the L1 Autonity Protocol and by the core development team as a development API. The Tendermint Namespace functions can be accessed from the Node JS Console and by RPC call but are not intended for use by external clients.
-
-Access to the functions by RPC and Node JS Console will be deprecated and removed in a future Autonity Go Client Release.
--->
-<!--
-
-## Autonity Liquid Newton Contract Interface functions `wal()` and `lsend()` show incorrect token symbol/name in terminal output
-
-The Autonity Liquid Newton Contract Interface function [`wal()`](/reference/api/liquid-newton/#wal-_print-staking-wallet_) and [`lsend()`](/reference/api/liquid-newton/#lsend-_send-liquid-newton_) functions display "lnew" or "LNEW" in terminal output when they should display "lntn" or "LNTN":
-
-- `wal()`: table column heading for the Liquid Newton amount held by the wallet shows "lnew" instead of "lntn".
-- `lsend()`: shows a message sending "LNEW" instead of "LNTN".
-
-The interface documentation shows the correct output in the [`wal()` example output](/reference/api/liquid-newton/#example-1) and [`lsend()` example output](/reference/api/liquid-newton/#example-4).
--->
-
-## RPC `aut_acnPeers` returns empty result
-
-As part of addressing AGC issue [Revise the `aut` JSON-RPC Namespace #1034](), the `acnPeers` RPC call was moved from the `admin` to `aut` namespace.
-
-Calling `aut_acnPeers` will return an empty result. This will be fixed by PR [fix api to fetch acn peer infos #1108](https://github.com/autonity/autonity/pull/1108).
-
-Until that PR is merged information about a validator node's acn peers can still be returned by a call to `admin_acnPeers`.
