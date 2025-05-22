@@ -222,12 +222,12 @@ Depending upon the validator's inactivity score the protocol will apply penaltie
 To learn more about the concept see [Omission Fault Detection (OFD)](/concepts/ofd/).
 
 ### Autonity Oracle Contract
-The contract implementing the Oracle protocol extensions, including primitives for computing weighted average price data, managing the set of currency pairs for which Autonity provides price data, and oracle accountability fault detection.
+The contract implementing the Oracle protocol extensions, including primitives for computing weighted average price data, managing the set of currency pairs for which Autonity provides price data, and the Autonity _Oracle Accountability Fault Detection (OAFD)_ protocol.
 
 The contract stores:
 
 - [Protocol parameters](/reference/protocol/) for weighted average price computation and oracle voting rounds. These specify the currency pairs for which the oracle provides weighted average price data, the interval over which an oracle round for submitting and voting on price data runs.
-- [Protocol configuration](/concepts/oafd/#protocol-configuration) used to compute slashing penalties for the [Oracle Accountability Fault Detection](/concepts/oafd/) protocol.
+- [Protocol configuration](/concepts/oafd/#protocol-configuration) used to compute slashing penalties for the [Oracle Accountability Fault Detection (OFD)](/concepts/oafd/) protocol.
 
 Per the Autonity Protocol Contract, Oracle protocol parameters are initialised at network [genesis](/reference/genesis/).
 

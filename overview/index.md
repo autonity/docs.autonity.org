@@ -18,10 +18,10 @@ Key technical features of the Autonity Protocol are:
 - Native [protocol assets](/concepts/protocol-assets/) and [stabilization mechanism](/concepts/asm/): _Auton_ utility coin used in the transaction fee mechanism; _Newton_ staking coin for securing the network. Auton price stability is by a CDP-based stabilization mechanism, the [Auton Stabilization Mechanism (ASM)](/concepts/asm/); the stabilization target is the [Autonomous Currency Unit (ACU)](/concepts/asm/#acu), a base-invariant, volatility-minimized index.
 - [Liquid staking](/concepts/staking/#liquid-staking) for capital efficiency and a [Penalty-Absorbing Stake](/concepts/staking/#penalty-absorbing-stake-pas) model. [Delegated](/glossary/#delegated) _Newton_ stake yields transferrable _Liquid Newton_ tokens, which can be used to redeem the underlying _Newton_ by unbonding stake. [Self-bonded](/glossary/#self-bonded) stake by validator operators does not yield _Liquid Newton_ and is slashed before delegated stake to assure validator integrity and 'skin in the game'.
 - Consensus accountability protocols:
-  - [Accountable fault detection (AFD)](/concepts/afd/): a protocol for detecting infractions of consensus rules by committee members. Failure to adhere to these rules is a rule infraction and AFD will detect and apply slashing penalties for proven rule infractions.
-  - [Omission fault detection (OFD)](/concepts/ofd/): a protocol for detecting failure to vote in [consensus rounds](/concepts/consensus/pos/#consensus-round-and-internal-state) by a committee member and the failure of block proposers to provide activity proofs in block headers [when required](/concepts/ofd/#delta-delta). Failure to participate is a loss of liveness and OFD will detect and apply slashing penalties for proven inactivity.
+  - [Accountability Fault Detection (AFD)](/concepts/afd/): a protocol for detecting infractions of consensus rules by committee members. Failure to adhere to these rules is a rule infraction and AFD will detect and apply slashing penalties for proven rule infractions.
+  - [Omission Fault Detection (OFD)](/concepts/ofd/): a protocol for detecting failure to vote in [consensus rounds](/concepts/consensus/pos/#consensus-round-and-internal-state) by a committee member and the failure of block proposers to provide activity proofs in block headers [when required](/concepts/ofd/#delta-delta). Failure to participate is a loss of liveness and OFD will detect and apply slashing penalties for proven inactivity.
 - [Oracle network](/concepts/oracle-network/): a protocol for consensus-computed weighted average price data for selected FX currency pairs as an L1 platform feature. The submission of price data for aggregation and voting is a validator responsibility. Validators form an oracle network, with each validator node running an [oracle server](/concepts/oracle-server) to source price data. Only consensus committee members participate in oracle [voting rounds](/concepts/oracle-network/#voting-rounds).
-- [Oracle accountability and fault detection (OAFD)](/concepts/oafd/): a protocol for detecting misbehaving oracles, which will be filtered via outlier detection and slashed accordingly.
+- [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/): a protocol for detecting misbehaving oracles, which will be filtered via outlier detection and slashed accordingly.
 
 
 ## Technology
@@ -43,9 +43,9 @@ For explanations of core concepts refer to:
 - [Validator](/concepts/validator) for the role of validators and the functions they perform in securing an Autonity network.
 - [Staking](/concepts/staking/) for protocol staking mechanisms and Autonity's model for liquid staking.
 - Accountability protocols for validators participating in consensus and submitting price reports to the oracle protocol on-chain as committee members:
-  - [Accountability fault detection protocol (AFD)](/concepts/afd/) for failing to follow consensus rules.
-  - [Omission fault detection protocol (OFD)](/concepts/ofd/) for failing to participate in consensus.
-  - [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle on-chain contract.
+  - [Accountability Fault Detection (AFD)](/concepts/afd/) for failing to follow consensus rules.
+  - [Omission Fault Detection (OFD)](/concepts/ofd/) for failing to participate in consensus.
+  - [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle on-chain contract.
 - [Auton Stabilization Mechanism (ASM)](/concepts/asm/) for protocol mechanisms to stabilize Auton price in a CDP-based stabilization mechanism where Auton is borrowed in return for depositing collateral token.
 - [Protocol assets](/concepts/protocol-assets/) for the protocol's native coins and tokens:  _Auton_ utility coin, _Newton_ stake token, and _Liquid Newton_ liquid stake token.
 - The [Glossary](/glossary/#participant) for definitions of terms and concepts used in the documentation.
@@ -78,9 +78,9 @@ In addition to Ethereum concepts such as `address`, `gas`, and `node`, the disti
 | [Penalty-Absorbing Stake](/concepts/staking/#penalty-absorbing-stake-pas) |  A stake slashing model whereby [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying slashing penalties for accountability events. PAS incentivises honest validator behavior. |
 | [Consensus Committee](/concepts/consensus/committee/) | The subset of _validator_ nodes that participate in the consensus protocol. The Consensus Committee is updated periodically (every epoch), according to an algorithm prescribed by protocol. |
 | [Oracle network](/concepts/oracle-network) | The network of validator-operated oracles that submits price data from off-chain external data providers on-chain and votes on agreeing an aggregated median price data according to an oracle protocol. |
-| [Accountability fault detection (AFD)](/concepts/afd/) | A protocol for detecting infractions of consensus rules by validators participating in consensus as _consensus committee_ members. |
-| [Omission fault detection protocol (OFD)](/concepts/ofd/) | A protocol for detecting inactivity and failure to vote in consensus rounds by validators participating in consensus as _consensus committee_ members. |
-| [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) | A protocol for detecting failure to submit accurate price reports to the oracle on-chain contract by validators participating in consensus as _consensus committee_ members. |
+| [Accountability Fault Detection (AFD)](/concepts/afd/) | A protocol for detecting infractions of consensus rules by validators participating in consensus as _consensus committee_ members. |
+| [Omission Fault Detection (OFD)](/concepts/ofd/) | A protocol for detecting inactivity and failure to vote in consensus rounds by validators participating in consensus as _consensus committee_ members. |
+| [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) | A protocol for detecting failure to submit accurate price reports to the oracle on-chain contract by validators participating in consensus as _consensus committee_ members. |
 | [Auton Stabilization Mechanism (ASM)](/concepts/asm/) | The protocol mechanism used to maintain [Auton](/concepts/protocol-assets/auton/) price stability. The Stabilization Mechanism is CDP, [Auton](/concepts/protocol-assets/auton/) borrowed against [Newton](/concepts/protocol-assets/newton/) or [Liquid Newton](/concepts/protocol-assets/liquid-newton/) collateral. |
 | [Newton inflation mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation) | The protocol mechanism by which a percentage of the total [newton](/glossary/#newton) supply is held in an "Inflation Reserve" and released over time as [inflation rewards](/glossary/#inflation-rewards). |
 

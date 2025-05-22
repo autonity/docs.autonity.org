@@ -1,6 +1,6 @@
 
 ---
-title: "Omission fault detection (OFD)"
+title: "Omission Fault Detection (OFD)"
 description: >
   Autonity's Omission Fault Detection model -- reporting mechanism, temporal constraints, and economics for reporting consensus activity and penalties for failure to participate.
 ---
@@ -142,7 +142,7 @@ The OFD protocol will apply penalties to an _offending validator_ for proven omi
 
 #### Jail
 
-Jailing for omission accountability is as described in the concept [Accountable fault detection (AFD), Protocol primitives, Jail](/concepts/accountability/#jail) with the exception that:
+Jailing for omission accountability is as described in the concept [Accountability Fault Detection (AFD), Protocol primitives, Jail](/concepts/accountability/#jail) with the exception that:
 
 - jailing for inactivity may be applied as part of a slashing penalty if the _offending validator_ commits an _offence_ while on _probation_.
 - jailing transitions the _offending validator_ from an `active` to a `jailedForInactivity` or `jailboundForInactivity` state. Jailing is either *temporary* or *permanent*.

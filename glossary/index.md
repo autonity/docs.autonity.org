@@ -204,8 +204,8 @@ A protocol action that excludes a validator from selection to the [consensus com
 ## jailbound
 A state in which a validator is permanently barred from selection to the consensus committee. A validator may only enter a jailbound state if:
 
-- A 100% [slashing penalty](/glossary/#slashing-penalty) is applied by [Accountability fault detection](/concepts/afd/#jail-period-calculation)
-- The validator is repeatedly found inactive while on probation by [Omission fault detection](/concepts/ofd/#jail-period-calculation), leading to a cumulative 100% slashing penalty.
+- A 100% [slashing penalty](/glossary/#slashing-penalty) is applied by [Accountability Fault Detection (AFD)](/concepts/afd/#jail-period-calculation)
+- The validator is repeatedly found inactive while on probation by [Omission Fault Detection (OFD)](/concepts/ofd/#jail-period-calculation), leading to a cumulative 100% slashing penalty.
 
 ## jail period
 The period of time for which a validator is temporarily barred from selection to the consensus committee, defined as a number of [blocks](/glossary/#block).  The jail period is set as a protocol parameter.
@@ -282,7 +282,7 @@ A peer-to-peer network where access is open and public. Any node can connect to 
 ## Proof of Stake (PoS)
 A [consensus algorithm](/glossary/#consensus-algorithm) where the blockchain is secured by economic value through [bonding](/glossary/#bond) [stake token](/glossary/#stake-token) to [validators](/glossary/#validator). [Consensus committee](/glossary/#consensus-committee) members are chosen by a [selection mechanism](/concepts/consensus/committee/#committee-member-selection) that maximises the amount of stake backing the committee and so the economic value securing the network.
 
-If the protocol determines that a validator has failed to follow consensus rules, [slashing penalties](/glossary/#slashing-penalty) are applied according to Autonity's [accountability and fault detection protocol](/concepts/afd/). 
+If the protocol determines that a validator has failed to follow consensus rules, [slashing penalties](/glossary/#slashing-penalty) are applied according to Autonity's [Accountability Fault Detection (AFD)](/concepts/afd/) protocol. 
 
 ## self-bonded
 Stake token bonded to a [validator](/glossary/#validator) where the validator is the [stakeholder](/glossary/#stakeholder). The [account](/glossary/#account) submitting the stake delegation transaction (_cf._ [bond](/glossary/#bond)) is the validator `treasury` account.

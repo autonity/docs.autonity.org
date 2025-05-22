@@ -161,7 +161,7 @@ The validator operator's account address. The `treasury` is used as the account:
 - Identifying the validator operator entity itself.
 - For submitting transactions to protocol contracts to register and operate the validator's [node](/concepts/client/) and [oracle server](/concepts/oracle-server/).
 - Receiving [staking rewards](/concepts/staking/#staking-rewards) from the protocol's reward distribution mechanism for distribution to the validator's stake delegators.
-- Receiving [slashing rewards](/concepts/afd/#slashing-rewards) distributed by the [accountability and fault detection protocol](/concepts/afd/) for reporting provable faults committed by an offending validator failing to follow consensus rules.
+- Receiving [slashing rewards](/concepts/afd/#slashing-rewards) distributed by the [Accountability Fault Detection (AFD)](/concepts/afd/) protocol for reporting provable faults committed by an offending validator failing to follow consensus rules.
 
 See the `treasury` parameter of the `config.autonity.validators` object in the [Protocol](/reference/protocol#configautonityvalidators-object) parameter reference.
 
@@ -169,6 +169,7 @@ See the `treasury` parameter of the `config.autonity.validators` object in the [
 
 The Autonity Protocol's `treasury` account for receiving treasury fees. See `treasury` parameter of the 
 `autonity.treasury` object in the [Protocol](/reference/protocol#configautonity-object) parameter reference.	
+
 ### Autonity Protocol Contract account
 
 The Autonity Protocol's contract account for holding staking rewards (serving as a 'rewards pool') until reward distribution occurs at epoch end. 
@@ -303,9 +304,9 @@ Note that the amount of Newton released to Alice may be less than the original u
 
 Bonded stake is subject to economic [slashing penalties](/glossary/#slashing-penalty) if misbehavior by the staked validator node when a member of the [consensus committee](/glossary/#consensus-committee) is detected by an Autonity accountability protocol:
 
-- [Accountability fault detection protocol (AFD)](/concepts/afd/) for failing to follow consensus rules 
-- [Omission fault detection protocol (OFD)](/concepts/ofd/) for failing to participate in consensus 
-- [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle protocol on-chain. 
+- [Accountability Fault Detection (AFD)](/concepts/afd/) for failing to follow consensus rules 
+- [Omission Fault Detection (OFD)](/concepts/ofd/) for failing to participate in consensus 
+- [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle protocol on-chain. 
 
 ### Economic penalties
 
@@ -317,9 +318,9 @@ The extent of the penalty varies according to the severity of the fault committe
 
 | Accountability protocol | Disincentive penalty |
 |:-- |:--|
-| [Accountability fault detection protocol (AFD)](/concepts/afd/) | [slashing penalties](/concepts/afd/#slashing-penalties) |
-| [Omission fault detection protocol (OFD)](/concepts/ofd/) | [inactivity penalties](/concepts/ofd/#inactivity-penalties-1)|
-| [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) | [outlier penalties](/concepts/oafd/#outlier-penalties)|
+| [Accountability Fault Detection (AFD)](/concepts/afd/) | [slashing penalties](/concepts/afd/#slashing-penalties) |
+| [Omission Fault Detection (OFD)](/concepts/ofd/) | [inactivity penalties](/concepts/ofd/#inactivity-penalties-1)|
+| [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) | [outlier penalties](/concepts/oafd/#outlier-penalties)|
 
 [Slashing penalties](/glossary/#slashing-penalty) are applied by autonomous protocol action at [epoch](/concepts/staking/#epoch) end as [voting power](/glossary/#voting-power) cannot change mid-epoch.
 

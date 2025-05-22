@@ -13,7 +13,7 @@ A validator is an Autonity full node with bonded stake that is eligible for sele
 To fulfil this purpose the validator participates in consensus computation with other members of the consensus committee:
 
 - Proposing, voting, and validating new [blocks](/glossary/#block) in accordance with the rules of Autonity's implementation of the Tendermint consensus mechanism.
-- Reporting infractions of consensus rules by committee members in the accountability and fault detection protocol.
+- Reporting infractions of consensus rules by committee members in the [Accountability Fault Detection (AFD)](/concepts/afd/) protocol.
 - Submitting price reports and voting on aggregated median price data for selected currency pairs in oracle protocol voting rounds.
 
 It has responsibilities to:
@@ -24,10 +24,10 @@ It has responsibilities to:
 - Maintain system state by committing new blocks to state as a consensus round completes.
 - Propagate new blocks to the network at the end of a consensus round, sending the full block if round leader otherwise sending a new block announcement.
 - Provide bonded stake to the Proof of Stake consensus mechanism, providing locked stake for network security economics.
-- Participate in the accountability and fault detection protocol, detecting and submitting accountability events committed by other committee members. See concept [accountability and fault detection protocol](/concepts/afd/).
+- Participate in the Autonity Accountability Fault Detection protocol, detecting and submitting accountability events committed by other committee members. See concept [Accountability Fault Detection (AFD)](/concepts/afd/) protocol.
 - Participate in the oracle protocol, inputting raw price data and voting for aggregated median price data for currency pairs provided by the Autonity network during oracle [voting rounds](/glossary/#voting-round). See concept [oracle network](/concepts/oracle-network/).
 
-As an entity contributing bonded stake to secure the network, a validator active in the [consensus committee](/concepts/consensus/committee/) is economically incentivised toward correct behaviour by [staking rewards](/concepts/staking/#staking-rewards) and [slashing rewards](/concepts/afd/#slashing-rewards). Validators are disincentivised from Byzantine behaviour by stake [slashing](/concepts/staking/#slashing) and penalty mechanisms implemented by an [accountability and fault detection protocol](/concepts/afd/). See [validator economics](/concepts/validator/#validator-economics) on this page for details.
+As an entity contributing bonded stake to secure the network, a validator active in the [consensus committee](/concepts/consensus/committee/) is economically incentivised toward correct behaviour by [staking rewards](/concepts/staking/#staking-rewards) and [slashing rewards](/concepts/afd/#slashing-rewards). Validators are disincentivised from Byzantine behaviour by stake [slashing](/concepts/staking/#slashing) and penalty mechanisms implemented by AFD. See [validator economics](/concepts/validator/#validator-economics) on this page for details.
 
 ### Validator prerequisites 
 
@@ -173,7 +173,7 @@ The sequence of lifecycle events for a validator is:
 3. Register as a validator. The validator's node is registered as a validator by the submission of registration parameters. The validator enters an `active` state.
 4. Stake bonding. Stake is [bonded](/glossary/#bond) to the validator, either by the validator itself or by delegation from a [stake token holder](/glossary/#stakeholder). Once the validator has an amount of stake bonded to it, then it is eligible for inclusion in the [committee selection process](/concepts/consensus/committee/#committee-member-selection).
 5. Selection to consensus committee. In the last block of an epoch, the [committee selection process](/concepts/consensus/committee/#committee-member-selection) is run and a validator may be selected to the consensus committee for the next epoch. Whilst a member of the consensus committee it is responsible for participating in (a) block validation, proposing and voting on new blocks, and (b) oracle price data submission and voting.
-6. Jailed for accountability fault. If as a committee member the validator is found guilty for failing to adhere to consensus rules by the [Accountability fault detection protocol (AFD)](/concepts/afd/) or for failing to participate in consensus by the [Omission fault detection protocol (OFD)](/concepts/ofd/), then [jailing](/glossary/#jailing) may be applied. In this state the validator is [jailed and excluded from consensus committee selection](/concepts/validator/#jailing-and-exclusion-from-consensus-committee) for a computed duration.
+6. Jailed for accountability fault. If as a committee member the validator is found guilty for failing to adhere to consensus rules by the [Accountability Fault Detection (AFD)](/concepts/afd/) protocol or for failing to participate in consensus by the [Omission Fault Detection (OFD)](/concepts/ofd/) protocol, then [jailing](/glossary/#jailing) may be applied. In this state the validator is [jailed and excluded from consensus committee selection](/concepts/validator/#jailing-and-exclusion-from-consensus-committee) for a computed duration.
 
     Depending on the gravity of the fault committed, jailing may be temporary or permanent and the validator will enter a [jailed](/glossary/#jailed) or [jailbound](//glossary/#jailbound) state:
     
@@ -198,7 +198,7 @@ Eligible validators are included in the committee selection algorithm. The algor
 
 ### Jailing and exclusion from consensus committee
 
-A validator may be found guilty of failing to adhere to consensus rules by the [Accountability fault detection protocol (AFD)](/concepts/afd/) or of failing to participate in consensus by the [Omission fault detection protocol (OFD)](/concepts/ofd/) when a member of the consensus committee. In this case, depending on the type of fault committed, [jailing](/glossary/#jailing) for a computed number of blocks may be applied as part of a slashing penalty.
+A validator may be found guilty of failing to adhere to consensus rules by the [Accountability Fault Detection (AFD)](/concepts/afd/) protocol or of failing to participate in consensus by the [Omission Fault Detection (OFD)](/concepts/ofd/) protocol when a member of the consensus committee. In this case, depending on the type of fault committed, [jailing](/glossary/#jailing) for a computed number of blocks may be applied as part of a slashing penalty.
 
 On entering a jailed state a validator is ignored by the consensus committee selection algorithm and cannot be elected as a consensus committee member. The duration of validator jailing may be *temporary* or *permanent* depending on the gravity of the committed accountability fault.  If *temporary*, the validator enters a [jailed](/glossary/#jailed) state. If *permanent*, the validator enters a [jailbound](/glossary/#jailbound) state.
 
@@ -302,9 +302,9 @@ The extent of the penalty varies according to the severity of the fault committe
 
 | Accountability protocol | Disincentive penalty |
 |:-- |:--|
-| [Accountability fault detection protocol (AFD)](/concepts/afd/) | [slashing penalties](/concepts/afd/#slashing-penalties) |
-| [Omission fault detection protocol (OFD)](/concepts/ofd/) | [inactivity penalties](/concepts/ofd/#inactivity-penalties-1)|
-| [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) | [outlier penalties](/concepts/oafd/#outlier-penalties)|
+| [Accountability Fault Detection (AFD)](/concepts/afd/) | [slashing penalties](/concepts/afd/#slashing-penalties) |
+| [Omission Fault Detection (OFD)](/concepts/ofd/) | [inactivity penalties](/concepts/ofd/#inactivity-penalties-1)|
+| [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) | [outlier penalties](/concepts/oafd/#outlier-penalties)|
 
 ## Validator registration
 
@@ -367,9 +367,9 @@ Note that registration after genesis allows a validator to register with zero bo
 ## Validator accountability
 Validators are held accountable for failing to adhere to consensus rules or to submit accurate prices from their oracles when a member of the consensus committee. There are 3 accountability protocols:
 
-- [Accountability fault detection protocol (AFD)](/concepts/afd/) for failing to follow consensus rules 
-- [Omission fault detection protocol (OFD)](/concepts/ofd/) for failing to participate in consensus 
-- [Oracle accountability fault detection protocol (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle protocol on-chain. 
+- [Accountability Fault Detection (AFD)](/concepts/afd/) for failing to follow consensus rules 
+- [Omission Fault Detection (OFD)](/concepts/ofd/) for failing to participate in consensus 
+- [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) for failing to submit accurate price reports to the oracle protocol on-chain. 
 
 Depending on the severity of the accountability fault committed, a validator may suffer: stake slashing according to autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, the loss of [staking rewards](/concepts/staking/#staking-rewards) and Newton [inflation rewards](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation), and [validator jailing](/concepts/validator/#validator-jailing).
 
@@ -381,7 +381,7 @@ Accountability protocols detect and track faults as they are committed during th
 - Apply accountability penalties - stake slashing, forfeiture of [staking rewards](/glossary/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards), temporary or permanent [validator jailing](/concepts/validator/#validator-jailing).
 
 ## Validator jailing
-A validator can be jailed when serving as a member of the consensus committee as a penalty for failing to adhere to consensus rules by the [Accountability fault detection protocol (AFD)](/concepts/afd/) and for failing to participate in consensus by the [Omission fault detection protocol (OFD)](/concepts/ofd/). If an accountability penalty imposes [jailing](/glossary/#jailing), then this will be applied at epoch end by AFD or OFD. 
+A validator can be jailed when serving as a member of the consensus committee as a penalty for failing to adhere to consensus rules by the [Accountability Fault Detection (AFD)](/concepts/afd/) protocol and for failing to participate in consensus by the [Omission Fault Detection (OFD)](/concepts/ofd/) protocol. If an accountability penalty imposes [jailing](/glossary/#jailing), then this will be applied at epoch end by AFD or OFD. 
 
 Jailing is either temporary or permanent:
 
