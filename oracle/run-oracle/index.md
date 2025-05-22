@@ -308,17 +308,17 @@ The full set of plugin configuration fields are:
 
 | Name | Datatype | Mandatory? | Description |
 | :-- | :--: | :--: | :-- |
-| `name` | string | required | the name of the plugin binary; use the name of the sub-directory in the `plugins` directory |
-| `key` | string | required | the API key granted by your data provider to access their data API |
-| `scheme` | string | optional | the data service http scheme: http, https, ws or wss. Default value is https. |
-| `endpoint` | string | optional | the data service endpoint url of the data provider |
-| `timeout` | int | optional | the duration of the timeout period for an API request in seconds. Default value is 10. |
-| `refresh` | int | optional | the data update interval in seconds. Used for a rate limited provider's plugin to limit the request rate. Default value is 30. |
-| `ntnTokenAddress` | string | optional ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | The NTN ERC20 token address on the target blockchain. This is the [Autonity Protocol Contract Address](/concepts/architecture/#protocol-contract-addresses). |
-| `atnTokenAddress` | string | optional ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) |The Wrapped ATN erc20 token address on the target blockchain. |
-| `usdcTokenAddress` | string | optional ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | USDC ERC20 token address on the target blockchian. For Piccadilly Testnet this is the USDCx ERC20 token address. |
-| `swapAddress` | string | optional ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | UniSwap factory contract address or AirSwap SwapERC20 contract address on the target blockchain. For Piccadilly Testnet this is the Uniswap V2 AMM clone factory contract address. |
-| `disabled` | boolean |  optional | The flag to disable a plugin. False by default. |
+| `name` | string | &#x2714; | the name of the plugin binary; use the name of the sub-directory in the `plugins` directory |
+| `key` | string | &#x2714; | the API key granted by your data provider to access their data API |
+| `scheme` | string | | the data service http scheme: http, https, ws or wss. Default value is https. |
+| `endpoint` | string | | the data service endpoint url of the data provider |
+| `timeout` | int | | the duration of the timeout period for an API request in seconds. Default value is 10. |
+| `refresh` | int | | the data update interval in seconds. Used for a rate limited provider's plugin to limit the request rate. Default value is 30. |
+| `ntnTokenAddress` | string | ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | The NTN ERC20 token address on the target blockchain. This is the [Autonity Protocol Contract Address](/concepts/architecture/#protocol-contract-addresses). |
+| `atnTokenAddress` | string | ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) |The Wrapped ATN erc20 token address on the target blockchain. |
+| `usdcTokenAddress` | string | ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | USDC ERC20 token address on the target blockchian. For Piccadilly Testnet this is the USDCx ERC20 token address. |
+| `swapAddress` | string | ([`crypto_uniswap_usdcx`](https://github.com/autonity/autonity-oracle/blob/0b64c2a3bbc9abeb44db9c5ccdad4b344cf1ad76/plugins/crypto_uniswap/uniswap_usdcx/crypto_uniswap_usdcx.go#L12C5-L12C18) plugin only) | UniSwap factory contract address or AirSwap SwapERC20 contract address on the target blockchain. For Piccadilly Testnet this is the Uniswap V2 AMM clone factory contract address. |
+| `disabled` | boolean |  | The flag to disable a plugin. False by default. |
 
 The configuration fields used depends on the type of plugin. Set optional fields as needed to fit the service level agreed with your rate provider and your own operational practice.
 
