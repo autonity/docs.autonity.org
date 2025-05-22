@@ -544,14 +544,14 @@ Returns a `Config` object consisting of:
 | | `withheldRewardsPool` | `address payable` | the address of the Autonity Withheld Rewards account, the pool to which withheld inflation rewards are sent for holding. Set to the Autonity Treasury account at genesis, but can be changed |
 | | `treasuryAccount` | `address payable` | the address of the Autonity Treasury account for community funds |
 | `contracts` | n/a | `struct` | the deployed contract addresses of the Autonity network's [Protocol contracts](/concepts/architecture/#protocol-contracts) |
-| | `accountabilityContract` | `address` | the address of the Autonity accountable fault detection Accountability Contract |
-| | `oracleContract` | `address` | the address of the Autonity Oracle Contract |
+| | `accountabilityContract` | `address` | the address of the Autonity [Accountability Contract](/concepts/architecture/#protocol-contracts) |
+| | `oracleContract` | `address` | the address of the Autonity [Oracle Contract](/concepts/architecture/#protocol-contracts) |
 | | `acuContract` | `address` | the address of the Autonity ASM ACU Contract |
-| | `supplyControlContract` | `address` | the address of the Autonity ASM Supply Control Contract |
-| | `stabilizationContract` | `address` | the address of the Autonity ASM Stabilization Contract |
-| | `upgradeManagerContract` | `address` | the address of the Autonity Protocol contract upgrade mechanism's Upgrade Manager Contract |
-| | `inflationControllerContract` | `address` | the address of the Autonity Newton inflation reward mechanism Control Contract |
-| | `omissionAccountabilityContract` | `address` | the address of the Autonity Accountability Contract |
+| | `supplyControlContract` | `address` | the address of the Autonity ASM [Supply Control Contract](/concepts/architecture/#protocol-contracts) |
+| | `stabilizationContract` | `address` | the address of the Autonity ASM [Stabilization Contract](/concepts/architecture/#protocol-contracts) |
+| | `upgradeManagerContract` | `address` | the address of the Autonity [Protocol contract upgrade](/concepts/architecture/#protocol-contract-upgrade) mechanism's Upgrade Manager Contract |
+| | `inflationControllerContract` | `address` | the address of the Autonity Newton inflation reward mechanism [Inflation Controller Contract](/concepts/architecture/#protocol-contracts) |
+| | `omissionAccountabilityContract` | `address` | the address of the Autonity [Omission Accountability Contract](/concepts/architecture/#protocol-contracts) |
 | `Protocol` | n/a | `struct` | the Autonity network's configuration of governance, consensus committee, and duration (NTN unlocking schedule, epoch and block interval) protocol parameters |
 | | `OperatorAccount` | `address` | the address of the Autonity governance account |
 | | `EpochPeriod` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
@@ -2380,7 +2380,7 @@ The unbonding request will only be effective after the unbonding period, rounded
 
 If the validator has a [slashing](/concepts/afd/#slashing) event before this period expires, then the released Newton stake token amount may or may not correspond to the amount requested.
 
-See Concept [Accountability and fault detection (AFD)](/concepts/afd/) for Autonity's slashing mechanism.
+See Concept [Accountability Fault Detection (AFD)](/concepts/afd/) for Autonity's slashing mechanism.
 :::
 
 Constraint checks are applied. The  `validator` address provided is verified as a registered validator address and the requested unbonding amount is checked to verify it is `<=` to the `msg.sender`'s bonded stake amount. For delegated stake this is done by checking the `msg.Sender`'s Liquid Newton balance is `>=` to the requested amount, and for self-bonded stake this is done by checking the validator's `selfBondedStake` balance is`>=` to the requested unbonding amount.
