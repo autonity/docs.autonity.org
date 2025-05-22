@@ -7,9 +7,9 @@ description: >
 
 ## Overview
 
-This section describes the Autonity omission fault detection protocol. It covers the role of the block proposer in creating proof of which committee members have participated in consensus voting, the role of validators in validating that _activity proof_, and the incentives and disincentives applied for proven inactivity during consensus.
+This section describes the Omission Fault Detection protocol. It covers the role of the block proposer in creating proof of which committee members have participated in consensus voting, the role of validators in validating that _activity proof_, and the incentives and disincentives applied for proven inactivity during consensus.
 
-Autonity implements an _omission fault detection_ (OFD) protocol for detecting if [consensus committee](/glossary/#consensus-committee) members are _actively_ participating in [consensus](/glossary/#consensus) voting rounds. To ensure the maximum level of network liveness committee members should be online and participating in each [consensus](/glossary/#consensus) voting round. An _inactive committee member_ is a committee member that is failing to do this. To be _inactive_ the validator is either not sending consensus messages when it should (failure to vote) or it is sending consensus messages too late to be included in a consensus round (failure to vote on time). In either scenario the validator is considered to have lost liveness and is deemed _inactive_ by protocol.
+Autonity implements an _Omission Fault Detection_ (OFD) protocol for detecting if [consensus committee](/glossary/#consensus-committee) members are _actively_ participating in [consensus](/glossary/#consensus) voting rounds. To ensure the maximum level of network liveness committee members should be online and participating in each [consensus](/glossary/#consensus) voting round. An _inactive committee member_ is a committee member that is failing to do this. To be _inactive_ the validator is either not sending consensus messages when it should (failure to vote) or it is sending consensus messages too late to be included in a consensus round (failure to vote on time). In either scenario the validator is considered to have lost liveness and is deemed _inactive_ by protocol.
 
 Autonity's [Tendermint BFT consensus](/concepts/consensus/pos/) is coordinated by committee member voting via the broadcasting of consensus messages in the [communication layer](/concepts/architecture/#communication-layer). It assumes a stable broadcast communication channel and a [semi-synchronous network timing model (_GST & Delta_) for message reception](/concepts/system-model/#networking). The Tendermint algorithm assumes that at _GST + Delta_, all the consensus messages sent at _GST_ should have been received by committee members.
 
@@ -325,7 +325,7 @@ Only signatures that contribute further than the $\frac{2}{3}$ voting power are 
 
 ## OFD economics
 
-There are two aspects to omission fault detection economics of slashing: inactivity penalties for _offending validators_ and proposer rewards for _block proposers_.
+There are two aspects to Omission Fault Detection economics: inactivity penalties for _offending validators_ and proposer rewards for _block proposers_.
 
 ### Inactivity penalties
 

@@ -20,12 +20,12 @@ In the oracle protocol a validator has responsibilities to:
 
 ### Oracle prerequisites   
 
-To operate as a validator node the operator must operate Autonity [oracle server](/concepts/oracle-server/) software as an adjunct to its Autonity [full node](/concepts/client/) software.
+To operate as a validator node the operator must operate [Autonity Oracle Server (AOS)](/concepts/oracle-server/) software as an adjunct to its full node [Autonity Go Client (AGC)](/concepts/client/) software.
 
 Prerequisites for participating in the oracle network as a validator node operator are:
 
-- An [Autonity Go Client](/concepts/client/) full node installation, joined to an Autonity network.
-- An [Autonity Oracle Server](/concepts/oracle-server/) installation, configured to connect to your full node and external price data sources via plugin adaptors.
+- An [Autonity Go Client (AGC)](/concepts/client/) full node installation, joined to an Autonity network.
+- An [Autonity Oracle Server (AOS)](/concepts/oracle-server/) installation, configured to connect to your full node and external price data sources via plugin adaptors.
 - Plugin adaptors for connecting to external data provider sources to retrieve price data for the currency pairs required for your node's connected Autonity network.
 
 ## Oracle identity, accounts and keypairs
@@ -137,17 +137,16 @@ To exemplify:
 
 Primary consumers of oracle data are:
 
-- Auton Stabilization Mechanism
+- [Auton Stabilization Mechanism (ASM)](/concepts/asm/)
 - Smart contracts deployed on the Autonity L1 network can access median price data via the oracle contract interface.
-
 
 ## Oracle economics
 
-Participation in the oracle network as a consensus committee member is a validator responsibility. The costs of submitting vote transactions in voting rounds are refundable and so offset. Validators are made accountable for accurate and timely price reporting by economic incentives and disincentives by the [Oracle accountability fault detection (OAFD)](/concepts/oafd/) protocol. 
+Participation in the oracle network as a consensus committee member is a validator responsibility. The costs of submitting vote transactions in voting rounds are refundable and so offset. Validators are made accountable for accurate and timely price reporting by economic incentives and disincentives by the [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) protocol. 
 
 ### OAFD rewards and penalties for price reporting
 
-Committee members are incentivised towards correct price reporting by rewards and disincentivised from outlier price reporting by penalties. For detail see [OAFD, Oracle economics](/concepts/oafd/#oafd-economics) in the validator concept page.
+Committee members are incentivised towards correct price reporting by rewards and disincentivised from outlier price reporting by penalties. For detail see [OAFD, Oracle economics](/concepts/oafd/#oafd-economics).
 
 ### Transaction fee refund
 

@@ -18,11 +18,11 @@ Stakers are financially rewarded by Auton [staking rewards](/concepts/staking/#s
 
 Staking rewards are distributed to stake [delegations](/glossary/#delegation) that are actively backing consensus. That is, to the subset of validator nodes participating in the [consensus committee](/glossary/#consensus-committee). Stake delegators to committee member validators receive a share of those rewards in proportion _pro rata_ to their share of the stake bonded to the committee.
 
-Newton inflation rewards are distributed to [participating](/glossary/#participation-rate) stake active in the consensus committee at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). The newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. Stake delegators receive a reward in proportion to the amount of Newton they have staked.
+Newton inflation rewards are distributed to [participating](/glossary/#participation-rate) stake active in the consensus committee at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). The Newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. Stake delegators receive a reward in proportion to the amount of Newton they have staked.
 
 ::: {.callout-note title="Note" collapse="false"}
 
-Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of liquid newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and accountability protocol rewards. See [validator economics](/concepts/validator/#validator-economics).
+Note that in Autonity's [Penalty-Absorbing Stake (PAS)](/concepts/staking/#penalty-absorbing-stake-pas) model, validator [self-bonded](/glossary/#self-bonded) stake does _not_ result in minting of Liquid Newton. Validator revenue is derived from commission, block proposal, staking rewards on self-bonded stake, and accountability protocol rewards. See [validator economics](/concepts/validator/#validator-economics).
 
 :::
 
@@ -46,7 +46,7 @@ When [delegated](/glossary/#delegated) stake is bonded to a validator, the Newto
 As consequence, the amount of Liquid Newton minted is subject to any accountability and omissions penalties applied to the validator resulting in a stake slashing event:
 
 - If at the time of bonding a validator's bonded stake amount _has not_ been reduced by a stake slashing event, then Liquid Newton is minted `1:1` for the Newton staked.
-- However, if a validator has been slashed and the validator's existing bonded stake amount is less than the supply of issued Liquid Newton, then Liquid Newton is minted in proportion to the validator's bonded stake amounbt remaining, resulting in a `>1:1` issuance of Liquid Newton for Newton staked.
+- However, if a validator has been slashed and the validator's existing bonded stake amount is less than the supply of issued Liquid Newton, then Liquid Newton is minted in proportion to the validator's bonded stake amount remaining, resulting in a `>1:1` issuance of Liquid Newton for Newton staked.
 
 ::: {.callout-note title="Info" collapse="false"}
 
@@ -90,7 +90,7 @@ For how to transfer Liquid Newton from a stake delegation to another account see
 
 ## Penalty-Absorbing Stake (PAS)
 
-Autonity implements a [_penalty absorbing stake (PAS)_](/glossary/#penalty-absorbing-stake-pas) model where a validator's [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.
+Autonity implements a [_Penalty-Absorbing Stake (PAS)_](/glossary/#penalty-absorbing-stake-pas) model where a validator's [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake when applying [slashing penalties](/glossary/#slashing-penalty) for accountability events.
 
 Slashing priority is simply:
 
@@ -139,7 +139,7 @@ Newton [inflation rewards](/glossary/#inflation-rewards) are a distribution of n
 For more detail see the [Newton](/concepts/protocol-assets/newton/) concept and [Total supply and newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
 
 ### Reward distribution
-Newton [inflation rewards](/glossary/#inflation-rewards) are minted and distributed to stakers at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). On emission the newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) newton is staked. The bonded stake balances of the individual stake delegators (i.e. for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake) is incremented accordingly to reflect the inflation received.
+Newton [inflation rewards](/glossary/#inflation-rewards) are minted and distributed to stakers at the end of each epoch by the Newton [inflation mechanism](/glossary/#inflation-mechanism). On emission the Newton inflation reward is [automatically bonded](/glossary/#autobond) by the protocol to the validator nodes where [participating](/glossary/#participation-rate) Newton is staked. The bonded stake balances of the individual stake delegators (i.e. for [delegated](/glossary/#delegated) and [self-bonded](/glossary/#self-bonded) stake) is incremented accordingly to reflect the inflation received.
 
 ## Staking accounts
 

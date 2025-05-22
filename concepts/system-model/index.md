@@ -82,7 +82,7 @@ Ideally, operators should opt for a higher-bandwidth network for transactions an
 
 Autonity inherits Ethereum's state model, ledger trie structures, and transaction state machine. Per Ethereum the state of the system incrementally evolves from genesis state as blocks are decided and appended to the ledger, each individual transaction forming a valid arc between state transitions to an account. The world (or global) state of the system comprises the mapping between accounts and their states, recorded in the distributed ledger maintained by participants. Per Ethereum, a participant can compute the current world state of each account on the system at any time by using the ledger and EVM, and applying in order the sequence of transactions from genesis block to current block height.
 
-At network genesis the ledger state comprises the Autonity [Protocol Contracts](/concepts/architecture/#protocol-contracts) and the genesis block state as set in the [genesis configuration file](/reference/genesis/). The genesis block contains the initial set of participant validators and smart contracts, both with their states. The initial smart contracts are: Autonity Protocol Contract, Autonity Oracle Contract, genesis validator _liquid newton_ contracts, and optionally additional contracts deployed using the `alloc` structure in the genesis file. Initial smart contract state is Autonity Protocol and Oracle Contract parameterisation and genesis validator _liquid newton_ contract bonded stake.
+At network genesis the ledger state comprises the Autonity [Protocol Contracts](/concepts/architecture/#protocol-contracts) and the genesis block state as set in the [genesis configuration file](/reference/genesis/). The genesis block contains the initial set of participant validators and smart contracts, both with their states. The initial smart contracts are: Autonity Protocol Contract, Autonity Oracle Contract, genesis validator _Liquid Newton_ contracts, and optionally additional contracts deployed using the `alloc` structure in the genesis file. Initial smart contract state is Autonity Protocol and Oracle Contract parameterisation and genesis validator _Liquid Newton_ contract bonded stake.
 
 
 ### The Ledger Object
@@ -253,7 +253,7 @@ Transactions are used to transfer value between individual account state, invoke
 
 #### Requests, transactions and calls
 
-Transactions are submitted as [requests](/concepts/system-model/#request) over the JSON-RPC remote procedure call (RPC) protocol to read and write to system state. Requests to protocol contract functions are made as Ethereum [transactions and calls](/concepts/system-model/#transactions-and-calls) executed in Autonity's Ethereum runtime. The on-chain operation executed by smart contract logic may be a [transaction](/concepts/system-model/#transaction-1) that is a write operation resulting in a change to system state or a read-only [call](/concepts/system-model/#call-1) that queries system state. Execution of a contract function may result in one contract invoking another contract, resulting in a [message call](/concepts/system-model/#message-call) between contracts. For example, a bonding request submitted to the Autonity Protocol contract results in a state change to the validator's liquid newton contract ledger when staking transitions are applied at epoch end.
+Transactions are submitted as [requests](/concepts/system-model/#request) over the JSON-RPC remote procedure call (RPC) protocol to read and write to system state. Requests to protocol contract functions are made as Ethereum [transactions and calls](/concepts/system-model/#transactions-and-calls) executed in Autonity's Ethereum runtime. The on-chain operation executed by smart contract logic may be a [transaction](/concepts/system-model/#transaction-1) that is a write operation resulting in a change to system state or a read-only [call](/concepts/system-model/#call-1) that queries system state. Execution of a contract function may result in one contract invoking another contract, resulting in a [message call](/concepts/system-model/#message-call) between contracts. For example, a bonding request submitted to the Autonity Protocol contract results in a state change to the validator's Liquid Newton contract ledger when staking transitions are applied at epoch end.
 
 #### Request
 
@@ -384,8 +384,7 @@ EOA's: represent accounts belonging to external users with a private key, are fu
 
 Contract Account's: deployed smart contracts are also account objects. However, while these accounts have a balance, they are initialised with code and do not have an associated private key. As opposed to EOA's, interactions with a contract account are governed by its EVM code. Such code is either triggered by transactions from EOA's or message calls from other contract accounts. A contract account can call other contracts by [message calls](/concepts/system-model/#message-call), but such message calls are not signed by a private key.
 
-Contract accounts native to an Autonity system are described in [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract) and [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
-
+Contract accounts native to an Autonity system are described in the Architecture concept, [Protocol contracts](/concepts/architecture/#protocol-contracts).
   
 #### References
 

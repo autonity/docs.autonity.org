@@ -14,10 +14,10 @@ A Liquid Newton token can be in one of two states:
 - _unlocked_, the default state in which it is unlocked and the [stake holder](/glossary/#stakeholder) can transfer ownership by sending to another [account](/glossary/#account).
 - _locked_, the bound state after unbonding in which it is locked during the [unbonding period](/glossary/#unbonding-period) and cannot be transferred by the [stake holder](/glossary/#stakeholder).
 
-The amount of liquid newton minted to a staker is governed autonomously by the validator's liquid newton contract. This contract maintains a conversion rate between liquid newton and newton for bonding and unbonding operations. The rate is determined by the ratio of issued liquid tokens over the total amount of [delegated](/glossary/#delegated) stake tokens bonded to the validator. This ensures that a validator’s Liquid Newton tokens remain fungible over time:
+The amount of Liquid Newton minted to a staker is governed autonomously by the validator's Liquid Newton contract. This contract maintains a conversion rate between Liquid Newton and Newton for bonding and unbonding operations. The rate is determined by the ratio of issued Liquid tokens over the total amount of [delegated](/glossary/#delegated) stake tokens bonded to the validator. This ensures that a validator’s Liquid Newton tokens remain fungible over time:
 
-- On bonding, the amount of liquid newton minted has value matching that of the newton being bonded.
-- On unbonding, the liquid newton unbonded is burnt and newton redeemed in proportion to the holder's share of the liquid newton pool according to the conversion rate.
+- On bonding, the amount of Liquid Newton minted has value matching that of the Newton being bonded.
+- On unbonding, the Liquid Newton unbonded is burnt and Newton redeemed in proportion to the holder's share of the Liquid Newton pool according to the conversion rate.
 
 A validator may or may not have had slashing penalties applied and as such the redemption value of Liquid Newton may vary across validators according to their history.
 

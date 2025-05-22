@@ -1,6 +1,6 @@
 
 ---
-title: "Oracle accountability fault detection (OAFD)"
+title: "Oracle Accountability Fault Detection (OAFD)"
 description: >
   Autonity's Oracle Accountability Fault Detection model -- reporting mechanism, temporal constraints, and economics for reporting offences and penalties for failures while participating in oracle voting rounds.
 
@@ -10,9 +10,9 @@ from: markdown+emoji
 
 ## Overview
 
-This section describes the Autonity oracle accountability fault detection protocol. It covers the role of the validator [oracle network](/concepts/oracle-network/) in fetching and submitting price data to the Oracle protocol contract on-chain for computation of median price data on chain by the Autonity oracle protocol, and the incentives and disincentives applied to consensus committee validators to incentivise accurate and timely price reporting by validators and their oracle servers.
+This section describes the Autonity Oracle Accountability Fault Detection protocol. It covers the role of the validator [oracle network](/concepts/oracle-network/) in fetching and submitting price data to the Oracle protocol contract on-chain for computation of median price data on chain by the Autonity oracle protocol, and the incentives and disincentives applied to consensus committee validators to incentivise accurate and timely price reporting by validators and their oracle servers.
 
-Autonity implements an _oracle accountability fault detection (OAFD)_ protocol for detecting if _consensus committee members_ are participating in the Autonity [_oracle protocol_](/concepts/oracle-network/#oracle-protocol) in a timely manner.
+Autonity implements an _Oracle Accountability Fault Detection (OAFD)_ protocol for detecting if _consensus committee members_ are participating in the Autonity [_oracle protocol_](/concepts/oracle-network/#oracle-protocol) in a timely manner.
 
 Autonity provides consensus-computed median price data for a designated set of [_currency pair_](/glossary/#currency-pair) (AKA _symbols_) as an L1 platform feature for primary and secondary consumer use cases. The primary consumer of the data is the [Auton Stabilisation Mechanism (ASM)](/concepts/asm/), which uses the _currency pairs_ as the FX currency basket in the [ACU](/concepts/asm/#acu) index. Also, Autonity NTN and ATN [protocol assets](/concepts/protocol-assets/) price data are used for ATN borrowing against NTN collateral by its [CDP](/concepts/asm/#stabilization) mechanism. The secondary consumer of the data is the use cases deployed on the Autonity L1.
 
@@ -290,7 +290,7 @@ On distributing the rewards:
 
 ## OAFD economics
 
-There are two aspects to oracle accountability fault detection economics of slashing: outlier penalties for _offending validators_ and oracle rewards for _honest validators_.
+There are two aspects to Oracle Accountability Fault Detection economics: outlier penalties for _offending validators_ and oracle rewards for _honest validators_.
 
 | Role | Economic impact |
 |:--|:--|
