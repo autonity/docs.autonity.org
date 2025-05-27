@@ -2,7 +2,6 @@
 # See: ./_apidocgen/README.md
 
 [autonity]
-build_dir = "params/generated"
 src_dir = "autonity/solidity/contracts"
 github_url = "https://github.com/autonity/autonity"
 
@@ -11,6 +10,10 @@ output_dir = "reference/api"
 
 [contracts.Accountability]
 excludes = [
+  # onlyAFDReporter
+  "handleAccusation",
+  "handleInnocenceProof",
+  "handleMisbehaviour",
   # onlyAutonity
   "distributeRewards",
   "finalize",
@@ -25,42 +28,54 @@ excludes = [
   "setOperator",
   "setOracle",
   "update",
+  # onlyOperator
+  "modifyBasket",
 ]
 
 [contracts.Autonity]
 excludes = [
   # onlyAccountability
-  "updateValidatorAndTransferSlashedFunds",
+  "jail",
+  "jailbound",
+  "slash",
+  "slashAndJail",
   # onlyOperator
   "burn",
   "mint",
+  "completeContractUpgrade",
+  "createSchedule",
+  "resetContractUpgrade",
   "setAccountabilityContract",
   "setAcuContract",
   "setCommitteeSize",
   "setEpochPeriod",
   "setInflationControllerContract",
-  "setMaxBondAppliedGas",
-  "setMaxRewardsDistributionGas",
-  "setMaxUnbondAppliedGas",
-  "setMaxUnbondReleasedGas",
+  "setLiquidLogicContract",
+  "setMaxScheduleDuration",
   "setMinimumBaseFee",
-  "setNonStakableVestingContract",
+  "setOmissionAccountabilityContract",
   "setOperatorAccount",
   "setOracleContract",
+  "setOracleRewardRate",
+  "setProposerRewardRate",
+  "setSlasher",
   "setStabilizationContract",
-  "setStakingGasPrice",
   "setSupplyControlContract",
   "setTreasuryAccount",
   "setTreasuryFee",
   "setUnbondingPeriod",
   "setUpgradeManagerContract",
+  "setWithholidingThreshold",
+  "setWithheldRewardsPool",
   # onlyProtocol
   "computeCommittee",
   "finalize",
   "finalizeInitialization",
+  # onlyRewardDistributor
+  "autobond",
 ]
 
-[contracts.Liquid]
+[contracts.LiquidLogic]
 display_name = "Liquid Newton"
 excludes = [
   # onlyAutonity
@@ -75,11 +90,15 @@ excludes = [
 [contracts.Oracle]
 excludes = [
   # onlyAutonity
+  "distributeRewards",
   "finalize",
   "setOperator",
   "setVoters",
+  "updateVoters",
   # onlyOperator
+  "setSlashingConfig",
   "setSymbols",
+  "setVotePeriod",
   # onlyVoters
   "vote",
 ]
@@ -90,6 +109,8 @@ excludes = [
   "setOperator",
   "setOracle",
   # onlyOperator
+  "removeCDPRestrictions",
+  "setAtnSupplyOperator",
   "setLiquidationRatio",
   "setMinCollateralizationRatio",
   "setMinDebtRequirement",

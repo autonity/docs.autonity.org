@@ -14,6 +14,7 @@
     venv.requirements = ./requirements.txt;
   };
 
+  # API doc generator commands
   scripts.apidocgen.exec = ''
     python3 -m _apidocgen $@
   '';
@@ -23,11 +24,19 @@
   scripts.lint-apidocgen.exec = ''
     ruff check _apidocgen && black --check _apidocgen && mypy _apidocgen
   '';
-  scripts.patch-autonity.exec = ''
-    export ROOTDIR=$PWD &&
-    cd autonity &&
-    git apply $ROOTDIR/_apidocgen/autonity-natspec.patch 2>/dev/null &&
-    echo 'Patch applied' >&2 ||
-    echo 'Patch failed but it might be unnecessary' >&2
+
+  # Quarto commands
+  scripts.site-render.exec = ''
+    if [ -d autonity ]; then
+      apidocgen
+    fi &&
+    quarto render
+  '';
+  scripts.site-preview.exec = ''
+    if [ -d autonity ]; then
+      apidocmon
+    else
+      quarto preview
+    fi
   '';
 }

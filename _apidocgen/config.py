@@ -6,7 +6,6 @@ from schema import Optional, Schema, SchemaError  # type: ignore
 CONFIG_SCHEMA = Schema(
     {
         "autonity": {
-            "build_dir": str,
             "src_dir": str,
             "github_url": str,
         },
