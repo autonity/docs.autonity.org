@@ -19,7 +19,7 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 
 ## CDP Liquidator
 
-### bidDebt
+### bidDebt WIP - usage/Example TO DO
 
 Place a bid to liquidate a CDP that is undercollateralized.
 
@@ -50,7 +50,7 @@ None.
 
 On a successful call the function emits an `AuctionedDebt` event, logging: `debtor`, `msg.sender`, `msg.value`, `debtAmount`.
 
-#### Usage
+#### Usage TO DO
 
 ::: {.panel-tabset}
 ## aut
@@ -59,7 +59,7 @@ On a successful call the function emits an `AuctionedDebt` event, logging: `debt
 ```
 :::
 
-#### Example
+#### Example TO DO
 
 ::: {.panel-tabset}
 ## aut
@@ -69,17 +69,31 @@ On a successful call the function emits an `AuctionedDebt` event, logging: `debt
 :::
 
 
-### bidInterest WIP TO DO
+### bidInterest WIP - usage/Example TO DO
 
-TO DO
+Place a bid in an interest auction to purchase ATN interest for NTN.
+
+The caller sends an amount of NTN to bid for interest in an interest auction.
+
+Constraint checks are applied:
+
+- `BidTooLow` check: the amount of NTN specified in the function call's `ntnAmount` parameter is `>` `ntnToPay`, where `ntnToPay` is the minimum interest payment, i.e. the minimum amount of NTN that the auction accepts as paymentl for the available interest
+- `InsufficientAllowance` check: the bidder (i.e. the `msg.sender`) is approved with an allowance to transfer NTN that is `>` the bid `ntnAmount`.
+- `TransferFailed`: the transfer of the specified `ntnAmount` to the Auctioneer contract is successful.
+
+
+If constraint checks pass, and the auction bid is successful an `AuctionedInterest` event is emitted and the auction closed.
+If a `proccedsAddress` has not been set for the Auctioneer contract then the auction NTN proceeds will accumulate in the Auctioneer contract until a proceeds address is set and will not be disbursed until the next successful auction bid.
+
+If the transfer of ATN interest to the bidder fails, the ATN will remain in the contract and a `TransferFailed` event is emitted.    
 
 #### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
 | | | |
-
-TO DO
+| `auction` | `uint256` | The ID of the auction |
+| `ntnAmount` | `uint256` | The amount of NTN to pay for the interest (must be greater than or equal to the minimum interest payment) |
     
 #### Response
 
@@ -87,9 +101,9 @@ None.
 
 #### Event
 
-TO DO
+On a successful call the function emits an `AuctionedInterest` event, logging: `msg.sender`, `atnToReceive`, `ntnToPay`.
 
-#### Usage
+#### Usage TO DO
 
 ::: {.panel-tabset}
 ## aut
@@ -98,7 +112,7 @@ TO DO
 ```
 :::
 
-#### Example
+#### Example TO DO
 
 ::: {.panel-tabset}
 ## aut
