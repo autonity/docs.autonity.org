@@ -9,6 +9,25 @@ description: >
 
 Functions with the `onlyOperator` access constraint that can only be called by the governance operator account.
 
+::: {.callout-tip title="Semantics for events emitted by operator updates to protocol configuration parameters" collapse="false"}
+
+A standard set of events is used for events emitted by operator only transactions setting new values for protocol configuration parameters of data types `int`, `uint`, `address`, and `bool`.
+
+The events are named `ConfigUpdateUint`, `ConfigUpdateInt`, `ConfigUpdateAddress`, `ConfigUpdateBool`. They have a standard set of event parameters.
+
+For events  the parameters logged are:
+
+| Parameter | Datatype | Description |
+|:-- |:-- |:-- |:-- |
+| `name` | `string` | name of the configuration parameter |
+| `oldValue` | `uint256` | old value of the configuration parameter |
+| `newValue` | `uint256` | new value of the configuration parameter |
+| `appliesAtHeight` | `uint256` | block height at which the change will apply to the configuration parameter |
+
+:::
+
+
+
 ### burn
 
 Burns the specified amount of Newton stake token from an account. When `x` amount of newton is burned, then `x` is simply deducted from the account’s balance and from the total supply of newton in circulation.
@@ -196,12 +215,15 @@ None.
 
 #### Usage
 
+::: {.callout-note title="Note" collapse="false"}
+The ACU Contract Interface is not currently supported by `aut`.
 
-
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
 
 ###  setAccountabilityContract
 
-Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address.
+Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -215,7 +237,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -230,7 +252,7 @@ aut governance set-accountability-contract [OPTIONS] CONTRACT-ADDRESS
 
 ###  setAcuContract
 
-Sets a new value for the [ASM Autonomous Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address.
+Sets a new value for the [ASM Autonomous Currency Unit (ACU) Contract](/concepts/architecture/#asm-acu-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -244,7 +266,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -256,6 +278,61 @@ aut governance set-acu-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
+
+### setAtnSupplyOperator (ASM Stabilization Contract)
+
+Sets a new value for the `atnSupplyOperator` protocol parameter value, a governance address permissioned to open CDPs in the ASM [Stabilization Contract](/concepts/architecture/#protocol-contracts). The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `atnSupplyOperator` | `address` | the ethereum formatted address of the `_atnSupplyOperator` |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
+###  setAuctioneerContract
+
+Sets a new value for the [ASM Auctioneer Contract](/concepts/architecture/#asm-auctioneer-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_address ` | `address` | the ethereum formatted address of the Auctioneer Contract |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut governance set-acu-contract [OPTIONS] CONTRACT-ADDRESS
+```
+:::
 
 ###  setBaseSlashingRates (Accountability Contract)
 
@@ -294,7 +371,7 @@ You can interact with the Accountability Contract using the `aut contract` comma
 
 ###  setCommitteeSize
 
-Sets the maximum size of the consensus committee. 
+Sets the maximum size of the consensus committee. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
@@ -311,6 +388,10 @@ Constraint checks are applied:
 No response object is returned on successful execution of the method call.
 
 The updated parameter can be retrieved from state by calling the [`getMaxCommitteeSize()`](/reference/api/aut/#getmaxcommitteesize) method.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -338,7 +419,7 @@ Enter passphrase (or CTRL-d to exit):
 
 ### setDelta (Omission Accountability Contract)
 
-Sets the `delta` protocol parameter of the Omission Accountability protocol's configuration. It will get updated at epoch end.
+Sets the `delta` protocol parameter of the Omission Accountability protocol's configuration. The configuration change will take effect at epoch end (the end of epoch block height is logged in the function's `appliesAtHeight` event parameter).
 
 Constraint checks are applied:
 
@@ -357,7 +438,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -456,7 +537,7 @@ You can interact with the Accountability Contract using the `aut contract` comma
 
 ###  setInactivityThreshold (Omission Accountability Contract)
 
-Sets the `inactivityThreshold` protocol parameter of the Omission Accountability protocol's configuration.
+Sets the `inactivityThreshold` protocol parameter of the Omission Accountability protocol's configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
@@ -475,7 +556,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -488,7 +569,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ###  setInflationControllerContract
 
-Sets a new value for the [Inflation Controller Contract](/concepts/architecture/#inflation-controller-contract) address.
+Sets a new value for the [Inflation Controller Contract](/concepts/architecture/#inflation-controller-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -502,7 +583,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -517,7 +598,7 @@ aut governance set-inflation-controller-contract [OPTIONS] CONTRACT-ADDRESS
 
 ### setInitialJailingPeriod (Omission Accountability Contract)
 
-Sets the `initialJailingPeriod` protocol parameter of the Omission Accountability protocol's configuration.
+Sets the `initialJailingPeriod` protocol parameter of the Omission Accountability protocol's configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -531,7 +612,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -544,7 +625,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ### setInitialProbationPeriod (Omission Accountability Contract)
 
-Sets the `initialProbationPeriod` protocol parameter of the Omission Accountability protocol's configuration.
+Sets the `initialProbationPeriod` protocol parameter of the Omission Accountability protocol's configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
      
 #### Parameters
    
@@ -558,7 +639,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -571,7 +652,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ### setInitialSlashingRate (Omission Accountability Contract)
 
-Sets the `initialSlashingRate` protocol parameter of the Omission Accountability protocol's configuration.
+Sets the `initialSlashingRate` protocol parameter of the Omission Accountability protocol's configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
@@ -589,7 +670,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -602,7 +683,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ###  setInnocenceProofSubmissionWindow (Accountability Contract)
 
-Sets the innocence proof submission window protocol parameter. 
+Sets the innocence proof submission window protocol parameter. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
        
 #### Parameters
    
@@ -616,7 +697,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -627,9 +708,107 @@ You can interact with the Accountability Contract using the `aut contract` comma
 :::
 
 
+### setInterestAuctionDiscount (ASM Auctioneer Contract)
+
+Sets a new value for the `interestAuctionDiscount` protocol parameter. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+The `interestAuctionDiscount` value is set as a value between $[0,1)$ with $10 \hat{\ } 18$ precision.
+
+Constraint checks are applied:
+
+- `InvalidParameter`: the new interest auction `discount` value cannot be `>= 10^18`.
+   
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `discount ` | `uint256` | an integer value specifying the discount rate for the starting price of an interest auction |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+### setInterestAuctionDuration (ASM Auctioneer Contract)
+
+Sets a new value for the `interestAuctionDuration` protocol parameter. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+The `interestAuctionDuration` value is set as a number of blocks.
+
+Constraint checks are applied:
+
+- `InvalidParameter`: the new interest auction `duration` value cannot be `0`.
+   
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `duration ` | `uint256` | a positive integer value specifying the number of blocks defining the duration of an interest auction |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
+### setInterestAuctionThreshold (ASM Auctioneer Contract)
+
+Sets a new value for the `interestAuctionThreshold` protocol parameter. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+The `interestAuctionThreshold` value is set as a value in Auton `>0`.
+
+Constraint checks are applied:
+
+- `InvalidParameter`: the new interest auction `threshold` value cannot be `0`.
+   
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `threshold ` | `uint256` | a positive integer value specifying the total amount of ATN accumulated from interest payments required to trigger an interest auction |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
 ###  setLiquidationRatio (ASM Stabilization Contract)
 
-Sets a new value for the `liquidationRatio` protocol parameter in the ASM Stabilization Contract configuration. 
+Sets a new value for the `liquidationRatio` protocol parameter in the ASM Stabilization Contract configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
     
 Constraint checks are applied:
 
@@ -647,7 +826,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -660,7 +839,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ###  setLiquidLogicContract
 
-Sets a new value for the liquid newton logic contract address.
+Sets a new value for the liquid newton logic contract address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
@@ -685,7 +864,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -700,7 +879,7 @@ aut governance set-liquid-logic-contract [OPTIONS] CONTRACT-ADDRESS
 
 ### setLookbackWindow (Omission Accountability Contract)
 
-Sets the `lookbackWindow` protocol parameter of the Omission Accountability protocol's configuration. It will get updated at epoch end.
+Sets the `lookbackWindow` protocol parameter of the Omission Accountability protocol's configuration. The configuration change will take effect at epoch end (the end of epoch block height is logged in the function's `appliesAtHeight` event parameter).
 
 Constraint checks are applied:
 
@@ -719,7 +898,9 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
 
 ::: {.callout-note title="Note" collapse="false"}
 The Omission Accountability Contract Interface is not currently supported by `aut`.
@@ -730,7 +911,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ###  setMaxScheduleDuration
 
-Sets the max allowed duration of any schedule or vesting contract.
+Sets the max allowed duration of any schedule or vesting contract. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
        
 #### Parameters
    
@@ -746,7 +927,7 @@ The updated parameter can be retrieved from state by calling the [`getMaxSchedul
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -761,7 +942,7 @@ aut governance set-max-schedule-duration [OPTIONS] DURATION
 
 ###  setMinCollateralizationRatio (ASM Stabilization Contract)
 
-Sets a new value for the `minCollateralizationRatio` protocol parameter in the ASM Stabilization Contract configuration.
+Sets a new value for the `minCollateralizationRatio` protocol parameter in the ASM Stabilization Contract configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
     
 Constraint checks are applied:
 
@@ -781,7 +962,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -794,7 +975,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ###  setMinDebtRequirement (ASM Stabilization Contract)
 
-Sets a new value for the `minDebtRequirement` protocol parameter in the ASM Stabilization Contract configuration. 
+Sets a new value for the `minDebtRequirement` protocol parameter in the ASM Stabilization Contract configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
             
 #### Parameters
    
@@ -808,7 +989,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -865,7 +1046,7 @@ Enter passphrase (or CTRL-d to exit):
 
 ###  setOmissionAccountabilityContract
 
-Sets a new value for the [Autonity Omission Accountability Contract](/concepts/architecture/#autonity-omission-accountability-contract) address.
+Sets a new value for the [Autonity Omission Accountability Contract](/concepts/architecture/#autonity-omission-accountability-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -879,7 +1060,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -894,15 +1075,7 @@ aut governance set-omission-accountability-contract [OPTIONS] CONTRACT-ADDRESS
 
 ###  setOperatorAccount
 
-Sets a new governance account address as the protocol parameter for the [Autonity Protocol Contracts](/concepts/architecture/#application-layer-protocol-contracts):
-
-- [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract)
-- [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract)
-- [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
-- [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract)
-- [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract)
-- [upgradeManagerContract](/concepts/architecture/#protocol-contract-upgrade)
-- [Omission Accountability Contract](/concepts/architecture/#autonity-omission-accountability-contract).
+Sets a new governance account address as the protocol parameter for the [Autonity Protocol Contracts](/concepts/architecture/#protocol-contracts). The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -915,6 +1088,10 @@ Sets a new governance account address as the protocol parameter for the [Autonit
 No response object is returned on successful execution of the method call.
 
 The updated parameter can be retrieved from state by a call to the [`operatorAccount()`](/reference/api/aut/#operatoraccount) public variable.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -942,13 +1119,14 @@ Enter passphrase (or CTRL-d to exit):
 
 ###  setOracleContract
 
-Sets a new value for the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) address.
+Sets a new value for the [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
-The Oracle Contract is called by the [Autonity Protocol Contracts](/concepts/architecture/#application-layer-protocol-contracts):
+The Oracle Contract is called by the [Autonity Protocol Contracts](/concepts/architecture/#protocol-contracts):
 
 - [Autonity Protocol Contract](/concepts/architecture/#autonity-protocol-contract)
 - [ASM ACU Contract](/concepts/architecture/#asm-acu-contract)
 - [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract).
+- [ASM Auctioneer Contract](/concepts/architecture/#asm-auctioneer-contract).
 
 #### Parameters
    
@@ -962,7 +1140,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -977,12 +1155,14 @@ aut governance set-oracle-contract [OPTIONS] CONTRACT-ADDRESS
 
 ###  setOracleRewardRate
 
-Sets the oracle reward rate for the protocol policy configuration. See [`config()`](/reference/api/aut/#config) for policy properties.
+Sets the oracle reward rate for the protocol policy configuration.  The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
 - The reward rate must not exceed 100%.
 - The proposer reward rate plus the oracle reward rate must not exceed 100%.
+
+See [`config()`](/reference/api/aut/#config) for policy properties.
 
 #### Parameters
    
@@ -996,7 +1176,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1011,7 +1191,7 @@ aut governance set-oracle-reward-rate [OPTIONS] ORACLE_REWARD_RATE
 
 ###  setPastPerformanceWeight (Omission Accountability Contract)
 
-Sets the `pastPerformanceWeight` protocol parameter of the Omission Accountability protocol's configuration.
+Sets the `pastPerformanceWeight` protocol parameter of the Omission Accountability protocol's configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
@@ -1030,7 +1210,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1041,14 +1221,43 @@ You can interact with the contract using the `aut contract` command group. See `
 :::
 
 
+### setProceedAddress (ASM Auctioneer Contract)
+
+Sets a new value for the `proceedAddress` protocol parameter value, the address to which auction proceeds are sent by the ASM [Auctioneer Contract](/concepts/architecture/#protocol-contracts). The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `proceedAddress_` | `address` | the ethereum formatted address to send proceeds to |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
 ###  setProposerRewardRate
 
-Sets the block proposer reward rate for the protocol policy configuration. See [`config()`](/reference/api/aut/#config) for policy properties.
+Sets the block proposer reward rate for the protocol policy configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
 - The reward rate must not exceed 100%.
 - The proposer reward rate plus the oracle reward rate must not exceed 100%.
+
+See [`config()`](/reference/api/aut/#config) for policy properties.
 
 #### Parameters
    
@@ -1062,7 +1271,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1077,7 +1286,7 @@ aut governance set-proposer-reward-rate [OPTIONS] PROPOSER_REWARD_RATE
 
 ###  setSlasher
 
-Sets a new value for the Accountability Slasher Contract address.
+Sets a new value for the Accountability Slasher Contract address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -1091,7 +1300,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1106,7 +1315,7 @@ aut governance set-slasher [OPTIONS] SLASHER-ADDRESS
 
 ###  setStabilizationContract
 
-Sets a new value for the [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract) address.
+Sets a new value for the [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -1120,7 +1329,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1135,7 +1344,7 @@ aut governance set-stabilization-contract [OPTIONS] CONTRACT-ADDRESS
 
 ###  setSupplyControlContract
 
-Sets a new value for the [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract) address.
+Sets a new value for the [ASM Supply Control Contract](/concepts/architecture/#asm-supply-control-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
         
 #### Parameters
    
@@ -1149,7 +1358,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1218,7 +1427,7 @@ aut contract tx --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D setSymbols 
 
 ###  setTreasuryAccount
 
-Sets a new account address as the value of the `treasuryAccount` protocol parameter. 
+Sets a new account address as the value of the `treasuryAccount` protocol parameter. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -1231,6 +1440,10 @@ Sets a new account address as the value of the `treasuryAccount` protocol parame
 No response object is returned on successful execution of the method call.
 
 The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1258,7 +1471,7 @@ Enter passphrase (or CTRL-d to exit):
 
 ### setTreasuryFee
 
-Sets a new value for the `treasuryFee` protocol parameter.
+Sets a new value for the `treasuryFee` protocol parameter. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 #### Parameters
    
@@ -1271,6 +1484,10 @@ Sets a new value for the `treasuryFee` protocol parameter.
 No response object is returned on successful execution of the method call.
 
 The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1298,7 +1515,9 @@ Enter passphrase (or CTRL-d to exit):
 
 ###  setUnbondingPeriod
 
-Sets a new value for the `unbondingPeriod` protocol parameter. The unbonding period specifies the length of time that bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction. The period of time is defined as a number of blocks.
+Sets a new value for the `unbondingPeriod` protocol parameter. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+The unbonding period specifies the length of time that bonded stake must wait before it can be redeemed for Newton after processing a stake redeem transaction. The period of time is defined as a number of blocks.
 
 The `unbondingPeriod` period value must be greater than the `epochPeriod` protocol parameter. When the last block of an epoch is finalised, logic checks if the unbonding period for any pending unbonding requests for unbonding has expired and if so applies the staking transitions.
 
@@ -1313,6 +1532,10 @@ The `unbondingPeriod` period value must be greater than the `epochPeriod` protoc
 No response object is returned on successful execution of the method call.
 
 The updated parameter can be retrieved from state by a call to [`config()`](/reference/api/aut/#config) to get the Autonity network configuration or [`getUnbondingPeriod()`](/reference/api/aut/#getunbondingperiod).
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1340,7 +1563,7 @@ Enter passphrase (or CTRL-d to exit):
 
 ###  setUpgradeManagerContract
 
-Sets a new value for the [Upgrade Manager Contract](/concepts/architecture/#protocol-contract-upgrade) address.
+Sets a new value for the [Upgrade Manager Contract](/concepts/architecture/#protocol-contract-upgrade) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 ::: {.callout-note title="Note" collapse="false"}
 This is a development function only used for internal testing purposes. A value other than `0x3C368B86AF00565Df7a3897Cfa9195B9434A59f9` will break the upgrade function.
@@ -1358,7 +1581,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1402,11 +1625,13 @@ None.
 
 ###  setWithheldRewardsPool
 
-Sets the address of the pool to which withheld Newton inflation rewards will be sent. See [`config()`](/reference/api/aut/#config) for policy properties.
+Sets the address of the pool to which withheld Newton inflation rewards will be sent. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
 - The provided address must not be the zero address.
+
+See [`config()`](/reference/api/aut/#config) for policy properties.
 
 #### Parameters
    
@@ -1420,7 +1645,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1435,11 +1660,13 @@ Usage: aut governance set-withheld-rewards-pool [OPTIONS] POOL_ADDRESS
 
 ###  setWithholdingThreshold
 
-Sets the withholding threshold for the policy configuration. See [`config()`](/reference/api/aut/#config) for policy properties.
+Sets the withholding threshold for the policy configuration. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
 
 Constraint checks are applied:
 
 - The threshold must not exceed 100%.
+
+See [`config()`](/reference/api/aut/#config) for policy properties.
 
 #### Parameters
    
@@ -1453,7 +1680,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
