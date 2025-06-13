@@ -17,7 +17,7 @@ Usage and Examples illustrate using the Auctioneer Contract's generated ABI and 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Auctioneer.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Stabilization.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 :::
 
-## CDP Liquidator - DRAFT - sage/Example TO DO
+## Auction Bidder
 
 ### bidDebt
 
@@ -52,20 +52,10 @@ On a successful call the function emits an `AuctionedDebt` event, logging: `debt
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
-``` {.aut}
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
 
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -90,7 +80,6 @@ If the transfer of ATN interest to the bidder fails, the ATN will remain in the 
 
 | Field | Datatype | Description |
 | --| --| --|
-| | | |
 | `auction` | `uint256` | The ID of the auction |
 | `ntnAmount` | `uint256` | The amount of NTN to pay for the interest (must be greater than or equal to the minimum interest payment) |
     
@@ -104,125 +93,192 @@ On a successful call the function emits an `AuctionedInterest` event, logging: `
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
-``` {.aut}
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
 
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
-#### Example
 
-::: {.panel-tabset}
-## aut
-``` {.aut}
+## Auction View functions
 
-```
-:::
+### openAuctions
 
-## Operator only WIP - MOVE TO OP-PROT REFERENCE
+Returns all open interest auctions.
 
-Functions with the `onlyOperator` access constraint that can only be called by the governance operator account.
-
-### setLiquidationAuctionDuration (Auctioneer Contract) WIP - usage/Example TO DO
-
-Sets a new value for the `liquidationAuctionDuration` protocol parameter. The new value will be used for auctions created after the new value was set.
-
-The `liquidationAuctionDuration` value is set as a number of blocks.
-
-Constraint checks are applied:
-
-- `InvalidParameter`: the new liquidation auction `duration` value cannot be `0`.
-   
 #### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `duration ` | `uint256` | a positive integer value specifying the number of blocks defining the duration of a liquidation auction |
 
+None.
+    
 #### Response
 
-No response object is returned on successful execution of the method call.
+Returns an array of `auction` objects consisting of:
 
-#### Event
-
-On a successful call the function emits a `liquidationAuctionDuration` event, logging: configuration parameter `name`, `oldValue`, `newValue`.
+| Field | Datatype | Description |
+|:-- |:-- |:-- |
+| `id` | `uint256` | the unique identifier of the auction |
+| `amount` | `uint256` | the amount of ATN received from interest payments that is being auctioned |
+| `startPrice` | `uint256` | the reserve price for the auction |
+| `startTimestamp` | `uint256` | the opening time for the auction |
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
-``` {.aut}
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
 
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
-#### Example
 
-::: {.panel-tabset}
-## aut
-``` {.aut}
+### getAuction
 
-```
-:::
+Get an interest auction by ID.
 
-### setInterestAuctionDuration (Auctioneer Contract) WIP - usage/Example TO DO
-
-Sets a new value for the `interestAuctionDuration` protocol parameter. The new value will be used for auctions created after the new value was set.
-
-The `liquidationAuctionDuration` value is set as a number of blocks.
-
-Constraint checks are applied:
-
-- `InvalidParameter`: the new interest auction `duration` value cannot be `0`.
-   
 #### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `duration ` | `uint256` | a positive integer value specifying the number of blocks defining the duration of an interest auction |
 
+| Field | Datatype | Description |
+| --| --| --|
+| `auction` | `uint256` | The ID of the auction |
+    
 #### Response
 
-No response object is returned on successful execution of the method call.
+Returns an `auction` object consisting of:
 
-#### Event
-
-On a successful call the function emits an `interestAuctionDuration` event, logging: configuration parameter `name`, `oldValue`, `newValue`.
+| Field | Datatype | Description |
+|:-- |:-- |:-- |
+| `id` | `uint256` | the unique identifier of the auction |
+| `amount` | `uint256` | the amount of ATN received from interest payments that is being auctioned |
+| `startPrice` | `uint256` | the reserve price for the auction |
+| `startTimestamp` | `uint256` | the opening time for the auction |
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
-``` {.aut}
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
 
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
-#### Example
 
-::: {.panel-tabset}
-## aut
-``` {.aut}
+### maxLiquidationReturn
 
-```
+Get the maximum amount of NTN that can be returned to a liquidator for a given CDP.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `debtor` | `address` | the address of the CDP owner |
+| `liquidatableRound` | `uint256` | the earliest round in which the CDP was liquidatable |
+    
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `uint256` | the maximum amount of NTN that can be received |
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
-### GOT TO HERE - NEXT
 
-https://github.com/autonity/autonity/blob/f05aa9b476048daa5ad3a15bce6367d4424db761/autonity/solidity/contracts/asm/Auctioneer.sol#L262
+### minInterestPayment
+
+Get the minimum amount of NTN that can be paid for an interest auction.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `id` | `uint256` | the unique identifier of the auction |
+    
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `uint256` | the minimum amount of NTN that can be paid |
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
 
 
-### setInterestAuctionDiscount (Auctioneer Contract) TO DO
-### setInterestAuctionThreshold (Auctioneer Contract) TO DO
-### setProceedAddress (Auctioneer Contract) TO DO
+### getConfig
+
+Returns the current Auctioneer Contract configuration.
+
+#### Parameters
+
+None.
+    
+#### Response
+
+Returns a `config` object consisting of:
+
+| Field | Datatype | Description |
+|:-- |:-- |:-- |
+| `liquidationAuctionDuration` | `uint256` | defines the number of blocks for an interest auction to move from the starting price to the floor price |
+| `interestAuctionDuration` | `uint256` | the duration of an interest auction in seconds |
+| `interestAuctionDiscount` | `uint256` | defines the discount rate for the starting price of an interest auction (set as a value between $[0,1)$ with $10 \hat{\ } 18$ precision) |
+| `interestAuctionThreshold` | `uint256` | defines the total amount of accumulated ATN from interest payments required for triggering an auction for CDP interest proceeds |
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+### getCollateralToken
+
+Returns the address of the CDP collateral token.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `collateralToken` | `address` | the collateral token contract account address |
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
 
 
-## Auction View functions TO DO
+### getProceedAddress
 
-Then back to public get functions:
+Returns the proceed address of the ASM auction.
 
+#### Parameters
 
+None.
 
+#### Response
 
-And then back to public view / pure functions to get state data.
+| Field | Datatype | Description |
+| --| --| --|
+| `proceedAddress` | `address` | the collateral token contract account address |
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
