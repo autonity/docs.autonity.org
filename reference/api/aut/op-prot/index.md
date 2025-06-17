@@ -221,6 +221,45 @@ The ACU Contract Interface is not currently supported by `aut`.
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
+
+###  removeCDPRestrictions (ASM Stabilization Contract)
+
+Transitions out of the CDP restricted state. Transitioning has two effects:
+
+- lifts restrictions on CDP opening and borrowing: any Autonity network user is able to open a CDP in the ASM.
+- sets the CDP `BorrowInterestRate` to the default genesis configuration setting, i.e. to the value documented in Reference, Protocol Parameters, ASM [Stabilization Config](/reference/protocol/#stabilization-config).
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+Constraint checks are applied:
+
+- `NotRestricted`: CDP Restrictions are enabled.
+            
+#### Parameters
+   
+None.
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits:
+
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("borrowInterestRate"), `oldValue`, `newValue`, `appliesAtHeight`.
+- an `ConfigUpdateBool` event, logging: configuration parameter `name` ("restricted"), `oldValue`, `newValue`, `appliesAtHeight`
+- a `CDPRestrictionsRemoved` event, no logging.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
 ###  setAccountabilityContract
 
 Sets a new value for the [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
@@ -414,6 +453,99 @@ $ aut governance set-committee-size 50 | aut tx sign - | aut tx send -
 Enter passphrase (or CTRL-d to exit): 
 0x3dbe5afbb89267b1549f735d09ac3acd6a4894eccbab8dca125497806c8fdc2d
 ```
+:::
+
+
+###  setDefaultACUUSDPrice (ASM Stabilization Contract)
+
+Set the default ACU-USD price for use when fixed prices are enabled. (See [`useFixedGenesisPrices()`](/reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract).)
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `defaultACUUSDPrice` | `uint256` | the new default ACU-USD price |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits:
+
+- an `IConfigEvents.ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
+###  setDefaultNTNATNPrice (ASM Stabilization Contract)
+
+Set the default NTN-ATN price for use when fixed prices are enabled. (See [`useFixedGenesisPrices()`](/reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract).)
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `defaultNTNATNPrice` | `uint256` | the new default NTN-ATN price |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits:
+
+- an `IConfigEvents.ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
+###  setDefaultNTNUSDPrice (ASM Stabilization Contract)
+
+Set the default NTN-USD price for use when fixed prices are enabled. (See [`useFixedGenesisPrices()`](/reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract).)
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `defaultNTNUSDPrice` | `uint256` | the new default NTN-USD price |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits:
+
+- an `IConfigEvents.ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -1594,35 +1726,6 @@ aut governance set-upgrade-manager-contract [OPTIONS] CONTRACT-ADDRESS
 :::
 
 
-###  upgrade
-
-Provides new contract creation code for an Autonity Protocol Contract.
-
-The function calls an in-protocol EVM replace mechanism. The contract creation code is compiled and the new contract bytecode and abi appended to the contract storage buffer.
-
-::: {.callout-note title="How upgrade works" collapse="true"}
-The contract storage buffer length is checked during block finalization and if a contract upgrade is ready it is applied - see [`finalize()`](/reference/api/aut/op-prot/#finalize).
-
-When an upgrade is initiated a `getNewContract()` method retrieves the compiled EVM bytecode and Contract ABI of the new Autonity Protocol Contract, and performs an upgrade.
-
-:::
-
-#### Parameters
-   
-| Field | Datatype | Description |
-| --| --| --| 
-| `_target ` | `address` | the target contract address to be updated |
-| `_data` | `string` | the contract creation code |
-
-#### Response
-
-None.
-
-#### Event
-
-None.
-
-
 ###  setWithheldRewardsPool
 
 Sets the address of the pool to which withheld Newton inflation rewards will be sent. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
@@ -1690,6 +1793,68 @@ On a successful call the function emits a `ConfigUpdateUint` event, logging: con
 ``` {.aut}
 aut governance set-withholding-threshold [OPTIONS] WITHHOLDING_THRESHOLD
 ```
+:::
+
+
+###  upgrade
+
+Provides new contract creation code for an Autonity Protocol Contract.
+
+The function calls an in-protocol EVM replace mechanism. The contract creation code is compiled and the new contract bytecode and abi appended to the contract storage buffer.
+
+::: {.callout-note title="How upgrade works" collapse="true"}
+The contract storage buffer length is checked during block finalization and if a contract upgrade is ready it is applied - see [`finalize()`](/reference/api/aut/op-prot/#finalize).
+
+When an upgrade is initiated a `getNewContract()` method retrieves the compiled EVM bytecode and Contract ABI of the new Autonity Protocol Contract, and performs an upgrade.
+
+:::
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_target ` | `address` | the target contract address to be updated |
+| `_data` | `string` | the contract creation code |
+
+#### Response
+
+None.
+
+#### Event
+
+None.
+
+
+###  useFixedGenesisPrices (ASM Stabilization Contract)
+
+Toggles the use of the fixed genesis price state. Fixed genesis prices may be set for: NTN-ATN, NTN-USD, ACU-USD. For the default values set in the genesis configuration for the Stabilization Contract see Reference, Protocol Parameters, ASM [Stabilization Config](/reference/protocol/#stabilization-config) and `DefaultNTNATNPrice`, `DefaultNTNUSDPrice`, `DefaultACUUSDPrice`.
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+Note that governance can update the default values and set new fixed prices. See [`setDefaultNTNATNPrice()`](/reference/api/aut/op-prot/#setdefaultntnatnprice-asm-stabilization-contract),[`setDefaultNTNUSDPrice()`](/reference/api/aut/op-prot/#setdefaultntnusdprice-asm-stabilization-contract), [`setDefaultACUUSDPrice()`](/reference/api/aut/op-prot/#setdefaultacuusdprice-asm-stabilization-contract).
+            
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `useFixed ` | `bool` | whether to use fixed genesis prices (`true`) or not (`false`) |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits:
+
+- an `ConfigUpdateBool` event, logging: configuration parameter `name` ("fixedGenesisPrices"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
