@@ -27,7 +27,6 @@ For events  the parameters logged are:
 :::
 
 
-
 ### burn
 
 Burns the specified amount of Newton stake token from an account. When `x` amount of newton is burned, then `x` is simply deducted from the account’s balance and from the total supply of newton in circulation.
@@ -886,7 +885,7 @@ Constraint checks are applied:
    
 | Field | Datatype | Description |
 | --| --| --| 
-| `duration ` | `uint256` | a positive integer value specifying the number of blocks defining the duration of an interest auction |
+| `duration ` | `uint256` | a positive integer value specifying the duration in blocks  |
 
 #### Response
 
@@ -920,6 +919,39 @@ Constraint checks are applied:
 | Field | Datatype | Description |
 | --| --| --| 
 | `threshold ` | `uint256` | a positive integer value specifying the total amount of ATN accumulated from interest payments required to trigger an interest auction |
+
+#### Response
+
+No response object is returned on successful execution of the method call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Auctioneer Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
+### setLiquidationAuctionDuration (ASM Auctioneer Contract)
+
+Sets a new value for the `liquidationAuctionDuration` protocol parameter. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+The `liquidationAuctionDuration` value is set as a number of blocks.
+
+Constraint checks are applied:
+
+- `InvalidParameter`: the new liquidation auction `duration` value cannot be `0`.
+   
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `duration ` | `uint256` | a positive integer value specifying the duration in blocks |
 
 #### Response
 
@@ -1795,6 +1827,116 @@ aut governance set-withholding-threshold [OPTIONS] WITHHOLDING_THRESHOLD
 ```
 :::
 
+### updateBorrowInterestRate (ASM Stabilization Contract)
+
+Updates the borrow interest rate. The new rate `newInterestRate` will take affect after the `config.announcementWindow` (in seconds). (See Reference, Protocol Parameters, ASM [Stabilization Config](/reference/protocol/#stabilization-config).)
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+Constraint checks are applied:
+
+- `NotRestricted`: CDP Restrictions are enabled.
+            
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `newInterestRate ` | `uint256` | the new interest rate multiplied by $10 \hat{\ } 18$. If it is 5% then it should be `(5/100)*(10^18) = 50_000_000_000_000_000` |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits:
+
+- an `InterestRateUpdateAnnounced` event, logging `newInterestRate`, `_borrowInterestRate.nextActiveFrom`, `overridden`.
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("borrowInterestRate"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+### updateAnnouncementWindow (ASM Stabilization Contract)
+
+Updates the announcement window. The new `window` will take affect after the `config.announcementWindow` (in seconds). (See Reference, Protocol Parameters, ASM [Stabilization Config](/reference/protocol/#stabilization-config).)
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+Constraint checks are applied:
+
+- the new `window` value is not equal to `0`
+- `AnnouncementWindowPending`: there is not a pending announcement `window` update.
+            
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `window` | `uint256` | the new announcement window measured in seconds |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits:
+
+- an `AnnouncementWindowUpdateAnnounced` event, logging `window`, `_announcementWindow.nextActiveFrom`, `overridden`.
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("announcementWindow"), `oldValue`, `newValue`, `appliesAtHeight`.
+    
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+### updateRatios (ASM Stabilization Contract)
+
+Updates the minimum collateralization ratio and liquidation ratio for a CDP. The new ratios will take affect after the `config.announcementWindow` (in seconds). (See Reference, Protocol Parameters, ASM [Stabilization Config](/reference/protocol/#stabilization-config).)
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+Constraint checks are applied:
+
+- `lrOverridden`: there is not a pending new `liquidationRatio` update.
+- `mcrOverridden`: there is not a pending new `minCollateralizationRatio` update.
+- `InvalidParameter`: the ratios are valid. The `newLiquidationRatio`must be `<` the `newMinCollateralizationRatio` and `>= 1`.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --|
+| `newLiquidationRatio` | `uint256` | the new liquidation ratio |
+| `newMinCollateralizationRatio` | `uint256` | the new minimum collateralization ratio |    
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits:
+
+- a `LiquidationRatioUpdateAnnounced` event, logging `newLiquidationRatio`, `_liquidationRatio.nextActiveFrom, `lrOverridden`.
+- a `MinCollateralizationRatioUpdateAnnounced` event, logging `newMinCollateralizationRatio`, `_minCollateralizationRatio.nextActiveFrom`, `mcrOverridden`.
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("liquidationRatio"), `oldValue`, `newValue`, `appliesAtHeight`.
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("minCollateralizationRatio"), `oldValue`, `newValue`, `appliesAtHeight`.
+    
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
 
 ###  upgrade
 
