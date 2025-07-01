@@ -53,6 +53,7 @@ For example:
 | `acu` contract address | The ASM ACU Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setAcuContract()`](/reference/api/aut/op-prot/#setacucontract) |
 | `supplyControl` contract address | The ASM Supply Control Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setSupplyControlContract()`](/reference/api/aut/op-prot/#setsupplycontrolcontract) |
 | `stabilisation` contract address | The ASM Stabilisation Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setStabilizationContract()`](/reference/api/aut/op-prot/#setstabilizationcontract) |
+| `auctioneer` contract address | The ASM Auctioneer Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setAuctioneerContract()`](/reference/api/aut/op-prot/#setauctioneercontract) |
 | `upgradeManagerContract` contract address | The Upgrade Manager Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setUpgradeManagerContract()`](/reference/api/aut/op-prot/#setupgrademanagercontract) |
 | `inflationController` contract address | The Newton Inflation Controller Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setInflationControllerContract()`](/reference/api/aut/op-prot/#setinflationcontrollercontract) |
 | `omissionAccountability` contract address | The Omission Accountability Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setOmissionAccountabilityContract()`](/reference/api/aut/op-prot/#setomissionaccountabilitycontract) |
@@ -99,7 +100,7 @@ Autonity assigns the same value to Chain and Network identifiers `networkId` and
 | `withheldRewardsPool` account | The address of the Autonity Withheld Rewards account, the pool to which withheld Newton inflation rewards are sent for holding | EOA account address. Set by default to the Autonity `treasury` account at genesis unless specified | See [`setWithheldRewardsPool()`](/reference/api/aut/op-prot/#setwithheldrewardspool) |
 | `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Set to `10000000000000000` (1%)  | See [`setTreasuryFee()`](/reference/api/aut/op-prot/#settreasuryfee) |
 | `delegationRate` | The percentage fee of staking rewards that is deducted by validators as a commission from delegated stake. The fee is sent to the validator's [`treasury`](/concepts/validator/#treasury-account) account at epoch end on reward distribution. The rate can be specified to the precision of 1 basis point. Specified as an integer value representing up to 3 decimal places of precision. | Set to `1000` (10%) | See [`config.autonity.delegationRate`](/reference/genesis/#configautonity-object)  | None (Individual validators can reset their rate after registration. See [`changeCommissionRate()`](/reference/api/aut/#changecommissionrate)) |
-| `withholdingThreshold` account | The inactivity threshold at which committee member staking and Newton inflation rewards are withheld and sent to the Withheld Rewards Pool account by the Omission Fault Detection protocol | Set to `0` (0%, no tolerance) | See [`setWithholdingThreshold()`](/reference/api/aut/op-prot/#setwithholdingthreshold) |
+| `withholdingThreshold` | The inactivity threshold at which committee member staking and Newton inflation rewards are withheld and sent to the Withheld Rewards Pool account by the Omission Fault Detection protocol | Set to `0` (0%, no tolerance) | See [`setWithholdingThreshold()`](/reference/api/aut/op-prot/#setwithholdingthreshold) |
 | `proposerRewardRate` | The percentage of epoch staking rewards allocated for proposer rewarding by the Omission Fault Detection protocol  | Set to `1000` (10%) | See [`setProposerRewardRate()`](/reference/api/aut/op-prot/#setproposerrewardrate) |
 | `oracleRewardRate` | The percentage of epoch staking rewards deducted for oracles as a reward for correct price reporting by the Oracle Accountability Fault Detection protocol | Set to `1000` (10%) | See [`setOracleRewardRate()`](/reference/api/aut/op-prot/#setoraclerewardrate) |
 | `initialInflationReserve` | the amount of Newton held in reserve for Newton inflation rewards | Set to `40 Million` (40% of the total supply of 100 Million Newton) | None |
@@ -170,11 +171,15 @@ The ASM's Stabilization mechanism CDP configuration.
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set by default to 5%, `50_000_000_000_000_000` | None |
-| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set by default to 1.8, `1_800_000_000_000_000_000` | See [`setLiquidationRatio()`](/reference/api/aut/op-prot/#setliquidationratio-asm-stabilization-contract) |
-| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set by default to 2, `2_000_000_000_000_000_000` | See [`setMinCollateralizationRatio()`](/reference/api/aut/op-prot/#setmincollateralizationratio-asm-stabilization-contract) |
-| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set by default to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000 ` | See  [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract) |
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set by default to 5%, `50_000_000_000_000_000` | See [`updateBorrowInterestRate()`](/reference/api/aut/op-prot/#updateborrowinterestrate-asm-stabilization-contract) |
+| `announcementWindow` | The length of time in seconds before an update to ASM Stabilization config will take effect. | Set by default to 1 hour, `3600` | See [`updateAnnouncementWindow()`](/reference/api/aut/op-prot/#updateannouncementwindow-asm-stabilization-contract) |
+| `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set by default to 1.8, `1_800_000_000_000_000_000` | See [`updateRatios()`](/reference/api/aut/op-prot/#updateratios-asm-stabilization-contract) |
+| `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set by default to 2, `2_000_000_000_000_000_000` | See [`updateRatios()`](/reference/api/aut/op-prot/#updateratios-asm-stabilization-contract) |
+| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set by default to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000` | See  [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract) |
 | `targetPrice` | The ACU value of 1 unit of debt. | Set by default to the Golden Ratio rounded to 5 dp `1.61804`, `1_618_034_000_000_000_000` | None |
+| `defaultNTNATNPrice` | Default NTN-ATN price for use at genesis (with Oracle decimals precision) | Set by default to 1.0, `1_000_000_000_000_000_000` | See [`setDefaultNTNATNPrice()`](/reference/api/aut/op-prot/#setdefaultntnatnprice-asm-stabilization-contract) |
+| `defaultNTNUSDPrice` | Default NTN-USD price for use at genesis (with Oracle decimals precision) | Set by default to 1.6, `1_600_000_000_000_000_000` | See [`setDefaultNTNUSDPrice()`](/reference/api/aut/op-prot/#setdefaultntnusdprice-asm-stabilization-contract) |
+| `defaultACUUSDPrice` | Optional ACU-USD price for use at genesis | Set by default to NULL, `0` | See [`setDefaultACUUSDPrice()`](/reference/api/aut/op-prot/#setdefaultacuusdprice-asm-stabilization-contract) |
 
 #### Supply Control Config
 
@@ -183,6 +188,17 @@ Parameters for the ASM's Auton supply control configuration.
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
 | `initialAllocation` | The initial allocation of Auton to the ASM |   $2^{256} - 1 - GenesisATN$ (integer datatype minus the amount of ATN created by [allocation at genesis](/reference/genesis/#alloc-object) ($GenesisATN$)) | None |
+
+#### Auctioneer Config
+
+The ASM's CDP debt and interest Auction mechanism configuration.
+
+| Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
+|-----------|-------------|-----------------------|-------------------------------| 
+| `liquidationAuctionDuration` | The number of blocks for a liquidation auction to move from the liquidation rate to the bankruptcy rate	| Set by default to `60` (60 blocks)| See [`setLiquidationAuctionDuration()`](/reference/api/aut/op-prot/#setliquidationauctionduration-asm-auctioneer-contract) |
+| `interestAuctionDuration` | The number of blocks for an interest auction to move from the discount rate to the floor price | Set by default to `60` (60 blocks) | See [`setInterestAuctionDuration()`](/reference/api/aut/op-prot/#setinterestauctionduration-asm-auctioneer-contract) |
+| `interestAuctionDiscount` | The fraction above market price that an interest auction starts at | Set by default to `0.1` (10%) | See [`setInterestAuctionDiscount()`](/reference/api/aut/op-prot/#setinterestauctiondiscount-asm-auctioneer-contract) |
+| `interestAuctionThreshold` | The minimum amount of ATN paid in interest to trigger an interest auction | Set by default to `1` ATN | See [`setInterestAuctionThreshold()`](/reference/api/aut/op-prot/#setinterestauctionthreshold-asm-auctioneer-contract) |
 
 ### Omission Accountability Config
 

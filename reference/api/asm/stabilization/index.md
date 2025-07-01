@@ -31,7 +31,12 @@ You can approve the Stabilization Contract as a spender of Newton Collateral Tok
 Constraint checks are applied:
 
 - the `amount` deposited is a non-zero amount
-- the `amount` deposited is `<` the `allowance` amount that the CDP owner has approved the CDP contract to transfer.
+- `InsufficientAllowance`: the `amount` deposited is `<` the `allowance` amount that the CDP owner has approved the CDP contract to transfer.
+- `Liquidatable`: if the CDP is in a liquidatable state, the deposited amount is large enough to make the CDP non-liquidatable.
+
+::: {.callout-note title="`Liquidatable` check" collapse="false"}
+This constraint prevents a CDP Owner trying to update their CDP's timestamp to influence a liquidation auction. So if you deposit while liquidatable, the deposit must be big enough to make you non-liquidatable.
+:::
 
 The CDP's collateral balance is then incremented by the deposited amount.
 
@@ -80,9 +85,9 @@ On method execution, state is inspected to retrieve:
 
 Constraint checks are applied:
 
-- invalid amount: the `amount` withdrawn is `<` the CDP's collateral amount 
-- insufficient collateral: the withdrawn `amount` must not reduce the remaining Collateral Token amount below the minimum collateral ratio.
-- liquidatable: withdrawal does not make the CDP liquidatable. The withdrawn amount value must not reduce the CDP to an under collateralized state below the liquidation ratio.
+- `InvalidAmount`: the `amount` withdrawn is `<` the CDP's collateral amount 
+- `Insufficient Collateral`: the withdrawn `amount` must not reduce the remaining Collateral Token amount below the minimum collateral ratio.
+- `Liquidatable`: withdrawal does not make the CDP liquidatable. The withdrawn amount value must not reduce the CDP to an under collateralized state below the liquidation ratio.
 
 The CDP's collateral balance is then decremented by the withdrawn amount and Collateral Token is transferred to the CDP owner.
 
@@ -132,9 +137,9 @@ On method execution, state is inspected to retrieve:
 
 Constraint checks are applied:
 
-- invalid debt position: the `debt` after borrowing must satisfy the minimum debt requirement.
-- liquidatable: borrowing does not make the CDP liquidatable. The `debt` after borrowing amount value must not reduce the CDP to an under collateralized state below the liquidation ratio.
-- insufficient collateral: the borrowed `amount` must not exceed the borrow `limit` for the CDP. The `debt` after borrowing must not reduce the CDP to an under collateralized state below the minimum collateral ratio.
+- `InvalidDebtPosition`: the `debt` after borrowing must satisfy the minimum debt requirement.
+- `Liquidatable`: borrowing does not make the CDP liquidatable. The `debt` after borrowing amount value must not reduce the CDP to an under collateralized state below the liquidation ratio.
+- `InsufficientCollateral`: the borrowed `amount` must not exceed the borrow `limit` for the CDP. The `debt` after borrowing must not reduce the CDP to an under collateralized state below the minimum collateral ratio.
 
 The CDP's debt is then incremented by the borrowed amount and Auton is minted to the CDP owner.
 
@@ -183,8 +188,8 @@ On method execution, state is inspected to retrieve:
 
 Constraint checks are applied:
 
-- no debt position: there is a debt; the CDP `principal` is `> 0`.
-- invalid debt position: the debt after payment must satisfy the minimum debt requirement. The payment amount is `<` the `debt` and the `debt` after the payment amount satisfies the minimum debt requirement.
+- `NoDebtPosition`: there is a debt; the CDP `principal` is `> 0`.
+- `InvalidDebtPosition`: the debt after payment must satisfy the minimum debt requirement. The payment amount is `<` the `debt` and the `debt` after the payment amount satisfies the minimum debt requirement.
 
 The payment is allocated to first cover outstanding interest debt on the CDP, and then repay CDP principal debt. If there is a surplus after principal repayment, then the surplus is returned to the CDP Owner.
 
@@ -228,58 +233,12 @@ aut contract tx --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f --value 1 r
 :::
 
 
-## CDP Liquidator 
-
-### isLiquidatable
-
-Determines if a CDP is liquidatable at the block height of the call.
-
-Constraint checks are applied:
-
-- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
- 
-
-::: {.callout-note title="Note" collapse="false"}
-The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
-:::
-
-#### Parameters
-
-| Field | Datatype | Description |
-| --| --| --|
-| `account` | `address` | The CDP account address |
-
-#### Response
-
-The function returns a `Boolean` flag indicating if the CDP is liquidatable (`True`) or not (`False`).
-
-#### Event
-
-None.
-
-#### Usage
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
-false
-```
-:::
+## CDP Keeper functions (Auctioneer Contract Only)
 
 
 ### liquidate
 
-Liquidates a CDP that is undercollateralized.
+Liquidates a CDP that is undercollateralized. Invoked by the Auctioneer Contract's [`bidDebt()`](/reference/api/asm/auctioneer/#biddebt) function when a liquidator bids for the debt of a liquidatable CDP.
 
 The liquidator must pay all the CDP debt outstanding. As a reward, the liquidator will receive the collateral that is held in the CDP. The transaction value is the payment amount.
 
@@ -377,6 +336,64 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 :::
 
 
+### acuPrice
+
+Returns a USD price for the [ACU](/concepts/asm/#acu) value in `SCALE_FACTOR` precision used by the Stabilization Contract.
+
+If a default fixed price has been set for ACU-USD, then that price is returned from config (See [`useFixedGenesisPrices()`](/reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract)).
+
+Else, the function retrieves the ACU index value and scale factor from the ACU Contract, and converts it to a USD value scaled to the precision used by the Stabilization Contract.
+
+If an ACU-USD price cannot be computed the function reverts with a `PriceUnavailable` error.
+
+::: {.callout-note title="How the price is scaled and computed" collapse="true"}
+The function converts the ACU index value retrieved from the ACU Contract to `SCALE` decimals used by the Stabilisation Contract.
+
+Conversion is conditional upon the difference between the Stabilization Contract and ACU Contract scale and precision:
+
+  `(value * SCALE_FACTOR) / valueScaleFactor`
+
+Where:
+
+- `value` is the ACU index value
+- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`
+- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
+- `valueScaleFactor` is the ACU Contract scale factor.
+:::
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `price` | `uint256` | Price of ACU index value in USD |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
 ### borrowLimit
 
 Calculates the maximum amount of Auton that can be borrowed for the given amount of Collateral Token.
@@ -437,41 +454,61 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLim
 :::
 
 
+### cdps
+
+Retrieve the state for a CDP account.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `owner` | `address` | The CDP account address |
+
+#### Response
+Returns a `_cdps` Collateralized Debt Position (CDP) account object:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `timestamp` | `uint` | The timestamp of the last borrow or repayment. The timestamp is provided as a [Unix time](/glossary/#unix-time) value  |
+| `collateral` | `uint256` | The collateral deposited with the Stabilization Contract |
+| `principal` | `uint256` | The principal debt outstanding as of `timestamp` |
+| `interest` | `uint256` | The interest debt that is due at the `timestamp` |
+| `lastAggregatedInterestExponent` | `uint256` |  The aggregated interest exponent till last update |    
+    
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
 ### collateralPrice
 
-Retrieves the Collateral Token price from the Oracle Contract and converts it to Auton.
+Returns the NTN Collateral Token price in ATN.
 
-The function reverts in case the price is invalid or unavailable.
+If a default fixed price has been set for NTN-ATN, then that price is returned from config (See [`useFixedGenesisPrices()`](/reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract)).
+
+Else, the function retrieves the aggregated median NTN-ATN price from the Oracle Contract.
 
 Constraint checks are applied:
 
-- price unavailable: the Oracle Contract is providing data computed in the oracle network's last completed voting round.
-
-::: {.callout-note title="Note" collapse="false"}
-To get this data the Oracle Contract function [`latestRoundData()`](/reference/api/oracle/#latestrounddata) is called. This returns the latest available median price data for a currency pair symbol. If the last oracle voting round failed to successfully compute a new median price, then it will return the most recent median price for the requested symbol.
-:::
-
-- invalid price: the `price` returned by the Oracle Contract is not equal to `0`.
-
-On method execution, state is inspected to retrieve:
-
-- the latest computed Collateral Token price data and the Oracle Contract scale precision from the Oracle Contract.
-
-::: {.callout-note title="Note" collapse="false"}
-The function converts the Collateral Token price retrieved from the Oracle Contract to `SCALE` decimals used by the Stabilisation Contract.
-
-Conversion is conditional upon the difference between the Stabilisation Contract and Oracle Contract scale and precision:
-
-- if `(SCALE_FACTOR > precision)`, then collateral price = `price * (SCALE_FACTOR / precision`
-- else collateral price = `price / (precision() / SCALE_FACTOR)`.
-
-Where:
-
-- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
-- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
-- `price` is the aggregated median price for Collateral Token calculated by the Oracle Contract (returned by calling [`latestRoundData()`](/reference/api/oracle/#latestrounddata)).
-- `precision` is the Oracle Contract setting for the multiplier applied to submitted data price reports before calculation of an aggregated median price for a symbol (returned by calling [`getPrecision()`](/reference/api/oracle/#getprecision)).
-:::
+- `InvalidPrice`: the NTN-ATN `price` returned by the Oracle Contract is not `<= 0`.
 
 #### Parameters
 
@@ -481,7 +518,7 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `price` | `uint256` | Price of Collateral Token |
+| `price` | `uint256` | Price of NTN Collateral Token in ATN|
 
 #### Event
 
@@ -507,6 +544,114 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collatera
 :::
 
 
+### collateralPriceACU
+
+Returns the NTN Collateral Token price in [ACU](/glossary/#acu).
+
+Constraint checks are applied:
+
+- `InvalidPrice`: the NTN-USD `price` returned by the Oracle Contract is not `<= 0`.
+
+::: {.callout-note title="How the price is scaled and computed" collapse="true"}
+The function computes the NTN-ACU price by:
+
+  `ntnUsdPrice * SCALE_FACTOR / acuUsd`
+
+Where:
+
+- `ntnUsdPrice` is the NTN-USD price, either:
+  - a default fixed price from config if set (See [`useFixedGenesisPrices()`](/reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract))
+  - else, the aggregated median price calculated by the Oracle Contract (returned by calling [`latestRoundData()`](/reference/api/oracle/#latestrounddata)).
+- `SCALE_FACTOR` is the Stabilisation Contract multiplier for scaling numbers to the required scale of decimal places in fixed-point integer representation. `SCALE_FACTOR = 10 ** SCALE`.
+- `SCALE` is the Stabilisation Contract setting for decimal places in fixed-point integer representation. `SCALE = 18`.
+- `acuUsd` is the ACU-USD price, either:
+  - a default fixed price from config if set (See [`useFixedGenesisPrices()`](/reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract))
+  - else, the ACU-USD price calculated by the Stabilisation Contract (as described in [`acuPrice()`](/reference/api/asm/stabilization/#acuprice)), see note **How the price is scaled and computed**.)
+
+:::
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `price` | `uint256` | Price of NTN Collateral Token in ACU |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### config
+
+Returns the Stabilization Contract configuration at the block height the call was submitted.
+
+#### Parameters
+
+None.
+
+#### Response
+
+Returns a `Config` object consisting of:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `borrowInterestRate` | `uint256` | The annual continuously-compounded interest rate for borrowing |
+| `announcementWindow` | `uint256` | The minimum ACU value of collateral required to maintain 1 ACU value of debt |
+| `liquidationRatio` | `uint256` |  |
+| `minCollateralizationRatio` | `uint256` | The minimum ACU value of collateral required to borrow 1 ACU value of debt |
+| `minDebtRequirement` | `uint256` | The minimum amount of debt required to maintain a CDP |
+| `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
+| `defaultNTNATNPrice` | `uint256` | The default NTN-ATN price for use at genesis if fixed prices are enabled |
+| `defaultNTNUSDPrice` | `uint256` | The default NTN-USD price for use at genesis if fixed prices are enabled |
+| `defaultACUUSDPrice` | `uint256` | the default ACU-USD price for use if fixed prices are enabled |
+
+For enabling fixed prices see the governance function  [`useFixedGenesisPrices()`](/reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract).
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+///
+
 ### debtAmount
 
 Calculates the current debt amount outstanding for a CDP at the block height of the call.
@@ -520,11 +665,12 @@ Constraint checks are applied:
 | Field | Datatype | Description |
 | --| --| --|
 | `account` | `address` | the CDP account address |
-| `timestamp` | `uint` | the timestamp to value the debt. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
 
 #### Response
 
-The function returns the debt amount as an `uint256` integer value.
+| Field | Datatype | Description |
+| --| --| --|
+| `debt` | `uint256` | The debt amount |
 
 #### Event
 
@@ -546,6 +692,49 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmoun
 ``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
 300012369185855391
+```
+:::
+
+### debtAmountAtTime
+
+Calculates the current debt amount outstanding for a CDP at the given timestamp.
+
+Constraint checks are applied:
+
+- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested).
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `account` | `address` | the CDP account address |
+| `timestamp` | `uint` | the timestamp to value the debt. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `debt` | `uint256` | The debt amount |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
 ```
 :::
 
@@ -595,6 +784,89 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestD
 ``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
 4118044981651418
+```
+:::
+
+### isLiquidatable
+
+Determines if a CDP is liquidatable at the block height of the call.
+
+Constraint checks are applied:
+
+- good time: the block `timestamp` at the time of the call must be equal to or later than the CDP's `timestamp` attribute, i.e. the time of the CDP's last borrow or repayment (ensuring current and future liquidability is tested). 
+ 
+
+::: {.callout-note title="Note" collapse="false"}
+The function tests liquidatibility by calling [`underCollateralized()`](/reference/api/asm/stabilization/#undercollateralized).
+:::
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `account` | `address` | The CDP account address |
+
+#### Response
+
+The function returns a `Boolean` flag indicating if the CDP is liquidatable (`True`) or not (`False`).
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable account
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
+false
+```
+:::
+
+
+### maxBorrow
+
+Calculates the maximum amount of Auton that can be borrowed for the given amount of Collateral Token.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `collateral` | `uint256` | Amount of Collateral Token backing the borrowing |
+
+#### Response
+
+The function returns the maximum amount of Auton that can be borrowed as an `uint256` integer value.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
 ```
 :::
 
