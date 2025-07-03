@@ -194,7 +194,11 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ###  modifyBasket (ACU Contract)
 
-Modifies the ACU symbols, quantities, or scale of the ACU currency basket.
+Modifies the symbols, quantities, or scale of the ACU currency basket.
+
+Constraint checks are applied:
+
+- `InvalidBasket`: the number of new `symbols_` and `quantities_` correspond. I.e. for each symbol there is a quantity.
 
 #### Parameters
 
@@ -210,7 +214,7 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits a `BasketModified` event, logging: `symbols_`, `quantities_`, `scale_`.
 
 #### Usage
 
@@ -254,6 +258,47 @@ On a successful call the function emits:
 
 ::: {.callout-note title="Note" collapse="false"}
 The ASM Stabilization Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+### rescale (ACU Contract)
+
+Rescale the quantity multiplier for the ACU basket.
+
+Constraint checks are applied:
+
+- `ZeroValue`: the new quantity multiplier value is not `0`.
+
+::: {.callout-note title="Note" collapse="false"}
+
+The `rescale()` function sets a new value for the ACU basket quantity multiplier.
+
+The basket quantity multiplier for the ACU basket is scaled to the ACU's scaled representation. is used to set a new value for the basket `quantityMultiplier`.
+
+If the ACU basket is modified, `modifyBasket()`, the modify basket logic rescales quantity multiplier to the correct precision for scaling numbers to the ACU's scaled representation. This check ensures that if `rescale()` has been called a subsequent call to `modifyBasket()` will ensure the ACU basket's quantity multiplier is kept scaled to the correct precision.
+
+:::
+
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `newQuantityMultiplier` | `uint256` | the new quantity multiplier |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits a `Rescaled` event, logging: `newQuantityMultiplier`, `oldQuantityMultiplier`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The ACU Contract Interface is not currently supported by `aut`.
 
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
