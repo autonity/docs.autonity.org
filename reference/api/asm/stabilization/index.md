@@ -416,10 +416,10 @@ Where:
 | Field | Datatype | Description |
 | --| --| --|
 | `collateral` | `uint256` | Amount of Collateral Token backing the debt |
-| `price` | `uint256` | The price of Collateral Token in Auton |
-| `targetPrice` | `uint256` | The ACU value of 1 unit of debt |
+| `collateralPriceACU` | `uint256` | The price of Collateral Token in ACU |
+| `targetPriceACU` | `uint256` | The ACU value of 1 unit of debt |
 | `mcr` | `uint256` | The minimum collateralization ratio |
-
+    
 ::: {.callout-note title="Note" collapse="false"}
 For the default values set for `targetPrice` and `mcr` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
 
@@ -650,7 +650,7 @@ None.
 
 ```
 :::
-///
+
 
 ### debtAmount
 
@@ -738,26 +738,327 @@ None.
 ```
 :::
 
+### getAggregatedInterestExponent
+
+Return the aggregated interest exponent.
+
+This is calculated as the summation of all interest rates multiplied by their respective time window (in years) up to the timestamp of the last committed block.
+ 
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| aggregated interest exponent | `uint256` | The aggregated interest exponent value |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### getAnnouncementWindow
+
+Return the current active announcement window.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| current announcement window  | `uint256` | The current announcement window value in seconds |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### getCurrentRate
+
+Return the current active borrow interest rate.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| current rate  | `uint256` | The current interest rate value |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### getCurrentRateActiveTimestamp
+
+Return the timestamp since when the current borrow interest rate is active.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| current rate active timestamp | `uint256` | The timestamp since when the current interest rate is active |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### getPendingAnnouncementWindowInfo
+
+Return the pending announcement window and the time it will become active.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| pending announcement window | `uint256` | The pending borrow interest rate value |
+| pending announcement window active timestamp | `uint256` | The timestamp since when the pending announcement window will be active |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### getPendingInterestRateInfo
+
+Return the pending borrow interest rate and the time it will become active.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| pending rate | `uint256` | The pending borrow interest rate value |
+| pending rate active timestamp | `uint256` | The timestamp since when the pending interest rate will be active |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### getPendingLiquidationRatioInfo
+
+Return the pending liquidation ratio and the time it will become active.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| pending liquidation ratio | `uint256` | The pending liquidation ratio value|
+| pending liquidation n ratio active timestamp | `uint256` | The timestamp since when the pending liquidation ratio will be active |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### getPendingMinCollateralizationRatioInfo
+
+Return the pending minimum collateralization ratio and the time it will become active.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| pending minimum collateralization ratio | `uint256` | The pending minimum collateralization ratio value |
+| pending minimum collateralization ratio active timestamp | `uint256` | The timestamp since when the pending minimum collateralization ratio will be active |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
 
 ### interestDue
 
 Calculates the interest due for a given amount of debt.
-
-Constraint checks are applied:
-
-- invalid parameter: the `timeBorrow` argument is not greater than the `timeDue` argument value.
 
 #### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
 | `debt` | `uint256` | The debt amount |
-| `rate` | `uint256` | The borrow interest rate |
-| `timeBorrow` | `uint` | The borrow time. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
-| `timeDue` | `uint` | The time the interest is due. The timestamp is provided as a [Unix time](/glossary/#unix-time) value |
+| `rateExponent` | `uint256` | The summation of the interest rates multiplied by their respective time window |
 
 ::: {.callout-note title="Note" collapse="false"}
-For the default value set for `rate` see Reference, Genesis, [ASM stabilization config](/reference/genesis/#configasmstabilization-object).
+
+Users can also determine their interest owed by `debtAmount(account) - cdps(account).principal`.
+
+See [`debtAmount()`](/reference/api/asm/stabilization/#debtAmount) and [`cdps()`](/reference/api/asm/stabilization/#cdps).
+
+For how to get the rate exponent for a given interest rate see  [`interestExponent()`](/reference/api/asm/stabilization/#interestexponent).
+
 :::
   
 #### Response
@@ -773,7 +1074,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rate timeBorrow timeDue
+
 ```
 :::
 
@@ -782,10 +1083,60 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestD
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000000 50000000000000000 1695308566 1697900566
-4118044981651418
+
 ```
 :::
+
+
+### interestExponent
+
+Calculates the interest exponent for the given rate in the given time window.
+
+Constraint checks are applied:
+
+- `InvalidParameter`: the `endTimestamp` must be `>` than the `startTimestamp`.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `interestRate ` | `uint256` | The interest rate |
+| `startTimestamp` | `uint256` | The start timestamp of the window in seconds |
+| `endTimestamp` | `uint256` | The end timestamp of the window in seconds |
+
+::: {.callout-note title="Note" collapse="false"}
+
+Users can also determine their interest owed by `debtAmount(account) - cdps(account).principal`.
+
+See [`debtAmount()`](/reference/api/asm/stabilization/#debtAmount) and [`cdps()`](/reference/api/asm/stabilization/#cdps).
+:::
+  
+#### Response
+
+The function returns the interest exponent as an `uint256` integer value.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
 
 ### isLiquidatable
 
@@ -834,6 +1185,83 @@ false
 :::
 
 
+### lastUpdated
+
+Return the last updated timestamps of the Stabilization Contract's updatable config parameters `borrowInterestRate`, `announcementWindow`, `liquidationRatio`, `minCollateralizationRatio`.
+            
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| borrow interest rate active timestamp | `uint256` | The timestamp since when the current interest rate value is active |
+| announcement window active timestamp | `uint256` | The timestamp since when the current announcement window value is active |
+| liquidation ratio active timestamp | `uint256` | The timestamp since when the current liquidation ratio is active |
+| minimum collateralization ratio active timestamp | `uint256` | The timestamp since when the current minimum collateralization ratio is active |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### liquidationRatio
+
+Return the current liquidation ratio.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| liquidation ratio  | `uint256` | The current liquidation ratio value |
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
 ### maxBorrow
 
 Calculates the maximum amount of Auton that can be borrowed for the given amount of Collateral Token.
@@ -847,6 +1275,43 @@ Calculates the maximum amount of Auton that can be borrowed for the given amount
 #### Response
 
 The function returns the maximum amount of Auton that can be borrowed as an `uint256` integer value.
+
+#### Event
+
+None.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+### minCollateralizationRatio
+
+Return the minimum collateralization ratio.
+
+#### Parameters
+
+None.
+
+#### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| minimum collateralization ratio  | `uint256` | The current minimum collateralization ratio value |
 
 #### Event
 
@@ -888,7 +1353,8 @@ The minimum collateral amount is calculated by `(principal * mcr) / price`.
 | Field | Datatype | Description |
 | --| --| --|
 | `principal` | `uint256` | Auton amount to borrow |
-| `price` | `uint256` | The price of Collateral Token in Auton |
+| `collateralPriceACU ` | `uint256` | The price of Collateral Token in ACU |
+| `targetPriceACU` | `uint256` | The ACU value of 1 unit of debt |
 | `mcr` | `uint256` | The minimum collateralization ratio |
 
 ::: {.callout-note title="Note" collapse="false"}
@@ -927,7 +1393,7 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCo
 
 ### underCollateralized
 
-Determines if a debt position is undercollateralized or not.
+Determine if a debt position is undercollateralized.
 
 Constraint checks are applied:
 
@@ -956,7 +1422,7 @@ The current `price` value can be returned by calling [`collateralPrice()`](/refe
 
 #### Response
 
-The method returns a boolean flag specifying whether the CDP is undercollateralized (true) or not (false).
+The method returns a boolean flag specifying whether the CDP is undercollateralized (`true`) or not (`false`).
 
 #### Event
 
