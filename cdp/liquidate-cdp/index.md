@@ -99,54 +99,11 @@ The important data point is the `collateral` amount value as this gives you the 
 The other data should be ignored. The `timestamp` reflects the time point that the CDP was last borrowed from or repaid to so the `principal` and `interest` data is out of date. To get the _current CDP debt amount_ due you will need to call [`debtAmount()`](/reference/api/asm/stabilization/#debtamount), which is done in the next step [Get CDP debt amount](/cdp/liquidate-cdp/#get-debt-amount).
 :::
 
-CDP state is maintained in memory as a public mapping `cdps` and may be inspected by calling the getter function automatically generated for it when the Stabilization Contract is compiled.
+::: {.callout-note title="Inspecting CDP state" collapse="false"}
 
-::: {.callout-note title="Note" collapse="false"}
-The `cdps` getter function definition can be found in the `Stabilization.abi` file by searching for `"name": "cdps"`.
+CDP state may be inspected by calling the Stabilization Contract getter function [`cdps()`](/reference/api/asm/stabilization/#cdps).
+
 :::
-
-
-::: {.callout-note title="Note" collapse="false"}
-The `cdps` function cannot currently be called from `aut` using the `aut contract call` command. This is a known issue logged as an `autonity.py` GitHub issue [AssertionError on returning tuple
-#37](https://github.com/autonity/autonity.py/issues/37). 
-:::
-
-The auto-generated `cdps` method can be called to return the CDP data, simply passing in the CDP account address as the parameter.
-
-This can be done using a simple `web3.py` script using the `web3.eth.contract` module to call the `cdps` function. Where:
-
-  - `<RPC_ENDPOINT>`: is the HTTP address for the node endpoint being called
-  - `<ACCOUNT>`: is the [CDP account address](/concepts/asm/#cdp-identifiers) identifier.
-
-
-```python
-
-from web3 import Web3, HTTPProvider
-import json
-
-with open("Stabilization.abi") as f:
-	abi = info_json = json.load(f)
-
-
-w3 = Web3(HTTPProvider('<RPC_ENDPOINT>'))
-
-stabilizationContractAddress = "0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f"
-contract_instance = w3.eth.contract(address=stabilizationContractAddress, abi=abi)
-
-# read state: call the cdps function passing in the CDP identifier address <ACCOUNT>:
-
-print(contract_instance.functions.cdps("<ACCOUNT>").call())
-
-```
-
-
-For example, for the CDP account `0x1f790c60D974F5A8f88558CA90F743a71F009641` it returns:
-
-
-```bash
-% python3 aut_cdps.py
-[1695737259, 410000024269118276, 300010815663118114, 0]
-```
 
 #### Get CDP debt amount {#get-debt-amount}
 
