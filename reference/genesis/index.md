@@ -15,7 +15,7 @@ Configuring the client to join a public network is done by setting the network a
 
 |Network|Command-line option|Network settings|
 |-------|-------------------|----------------|
-|Piccadilly Testnet| [`--piccadilly` command-line option](/reference/cli/#command-line-options) | [Genesis configuration](/networks/testnet-piccadilly/#genesis-configuration) |
+|Bakerloo Testnet| [`--bakerloo` command-line option](/reference/cli/#command-line-options) | [Genesis configuration](/networks/testnet-bakerloo/#genesis-configuration) |
 
 
 For details of individual public network purpose and use see the [Networks](/networks/) section.
@@ -49,6 +49,7 @@ Genesis configuration file JSON objects:
 - [config.asm.acu](#config.asm.acu-object)
 - [config.asm.stabilization](#config.asm.stabilization-object)
 - [config.asm.supplyControl](#config.asm.supplycontrol-object)
+- [config.asm.auctioneer](#config.asm.auctioneer-object)
 - [config.omissionAccountability](#config.omissionaccountability-object)
 - [alloc](#alloc-object)
 - [alloc.account object](#alloc.account-object)
@@ -164,9 +165,10 @@ Configuration of the Auton Stabilization Mechanism (ASM).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `acu` | Object structure for the ASM's Autonomous Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
-| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
-| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
+| `acu` | Object structure for the ASM's Autonomous Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object) |
+| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object) |
+| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object) |
+| `auctioneer` | Object structure for the ASM's CDP debt and interest auction mechanism configuration at genesis | See [`config.asm.auctioneer` object](#configasmauctioneer-object) |
 
 #### config.asm.acu object
 
@@ -185,10 +187,14 @@ Configuration of the Stabilization mechanism's Collateralized Debt Position (CDP
 |Parameter|Description &amp; Value|
 |---------|----------------|
 | `borrowInterestRate` | See Protocol Parameter Reference [Stabilization Config, `borrowInterestRate`](/reference/protocol/#stabilization-config) |
+| `announcementWindow` | See Protocol Parameter Reference [Stabilization Config, `announcementWindow`](/reference/protocol/#stabilization-config) |
 | `liquidationRatio` | See Protocol Parameter Reference [Stabilization Config, `liquidationRatio`](/reference/protocol/#stabilization-config) |
 | `minCollateralizationRatio` | See Protocol Parameter Reference [Stabilization Config, `minCollateralizationRatio`](/reference/protocol/#stabilization-config) |
 | `minDebtRequirement` | See Protocol Parameter Reference [Stabilization Config, `minDebtRequirement`](/reference/protocol/#stabilization-config) |
 | `targetPrice` | See Protocol Parameter Reference [Stabilization Config, `targetPrice`](/reference/protocol/#stabilization-config) |
+| `defaultNTNATNPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultNTNATNPrice`](/reference/protocol/#stabilization-config) |
+| `defaultNTNUSDPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultNTNUSDPrice`](/reference/protocol/#stabilization-config) |
+| `defaultACUUSDPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultACUUSDPrice`](/reference/protocol/#stabilization-config) |
 
 #### config.asm.supplyControl object
 
@@ -197,6 +203,17 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 |Parameter|Description &amp; Value|
 |---------|----------------|
 | `initialAllocation` | See Protocol Parameter Reference [Supply Control Config, `initialAllocation`](/reference/protocol/#supply-control-config) |
+
+#### config.asm.auctioneer object
+
+Configuration of the Stabilization mechanism's initial Auton supply.
+
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `liquidationAuctionDuration` | See Protocol Parameter Reference [Auctioneer Config, `liquidationAuctionDuration`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionDuration` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionDuration`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionDiscount` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionDiscount`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionThreshold` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionThreshold`](/reference/protocol/#auctioneer-config) |
 
 #### config.omissionAccountability object
 

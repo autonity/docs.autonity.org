@@ -52,9 +52,9 @@ aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 available
 :::
 
 
-## stabilizer
+## getStabilizer
 
-Returns the Stabilization Contract address, the `stabilizer` account that is authorized to mint and burn Auton.
+Returns the `stabilizer` account address that is authorized to mint and burn Auton.
     
 ### Parameters
 
@@ -86,9 +86,9 @@ aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 stabilize
 :::
 
 
-## totalSupply
+## getTotalSupply
 
-Returns the total supply of Auton under management.
+Returns the total supply of Auton. I.e. the total amount of ATN minted to the Supply Control contract at genesis.
 
 ### Parameters
 
@@ -98,7 +98,7 @@ None.
 
 | Field | Datatype| Description |
 | --| --| --|
-| Auton Supply | `uint256` | the total supply of Auton under management |
+| `totalSupply` | `uint256` | the total supply of Auton under management |
 
 ### Usage
 

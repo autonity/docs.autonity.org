@@ -1094,9 +1094,9 @@ Returns an `epochInfo` object consisting of:
 | Field | Datatype | Description |
 | --| --| --|
 | `committee` | `CommitteeMember[]` | an array of `CommitteeMember` objects recording the consensus committee of the epoch |
-| `previousEpochBlock` | `uint256` | The previous epoch block number |
-| `epochBlock` | `uint256` | The epoch block number |
-| `nextEpochBlock` | `uint256` | The next epoch block number |
+| `previousEpochBlock` | `uint256` | the previous epoch block number |
+| `epochBlock` | `uint256` | the epoch block number |
+| `nextEpochBlock` | `uint256` | the next epoch block number |
 | `delta` | `uint256` | the current value for delta (omission failure) |
 
 For each committee member [`validator identifier`](/concepts/validator/#validator-identifier) address, [voting power](/glossary/#voting-power), and [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys) is returned. See [`getCommittee()`](/reference/api/aut/#getcommittee) for the description of `CommitteeMember` object properties.
