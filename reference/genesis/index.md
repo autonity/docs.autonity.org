@@ -206,7 +206,7 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 
 #### config.asm.auctioneer object
 
-Configuration of the Stabilization mechanism's initial Auton supply.
+Configuration of the ASM's auction mechanism for CDP debt and interest.
 
 |Parameter|Description &amp; Value|
 |---------|----------------|

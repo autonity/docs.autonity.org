@@ -7,23 +7,33 @@ description: >
 
 ## Overview
 
-This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. The Auton Stabilization Mechanism provides functions to compute the target value for the [Auton (ATN)](/glossary/#auton) and methods to drive the Auton's actual market price towards the target through the supply of the Auton and [Newton (NTN)](/glossary/#newton).
+This section describes the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) and protocol. The Auton Stabilization Mechanism provides functions to compute the target value for the [Auton (ATN)](/glossary/#auton), a [Collateralized Debt Position (CDP)](/glossary/#cdp)-based stabilization mechanism to borrow Auton for [Newton (NTN)](/glossary/#newton) collateral at interest, and an auction mechanism to maintain CDP health by debt and interest auctions.
 
-Autonity implements a Collateralized Debt Position or [CDP](/glossary/#cdp)-based stabilization mechanism. Auton tokens are minted and burned exclusively as a result of changing collateralized debt positions. 
+Auton price stability is maintained by targeting Auton market value to a Stabilization Target the [Autonomous Currency Unit (ACU)](/glossary/#acu). 
 
-Autons are minted when users take out CDPs. Users deposit collateral in the form of Newtons (NTN) to borrow Auton at interest. 
+Auton borrowing and repayment via a [CDP](/glossary/#cdp)-based stabilization mechanism acts to mean-revert the Auton's actual market price towards the target through the supply of Auton and [Newton (NTN)](/glossary/#newton). CDP integrity is maintained by CDP owners managing their CDPs and an auction mechanism introducing market incentives by means of interest auctions for CDP loan interest and debt auctions for liquidatable CDP collateral.
 
-Autons are burned when a CDP is repaid by depositing ATN to the ASM's smart contract. The NTN collateral is removed and returned to circulation. 
+Auton tokens are minted and burned exclusively as a result of changing Collateralized Debt Positions.
+
+Users open [CDP](/glossary/#cdp)s by depositing collateral in the form of NTN to borrow Auton at interest. Autons are minted when borrowed and interest then begins to accrue against the loan debt. 
+
+Autons are burned when a CDP is repaid by depositing ATN to the ASM's Stabilization smart contract. NTN is removed and returned to circulation by CDP owners as they deposit and withdraw NTN collateral to their CDP. 
 
 CDPs are created with defined collateralization and liquidation ratios which limit the risk that the debt cannot be adequately covered by the sale of the collateral.
+
+Borrowers maintain their CDP throughout its lifecycle, depositing and withdrawing collateral, paying interest, and increasing or decreasing borrowing to maintain their CDP within the required collateral and liquidation ratios.
+
+An Auction Mechanism is utilised to maintain CDP health and Auton and Newton supply by auction-based market incentives. CDP interest payments accumulate until a threshold amount is crossed, triggering an interest auction where bidders bid NTN for the paid ATN interest. If a CDP becomes liquidatable, then a debt auction is triggered where bidders bid ATN for CDP NTN collateral.
 
 Changes in supply and demand for Auton are absorbed by dynamically adjusting CDP incentives to increase and decrease Auton borrowing costs when Auton price moves above or below its Stabilization Target the [Autonomous Currency Unit (ACU)](/glossary/#acu).
 
 ## ASM identifiers and accounts
 
-The ASM functions with two identities for cryptographic security: the CDP owner and the stabilization protocol contract.
+The ASM functions with three identities for cryptographic security: the CDP owner, and the Stabilization and Auctioneer protocol contracts.
 
-Stabilization Contract calls to mint and burn Auton as CDPs are interacted with to borrow and repay Auton are  restricted to the Stabilization Contract address, the '`stabilizer`' protocol address.
+Stabilization Contract calls to mint and burn Auton as CDPs are interacted with to borrow and repay Auton are restricted to the Stabilization Contract, the '`stabilizer`' address.
+
+Stabilization Contract calls to liquidate CDPs are restricted to the Auctioneer Contract, the '`auctioneer`' address.
 
 ### CDP identifiers
 
@@ -42,15 +52,23 @@ ASM roles, core concepts, and the lifecycle of a CDP from opening to closure.
 
 ### Stabilization roles
 
-There are three roles in the ASM:
+There are five roles in the ASM:
 
 - *Borrower (CDP owner)*: a user taking out a CDP to borrow Auton, deposing collateral in return. There is no limit on the number of open CDP's a _borrower_ can own at any one time. Borrower's must have an [account](/glossary/#account) on the Autonity network.
-- *Liquidator (Keeper)*: a user or agent that liquidates a CDP that has brobecome under collateralized, repaying the CDP's outstanding debt and receiving remaining collateral token in return. Liquidator's must have an [account](/glossary/#account) on the Autonity network.
-- *Stabilizer (ASM Protocol)*: the `stabilizer` is the protocol account address used for Auton `mint` and `burn` operations by the Stabilization Contract)
+
+- *Bidder (debt, interest auctions)*: a user or agent that bids in auctions for: 
+  - *debt*: bidding ATN for NTN. A debt auction liquidates and is triggered by a CDP that has become under collateralized, repaying the CDP's outstanding ATN debt and receiving remaining NTN collateral token in return.
+  - *interest*: bidding NTN for ATN. An interest auction is triggered when the accumulated amount of ATN the ASM has received from CDP interest repayments crosses a threshold.
+  
+  Bidders must have an [account](/glossary/#account) on the Autonity network.
+
+- *Stabilizer (ASM Protocol)*: the `stabilizer` is the protocol account address used for Auton `mint` and `burn` operations by the Stabilization Contract
+
+- *Auctioneer (ASM Protocol Liquidator (Keeper))*: the `auctioneer` is the Auctioneer Protocol Contract used to initiate and manage debt and interest auctions. Interest auctions are managed purely by the Auctioneer Contract. In debt auctions the `auctioneer` address is used to call the Stabilization Contract [`liquidate()`](/reference/api/asm/stabilization/#liquidate) function and trigger CDP liquidation.
 
 ### ASM elements
 
-The ASM is composed of 3 system elements implemented as smart contract logic: ACU, Supply Control, Stabilization. ASM contracts are deployed by the protocol at genesis.
+The ASM is composed of 4 system elements implemented as smart contract logic: ACU, Supply Control, Stabilization, Auctioneer. ASM contracts are deployed by the protocol at genesis.
 
 #### ACU
 
@@ -72,16 +90,14 @@ The index value of ACU can be computed at any time in terms of exchange rates. T
 
 The value is recomputed at the end of each [oracle voting round](/concepts/oracle-network/#voting-rounds) after new price data for the basket currencies has been computed by the [oracle network](/concepts/oracle-network/).
 
-Public functions can be called to return the ACU value, the currency pair symbols in the basket, and the basket quantities, see [ACU Contract Interface](/reference/api/asm/acu/).
+Public functions can be called to return the ACU value, scaling, the currency pair symbols in the basket, and the basket quantities. See [ACU Contract Interface](/reference/api/asm/acu/).
 
 Modifying the currency basket is restricted to the governance account. See the Governance and Protocol Only Reference, [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract).
 
-<!--
-
-::: {.callout-note title="A note on ACU basket quantities" collapse="false"}
+::: {.callout-note title="A note on ACU basket quantities and ACU index value" collapse="false"}
 The quantity of each currency in the basket is computed based on the end-of-day time for the most recent 11 calendar years of rate data for each currency. A 365 calendar day is used, end-of-day is 17:00 GMT.
 
-USD is used as the numeraire over the data. The quantity of each currency in the basket is then computed based on a weighting that aims to minimize its variance with respect to the basket and using an initial target value of 1 USD for the total value of the basket. Basket quantities fixed over time. The value of ACU at any time can be computed in terms of exchange rates.
+$\text{USD}$ is used as the numeraire over the data. The quantity of each currency in the basket is then computed based on a weighting that aims to minimize its variance with respect to the basket and using an initial target value of $\text{1 USD}$ for the total value of the basket. Basket quantities fixed over time. The index value of ACU at any time can be computed in terms of exchange rates.
 
 When the computed weights are determined to no longer be optimal, the basket quantities are recomputed. The "recompute time" is then the close of the most recent calendar day in the past and again based on the preceding 11 years of calendar data from that time point.
 
@@ -91,7 +107,6 @@ The new basket quantities are computed by:
 - Compute minimization, weights, and basket quantities using the data.
 :::
 
--->
 
 #### Supply control
 
@@ -124,10 +139,50 @@ Public functions can be called for:
 
 - CDP ownership - borrow and repay Auton, withdraw and deposit Collateral Token
 - CDP cost discovery - collateral price, borrow limit, minimum debt requirement, and interest due
-- CDP liquidation - if a CDP is liquidatable and to liquidate.
+- CDP liquidation - if a CDP is liquidatable and to liquidate. Liquidation is invoked by ASM debt auctions. See ASM element [Auctioneer](/concepts/asm/#auctioneer) and ASM protocol primitive [auction](/concepts/asm/#auction).
 
 See [Stabilization Contract Interface](/reference/api/asm/stabilization/).
 
+#### Auctioneer
+
+The Auctioneer Contract initiates and manages debt and interest auctions for illiquid CDPs and accumulated CDP interest payments respectively.
+
+ASM's auction mechanism is complementary to the Stabilization mechanism and contributes to lending market equilibrium. Auctions introduce market incentives that bring NTN and ATN in and out of open circulation by means of bidding NTN for CDP ATN loan interest in *interest auctions* and repaying ATN debt for NTN collateral in CDP *debt auctions* for liquidatable CDP collateral.
+
+Auctions open with a *start* price which decreases over the auction's duration to a *floor* price as a function of time.
+
+For interest auctions the *start* price is set at a premium to the collateral price and *floor* at a discount to the collateral price. For debt auctions the *start* price is set at the liquidation price and *floor* at the bankruptcy price.
+
+Participants with sufficient funds can place *bids* at or above the *reserve*  price and the auction ends when the first *bid* $>=$ the *reserve* price is received. If no bids are received within the auction duration, the auction remains at the *floor* price until a willing bidder is found. An auction will always end with a single, successful *bid*.
+ 
+A debt auction is triggered by a bidder identifying a CDP that has become under collateralized and submitting a bid to repay the CDP's outstanding ATN debt in return for the remaining CDP collateral. A successful debt bid then trigger CDP liquidation: ATN debt is repaid and burnt; NTN is released into open circulation.
+
+::: {.callout-note title="A note on CDP liquidation" collapse="false"}
+Debt bids trigger liquidation by the Auctioneer Contract invoking the Stabilization Contract [`liquidate()`](/reference/api/asm/stabilization/#liquidate) function.
+:::
+
+An interest auction is triggered when the accumulated amount of ATN that the ASM has received from CDP interest repayments crosses a configured *threshold* amount. For each new interest auction triggered, the Auctioneer Contract emits a `NewInterestAuction` event logging:
+
+- `auctionId`: the unique identifier for the auction.
+- `amount`: the amount of ATN in the auction.
+- `startRound`: the timestamp when the auction will begin; this is the timestamp of the interest payment that triggered the interest auction.
+
+::: {.callout-note title="A note on CDP interest repayments" collapse="false"}
+See the Stabilization Contract [`repay()`](/reference/api/asm/stabilization/#repay) for how CDP loan interest repayments are processed and the order in which a repayment settles interest before reducing loan principal, with surplus from over repayment returned to the borrower.
+:::
+
+The Auctioneer Contract records for an interest auction:
+
+- `id`: the unique identifier for the auction.
+- `amount`: the amount of ATN received from interest payments that triggered the auction.
+- `startPrice`: the reserve price for the auction. Start price is set at a fraction above market price that an interest auction starts at
+- `startTimestamp`: the timestamp at which the auction was triggered.
+
+Bidders discover interest auctions by querying Auctioneer Contract state for open auctions (see Auctioneer Contract Interface, [Auction View functions](/reference/api/asm/auctioneer/#openauctions)) and listening for `NewInterestAuction` events. Multiple interest auctions can be open concurrently. The actual duration of an individual interest auction is the delta between the auction `startTimestamp` and the first successful bid.
+
+Successful interest auctions then result in ATN returning to open circulation and NTN transferring to the protocol interest auction proceeds address.
+
+See [Auctioneer Contract Interface](/reference/api/asm/auctioneer/).
 
 ### ASM configuration
 
@@ -143,36 +198,52 @@ ASM parameter settings:
 
 - Stabilization:
   - _borrow interest rate_ = `50_000_000_000_000_000` (`0.05e18`), the annual continuously-compounded interest rate for borrowing.
+  - _announcement window_ = `` (), the length of time in seconds before an update to ASM Stabilization config will take effect.
   - _liquidation ratio_ = `1_800_000_000_000_000_000` (`1.8e18`): the minimum ACU value of collateral required to maintain 1 ACU value of debt.
   - _min collateralization ratio_ = `2_000_000_000_000_000_000` (`2.0e18`): the minimum ACU value of collateral required to borrow 1 ACU value of debt.
   - _min debt requirement_ = `1_000_000` ([_megaton_](/concepts/protocol-assets/auton/#unit-measures-of-auton)) : the minimum amount of debt required to maintain a CDP.
-  - _target price_ = `1_000_000_000_000_000_000` (`1.0e18`): the ACU value of 1 unit of debt.
- 
- <!--
- - _SCALE_ = `18`, the decimal places in fixed-point integer representation.
-- _SCALE_FACTOR_ = `10 ** SCALE`, the multiplier for scaling numbers to the required scale.
-- _SECONDS_IN_YEAR_ = `365 days`, a year is assumed to have 365 days for interest rate calculations.   
--->
+  - _target price_ = `1_618_034_000_000_000_000` (`1.6180340e18`): the ACU value of 1 unit of debt.
+  - _default NTN ATN price_ = `` (), default NTN-ATN price for use at genesis.
+  - _default NTN USD price_ = `` (), default NTN-USD price for use at genesis.
+  - _default ACU USD Price_ `` (), optional default ACU-USD price for use at genesis.
+
+
+::: {.callout-note title="A note on target price and ATN price" collapse="false"}
+
+Target price is the ATN to ACU conversion rate, which is set to the [Golden ratio](https://en.wikipedia.org/wiki/Golden_ratio)  ${\displaystyle {\frac {1+{\sqrt {5}}}{2}}}$ i.e. $1.6180340$.
+
+ATN value is targeting $\text{ACU index value} \times \text{target price}$.
+
+For example if at today’s exchange rates the $\text{ACU index value}$ is $079 \dots$ then it would give an ATN price of ca $1.28 \dots$.
+
+:::
+
+- Auctioneer:
+  - _liquidation auction duration_ = `` ( blocks), the number of blocks for a liquidation auction to move from the liquidation rate to the bankruptcy rate.
+  - _interest auction duration_ = `` ( blocks), the number of blocks for an interest auction to move from the discount rate to the floor price.
+  - _interest auction discount_ = `` ( %), the fraction above market price that an interest auction starts at.
+  - _interest auction threshold_ = `` ATN, the minimum amount of ATN paid in interest to trigger an interest auction.
+
+::: {.callout-note title="Auction price and rate terminology" collapse="false"}
+
+For auction rate terminology see the notebox "**Deep dive into auction price and rate terminology**" in [Protocol primitives, auction](/concepts/asm/#auction) on this page.
+
+:::
+
+### ASM restrictions
+
+ASM may be configured with temporary restrictions to facilitate genesis bootstrapping of an [Autonity network](/glossary/#autonity-network).
+
+There are two types of temporary restriction that can be set and lifted:
+
+- CDP Opening Restrictions. Restricts CDP opening to an `atnSupplyoperator` account set by network governance. The rationale is limiting the supply of ATN at genesis until there is sufficient market liquidity in ATN and NTN for ASM to work effectively.
+- CDP Opening Price Restrictions. Sets NTN and ATN [protocol asset](/concepts/protocol-assets/) prices used by the ASM to default fixed price values. The rationale is ATN and NTN market prices are not available from public market sources at network genesis. Without these 'opening prices' ASM cannot compute a collateral price and enable CDP borrowing to bring ATN into circulation. Post genesis network bootstrapping can therefore use default prices until public NTN and ATN market price availability.
+
+Restrictions are subject to network governance and can be set and removed by the governance `operator` account. For details see [Autonity Contract Interface, Governance and Protocol Only Reference](/reference/api/aut/op-prot/) and [`useFixedGenesisPrices()`]( /reference/api/aut/op-prot/#usefixedgenesisprices-asm-stabilization-contract), [`setAtnSupplyOperator()`](/reference/api/aut/op-prot/#setatnsupplyoperator-asm-stabilization-contract), and [`removeCDPRestrictions()`](/reference/api/aut/op-prot/#setatnsupplyoperator-asm-stabilization-contract).
 
 ### Protocol primitives
 
-Essential primitives of ASM are: collateral, exchange rate price data, ACU, and the CDP.
-
-#### Collateral
-
-Auton borrowing is collateralized by depositing collateral token into a CDP. The amount and value of collateral backing a CDP is determined by collateralization and liquidation ratios set in the [ASM configuration](/concepts/asm/#asm-configuration). Failure by a [borrower](/concepts/asm/#stabilization-roles) to maintain these ratios results in a CDP becoming liquidatable. In a liquidation scenario a [liquidator](/concepts/asm/#stabilization-roles) is able to assume the debt position, repay outstanding debt, and receive the position's remaining collateral in return.
-
-Autonity's native protocol asset [Newton (NTN)](/concepts/protocol-assets/newton/) is used as the collateral token.
-
-#### Exchange rate price data
-ASM sources price data via Autonity's [oracle network](/concepts/oracle-network/), retrieving the data on-chain by contract interactions with the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
-
-Oracle price data is used for two purposes:
-
-- for the ACU currency basket symbols to compute the ACU _value_
-- for CDP borrowing to compute the value of Collateral Token (NTN) in ATN and determine the _borrow limit_.
-
-Oracle price data is computed per the [Oracle protocol](/concepts/oracle-network/#oracle-protocol), updated periodically in [voting rounds](/glossary/#voting-round).
+Essential primitives of ASM are: ACU, auction, CDP, collateral, and exchange rate price data..
 
 #### ACU
 
@@ -181,6 +252,64 @@ Auton price has the [Autonomous Currency Unit (ACU)](/glossary/#acu) as the Stab
 ASM then functions to maintain Auton-to-ACU value, '_mean reverting_' to this value by the CDP stabilization mechanism. 
 
 ACU value is kept current by protocol recomputing the value at the end of each oracle voting round when price data for all the basket currencies is available. See the Protocol Only Reference functions [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) [`update()`](/reference/api/aut/op-prot/#update-acu-contract) for more detail.
+
+#### auction
+
+Auctions introduce market incentives that bring NTN and ATN in and out of open circulation on the network. There are two types of auction: *debt* and *interest*. In *interest auctions* NTN is bid for CDP ATN loan interest, bringing ATN out of the ASM into open circulation on the network and moving NTN into the ASM. In *debt auctions* ATN debt is repaid in return for NTN collateral in liquidatable CDPs. CDP liquidation results in moving ATN into the ASM and burning it as the ATN borrowing debt is repaid, and moving NTN out of the ASM and returning it into open circulation on the network.
+
+Auctions have *start*, *floor*, and *bid* ('hammer') prices. The *start* price is the auction opening price and *floor* the lowest price accepted in an auction. Price evolves throughout the auction's maximum *duration* from *start* to *floor* price. Start and floor prices are, therefore, a *reserve* or *minimum bid* price for the auction that adjusts automatically as a function of time after the auction starts.
+
+Auction *bidders* place *bids* at or above the *reserve*  price and the auction ends when the first *bid* $>=$ the *reserve* price is received. If no bids are received within the auction duration, the auction remains at the *floor* price until a successful *bid* is made. An auction will always end with a single, successful *bid*.
+
+::: {.callout-note title="Deep dive into auction price and rate terminology" collapse="false"}
+
+- **Collateral Rate**
+  The market rate of NTN in ATN.
+
+- **Liquidation Rate**
+  The rate of NTN in ATN which makes a CDP's collateral value times the CDP's liquidation ratio equal to its total debt value.
+
+- **Bankruptcy Rate**
+  The rate of NTN in ATN which makes a CDP's collateral value equal to its total debt value.
+
+- **Discount Rate**
+  The discount to _Collateral Rate_ applied to the _Starting Price_ of an interest auction.
+
+- **Lot**
+  The asset and amount being offered for sale (or offered as collateral) as a single unit, in which the asset is called the _Lot Asset_ and the amount is called the _Lot Amount_.
+
+- **Bid**
+  The asset and amount a bidder is willing to offer at any point in the auction, in which the asset is called the _Bid Asset_, the amount is called the _Bid Amount_ and the bid amount times the collateral price is called the _Bid Price_.
+
+- **Reserve Price**
+  The minimum bid price an auctioneer is willing to accept at any point in the auction.
+
+- **Starting Price**
+  The reserve price when the auction starts, in which the starting price divided by the lot amount is called the _Starting Rate_.
+
+- **Floor Price**
+  The minimum reserve price for the whole duration of the auction, in which the floor price divided by the lot amount is called the _Floor Rate_.
+
+- **Bid Price**
+  The bid price at which the auctioneer closes the sale, in which the bid price divided by the lot amount is called the _Bid Rate_.
+
+- **Price Evolution Function**
+  A function $P(t)$ mapping the time since the auction started to the price of the lot. The price evolution function must start at the starting price at $t = 0$ and end at the floor price at $t = T$ (the auction duration).
+
+- **Auction Duration**
+  The duration $T$, in seconds, after which the auction will reach the _Floor Price_.
+
+- **Auctioneer**
+  The individual or entity that conducts the auction.
+
+- **Seller**
+  The individual or entity that offers the lot for auction.
+
+- **Bidder**
+  The participant in the auction who places bids.
+
+:::
+
 
 #### CDP
 
@@ -220,6 +349,22 @@ The CDP functions to manage Auton borrowing and stabilize Auton price by adjusti
     - For the _Borrower_, the CDP Owner, to pay back Auton until and repay the CDP or bring the position back within the _liquidation ratio_
     - For a _Liquidator_ to liquidate the position.
 
+#### Collateral
+
+Auton borrowing is collateralized by depositing collateral token into a CDP. The amount and value of collateral backing a CDP is determined by collateralization and liquidation ratios set in the [ASM configuration](/concepts/asm/#asm-configuration). Failure by a [borrower](/concepts/asm/#stabilization-roles) to maintain these ratios results in a CDP becoming liquidatable. In a liquidation scenario a [liquidator](/concepts/asm/#stabilization-roles) is able to assume the debt position, repay outstanding debt, and receive the position's remaining collateral in return.
+
+Autonity's native protocol asset [Newton (NTN)](/concepts/protocol-assets/newton/) is used as the collateral token.
+
+#### Exchange rate price data
+ASM sources price data via Autonity's [oracle network](/concepts/oracle-network/), retrieving the data on-chain by contract interactions with the [Oracle Contract](/concepts/architecture/#autonity-oracle-contract).
+
+Oracle price data is used for two purposes:
+
+- for the ACU currency basket symbols to compute the ACU _value_
+- for CDP borrowing to compute the value of Collateral Token (NTN) in ATN and determine the _borrow limit_.
+
+Oracle price data is computed per the [Oracle protocol](/concepts/oracle-network/#oracle-protocol), updated periodically in [voting rounds](/glossary/#voting-round).
+
 
 ### CDP lifecycle
 
@@ -252,12 +397,16 @@ The sequence of lifecycle events for a CDP is:
     
       The Stabilization Contract transfers the withdrawn amount of collateral to the CDP Owner account address.
 
-- CDP is liquidated.
-  - A Liquidator determines that a CDP has or will meet the _liquidation condition_ and so become _liquidatable_. To do this, the liquidator can call Stabilization Contract [CDP View functions](/reference/api/asm/stabilization/#cdp-view-functions) to view CDP state.
-  - Liquidator opts to liquidate a CDP. The liquidator calls the Stabilization Contract [`liquidate()`](/reference/api/asm/stabilization/#liquidate) function to repay the CDP and claim the collateral. Constraint checks are applied:
-  - The liquidate transaction payment amount will pay all the CDP debt outstanding, _principal_ and accrued _interest_. 
+- CDP debt auction (liquidation).
+  - A bidder determines that a CDP has or will meet the _liquidation condition_ and so become _liquidatable_. To do this, the liquidator can call Stabilization Contract [CDP View functions](/reference/api/asm/stabilization/#cdp-view-functions) to view CDP state.
+  - Liquidator opts to liquidate a CDP by submitting a bid for CDP collateral. The liquidator calls the Auctioneer Contract [`bidDebt()`](/reference/api/asm/auctioneer/#bidDebt) function to submit an ATN bid for a specific amount `<=` the CDP's remaining NTN collateral. 
 
     As a reward, the liquidator will receive the collateral that is held in the CDP. Any payment surplus remaining after covering the CDP's debt is refunded to the liquidator.
+
+- CDP interest auction.
+  - Accrued CDP loan interest payments cross the interest auction threshold, triggering a new interest auction.
+  - Bidder detects that a CDP interest auction has opened. To do this the bidder can listen for `NewInterestAuction` events or can call Auctioneer Contract [Auction View functions](/reference/api/asm/auctioneer/#auction-view-functions) to view auction state.
+  - Bidder opts to submit a bid for the auctioned loan interest. The liquidator calls the Auctioneer Contract [`bidInterest()`](/reference/api/asm/auctioneer/#bidInterest) function to submit an NTN bid for the auctioned amount of ATN loan interest.
 
 
 ## ASM economics
@@ -270,5 +419,6 @@ ASM economics are multi-dimensional:
   - Protocol revenue from _borrow interest_ earned on CDP's.
 - For the borrower:
   - CDP's give access to collateralized borrowing for Auton with  flexibility to increase and decrease borrowing and collateral amounts within constraints. Borrowers can offset flexibility against opportunity costs of borrow interest, staking reward potential if deposited Newton collateral were earning staking rewards, and liquidation risk.
-- For the liquidator:
-  - Liquidation returns from remaining collateral after settlement of debt and interest outstanding.
+- For auction bidders:
+  - Liquidation returns from NTN collateral after bidding for CDP collateral in ASM debt (i.e. liquidation) auctions.
+  - Interest returns from ATN interest after bidding for CDP interest payments in ASM interest auctions.
