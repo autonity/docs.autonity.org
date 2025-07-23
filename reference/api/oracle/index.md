@@ -17,6 +17,37 @@ Usage and Examples assume the path to the ABI file has been set in `aut`'s confi
 :::
 
 
+## getConfig
+
+Returns the current Oracle Contract configuration.
+
+### Parameters
+
+None.
+    
+### Response
+
+Returns a `config` object consisting of:
+
+| Field | Datatype | Description |
+|:-- |:-- |:-- |
+| `votePeriod` | `uint` | Duration of the voting period |
+| `outlierDetectionThreshold` | `int256` | Threshold for outlier detection |
+| `outlierSlashingThreshold` | `int256` | Threshold for slashing outliers |
+| `baseSlashingRate` | `uint256` | Base rate for slashing |
+| `nonRevealThreshold` | `uint256` | Threshold for missed reveals | 
+| `revealResetInterval` | `uint256` | Number of rounds after which the missed reveal counter is reset |
+| `slashingRateCap` | `uint256` | Maximum slashing rate for oracle penalties |
+        
+        
+### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Oracle Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
 ## getDecimals
 
 Returns the decimal places to be used with price reports.
@@ -44,7 +75,7 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `precision` | `uint256` | the decimal precision multiplier applied to currency pair symbol price reports before aggregation. Set as a constant to `10000000` |
+| `ORACLE_DECIMALS` | `uint8` | the decimal precision multiplier applied to currency pair symbol price reports before aggregation. Set as a constant in the Oracle Contract to `18` |
 
 ### Usage
 
@@ -65,6 +96,76 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getPrecis
 ```
 :::
 
+
+## getLastRoundBlock
+
+Returns the block height at which the last completed oracle voting round ended.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `lastRoundBlock` | `uint256` | the block number at which the oracle voting round completed |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+
+## getNewVotePeriod
+
+Returns the new vote period that is going to be applied at the end of the current voting round.
+
+To return the current vote period see [`getVotePeriod()`](/reference/api/oracle/#getvoteperiod). 
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `newVotePeriod` | `uint256` | integer value expressing the duration of an oracle round, measured in blocks |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getNewVotePeriod
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getNewVotePeriod
+30
+```
+:::
+
+
 ## getNewVoters
 
 Returns the new voters in the committee.
@@ -79,7 +180,7 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `address` | `address` array | a comma-separated list of oracle addresses for new participants in the oracle voting process |
+| `newVoters` | `address` array | a comma-separated list of oracle addresses for new participants in the oracle voting process |
 
 ### Usage
 
@@ -96,9 +197,102 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getNewVot
 ## aut
 ``` {.aut}
 
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getNewVoters
 ["0x037b9420CA2983dc3EF87dF1C4994A2BDF6FF8BF", "0x0804A922ba6B7c0965928a8d9A10ecdeA0b3c41A",...]
 
+```
+:::
+
+
+## getNonRevealThreshold
+
+Returns the tolerance for the missed reveal count before the voter gets punished.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `nonRevealThreshold` | `uint256` | the `nonRevealThreshold` from the Oracle Contract config |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+TO DO
+
+```
+:::
+
+
+## getReports
+
+Returns the latest report from an oracle voter for a symbol.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_symbol` | `string` | the target symbol |
+| `_voter` | `address` | the oracle address of the target voter, an oracle server in the [oracle network](/concepts/oracle-network/). |
+    
+### Response
+
+Returns the latest report of that voter for that symbol.
+        
+### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Oracle Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
+## getRewardPeriodPerformance
+
+Returns the voting performance for a voter in the current reward (epoch) period.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `rewardPeriodPerformance ` | `uint256` | integer value expressing the reward performance of a voter in the current epoch |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRewardPeriodPerformance
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getRewardPeriodPerformance
+10
 ```
 :::
 
@@ -145,8 +339,8 @@ Returns the median price data for a [currency pair](/glossary/#currency-pair) sy
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_round` | `uint256` | the oracle voting round index number for which the current price is requested |
-| `_symbol` | `string` | the currency pair symbol for which the current price is requested |
+| `_round` | `uint256` | the oracle voting round index number for which the price should be returned |
+| `_symbol` | `string` | the currency pair symbol for which the current price should be returned |
 
 ### Response
 
@@ -222,11 +416,82 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getSymbol
 :::
 
 
+## getSymbolUpdatedRound
+
+Returns the oracle voting round number in which the oracle [currency pair](/glossary/#currency-pair) symbols were last updated.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `symbolUpdatedRound` | `int256` | the voting round index number in which the currency pair symbols were last updated |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+
+## getVoters
+
+Returns the list of participants in the oracle voting process, i.e. all voters in the current consensus committee.
+
+The response is returned as a list of oracle identifier addresses, sorted in descending dictionary order.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `voters` | `address` array | a comma-separated list of oracle addresses for participants in the oracle voting process |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
+["0x037b9420CA2983dc3EF87dF1C4994A2BDF6FF8BF", "0x0804A922ba6B7c0965928a8d9A10ecdeA0b3c41A",...]
+
+```
+:::
+
+
 ## getVotePeriod
 
-Returns the oracle contract setting for the interval at which the oracle network initiates a new oracle round for submitting, voting, and aggregating data points for oracle price reports. The interval is measured in blocks.
+Returns the current vote period from Oracle Contract config.
 
-Vote period is set at network genesis, see Reference, Genesis,[`oracle`](/reference/genesis/#configautonityoracle-object) config. 
+Vote period is the oracle contract setting for the interval at which the oracle network initiates a new oracle round for submitting, voting, and aggregating data points for oracle price reports. The interval is measured in blocks. Vote period is set at network genesis, see Reference, Genesis,[`oracle`](/reference/genesis/#configautonityoracle-object) config. 
 
 ### Parameters
 
@@ -255,6 +520,39 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePe
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePeriod
 30
 ```
+:::
+
+
+## getVoterInfo
+
+Returns information about an oracle voter, i.e. of a validator node's connected oracle server.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_voter` | `address` | the oracle address of the target voter, an oracle server in the [oracle network](/concepts/oracle-network/). |
+    
+### Response
+
+Returns a `voterInfo` object consisting of:
+
+| Field | Datatype | Description |
+|:-- |:-- |:-- |
+| `round` | `uint256` | The last round the voter participated in |
+| `commit` | `uint256` | The commit hash of the voter's last report |
+| `performance` | `uint256` | The performance score of the voter |
+| `nonRevealCount` | `uint256` | Number of commits that were not revealed
+| `isVoter` | `bool` | Indicates if the address is a registered voter |
+| `reportAvailable` | `bool` | Indicates if the last report is available for the voter |
+        
+        
+### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Oracle Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 
@@ -290,6 +588,92 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
 ``` {.aut}
 aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters   
 ["0xf8D8c4818Fd21B4be57a0ACD619fdD88ec7A858c", "0xd4d2874450a21f1Bf5E1C12260773d8716b526B8", ...]
+```
+:::
+
+
+## getVoterTreasuries
+
+Returns the validator `treasury` address for an oracle server address.
+
+::: {.callout-note title="Note" collapse="false"}
+
+The validator treasury account address is used by a validator operator to submit transactions for validator lifecycle management transactions and to receive its share of staking rewards. See Concepts [treasury account](/concepts/validator/#treasury-account).
+
+:::
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_oracleAddress` | `address` | the oracle address of an oracle server in the [oracle network](/concepts/oracle-network/). |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `voterTreasuries` | `address` | the `treasury` account address of the validator the oracle server is connected to |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+TO DO
+
+```
+:::
+
+
+## getVoterValidators
+
+Returns the validator address for an oracle server address.
+
+::: {.callout-note title="Note" collapse="false"}
+
+The validator node address and the oracle server address provide the unique cryptographic identity of an [AGC](/concepts/client/) [validator](/concepts/validator/) node and its connected [AOS](/concepts/oracle-server/) [oracle server](/concepts/oracle-network/) in an [Autonity network](/glossary/#autonity-network). See Concepts [validator identifier](/concepts/validator/#validator-identifier) and [oracle identifier](/concepts/oracle-network/#oracle-identifier).
+
+:::
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_oracleAddress` | `address` | the oracle address of an oracle server in the [oracle network](/concepts/oracle-network/). |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `address` | `address` | the node address of the validator the oracle server is connected to |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+TO DO
+
 ```
 :::
 

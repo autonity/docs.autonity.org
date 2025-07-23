@@ -146,6 +146,9 @@ Object structure for the oracle and Oracle Accountability Fault Detection (OAFD)
 | `outlierDetectionThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierDetectionThreshold`](/reference/protocol/#oracle-config) |
 | `outlierSlashingThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierSlashingThreshold`](/reference/protocol/#oracle-config) |
 | `baseSlashingRate` | See Protocol Parameter Reference [Oracle Config, `baseSlashingRate`](/reference/protocol/#oracle-config) |
+| `nonRevealThreshold` | See Protocol Parameter Reference [Oracle Config, `nonRevealThreshold`](/reference/protocol/#oracle-config) |
+| `revealResetInterval` | See Protocol Parameter Reference [Oracle Config, `revealResetInterval`](/reference/protocol/#oracle-config) |
+| `slashingRateCap` | See Protocol Parameter Reference [Oracle Config, `slashingRateCap`](/reference/protocol/#oracle-config) |
 	
 #### config.inflationController object 
 
