@@ -711,17 +711,73 @@ You can interact with the contract using the `aut contract` command group. See `
 :::
 
 
+### setEip1559Params
+
+Sets the EIP-1559 parameters for the next epoch: `minBaseFee`, `gasLimitBoundDivisor`, `elasticityMultiplier` and `baseFeeChangeDenominator`.
+
+::: {.callout-note title="Note" collapse="false"}
+For detail on Autonity's implementation of EIP-1559 see the Concept [System model](/concepts/system-model/), [EIP 1559 Transaction fee mechanism (TFM)](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm).
+:::
+
+Constraint checks are applied:
+
+- the new `gas limit bound divisor` must be a positive integer greater than `0`.
+- the new `base fee change denominator` must be a positive integer greater than `0`.
+- the new `elasticity multiplier` must be a positive integer greater than `0`.
+       
+#### Parameters
+
+A `_params` object with fields:
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `minBaseFee ` | `uint256` | the new minimum base fee |
+| `gasLimitBoundDivisor ` | `uint256` | the new block gas limit bound divisor |
+| `elasticityMultiplier ` | `uint256` | the new elasticity multiplier |
+| `baseFeeChangeDenominator ` | `uint256` | the new base fee change  denominator |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+On a successful call the function emits am `Eip1559ParamsUpdate` event, logging the new `minBaseFee`, `gasLimitBoundDivisor`, `elasticityMultiplier` and `baseFeeChangeDenominator`.
+   
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
 ###  setEpochPeriod
 
 Sets a new value for the `epochPeriod` protocol parameter. The change will be applied at epoch end.
 
 The `epochPeriod` period value must be less than the `unbondingPeriod` protocol parameter.
 
+
 Constraint checks are applied:
 
 - The new epoch period value cannot be `0`.
-- If the new value is decreasing the current epoch period, checks the current chain head has not already exceeded the new epoch period window. The new epoch period needs to be greater than `delta+lookbackWindow-1`.
--  The new epoch period is less than or equal to `votePeriod * 2` (a check to ensure there is sufficient time for any oracle voter changes before epoch end).
+- If the new value is decreasing the current epoch period, checks the current chain head has not already exceeded the new epoch period window.
+- The new epoch period value must be greater than the [OFD](/concepts/ofd/) `[Delta](/concepts/ofd/#delta-delta)+[lookbackWindow](/concepts/ofd/#lookback-window)-1`.
+-   The new epoch period is less than or equal to `votePeriod * 2` (a check to ensure there is sufficient time for any oracle voter changes before epoch end).
         
 #### Parameters
    
@@ -794,6 +850,49 @@ None.
 The `setFactors()` function is not currently supported by the `aut governance` command group.
 
 You can interact with the Accountability Contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
+### setGasLimit
+
+Sets the block gas limit.
+
+Constraint checks are applied:
+
+- the new `gas limit` must be a positive integer greater than `0`.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_gasLimit` | `uint256` | the new gas limit; a positive integer value |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("gasLimit"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
 :::
 
 
@@ -1206,7 +1305,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ###  setMaxScheduleDuration
 
-Sets the max allowed duration of any schedule or vesting contract. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+Sets the max allowed duration of the protocol schedules. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
        
 #### Parameters
    
@@ -1222,7 +1321,7 @@ The updated parameter can be retrieved from state by calling the [`getMaxSchedul
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("maxScheduleDuration"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
