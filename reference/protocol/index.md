@@ -89,8 +89,8 @@ Autonity assigns the same value to Chain and Network identifiers `networkId` and
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivizes validators at genesis when transaction volumes are low | Set to `500000000` | See [`setMinimumBaseFee()`](/reference/api/aut/op-prot/#setminimumbasefee) |
-| `epochPeriod` | The period of time for which a consensus committee is elected, defined as a number of blocks. The `epochPeriod` must be shorter than the `unbondingPeriod` | Set to `1800` | See [`setEpochPeriod()`](/reference/api/aut/op-prot/#setepochperiod) |
+| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivizes validators at genesis when transaction volumes are low | Set to `10000000000` (10 [gigaton](/glossary/#gigaton))| See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
+| `epochPeriod` | The period of time for which a consensus committee is elected, defined as a number of blocks. The `epochPeriod` must be shorter than the `unbondingPeriod` and must be greater than the [OFD](/concepts/ofd/) `[Delta](/concepts/ofd/#delta-delta)+[lookbackWindow](/concepts/ofd/#lookback-window)-1`. | Set to `1800` | See [`setEpochPeriod()`](/reference/api/aut/op-prot/#setepochperiod) |
 | `unbondingPeriod` | The period of time bonded stake must wait before Newton can be redeemed after unbonding, defined as a number of blocks. The unbonding period can be any integer number `> 0`, but must be longer than the `epochPeriod`. | See [`config.autonity.unbondingPeriod`](/reference/genesis/#configautonity-object)  | See [`setUnbondingPeriod()`](/reference/api/aut/op-prot/#setunbondingperiod) |
 | `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Also known as 'block time' or 'block interval'. | Set to `1` | None |
 | `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Set to `30`, the number of genesis validators. Increased post-genesis to `100` | See [`setCommitteeSize()`](/reference/api/aut/op-prot/#setcommitteesize) |
@@ -104,7 +104,14 @@ Autonity assigns the same value to Chain and Network identifiers `networkId` and
 | `proposerRewardRate` | The percentage of epoch staking rewards allocated for proposer rewarding by the Omission Fault Detection protocol  | Set to `1000` (10%) | See [`setProposerRewardRate()`](/reference/api/aut/op-prot/#setproposerrewardrate) |
 | `oracleRewardRate` | The percentage of epoch staking rewards deducted for oracles as a reward for correct price reporting by the Oracle Accountability Fault Detection protocol | Set to `1000` (10%) | See [`setOracleRewardRate()`](/reference/api/aut/op-prot/#setoraclerewardrate) |
 | `initialInflationReserve` | the amount of Newton held in reserve for Newton inflation rewards | Set to `40 Million` (40% of the total supply of 100 Million Newton) | None |
-
+| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. The value is specified as the number of gas units allowed in a block. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol and is a desired gas limit. The runtime block gas limit is a normal distribution around this target. | Value is set to: `30000000` (30M) |  See [`setGasLimit()`](/reference/api/aut/op-prot/#setgaslimit) |
+| `gasLimitBoundDivisor` | The divisor that determines the change in the gas limit compared to the parent block's gas limit. | Set to `1024 ` | See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
+| `baseFeeChangeDenominator` | Bounds the amount the base fee can change between blocks. | Set to `64` | See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
+| `elasticityMultiplier` | Multiplier to compute the block gas target. Results in block gas target as a percentage of the parent block gas limit. | Set to `2` (targets 50% of the block gas limit) | See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
+| `clusteringThreshold` | Sets the clustering threshold for consensus message, a threshold set on committee size which when crossed triggers clustering of consensus message gossiping for network optimisation | Set to `64` | See [`setClusteringThreshold()`](/reference/api/aut/op-prot/#setclusteringthreshold) |
+| `skipGenesisVerification` | A boolean flag to skip or not verification that the total supply of NTN minus the inflation reserve equals the amount of NTN minted  (`tokenMint` parameter) at network genesis. | Set to `false` | None |
+| `tokenBond` | The amount of NTN stake token self-bonded to validators at network genesis. | Specific to network  genesis | None |
+| `tokenMint` | The amount of NTN stake token minted at network genesis. | Specific to network genesis | None |
 
 ### Accountability Config
 
@@ -150,7 +157,6 @@ Parameters for the Inflation Controller Contract of the Newton inflation mechani
 | `inflationTransitionPeriod` | Transition period | Set by default to `(4+1/365)` years | None |
 | `inflationCurveConvexity` | Convexity parameter | Set by default to `-1.7794797758` | None |
 | `InitialInflationReserve` | Set in the Autonity Protocol Contract configuration | See [`config.autonity.InitialInflationReserve`](/reference/protocol/#autonity-contract-config) | None |
-
 
 
 ### ASM Config

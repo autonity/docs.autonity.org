@@ -62,7 +62,6 @@ Genesis configuration file JSON objects:
 | `nonce` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. | Set to `0` (`0x0` in hexadecimal) |
 | `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0`, the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP)](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
 | `baseFee` | The base gas price for computing a transaction on an Autonity network after genesis.  Denominated in [`ton`](/glossary/#ton). The base fee is adjusted per the [EIP 1559](https://eips.ethereum.org/EIPS/eip-1559) fee market mechanism. See Concepts, [EIP 1559 Transaction fee mechanism (TFM)](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm) | Set to: `1000000000` (`1` [gigaton](/glossary/#gigaton)) |
-| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. The value is specified as the number of gas units allowed in a block. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `20000000` |
 | `difficulty` | Derived from Ethereum where it sets the difficulty for Ethereum's Ethash Proof of Work consensus. For Autonity's implementation of Tendermint BFT Proof of Stake consensus this must be assigned `0`. | Set to `0` (`0x0`) |
 | `coinbase` | Maintained for backward compatibility reasons in the EVM. Unused by the Autonity Protocol. Ethereum format address. | Set to `0x0000000000000000000000000000000000000000` |
 | `number ` | A value equal to the number of ancestor blocks. At genesis there are no ancestor blocks and it is assigned the value `0` | Set to `0` (`0x0`) |
@@ -109,6 +108,14 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `proposerRewardRate` | See Protocol Parameter Reference [Autonity Config, `proposerRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
 | `oracleRewardRate` | See Protocol Parameter Reference [Autonity Config, `oracleRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
 | `initialInflationReserve` | See Protocol Parameter Reference [Autonity Config, `initialInflationReserve`](/reference/protocol/#autonity-config) | Value is set to `40` Million (40% of the total supply of 100 M Newton) |
+| `gasLimit` | See Protocol Parameter Reference [Autonity Config, `gasLimit`](/reference/protocol/#autonity-config)  | Set to: `30000000` |
+| `gasLimitBoundDivisor` | See Protocol Parameter Reference [Autonity Config, `gasLimit`](/reference/protocol/#autonity-config)  | Set to: `1024` |
+| `baseFeeChangeDenominator` | See Protocol Parameter Reference [Autonity Config, `baseFeeChangeDenominator`](/reference/protocol/#autonity-config)  | Set to: `64` |
+| `elasticityMultiplier` | See Protocol Parameter Reference [Autonity Config, `elasticityMultiplier`](/reference/protocol/#autonity-config)  | Set to: `2` |
+| `clusteringThreshold` | See Protocol Parameter Reference [Autonity Config, `clusteringThreshold`](/reference/protocol/#autonity-config)  | Set to: `64` |
+| `skipGenesisVerification` | See Protocol Parameter Reference [Autonity Config, `skipGenesisVerification`](/reference/protocol/#autonity-config)  | Set to: `false` |
+| `tokenBond` | See Protocol Parameter Reference [Autonity Config, `tokenBond`](/reference/protocol/#autonity-config)  | Specific to network genesis |
+| `tokenMint` | See Protocol Parameter Reference [Autonity Config, `tokenMint`](/reference/protocol/#autonity-config)  | Specific to network genesis |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
 #### config.autonity.validators object
