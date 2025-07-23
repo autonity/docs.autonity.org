@@ -452,6 +452,50 @@ You can interact with the Accountability Contract using the `aut contract` comma
 :::
 
 
+### setClusteringThreshold
+
+Sets the clustering threshold for consensus messaging. The clustering threshold will take effect when committee size reaches the threshold.
+
+Constraint checks are applied:
+
+- the new clustering `threshold` must be greater than `0`.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_threshold` | `uint256` | the committee size at which clustering becomes active (positive integer) |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("clusteringThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
+
 ###  setCommitRevealConfig (Oracle Contract)
 
 Sets the commit-reveal penalty mechanism configuration for `nonRevealThreshold` and `revealResetInterval`.
