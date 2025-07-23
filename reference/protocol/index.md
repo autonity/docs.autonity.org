@@ -24,18 +24,19 @@ Protocol Constants are protocol parameter constant values that may be used in on
 |-----------|-------------|-----------------------|-------------------------------|
 | `SLASHING_RATE_DECIMALS` | The number of decimal points used for fixed-point arithmetic during computation of slashing penalties | `4` | None | 
 | `SLASHING_RATE_SCALE_FACTOR` | The division precision used as the denominator when computing the slashing amount of a penalty | `10 ** SLASHING_RATE_DECIMALS` (`10^4 = 10_000`, i.e. 0.01%)| None |
-| `ORACLE_SLASHING_RATE_CAP` | The % slashing rate for oracle accountability slashing penalties | `1_000` (10%) | None |
+| `CONVERSION_RATIO_DECIMALS` | The number of decimal points used for fixed-point arithmetic during computation of validator LNTN-NTN conversion ratio | `18` | None | 
+| `CONVERSION_RATIO_SCALE_FACTOR` | The division precision used as the denominator when computing the LNTN-NTN conversion ratio of a validator | `10 ** CONVERSION_RATIO_DECIMALS` (`10^18 = 1_000_000_000_000_000_000`, i.e. 100%)| None |
 
-::: {.callout-note title="Scale factor" collapse="false"}
+::: {.callout-note title="Scale factor and decimals" collapse="false"}
 
-`SLASHING_RATE_DECIMALS` and `SLASHING_RATE_SCALE_FACTOR` are used to allow for decimal slashing values. Solidity doesn't natively support decimal fixed point arithmetic. Using the scale factor method allows the protocol to define the % level of precision used when computing a slashing penalty.
+Solidity doesn't natively support decimal fixed point arithmetic. Using the `DECIMALS` and `SCALE_FACTOR` method allows the protocol to define the % level of precision used when computing a value.
 
-For example:
+For example, `SLASHING_RATE_DECIMALS` and `SLASHING_RATE_SCALE_FACTOR` are used to allow for decimal slashing penalty values:
 
 | Scale Factor | Slashing rate applied |
 |:-------------|:----------------------|
 | `10_000`     | 100% slash |
-| `1_000`       | 10% slash |
+| `1_000`      | 10% slash |
 | `100`        | 1% slash |
 | `10`         | 0.1% slash |
 | `1`          | 0.01% slash |
@@ -57,7 +58,6 @@ For example:
 | `upgradeManagerContract` contract address | The Upgrade Manager Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setUpgradeManagerContract()`](/reference/api/aut/op-prot/#setupgrademanagercontract) |
 | `inflationController` contract address | The Newton Inflation Controller Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setInflationControllerContract()`](/reference/api/aut/op-prot/#setinflationcontrollercontract) |
 | `omissionAccountability` contract address | The Omission Accountability Contract address | Deterministic - see [Protocol Contract addresses](/concepts/architecture/#protocol-contract-addresses) | See [`setOmissionAccountabilityContract()`](/reference/api/aut/op-prot/#setomissionaccountabilitycontract) |
-
 
 ## Chain Config Protocol Parameters
 
@@ -131,11 +131,13 @@ Parameters for the Oracle Contract of the Oracle protocol and Oracle Accountabil
 | Oracle `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "NTN-ATN"]` | See [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract) |
 | Oracle `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Set by default to `30` (30 blocks) | None |
 | `outlierDetectionThreshold` | Defines the threshold for flagging outliers | Set by default to `10` (10%) | None |
-| `outlierSlashingThreshold` | Defines the threshold for slashing penalties, controlling the sensitivity of the penalty model | Set by default to `225` (15%) | None |
-| `baseSlashingRate` | Defines the base slashing rate for penalising outliers | Set by default to `10` (0.1%) | None |
+| `outlierSlashingThreshold` | Defines the threshold for outlier slashing penalties, controlling the sensitivity of the penalty model | Set by default to `225` (15%) | None |
+| `baseSlashingRate` | Defines the base slashing rate for outlier slashing penalties | Set by default to `10` (0.1%) | None |
+| `nonRevealThreshold` | Defines the threshold for missed reveals | Set by default to `3` (oracle voting rounds) | None |
+| `revealResetInterval` | The number of oracle voting rounds after which the missed reveal counter is reset | Set by default to `10` | None |
+| `slashingRateCap` | The maximum % slashing rate for oracle accountability slashing penalties | Set by default to `1_000` (10%) | None |
 | `OracleRewardRate` | Set in the Autonity Protocol Contract configuration | See [`config.autonity.oracleRewardRate`](/reference/protocol/#autonity-config) | See [`setOracleRewardRate()`](/reference/api/aut/op-prot/#setoraclerewardrate) |
-| `ORACLE_SLASHING_RATE_CAP` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `ORACLE_SLASHING_RATE_CAP` in [Protocol Constants](/reference/protocol/#protocol-constants) | None |
- 
+
 ### Inflation Controller Config
 
 Parameters for the Inflation Controller Contract of the Newton inflation mechanism. 
@@ -153,7 +155,7 @@ Parameters for the Inflation Controller Contract of the Newton inflation mechani
 
 ### ASM Config
 
-Configuration of the Auton Stabilization Mechanism's (ASM) ACU, Stabilization, and Supply Control Contracts.
+Configuration of the Auton Stabilization Mechanism (ASM) ACU, Stabilization, Auctioneer, and Supply Control Contracts.
 
 #### ACU Config
 
@@ -199,6 +201,7 @@ The ASM's CDP debt and interest Auction mechanism configuration.
 | `interestAuctionDuration` | The number of blocks for an interest auction to move from the discount rate to the floor price | Set by default to `60` (60 blocks) | See [`setInterestAuctionDuration()`](/reference/api/aut/op-prot/#setinterestauctionduration-asm-auctioneer-contract) |
 | `interestAuctionDiscount` | The fraction above market price that an interest auction starts at | Set by default to `0.1` (10%) | See [`setInterestAuctionDiscount()`](/reference/api/aut/op-prot/#setinterestauctiondiscount-asm-auctioneer-contract) |
 | `interestAuctionThreshold` | The minimum amount of ATN paid in interest to trigger an interest auction | Set by default to `1` ATN | See [`setInterestAuctionThreshold()`](/reference/api/aut/op-prot/#setinterestauctionthreshold-asm-auctioneer-contract) |
+| `proceedAddress` | The address to which interest auction proceeds are sent. (Proceeds accumulate in the Auctioneer Contract until a proceed address is set by governance.) | Set by default to the Auctioneer Contract address | See [`setProceedAddress()`](/reference/api/aut/op-prot/#setproceedaddress-asm-auctioneer-contract) |
 
 ### Omission Accountability Config
 

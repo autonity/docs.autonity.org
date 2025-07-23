@@ -433,7 +433,7 @@ Constraint checks are applied:
    
 | Field | Datatype | Description |
 | --| --| --| 
-| `_rates ` | `uint256` | comma separated list of the new `low`, `mid` and `high` values for the base slashing rates |
+| `_rates` | `uint256` | comma separated list of the new `low`, `mid` and `high` values for the base slashing rates |
 
 #### Response
 
@@ -447,6 +447,48 @@ None.
 
 ::: {.callout-note title="Note" collapse="false"}
 The `setBaseSlashingRates()` function is not currently supported by the `aut governance` command group.
+
+You can interact with the Accountability Contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
+###  setCommitRevealConfig (Oracle Contract)
+
+Sets the commit-reveal penalty mechanism configuration for `nonRevealThreshold` and `revealResetInterval`.
+
+::: {.callout-note title="Note" collapse="false"}
+For more detail on commit-reveal in oracle voting see the Concepts:
+
+- Oracle network, Oracle protocol, [Commit and reveal](/concepts/oracle-network/#commit-and-reveal) scheme.
+- Oracle Accountability Fault Detection (OAFD), [Protocol configuration](/concepts/oafd/#protocol-configuration) commit-reveal penalty mechanism.
+:::
+
+Constraint checks are applied:
+
+- `invalid config`: the `threshold` cannot be less than the `reset interval` and the `reset interval` must be greater than `0`.
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_threshold` | `uint256` | Threshold for missed reveals | 
+| `_resetInterval` | `uint256` | Number of rounds after which the missed reveal counter is reset |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+On a successful call the function emits `ConfigUpdateUint` events, logging:
+
+- configuration parameter `name` ("revealResetInterval"), `oldValue`, `newValue`, `appliesAtHeight`.
+- configuration parameter `name` ("nonRevealThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The `setCommitRevealConfig()` function is not currently supported by the `aut governance` command group.
 
 You can interact with the Accountability Contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
@@ -692,7 +734,7 @@ Constraint checks are applied:
    
 | Field | Datatype | Description |
 | --| --| --| 
-| `_rates ` | `uint256` | comma separated list of the new `CollusionFactor`, `HistoryFactor` and `JailFactor` values for the base slashing rates |
+| `_rates` | `uint256` | comma separated list of the new `CollusionFactor`, `HistoryFactor` and `JailFactor` values for the base slashing rates |
 
 #### Response
 
@@ -1522,6 +1564,48 @@ aut governance set-slasher [OPTIONS] SLASHER-ADDRESS
 :::
 
 
+
+###  setSlashingConfig (Oracle Contract)
+
+Sets the internal slashing and outlier detection penalty mechanism configuration for `outlierSlashingThreshold`, `outlierDetectionThreshold`, `baseSlashingRate`, and `slashingRateCap`.
+
+::: {.callout-note title="Note" collapse="false"}
+For more detail on slashing in oracle voting see the Concept:
+
+- Oracle Accountability Fault Detection (OAFD), [Protocol configuration](/concepts/oafd/#protocol-configuration) slashing penalty mechanism.
+:::
+        
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_outlierSlashingThreshold` | `int256` | Threshold for flagging outliers |
+| `_outlierDetectionThreshold` | `int256` | Threshold for outlier slashing penalties, controlling the sensitivity of the penalty mode |
+| `_baseSlashingRate` | `uint256` | The base slashing rate for outlier slashing penalties |
+| `_slashingRateCap` | `uint256` | The maximum % slashing rate for oracle accountability slashing penalties |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+On a successful call the function emits `ConfigUpdateUint` events, logging:
+
+- configuration parameter `name` ("outlierSlashingThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
+- configuration parameter `name` ("outlierDetectionThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
+- configuration parameter `name` ("baseSlashingRate"), `oldValue`, `newValue`, `appliesAtHeight`.
+- configuration parameter `name` ("slashingRateCap"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The `setCommitRevealConfig()` function is not currently supported by the `aut governance` command group.
+
+You can interact with the Accountability Contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
 ###  setStabilizationContract
 
 Sets a new value for the [ASM Stabilization Contract](/concepts/architecture/#asm-stabilization-contract) address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
@@ -1589,7 +1673,7 @@ Note that the function overwrites the existing symbols; and does not update; the
 Constraint checks are applied:
 
 - the `_symbols` parameter cannot be empty; new symbols are provided
-- the current `round` number is not equal to the current symbol update (a) round number, and (b) round number +1.
+- the current `round` number is not equal to the current symbol update (a) round number, and (b) round number + 1.
 
 The symbol update is applied and oracle submissions for the new symbols are effective from the next round `round+1`.
 
@@ -1718,6 +1802,53 @@ aut governance set-treasury-fee 100000000 | aut tx sign - | aut tx send -
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x513f36338720545a8f2c1111e0c2f4b5eebe9582e39493c6cd587ababe1e2e08
+```
+:::
+
+
+### setVotePeriod (Oracle Contract)
+
+Sets a new value set for the oracle voting round duration.
+
+The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
+
+Constraint checks are applied:
+
+-  The new `votePeriod * 2` is less than or equal to the current or a new pending epoch period value (a check to ensure there is sufficient time for any oracle voter changes before epoch end).
+
+The vote period update is applied and is applied at the end of the voting rouond.
+
+#### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_votePeriod` | `uint` | the new vote period as a number of blocks |
+
+#### Response
+
+None.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("votePeriod"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
 ```
 :::
 
@@ -2145,7 +2276,11 @@ The block finalisation function, invoked each block after processing every trans
 - tests if the `bytecode` protocol parameter is `0` length to determine if an Autonity Protocol Contract upgrade is available. If the `bytecode` length is `>0`, the `contractUpgradeReady` protocol parameter is set to `true`
 
 - tests if the block number is the last epoch block number (equal to `lastEpochBlock + epochPeriod` config) and if so sets the `epochEnded` boolean variable to `true` or `false` accordingly
-- invokes the Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-accountability-contract) function, triggering the Accountability Contract to compute and apply penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations
+- invokes finalize on the auxiliary protocol contracts, triggering the compute and apply of penalties for provable accountability and omission faults committed by validators, and distribute rewards for submitting provable fault accusations:
+  - Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-accountability-contract) 
+  - Omission Accountability Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-omission-accountability-contract)
+  - Oracle Contract [`finalize()`](/reference/api/aut/op-prot/#finalize-oracle-contract)
+
 - then, if `epochEnded` is `true`:
 
     - performs the staking rewards redistribution, redistributing the available reward amount per protocol and emitting a `Rewarded` event for each distribution
@@ -2250,11 +2385,13 @@ The function emits events:
 
 The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
+- checks for voters failing to commit-reveal, updates oracle voter non reveal count for any no reveal penalties, applies any no reveal slashing penalties, and resets the no reveal counter
 - executes the Oracle Contract's on-chain aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
+- checks oracle voting performance during the round and updates the oracles' voting performance score for the reward (epoch) period
 - checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
 - resets the `lastRoundBlock` to the current `block.number`
 - increments the `round` counter by `1`
-- checks if there have been any oracle symbol changes, if so then updates the oracle symbol set for the following oracle voting round.
+- checks if there is a pending new vote period config change, if so then updates the oracle `votePeriod` for the following oracle voting round.
 
 #### Parameters
 
@@ -2266,7 +2403,12 @@ Returns `true` if there is a new voting round and new symbol prices are availabl
 
 #### Event
 
-On success the function emits a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.number`, `block.timestamp` and vote period duration `votePeriod`.
+On success the function emits:
+
+- a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.number`, `block.timestamp` and vote period duration `votePeriod`.
+- a `NoRevealPenalty` event for each non reveal penalty, logging validator oracle address `_voter`, `round`, `nonRevealCount`.
+- a `CommitRevealMissed` event for each missed commit reveal, logging validator oracle address `_address`, `round`, `nonRevealCount`.
+- a `Penalized` event for each price outlier penalty, logging validator oracle address `voter`, `_slashingAmount`, `_symbol`, `_priceMedian`, `price`.
 
 
 ### handleEvent (Accountability Contract)

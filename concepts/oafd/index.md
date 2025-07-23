@@ -154,7 +154,7 @@ OAFD protocol parameters are set by default to:
 | `OutlierSlashingThreshold` | defines the threshold for slashing penalties, controlling the sensitivity of the penalty model | `225` (15%) |
 | `BaseSlashingRate` | defines the base slashing rate for penalizing outliers | `10 ` (0.1%) |
 | `OracleRewardRate` | defines the percentage of epoch ATN staking and NTN inflation rewards allocated for Oracle voting incentivisation | `1000` (10%) |
-| `ORACLE_SLASHING_RATE_CAP` | the maximum amount of stake that can be slashed for oracle accountability | `1_000` (10%) |
+| `SlashingRateCap` | the maximum amount of stake that can be slashed for oracle accountability | `1_000` (10%) |
 
 
 ### Confidence score calculation
@@ -201,7 +201,7 @@ Where,
 - $R$ means the `BaseSlashingRate`, which defines the % of bonded stake that will be slashed to penalise _outliers_.
 
 The NTN slashing penalty is applied proportionally to the _confidence score_ provided for the _outlier_, discouraging inaccurate submissions with high confidence. To prevent excessively harsh penalties, the maximum
-slashing rate for a single penalty is capped by the `ORACLE_SLASHING_RATE_CAP`.
+slashing rate for a single penalty is capped by the `SlashingRateCap`.
 
 ### Final price calculation
 
