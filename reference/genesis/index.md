@@ -98,7 +98,6 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `unbondingPeriod` | See Protocol Parameter Reference [Autonity Config, `unbondingPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of `120` could be appropriate. The `unbondingPeriod` must be longer than an `epochPeriod` |
 | `blockPeriod` | See Protocol Parameter Reference [Autonity Config, `blockPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
 | `maxCommitteeSize` | See Protocol Parameter Reference [Autonity Config, `maxCommitteeSize`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `20` could be appropriate |
-| `maxScheduleDuration` | See Protocol Parameter Reference [Autonity Config, `maxScheduleDuration`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `2592000` could be appropriate |
 | `operator` | See Protocol Parameter Reference [Autonity Config, `operator`](/reference/protocol/#autonity-config) | EOA account address. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) |
 | `treasury` | See Protocol Parameter Reference [Autonity Config, `treasury`](/reference/protocol/#autonity-config) | EOA account address |
 | `withheldRewardsPool` | See Protocol Parameter Reference [Autonity Config, `withheldRewardsPool`](/reference/protocol/#autonity-config) | Set by default to the Autonity `treasury` account at genesis unless specified |
@@ -116,6 +115,8 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `skipGenesisVerification` | See Protocol Parameter Reference [Autonity Config, `skipGenesisVerification`](/reference/protocol/#autonity-config)  | Set to: `false` |
 | `tokenBond` | See Protocol Parameter Reference [Autonity Config, `tokenBond`](/reference/protocol/#autonity-config)  | Specific to network genesis |
 | `tokenMint` | See Protocol Parameter Reference [Autonity Config, `tokenMint`](/reference/protocol/#autonity-config)  | Specific to network genesis |
+| `maxScheduleDuration` | See Protocol Parameter Reference [Autonity Config, `maxScheduleDuration`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `2592000` could be appropriate |
+| `schedules` | See Protocol Parameter Reference [Autonity Config, `schedules`](/reference/protocol/#autonity-config) | Value is specific to network configuration. |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
 #### config.autonity.validators object

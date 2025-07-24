@@ -5,7 +5,7 @@ description: >
   Autonity Liquid Newton Contract functions
 ---
 
-The LiquidNewton contract is deployed by the Autonity contract in response to validator registration.  It implements the Liquid Newton token for that validator, and handles the distribution of staking rewards to all delegators.
+The Liquid Newton contract is deployed by the Autonity contract in response to validator registration.  It implements the Liquid Newton token for that validator, and handles the distribution of staking rewards to all delegators.
 
 The address of the Liquid Newton contract for a given validator can be determined by the information returned from the Autonity contract [`getValidator`](/reference/api/aut/#getvalidator) method (see [here](/delegators/transfer-lntn/) for details of how to query this using Autonity CLI).
 
