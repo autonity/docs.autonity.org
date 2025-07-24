@@ -2528,7 +2528,7 @@ The function emits events:
 
 The Oracle Contract finalisation function, called once per `VotePeriod` as part of the state finalisation function [`finalize()`](/reference/api/aut/op-prot/#finalize). The function checks if it is the last block of the vote period, if so then:
 
-- checks for voters failing to commit-reveal, updates oracle voter non reveal count for any no reveal penalties, applies any no reveal slashing penalties, and resets the no reveal counter
+- checks for voters failing to commit-reveal, updates oracle voter non reveal count for any no reveal penalties, applies any no reveal slashing penalties, and resets the no reveal counter to `0`
 - executes the Oracle Contract's on-chain aggregation routine to calculate the median of all price data points for each symbol submitted to the oracle, invoking the Oracle Contract `aggregateSymbol` function
 - checks oracle voting performance during the round and updates the oracles' voting performance score for the reward (epoch) period
 - checks if there have been any oracle voter changes, if so then updates the oracle voter set for the following oracle voting round
