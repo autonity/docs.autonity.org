@@ -18,19 +18,20 @@ Autonity provides consensus-computed median price data for a designated set of [
 
 A median price for the supported _currency pair_ _symbols_ is computed according to the Autonity [_oracle protocol_](/concepts/oracle-network/#oracle-protocol).
 
-The _oracle protocol_ functions by a continuous cycle of discrete oracle _voting rounds_ in which raw price data for each of the supported _symbols_ is collected from external off-chain data sources and submitted to an Oracle Protocol Contract on-chain by [_consensus committee_](/glossary/#consensus-committee) _members_. An _aggregated median price_ for each _currency pair_ _symbol_ is then [consensus](/glossary/#consensus) computed resulting in a price feed cyclically refreshed at _voting round_ intervals.
+The _oracle protocol_ functions by a continuous cycle of discrete oracle _voting rounds_ in which raw price data for each of the supported _symbols_ is collected from external off-chain data sources and submitted to an Oracle Protocol Contract on-chain by [_consensus committee_](/glossary/#consensus-committee) _members_. Prices are reported by a 2-step _[commit and reveal](/concepts/oracle-network/#commit-and-reveal)_ cryptographic protocol where a price is committed in one round and then revealed in the following round. An _aggregated median price_ for each _currency pair_ _symbol_ is then [consensus](/glossary/#consensus) computed resulting in a price feed cyclically refreshed at _voting round_ intervals.
 
 Provision of the raw price data is a validator responsibility and only validators that are _consensus committee members_ participate in the _oracle protocol_. Each registered validator node operates an [Autonity Oracle Server (AOS)](/concepts/oracle-server/) as adjunct software to the [Autonity main client (AGC)](/concepts/client/) software. Validator operators configure their [oracle server](/concepts/oracle-server/) to collect price data from external data sources for each _currency pair_ _symbol_ the _oracle protocol_ supports. This forms a logical validator [_oracle network_](/concepts/oracle-network/) responsible for reporting price data in cyclical _voting rounds_. 
 
-For each _voting round_ the _validator node_ retrieves raw price data from its connected _oracle server_ and submits a _price report_ to the Oracle contract on-chain. The Oracle contract _aggregates_ the submitted _price reports_ to  compute an _aggregated median price_ for each supported _currency pair_ _symbol_. That _aggregated median price_ data is then emitted each [_voting round_](/concepts/oracle-network/#voting-rounds) as _round data_ on-chain. The duration of a _voting round_ is measured in [blocks](/glossary/#block) and set as the [_vote period_](/reference/genesis/#config.oracle-object) parameter of the Oracle protocol configuration. If a validator does not submit a price for a symbol in a _voting round_, then its _last submitted price_ for that _symbol_ will be used instead.
+For each _voting round_ the _validator node_ retrieves raw price data from its connected _oracle server_ and submits a _price report_ to the Oracle contract on-chain. The _report_ consists of a _commit_, _reveal_ and a _salt_ used to verify the previous round's _commit_ matches the current round's _reveal_. The Oracle contract _aggregates_ the _reveals_ from the submitted _price reports_ to compute an _aggregated median price_ for each supported _currency pair_ _symbol_. That _aggregated median price_ data is then emitted each [_voting round_](/concepts/oracle-network/#voting-rounds) as _round data_ on-chain. The duration of a _voting round_ is measured in [blocks](/glossary/#block) and set as the [_vote period_](/reference/genesis/#config.oracle-object) parameter of the Oracle protocol configuration. If a validator does not submit a price for a symbol in a _voting round_, then its _last submitted price_ for that _symbol_ will be used instead.
 
-To ensure the maximum accuracy of price reporting _committee members_ should be submitting _current_ (i.e. "_fresh_" and not out-of-date "_stale_" prices) and participating in each oracle _voting round_. OAFD detects failures to do this as an _accountable fault_ and applies penalties to validators for  these _faults_. For example:
+To ensure the maximum accuracy of price reporting _committee members_ should be submitting _current_ (i.e. "_fresh_" and not out-of-date "_stale_" prices) and correctly participating in each oracle _voting round_ by including _commit_ and _reveal_ in their price reports. OAFD detects failures to do this as an _accountable fault_ and applies penalties to validators for  these _faults_. For example:
 
 | Fault | Description | Scenario |
 |:--|:--|:--|
 | _voting_ fault | failing to submit a _price report_ i.e. '_vote_ in an oracle _voting round_ | "Missing a voting round". The cause could be Byzantine (e.g. intentional failure to send), a technical accident (e.g. network glitch, vote arrives too late for the round) |
 | _inaccurate price reporting_ fault | submitting a _price report_ that is considered inaccurate | An "outlier" price report falling outside tolerance of the median price reported by the oracle network as a whole. The cause could be Byzantine (e.g. attempt to manipulate the price) or technical accident (e.g. poor quality data source results in submission of "_stale_" out of date price data). |
 | _incomplete price reporting_ fault | submitting a _price report_ with prices for some but not all of the supported _symbols_ | The cause could be technical - e.g. the oracle could not source with confidence a price for a _symbol_ for that _voting round_ so opted not to submit one. In this scenario, the oracle's _last submitted price_ for the _symbol_ would be used by the _oracle protocol_ . |
+| _non  reveal_ fault | failing to provide a _reveal_ in the current voting round for a _commit_ submitted in the preceding voting round | The cause is one of two scenarios: (1) Voter voted in this round but did not reveal his commit from the last round, or, (2) Voter provided commit in the last round but did not vote in this round. In both cases, the voter submitted a _commit_ in the last round but did not _reveal_ in the current round. |
 
 The OAFD protocol is based upon the processing of _price reports_ submitted by committee members to the Oracle contract each _voting round_, and functions to maximise the _currency_ and _accuracy_ properties of the submitted price data:
 
@@ -41,7 +42,7 @@ OAFD focuses on the risk from _outliers_, which addresses both _currency_ and _a
 
 Oracles submit _price reports_ with a _confidence score_ for each _symbol_ price reported that represents the _reporting validator's_ level of trust in the accuracy of the price data it is submitting. If a _reporting validator_ fails to submit a price report for a _symbol_ or _symbols_ in a _voting round_, then its _last submitted price_ for the _symbol(s)_ will be taken as the validator's submission for that _voting round_.
 
-::: {.callout-caution title="What if that _last submitted price_ was an _outlier_?" collapse="false"}
+::: {.callout-caution title="What if that _last submitted price_ was an _outlier_?" collapse="true"}
 
 If a validator oracle does not submit a price for a _symbol_ in a _voting round_, then the oracle's _last submitted price_ for that _symbol_ will be carried forward and used as the submission for the current _round_. 
 
@@ -133,14 +134,23 @@ See [Epoch performance score calculation](/concepts/oafd/#epoch-performance-scor
 
 See [Confidence score calculation](/concepts/oafd/#confidence-score-calculation) for $w_{i,j}$.
 
+#### Non reveal
+
+Prices are reported over 2 voting rounds by a commit and reveal protocol in which each price report vote submits the _commit_ of the new price report from the current voting round and the _reveal_ of the commit provided in the preceding voting round. A validator's history of _non reveal_ faults is tracked and when a _non reveal threshold_ is crossed a slashing penalty is applied.  The _non reveal threshold_ sets the number of _non reveals_ a committee member can commit in an _epoch_.
+
+The score of a committee member's _non reveal_ faults for an _epoch_ is maintained by a _non reveal counter_. The counter increments by `1` for each _non reveal_ fault committed in a voting round. If the _non reveal threshold_ is crossed in a voting round, the validator receives a _no reveal slashing penalty_. _No reveal slashing penalties_ are applied at the end of the voting round in which the threshold is crossed.
+
+The _non reveal counter_ is reset to `0` at the end of the voting round if a _no reveal slashing penalty_ has been applied, and is reset to `0` at the end of each _epoch_.
+
 #### Thresholds
 
 The _threshold_ sets a floor which if broken triggers oracle accountability penalties. OAFD has outlier thresholds:
 
-- The _outlier detection threshold_ how far from the median price a report for a _symbol_ can be before it is flagges as an _outlier_.
-- The _outlier slashing threshold_ how far from the median price a report for a _symbol_ needs to be before the reporting validator gets slashed. For example, if a price reported satisfies the inequality `((price - median)/median)^2 > outlierSlashingThreshold`, then it's eligible for slashing.
+- The _outlier detection threshold_: how far from the median price a report for a _symbol_ can be before it is flags as an _outlier_.
+- The _outlier slashing threshold_: how far from the median price a report for a _symbol_ needs to be before the reporting validator gets slashed. For example, if a price reported satisfies the inequality `((price - median)/median)^2 > outlierSlashingThreshold`, then it's eligible for slashing.
+- The _non reveal threshold_: the number of missed reveals allowed for validator price reports in an _epoch_ before the validator gets slashed.
 
-See protocol primitive [outlier](/concepts/oafd/#outlier).
+See protocol primitives [outlier](/concepts/oafd/#outlier) and [non reveal](/concepts/oafd/#non-reveal).
 
 ## Protocol configuration
 
@@ -182,7 +192,7 @@ $$
 
 Detected _outliers_ are excluded from the set of prices used to compute the _aggregated median price_ for the symbol by the [final price calculation](/concepts/oafd/#final-price-calculation).
 
-### Slashing amount calculation
+### Outlier slashing amount calculation
 
 The _slashing_ amount is calculated by the formula:
 
@@ -200,8 +210,49 @@ Where,
 - $w_i$ means the confidence score $w$ price for each reported price $i$.
 - $R$ means the `BaseSlashingRate`, which defines the % of bonded stake that will be slashed to penalise _outliers_.
 
-The NTN slashing penalty is applied proportionally to the _confidence score_ provided for the _outlier_, discouraging inaccurate submissions with high confidence. To prevent excessively harsh penalties, the maximum
-slashing rate for a single penalty is capped by the `SlashingRateCap`.
+The NTN slashing penalty is applied proportionally to the _confidence score_ provided for the _outlier_, discouraging inaccurate submissions with high confidence. To prevent excessively harsh penalties, the maximum slashing rate for a single penalty is capped by the `OracleSlashingRateCap`.
+
+### Non reveal detection calculation
+
+If a non reveal fault is detected then the validator's non reveal count is incremented. There are two scenarios for a non reveal fault occurring:
+
+1. Voter voted in the current round but did not reveal the commit from the last round (it's not the first round for the voter).
+2. Voter provided commit in the last round but did not vote in this round.
+
+In both cases the voter's `nonRevealCount` is incremented by `1`.
+
+Case 1 is handled by the Oracle Contract's `vote()` function logic and the vote transaction reverts, `vote()` emitting an `InvalidVote` error event logging the commit mismatch and incrementing `nonRevealCount` by `1`.
+
+Case 2 is handled by the Oracle Contract's `finalize()` function when the voting round is finalized:
+
+<!-- markdownlint-disable-next-line line-length -->
+$$\text{If voterInfo.round = round-1} \land \text{commit > 0}, \text{ then } nonRevealCount + 1$$
+
+where:
+
+- $voterInfo.round$ means the index number of the last round the voter voted in from the voter's state metadata 
+- $round$ means the current voting round's index number
+- $commit$ means the commit hash of the voter's last report
+- $nonRevealCount$ means the validator's non reveal counter, recording the number of commits the validator has not revealed in the epoch to date
+
+When the voting round is finalized a non reveal slashing penalty may be applied if the non reveal threshold has been exceeded.
+
+### Non reveal slashing amount calculation
+
+The _non reveal slashing_ amount is calculated by the formula:
+
+<!-- markdownlint-disable-next-line line-length -->
+$$nrp_{i} = \begin{cases}\text{ if } nonRevealCount > nonRevealThreshold, \\ BondedStake_{i} * OracleSlashingRateCap \end{cases}$$
+
+where
+
+- $nrp_{i}$ means the non reveal fault slashing penalty of validator $i$.
+- $nonRevealCount$ means the number of non reveal faults the validator has committed in the epoch to date
+- $nonRevealThreshold$ means the protocol's' configuration for the number of allowed non reveal fault in an epoch
+- $BondedStake_{i}$ means the bonded stake of validator $i$.
+- $OracleSlashingRateCap$ means the maximum % slashing rate for oracle accountability slashing penalties.
+
+The $nonRevealCount$ is reset to `0` at the end of a voting round if a slashing penalty has been committed and at the end of the epoch.
 
 ### Final price calculation
 
@@ -256,7 +307,6 @@ The _oracle reward_ for a validator is a percentage of the ATN staking rewards a
 - total stake bonded in the epoch: the total amount of stake delegated to *all* validators during the epoch
 - oracle performance in the epoch: the _epoch performance score_ of an oracle and how accurately the oracle has been reporting prices. See [Epoch performance score calculation](/concepts/oafd/#epoch-performance-score-calculation).
 
-
 The reward amount is then calculated based on the validator's _epoch performance score_ for an epoch and the `OracleRewardRate` configuration parameter. The reward is deducted from the rewards before they are distributed to stake delegation.
 
 The _oracle reward_ amount is calculated by the formula:
@@ -264,7 +314,7 @@ The _oracle reward_ amount is calculated by the formula:
 <!-- markdownlint-disable-next-line line-length -->
 
 $$
-B_v = \frac{P_v}{ \sum_j{P_j}} * \text{ORACLE\_REWARD\_RATE} * \text{TOTAL\_EPOCH\_REWARD}
+B_v = \frac{P_v}{ \sum_j{P_j}} * \text{oracleRewardRate} * \text{totalEpochReward}
 $$
 
 Where,
@@ -272,9 +322,8 @@ Where,
 - $B_v$ means the _oracle reward_ for validator $v$ in an epoch.
 - $P_v$ means the _epoch performance score_ for the validator $v$ in an epoch.
 - ${\sum_j{P_j}}$ means the summation of the _epoch performance score_ for each validator $j$ in the epoch.
-- $\text{ORACLE\_REWARD\_RATE}$ means the `OracleRewardRate`, the % of `TOTAL\_EPOCH\_REWARD`s that is deducted and allocated for Oracle voting incentivisation.
-- $\text{TOTAL\_EPOCH\_REWARD}$ means the total amount of ATN staking rewards and NTN inflation rewards earned during an epoch.
-
+- $\text{oracleRewardRate}$ means the `OracleRewardRate`, the % of `totalEpochReward`s that is deducted and allocated for Oracle voting incentivisation.
+- $\text{totalEpochReward}$ means the total amount of ATN staking rewards and NTN inflation rewards earned during an epoch.
 
 ::: {.callout-note title="A note on total rewards and an analogy" collapse="false"}
 
@@ -297,14 +346,26 @@ There are two aspects to Oracle Accountability Fault Detection economics: outlie
 | _offending validator_ | loss of oracle rewards, validator reputation, slash staking for detected outliers per [Autonity’s Penalty-Absorbing Stake (PAS) model](/glossary/#penalty-absorbing-stake-pas) |
 | _reporting validator_  | gain of OAFD oracle rewards for submitting valid _price reports_ for _symbol(s)_ |
 
-### Outlier penalties
+### Penalties
 
-The economic loss to consensus committee members and their delegators from reporting outlier prices covers stake slashing, and per the PAS model potential loss of staking rewards due to PAS slashing self-bonded stake in first priority.
+The economic loss to consensus committee members and their delegators from reporting outlier prices and failure to follow the [commit-reveal](/concepts/oracle-network/#commit-and-reveal) protocol for reported prices covers stake slashing and loss of oracle voting rewards.
+
+The slashing fine is applied to validator bonded stake according to the protocol’s [Penalty-Absorbing Stake (PAS)](/concepts/ofd/#penalty-absorbing-stake-pas) model: [self-bonded](/glossary/#self-bonded) stake is slashed before [delegated](/glossary/#delegated) stake. The validator state is updated: (a) the self-bonded and total staked amounts adjusted, (b) the slashing amount is added to the validator's `totalSlashed` counter. The slashed NTN stake token is then transferred to the Autonity Protocol global `treasury` account for community funding.
+
+Slashing results in an opportunity loss to the validator of potential future ATN staking rewards and NTN inflation rewards due to PAS slashing self-bonded stake in first priority.
+
+#### Outlier penalties
 
 | Economic loss | Receiving account | Distribution | Description |
 |:-- |:--|:--|:--|
 | Loss of current epoch _oracle rewards_ | n/a  | epoch end | The _offending validator_ loses the opportunity to earn oracle rewards for prices flagged as _outliers_. Oracles earn oracle rewards for reported prices included in the [Final price  calculation](/concepts/oafd/#final-price-calculation). _Outlier_ prices are excluded from that calculation and from the oracle's _epoch performance score_, which influences the amount of the validator's _oracle rewards_. See [Epoch performance score calculation](/concepts/oafd/#epoch-performance-score-calculation) and [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation). |
-| Slashing of stake token | Autonity Protocol [`treasury`](/reference/genesis/#config.autonity-object) account | epoch end | The _offending validator's_ bonded stake is slashed for the oracle outlier penalty amount. Slashing is applied at epoch end according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. Amount determined by the [Slashing amount calculation](/concepts/oafd/#slashing-amount-calculation). |
+| Slashing of stake token | Autonity Protocol [`treasury`](/reference/genesis/#config.autonity-object) account | epoch end | The _offending validator's_ bonded stake is slashed for the oracle outlier penalty amount. Slashing is applied at epoch end according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. Amount determined by the [Outlier slashing amount calculation](/concepts/oafd/#outlier-slashing-amount-calculation). |
+
+#### No reveal penalties
+
+| Economic loss | Receiving account | Distribution | Description |
+|:-- |:--|:--|:--|
+| Slashing of stake token | Autonity Protocol [`treasury`](/reference/genesis/#config.autonity-object) account | epoch end | The _offending validator's_ bonded stake is slashed for the oracle no reveal penalty amount. Slashing is applied at oracle voting round end according to the protocol's [Penalty-Absorbing Stake (PAS)](/glossary/#penalty-absorbing-stake-pas) model. Amount determined by the [Non reveal slashing amount calculation](/concepts/oafd/#non-reveal-slashing-amount-calculation). |
 
 ### Rewards
 
