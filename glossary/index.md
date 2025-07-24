@@ -114,6 +114,11 @@ Autonity implements Tendermint BFT consensus, an asynchronous consensus protocol
 ## calldata
 Data committed to state by arguments to a smart contract deployed on the blockchain. 'calldata' is accessed by the Solidity `.call()` function. Calldata is non-executable - it is [state](/glossary/#system-state) not [smart contract](/glossary/#smart-contract) [bytecode](/glossary/#bytecode).
 
+## circulating supply
+The amount of minted NTN that is in circulation. The circulating supply amount changes over time. It begins at the amount minted at genesis minus the amount in protocol schedules (see Reference, Protocol Parameters, [Autonity Config](/reference/protocol/#autonity-config) `tokenMint` and `schedules`). It increases over time as minted NTN is released from the protocol schedules and NTN is minted by the Newton [inflation mechanism](/glossary/#inflation-mechanism) and emitted into circulation over time as [inflation rewards](/glossary/#inflation-rewards) awarded to [participating](/glossary/#participation-rate) NTN.
+
+See [total supply](/glossary/#total-supply).
+
 ## consensus
 The computational process by which [system state](/glossary/#system-state) is agreed and replicated by [validator](/glossary/#validator) nodes in a distributed system. Autonity implements a [Proof of Stake (PoS)](/glossary/#proof-of-stake-pos) based [consensus algorithm](/glossary/#consensus-algorithm).
 
@@ -333,6 +338,11 @@ The computational state of an Autonity system. State is  computed according to t
 
 ## ton
 The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 ton (10^18). The ton is Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [gigaton](/glossary/#gigaton).
+
+## total supply
+The total amount of minted NTN. The total supply amount changes over time. It begins at the amount minted at genesis (see Reference, Protocol Parameters, [Autonity Config](/reference/protocol/#autonity-config) `tokenMint`). It increases over time as NTN is minted by the Newton [inflation mechanism](/glossary/#inflation-mechanism) as [inflation rewards](/glossary/#inflation-rewards) awarded to [participating](/glossary/#participation-rate) stake.
+
+See [circulating supply](/glossary/#circulating-supply).
 
 ## transaction fee mechanism (TFM)
 The protocol mechanism for pricing the cost of processing a transaction on a blockchain.

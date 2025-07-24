@@ -1178,7 +1178,7 @@ aut protocol epoch-period --rpc-endpoint $RPC_URL
 :::
 
 
-## get inflation reserve
+## getInflationReserve
 
 Returns the amount of Newton remaining in the [inflation reserve](/glossary/#inflation-mechanism) at the block height of the call.
 

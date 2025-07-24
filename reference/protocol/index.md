@@ -94,7 +94,6 @@ Autonity assigns the same value to Chain and Network identifiers `networkId` and
 | `unbondingPeriod` | The period of time bonded stake must wait before Newton can be redeemed after unbonding, defined as a number of blocks. The unbonding period can be any integer number `> 0`, but must be longer than the `epochPeriod`. | See [`config.autonity.unbondingPeriod`](/reference/genesis/#configautonity-object)  | See [`setUnbondingPeriod()`](/reference/api/aut/op-prot/#setunbondingperiod) |
 | `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Also known as 'block time' or 'block interval'. | Set to `1` | None |
 | `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Set to `30`, the number of genesis validators. Increased post-genesis to `100` | See [`setCommitteeSize()`](/reference/api/aut/op-prot/#setcommitteesize) |
-| `maxScheduleDuration` | The maximum allowed duration of a schedule | Set to `94608000` (1095 days) | See [`setMaxScheduleDuration()`](/reference/api/aut/op-prot/#setmaxscheduleduration) |
 | governance `operator` account | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. | EOA account address | See [`setOperatorAccount()`](/reference/api/aut/op-prot/#setoperatoraccount) |
 | `treasury` account | The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. | EOA account address | See [`setTreasuryAccount()`](/reference/api/aut/op-prot/#settreasuryaccount) |
 | `withheldRewardsPool` account | The address of the Autonity Withheld Rewards account, the pool to which withheld Newton inflation rewards are sent for holding | EOA account address. Set by default to the Autonity `treasury` account at genesis unless specified | See [`setWithheldRewardsPool()`](/reference/api/aut/op-prot/#setwithheldrewardspool) |
@@ -108,10 +107,36 @@ Autonity assigns the same value to Chain and Network identifiers `networkId` and
 | `gasLimitBoundDivisor` | The divisor that determines the change in the gas limit compared to the parent block's gas limit. | Set to `1024 ` | See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
 | `baseFeeChangeDenominator` | Bounds the amount the base fee can change between blocks. | Set to `64` | See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
 | `elasticityMultiplier` | Multiplier to compute the block gas target. Results in block gas target as a percentage of the parent block gas limit. | Set to `2` (targets 50% of the block gas limit) | See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
-| `clusteringThreshold` | Sets the clustering threshold for consensus message, a threshold set on committee size which when crossed triggers clustering of consensus message gossiping for network optimisation | Set to `64` | See [`setClusteringThreshold()`](/reference/api/aut/op-prot/#setclusteringthreshold) |
-| `skipGenesisVerification` | A boolean flag to skip or not verification that the total supply of NTN minus the inflation reserve equals the amount of NTN minted  (`tokenMint` parameter) at network genesis. | Set to `false` | None |
-| `tokenBond` | The amount of NTN stake token self-bonded to validators at network genesis. | Specific to network  genesis | None |
+| `clusteringThreshold` | Sets the clustering threshold for consensus message routing. When committee size exceeds this threshold, network participants are grouped into deterministic clusters to optimize network propagation of gossiped consensus messages. | Set to `64` | See [`setClusteringThreshold()`](/reference/api/aut/op-prot/#setclusteringthreshold) |
+| `skipGenesisVerification` | A boolean flag to skip or not verification checks that the amount of NTN minted and bonded at genesis matches the `tokenBond` and `tokenMint` parameter values. | Set to `false` | None |
+| `tokenBond` | The amount of NTN stake token bonded to validators at network genesis. | Specific to network  genesis | None |
 | `tokenMint` | The amount of NTN stake token minted at network genesis. | Specific to network genesis | None |
+| `schedules` | Protocol schedules determine the amount of NTN to deduct from the total minted NTN amount to set the circulating supply (inflation base) to which the inflation rate is applied. | Specific to network genesis | None |
+| `maxScheduleDuration` | The maximum allowed duration of a schedule. See `schedules`. | Set to `94608000` (1095 days) | See [`setMaxScheduleDuration()`](/reference/api/aut/op-prot/#setmaxscheduleduration) |
+
+::: {.callout-note title="NTN supply, protocol schedules and Newton inflation" collapse="false"}
+
+The _total supply_ of NTN is capped at 100M NTN, 60M of which is minted at genesis (`tokenMint`) and 40M of which is in the Newton inflation reserve (`initialInflationReserve`. NTN in the inflation reserve is then minted by the Newton [inflation mechanism](/glossary/#inflation-mechanism) and emitted into circulation over time as [inflation rewards](/glossary/#inflation-rewards) awarded to [participating](/glossary/#participation-rate) NTN. Participating NTN is the amount of NTN in the _circulating supply_ that has been [delegated](/glossary/#delegated) ([bonded](/glossary/#bond)) to validators and so is securing the network (at genesis this is `tokenBond`). NTN inflation rewards are emitted epoch end and [autobonded](/glossary/#autobond) to the validator staked to. Autobonding simultaneously increases the NTN [participating stake](/glossary/#participation-rate) amount of a delegator and increases network security.
+
+The _circulating supply_ of NTN at genesis is the amount of NTN minted at genesis (`tokenMint`) minus the amount of NTN in the protocol schedules (`schedules`). 
+
+The protocol `schedules` record the amount of minted NTN that is out of circulation at genesis. Specifically, the protocol schedules record the amount of NTN locked in locking contract(s) that will unlock and release NTN in to the _circulating supply_ over time according to an unlocking schedule. An unlocking schedule can be no greater than the `maxScheduleDuration`.
+
+The amount of NTN in the circulating supply at genesis (i.e. `tokenMint` amount minus protocol `schedules` amount) is the _inflation base_ to which the _inflation rate_ is applied by the Newton _inflation mechanism_. The protocol schedules are properties of the inflation mechanism, therefore. 
+
+For detail on NTN supply, protocol schedules and Newton inflation see:
+
+- Concepts, Protocol assets, Newton, [Total supply and Newton inflation](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
+- Concepts, Architecture, [Newton Inflation Controller Contract](/concepts/architecture/#newton-inflation-controller-contract).
+- Reference, Protocol Parameters, [Inflation Controller Config](/reference/protocol/#inflation-controller-config).
+- Glossary: [circulating supply](/glossary/#circulating-supply), [total supply](/glossary/#total-supply), [inflation mechanism](/glossary/#inflation-mechanism), [inflation rewards](/glossary/#inflation-rewards), [participation rate](/glossary/#participation-rate), [autobond](/glossary/#autobond), [delegation](/glossary/#delegation).
+
+To return current state data see the Autonity Contract Interfaces and:
+
+- Autonity Contract Interface (for NTN supply and inflation reserve amounts):  [`circulatingSupply()`](/reference/api/aut/#circulatingsupply), [`getInflationReserve()`](/reference/api/aut/#get-inflation-reserve), [`totalSupply()`](/reference/api/aut/#totalsupply).
+- Inflation Controller Contract Interface (for Newton inflation mechanism configuration): [`getParams`](/reference/api/inflation/#getparams).
+
+:::
 
 ### Accountability Config
 
