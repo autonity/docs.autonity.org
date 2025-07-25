@@ -313,7 +313,7 @@ where:
 
 Proposer rewards are an incentive for the proposer to include as many signatures as possible in an [activity proof](/concepts/ofd/#activity-proof).
 
-A percentage of both the ATN staking rewards coming from transaction fees and NTN rewards coming from the Newton inflation mechanism are allocated for proposer incentivisation.
+A percentage of both the ATN staking rewards coming from transaction fees and NTN rewards coming from the Newton inflation mechanism are allocated for proposer incentivization.
 
 Only signatures that contribute further than the $\frac{2}{3}$ voting power are incentivized. In other words:
 
