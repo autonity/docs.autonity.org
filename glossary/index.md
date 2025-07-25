@@ -60,12 +60,12 @@ A [smart contract](/glossary/#smart-contract) based lending mechanism where coll
 CDPs are used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) to borrow [Auton](/glossary/#auton) against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
 
 ## Autonity Go Client (AGC)
-Autonity Go Client is main client software for accessing and participating in an Autonity network. AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
+Autonity Go Client is main client software for accessing and participating in an [Autonity network](/glossary/#autonity-network). AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
 
-For AGC features see Concept [Client](/concepts/client/).
+### For AGC features see Concept [Autonity Go Client (AGC)](/concepts/client/).
 
 ## Autonity network
-An instance of an Autonity blockchain [peer-to-peer network](/glossary/#peer-to-peer-network-p2p), all [peer](/glossary/#peer) [nodes](/glossary/#node) running Autonity Go Client main client software. Public Autonity networks are instantiated for specific purposes - e.g. testnet, mainnet.
+An instance of an Autonity blockchain [peer-to-peer network](/glossary/#peer-to-peer-network-p2p), all [peer](/glossary/#peer) [nodes](/glossary/#node) running [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) main client software. [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) also run [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-aos) software. Public Autonity networks are instantiated for specific purposes - i.e. testnet, mainnet.
 
 Autonity network peers are connected in a full [mesh network](/glossary/#mesh-network). Peers discover and connect to one another via Autonity's communication layer protocols which are based on the Ethereum devp2p networking protocol.
 
@@ -272,6 +272,8 @@ The participation rate is a key dimension of the network’s security. It quanti
 
 ## peer
 A [node](/glossary/#node) which is currently connected to other nodes in a [peer-to-peer network](/glossary/#peer-to-peer-network-p2p) and is a [participant](/glossary/#participant) in that network.
+
+Peer nodes run Autonity Protocol main client software, see [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc). If the peer is a [validator](/glossary/#validator) node, then it will also run [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-aos) software and participate in the [oracle network](/glossary/#oracle-network).
 
 ## peer-to-peer network (p2p)
 A distributed systems architecture in which the systems' resources are pooled and shared across nodes that are peers of the network.
