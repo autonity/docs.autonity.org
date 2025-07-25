@@ -9,9 +9,9 @@ The Liquid Newton contract is deployed by the Autonity contract in response to v
 
 The address of the Liquid Newton contract for a given validator can be determined by the information returned from the Autonity contract [`getValidator`](/reference/api/aut/#getvalidator) method (see [here](/delegators/transfer-lntn/) for details of how to query this using Autonity CLI).
 
-Liquid Newton tokens implement the ERC20 interface, and so all ERC20 calls are implemented.  The following public methods are also available for handling the reward distribution and querying Liquid Newton balances.
+Liquid Newton tokens implement the ERC20 interface, and so all ERC20 calls are implemented. The following public methods are also available for handling the reward distribution and querying Liquid Newton balances.
 
-::: {.callout-note title="Protocol contract calls" collapse="false"}
+::: {.callout-note title="Claiming ATN staking rewards" collapse="false"}
 Autonity implements a 'pull-based' model for staking rewards where delegators must manually retrieve their rewards.
 :::
 
@@ -26,13 +26,20 @@ You will need to specify the validator's Liquid Newton contract address. This ca
 
 ## claimRewards
 
-Computes the total rewards owed to the caller, and sends the appropriate amount of auton.
+Computes the total ATN rewards owed to the caller from a specific validator stake delegation, and sends the appropriate amount of Auton to the caller's [staking wallet account](/glossary/#staking-wallet-account).
+
+::: {.callout-note title="Note" collapse="false"}
+
+- The claim rewards function is used by _any_ stake delegator to claim ATN staking rewards, i.e. for [delegated](/glossary/#delegated) or [self-bonded](/glossary/#self-bonded) stake.
+- Ir returns rewards for a designated validator. If the caller has stake delegations to _multiple_ validators, then `claimRewards()` will need to be called for each stake delegation.
+
+:::
 
 The `aut validator claim-rewards` command uses this function.  Usage details and examples are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#claim-rewards) section.
 
 ## claimTreasuryATN
 
-Sends to the treasury the ATN rewards accrued by the validator via the commission charged on [delegated](/glossary/#delegated) stake.
+Used by a validator operator to claim ATN rewards accrued by the validator from the validator commission charged on stake [delegations](/glossary/#delegation). The rewards are sent to the validator `treasury` account.
 
 Constraint checks are applied:
 
@@ -60,7 +67,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ## getTreasuryUnclaimedATN
 
-Queries the contract and returns the total unclaimed ATN rewards earned by a validator from commission charged on [delegated](/glossary/#delegated) stake.
+Used by a validator operator to return the total unclaimed ATN rewards accrued by the validator via the commission charged on [delegated](/glossary/#delegated) stake. The rewards are sent to the validator `treasury` account.
 
 The rewards can be claimed and sent to the validator's `treasury` by the validator operator calling [`claimTreasuryATN()`](/reference/api/liquid-newton/#claimtreasuryatn).
 
@@ -84,6 +91,13 @@ The `getTreasuryUnclaimedATN()` function in the Liquid Newton Contract Interface
 You can interact with the contract using the `aut contract` command group. See `aut contract call -h` for how to submit a transaction calling the interface function.
 :::
 
+## balanceOf (ERC-20)
+
+::: {.callout-note title="ERC-20 balanceOf()" collapse="false"}
+
+Note that the ERC-20 `balanceOf()` will return the sum of locked and unlocked balances of LNTN in the contract. The locked and unlocked balances can be returned individually using `lockedBalanceOf()` and `unlockedBalanceOf()`.
+
+:::
 
 ##  lockedBalanceOf
 
@@ -119,6 +133,13 @@ aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313  lockedBa
 0
 ```
 :::
+
+## unclaimedRewards
+
+Returns the total ATN rewards owed to a given account.
+Computes the total ATN rewards owed to the caller for a specific validator stake delegation.
+
+This function is used by the `aut validator unclaimed-rewards` command of [`aut`](/account-holders/setup-aut/).  Further details are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#get-reward-balance) section.
 
 
 ##  unlockedBalanceOf
@@ -157,8 +178,3 @@ aut contract call --address 0x109f93893af4c4b0afc7a9e97b59991260f98313 unlockedB
 :::
 
 
-## unclaimedRewards
-
-Returns the total ATN rewards owed to a given account.
-
-This function is used by the `aut validator unclaimed-rewards` command of [`aut`](/account-holders/setup-aut/).  Further details are given in the ["Claiming staking rewards"](/delegators/claim-rewards/#get-reward-balance) section.
