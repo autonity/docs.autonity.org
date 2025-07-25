@@ -15,6 +15,16 @@ Liquid Newton tokens implement the ERC20 interface, and so all ERC20 calls are i
 Autonity implements a 'pull-based' model for staking rewards where delegators must manually retrieve their rewards.
 :::
 
+::: {.callout-note title="Claiming validator commission on ATN staking rewards" collapse="false"}
+
+The validator `treasury` receives commission rewards automatically epoch end when the Autonity Contract [`finalize()`(/reference/api/aut/op-prot/#finalize) function is invoked to finalize the last block of the epoch.
+
+`claimTreasuryATN()` is provided for a failure scenario if `finalize()` fails to send ATN rewards to the validator `treasury` end of epoch. To prevent reward loss the protocol tracks ATN rewards for the `treasury` and  the `treasury` can claim them by calling `claimTreasuryATN()`. A validator operator can check if there are commission rewards to claim by calling [`getTreasuryUnclaimedATN()`](/reference/api/liquid-newton/#gettreasuryunclaimedatn) from the validator `treasury` address.
+
+The `claimRewards()` function is for stake delegators who don't receive their rewards automatically. 
+
+:::
+
 ::: {.callout-note title="Protocol contract calls" collapse="false"}
 Some Usage and Examples illustrate using the Liquid Newton  Contracts' generated ABI and the `aut` tool's `contract` command to call the Liquid Newton Contract functions. See `aut contract call --help`.
 
