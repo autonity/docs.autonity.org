@@ -265,7 +265,14 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ## getRewardPeriodPerformance
 
-Returns the voting performance for a voter in the current reward (epoch) period.
+Returns the voting performance for a voter in the current epoch reward period.
+
+::: {.callout-note title="Note" collapse="false"}
+
+Confidence scores for the price reports submitted by a validator in an epoch are summed to create the validator's [epoch performance score](/concepts/oafd/#epoch-performance-score). The performance score is used as a weighting factor in the OAFD [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation) end of epoch.
+
+:::
+ 
 
 ### Parameters
 
@@ -525,13 +532,13 @@ aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVotePe
 
 ## getVoterInfo
 
-Returns information about an oracle voter, i.e. of a validator node's connected oracle server.
+Returns information about the voting state of a validator's oracle at the block height of the call.
 
 ### Parameters
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_voter` | `address` | the oracle address of the target voter, an oracle server in the [oracle network](/concepts/oracle-network/). |
+| `_voter` | `address` | the oracle address of the target voter (i.e. of a validator node's connected oracle server in the [oracle network](/concepts/oracle-network/). |
     
 ### Response
 
@@ -541,19 +548,63 @@ Returns a `voterInfo` object consisting of:
 |:-- |:-- |:-- |
 | `round` | `uint256` | The last round the voter participated in |
 | `commit` | `uint256` | The commit hash of the voter's last report |
-| `performance` | `uint256` | The performance score of the voter |
+| `performance` | `uint256` | The epoch performance score of the voter |
 | `nonRevealCount` | `uint256` | Number of commits that were not revealed
 | `isVoter` | `bool` | Indicates if the address is a registered voter |
 | `reportAvailable` | `bool` | Indicates if the last report is available for the voter |
-        
-        
+
 ### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The Oracle Contract Interface is not currently supported by `aut`.
-
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
 :::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+TO DO
+
+```
+:::
+
+        
+## getRewardPeriodPerformance
+
+Returns the voting performance for a voter in the current epoch reward period.
+
+::: {.callout-note title="Note" collapse="false"}
+
+Confidence scores for the price reports submitted by a validator in an epoch are summed to create the validator's [epoch performance score](/concepts/oafd/#epoch-performance-score). The performance score is used as a weighting factor in the OAFD [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation) end of epoch.
+
+:::       
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+TO DO
+
+```
+:::
+
+
 
 
 ## getVoters

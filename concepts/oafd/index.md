@@ -221,7 +221,7 @@ If a non reveal fault is detected then the validator's non reveal count is incre
 
 In both cases the voter's `nonRevealCount` is incremented by `1`.
 
-Case 1 is handled by the Oracle Contract's `vote()` function logic and the vote transaction reverts, `vote()` emitting an `InvalidVote` error event logging the commit mismatch and incrementing `nonRevealCount` by `1`.
+Case 1 is handled by the Oracle Contract's `vote()` function logic; the vote transaction reverts.
 
 Case 2 is handled by the Oracle Contract's `finalize()` function when the voting round is finalized:
 
@@ -236,6 +236,15 @@ where:
 - $nonRevealCount$ means the validator's non reveal counter, recording the number of commits the validator has not revealed in the epoch to date
 
 When the voting round is finalized a non reveal slashing penalty may be applied if the non reveal threshold has been exceeded.
+
+::: {.callout-note title="Oracle Contract events emitted on non reveal detection" collapse="false"}
+
+- Case 1: an `InvalidVote` error event, logging `name` ("CommitMismatch"), validator oracle `_address`, `_pastCommit`, current `_commit`, Autonity Oracle Server version in `_extra`.
+- Case 1 &amp; 2: incrementing the `nonRevealcount` emits a `CommitRevealMissed` event, logging validator oracle `_address`, `round` when missed, `_voter.nonRevealCount`.
+- Case 1 &amp; 2: if incrementing the `nonRevealcount` means the `nonRevealThreshold` has been exceeded, then slashing is applied and a `NoRevealPenalty` event emitted, logging validator oracle address `_voter`, `_round` when penalized, `_voter.nonRevealCount` of missed reveals.
+
+:::
+
 
 ### Non reveal slashing amount calculation
 
