@@ -265,7 +265,7 @@ You can interact with the contract using the `aut contract` command group. See `
 
 ## getRewardPeriodPerformance
 
-Returns the voting performance for a voter in the current epoch reward period.
+Returns the epoch performance score for a voter at the block height of the call.
 
 ::: {.callout-note title="Note" collapse="false"}
 
@@ -456,44 +456,6 @@ TO DO
 :::
 
 
-## getVoters
-
-Returns the list of participants in the oracle voting process, i.e. all voters in the current consensus committee.
-
-The response is returned as a list of oracle identifier addresses, sorted in descending dictionary order.
-
-### Parameters
-
-None.
-
-### Response
-
-| Field | Datatype | Description |
-| --| --| --|
-| `voters` | `address` array | a comma-separated list of oracle addresses for participants in the oracle voting process |
-
-### Usage
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
-```
-:::
-
-### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-
-aut contract call --address 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D getVoters
-["0x037b9420CA2983dc3EF87dF1C4994A2BDF6FF8BF", "0x0804A922ba6B7c0965928a8d9A10ecdeA0b3c41A",...]
-
-```
-:::
-
-
 ## getVotePeriod
 
 Returns the current vote period from Oracle Contract config.
@@ -573,43 +535,9 @@ TO DO
 ```
 :::
 
-        
-## getRewardPeriodPerformance
-
-Returns the voting performance for a voter in the current epoch reward period.
-
-::: {.callout-note title="Note" collapse="false"}
-
-Confidence scores for the price reports submitted by a validator in an epoch are summed to create the validator's [epoch performance score](/concepts/oafd/#epoch-performance-score). The performance score is used as a weighting factor in the OAFD [Oracle reward calculation](/concepts/oafd/#oracle-reward-calculation) end of epoch.
-
-:::       
-
-### Usage
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-TO DO
-```
-:::
-
-### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-
-TO DO
-
-```
-:::
-
-
-
-
 ## getVoters
 
-Returns the current voters in the committee.
+Returns the list of participants in the oracle voting process, i.e. all voters in the current consensus committee.
 
 The response is returned as a list of oracle identifier addresses, sorted in descending dictionary order.
 
