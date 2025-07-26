@@ -15,7 +15,7 @@ Configuring the client to join a public network is done by setting the network a
 
 |Network|Command-line option|Network settings|
 |-------|-------------------|----------------|
-|Piccadilly Testnet| [`--piccadilly` command-line option](/reference/cli/#command-line-options) | [Genesis configuration](/networks/testnet-piccadilly/#genesis-configuration) |
+|Bakerloo Testnet| [`--bakerloo` command-line option](/reference/cli/#command-line-options) | [Genesis configuration](/networks/testnet-bakerloo/#genesis-configuration) |
 
 
 For details of individual public network purpose and use see the [Networks](/networks/) section.
@@ -49,6 +49,7 @@ Genesis configuration file JSON objects:
 - [config.asm.acu](#config.asm.acu-object)
 - [config.asm.stabilization](#config.asm.stabilization-object)
 - [config.asm.supplyControl](#config.asm.supplycontrol-object)
+- [config.asm.auctioneer](#config.asm.auctioneer-object)
 - [config.omissionAccountability](#config.omissionaccountability-object)
 - [alloc](#alloc-object)
 - [alloc.account object](#alloc.account-object)
@@ -61,7 +62,6 @@ Genesis configuration file JSON objects:
 | `nonce` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. | Set to `0` (`0x0` in hexadecimal) |
 | `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0`, the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP)](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
 | `baseFee` | The base gas price for computing a transaction on an Autonity network after genesis.  Denominated in [`ton`](/glossary/#ton). The base fee is adjusted per the [EIP 1559](https://eips.ethereum.org/EIPS/eip-1559) fee market mechanism. See Concepts, [EIP 1559 Transaction fee mechanism (TFM)](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm) | Set to: `1000000000` (`1` [gigaton](/glossary/#gigaton)) |
-| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. The value is specified as the number of gas units allowed in a block. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `20000000` |
 | `difficulty` | Derived from Ethereum where it sets the difficulty for Ethereum's Ethash Proof of Work consensus. For Autonity's implementation of Tendermint BFT Proof of Stake consensus this must be assigned `0`. | Set to `0` (`0x0`) |
 | `coinbase` | Maintained for backward compatibility reasons in the EVM. Unused by the Autonity Protocol. Ethereum format address. | Set to `0x0000000000000000000000000000000000000000` |
 | `number ` | A value equal to the number of ancestor blocks. At genesis there are no ancestor blocks and it is assigned the value `0` | Set to `0` (`0x0`) |
@@ -98,7 +98,6 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `unbondingPeriod` | See Protocol Parameter Reference [Autonity Config, `unbondingPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of `120` could be appropriate. The `unbondingPeriod` must be longer than an `epochPeriod` |
 | `blockPeriod` | See Protocol Parameter Reference [Autonity Config, `blockPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
 | `maxCommitteeSize` | See Protocol Parameter Reference [Autonity Config, `maxCommitteeSize`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `20` could be appropriate |
-| `maxScheduleDuration` | See Protocol Parameter Reference [Autonity Config, `maxScheduleDuration`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `2592000` could be appropriate |
 | `operator` | See Protocol Parameter Reference [Autonity Config, `operator`](/reference/protocol/#autonity-config) | EOA account address. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) |
 | `treasury` | See Protocol Parameter Reference [Autonity Config, `treasury`](/reference/protocol/#autonity-config) | EOA account address |
 | `withheldRewardsPool` | See Protocol Parameter Reference [Autonity Config, `withheldRewardsPool`](/reference/protocol/#autonity-config) | Set by default to the Autonity `treasury` account at genesis unless specified |
@@ -108,6 +107,16 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `proposerRewardRate` | See Protocol Parameter Reference [Autonity Config, `proposerRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
 | `oracleRewardRate` | See Protocol Parameter Reference [Autonity Config, `oracleRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
 | `initialInflationReserve` | See Protocol Parameter Reference [Autonity Config, `initialInflationReserve`](/reference/protocol/#autonity-config) | Value is set to `40` Million (40% of the total supply of 100 M Newton) |
+| `gasLimit` | See Protocol Parameter Reference [Autonity Config, `gasLimit`](/reference/protocol/#autonity-config)  | Set to: `30000000` |
+| `gasLimitBoundDivisor` | See Protocol Parameter Reference [Autonity Config, `gasLimit`](/reference/protocol/#autonity-config)  | Set to: `1024` |
+| `baseFeeChangeDenominator` | See Protocol Parameter Reference [Autonity Config, `baseFeeChangeDenominator`](/reference/protocol/#autonity-config)  | Set to: `64` |
+| `elasticityMultiplier` | See Protocol Parameter Reference [Autonity Config, `elasticityMultiplier`](/reference/protocol/#autonity-config)  | Set to: `2` |
+| `clusteringThreshold` | See Protocol Parameter Reference [Autonity Config, `clusteringThreshold`](/reference/protocol/#autonity-config)  | Set to: `64` |
+| `skipGenesisVerification` | See Protocol Parameter Reference [Autonity Config, `skipGenesisVerification`](/reference/protocol/#autonity-config)  | Set to: `false` |
+| `tokenBond` | See Protocol Parameter Reference [Autonity Config, `tokenBond`](/reference/protocol/#autonity-config)  | Specific to network genesis |
+| `tokenMint` | See Protocol Parameter Reference [Autonity Config, `tokenMint`](/reference/protocol/#autonity-config)  | Specific to network genesis |
+| `maxScheduleDuration` | See Protocol Parameter Reference [Autonity Config, `maxScheduleDuration`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `2592000` could be appropriate |
+| `schedules` | See Protocol Parameter Reference [Autonity Config, `schedules`](/reference/protocol/#autonity-config) | Value is specific to network configuration. |
 | `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
 
 #### config.autonity.validators object
@@ -145,6 +154,9 @@ Object structure for the oracle and Oracle Accountability Fault Detection (OAFD)
 | `outlierDetectionThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierDetectionThreshold`](/reference/protocol/#oracle-config) |
 | `outlierSlashingThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierSlashingThreshold`](/reference/protocol/#oracle-config) |
 | `baseSlashingRate` | See Protocol Parameter Reference [Oracle Config, `baseSlashingRate`](/reference/protocol/#oracle-config) |
+| `nonRevealThreshold` | See Protocol Parameter Reference [Oracle Config, `nonRevealThreshold`](/reference/protocol/#oracle-config) |
+| `revealResetInterval` | See Protocol Parameter Reference [Oracle Config, `revealResetInterval`](/reference/protocol/#oracle-config) |
+| `slashingRateCap` | See Protocol Parameter Reference [Oracle Config, `slashingRateCap`](/reference/protocol/#oracle-config) |
 	
 #### config.inflationController object 
 
@@ -164,9 +176,10 @@ Configuration of the Auton Stabilization Mechanism (ASM).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `acu` | Object structure for the ASM's Autonomous Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
-| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
-| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
+| `acu` | Object structure for the ASM's Autonomous Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object) |
+| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object) |
+| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object) |
+| `auctioneer` | Object structure for the ASM's CDP debt and interest auction mechanism configuration at genesis | See [`config.asm.auctioneer` object](#configasmauctioneer-object) |
 
 #### config.asm.acu object
 
@@ -185,10 +198,14 @@ Configuration of the Stabilization mechanism's Collateralized Debt Position (CDP
 |Parameter|Description &amp; Value|
 |---------|----------------|
 | `borrowInterestRate` | See Protocol Parameter Reference [Stabilization Config, `borrowInterestRate`](/reference/protocol/#stabilization-config) |
+| `announcementWindow` | See Protocol Parameter Reference [Stabilization Config, `announcementWindow`](/reference/protocol/#stabilization-config) |
 | `liquidationRatio` | See Protocol Parameter Reference [Stabilization Config, `liquidationRatio`](/reference/protocol/#stabilization-config) |
 | `minCollateralizationRatio` | See Protocol Parameter Reference [Stabilization Config, `minCollateralizationRatio`](/reference/protocol/#stabilization-config) |
 | `minDebtRequirement` | See Protocol Parameter Reference [Stabilization Config, `minDebtRequirement`](/reference/protocol/#stabilization-config) |
 | `targetPrice` | See Protocol Parameter Reference [Stabilization Config, `targetPrice`](/reference/protocol/#stabilization-config) |
+| `defaultNTNATNPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultNTNATNPrice`](/reference/protocol/#stabilization-config) |
+| `defaultNTNUSDPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultNTNUSDPrice`](/reference/protocol/#stabilization-config) |
+| `defaultACUUSDPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultACUUSDPrice`](/reference/protocol/#stabilization-config) |
 
 #### config.asm.supplyControl object
 
@@ -197,6 +214,17 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 |Parameter|Description &amp; Value|
 |---------|----------------|
 | `initialAllocation` | See Protocol Parameter Reference [Supply Control Config, `initialAllocation`](/reference/protocol/#supply-control-config) |
+
+#### config.asm.auctioneer object
+
+Configuration of the ASM's auction mechanism for CDP debt and interest.
+
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `liquidationAuctionDuration` | See Protocol Parameter Reference [Auctioneer Config, `liquidationAuctionDuration`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionDuration` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionDuration`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionDiscount` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionDiscount`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionThreshold` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionThreshold`](/reference/protocol/#auctioneer-config) |
 
 #### config.omissionAccountability object
 

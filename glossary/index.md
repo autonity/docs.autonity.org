@@ -60,12 +60,12 @@ A [smart contract](/glossary/#smart-contract) based lending mechanism where coll
 CDPs are used by the [Auton Stabilization Mechanism (ASM)](/glossary/#asm) to borrow [Auton](/glossary/#auton) against [Newton](/glossary/#newton) or [Liquid Newton](/glossary/#liquid-newton) collateral.
 
 ## Autonity Go Client (AGC)
-Autonity Go Client is main client software for accessing and participating in an Autonity network. AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
+Autonity Go Client is main client software for accessing and participating in an [Autonity network](/glossary/#autonity-network). AGC implements the Autonity Protocol. All [nodes](/glossary/#node) of an Autonity network run AGC software. When connected to an Autonity network an AGC is a [participant](/glossary/#participant) in that network.
 
-For AGC features see Concept [Client](/concepts/client/).
+### For AGC features see Concept [Autonity Go Client (AGC)](/concepts/client/).
 
 ## Autonity network
-An instance of an Autonity blockchain [peer-to-peer network](/glossary/#peer-to-peer-network-p2p), all [peer](/glossary/#peer) [nodes](/glossary/#node) running Autonity Go Client main client software. Public Autonity networks are instantiated for specific purposes - e.g. testnet, mainnet.
+An instance of an Autonity blockchain [peer-to-peer network](/glossary/#peer-to-peer-network-p2p), all [peer](/glossary/#peer) [nodes](/glossary/#node) running [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) main client software. [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) also run [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-aos) software. Public Autonity networks are instantiated for specific purposes - i.e. testnet, mainnet.
 
 Autonity network peers are connected in a full [mesh network](/glossary/#mesh-network). Peers discover and connect to one another via Autonity's communication layer protocols which are based on the Ethereum devp2p networking protocol.
 
@@ -113,6 +113,11 @@ Autonity implements Tendermint BFT consensus, an asynchronous consensus protocol
 
 ## calldata
 Data committed to state by arguments to a smart contract deployed on the blockchain. 'calldata' is accessed by the Solidity `.call()` function. Calldata is non-executable - it is [state](/glossary/#system-state) not [smart contract](/glossary/#smart-contract) [bytecode](/glossary/#bytecode).
+
+## circulating supply
+The amount of minted NTN that is in circulation. The circulating supply amount changes over time. It begins at the amount minted at genesis minus the amount in protocol schedules (see Reference, Protocol Parameters, [Autonity Config](/reference/protocol/#autonity-config) `tokenMint` and `schedules`). It increases over time as minted NTN is released from the protocol schedules and NTN is minted by the Newton [inflation mechanism](/glossary/#inflation-mechanism) and emitted into circulation over time as [inflation rewards](/glossary/#inflation-rewards) awarded to [participating](/glossary/#participation-rate) NTN.
+
+See [total supply](/glossary/#total-supply).
 
 ## consensus
 The computational process by which [system state](/glossary/#system-state) is agreed and replicated by [validator](/glossary/#validator) nodes in a distributed system. Autonity implements a [Proof of Stake (PoS)](/glossary/#proof-of-stake-pos) based [consensus algorithm](/glossary/#consensus-algorithm).
@@ -268,6 +273,8 @@ The participation rate is a key dimension of the network’s security. It quanti
 ## peer
 A [node](/glossary/#node) which is currently connected to other nodes in a [peer-to-peer network](/glossary/#peer-to-peer-network-p2p) and is a [participant](/glossary/#participant) in that network.
 
+Peer nodes run Autonity Protocol main client software, see [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc). If the peer is a [validator](/glossary/#validator) node, then it will also run [Autonity Oracle Server (AOS)](/glossary/#autonity-oracle-server-aos) software and participate in the [oracle network](/glossary/#oracle-network).
+
 ## peer-to-peer network (p2p)
 A distributed systems architecture in which the systems' resources are pooled and shared across nodes that are peers of the network.
 
@@ -333,6 +340,11 @@ The computational state of an Autonity system. State is  computed according to t
 
 ## ton
 The smallest denomination of Autonity's [auton](/glossary/#auton) native [cryptocurrency](/glossary/#cryptocurrency). 1 `auton` = 1,000,000,000,000,000,000 ton (10^18). The ton is Autonity's equivalent denomination to Ethereum's [wei](/glossary/#wei). See also [gigaton](/glossary/#gigaton).
+
+## total supply
+The total amount of minted NTN. The total supply amount changes over time. It begins at the amount minted at genesis (see Reference, Protocol Parameters, [Autonity Config](/reference/protocol/#autonity-config) `tokenMint`). It increases over time as NTN is minted by the Newton [inflation mechanism](/glossary/#inflation-mechanism) as [inflation rewards](/glossary/#inflation-rewards) awarded to [participating](/glossary/#participation-rate) stake.
+
+See [circulating supply](/glossary/#circulating-supply).
 
 ## transaction fee mechanism (TFM)
 The protocol mechanism for pricing the cost of processing a transaction on a blockchain.

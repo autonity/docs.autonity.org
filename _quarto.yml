@@ -36,6 +36,8 @@ website:
       - auto: concepts/protocol-assets
     - section: "Networks"
       contents:
+      - "networks/mainnet/index.md"
+      - "networks/testnet-bakerloo/index.md"
       - "networks/testnet-piccadilly/index.md"
     - section: "Accounts"
       contents:

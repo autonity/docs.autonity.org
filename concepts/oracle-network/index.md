@@ -142,20 +142,20 @@ Primary consumers of oracle data are:
 
 ## Oracle economics
 
-Participation in the oracle network as a consensus committee member is a validator responsibility. The costs of submitting vote transactions in voting rounds are refundable and so offset. Validators are made accountable for accurate and timely price reporting by economic incentives and disincentives by the [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) protocol. 
+Participation in the oracle network as a consensus committee member is a validator responsibility. Validators are rewarded for price reporting or made accountable for failure to correctly report and reveal prices by economic incentives and disincentives in the [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/) protocol. 
 
 ### OAFD rewards and penalties for price reporting
 
-Committee members are incentivised towards correct price reporting by rewards and disincentivised from outlier price reporting by penalties. For detail see [OAFD, Oracle economics](/concepts/oafd/#oafd-economics).
+Committee members are incentivised towards correct commit-reveal and timely, accurate price reporting by rewards. They are disincentivised from failing to follow the commit-reveal protocol and outlier price reporting by penalties. For detail see [OAFD, Oracle economics](/concepts/oafd/#oafd-economics).
 
 ### Transaction fee refund
 
 Oracle transaction fee costs for submitting price reports in voting rounds are refunded if successfully committed.
 
-The oracle account must be funded with a seed balance to cover at least one voting transaction.
-
-The validator is registered and eligible for selection to the consensus committee.
+The oracle account must be seed-funded with a balance to cover at least one voting transaction, therefore.
 
 ::: {.callout-note title="Note" collapse="false"}
+
 Limiting the oracle vote transaction to 1 each Round prevents the refund funding a spam attack vector in a Byzantine behaviour scenario. Once 1 vote transaction from an oracle account has been successfully processed, any further vote transactions from that oracle account during the round are reverted.
+
 :::
