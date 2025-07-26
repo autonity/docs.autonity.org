@@ -320,7 +320,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("accountabilityContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -349,7 +349,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("acuContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -441,7 +441,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits a `BaseSlashingRateUpdate` event, logging: old `config.baseSlashingRates`, new `_rates`.
 
 #### Usage
 
@@ -560,7 +560,7 @@ The updated parameter can be retrieved from state by calling the [`getMaxCommitt
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("committeeSize"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -700,7 +700,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("newOmissionDelta"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -842,7 +842,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-None.
+On a successful call the function emits an `AccountabilityFactorsUpdate` event, logging: old `config.factors`, new `_factors`.
 
 #### Usage
 
@@ -917,7 +917,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("inactivityThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -944,7 +944,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("inflationControllerContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -973,7 +973,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("initialJailingPeriod"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1000,7 +1000,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("initialProbationPeriod"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1031,7 +1031,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("initialSlashingRate"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1258,7 +1258,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("liquidLogicContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1292,7 +1292,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("newLookbackWindow"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1412,7 +1412,7 @@ The updated parameter can be retrieved from state by calling the [`getMinimumBas
 
 #### Event
 
-On a successful call the function emits a `MinimumBaseFeeUpdated` event, logging: `gasPrice`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("minBaseFee"), `oldValue`, `newValue`.
 
 #### Usage
 
@@ -1454,7 +1454,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("omissionAccountabilityContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1485,7 +1485,7 @@ The updated parameter can be retrieved from state by a call to the [`operatorAcc
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("operatorAccount"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1534,7 +1534,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("oracleContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1570,7 +1570,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("oracleRewardRate"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1604,7 +1604,7 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("pastPerformanceWeight"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1665,7 +1665,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("proposerRewardRate"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1694,7 +1694,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("slasher"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1733,12 +1733,12 @@ No response object is returned on successful execution of the call.
 
 #### Event
 
-On a successful call the function emits `ConfigUpdateUint` events, logging:
+On a successful call the function emits events:
 
-- configuration parameter `name` ("outlierSlashingThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
-- configuration parameter `name` ("outlierDetectionThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
-- configuration parameter `name` ("baseSlashingRate"), `oldValue`, `newValue`, `appliesAtHeight`.
-- configuration parameter `name` ("slashingRateCap"), `oldValue`, `newValue`, `appliesAtHeight`.
+- a `ConfigUpdateInt` event, logging: configuration parameter `name` ("outlierSlashingThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
+- a `ConfigUpdateInt` event, logging: configuration parameter `name` ("outlierDetectionThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("baseSlashingRate"), `oldValue`, `newValue`, `appliesAtHeight`.
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("slashingRateCap"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1765,7 +1765,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("stabilizationContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1794,7 +1794,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("supplyControlContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1879,7 +1879,7 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("treasuryAccount"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -1923,7 +1923,7 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("treasuryFee"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -2018,7 +2018,7 @@ The updated parameter can be retrieved from state by a call to [`config()`](/ref
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("unbondingPeriod"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -2064,7 +2064,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("upgradeManagerContract"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -2099,7 +2099,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateAddress` event, logging: configuration parameter `name` ("setWithheldRewardsPool"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -2134,7 +2134,7 @@ None.
 
 #### Event
 
-On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name`, `oldValue`, `newValue`, `appliesAtHeight`.
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("setWithholdingThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
 
 #### Usage
 
@@ -2257,7 +2257,7 @@ The ASM Stabilization Contract Interface is not currently supported by `aut`.
 You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
-###  upgrade
+### upgrade
 
 Provides new contract creation code for an Autonity Protocol Contract.
 
@@ -2283,7 +2283,9 @@ None.
 
 #### Event
 
-None.
+On a successful call the function emits:
+
+- an `upgradeResult` event, logging: `_target` the upgrade target contract address, `success` boolean indicating successful or failed upgrade.
 
 
 ###  useFixedGenesisPrices (ASM Stabilization Contract)
@@ -2458,7 +2460,7 @@ If an upgrade is available for a protocol contract, this is executed by the prot
 On successful reward distribution the function emits:
 
 - a `Rewarded` event for each staking reward distribution, logging: recipient address `addr`, `atnAmount` and `ntnAmount`.
-- a `NewEpoch` event signalling the beginning of a new epoch, logging: `epoch`, the unique identifier for the new epoch.
+- a `NewEpoch` event signalling the beginning of a new epoch, logging: `epochID`, `inflationReserve`, `stakeCirculating`.
 
 
 ###  finalize (Accountability Contract)
@@ -2548,10 +2550,11 @@ Returns `true` if there is a new voting round and new symbol prices are availabl
 
 On success the function emits:
 
-- a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.number`, `block.timestamp` and vote period duration `votePeriod`.
+- a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.timestamp`, and vote period duration `votePeriod`.
 - a `NoRevealPenalty` event for each non reveal penalty, logging validator oracle address `_voter`, `round`, `nonRevealCount`.
 - a `CommitRevealMissed` event for each missed commit reveal, logging validator oracle address `_address`, `round`, `nonRevealCount`.
 - a `Penalized` event for each price outlier penalty, logging validator oracle address `voter`, `_slashingAmount`, `_symbol`, `_priceMedian`, `price`.
+- a `TotalOracleRewards` event for the total oracle rewards distributed in the reward period (i.e. for the voting round), logging `_totalNTN`, `_totalATN`.
 
 
 ### handleEvent (Accountability Contract)

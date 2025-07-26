@@ -352,10 +352,10 @@ On successful processing of the method call:
 
 | Field | Datatype | Description |
 | --| --| --|
-| `delegator` | `address payable` | account address of the account bonding stake |
-| `delegatee` | `address` | [validator identifier](/concepts/validator/#validator-identifier) address of the validator to which stake is being bonded |
-| `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
-| `requestBlock` | `uint256` | the block number at which a bonding transaction was committed |
+| `_recipient` | `address payable` | account address of the account bonding stake |
+| `_validatorAddress` | `address` | [validator identifier](/concepts/validator/#validator-identifier) address of the validator to which stake is being bonded |
+| `_amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
+| `block.number` | `uint256` | the block number at which a bonding transaction was committed |
 
 The `BondingRequest` is tracked in memory until applied at epoch end. At that block point, if the stake delegation is [delegated](/glossary/#delegated) and not [self-bonded](/glossary/#self-bonded), then Liquid Newton will be minted to the delegator for the bonded stake amount.
 
@@ -380,8 +380,8 @@ The pending voting power change is tracked in memory until applied.
 
 The function emits events:
 
-- on success, a `NewBondingRequest` event, logging: `validator` address, `delegator` address, `selfBonded` (boolean), `amount` bonded.
-- on revert, a `BondingRejected` event, logging: `delegator` address, `delegatee` address, `amount` bonded, validator `state`.
+- on success, a `NewBondingRequest` event, logging: `_validatorAddress`, `_recipient`, `_caller`, `_selfBonded`, `_amount`, `headBondingID`.
+- on revert, a `BondingRejected` event, logging: `delegatee` address, `delegator` address, `amount` bonded, validator `state`.
 
 ### Usage
 
@@ -841,6 +841,49 @@ aut protocol block-period [OPTIONS]
 ``` {.aut}
 aut protocol block-period --rpc-endpoint $RPC_URL
 1
+```
+:::
+
+
+## getBondingRequestByID
+
+Returns the bonding request for a designated bonding ID.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_id` | `uint256` | the unique identifier of the bonding request |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validatorAddress` | `address` | the address of the validator being bonded to |
+| `_recipient` | `address` | the stake delegator address |
+| `_caller` | `address` | the message sender address, indicates if the stake delegation is self-bonded or not |
+| `_selfBonded` | `bool` | if the bonding is self-bonded or delegated |
+| `_amount` | `uint256` | the amount of NTN being bonded |
+| `headBondingID` | `uint256` | the unique identifier of the bonding request |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
 ```
 :::
 
@@ -1628,6 +1671,50 @@ aut protocol unbonding-period -r $RPC_URL
 21600
 ```
 
+:::
+
+
+## getUnbondingRequestByID
+
+Returns the unbonding request for a designated unbonding ID.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_id` | `uint256` | the unique identifier of the unbonding request |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validatorAddress` | `address` | the address of the validator being unbonded from |
+| `_recipient` | `address` | the stake delegator address |
+| `_caller` | `address` | the message sender address, indicates if the stake delegation is self-bonded or not |
+| `_selfDelegation` | `bool` | if the unbonding is for self-bonded or delegated stake |
+| `_amount` | `uint256` | the amount of NTN or LNTN being unbonded |
+| `headUnbondingID` | `uint256` | the unique identifier of the unbonding request |
+   
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
 :::
 
 
@@ -2433,7 +2520,7 @@ The pending voting power change is tracked in memory until applied.
 
 ### Event
 
-On a successful call the function emits a `NewUnbondingRequest` event, logging: `validator` address, `delegator` address, `selfBonded` (boolean), `amount` unbonded.
+On a successful call the function emits a `NewUnbondingRequest` event, logging: `_validatorAddress`, `_recipient`, `_caller`, `selfDelegation`, `_amount`, `headUnbondingID`.
 
 ### Usage
 
@@ -2490,7 +2577,8 @@ The updated validator enode can be retrieved from state by calling the [`getVali
 
 ### Event
 
-None.
+On a successful call the function emits a `EnodeUpdate` event, logging: `_val.nodeAddress`, `_val.enode`, `_enode`.
+
 
 ### Usage
 
