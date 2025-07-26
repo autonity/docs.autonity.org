@@ -287,7 +287,7 @@ To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/conce
 
 
 ### ASM Supply Control Contract
-The contract implementing the Auton supply control element of the Auton Stability Mechanism. The contract controls the supply of Auton on an Autonity network by minting and burning invoked by the ASM Stabilization Contract.
+The contract implementing the Auton supply control element of the Auton Stabilization Mechanism. The contract controls the supply of Auton on an Autonity network by minting and burning invoked by the ASM Stabilization Contract.
 
 The contract provides primitives for managing the available supply of Auton in an Autonity network. The contract stores the [protocol parameter](/reference/protocol/) setting the network's available Auton supply. Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
 
@@ -300,12 +300,12 @@ The Autonity Supply Control Contract manages the Auton supply. The contract impl
 
 - Mint and burn of Auton to take Auton in and out of circulation.
 
-To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/concepts/asm/).
 
 ### ASM Stabilization Contract
 The contract implementing the CDP-based stabilization mechanism for the Auton. Auton is borrowed against Collateral Token using a Collateralized Debt Position (CDP) mechanism. The Stabilization Contract manages CDP's throughout the lifecycle, from initial borrowing through repayment and liquidation scenarios. Collateral Token is deposited into a CDP to borrow Auton. Auton is brought in and out of circulation on an Autonity network as CDP's are opened and closed.
 
-The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, Stabilization protocol parameters are initialised at network [genesis](/reference/genesis/).
+The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameters](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, Stabilization protocol parameters are initialised at network [genesis](/reference/genesis/).
 
 Contract functions can be called by all participants to:
 
@@ -338,7 +338,7 @@ To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/conce
 ### ASM Auctioneer Contract
 The contract implementing the debt and interest auction mechanism for the ASM's Collateralized Debt Position (CDP) mechanism. The Auctioneer Contract manages debt auctions for liquidatable CDP Newton collateral and interest auctions for CDP Auton loan interest repayments.
 
-The contract provides primitives for auction configuration, debt auctions, and interest auctions. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the auction mechanism. Per the Autonity Protocol Contract, Auctioneer protocol parameters are initialised at network [genesis](/reference/genesis/).
+The contract provides primitives for auction configuration, debt auctions, and interest auctions. The contract stores [protocol parameters](/reference/protocol/) setting the configuration of the auction mechanism. Per the Autonity Protocol Contract, Auctioneer protocol parameters are initialised at network [genesis](/reference/genesis/).
 
 Contract functions can be called by all participants to:
 
@@ -365,7 +365,7 @@ The Autonity Auctioneer Contract implements logic for an auction bidder to:
 - Determine the minimum amount of Newton that is required to bid in the interest auction.
 - Bid in the auction, receiving Auton interest on CDP's in return for a Newton payment.
 
-To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
+To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/concepts/asm/).
 
 ### Newton Inflation Controller Contract
 The contract implementing the Newton emission control element of the [Newton Inflation Mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
