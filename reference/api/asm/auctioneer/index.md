@@ -12,7 +12,7 @@ Interfaces for interacting with the ASM Auctioneer Contract functions using:
 ::: {.callout-note title="Protocol contract calls" collapse="false"}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 
-Usage and Examples illustrate using the Auctioneer Contract's generated ABI and the `aut` tool's `contract` command to call the Auctioneer Contract address `TO ADD`. See `aut contract call --help`.
+Usage and Examples illustrate using the Auctioneer Contract's generated ABI and the `aut` tool's `contract` command to call the Auctioneer Contract address `0x6901F7206A34E441Ac5020b5fB53598A65547A23`. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `Auctioneer.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/Stabilization.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 :::
