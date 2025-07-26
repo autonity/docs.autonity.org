@@ -59,7 +59,8 @@ The order of deployment and computed addresses is:
 | Stabilization Contract | `0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f` |
 | Upgrade Manager Contract | `0x3C368B86AF00565Df7a3897Cfa9195B9434A59f9` |
 | Inflation Controller Contract | `0x3BB898B4Bbe24f68A4e9bE46cFE72D1787FD74F4` |
-| Omission Accountability Contract | `0x684c903c66D69777377f0945052160C9f778d689` |
+| Omission Accountability Contract | `0x117814AF22Cb83D8Ad6e8489e9477d28265bc105` |
+| Auctioneer Contract | `0x6901F7206A34E441Ac5020b5fB53598A65547A23` |
 
 
 ### Autonity Protocol Contract
@@ -304,13 +305,13 @@ To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/
 ### ASM Stabilization Contract
 The contract implementing the CDP-based stabilization mechanism for the Auton. Auton is borrowed against Collateral Token using a Collateralized Debt Position (CDP) mechanism. The Stabilization Contract manages CDP's throughout the lifecycle, from initial borrowing through repayment and liquidation scenarios. Collateral Token is deposited into a CDP to borrow Auton. Auton is brought in and out of circulation on an Autonity network as CDP's are opened and closed.
 
-The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, ACU protocol parameters are initialised at network [genesis](/reference/genesis/).
+The contract provides primitives for stabilization configuration, CDP calculations, and CDP lifecycle management. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the stabilisation mechanism’s Collateralised Debt Position (CDP). Per the Autonity Protocol Contract, Stabilization protocol parameters are initialised at network [genesis](/reference/genesis/).
 
 Contract functions can be called by all participants to:
 
 - By CDP owners to take out CDP's to borrow Auton, withdraw collateral, and repay CDP's.
 - By prospective CDP owners to determine borrowing limits  and collateral level requirements.
-- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDP's.
+- By CDP liquidators to determine if a CDP is liquidatable or not, and to liquidate CDP's via bidding in debt auctions (see [Auctioneer Contract](/concepts/architecture/#asm-auctioneer-contract).
 - To view CDP data and retrieve stabilization configuration settings from system state.
 
 Function calls to govern (i.e. manage) the stabilization configuration are restricted to the governance `operator` account.
@@ -330,13 +331,43 @@ To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/conce
 The Autonity Stabilization Contract implements logic for a liquidator to:
 
 - Determine if a CDP is liquidatable, i.e. if the CDP is under collateralized and the collateral value is less than the liquidation ratio requirement.
-- Liquidate a CDP that is undercollateralized.
+- Liquidate a CDP that is undercollateralized by bidding in a debt auction (see [Auctioneer Contract](/concepts/architecture/#asm-auctioneer-contract).
+
+To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/concepts/asm/).
+
+### ASM Auctioneer Contract
+The contract implementing the debt and interest auction mechanism for the ASM's Collateralized Debt Position (CDP) mechanism. The Auctioneer Contract manages debt auctions for liquidatable CDP Newton collateral and interest auctions for CDP Auton loan interest repayments.
+
+The contract provides primitives for auction configuration, debt auctions, and interest auctions. The contract stores [protocol parameter](/reference/protocol/) setting the configuration of the auction mechanism. Per the Autonity Protocol Contract, Auctioneer protocol parameters are initialised at network [genesis](/reference/genesis/).
+
+Contract functions can be called by all participants to:
+
+- Bid in debt and interest auctions.
+- To view auction data and retrieve auctioneer configuration settings from system state.
+
+Function calls to govern (i.e. manage) the auctioneer configuration are restricted to the governance `operator` account.
+
+All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Auctioneer Contract Interface](/reference/api/asm/auctioneer/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
+
+#### debt auctions
+The Autonity Auctioneer Contract implements logic for an auction bidder to:
+
+- Query for open auctions and return information about a specific auction.
+- Determine the Newton collateral liquidation return for a liquidatable CDP.
+- Bid in the auction, triggering the liquidation of the CDP, receiving the CDP's remaining Newton collateral in return for settling the CDP's outstanding Auton debt.
+
+To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/concepts/asm/).
+
+#### interest auction
+The Autonity Auctioneer Contract implements logic for an auction bidder to:
+
+- Query for open auctions and return information about a specific auction.
+- Determine the minimum amount of Newton that is required to bid in the interest auction.
+- Bid in the auction, receiving Auton interest on CDP's in return for a Newton payment.
 
 To learn more about the concept see [Auton Stability Mechanism (ASM)](/concepts/asm/).
 
-
 ### Newton Inflation Controller Contract
-
 The contract implementing the Newton emission control element of the [Newton Inflation Mechanism](/concepts/protocol-assets/newton/#total-supply-and-newton-inflation).
 
 The contract computes the amount of Newton to release into circulation from the [inflation reserve](/glossary/#inflation-mechanism) according to the inflation schedule.

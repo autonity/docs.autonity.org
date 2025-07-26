@@ -9,7 +9,7 @@ Interface for interacting with Autonity Omission Accountability Contract functio
 ::: {.callout-note title="Protocol contract calls" collapse="false"}
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 
-Usage and Examples illustrate using the Accountability Contract's generated ABI and the `aut` tool's `contract` command to call the Omission Accountability Contract address `0x684c903c66D69777377f0945052160C9f778d689`. See `aut contract call --help`.
+Usage and Examples illustrate using the Accountability Contract's generated ABI and the `aut` tool's `contract` command to call the Omission Accountability Contract address `0x117814AF22Cb83D8Ad6e8489e9477d28265bc105`. See `aut contract call --help`.
 
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `OmissionAccountability.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/OmissionAccountability.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 :::
@@ -34,7 +34,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getAbsenteesLastHeight
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getAbsenteesLastHeight
 ```
 :::
 
@@ -43,7 +43,7 @@ aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getAbsent
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getAbsenteesLastHeight
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getAbsenteesLastHeight
 ["0x3597d2D42f8Fbbc82E8b1046048773aD6DDB717E", "0xBBf36374eb23968F25aecAEbb97BF3118f3c2fEC", "0xe877FcB4b26036Baa44d3E037117b9e428B1Aa65"]
 ```
 :::
@@ -68,7 +68,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getDelta
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getDelta
 ```
 :::
 
@@ -77,7 +77,7 @@ aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getDelta
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getDelta
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getDelta
 5
 ```
 :::
@@ -104,7 +104,7 @@ Returns the inactivity score of a validator for the last finalized epoch.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getInactivityScore _validator
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getInactivityScore _validator
 ```
 :::
 
@@ -114,7 +114,7 @@ aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getInacti
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getInactivityScore 0x9C7dAABb5101623340C925CFD6fF74088ff5672e
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getInactivityScore 0x9C7dAABb5101623340C925CFD6fF74088ff5672e
 2419
 ```
 :::
@@ -139,7 +139,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getScaleFactor
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getScaleFactor
 ```
 :::
 
@@ -149,7 +149,7 @@ aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getScaleF
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getScaleFactor
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getScaleFactor
 10000
 ```
 :::
@@ -174,7 +174,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getLookbackWindow
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getLookbackWindow
 ```
 :::
 
@@ -183,7 +183,7 @@ aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getLookba
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getLookbackWindow
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getLookbackWindow
 40
 ```
 :::
@@ -212,7 +212,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getTotalEffort
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getTotalEffort
 ```
 :::
 
@@ -221,7 +221,7 @@ aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getTotalE
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x684c903c66D69777377f0945052160C9f778d689 getTotalEffort
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getTotalEffort
 598671823864170391110623510
 ```
 :::
