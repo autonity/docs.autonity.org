@@ -30,10 +30,15 @@ Transfer Autonity's native account coin, specifying the `<RECIPIENT_ADDRESS>`:
 
 ```bash
 aut tx make --to <RECIPIENT_ADDRESS>  --value 1 | aut tx sign - | aut tx send -
+```
+
+Which will print the transaction hash to terminal:
+
+```console
 0xA473bC8B8449A2f02719F2569Ae8137F0bEcdb1843Ab78C84B9A4f02712F9529
 ```
 
-#### A note about signing and submitting
+::: {.callout-tip title="A note about signing and submitting" collapse="false"}
 
 The output of each command above is being piped to the next in this example.  Alternatively, the output can be written to files, for example to be signed using a hardware wallet or other key management systems).
 
@@ -41,6 +46,7 @@ This use of piping will appear in many example commands, for convenience.  For r
 - `aut tx make ...` outputs a transaction in JSON format
 - `aut tx sign ...` signs the transaction and outputs the signed transaction in JSON format
 - `aut tx send ...` send the transaction and outputs the transaction hash
+:::
 
 ### Waiting for transactions
 
