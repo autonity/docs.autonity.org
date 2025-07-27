@@ -108,7 +108,7 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `oracleRewardRate` | See Protocol Parameter Reference [Autonity Config, `oracleRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
 | `initialInflationReserve` | See Protocol Parameter Reference [Autonity Config, `initialInflationReserve`](/reference/protocol/#autonity-config) | Value is set to `40` Million (40% of the total supply of 100 M Newton) |
 | `gasLimit` | See Protocol Parameter Reference [Autonity Config, `gasLimit`](/reference/protocol/#autonity-config)  | Set to: `30000000` |
-| `gasLimitBoundDivisor` | See Protocol Parameter Reference [Autonity Config, `gasLimit`](/reference/protocol/#autonity-config)  | Set to: `1024` |
+| `gasLimitBoundDivisor` | See Protocol Parameter Reference [Autonity Config, `gasLimitBoundDivisor`](/reference/protocol/#autonity-config)  | Set to: `1024` |
 | `baseFeeChangeDenominator` | See Protocol Parameter Reference [Autonity Config, `baseFeeChangeDenominator`](/reference/protocol/#autonity-config)  | Set to: `64` |
 | `elasticityMultiplier` | See Protocol Parameter Reference [Autonity Config, `elasticityMultiplier`](/reference/protocol/#autonity-config)  | Set to: `2` |
 | `clusteringThreshold` | See Protocol Parameter Reference [Autonity Config, `clusteringThreshold`](/reference/protocol/#autonity-config)  | Set to: `64` |

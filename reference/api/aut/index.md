@@ -16,6 +16,47 @@ Given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=autonity>.
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 :::
 
+## abi
+
+Returns the ABI of the Autonity Protocol Contract.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `JSON` | the Autonity Protocol contract ABI |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut protocol contract-abi
+```
+
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+
+[
+  {
+  <! ABI dump -->
+  }
+]
+```
+
+:::
+
+
 ## activateValidator
 
 Changes the state of a paused validator on an Autonity Network from `paused` to `active`. (See [`pauseValidator`](/reference/api/aut/#pausevalidator) method.)
@@ -700,7 +741,7 @@ aut protocol deployer --rpc-endpoint $RPC_URL
 
 ## epochID
 
-Returns the unique identifier of a block epoch as an integer value.
+Returns the unique identifier of the current epoch at the block height of the call.
 
 ### Parameters
 
@@ -872,7 +913,7 @@ Returns the bonding request for a designated bonding ID.
 ## aut
 
 ``` {.aut}
-TO DO
+aut protocol bonding-request [OPTIONS] ID
 ```
 :::
 
@@ -883,8 +924,83 @@ TO DO
 ## aut
 
 ``` {.aut}
-TO DO
+aut protocol bonding-request 0
+{
+  "delegator": "0xd5Cb27d9658D26E49eCe7642223Cc8889D789b55",
+  "delegatee": "0xa75500C1BeE38247e2cD814Cc95E22D7AD96EC56",
+  "amount": 5000000000000000000000,
+  "request_block": 0
+}
 ```
+:::
+
+
+## getClientConfig
+
+Returns the configuration of an [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) [peer node](/glossary/#peer) on the Autonity Network at the block height the call was submitted.
+
+### Parameters
+
+None.
+
+### Response
+
+Returns a `ClientAwareConfig` object consisting of:
+
+| Object | Field | Datatype | Description |
+| --| --| --| --|
+| | `epoch_period` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
+| | `block_period` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
+| | `gas_limit` | `uint256` | the maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block |
+|  | `clustering_threshold` | `uint256` | the consensus committee size at which network participants are grouped into deterministic clusters to optimize network propagation of gossiped consensus messages |
+| `accountability` | `struct` | the Autonity network's configuration of accountability fault detection protocol parameters |
+| | `range` |
+| | `delta` |
+| | `grace_period` |
+| `eip1559``struct` | the Autonity network's EIP-1559 transaction fee mechanism configuration |
+| | `min_base_fee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
+| | `base_fee_change_denominator` | `uint256` | the amount the base fee can change between blocks |
+| | `elasticity_multiplier` | `uint256` | multiplier to compute the block gas target |
+| | `gas_limit_bound_divisor` | `uint256` | the divisor that determines the change in the gas limit compared to the parent block’s gas limit |
+
+
+### Usage
+
+::: {.panel-tabset}
+
+## aut
+``` {.aut}
+aut protocol client-config [OPTIONS]
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol client-config -r $RPC_URL
+{
+  "epoch_period": 1800,
+  "block_period": 1,
+  "gas_limit": 20000000,
+  "clustering_threshold": 30,
+  "accountability": {
+    "range": 256,
+    "delta": 10,
+    "grace_period": 0
+  },
+  "eip1559": {
+    "min_base_fee": 500000000,
+    "base_fee_change_denominator": 8,
+    "elasticity_multiplier": 2,
+    "gas_limit_bound_divisor": 1024
+  }
+}
+```
+
 :::
 
 
@@ -986,9 +1102,47 @@ aut protocol committee-enodes -r $RPC_URL
 :::
 
 
+## getCurrentCommitteeSize
+
+Returns the current protocol setting for the maximum committee size from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `configuredCommitteeSize` | `uint256` | the maximum number of validators currently allowed in the consensus committee |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol current-committee-size [OPTIONS]
+```
+
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol current-committee-size --rpc-endpoint $RPC_URL
+100
+```
+
+:::
+
+
 ## getCurrentEpochPeriod
 
-Returns the epoch period from the protocol configuration.
+Returns the current protocol setting for the epoch period from the protocol configuration.
 
 ### Parameters
 
@@ -1006,7 +1160,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut contract call [OPTIONS] getCurrentEpochPeriod [PARAMETERS]
+aut protocol current-epoch-period [OPTIONS]
 ```
 :::
 
@@ -1016,7 +1170,7 @@ aut contract call [OPTIONS] getCurrentEpochPeriod [PARAMETERS]
 ## aut
 
 ``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/Autonity.abi  --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 getCurrentEpochPeriod
+aut protocol current-epoch-period --rpc-endpoint $RPC_URL
 1800
 ```
 :::
@@ -1058,7 +1212,7 @@ aut protocol epoch-by-height [OPTIONS] BLOCK_HEIGHT
 ## aut
 
 ``` {.aut}
-aut protocol epoch-by-height 53690
+aut protocol epoch-by-height --rpc-endpoint $RPC_URL 53690
 {
   "committee": [
     {
@@ -1076,7 +1230,13 @@ aut protocol epoch-by-height 53690
   "previous_epoch_block": 50400,
   "epoch_block": 52200,
   "next_epoch_block": 54000,
-  "delta": 5
+  "omission_delta": 5,
+  "eip1559": {
+    "min_base_fee": 500000000,
+    "base_fee_change_denominator": 8,
+    "elasticity_multiplier": 2,
+    "gas_limit_bound_divisor": 1024
+  }
 }
 ```
 
@@ -1124,7 +1284,7 @@ aut protocol epoch-from-block --rpc-endpoint $RPC_URL 3293857
 
 ## getEpochInfo
 
-Returns the current epoch info of the chain.    
+Returns information about the current epoch at the block height of the call.    
 
 ### Parameters
 
@@ -1134,15 +1294,18 @@ None.
 
 Returns an `epochInfo` object consisting of:
 
-| Field | Datatype | Description |
-| --| --| --|
-| `committee` | `CommitteeMember[]` | an array of `CommitteeMember` objects recording the consensus committee of the epoch |
-| `previousEpochBlock` | `uint256` | the previous epoch block number |
-| `epochBlock` | `uint256` | the epoch block number |
-| `nextEpochBlock` | `uint256` | the next epoch block number |
-| `delta` | `uint256` | the current value for delta (omission failure) |
-
-For each committee member [`validator identifier`](/concepts/validator/#validator-identifier) address, [voting power](/glossary/#voting-power), and [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys) is returned. See [`getCommittee()`](/reference/api/aut/#getcommittee) for the description of `CommitteeMember` object properties.
+| Object | Field | Datatype | Description |
+| --| --| --| --|
+| `committee` | array `[]` | an array of `CommitteeMember` objects | For each committee member in the consensus committee of the epoch [`validator identifier`](/concepts/validator/#validator-identifier) address, [voting power](/glossary/#voting-power), and [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys) is returned. See [`getCommittee()`](/reference/api/aut/#getcommittee) for the description of `CommitteeMember` object properties. |
+| `previousEpochBlock` | | `uint256` | the last block number of the previous epoch |
+| `epochBlock` | | `uint256` | the last block number of the current epoch |
+| `nextEpochBlock` | | `uint256` | the first block number of the following  epoch |
+| `omissionDelta` | | `uint256` | the number of blocks set as the current value for the Omission Accountability [delta](/concepts/ofd/#delta-delta) value |
+| `eip1559` | `struct` | the Autonity network's EIP-1559 transaction fee mechanism configuration |
+| | `min_base_fee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
+| | `base_fee_change_denominator` | `uint256` | the amount the base fee can change between blocks |
+| | `elasticity_multiplier` | `uint256` | multiplier to compute the block gas target |
+| | `gas_limit_bound_divisor` | `uint256` | the divisor that determines the change in the gas limit compared to the parent block’s gas limit |
 
 ### Usage
 
@@ -1175,7 +1338,12 @@ aut protocol epoch-info
   "previous_epoch_block": 4149000,
   "epoch_block": 4150800,
   "next_epoch_block": 4152600,
-  "delta": 5
+  "omission_delta": 5,
+  "eip1559": {
+    "min_base_fee": 500000000,
+    "base_fee_change_denominator": 8,
+    "elasticity_multiplier": 2,
+    "gas_limit_bound_divisor": 1024
 }
 ```
 
@@ -1241,7 +1409,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol inflation-reserve
+aut protocol inflation-reserve [OPTIONS]
 ```
 
 :::
@@ -1291,7 +1459,40 @@ aut protocol last-epoch-block [OPTIONS]
 aut protocol last-epoch-block -r $RPC_URL
 12981684
 ```
+:::
 
+
+## getLastEpochTime
+
+Returns the timestamp of the last epoch's end block height.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `lastEpochTime` | `uint256` | the block's timestamp in [Unix time](/glossary/#unix-time) format |
+
+### Usage
+
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol last-epoch-time [OPTIONS]
+```
+
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol last-epoch-time -r $RPC_URL
+1753547220
+```
 :::
 
 
@@ -1327,7 +1528,7 @@ aut protocol max-committee-size [OPTIONS]
 
 ``` {.aut}
 aut protocol max-committee-size --rpc-endpoint $RPC_URL
-50
+100
 ```
 
 :::
@@ -1335,7 +1536,7 @@ aut protocol max-committee-size --rpc-endpoint $RPC_URL
 
 ## getMaxScheduleDuration
 
-Returns the max allowed duration of any schedule or contract from the protocol configuration.
+Returns the max allowed duration of the protocol schedules from the protocol configuration.
 
 ### Parameters
 
@@ -1365,7 +1566,7 @@ aut protocol max-schedule-duration [OPTIONS]
 
 ``` {.aut}
 aut protocol max-schedule-duration
-126230400
+94608000
 ```
 
 :::
@@ -1403,7 +1604,7 @@ aut protocol minimum-base-fee [OPTIONS]
 
 ``` {.aut}
 aut protocol minimum-base-fee --rpc-endpoint $RPC_URL
-500000000
+10000000000
 ```
 
 :::
@@ -1560,6 +1761,101 @@ aut protocol proposer -r $RPC_URL 4576868 0
 :::
 
 
+## getSchedule
+
+Returns a schedule by vault address and index identifier.
+   
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_vault` | `address` | address of the vault for the schedule |
+| `_id` | `uint256` | index position of the schedule in the `vaultSchedules` array |
+
+### Response
+
+Returns a `Validator` object consisting of:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `total_amount` | `uint256` | the total amount of Newton that has been locked in the schedule |
+| `unlocked_amount` | `uint256` | the amount of Newton that has been unlocked in the schedule |
+| `start` | `uint256` | the start time of the schedule in [Unix time](/glossary/#unix-time) format |
+| `total_duration` | `uint256` | the duration of the schedule in seconds |
+| `last_unlock_time` | `uint256` | the timestamp that Newton was last unlocked from the schedule in [Unix time](/glossary/#unix-time) format |
+
+::: {.callout-note title="Unlocking is epoch end" collapse="false"}
+Unlocking takes place end of epoch. The `last_unlock_time` corresponds to the timestamp of the last epoch's block height, therefore. See [`getLastEpochTime()`](/reference/api/aut/#getlastepochtime).
+:::
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol schedule [OPTIONS] VAULT-ADDRESS INDEX
+```
+
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol schedule -r $RPC_URL 0x28656C47fc327C385e9D017d631A042a3ebA15A5  0
+{
+  "total_amount": 75000000000000000000000,
+  "unlocked_amount": 25692382618622195751439,
+  "start": 1732898815,
+  "total_duration": 60444000,
+  "last_unlock_time": 1753276188
+}
+```
+
+:::
+
+
+## getTotalSchedules
+
+Returns the total number of schedules at a vault address.
+  
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_vault` | `address` | address of the vault |
+
+### Response
+
+Returns the total number of schedules at the vault address as an integer value.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol total-schedules [OPTIONS] VAULT-ADDRESS
+```
+
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol total-schedules -r $RPC_URL0x28656C47fc327C385e9D017d631A042a3ebA15A5
+1
+```
+:::
+
+
 ## getTreasuryAccount
 
 Returns the address of the Autonity treasury account.
@@ -1702,7 +1998,7 @@ Returns the unbonding request for a designated unbonding ID.
 ## aut
 
 ``` {.aut}
-TO DO
+aut protocol unbonding-request [OPTIONS] ID
 ```
 :::
 
@@ -1713,7 +2009,17 @@ TO DO
 ## aut
 
 ``` {.aut}
-TO DO
+% aut protocol unbonding-request 0
+{
+  "delegator": "0x0000000000000000000000000000000000000000",
+  "delegatee": "0x0000000000000000000000000000000000000000",
+  "amount": 0,
+  "unbonding_share": 0,
+  "request_block": 0,
+  "unlocked": false,
+  "released": false,
+  "self_delegation": false
+}
 ```
 :::
 
@@ -1994,7 +2300,7 @@ Returns a boolean flag specifying if stake for an unbonding request has been rel
 
 ### Response
 
-Returns `true` if unbonding is released and `false` otherwise.
+Returns $true$ if unbonding is released and $false$ otherwise.
 
 ### Usage
 
@@ -2002,7 +2308,7 @@ Returns `true` if unbonding is released and `false` otherwise.
 ## aut
 
 ``` {.aut}
-aut contract call [OPTIONS] isUnbondingReleased [PARAMETERS]
+aut protocol is-unbonding-released [OPTIONS] UNBONDING_ID
 ```
 
 :::
@@ -2013,8 +2319,8 @@ aut contract call [OPTIONS] isUnbondingReleased [PARAMETERS]
 ## aut
 
 ``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/Autonity.abi  --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1  isUnbondingReleased 2
-true
+aut protocol is-unbonding-released 129
+0
 ```
 
 :::
