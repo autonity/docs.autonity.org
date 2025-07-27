@@ -59,6 +59,9 @@ Try the following command (which retrieves some basic information about the conn
 ```bash
 aut node info
 ```
+
+Which will print to terminal:
+
 ```console
 {
   "eth_accounts": [],
