@@ -413,7 +413,7 @@ On a successful call the function emits a `ConfigUpdateAddress` event, logging: 
 ## aut
 
 ``` {.aut}
-aut governance set-acu-contract [OPTIONS] CONTRACT-ADDRESS
+aut governance set-auctioneer-contract [OPTIONS] CONTRACT-ADDRESS
 ```
 :::
 
@@ -480,20 +480,9 @@ On a successful call the function emits a `ConfigUpdateUint` event, logging: con
 ## aut
 
 ``` {.aut}
-TO DO
+aut governance set-clustering-threshold [OPTIONS] THRESHOLD
 ```
 :::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
-```
-:::
-
 
 
 ###  setCommitRevealConfig (Oracle Contract)
@@ -750,17 +739,10 @@ On a successful call the function emits am `Eip1559ParamsUpdate` event, logging 
 ## aut
 
 ``` {.aut}
-TO DO
-```
-:::
-
-#### Example
-
-::: {.panel-tabset}
-## aut
-
-``` {.aut}
-TO DO
+aut governance set-eip1559-params [OPTIONS] MIN_BASE_FEE
+                                         BASE_FEE_CHANGE_DENOMINATOR
+                                         ELASTICITY_MULTIPLIER
+                                         GAS_LIMIT_BOUND_DIVISOR
 ```
 :::
 
