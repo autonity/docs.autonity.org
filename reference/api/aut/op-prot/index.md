@@ -631,6 +631,41 @@ You can interact with the contract using the `aut contract` command group. See `
 :::
 
 
+### setDelta (Accountability Contract)
+
+Sets the `delta` protocol parameter of the Accountability protocol's configuration. The configuration change will take effect at epoch end (the end of epoch block height is logged in the function's `appliesAtHeight` event parameter).
+
+Constraint checks are applied:
+
+- the `delta` must be less than the `newRange` configuration value.
+
+::: {.callout-note title="Note" collapse="false"}
+Accountability Contract configuration updates are applied at the same time. Therefore the new values for `delta`, `range`, and `gracePeriod` are checked for logical consistency.
+:::
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_delta` | `uint256` | the new value for delta |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("delta"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Accountability Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
 ### setDelta (Omission Accountability Contract)
 
 Sets the `delta` protocol parameter of the Omission Accountability protocol's configuration. The configuration change will take effect at epoch end (the end of epoch block height is logged in the function's `appliesAtHeight` event parameter).
@@ -644,7 +679,7 @@ Constraint checks are applied:
    
 | Field | Datatype | Description |
 | --| --| --| 
-| `_delta ` | `uint256` | the new value for delta |
+| `_delta` | `uint256` | the new value for delta |
 
 #### Response
 
@@ -1574,6 +1609,39 @@ aut governance set-proposer-reward-rate [OPTIONS] PROPOSER_REWARD_RATE
 :::
 
 
+### setRange (Accountability Contract)
+
+Sets the `range` protocol parameter of the Accountability protocol's configuration. The configuration change will take effect at epoch end (the end of epoch block height is logged in the function's `appliesAtHeight` event parameter).
+
+Constraint checks are applied:
+
+- the `gracePeriod == 0`, the height range change is already in progress.
+- the new `range` modulo `4 == 0`, the height range must be a multiple of 4.
+- the new `range` is greater than `newDelta`, the height range needs to be greater than `delta`.
+
+#### Parameters
+   
+| Field | Datatype | Description |
+| --| --| --| 
+| `_range` | `uint256` | the new value for the height range (in blocks) |
+
+#### Response
+
+No response object is returned on successful execution of the call.
+
+#### Event
+
+On a successful call the function emits a `ConfigUpdateUint` event, logging: configuration parameter `name` ("range"), `oldValue`, `newValue`, `appliesAtHeight`.
+
+#### Usage
+
+::: {.callout-note title="Note" collapse="false"}
+The Accountability Contract Interface is not currently supported by `aut`.
+
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+:::
+
+
 ###  setSlasher
 
 Sets a new value for the Accountability Slasher Contract address. The configuration change will take effect at the block height logged in the function's `appliesAtHeight` event parameter.
@@ -2321,7 +2389,7 @@ The Accountability Contract finalisation function, called at each block finalisa
 A validator can, of course, have more than one fault proven against it in an epoch. For example, a first fault is proven and then another fault for a higher severity is proven. Note that the protocol will only apply an accountability slashing to a validator for the fault with the highest severity committed in an epoch.
 :::
 
-- On epoch end, [performs slashing tasks](/reference/api/aut/op-prot/#perform-slashing-tasks).
+- On epoch end, [performs slashing tasks](/reference/api/aut/op-prot/#perform-slashing-tasks) and [updates configuration](/reference/api/aut/op-prot/#update-configuration).
 
 #### promote guilty accusations
 
@@ -2355,6 +2423,12 @@ The protocol adjusts the slashing rate according to the total number of fault of
 
 This mechanism applies a dynamic slashing rate mitigating collusion risk by Byzantine agents in an epoch.
 :::    
+
+#### update configuration
+
+Checks to see if there are new values for `gracePeriod`, `delta`, `range` and updates the accountability configuration if so.
+
+Changes to delta and range are applied at block finalization to avoid inconsistencies when processing multiple accusations in a block.
 
 #### Parameters
 

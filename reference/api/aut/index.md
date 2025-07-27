@@ -953,11 +953,11 @@ Returns a `ClientAwareConfig` object consisting of:
 | | `block_period` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
 | | `gas_limit` | `uint256` | the maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block |
 |  | `clustering_threshold` | `uint256` | the consensus committee size at which network participants are grouped into deterministic clusters to optimize network propagation of gossiped consensus messages |
-| `accountability` | `struct` | the Autonity network's configuration of accountability fault detection protocol parameters |
-| | `range` |
-| | `delta` |
-| | `grace_period` |
-| `eip1559``struct` | the Autonity network's EIP-1559 transaction fee mechanism configuration |
+| `accountability` |  | `struct` | the Autonity network's configuration of accountability fault detection protocol parameters |
+| | `range` | `uint256` | the height range for the provable fault detector |
+| | `delta` | `uint256` | the delta for the provable fault detector |
+| | `grace_period` | `uint256` | the current gracePeriod value |
+| `eip1559` |  | `struct` | the Autonity network's EIP-1559 transaction fee mechanism configuration |
 | | `min_base_fee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
 | | `base_fee_change_denominator` | `uint256` | the amount the base fee can change between blocks |
 | | `elasticity_multiplier` | `uint256` | multiplier to compute the block gas target |

@@ -136,6 +136,8 @@ Object structure for the Accountability Fault Detection (AFD) protocol configura
 |Parameter|Description &amp; Value|
 |---------|----------------|
 | `innocenceProofSubmissionWindow` | See Protocol Parameter Reference [Accountability Config, `innocenceProofSubmissionWindow`](/reference/protocol/#accountability-config) |
+| `delta` | See Protocol Parameter Reference [Accountability Config, `delta`](/reference/protocol/#accountability-config) |
+| `range` | See Protocol Parameter Reference [Accountability Config, `range`](/reference/protocol/#accountability-config) |
 | `baseSlashingRateLow` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateLow`](/reference/protocol/#accountability-config) |
 | `baseSlashingRateMid` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateMid`](/reference/protocol/#accountability-config) |
 | `baseSlashingRateHigh` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateHigh`](/reference/protocol/#accountability-config) |
