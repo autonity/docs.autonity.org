@@ -8,10 +8,19 @@ description: How to create and import accounts using `aut`
 This how to covers the import and generation of new accounts using `aut`. Accounts are created as Ethereum keystore files using the [Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/), an encrypted file format that provides secure storage for an account's private key.
 
 ::: {.callout-important title="Warning" collapse="false"}
-The use of hardware wallets or other key-management tools may be more secure than encrypted files.  Operators may choose to make use of such tools with Autonity, and explicit support for these will be added in the future.  For the purposes of the testnets this guide will assume the use of password-protected  keyfiles.
+The use of hardware wallets or other key-management tools may be more secure than encrypted files.  Operators may choose to make use of such tools with Autonity.
 
-Ensure that your `keystore` file is backed up and stored securely according to your security policy at all times; remember the password phrase you used to create it! If you do not remember the password, you will not be able to decrypt this private key file and may lose any funds associated with this account.
+For simplicity this guide will assume the use of password-protected keyfiles on testnet. Ensure that your `keystore` file is backed up and stored securely according to your security policy at all times; remember the password phrase you used to create it! If you do not remember the password, you will not be able to decrypt this private key file and may lose any funds associated with this account.
 :::
+
+::: {.callout-tip title="Authentication methods supported by Autonity CLI" collapse="false"}
+See the Autonity CLI GitHub README and [Authentication](https://github.com/autonity/autonity-cli?tab=readme-ov-file#authentication) for the authentication methods currently supported by the command-line interface.
+
+Autonity CLI currently supports signing using encrypted private key file ([Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/)) and the Trezor hardware wallet (See `aut account signtx --help`).
+
+Watch Autonity CLI GitHub [Issues](https://github.com/autonity/autonity-cli/issues) to track status on adding support for additional hardware wallets.
+:::
+
 
 ## Create account using `aut`
 
@@ -189,6 +198,26 @@ An account can be created from an existing private key using client command line
 There are many methods for decrypting the private key from an Ethereum keystore file. A simple way to decrypt if you need to is by using the web3 python package - see [Extract private key from geth keyfile](https://web3py.readthedocs.io/en/stable/web3.eth.account.html#extract-private-key-from-geth-keyfile) and a helper library function to convert the extracted key from bytes to a hex string. For example, `Web3.toHex` [Encoding and Decoding Helper](https://web3py.readthedocs.io/en/stable/web3.main.html?highlight=tohex#encoding-and-decoding-helpers), slicing the string result to remove the hex prefix `0x`.
 
 -->
+
+## Other `aut account` commands
+
+::: {.callout-tip title="`aut account` command group" collapse="false"}
+
+Run `aut account --help` to see all commands:
+
+| Command | Description |
+|:-- |:--|
+| `balance` | Print the current balance of the given account. |
+| `import-private-key` | Read a plaintext private key file (as hex-string), &hellip; |
+| `info` | Print information about the given account. |
+| `list` | List accounts in keyfiles or in a Trezor device. |
+| `new` | Create a new key and write it to a keyfile. |
+| `reveal-private-key` | Print the private key from the specified keyfile to &hellip; |
+| `sign-message` | Use the private key in the given keyfile to sign &hellip; |
+| `signtx` | Sign a transaction using the given keyfile. |
+| `verify-signature` | Verify that the signature in `SIGNATURE_FILE` is &hellip; |
+
+:::
 
 ------------------------------------------------
 
