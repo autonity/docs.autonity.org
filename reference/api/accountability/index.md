@@ -55,13 +55,14 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 canAccuse
 ```
 :::
 
-
 ### Example
 
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
 aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 canAccuse 0x4B241e33CEFbeF5fFE87CF81C56f19D6321536c4 10 1245
+```
+```console
 web3.exceptions.ContractLogicError: execution reverted
 ```
 :::
@@ -104,19 +105,294 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 canSlash 
 ```
 :::
 
-
 ### Example
 
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
 aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 canSlash 0x4B241e33CEFbeF5fFE87CF81C56f19D6321536c4 10 1245
+```
+```console
 web3.exceptions.ContractLogicError: execution reverted
 ```
 :::
 
 ::: {.callout-note title="Note" collapse="false"}
 If the validator is not slashable, the transaction will simply revert.
+:::
+
+
+## getBeneficiary
+
+Returns the address of the beneficiary (reporting validator) which will receive the slashed staking rewards of the offending validator.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_offender` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the offending validator |
+
+### Response
+
+| `beneficiary` | `address` | [identifier address](/concepts/validator/#validator-identifier) of the reporting validator |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getBeneficiary _offender
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+```console
+TO DO
+```
+:::
+
+## getConfig
+
+Returns the Autonity Network configuration at the block height the call was submitted.
+
+### Parameters
+
+None.
+
+### Response
+
+Returns a `Config` object consisting of:
+
+| Object | Field | Datatype | Description |
+| --| --| --| --|
+| | `innocenceProofSubmissionWindow` | `uint256` | the number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation |
+| | `delta` | `uint256` | the number of blocks that must elapse before running the fault detector on a certain height |
+| | `range` | `uint256` | the number of blocks that establishes the height boundaries for accusation validity |
+| `BaseSlashingRates ` | n/a | `struct` | the Accountability Contract's configuration of base slashing rates |
+| | `low` | `uint256` | Low severity: `1` |
+| | `mid` | `uint256` | Mid severity: `2` |
+| | `high` | `uint256` | High severity: `s` |
+| `Factors ` | n/a | `struct` | the Accountability Contract's configuration of base slashing rates for accountable rule infractions |
+| | `collusion` | `uint256` | the percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty |
+| | `history` | `uint256` | the percentage factor applied to the total number of proven faults committed by a validator used as a factor when computing the slashing amount of a penalty |
+| | `jail` | `uint256` | the number of epochs used as a factor when computing the jail period of an offending validator |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+```console
+TO DO
+```
+:::
+
+
+## getEvent
+
+Returns the accountability event for a designated accountability event ID.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_id` | `uint256` | the event identifier |
+
+### Response
+
+Returns an `Event` object. For the object fields see [Event structure](/concepts/afd/#event-structure) in the [AFD](/concepts/afd/) concept.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+```console
+TO DO
+```
+:::
+
+## getEventsLength
+
+Returns the number of accountability events at the block height of the call.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `events.length` | `uint256` | the number of accountability events |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+```console
+TO DO
+```
+:::
+
+
+## getGracePeriod
+
+Returns the grace period from the Accountability Contract protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `gracePeriod` | `uint256` | the grace period number of blocks |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 gracePeriod
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 gracePeriod
+```
+```console
+TO DO
+```
+:::
+
+
+## getHistory
+
+Returns the number of times a validator has been punished in the past.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validator ` | `address` | the validator [identifier address](/concepts/validator/#validator-identifier) |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `history` | `uint256` | returns the severity of the slashing |
+
+::: {.callout-note title="Note" collapse="false"}
+For a table of slashing rules and their severity see [rules](/concepts/afd/#rules) in the [AFD](https://docs.autonity.org/concepts/afd/) concept.
+:::
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getHistory _validator
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getHistory 0x6558D2cEEb4a9Fe9c9cF19A3F6EBE7D45C30efaF
+```
+```console
+TO DO
+```
+:::
+
+## getSlashingHistory
+
+Returns the severity at which a validator was punished in a designated epoch.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validator ` | `address` | the validator [identifier address](/concepts/validator/#validator-identifier) |
+| `_epoch` | `uint256` | the epoch identifier |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `slashingHistory` | `uint256` | the severity of the slashing: Low `1`, Mid `2`, High `3` |
+
+::: {.callout-note title="Note" collapse="false"}
+For a table of slashing rules and their severity see [rules](/concepts/afd/#rules) in the [AFD](https://docs.autonity.org/concepts/afd/) concept.
+:::
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSlashingHistory _validator _epoch
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSlashingHistory 0x6558D2cEEb4a9Fe9c9cF19A3F6EBE7D45C30efaF
+```
+```console
+1
+```
 :::
 
 
@@ -163,6 +439,8 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValida
 ## aut
 ``` {.aut}
 aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorAccusation 0x6558D2cEEb4a9Fe9c9cF19A3F6EBE7D45C30efaF
+```
+```console
 web3.exceptions.ContractLogicError: execution reverted: no accusation
 ```
 :::
@@ -197,7 +475,6 @@ Returns an array of `Event` object(s) of type `FaultProof` consisting of:
 | `reportingBlock` | `uint256` | block number at which the accountability event was reported |
 | `messageHash` | `uint256` | hash of the main evidence for the accountability event |
 
-
 ### Usage
 
 ::: {.panel-tabset}
@@ -213,6 +490,8 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValida
 ## aut
 ``` {.aut}
 aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults 0x21bb01Ae8EB831fFf68EbE1D87B11c85a766C94C
+```
+```console
 []
 ```
 :::
