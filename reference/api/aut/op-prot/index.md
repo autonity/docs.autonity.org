@@ -2327,7 +2327,10 @@ None.
 
 #### Event
 
-None.
+On successful reward distribution the function emits:
+
+- for [AFD](/concepts/afd/) [slashing rewards](/concepts/afd/#slashing-rewards) distribution, a `ReporterRewarded` event for each slashing reward distribution, logging: reporting validator identifier `_reporter.nodeAddress`, `_offender` validator identifier node address, slashed `_ntnReward` amount, slashed `_atnReward` amount.
+- for [OFD](/concepts/ofd/) [slashing rewards](/concepts/ofd/#slashing-rewards) distribution, a `TotalProposerRewards` event for the block proposer reward distribution, logging: `_ntnReward` amount, `_atnReward` amount.
 
 
 ###  finalize
@@ -2476,7 +2479,8 @@ On success the function emits:
 - a `NoRevealPenalty` event for each non reveal penalty, logging validator oracle address `_voter`, `round`, `nonRevealCount`.
 - a `CommitRevealMissed` event for each missed commit reveal, logging validator oracle address `_address`, `round`, `nonRevealCount`.
 - a `Penalized` event for each price outlier penalty, logging validator oracle address `voter`, `_slashingAmount`, `_symbol`, `_priceMedian`, `price`.
-- a `TotalOracleRewards` event for the total oracle rewards distributed in the reward period (i.e. for the voting round), logging `_totalNTN`, `_totalATN`.
+- a `TotalOracleRewards` event for the total oracle ATN and NTN rewards distributed in the reward period (i.e. for the voting round), logging `_totalNTN`, `_totalATN`.
+- a `PriceUpdated` event for the oracle median price aggregation, logging `_price`, `round`, `_symbol`, boolean (`true`|`false`) if the symbol was updated or not, `block.timestamp`.
 
 
 ### handleEvent (Accountability Contract)
