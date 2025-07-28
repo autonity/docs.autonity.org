@@ -53,6 +53,7 @@ Genesis configuration file JSON objects:
 - [config.omissionAccountability](#config.omissionaccountability-object)
 - [alloc](#alloc-object)
 - [alloc.account object](#alloc.account-object)
+- [alloc.account.bonds object](#alloc.account.bonds-object)
 
 #### Genesis file object
 
@@ -248,7 +249,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `alloc` | An array of accounts objects to be created on the network at genesis. These can be EOA or contract accounts | See [`alloc.account` object](#alloc-object) definition |
+| `alloc` | An array of `account` objects to be created on the network at genesis. These can be EOA or contract accounts | See [`alloc.account` object](/reference/genesis/#alloc.account-object) definition |
 
 #### alloc.account object
 
@@ -256,8 +257,17 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 |---------|-----------|-----|
 | `alloc.ADDRESS` | The account address | Ethereum format address |
 | `alloc.ADDRESS.balance` | The amount of Auton allocated to the account _ADDRESS_ | Positive integer value |
+| `alloc.ADDRESS.newtonBalance` | The amount of Newton allocated to the account _ADDRESS_ | Positive integer value |
+| `bonds` | An array of `bonds` objects for stake delegation(s) from the account _ADDRESS_ to [genesis validators](/reference/genesis/#config.autonity.validators-object) at genesis | See [`alloc.account.bonds` object](/reference/genesis/#alloc.account.bonds-object) definition |
 | `alloc.ADDRESS.code` | The contract bytecode to be deployed if a contract account _ADDRESS_ | EVM bytecode |
 | `alloc.ADDRESS.storage` | The key-value pair for the contract bytecode storage space if a contract account _ADDRESS_ | k-v pairs for contract storage |
+
+#### alloc.account.bonds object
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `alloc.account.bonds.ADDRESS` | The [validator identifier](/concepts/validator/#validator-identifier) _ADDRESS_ | Ethereum format address |
+| `alloc.account.bonds.AMOUNT` | The amount of Newton bonded to the validator | Positive integer value |
 
 
 #### Example `genesis.json`
@@ -268,25 +278,33 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     "chainId": 65110000,
     "autonity": {
       "minBaseFee": 500000000,
-      "delegationRate" : 1000,
+      "epochPeriod": 1800,
+      "unbondingPeriod": 21600,
       "blockPeriod": 1,
       "maxCommitteeSize": 100,
-      "unbondingPeriod": 120,
-      "epochPeriod": 30,
+      "maxScheduleDuration": 94608000,
+      "gasLimit": 20000000,
+      "gasLimitBoundDivisor": 1024,
+      "baseFeeChangeDenominator": 8,
+      "elasticityMultiplier": 2,
       "operator": "0x293039dDC627B1dF9562380c0E5377848F94325A",
       "treasury": "0x7f1B212dcDc119a395Ec2B245ce86e9eE551043E",
       "withheldRewardsPool": "0x7f1B212dcDc119a395Ec2B245ce86e9eE551043E",
-      "treasuryFee": 150000000,
+      "clusteringThreshold": 30,
+      "treasuryFee": 10000000000000000,
+      "delegationRate": 1000,
       "withholdingThreshold": 0,
-      "proposerRewardsRate": 1000,
+      "proposerRewardRate": 1000,
       "initialInflationReserve": "0x2116545850052128000000",
       "oracleRewardRate": 1000,
+      "skipGenesisVerification": true,
       "validators": [
         {
           "enode": "enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303",
           "treasury": "0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013",
           "consensusKey": "0x776d2652de66e7x2d294c77d0706c772x077d242076e97cx44feex03e27d59757f7c7m7905072537eccd2d6292262724",
           "oracleAddress": "0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f",
+          "nodeAddress": "0xA49BD88570B0DDE977dfE5F4B1B0d73737c26836",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -294,6 +312,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0xf1859D9feD50514F9D805BeC7a30623d061f40B7",
           "consensusKey": "0x456y2357dfk6e7x2d294c71d0k06c512x077d242076lk7cx44feex03e27d59757f7c717925692537eccd2e6292262774",
           "oracleAddress": "0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D",
+          "nodeAddress": "0xa75500C1BeE38247e2cD814Cc95E22D7AD96EC56",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -301,6 +320,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0x1B441084736B80f273e498E646b0bEA86B4eC6AB",
           "consensusKey": "0xhi3d112de66e7x2d294c77d0709c772x099d272076e97cx44jyex03e27du175df7cp7hh05o71537eccd2d9282262532",
           "oracleAddress": "0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d",
+          "nodeAddress": "0xA49BD88570B0DDE977dfE5F4B1B0d73737c26836",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -308,6 +328,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0xB5C49d50470743D8dE43bB6822AC4505E64648Da",
           "consensusKey": "0x1a0j2652de66e7x2a294c7ad0406c711x077d242076e97cfc4fykx03e27d59757f7c777905072537ec9d2fhj9w26271u",
           "oracleAddress": "0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113",
+          "nodeAddress": "0xd5Cb27d9658D26E49eCe7642223Cc8889D789b55",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -315,6 +336,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0x31e1dE659A26F7638FAaFEfD94D47258FE361823",
           "consensusKey": "0xf9wd795wdew6e7x2d294c75d07c6c281xk7md282076ek7ch34fesx03e279j9d87f5c1o790i0725h7efcd2d69372mh527",
           "oracleAddress": "0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF",
+          "nodeAddress": "0x00bb781AE6bAf8B8a75eb52A7D07ba8f7684AD11",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -322,6 +344,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9",
           "consensusKey": "0x776d2602de06e7x2d294c77d0706c772x077d242076e97cx44feex00e27d09707f7c7779j0e49il2etc4kd2ar39ov3a7",
           "oracleAddress": "0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d",
+          "nodeAddress": "0x38077B7bbba04267eB86d2106dd804C1351d7239",
           "bondedStake": 10000000000000000000000
         }
       ]
@@ -375,7 +398,13 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
       "balance": "10000000000000000000000"
     },
     "0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d": {
-      "balance": "10000000000000000000000"
+      "balance": "10000000000000000000000",
+      "newtonBalance": "30000000000000000000000",
+      "bonds": {
+        "0xa75500C1BeE38247e2cD814Cc95E22D7AD96EC56": "10000000000000000000000",
+        "0xA49BD88570B0DDE977dfE5F4B1B0d73737c26836": "10000000000000000000000",
+        "0x38077B7bbba04267eB86d2106dd804C1351d7239": "10000000000000000000000"
+      }
     }
   }
 }
