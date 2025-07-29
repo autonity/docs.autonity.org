@@ -14,12 +14,12 @@ AGC is the reference implementation of the Autonity Protocol and the main client
 - _Autonity Accountability Contracts_, the accountable and omission fault detection protocol contracts providing operations for: detecting consensus rule infractions and failure to participate in consensus voting rounds, and computing rewards and penalties to incentivise correct and disincentivise incorrect behavior by [committee members](/concepts/consensus/committee/). See [Autonity Accountability Contract](/concepts/architecture/#autonity-accountability-contract), [Autonity Omission Accountability Contract](/concepts/architecture/#autonity-omission-accountability-contract) and concepts [Accountability Fault Detection (AFD)](/concepts/afd/) and [Omission Fault Detection (OFD)](/concepts/ofd/).
 - _Autonity Oracle Contract_, the oracle protocol contract providing operations for: computing median price data, managing the currency-pair symbols for which price data is provided by the Autonity oracle network, and implementing the Autonity _Oracle Accountability Fault Detection (OAFD)_ protocol to incentivise correct and timely price reporting by the oracle network. See [Autonity Oracle Contract](/concepts/architecture/#autonity-oracle-contract) and concepts [Oracle Server](/concepts/oracle-server/), [Oracle network](/concepts/oracle-network/), and [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/).
 - _EVM_, the deterministic virtual machine providing the state transition function for computing global state
-- _Consensus_, Autonity implementation of the  Tendermint BFT consensus protocol managing state replication and block production with dynamic committee selection. See [Consensus layer](/concepts/architecture/#consensus-layer)
+- _Consensus_, Autonity implementation of the Tendermint BFT consensus protocol managing state replication and block production with dynamic committee selection. See [Consensus layer](/concepts/architecture/#consensus-layer)
 - _P2P Networking_, transport and wire protocols providing reliable broadcast for blockchain and consensus state synchronisation between participants. See [Communication layer](/concepts/architecture/#communication-layer)
 - _Core_, the core Autonity Go Client codebase managing interactions with the blockchain ledger and EVM.
 
 ### State storage
-Each participant maintains a local state database synchronised to world state, using a LevelDB k-v store. See also [System model](/concepts/system-model/) and the [Ledger object](/concepts/system-model/#the-ledger-object). 
+Each participant maintains a local state database synchronised to world state, using a Pebble DB k-v store. See also [System model](/concepts/system-model/) and the [Ledger object](/concepts/system-model/#the-ledger-object). 
 
 ### Interfaces
 The client provides interfaces for:

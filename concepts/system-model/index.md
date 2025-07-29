@@ -95,7 +95,7 @@ Ledger integrity is assured cryptographically by the hash tree, by block validit
 
 ### The Blockchain Object
 
-Autonity modifies the inherited Ethereum blockchain structure, extending the block header data structure to add fields for managing block production by the committee-based Tendermint BFT Consensus mechanism.
+Autonity modifies the inherited Ethereum blockchain structure, extending the block header data structure to add fields for managing block production by the committee-based [Tendermint BFT Consensus](/concepts/consensus/pos/) mechanism.
 
 #### Block Header
 
