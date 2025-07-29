@@ -10,11 +10,17 @@ description: >
 - A running instance of `aut` for submitting transactions from your account configured as described in [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 - Your validator's validator's [`treasury account`](/concepts/validator/#treasury-account) is [funded](/account-holders/fund-acct/) with auton to pay for transaction gas costs.
 
-::: {.callout-note title="Note" collapse="false"}
+::: {.callout-warning title="Considerations for validator pausing and reactivation" collapse="false"}
 See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and [validator pausing](/concepts/validator/#validator-pausing).
 
-Note that the pause and reactivation of a validator will become effective at the end of the current epoch (i.e. the epoch in which the transaction is processed). The change in validator state is applied before the committee is selected for the following epoch is selected, ensuring that the validator is either ignored (if paused) or included (if reactivated).
+Note for validator's pausing to exit consensus committee selection:
+
+- the pause and reactivation of a validator will become effective at the end of the current epoch (i.e. the epoch in which the pause transaction is processed). The change in validator state is applied before the committee is selected for the following epoch is selected, ensuring that the validator is either ignored (if paused) or included (if reactivated).
+- after pausing a validator should stay online for at least 120 blocks (i.e. ~2 minutes) after current epoch end. This is so the validator is able to respond to any [AFD](https://docs.autonity.org/concepts/afd/) [accusation](https://docs.autonity.org/concepts/afd/#accusations) against the validator for the latest epoch.
+
 :::
+
+
 
 ## Pause as a validator
 
