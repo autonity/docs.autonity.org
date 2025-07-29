@@ -252,7 +252,6 @@ aut token approve [OPTIONS] SPENDER AMOUNT
 ```
 :::
 
-
 ### Example
 
 To approve a spender for a Newton stake token account specify the `--ntn` option:
@@ -267,7 +266,6 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
-
 To approve a spender for an ERC-20 contract token (e.g. Liquid Newton) account specify the `--token` option:
 
 ::: {.panel-tabset}
@@ -279,6 +277,62 @@ Enter passphrase (or CTRL-d to exit):
 0xa20ae3a75009fb967ed53897b980e6e88dd580fada133c08071183b5b452ca2c
 ```
 :::
+
+
+## approveBonding
+
+Conceptually similar to the [`approve()`](/reference/api/aut/#approve) function but for delegated staking workflows where a Newton [stakeholder](/glossary/#stakeholder) has authorized the method caller to unbond Newton tokens on its behalf up to an approved allowance.
+
+Called by a token `owner` to set the bonding-allowance (NTN) amount of a 3<sup>rd</sup> party _caller_ over the `owner`'s token.
+
+To increase or decrease the approved allowance the method is called again.
+
+Constraint checks are applied:
+
+- The `msg.Sender` address is the `owner` address, i.e. the Newton [stakeholder](/glossary/#stakeholder) address.
+- The `_owner` and the `_caller` address are not the zero address. If the constraint check fails the transaction will revert with the error "approve to the zero address".
+
+::: {.callout-tip title="Delegated staking" collapse="false"}
+Autonity implements a delegated staking model based on the ERC-20 approve, allowance and transfer from model.
+
+Newton implements the ERC-20 token interface and holders can approve a 3<sup>rd</sup> party account to transfer Newton on their behalf up to an approved allowance.
+
+Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allowing Newton holders to delegate staking to a 3<sup>rd</sup> party `caller` account.
+:::
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_caller`  | `address` | the account address being approved to bond on the Newton token holde's behalf |
+| `_amount` | `uint256` | the amount of Newton the `_caller` is authorized to bond |
+
+### Response
+
+The method returns a boolean value indicating whether the operation succeeded or not.
+
+### Event
+
+On a successful call the function emits a `BondingApproval` event, logging: `_owner`, `_caller`, `_amount`.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut validator approve-bonding [OPTIONS] CALLER AMOUNT
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
 
 ## atnTotalRedistributed
 
@@ -413,7 +467,7 @@ Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/conc
 
 ### Response
 
-No response object is returned on successful execution of the method call.
+Returns the `id` of the bonding request from memory.
 
 The pending voting power change is tracked in memory until applied.
 
@@ -426,7 +480,6 @@ The function emits events:
 
 ### Usage
 
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
@@ -437,7 +490,6 @@ aut validator bond [OPTIONS] AMOUNT
 
 ### Example
 
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
@@ -445,6 +497,116 @@ aut validator bond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 1 | au
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xaa3705ef2d38cf2d98925660e6ca55de8948e8a075e7ee9edf6be7fa540ffe51
+```
+:::
+
+
+## bondFrom
+
+Conceptually identical to the [`bond()`](/reference/api/aut/#bond) function but for delegated staking workflows where a Newton [stakeholder](/glossary/#stakeholder) has authorized the method caller to bond Newton tokens on its behalf up to an approved amount. 
+
+The `bondFrom()` function creates a bonding (delegation) request with the passed in `account` as the delegator address. The `msg.sender` caller must have a bonding-allowance (NTN) from the `account`. The amounts of successful `bondFrom()` calls are then deducted from that bonding allowance.
+
+The `bondFrom` method differs from `bond()` by:
+
+- Additional constraint checks to `bond()`:
+
+  - the calling `account` address is not the validator's `treasury` account. If the constraint check fails the transaction will revert with the error "cannot bond PAS using allowance".
+  - the calling `account` address is approved to bond by the Newton token `owner`. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+  - the calling `account` address has a remaining `allowance >= amount` being bonded in the request. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+
+- Additional parameter for the 3<sup>rd</sup> party caller _account_.
+
+
+::: {.callout-tip title="Delegated staking" collapse="false"}
+Autonity implements a delegated staking model based on the ERC-20 approve, allowance and transfer from model.
+
+Newton implements the ERC-20 token interface and holders can approve a 3<sup>rd</sup> party account to transfer Newton on their behalf up to an approved allowance.
+
+Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allowing Newton holders to delegate staking to a 3<sup>rd</sup> party `caller` account.
+:::
+
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_account`  | `address` | address of the delegator (_not_ the approved 3<sup>rd</sup> party caller address) |
+| `_validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address to bond stake to |
+| `_amount` | `uint256` | the amount of Newton to bond |
+
+### Response
+
+Per the [`bond()`](/reference/api/aut/#bond) function.
+
+### Event
+
+Per the [`bond()`](/reference/api/aut/#bond) function.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut validator bond-from [OPTIONS] ACCOUNT AMOUNT
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+
+## bondingAllowance
+
+Returns the amount of Newton stake token that remains available for a stake delegator caller to bond on behalf of the stake delegator owner's account via [`bondFrom()`](/reference/api/aut/#bondfrom).
+
+Bonding allowance is `0` by default. 
+
+::: {.callout-tip title="Delegated staking" collapse="false"}
+Autonity implements a delegated staking model based on the ERC-20 approve, allowance and transfer from model.
+
+Newton implements the ERC-20 token interface and holders can approve a 3<sup>rd</sup> party account to transfer Newton on their behalf up to an approved allowance.
+
+Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allowing Newton holders to delegate staking to a 3<sup>rd</sup> party `caller` account.
+:::
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `owner` | `address` | address of a Newton stake token owner account from which a caller account has approval to bond from |
+| `caller` | `address` | address of an account with approval to bond Newton stake token from the Newton stake token owner's account |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `amount` |  `uint256`  | the amount of Newton stake token the caller is able to bond |
+
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
 ```
 :::
 
@@ -2816,11 +2978,11 @@ The amount of Newton released may be less than the unbonded amount if the valida
 | Field | Datatype | Description |
 | --| --| --|
 | `_validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address |
-| `amount` | `uint256` | the amount of stake to be unbonded from the validator. Depending on the `msg.Sender` address the amount is for: (a) Newton stake token if the `msg.Sender` is the validator `treasury` and the unbond request is for [self-bonded](/glossary/#self-bonded) stake, or (b) Liquid Newton and the unbond request is for [delegated](/glossary/#delegated) stake |
+| `_amount` | `uint256` | the amount of stake to be unbonded from the validator. Depending on the `msg.Sender` address the amount is for: (a) Newton stake token if the `msg.Sender` is the validator `treasury` and the unbond request is for [self-bonded](/glossary/#self-bonded) stake, or (b) Liquid Newton and the unbond request is for [delegated](/glossary/#delegated) stake |
 
 ### Response
 
-No response object is returned on successful execution of the method call.
+Returns the `id` of the unbonding request from memory.
 
 The pending voting power change is tracked in memory until applied.
 
@@ -2848,6 +3010,70 @@ aut validator unbond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9  1 |
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3ac340e33f5ddfdab04ffe85ce4b564986b2f1a877720cb79bc9d31c11c8f318
+```
+:::
+
+
+## unbondFrom
+
+Conceptually identical to the [`unbond()`](/reference/api/aut/#unbond) function but for delegated staking workflows where a Newton [stakeholder](/glossary/#stakeholder) has authorized the method caller to unbond Liquid Newton tokens on its behalf up to an approved amount. The amounts of successful `unbondFrom()` calls are then deducted from that unbonding allowance.
+
+
+Conceptually identical to the [`bond()`](/reference/api/aut/#bond) function but for delegated staking workflows where a Newton [stakeholder](/glossary/#stakeholder) has authorized the method caller to bond Newton tokens on its behalf up to an approved amount. 
+
+
+The `unbondFrom()` function creates an unbonding request with the passed in `account` as the delegator address. The `msg.sender` caller must have an unbonding-allowance (LNTN) from the `account`. The amounts of successful `unbondFrom()` calls are then deducted from that unbonding allowance.
+
+The `unbondFrom` method differs from `unbond()` by:
+
+- Additional constraint checks to `unbond()`:
+
+  - the calling `account` address is not the validator's `treasury` account. If the constraint check fails the transaction will revert with the error "cannot bond PAS using allowance".
+  - the calling `account` address is approved to unbond by the Newton token `owner`. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+  - the calling `account` address has a remaining `unbonding allowance >= amount` being un bonded in the request. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+
+- Additional parameters for the 3<sup>rd</sup> party caller _account_.
+
+::: {.callout-tip title="Delegated staking" collapse="false"}
+Autonity implements a delegated staking model based on the ERC-20 approve, allowance and transfer from model.
+
+Newton implements the ERC-20 token interface and holders can approve a 3<sup>rd</sup> party account to transfer Newton on their behalf up to an approved allowance.
+
+Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allowing Newton holders to delegate staking to a 3<sup>rd</sup> party `caller` account.
+:::
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_account`  | `address` | address of the delegator (_not_ the approved 3<sup>rd</sup> party caller address) |
+| `_validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address to unbond stake from |
+| `_amount` | `uint256` | the amount of Liquid Newton (or NTN if self delegated) to unbond |
+
+
+### Response
+
+Per the [`unbond()`](/reference/api/aut/#unbond) function.
+
+### Event
+
+Per the [`unbond()`](/reference/api/aut/#unbond) function.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut validator unbond-from [OPTIONS] ACCOUNT AMOUNT
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
 ```
 :::
 
