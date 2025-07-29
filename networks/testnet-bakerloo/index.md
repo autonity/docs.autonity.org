@@ -50,9 +50,11 @@ The network's genesis configuration is:
 
 The network bootnode addresses are:
 
-| enode |
-| :-- |
-| `enode://... |
+| enode | region |
+| :-- | :-- |
+| `enode://aa56696a131d2cfac1cfaa18dba06f5dc32ef57cf8c8b3548ab1f74227987c5656c2c0eecba61dfdd0754030c23d433e4db554f6b677eb900c05b98792b1d7fb@34.39.58.139:30303` | europe-west2 |
+| `enode://feb31d821a92db0c7a6260c1eff9539bde1db5d947f319b7f761ea99479b5b31a95209153c9c910c8f94e8f557541a7ffa72a4a1ff0602944df2b0e6611be4ce@35.200.221.60:30303` | asia-south1 |
+| `enode://b6e18b34019e70d32bfd43bcf66b71a127117f3402c29f857337b9dd3ccc45c4a9d441d211ca2a201bd46d003cfbf84a2b0721cf9b939ae6abd66dfe698700fc@35.235.121.67:30303` | us-west2 |
 
 
 ## Release
