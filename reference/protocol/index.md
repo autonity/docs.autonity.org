@@ -110,9 +110,10 @@ Autonity assigns the same value to Chain and Network identifiers `networkId` and
 | `clusteringThreshold` | Sets the clustering threshold for consensus message routing. When committee size exceeds this threshold, network participants are grouped into deterministic clusters to optimize network propagation of gossiped consensus messages. | Set to `64` | See [`setClusteringThreshold()`](/reference/api/aut/op-prot/#setclusteringthreshold) |
 | `skipGenesisVerification` | A boolean flag to skip or not verification checks that the amount of NTN minted and bonded at genesis matches the `tokenBond` and `tokenMint` parameter values. | Set to `false` | None |
 | `tokenBond` | The amount of NTN stake token bonded to validators at network genesis. | Specific to network  genesis | None |
-| `tokenMint` | The amount of NTN stake token minted at network genesis. | Specific to network genesis | None |
+| `tokenMint` | The amount of NTN stake token minted at network genesis. | Set to `60 Million` (60% of the total supply of 100 Million Newton)  | None |
 | `schedules` | Protocol schedules determine the amount of NTN to deduct from the total minted NTN amount to set the circulating supply (inflation base) to which the inflation rate is applied. | Specific to network genesis | None |
 | `maxScheduleDuration` | The maximum allowed duration of a schedule. See `schedules`. | Set to `94608000` (1095 days) | See [`setMaxScheduleDuration()`](/reference/api/aut/op-prot/#setmaxscheduleduration) |
+| `validators` | Specify the genesis validator set. | Specific to network genesis | Post-genesis the genesis validators can `pause` and `reactivate` to enter and leave committee selection. New validators can register after genesis. |
 
 ::: {.callout-note title="NTN supply, protocol schedules and Newton inflation" collapse="false"}
 

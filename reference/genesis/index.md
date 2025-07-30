@@ -41,6 +41,7 @@ Genesis configuration file JSON objects:
 - [genesis file](#genesis-file-object)
 - [config](#config-object)
 - [config.autonity](#config.autonity-object)
+- [config.autonity.schedules](#config.autonity.schedules-object)
 - [config.autonity.validators](#config.autonity.validators-object)
 - [config.accountability](#config.accountability-object)
 - [config.oracle](#config.oracle-object)
@@ -118,13 +119,26 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `tokenMint` | See Protocol Parameter Reference [Autonity Config, `tokenMint`](/reference/protocol/#autonity-config)  | Specific to network genesis |
 | `maxScheduleDuration` | See Protocol Parameter Reference [Autonity Config, `maxScheduleDuration`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `2592000` could be appropriate |
 | `schedules` | See Protocol Parameter Reference [Autonity Config, `schedules`](/reference/protocol/#autonity-config) | Value is specific to network configuration. |
-| `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
+| `validators` | See Protocol Parameter Reference [Autonity Config, `validators`](/reference/protocol/#autonity-config) | Value specific to network configuration |
 
-#### config.autonity.validators object
+#### config.autonity.schedules object
+
+An array of `schedule` objects consisting of:
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `enode` |The [enode url](/glossary/#enode) address for the validator node on the network after genesis | The validator's enode URL |
+| `start` | The start time of the protocol schedule | The timestamp that the schedule begins in [Unix time](/glossary/#unix-time) format |
+| `totalDuration` | The length of time that the schedule runs after the start time | Temporal duration of the schedule in seconds |
+| `amount` | The amount of Newton held in the protocol schedule | Positive integer for Newton amount. Value is specific to schedule. |
+| `vaultAddress` | The address of the vault contract holding the Newton | Contract account address |
+
+#### config.autonity.validators object
+
+An array of `validator` objects consisting of:
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `enode` | The [enode url](/glossary/#enode) address for the validator node on the network after genesis | The validator's enode URL |
 | `treasury` | The validator’s treasury account for receiving staking rewards. Ethereum format address. | The validator's EOA account address |
 | `consensusKey` | The validator's BLS key used for consensus gossiping when participating in consensus | The validator's _consensus public key_ |
 | `oracleAddress` | The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address. | The Oracle Server's account address |
