@@ -12,18 +12,25 @@ Mainnet is for participants interested in:
 - The Autonity Futures Protocol
 - Decentralized application (dApp) use cases
 - Providing live validator and public RPC endpoint node infrastructure
-- ...
+- The Autonity community!
 
 
 ## Mainnet details
 
+::: {.callout-tip title="Delegated staking" collapse="false"}
+
+Watch this space, coming soon! 🚀
+
+:::
+
+<!--
 |**Field**|**Input**|
 |------|----------|
 |Network Name|`Autonity (Nile) Mainnet`|
-|New RPC URL|Please select one from [Chainlist] ()|
+|New RPC URL|Please select one from [Chainlist](https://chainlist.org/?search=autonity)|
 |ChainID |`65000000`|
 |Symbol|`ATN`|
-|Block Explorer URL (optional)|``|
+|Block Explorer URL (optional)|`https://autonityscan.org`|
 
 (The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
 
@@ -34,31 +41,31 @@ The network's genesis configuration is:
 | Name                               | Mainnet                      |
 | ---------------------------------- | ----------------------------- |
 | `chainId`                          | `65000000`                    |
-| `gasLimit`                         | ` ` ( M)              |
+| `gasLimit`                         | `30000000` (30M)              |
 | `config.autonity.blockPeriod`      | `1` second                    |
 | `config.autonity.epochPeriod`      | `1800`(30 min)                |
 | `config.autonity.unbondingPeriod`  | `21600`(6 hours)              |
-| `config.autonity.maxCommitteeSize` | ``                          |
-| `config.autonity.delegationRate`   | `` ( %)                  |                |
-| `config.autonity.treasuryFee`      | `` ( %)      |
-| `config.autonity.minBaseFee`       | `` ( GWei)        |
-| `config.autonity.operator`         | `` |
-| `config.autonity.treasury`         | `` |
-| `config.autonity.validators`       |  See [`Validators`] ( ) object in the AGC `MainnetChainConfig` for details.  |
-| `config.oracle.symbols`       | `[  ]`        |
-| `config.oracle.votePeriod`       | `` ( blocks)       |
+| `config.autonity.maxCommitteeSize` | `27`                          |
+| `config.autonity.delegationRate`   | `1000` (10%)                  |
+| `config.autonity.treasuryFee`      | `50000000000000000` (5%)      |
+| `config.autonity.minBaseFee`       | `10_000_000_000` (10 GWei)    |
+| `config.autonity.operator`         | `0x83e5e0eab996Bb894814fa8F0AC96a0D314f06F3` |
+| `config.autonity.treasury`         | `0xd735174cf1d0D9150cb57750C45B6e8095160f6A` |
+| `config.autonity.validators`       |  See `Validators` in the AGC [`MainnetChainConfig`](https://github.com/autonity/autonity/blob/release/v1.1.0/params/config.go)) for details.  |
+| `config.oracle.symbols`            | `['AUD-USD','CAD-USD','EUR-USD','GBP-USD','JPY-USD','SEK-USD']`        |
+| `config.oracle.votePeriod`         | `600` (600  blocks)          |
 
 
-## Bootnodes
+## Bootnodes TO DO
 
 The network bootnode addresses are:
 
-| enode |
-| :-- |
-| `enode://...` |
+| enode | region |
+| :-- | :--      |
+| `enode://...` |   |
 
 
-## Release
+## Release TO DO
 
 Mainnet is built using:
 
@@ -66,15 +73,17 @@ Mainnet is built using:
 
 - Autonity Oracle Server (AOS) Release: [ ]( ). The docker image release is: `ghcr.io/autonity/autonity-oracle:latest`
 
-## Faucet
+## ATN and NTN funding TO DO
 
-- Faucet for [Auton](/concepts/protocol-assets/auton) ... TO DO
+- ... for [Auton](/concepts/protocol-assets/auton) ... TO DO
 - ... [Newton](/concepts/protocol-assets/newton) ... TO DO
 
 ## Public endpoints
 
-Please select one from [Chainlist] ( TO DO ). For questions related to rate limits or other usage questions, please speak to the owner of the RPC endpoint directly.
+Please select one from [Chainlist](https://chainlist.org/?search=autonity). For questions related to rate limits or other usage questions, please speak to the owner of the RPC endpoint directly.
 
 ## Block explorer
 
-- BlockScout explorer for searching and viewing ledger data: [ TO DO ](https://bakerloo.autonity.org/)
+- BlockScout explorer for searching and viewing ledger data: [https://autonityscan.org](https://autonityscan.org)
+
+-->
