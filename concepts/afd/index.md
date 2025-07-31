@@ -19,7 +19,7 @@ AFD functions by submitting, verifying, and processing accountability event proo
 
 Rule infractions can be directly submitted as a _fault_ proof by a _reporting validator_.
 
-Rule infractions can also be promoted from _accusations_. In this case, the Rule infraction is reported as an _accusation_, submitted by a _reporting validator_ against an _offending validator_. An _accusation_ may be defended by an _innocence_ proof submitted by the _offending validator_ within a proof submission window measured in blocks. If not defended against, the _accusation_ may be promoted to a _fault_ by the protocol once the innocence window has expired.
+Rule infractions can also be promoted from _accusations_. In this case, the Rule infraction is reported as an _accusation_, submitted by a _reporting validator_ against an _offending validator_. An _accusation_ may be defended by an _innocence_ proof submitted by the _offending validator_ within a proof submission window measured in blocks. If protocol configuration values are reset post-genesis by governance, then the fault detector protocol automatically readjusts a _grace period_ to guarantee that _accusations_ are always defensible. If not defended against, the _accusation_ may be promoted to a _fault_ by the protocol once the innocence window has expired.
 
 Slashing penalties are computed by protocol and  applied for proven faults at epoch end. The penalty amount is computed based on a base slashing rate and slashing factors including the total number of slashable offences committed in the epoch (collusion) and the individual _offending validator's_ own slashing history.
 
@@ -56,7 +56,7 @@ The Autonity community is also a _beneficiary_ of AFD processing as slashed stak
 
 ### Protocol primitives
 
-Essential primitives of AFD are: accusation, innocence, and fault proofs; slashing and severity; jailing.
+Essential primitives of AFD are: accusation, innocence, and fault proofs; delta, range, and grace period; slashing and severity; jailing.
 
 #### Accusations
 
@@ -92,6 +92,7 @@ If the _innocence_ claim is successfully verified, then the _accusation_ queue i
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of an _innocence_ claim on-chain, an `InnocenceProven` event is emitted that logs: _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, and `0` indicating there are no pending accusations against the validator.
 
+
 #### Faults 
 
 A _fault_ is a proven consensus rule infraction in an epoch. A _fault_ is created *directly* or by *promotion of an accusation*.
@@ -107,6 +108,41 @@ A direct fault proof can be reported at any time.
 :::
 
 After successful [handling and verification](/reference/api/aut/op-prot/#handleevent-accountability-contract) of a directly submitted _fault_ on-chain, a `NewFaultProof` event is emitted logging the _offending_ [validator identifier](/concepts/validator/#validator-identifier) address, _severity_ of rule infraction, and the event ID.
+
+
+#### Delta $\Delta$, range and grace period
+
+An accusation must be defensible to be valid. AFD guarantees this by means of a _delta_, _range_ and _grace period_ mechanism.
+
+The _delta_ $\Delta$ is the number of blocks that must elapse before running the fault detector on a certain block height, i.e. height $x$ gets scanned at block $x\text{ + delta}$. The _range_ establishes height boundaries for accusation validity. 
+
+Initial delta and range values are set by default in the AFD [protocol configuration](/concepts/afd/#accountability-protocol-configuration) at genesis. They can be changed post-genesis by governance [`setDelta()`](/reference/api/aut/op-prot/#setdelta-accountability-contract) and [`setRange()`](/reference/api/aut/op-prot/#setrange-accountability-contract).
+
+The _grace period_ is used to prevent the possibility of a `range` increase resulting in AFD raising indefensible and so invalid accusations. Grace period is set at genesis to `0` and then automatically adjusts in the case of a _range_ change. This adjustment reduces or increases grace period depending on the current _grace period_ value and the old and new _range_ values:
+
+<!-- markdownlint-disable-next-line line-length -->
+$$\text{If } \text{gracePeriod} > 0, \quad \text{gracePeriod} \leftarrow \text{gracePeriod} - 1$$
+
+where `gracePeriod` decrements by $1$ if it has been increased from the genesis `0` value post-genesis due to a _range_ change.
+
+Else, `gracePeriod` increments by $\text{75\%}$ if the new _range_ is greater than the current _range_:
+
+<!-- markdownlint-disable-next-line line-length -->
+$$\text{If } \text{newRange} > \text{config.range}, \quad
+\begin{aligned}
+\text{diff} &\leftarrow \text{newRange} - \text{config.range} \\
+\text{gracePeriod} &\leftarrow \text{diff} - \frac{\text{diff}}{4}
+\end{aligned}$$
+
+where:
+
+- $newRange$ means the new value for $range$
+- $config.range$ means the value for $range$ currently set in the Accountability Contract config.
+- $diff$ means the difference between the new and configured values for $range$
+- $\frac{\text{diff}}{4}$ means the increase percentage applied to $\text{gracePeriod}$, i.e. $\frac{3}{4} \cdot \text{diff}$.
+
+The $gracePeriod$ is reset to $\text{75\%}$ of the $range$ increase. This gives a buffer to allow adjustments before the new, more lenient $range$ is enforced.
+
 
 #### Slashing and severity
 
@@ -175,6 +211,9 @@ Accountability protocol parameters are set by default to:
 | Protocol parameter | Description | Value |
 |:--:|:--|:--:|
 | _innocence proof submission window_ | the number of blocks within which an accused _offending validator_ can submit a proof of innocence on-chain refuting an `accusation` | `100` (100 blocks) |
+| _delta_ | the number of blocks that must elapse before running the fault detector on a certain height. E.g height `x` gets scanned at block `x + delta` | `10` (10 blocks) |
+| _range_ | the height range used to establish height boundaries for accusation validity (also used for garbage collection of messages) | `256` (256 blocks) |
+| _grace period_ | the grace period for a validator to defend against an accusation; prevents the possibility of the protocol raising an indefensible accusation in the case of a `range` increase | `0` (blocks) (dynamically adjusted by protocol on post-genesis changes to the _range_ and _delta_ |
 | _base slashing rate low_ | the base slashing rate for a fault of _Low_ severity | `400` (4%) |
 | _base slashing rate mid_ | the base slashing rate for a fault of _Mid_ severity | `600` (6%) |
 | _base slashing rate high_ | the base slashing rate for a fault of _High_ severity | `800` (8%) |

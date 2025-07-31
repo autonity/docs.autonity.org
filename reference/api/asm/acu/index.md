@@ -2,7 +2,8 @@
 title: "ACU Contract Interface"
 
 description: >
-  Autonomous Currency Unit Contract functions
+  Autonomous Currency Unit (ACU) Contract functions
+
 ---
 
 Interfaces for interacting with the ASM Autonomous Currency Unit Contract functions using:
@@ -17,9 +18,78 @@ Usage and Examples illustrate using the ACU Contract's generated ABI and the `au
 Usage and Examples assume the path to the ABI file has been set in `aut`'s configuration file `.autrc`. The `ACU.abi` file is generated when building the client from source and can be found in your `autonity` installation directory at `./params/generated/ACU.abi`. Alternatively, you can generate the ABI using the `abigen` `cmd` utility if you built from source (See [Install Autonity, Build from source code](/node-operators/install-aut/#install-source)).
 :::
 
-## value
 
-Returns the latest value computed for the ACU index.
+## getRound
+
+Returns the Oracle round of the current ACU index value.
+    
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `round` | `uint256` | the oracle voting round number for the latest successfully computed ACU index value |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+## getScale
+
+Returns the decimal places used to represent the ACU as a fixed-point integer.
+
+Note this is also the scale used to represent the basket quantities. See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract).
+    
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `scale` | `uint256` | the decimal places used to represent the ACU as a fixed-point integer |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+## getScaleFactor
+
+Returns the multiplier for scaling numbers to the ACU scaled representation.
 
 ### Parameters
 
@@ -29,14 +99,14 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_value ` | `int256` | the ACU value in fixed-point integer representation |
+| `scaleFactor` | `uint256` | the scale factor for ACU index values |
 
 ### Usage
 
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
+
 ```
 :::
 
@@ -45,8 +115,107 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
-98410
+
+```
+:::
+
+
+## multiplier
+
+Returns the quantity multiplier that is used to compute the ACU index value.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `quantityMultiplier` | `uint256` | the ACU  quantity multiplier |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+
+## quantities
+
+Returns the basket quantities used to compute the ACU index value.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_quantities` | `uint256` array | an array of the quantities |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
+[21300, 18700, 14300, 10400, 1760000, 18000, 141000]
+```
+:::
+
+
+## scaledQuantities
+
+Returns the scaled quantities used to compute the ACU index value.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `scaled` | `uint256` array | an array of the scaled quantities |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
 ```
 :::
 
@@ -85,9 +254,9 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
 :::
 
 
-## quantities
+## value
 
-Returns the basket quantities used to compute the ACU index value.
+Returns the latest value for the ACU index that was computed.
 
 ### Parameters
 
@@ -97,14 +266,16 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| `_quantities` | `uint256` array | an array of the quantities |
+| `_value ` | `int256` | the ACU value in fixed-point integer representation rescaled by the quantity multiplier |
+
+If there is no value the function reverts with the error `NoACUValue`.
 
 ### Usage
 
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
+aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
 ```
 :::
 
@@ -113,7 +284,7 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantitie
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
-[21300, 18700, 14300, 10400, 1760000, 18000, 141000]
+aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
+98410
 ```
 :::

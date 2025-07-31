@@ -15,7 +15,7 @@ Configuring the client to join a public network is done by setting the network a
 
 |Network|Command-line option|Network settings|
 |-------|-------------------|----------------|
-|Piccadilly Testnet| [`--piccadilly` command-line option](/reference/cli/#command-line-options) | [Genesis configuration](/networks/testnet-piccadilly/#genesis-configuration) |
+|Bakerloo Testnet| [`--bakerloo` command-line option](/reference/cli/#command-line-options) | [Genesis configuration](/networks/testnet-bakerloo/#genesis-configuration) |
 
 
 For details of individual public network purpose and use see the [Networks](/networks/) section.
@@ -41,6 +41,7 @@ Genesis configuration file JSON objects:
 - [genesis file](#genesis-file-object)
 - [config](#config-object)
 - [config.autonity](#config.autonity-object)
+- [config.autonity.schedules](#config.autonity.schedules-object)
 - [config.autonity.validators](#config.autonity.validators-object)
 - [config.accountability](#config.accountability-object)
 - [config.oracle](#config.oracle-object)
@@ -49,9 +50,11 @@ Genesis configuration file JSON objects:
 - [config.asm.acu](#config.asm.acu-object)
 - [config.asm.stabilization](#config.asm.stabilization-object)
 - [config.asm.supplyControl](#config.asm.supplycontrol-object)
+- [config.asm.auctioneer](#config.asm.auctioneer-object)
 - [config.omissionAccountability](#config.omissionaccountability-object)
 - [alloc](#alloc-object)
 - [alloc.account object](#alloc.account-object)
+- [alloc.account.bonds object](#alloc.account.bonds-object)
 
 #### Genesis file object
 
@@ -61,7 +64,6 @@ Genesis configuration file JSON objects:
 | `nonce` | Maintained by the Autonity Protocol for backward compatibility reasons in the EVM. | Set to `0` (`0x0` in hexadecimal) |
 | `timestamp` | Specifies the time point when the network starts mining and the first block is mined. If set to `0`, the node will start mining on deployment. If a future time point is specified, then miners will wait until `timestamp` + `blockPeriod` to begin mining. The local node consensus engine will start when its local Unix clock reaches the timestamp value. The Validator node operator must keep their local node in sync, i.e. by the [Network Time Protocol (NTP)](https://www.nwtime.org/documentationandlinks/) | Set to `0` (`0x0`) to start node mining on connection to the Autonity network |
 | `baseFee` | The base gas price for computing a transaction on an Autonity network after genesis.  Denominated in [`ton`](/glossary/#ton). The base fee is adjusted per the [EIP 1559](https://eips.ethereum.org/EIPS/eip-1559) fee market mechanism. See Concepts, [EIP 1559 Transaction fee mechanism (TFM)](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm) | Set to: `1000000000` (`1` [gigaton](/glossary/#gigaton)) |
-| `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. The value is specified as the number of gas units allowed in a block. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol | Set to: `20000000` |
 | `difficulty` | Derived from Ethereum where it sets the difficulty for Ethereum's Ethash Proof of Work consensus. For Autonity's implementation of Tendermint BFT Proof of Stake consensus this must be assigned `0`. | Set to `0` (`0x0`) |
 | `coinbase` | Maintained for backward compatibility reasons in the EVM. Unused by the Autonity Protocol. Ethereum format address. | Set to `0x0000000000000000000000000000000000000000` |
 | `number ` | A value equal to the number of ancestor blocks. At genesis there are no ancestor blocks and it is assigned the value `0` | Set to `0` (`0x0`) |
@@ -98,7 +100,6 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `unbondingPeriod` | See Protocol Parameter Reference [Autonity Config, `unbondingPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For a production environment a number of blocks to span a day or more could be typical to enable Byzantine behavior detection. For a local devnet supporting rapid testing a value of `120` could be appropriate. The `unbondingPeriod` must be longer than an `epochPeriod` |
 | `blockPeriod` | See Protocol Parameter Reference [Autonity Config, `blockPeriod`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, set to `1` for a 1-second block interval |
 | `maxCommitteeSize` | See Protocol Parameter Reference [Autonity Config, `maxCommitteeSize`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `20` could be appropriate |
-| `maxScheduleDuration` | See Protocol Parameter Reference [Autonity Config, `maxScheduleDuration`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `2592000` could be appropriate |
 | `operator` | See Protocol Parameter Reference [Autonity Config, `operator`](/reference/protocol/#autonity-config) | EOA account address. For functions restricted to the operator, see the See API Reference section [Autonity Protocol and Operator Only](/reference/api/aut/op-prot/) |
 | `treasury` | See Protocol Parameter Reference [Autonity Config, `treasury`](/reference/protocol/#autonity-config) | EOA account address |
 | `withheldRewardsPool` | See Protocol Parameter Reference [Autonity Config, `withheldRewardsPool`](/reference/protocol/#autonity-config) | Set by default to the Autonity `treasury` account at genesis unless specified |
@@ -108,13 +109,36 @@ In current state the `operator` governance account is an EOA. It could be assign
 | `proposerRewardRate` | See Protocol Parameter Reference [Autonity Config, `proposerRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
 | `oracleRewardRate` | See Protocol Parameter Reference [Autonity Config, `oracleRewardRate`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, a setting of `1000` = 10% |
 | `initialInflationReserve` | See Protocol Parameter Reference [Autonity Config, `initialInflationReserve`](/reference/protocol/#autonity-config) | Value is set to `40` Million (40% of the total supply of 100 M Newton) |
-| `validators` | Object structure for validators at genesis | See [`config.autonity.validators` object](#configautonityvalidators-object)|
+| `gasLimit` | See Protocol Parameter Reference [Autonity Config, `gasLimit`](/reference/protocol/#autonity-config)  | Set to: `30000000` |
+| `gasLimitBoundDivisor` | See Protocol Parameter Reference [Autonity Config, `gasLimitBoundDivisor`](/reference/protocol/#autonity-config)  | Set to: `1024` |
+| `baseFeeChangeDenominator` | See Protocol Parameter Reference [Autonity Config, `baseFeeChangeDenominator`](/reference/protocol/#autonity-config)  | Set to: `64` |
+| `elasticityMultiplier` | See Protocol Parameter Reference [Autonity Config, `elasticityMultiplier`](/reference/protocol/#autonity-config)  | Set to: `2` |
+| `clusteringThreshold` | See Protocol Parameter Reference [Autonity Config, `clusteringThreshold`](/reference/protocol/#autonity-config)  | Set to: `64` |
+| `skipGenesisVerification` | See Protocol Parameter Reference [Autonity Config, `skipGenesisVerification`](/reference/protocol/#autonity-config)  | Set to: `false` |
+| `tokenBond` | See Protocol Parameter Reference [Autonity Config, `tokenBond`](/reference/protocol/#autonity-config)  | Specific to network genesis |
+| `tokenMint` | See Protocol Parameter Reference [Autonity Config, `tokenMint`](/reference/protocol/#autonity-config)  | Specific to network genesis |
+| `maxScheduleDuration` | See Protocol Parameter Reference [Autonity Config, `maxScheduleDuration`](/reference/protocol/#autonity-config) | Value is specific to network configuration. For example, for a local devnet supporting rapid testing a value of `2592000` could be appropriate |
+| `schedules` | See Protocol Parameter Reference [Autonity Config, `schedules`](/reference/protocol/#autonity-config) | Value is specific to network configuration. |
+| `validators` | See Protocol Parameter Reference [Autonity Config, `validators`](/reference/protocol/#autonity-config) | Value specific to network configuration |
 
-#### config.autonity.validators object
+#### config.autonity.schedules object
+
+An array of `schedule` objects consisting of:
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `enode` |The [enode url](/glossary/#enode) address for the validator node on the network after genesis | The validator's enode URL |
+| `start` | The start time of the protocol schedule | The timestamp that the schedule begins in [Unix time](/glossary/#unix-time) format |
+| `totalDuration` | The length of time that the schedule runs after the start time | Temporal duration of the schedule in seconds |
+| `amount` | The amount of Newton held in the protocol schedule | Positive integer for Newton amount. Value is specific to schedule. |
+| `vaultAddress` | The address of the vault contract holding the Newton | Contract account address |
+
+#### config.autonity.validators object
+
+An array of `validator` objects consisting of:
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `enode` | The [enode url](/glossary/#enode) address for the validator node on the network after genesis | The validator's enode URL |
 | `treasury` | The validator’s treasury account for receiving staking rewards. Ethereum format address. | The validator's EOA account address |
 | `consensusKey` | The validator's BLS key used for consensus gossiping when participating in consensus | The validator's _consensus public key_ |
 | `oracleAddress` | The unique identifier for the Autonity Oracle Server providing data to the validator. Ethereum format address. | The Oracle Server's account address |
@@ -127,6 +151,8 @@ Object structure for the Accountability Fault Detection (AFD) protocol configura
 |Parameter|Description &amp; Value|
 |---------|----------------|
 | `innocenceProofSubmissionWindow` | See Protocol Parameter Reference [Accountability Config, `innocenceProofSubmissionWindow`](/reference/protocol/#accountability-config) |
+| `delta` | See Protocol Parameter Reference [Accountability Config, `delta`](/reference/protocol/#accountability-config) |
+| `range` | See Protocol Parameter Reference [Accountability Config, `range`](/reference/protocol/#accountability-config) |
 | `baseSlashingRateLow` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateLow`](/reference/protocol/#accountability-config) |
 | `baseSlashingRateMid` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateMid`](/reference/protocol/#accountability-config) |
 | `baseSlashingRateHigh` | See Protocol Parameter Reference [Accountability Config, `baseSlashingRateHigh`](/reference/protocol/#accountability-config) |
@@ -145,6 +171,9 @@ Object structure for the oracle and Oracle Accountability Fault Detection (OAFD)
 | `outlierDetectionThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierDetectionThreshold`](/reference/protocol/#oracle-config) |
 | `outlierSlashingThreshold` | See Protocol Parameter Reference [Oracle Config, `outlierSlashingThreshold`](/reference/protocol/#oracle-config) |
 | `baseSlashingRate` | See Protocol Parameter Reference [Oracle Config, `baseSlashingRate`](/reference/protocol/#oracle-config) |
+| `nonRevealThreshold` | See Protocol Parameter Reference [Oracle Config, `nonRevealThreshold`](/reference/protocol/#oracle-config) |
+| `revealResetInterval` | See Protocol Parameter Reference [Oracle Config, `revealResetInterval`](/reference/protocol/#oracle-config) |
+| `slashingRateCap` | See Protocol Parameter Reference [Oracle Config, `slashingRateCap`](/reference/protocol/#oracle-config) |
 	
 #### config.inflationController object 
 
@@ -164,9 +193,10 @@ Configuration of the Auton Stabilization Mechanism (ASM).
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `acu` | Object structure for the ASM's Autonomous Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object)|
-| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object)|
-| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object)|
+| `acu` | Object structure for the ASM's Autonomous Currency Unit (ACU) configuration at genesis | See [`config.asm.acu` object](#configasmacu-object) |
+| `stabilization` | Object structure for the ASM's Stabilization mechanism CDP configuration at genesis | See [`config.asm.stabilization` object](#configasmstabilization-object) |
+| `supplyControl` | Object structure for the ASM's Auton supply control configuration at genesis | See [`config.asm.supplyControl` object](#configasmsupplycontrol-object) |
+| `auctioneer` | Object structure for the ASM's CDP debt and interest auction mechanism configuration at genesis | See [`config.asm.auctioneer` object](#configasmauctioneer-object) |
 
 #### config.asm.acu object
 
@@ -185,10 +215,14 @@ Configuration of the Stabilization mechanism's Collateralized Debt Position (CDP
 |Parameter|Description &amp; Value|
 |---------|----------------|
 | `borrowInterestRate` | See Protocol Parameter Reference [Stabilization Config, `borrowInterestRate`](/reference/protocol/#stabilization-config) |
+| `announcementWindow` | See Protocol Parameter Reference [Stabilization Config, `announcementWindow`](/reference/protocol/#stabilization-config) |
 | `liquidationRatio` | See Protocol Parameter Reference [Stabilization Config, `liquidationRatio`](/reference/protocol/#stabilization-config) |
 | `minCollateralizationRatio` | See Protocol Parameter Reference [Stabilization Config, `minCollateralizationRatio`](/reference/protocol/#stabilization-config) |
 | `minDebtRequirement` | See Protocol Parameter Reference [Stabilization Config, `minDebtRequirement`](/reference/protocol/#stabilization-config) |
 | `targetPrice` | See Protocol Parameter Reference [Stabilization Config, `targetPrice`](/reference/protocol/#stabilization-config) |
+| `defaultNTNATNPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultNTNATNPrice`](/reference/protocol/#stabilization-config) |
+| `defaultNTNUSDPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultNTNUSDPrice`](/reference/protocol/#stabilization-config) |
+| `defaultACUUSDPrice` | See Protocol Parameter Reference [Stabilization Config, `defaultACUUSDPrice`](/reference/protocol/#stabilization-config) |
 
 #### config.asm.supplyControl object
 
@@ -197,6 +231,17 @@ Configuration of the Stabilization mechanism's initial Auton supply.
 |Parameter|Description &amp; Value|
 |---------|----------------|
 | `initialAllocation` | See Protocol Parameter Reference [Supply Control Config, `initialAllocation`](/reference/protocol/#supply-control-config) |
+
+#### config.asm.auctioneer object
+
+Configuration of the ASM's auction mechanism for CDP debt and interest.
+
+|Parameter|Description &amp; Value|
+|---------|----------------|
+| `liquidationAuctionDuration` | See Protocol Parameter Reference [Auctioneer Config, `liquidationAuctionDuration`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionDuration` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionDuration`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionDiscount` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionDiscount`](/reference/protocol/#auctioneer-config) |
+| `interestAuctionThreshold` | See Protocol Parameter Reference [Auctioneer Config, `interestAuctionThreshold`](/reference/protocol/#auctioneer-config) |
 
 #### config.omissionAccountability object
 
@@ -218,7 +263,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 
 |Parameter|Description|Value|
 |---------|-----------|-----|
-| `alloc` | An array of accounts objects to be created on the network at genesis. These can be EOA or contract accounts | See [`alloc.account` object](#alloc-object) definition |
+| `alloc` | An array of `account` objects to be created on the network at genesis. These can be EOA or contract accounts | See [`alloc.account` object](/reference/genesis/#alloc.account-object) definition |
 
 #### alloc.account object
 
@@ -226,8 +271,17 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
 |---------|-----------|-----|
 | `alloc.ADDRESS` | The account address | Ethereum format address |
 | `alloc.ADDRESS.balance` | The amount of Auton allocated to the account _ADDRESS_ | Positive integer value |
+| `alloc.ADDRESS.newtonBalance` | The amount of Newton allocated to the account _ADDRESS_ | Positive integer value |
+| `bonds` | An array of `bonds` objects for stake delegation(s) from the account _ADDRESS_ to [genesis validators](/reference/genesis/#config.autonity.validators-object) at genesis | See [`alloc.account.bonds` object](/reference/genesis/#alloc.account.bonds-object) definition |
 | `alloc.ADDRESS.code` | The contract bytecode to be deployed if a contract account _ADDRESS_ | EVM bytecode |
 | `alloc.ADDRESS.storage` | The key-value pair for the contract bytecode storage space if a contract account _ADDRESS_ | k-v pairs for contract storage |
+
+#### alloc.account.bonds object
+
+|Parameter|Description|Value|
+|---------|-----------|-----|
+| `alloc.account.bonds.ADDRESS` | The [validator identifier](/concepts/validator/#validator-identifier) _ADDRESS_ | Ethereum format address |
+| `alloc.account.bonds.AMOUNT` | The amount of Newton bonded to the validator | Positive integer value |
 
 
 #### Example `genesis.json`
@@ -238,25 +292,33 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
     "chainId": 65110000,
     "autonity": {
       "minBaseFee": 500000000,
-      "delegationRate" : 1000,
+      "epochPeriod": 1800,
+      "unbondingPeriod": 21600,
       "blockPeriod": 1,
       "maxCommitteeSize": 100,
-      "unbondingPeriod": 120,
-      "epochPeriod": 30,
+      "maxScheduleDuration": 94608000,
+      "gasLimit": 20000000,
+      "gasLimitBoundDivisor": 1024,
+      "baseFeeChangeDenominator": 8,
+      "elasticityMultiplier": 2,
       "operator": "0x293039dDC627B1dF9562380c0E5377848F94325A",
       "treasury": "0x7f1B212dcDc119a395Ec2B245ce86e9eE551043E",
       "withheldRewardsPool": "0x7f1B212dcDc119a395Ec2B245ce86e9eE551043E",
-      "treasuryFee": 150000000,
+      "clusteringThreshold": 30,
+      "treasuryFee": 10000000000000000,
+      "delegationRate": 1000,
       "withholdingThreshold": 0,
-      "proposerRewardsRate": 1000,
+      "proposerRewardRate": 1000,
       "initialInflationReserve": "0x2116545850052128000000",
       "oracleRewardRate": 1000,
+      "skipGenesisVerification": true,
       "validators": [
         {
           "enode": "enode://181dd52828614267b2e3fe16e55721ce4ee428a303b89a0cba3343081be540f28a667c9391024718e45ae880088bd8b6578e82d395e43af261d18cedac7f51c3@35.246.21.247:30303",
           "treasury": "0x3e08FEc6ABaf669BD8Da54abEe30b2B8B5024013",
           "consensusKey": "0x776d2652de66e7x2d294c77d0706c772x077d242076e97cx44feex03e27d59757f7c7m7905072537eccd2d6292262724",
           "oracleAddress": "0x5307a90c018513de02aa4c02B14E6F3CaaA8af3f",
+          "nodeAddress": "0xA49BD88570B0DDE977dfE5F4B1B0d73737c26836",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -264,6 +326,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0xf1859D9feD50514F9D805BeC7a30623d061f40B7",
           "consensusKey": "0x456y2357dfk6e7x2d294c71d0k06c512x077d242076lk7cx44feex03e27d59757f7c717925692537eccd2e6292262774",
           "oracleAddress": "0xd54ba484243c99CE10f11Bc5fb24cCc728ba060D",
+          "nodeAddress": "0xa75500C1BeE38247e2cD814Cc95E22D7AD96EC56",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -271,6 +334,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0x1B441084736B80f273e498E646b0bEA86B4eC6AB",
           "consensusKey": "0xhi3d112de66e7x2d294c77d0709c772x099d272076e97cx44jyex03e27du175df7cp7hh05o71537eccd2d9282262532",
           "oracleAddress": "0xF99bC17d7db947Bf4E7171519D678882FF3Dcb8d",
+          "nodeAddress": "0xA49BD88570B0DDE977dfE5F4B1B0d73737c26836",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -278,6 +342,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0xB5C49d50470743D8dE43bB6822AC4505E64648Da",
           "consensusKey": "0x1a0j2652de66e7x2a294c7ad0406c711x077d242076e97cfc4fykx03e27d59757f7c777905072537ec9d2fhj9w26271u",
           "oracleAddress": "0x89f2CabCA5e09f92E49fACC10BBDfa5114D13113",
+          "nodeAddress": "0xd5Cb27d9658D26E49eCe7642223Cc8889D789b55",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -285,6 +350,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0x31e1dE659A26F7638FAaFEfD94D47258FE361823",
           "consensusKey": "0xf9wd795wdew6e7x2d294c75d07c6c281xk7md282076ek7ch34fesx03e279j9d87f5c1o790i0725h7efcd2d69372mh527",
           "oracleAddress": "0x7CF62D2C8314445Df0bF3F322f84d3BF785e4aeF",
+          "nodeAddress": "0x00bb781AE6bAf8B8a75eb52A7D07ba8f7684AD11",
           "bondedStake": 10000000000000000000000
         },
         {
@@ -292,6 +358,7 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
           "treasury": "0xe22617BD2a4e1Fe3938F84060D8a6be7A18a2ef9",
           "consensusKey": "0x776d2602de06e7x2d294c77d0706c772x077d242076e97cx44feex00e27d09707f7c7779j0e49il2etc4kd2ar39ov3a7",
           "oracleAddress": "0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d",
+          "nodeAddress": "0x38077B7bbba04267eB86d2106dd804C1351d7239",
           "bondedStake": 10000000000000000000000
         }
       ]
@@ -345,7 +412,13 @@ The `alloc` object is used to issue native coin and allows pre-deployment of sma
       "balance": "10000000000000000000000"
     },
     "0xD689E4D1061a55Fd9292515AaE9bF8a3C876047d": {
-      "balance": "10000000000000000000000"
+      "balance": "10000000000000000000000",
+      "newtonBalance": "30000000000000000000000",
+      "bonds": {
+        "0xa75500C1BeE38247e2cD814Cc95E22D7AD96EC56": "10000000000000000000000",
+        "0xA49BD88570B0DDE977dfE5F4B1B0d73737c26836": "10000000000000000000000",
+        "0x38077B7bbba04267eB86d2106dd804C1351d7239": "10000000000000000000000"
+      }
     }
   }
 }

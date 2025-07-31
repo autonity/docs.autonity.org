@@ -19,7 +19,7 @@ It is recommended not run Autonity using Docker containers outside of a test env
 ::: {.callout-note title="Note" collapse="false"}
 Client source code is versioned on a 3-digit `major.minor.patch` versioning scheme, and hosted and maintained in the public GitHub repo [autonity](https://github.com/autonity/autonity/).
 
-Before installing verify the correct Autonity Go Client release version to install for the network you are connecting to. See the [Networks](/networks/) page and [Piccadilly Testnet, Release](/networks/testnet-piccadilly/#release) for the versions deployed.
+Before installing verify the correct Autonity Go Client release version to install for the network you are connecting to. See the [Networks](/networks/) page and [Bakerloo Testnet, Release](/networks/testnet-bakerloo/#release) for the versions deployed.
 :::
 
 ## Requirements

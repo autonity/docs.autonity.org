@@ -260,7 +260,7 @@ In the case of unbonding: if the unbonding request is included in block `T`, the
 ## Validator economics
 Validators active in the consensus committee are incentivised toward correct consensus behaviour by rewards and disincentivised from Byzantine behaviour by penalties.
 
-Incentives are economic gains from [validator commission](/glossary/#delegation-rate) on [staking rewards](/concepts/staking/#staking-rewards), block proposer rewards, and rewards from the accountability protocols ([AFD](/concepts/afd/), [OFD](/concepts/ofd/), [OAFD](/concepts/oafd/)) for correct participation in consensus and oracle price reporting.
+Incentives are economic gains from [validator commission](/glossary/#delegation-rate) on ATN [staking rewards](/concepts/staking/#staking-rewards) and NTN [inflation rewards](/concepts/staking/#inflation-rewards), block proposer rewards, and rewards from the accountability protocols ([AFD](/concepts/afd/), [OFD](/concepts/ofd/), [OAFD](/concepts/oafd/)) for correct participation in consensus and oracle price reporting.
 
 Disincentives are economic losses incurred for proven validator faults committed while a member of the consensus committee. Disincentives are applied by the accountability protocols ([AFD](/concepts/afd/), [OFD](/concepts/ofd/), [OAFD](/concepts/oafd/)) and include stake [slashing](/concepts/staking/#slashing), barring from selection to the consensus committee ('[jailing](/glossary/#jailing)'), the loss of [staking rewards](/glossary/#staking-rewards) and [inflation rewards](/glossary/#inflation-rewards) . 
 
@@ -268,7 +268,7 @@ Disincentives are economic losses incurred for proven validator faults committed
 Validator economic returns are earned from:
 
 - Staking rewards earned from [self-bonded](/glossary/#self-bonded) stake.
-- Commission charged on [staking rewards](/glossary/#staking-rewards) on [delegated](/glossary/#delegated) stake per the [delegation rate](/glossary/#delegation-rate) they charge as commission.
+- Commission charged on ATN [staking rewards](/glossary/#staking-rewards) and NTN [inflation rewards](/concepts/staking/#inflation-rewards) on [delegated](/glossary/#delegated) stake per the [delegation rate](/glossary/#delegation-rate) they charge as commission.
 - The [priority fee 'tip'](/concepts/system-model/#eip-1559-transaction-fee-mechanism-tfm) that may be specified in a transaction and which is given to the block proposer as an incentive for including the transaction in a block.
 - Rewards from accountability protocols:
   - [AFD rewards](/concepts/afd/#slashing-rewards) earned for reporting faults.

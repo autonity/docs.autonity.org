@@ -32,24 +32,24 @@ Transaction costs for submitting price report data on-chain _are_ refunded but t
 
 1. Enter your working directory for the oracle server.
 
-2. Configure the data plugins. Edit your oracle server data plugins config file `plugins-conf.yml` to specify the plugins configuration. The file can be found in the `/autonity-oracle/config` sub-directory. Edit `plugins-conf.yml` to specify the `name` and `key` for each plugins you are using. For how to do this see the [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) section on this page.
+2. Configure the data plugins. Edit your oracle server data plugins config file `oracle_config.yml` to specify the plugins configuration. The file can be found in the `/autonity-oracle/config` sub-directory. Edit `oracle_config.yml` to specify the `name` and `key` for each plugins you are using. For how to do this see the [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) section on this page.
 
    ::: {.callout-note title="Note" collapse="false"}
-   A [sample `plugins-conf.yml` config file](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
+   A [sample `oracle_config.yml` config file](https://github.com/autonity/autonity-oracle/blob/master/config/oracle_config.yml) can be downloaded from the Autonity Oracle Server GitHub.
    :::
 
-3. (Optional) Add your own data source plugin(s). If you have developed your own FX plugins, (a) add sub-directory(ies) containing the plugin source code to the `plugins` sub-directory of your installation; (b) add config entry(ies) to the `plugins-conf.yml` file. 
+3. (Optional) Add your own data source plugin(s). If you have developed your own FX plugins, (a) add sub-directory(ies) containing the plugin source code to the `plugins` sub-directory of your installation; (b) add config entry(ies) to the `oracle_config.yml` file. 
  
-4. Configure the oracle server. Edit your oracle server config file `oracle-server.config` to specify the oracle server configuration. The file can be found in the `/autonity-oracle/config` sub-directory. For how to do this see the [Set up oracle server config file](/oracle/run-oracle/#set-up-oracle-server-config-file) section on this page.
+4. Configure the oracle server. Edit your oracle server config file `oracle_config.yml` to specify the oracle server configuration. The file can be found in the `/autonity-oracle/config` sub-directory. For how to do this see the [Set up oracle server config file](/oracle/run-oracle/#set-up-oracle-server-config-file) section on this page.
    
    ::: {.callout-note title="Note" collapse="false"}
-   A [sample `oracle-server.config` file](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
+   A [sample `oracle_config.yml` file](https://github.com/autonity/autonity-oracle/blob/master/config/oracle_config.yml) can be downloaded from the Autonity Oracle Server GitHub.
    :::
    
 5. Start oracle server:
 
     ``` bash
-    ./autoracle --config="./oracle-server.config"
+    ./autoracle --config="./oracle_config.yml"
     ```
     
     Oracle server will connect to external data sources using the providers set in the plugins configuration and begin submitting price reports to the connected node.
@@ -82,29 +82,29 @@ If plugins for external data sources or the symbols for which oracle server prov
 
 1. Enter your working directory for autonity oracle server.
 
-2. Configure the data plugins. Create and edit your oracle server data plugins config file `plugins-conf.yml` to specify the `name` and `key` for each plugins you are using.
+2. Configure the data plugins. Edit your oracle server data plugins config file `config/oracle_config.yml` to specify the `name` and `key` for each plugins you are using.
 
    ```bash
-   touch plugins-conf.yml
+   nano oracle_config.yml
    ```
 
    ::: {.callout-note title="Note" collapse="false"}
-   A [sample `plugins-conf.yml` config file](https://github.com/autonity/autonity-oracle/blob/master/config/plugins-conf.yml) can be downloaded from the Autonity Oracle Server GitHub.
+   A [sample `oracle_config.yml` config file](https://github.com/autonity/autonity-oracle/blob/master/config/oracle_config.yml) can be downloaded from the Autonity Oracle Server GitHub.
    :::
 
-   Edit `plugins-conf.yml` to [configure plugins](/oracle/run-oracle/#configure-plugins) for data sources. See [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) for how to do this.
+   Edit `oracle_config.yml` to [configure plugins](/oracle/run-oracle/#configure-plugins) for data sources. See [Set up plugins config file](/oracle/run-oracle/#set-up-plugins-config-file) for how to do this.
 
-3. Configure the oracle server. Create and edit your oracle server config file `oracle-server.config` to specify the oracle server configuration.
+3. Configure the oracle server. Edit your oracle server config file `oracle_config.yml` to specify the oracle server configuration.
 
    ```bash
-   touch oracle-server.config
+   nano oracle_config.yml
    ```
    
    ::: {.callout-note title="Note" collapse="false"}
-   A [sample `oracle-server.config` file](https://github.com/autonity/autonity-oracle/blob/master/config/oracle-server.config) can be downloaded from the Autonity Oracle Server GitHub.
+   A [sample `oracle_config.yml` file](https://github.com/autonity/autonity-oracle/blob/master/config/oracle_config.yml) can be downloaded from the Autonity Oracle Server GitHub.
    :::
    
-   Edit `oracle-server.config` to specify the oracle server configuration. See [Set up oracle server config file](/oracle/run-oracle/#set-up-oracle-server-config-file) for how to do this.
+   Edit `oracle_config.yml` to specify the oracle server configuration. See [Set up oracle server config file](/oracle/run-oracle/#set-up-oracle-server-config-file) for how to do this.
 
 4. Set the Docker configuration and the arguments for running Autonity Oracle Server and connecting to the Autonity Go Client it is serving.
 
@@ -112,20 +112,18 @@ If plugins for external data sources or the symbols for which oracle server prov
    docker run \
         -t -i \
         --volume ./<ORACLE_KEYFILE>:/autoracle/oracle.key \
-        --volume ./<PLUGINS_CONF_FILE>:/autoracle/plugins-conf.yml \
-        --volume ./<ORACLE_SERVER_CONF_FILE>:/autoracle/oracle-server.config \
+        --volume ./<ORACLE_SERVER_CONF_FILE>:/autoracle/oracle_config.yml \
         --name <ORACLE_CONTAINER_NAME> \
         --rm <DOCKER_IMAGE>:latest \
-        --config="/autoracle/oracle-server.config" \
+        --config="/autoracle/oracle_config.yml" \
         ;
    ```
 
    where:
    
    - `<ORACLE_KEYFILE>` specifies the path to your oracle server key file. E.g. `../aut/keystore/oracle.key`
-   - `<PLUGINS_CONF_FILE>` is the path to the data plugins configuration file `plugins-conf.yml`. E.g. `./plugins-conf.yml`.
-   - `<ORACLE_SERVER_CONF_FILE>` is the path to the oracle server configuration file `oracle-server.config`. E.g. `./oracle-server.config`.
-   - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, i.e. `oracle-server-bakerloo` or `oracle-server-piccadilly`
+   - `<ORACLE_SERVER_CONF_FILE>` is the path to the oracle server configuration file `oracle_config.yml`. E.g. `./oracle_config.yml`.
+   - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, e.g. `oracle-server-bakerloo` or `oracle-server-mainnet`
    - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle`. 
 
    See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) for the full set of available flags.
@@ -154,32 +152,34 @@ If plugins for external data sources or the symbols for which oracle server prov
  	on oracle contract address: 0x47e9Fbef8C83A1714F1951F142132E6e90F5fa5D
  	```
    
-   Oracle server will discover plugins in the `plugins` configuration, set them up, connect to external data sources using the providers set in the `plugins-conf.yml` configuration properties, and begin submitting price reports to the connected node.
+   Oracle server will discover plugins in the `plugins` configuration, set them up, connect to external data sources using the providers set in the `oracle_config.yml` configuration properties, and begin submitting price reports to the connected node.
 
 
 ## Configure oracle server
 
-The runtime configuration of oracle server can be specified using a configuration file, command line flags, or system environment variables. Using the configuration file `oracle-server.config` is the preferred default path.
+The runtime configuration of oracle server can be specified using a configuration file, command line flags, or system environment variables. Using the configuration file `oracle_config.yml` is the preferred default path.
 
 ### Set up oracle server config file
 
-The oracle server config file `oracle-server.config` can be found in the `/autonity-oracle/config` sub-directory.  Edit the file to set the config values where:
+The oracle server config file `oracle_config.yml` can be found in the `/autonity-oracle/config` sub-directory.  Edit the file to set the config values where:
 
-| Option | Description |
-|:-------|:------------|
-| `tip` | Sets a gas priority fee cap for your oracle server data report transactions. The gas priority fee cap is reimbursed by the Autonity network. Specify in [`ton`](/glossary/#ton). |
-| `key.file` | Path to the oracle server key file. e.g. `../aut/keystore/oracle.key`|
-| `key.password` | The password to the oracle server key file. |
-| `log.level` | Sets logging verbosity. Available logging levels: `0`: No logging, `1`: Trace, `2`: Debug, `3`: Info, `4`: Warn, `5`: Error |
-| `ws` | The WS-RPC server listening interface and port of the connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network). E.g.: `"ws://127.0.0.1:8546"` |
-| `plugin.dir` | The path to the directory containing the built data plugins. For example `"./plugins"` |
-| `plugin.conf` | The path to the plugins configuration file. For example `"./plugins-conf.yml"` |
-| `confidence.strategy` | The confidence rule. Available strategies are: `0`: linear, `1`: fixed. |
-| `profile.dir` | The profiling report directory, where the profiling report (i.e. runtime state) will be saved to. For example `"."` |
+To specify the oracle server configuration edit the `oracle_config.yml` file to set the oracle server runtime configuration settings.  
+
+| Option | Description | Default Configuration |
+|:-------|:------------|:----------------------|
+| `logLevel` | Sets logging verbosity. Available logging levels: `0`: No logging, `1`: Trace, `2`: Debug, `3`: Info, `4`: Warn, `5`: Error | `3` |
+| `gasTipCap` | Sets a gas priority fee cap for your oracle server data report transactions. The gas priority fee cap is reimbursed by the Autonity network. Specify in [`ton`](/glossary/#ton). | `1000000000` ([`gigaton`](/glossary/#gigaton)) |
+| `voteBuffer` | Sets the buffering time window in blocks to resume voting after the last penalty event. With a time buffer, the node operator can check and repair local infrastructure without being penalized for failing to vote while debugging. Specify in seconds. | `86400`  ( 3600 * 24, i.e. 1 day) |
+| `keyFile` | Path to the oracle server key file. e.g. `../aut/keystore/oracle.key`| No default |
+| `keyPassword` | The password to the oracle server key file. | No default |
+| `autonityWSUrl` | The WS-RPC server listening interface and port of the connected Autonity Go Client node (see [install Autonity, networks](/node-operators/install-aut/#network). | `"ws://127.0.0.1:8546"` |
+| `pluginDir` | The path to the directory containing the built data plugins. For example | `"./plugins"` |
+| `profileDir` | The profiling report directory, where runtime state will be saved to. | `"."` |
+| `confidenceStrategy` | The confidence strategy. Available strategies are: `0`: linear, `1`: fixed. | `0` |
 
 ::: {.callout-tip title="Confidence strategy - linear vs. fixed" collapse="false"}
 
-Oracle prices are submitted with a _confidence score_ in the range $(0, 100]$ expressing the oracle's level of trust in the provided price (For detail on confidence score, see the concept description [Oracle Accountability Fault Detection (OAFD)](/concepts/oafd/#confidence-score).
+Oracle prices are submitted with a _confidence score_ in the range $(0, 100)$ expressing the oracle's level of trust in the provided price (For detail on confidence score, see the concept description [Oracle accountability fault detection (OAFD)](/concepts/oafd/#confidence-score).
 
 `confidenceStrategy` provides two out-the-box options to compute the confidence score for a symbol:
 
@@ -188,109 +188,46 @@ Oracle prices are submitted with a _confidence score_ in the range $(0, 100]$ ex
 
 :::
 
-::: {.callout-caution title="Always review and set `oracle-server.config` to your configuration before running oracle server" collapse="false"}
+::: {.callout-caution title="Always review and set `oracle_config.yml` to your configuration before running oracle server" collapse="false"}
 
-The `oracle-server.config` file is preset to a testing configuration using test key credentials. 
+The `oracle_config.yml` file is preset to a testing configuration set to use the test credentials. 
 
-If you run the server without setting your own configuration, then the test configuration will _de facto_ be picked up and used as a default configuration. Without editing the key options (`key.file`, `key.password`) at minimum, the server will error with an unable to load key message:
+If you run the server without setting your own configuration, then the test configuration will _de facto_ be picked up and used as a default configuration. Without editing the key options (`keyFile`, `keyPassword`) at minimum, the server will error with an unable to load key message:
 
 ```
-$ ./autoracle oracle-server.config 
+$ ./autoracle oracle_config.yml 
 2025/03/20 11:52:09 cannot read key from oracle key file: ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe, open ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe: no such file or directory
 could not load key from key store: ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe with password, err: open ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe: no such file or directory
 ```
 :::
 
-   An example configuration for an oracle server binary could be:
+   An example Oracle Server Configuration for an oracle server binary could be:
 
-   ```
-   tip 1
-   key.file ./UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5>
-   key.password 123%&%^$
-   log.level 3
-   ws ws://127.0.0.1:8546
-   plugin.dir ./build/bin/plugins
-   plugin.conf ./config/plugins-conf.yml
-   confidence.strategy 0
-   profile.dir .
+   ```yaml
+   logLevel: 3
+   gasTipCap: 1000000000
+   voteBuffer: 86400
+   keyFile: "./UTC--2025-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe"
+   keyPassword: "123%&%^$"
+   autonityWSUrl: "ws://127.0.0.1:8546"
+   pluginDir: "./plugins"
+   profileDir: "."
+   confidenceStrategy: 0
    ```
   
-   An example configuration for an oracle server Docker image could be per beneath. Note the mounted path is used for `key.file` and `plugin.conf` files. A mounted path is not used for the `plugin.dir` config which takes the Docker image plugins directory path `/usr/local/bin/plugins/`:
+   An example configuration for an oracle server Docker image could be per beneath. Note the mounted path is used for the `keyFile`file. A mounted path is not used for the `plugin.dir` config which takes the Docker image plugins directory path `/usr/local/bin/plugins/`:
 
+   ```yaml
+   logLevel: 3
+   gasTipCap: 1000000000
+   voteBuffer: 86400
+   keyFile: "/autoracle/UTC--2025-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe"
+   keyPassword: "123%&%^$"
+   autonityWSUrl: "ws://127.0.0.1:8546"
+   pluginDir: "/usr/local/bin/plugins/"
+   profileDir: "."
+   confidenceStrategy: 0
    ```
-   tip 1
-   key.file /autoracle/UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5>
-   key.password 123%&%^$
-   log.level 3
-   ws ws://127.0.0.1:8546
-   plugin.dir /usr/local/bin/plugins/
-   plugin.conf /autoracle/plugins-conf.yml
-   confidence.strategy 0
-   profile.dir .
-   ```
-
-### Setup using command line flags or system env variables
-
-The oracle server configuration can also be set directly in the terminal as console flags or as system environment variables.
-
-   For example, to start oracle server specifying command line flags when running the binary, simply specify the config as flags:
-
-   ```bash
-   ./autoracle \
-        --tip="1" \
-        --key.file="../../test_data/keystore/UTC--2023-02-27T09-10-19.592765887Z--b749d3d83376276ab4ddef2d9300fb5ce70ebafe" \
-        --key.password="123" \
-        --ws="ws://127.0.0.1:8546" \
-        --plugin.dir="./plugins" \
-        --plugin.conf="./plugins-conf.yml" \
-        --confidence.strategy="0" \
-        --profile.dir="."
-        ;
-   ```
-
-   For example, to start oracle server specifying command line flags when running the Docker image, specify the Docker configuration and oracle server config as flags:
-
-   ```bash
-   docker run \
-        -t -i \
-        --volume ./<ORACLE_KEYFILE>:/autoracle/oracle.key \
-        --volume ./<PLUGINS_CONF_FILE>:/autoracle/plugins-conf.yml \
-        --name <ORACLE_CONTAINER_NAME> \
-        --rm \
-        <DOCKER_IMAGE>:latest \
-        -tip="<TIP>" \
-        -key.file="/autoracle/oracle.key" \
-        -key.password="<PWD>" \
-        -ws="<WS_ADDRESS>" \
-        -plugin.dir="/usr/local/bin/plugins/" \
-        -plugin.conf="/autoracle/plugins-conf.yml" \
-        -confidence.strategy="<CONFIDENCE_STRATEGY>" \
-        -profile.dir="<PROFILE_DIR>"
-   ```
-
-   where:
-   
-   - `<ORACLE_KEYFILE>` specifies the path to your oracle server key file. E.g. `../aut/keystore/oracle.key`
-   - `<PLUGINS_CONF_FILE>` is the path to the data plugins configuration file `plugins-conf.yml`. E.g. `./plugins-conf.yml`.
-   - `<ORACLE_CONTAINER_NAME>` is the name you are specifying for the container, e.g. `oracle-server-v0.2.3`
-   - `<DOCKER_IMAGE>` is the Docker image name, i.e. `ghcr.io/autonity/autonity-oracle`
-   - `<TIP>` sets a gas priority fee cap for your oracle server data report transactions, e.g. `1`.
-   - `<PWD>` is the password to your oracle server key file
-   - `<WS_ADDRESS>` is the WebSocket IP Address of your connected Autonity Go Client node, e.g. "ws://172.17.0.2:8546", see [install Autonity, networks](/node-operators/install-aut/#network)).
-   - `<CONFIDENCE_STRATEGY>` sets a confidence score strategy for your oracle server data report transactions, e.g. `0`.
-   - `<PROFILE_DIR>` is the path to the directory where your profile report data is saved to, e.g. `.`.
-
-   
-::: {.callout-note title="Note" collapse="false"}
-
-- Note that all flags after the image name are passed to the Autonity Oracle Server in the container, and thus follow the same pattern as for [running a binary or source install](#run-binary)
-- The command above creates a temporary container, which is deleted (via the `--rm` flag) when the node is shut down.
-- The `--volume` flags are needed to mount the key and config files. The plugins are pre-built and included in the Docker container at the path `/usr/local/bin/plugins/`.
-:::
-
-   See the [Autonity Oracle Server command-line reference](/reference/cli/oracle/) or the oracle server's GitHub repo [README, Configuration of oracle server](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [CLI flags](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#cli-flags) for the full set of available flags.
-
-For how to set the flags as system environment variables see the [README](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#configuration-of-oracle-server) section [System Environment Variables](https://github.com/autonity/autonity-oracle?tab=readme-ov-file#system-environment-variables).
 
 ## Configure data source plugins
 
@@ -302,7 +239,7 @@ A basic set of data adaptor plugins for sourcing this data is provided out the b
 - Crypto plugins: for connecting to public CEX and DEX data sources for USD stablecoin and ATN, NTN prices. ATN NTN price data is used for the ASM [Stabilisation CDP](/concepts/asm/#stabilization) mechanism. See the `crypto_` prefixed adaptors in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins). Four crypto plugins are currently provided.
 - Simulator plugin: for simulated protocol asset (ATN, NTN, NTN-ATN) data. Used for testnet or local development purposes to provide ATN, NTN price data. See the `simulator_plugin` adaptor in [`/plugins`](https://github.com/autonity/autonity-oracle/tree/master/plugins).
 
-Plugins are configured by default or by explicit configuration. The `crypto_` plugins have a default configuration set in the plugin source golang code as a `defaultConfig`. The `forex_` and `simulator_` plugin configuration is specified explicitly in the `plugins-conf.yml` file by addding a config entry for each plugin configured.
+Plugins are configured by default or by explicit configuration. The `crypto_` plugins have a default configuration set in the plugin source golang code as a `defaultConfig`. The `forex_` and `simulator_` plugin configuration is specified explicitly in the `oracle_config.yml` file by addding a config entry for each plugin configured.
 
 The full set of plugin configuration fields are:
 
@@ -324,14 +261,14 @@ The configuration fields used depends on the type of plugin. Set optional fields
 
 ### Setup forex plugin config
 
-To configure FX data source plugins edit the `plugins-conf.yml` file to add a config entry for each plugin. The oracle server release contains out-the-box plugins for five publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more FX plugin source must be configured.
+To configure FX data source plugins edit the `oracle_config.yml` file to add a config entry for each plugin. The oracle server release contains out-the-box plugins for five publicly accessible FX endpoints with free and paid subscriptions tiers. You will need to create an account and get an API Key to connect. One or more FX plugin source must be configured.
 
 Navigate to the public GitHub repo [autonity-oracle](https://github.com/autonity/autonity-oracle) `README.md` [Configuration](https://github.com/autonity/autonity-oracle?tab=readme#configuration-of-oracle-server) section to view the supported FX endpoint providers.
 
 For each FX endpoint configured:
 
 1. Get FX plugin API Key(s) for the listed FX endpoint. Navigate to one of the listed FX endpoint websites and create an account. Make a note of the API Key.
-2. Add configuration entry to `plugins-conf.yml`. Edit the file to add an entry for each plugin you are configuring.
+2. Add configuration entry to `oracle_config.yml`. Edit the file to add an entry for each plugin you are configuring.
 
 Plugin Configuration fields:
 
@@ -369,7 +306,7 @@ The `crypto_` plugins have default configuration and run by default when oracle 
 - 1 DEX: `crypto_uniswap`. Connector to retrieve ATN, NTN USDC price data from an on-chain Uniswap V2 AMM on Piccadilly Testnet.
 - 3 CEX: `crypto_kraken`, `crypto_coingecko`, `crypto_coinbase`. Connectors to retrieve USDC-USD price data.
 
-Configure the `crypto_uniswap` plugin to set the RPC endpoint of a Piccadilly Testnet Full Node (i.e. your own node or a [public rpc endpoint](/networks/testnet-piccadilly/#public-endpoints)). Un-comment and edit the `crypto_uniswap` entry in `plugins-conf.yml`. Edit the configuration fields:
+Configure the `crypto_uniswap` plugin to set the RPC endpoint of a Piccadilly Testnet Full Node (i.e. your own node or a [public rpc endpoint](/networks/testnet-piccadilly/#public-endpoints)). Un-comment and edit the `crypto_uniswap` entry in `oracle_config.yml`. Edit the configuration fields:
 
 | Name | Datatype | Mandatory? | Description |
 | :-- | :--: | :--: | :-- |
@@ -386,9 +323,9 @@ On-chain, the oracle protocol is pricing in USD and not USDC.
 
 ### ATN and NTN data simulator plugin
 
-If a simulator has been deployed and is available to provide simulated data for testnet use, this can be connected to by adding a config entry for the simulated source to your `plugins-conf.yml` file.
+If a simulator has been deployed and is available to provide simulated data for testnet use, this can be connected to by adding a config entry for the simulated source to your `oracle_config.yml` file.
 
-1. Edit your `plugins-conf.yml` config file to point to the deployed ATN and NTN data simulator. Just add a `simulator_plugin` entry for the simulator data source, specifying `endpoint` and `scheme` at minimum.
+1. Edit your `oracle_config.yml` config file to point to the deployed ATN and NTN data simulator. Just add a `simulator_plugin` entry for the simulator data source, specifying `endpoint` and `scheme` at minimum.
 
   An example config could be:
 

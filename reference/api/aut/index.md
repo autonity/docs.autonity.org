@@ -16,6 +16,47 @@ Given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=autonity>.
 Examples for calling functions from `aut` use the setup described in the How to [Submit a transaction with Autonity CLI](/account-holders/submit-trans-aut/).
 :::
 
+## abi
+
+Returns the ABI of the Autonity Protocol Contract.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| value | `JSON` | the Autonity Protocol contract ABI |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut protocol contract-abi
+```
+
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+
+
+[
+  {
+  <! ABI dump -->
+  }
+]
+```
+
+:::
+
+
 ## activateValidator
 
 Changes the state of a paused validator on an Autonity Network from `paused` to `active`. (See [`pauseValidator`](/reference/api/aut/#pausevalidator) method.)
@@ -211,7 +252,6 @@ aut token approve [OPTIONS] SPENDER AMOUNT
 ```
 :::
 
-
 ### Example
 
 To approve a spender for a Newton stake token account specify the `--ntn` option:
@@ -226,7 +266,6 @@ Enter passphrase (or CTRL-d to exit):
 ```
 :::
 
-
 To approve a spender for an ERC-20 contract token (e.g. Liquid Newton) account specify the `--token` option:
 
 ::: {.panel-tabset}
@@ -238,6 +277,62 @@ Enter passphrase (or CTRL-d to exit):
 0xa20ae3a75009fb967ed53897b980e6e88dd580fada133c08071183b5b452ca2c
 ```
 :::
+
+
+## approveBonding
+
+Conceptually similar to the [`approve()`](/reference/api/aut/#approve) function but for delegated staking workflows where a Newton [stakeholder](/glossary/#stakeholder) has authorized the method caller to unbond Newton tokens on its behalf up to an approved allowance.
+
+Called by a token `owner` to set the bonding-allowance (NTN) amount of a 3<sup>rd</sup> party _caller_ over the `owner`'s token.
+
+To increase or decrease the approved allowance the method is called again.
+
+Constraint checks are applied:
+
+- The `msg.Sender` address is the `owner` address, i.e. the Newton [stakeholder](/glossary/#stakeholder) address.
+- The `_owner` and the `_caller` address are not the zero address. If the constraint check fails the transaction will revert with the error "approve to the zero address".
+
+::: {.callout-tip title="Delegated staking" collapse="false"}
+Autonity implements a delegated staking model based on the ERC-20 approve, allowance and transfer from model.
+
+Newton implements the ERC-20 token interface and holders can approve a 3<sup>rd</sup> party account to transfer Newton on their behalf up to an approved allowance.
+
+Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allowing Newton holders to delegate staking to a 3<sup>rd</sup> party `caller` account.
+:::
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_caller`  | `address` | the account address being approved to bond on the Newton token holde's behalf |
+| `_amount` | `uint256` | the amount of Newton the `_caller` is authorized to bond |
+
+### Response
+
+The method returns a boolean value indicating whether the operation succeeded or not.
+
+### Event
+
+On a successful call the function emits a `BondingApproval` event, logging: `_owner`, `_caller`, `_amount`.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut validator approve-bonding [OPTIONS] CALLER AMOUNT
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
 
 ## atnTotalRedistributed
 
@@ -352,10 +447,10 @@ On successful processing of the method call:
 
 | Field | Datatype | Description |
 | --| --| --|
-| `delegator` | `address payable` | account address of the account bonding stake |
-| `delegatee` | `address` | [validator identifier](/concepts/validator/#validator-identifier) address of the validator to which stake is being bonded |
-| `amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
-| `requestBlock` | `uint256` | the block number at which a bonding transaction was committed |
+| `_recipient` | `address payable` | account address of the account bonding stake |
+| `_validatorAddress` | `address` | [validator identifier](/concepts/validator/#validator-identifier) address of the validator to which stake is being bonded |
+| `_amount` | `uint256` | the amount of Newton stake token being bonded to the `delegatee` account |
+| `block.number` | `uint256` | the block number at which a bonding transaction was committed |
 
 The `BondingRequest` is tracked in memory until applied at epoch end. At that block point, if the stake delegation is [delegated](/glossary/#delegated) and not [self-bonded](/glossary/#self-bonded), then Liquid Newton will be minted to the delegator for the bonded stake amount.
 
@@ -372,7 +467,7 @@ Liquid Newton is *not* issued for self-bonded stake. See Concept [Staking](/conc
 
 ### Response
 
-No response object is returned on successful execution of the method call.
+Returns the `id` of the bonding request from memory.
 
 The pending voting power change is tracked in memory until applied.
 
@@ -380,11 +475,10 @@ The pending voting power change is tracked in memory until applied.
 
 The function emits events:
 
-- on success, a `NewBondingRequest` event, logging: `validator` address, `delegator` address, `selfBonded` (boolean), `amount` bonded.
-- on revert, a `BondingRejected` event, logging: `delegator` address, `delegatee` address, `amount` bonded, validator `state`.
+- on success, a `NewBondingRequest` event, logging: `_validatorAddress`, `_recipient`, `_caller`, `_selfBonded`, `_amount`, `headBondingID`.
+- on revert, a `BondingRejected` event, logging: `delegatee` address, `delegator` address, `amount` bonded, validator `state`.
 
 ### Usage
-
 
 ::: {.panel-tabset}
 ## aut
@@ -396,7 +490,6 @@ aut validator bond [OPTIONS] AMOUNT
 
 ### Example
 
-
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
@@ -404,6 +497,116 @@ aut validator bond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9 1 | au
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0xaa3705ef2d38cf2d98925660e6ca55de8948e8a075e7ee9edf6be7fa540ffe51
+```
+:::
+
+
+## bondFrom
+
+Conceptually identical to the [`bond()`](/reference/api/aut/#bond) function but for delegated staking workflows where a Newton [stakeholder](/glossary/#stakeholder) has authorized the method caller to bond Newton tokens on its behalf up to an approved amount. 
+
+The `bondFrom()` function creates a bonding (delegation) request with the passed in `account` as the delegator address. The `msg.sender` caller must have a bonding-allowance (NTN) from the `account`. The amounts of successful `bondFrom()` calls are then deducted from that bonding allowance.
+
+The `bondFrom` method differs from `bond()` by:
+
+- Additional constraint checks to `bond()`:
+
+  - the calling `account` address is not the validator's `treasury` account. If the constraint check fails the transaction will revert with the error "cannot bond PAS using allowance".
+  - the calling `account` address is approved to bond by the Newton token `owner`. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+  - the calling `account` address has a remaining `allowance >= amount` being bonded in the request. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+
+- Additional parameter for the 3<sup>rd</sup> party caller _account_.
+
+
+::: {.callout-tip title="Delegated staking" collapse="false"}
+Autonity implements a delegated staking model based on the ERC-20 approve, allowance and transfer from model.
+
+Newton implements the ERC-20 token interface and holders can approve a 3<sup>rd</sup> party account to transfer Newton on their behalf up to an approved allowance.
+
+Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allowing Newton holders to delegate staking to a 3<sup>rd</sup> party `caller` account.
+:::
+
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_account`  | `address` | address of the delegator (_not_ the approved 3<sup>rd</sup> party caller address) |
+| `_validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address to bond stake to |
+| `_amount` | `uint256` | the amount of Newton to bond |
+
+### Response
+
+Per the [`bond()`](/reference/api/aut/#bond) function.
+
+### Event
+
+Per the [`bond()`](/reference/api/aut/#bond) function.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut validator bond-from [OPTIONS] ACCOUNT AMOUNT
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
+```
+:::
+
+
+## bondingAllowance
+
+Returns the amount of Newton stake token that remains available for a stake delegator caller to bond on behalf of the stake delegator owner's account via [`bondFrom()`](/reference/api/aut/#bondfrom).
+
+Bonding allowance is `0` by default. 
+
+::: {.callout-tip title="Delegated staking" collapse="false"}
+Autonity implements a delegated staking model based on the ERC-20 approve, allowance and transfer from model.
+
+Newton implements the ERC-20 token interface and holders can approve a 3<sup>rd</sup> party account to transfer Newton on their behalf up to an approved allowance.
+
+Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allowing Newton holders to delegate staking to a 3<sup>rd</sup> party `caller` account.
+:::
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `owner` | `address` | address of a Newton stake token owner account from which a caller account has approval to bond from |
+| `caller` | `address` | address of an account with approval to bond Newton stake token from the Newton stake token owner's account |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `amount` |  `uint256`  | the amount of Newton stake token the caller is able to bond |
+
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+TO DO
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
 ```
 :::
 
@@ -700,7 +903,7 @@ aut protocol deployer --rpc-endpoint $RPC_URL
 
 ## epochID
 
-Returns the unique identifier of a block epoch as an integer value.
+Returns the unique identifier of the current epoch at the block height of the call.
 
 ### Parameters
 
@@ -845,6 +1048,124 @@ aut protocol block-period --rpc-endpoint $RPC_URL
 :::
 
 
+## getBondingRequestByID
+
+Returns the bonding request for a designated bonding ID.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_id` | `uint256` | the unique identifier of the bonding request |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validatorAddress` | `address` | the address of the validator being bonded to |
+| `_recipient` | `address` | the stake delegator address |
+| `_caller` | `address` | the message sender address, indicates if the stake delegation is self-bonded or not |
+| `_selfBonded` | `bool` | if the bonding is self-bonded or delegated |
+| `_amount` | `uint256` | the amount of NTN being bonded |
+| `headBondingID` | `uint256` | the unique identifier of the bonding request |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol bonding-request [OPTIONS] ID
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol bonding-request 0
+{
+  "delegator": "0xd5Cb27d9658D26E49eCe7642223Cc8889D789b55",
+  "delegatee": "0xa75500C1BeE38247e2cD814Cc95E22D7AD96EC56",
+  "amount": 5000000000000000000000,
+  "request_block": 0
+}
+```
+:::
+
+
+## getClientConfig
+
+Returns the configuration of an [Autonity Go Client (AGC)](/glossary/#autonity-go-client-agc) [peer node](/glossary/#peer) on the Autonity Network at the block height the call was submitted.
+
+### Parameters
+
+None.
+
+### Response
+
+Returns a `ClientAwareConfig` object consisting of:
+
+| Object | Field | Datatype | Description |
+| --| --| --| --|
+| | `epoch_period` | `uint256` | the period of time for which a consensus committee is elected, defined as a number of blocks |
+| | `block_period` | `uint256` | the minimum time interval between two consecutive blocks, measured in seconds |
+| | `gas_limit` | `uint256` | the maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block |
+|  | `clustering_threshold` | `uint256` | the consensus committee size at which network participants are grouped into deterministic clusters to optimize network propagation of gossiped consensus messages |
+| `accountability` |  | `struct` | the Autonity network's configuration of accountability fault detection protocol parameters |
+| | `range` | `uint256` | the height range for the provable fault detector |
+| | `delta` | `uint256` | the delta for the provable fault detector |
+| | `grace_period` | `uint256` | the current gracePeriod value |
+| `eip1559` |  | `struct` | the Autonity network's EIP-1559 transaction fee mechanism configuration |
+| | `min_base_fee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
+| | `base_fee_change_denominator` | `uint256` | the amount the base fee can change between blocks |
+| | `elasticity_multiplier` | `uint256` | multiplier to compute the block gas target |
+| | `gas_limit_bound_divisor` | `uint256` | the divisor that determines the change in the gas limit compared to the parent block’s gas limit |
+
+
+### Usage
+
+::: {.panel-tabset}
+
+## aut
+``` {.aut}
+aut protocol client-config [OPTIONS]
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol client-config -r $RPC_URL
+{
+  "epoch_period": 1800,
+  "block_period": 1,
+  "gas_limit": 20000000,
+  "clustering_threshold": 30,
+  "accountability": {
+    "range": 256,
+    "delta": 10,
+    "grace_period": 0
+  },
+  "eip1559": {
+    "min_base_fee": 500000000,
+    "base_fee_change_denominator": 8,
+    "elasticity_multiplier": 2,
+    "gas_limit_bound_divisor": 1024
+  }
+}
+```
+
+:::
+
+
 ##  getCommittee
 
 Returns a list of the validators selected as members of the consensus committee at the block height of the method call.
@@ -943,9 +1264,47 @@ aut protocol committee-enodes -r $RPC_URL
 :::
 
 
+## getCurrentCommitteeSize
+
+Returns the current protocol setting for the maximum committee size from the protocol configuration.
+
+### Parameters
+
+None.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `configuredCommitteeSize` | `uint256` | the maximum number of validators currently allowed in the consensus committee |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol current-committee-size [OPTIONS]
+```
+
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol current-committee-size --rpc-endpoint $RPC_URL
+100
+```
+
+:::
+
+
 ## getCurrentEpochPeriod
 
-Returns the epoch period from the protocol configuration.
+Returns the current protocol setting for the epoch period from the protocol configuration.
 
 ### Parameters
 
@@ -963,7 +1322,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut contract call [OPTIONS] getCurrentEpochPeriod [PARAMETERS]
+aut protocol current-epoch-period [OPTIONS]
 ```
 :::
 
@@ -973,7 +1332,7 @@ aut contract call [OPTIONS] getCurrentEpochPeriod [PARAMETERS]
 ## aut
 
 ``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/Autonity.abi  --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1 getCurrentEpochPeriod
+aut protocol current-epoch-period --rpc-endpoint $RPC_URL
 1800
 ```
 :::
@@ -1015,7 +1374,7 @@ aut protocol epoch-by-height [OPTIONS] BLOCK_HEIGHT
 ## aut
 
 ``` {.aut}
-aut protocol epoch-by-height 53690
+aut protocol epoch-by-height --rpc-endpoint $RPC_URL 53690
 {
   "committee": [
     {
@@ -1033,7 +1392,13 @@ aut protocol epoch-by-height 53690
   "previous_epoch_block": 50400,
   "epoch_block": 52200,
   "next_epoch_block": 54000,
-  "delta": 5
+  "omission_delta": 5,
+  "eip1559": {
+    "min_base_fee": 500000000,
+    "base_fee_change_denominator": 8,
+    "elasticity_multiplier": 2,
+    "gas_limit_bound_divisor": 1024
+  }
 }
 ```
 
@@ -1081,7 +1446,7 @@ aut protocol epoch-from-block --rpc-endpoint $RPC_URL 3293857
 
 ## getEpochInfo
 
-Returns the current epoch info of the chain.    
+Returns information about the current epoch at the block height of the call.    
 
 ### Parameters
 
@@ -1091,15 +1456,18 @@ None.
 
 Returns an `epochInfo` object consisting of:
 
-| Field | Datatype | Description |
-| --| --| --|
-| `committee` | `CommitteeMember[]` | an array of `CommitteeMember` objects recording the consensus committee of the epoch |
-| `previousEpochBlock` | `uint256` | The previous epoch block number |
-| `epochBlock` | `uint256` | The epoch block number |
-| `nextEpochBlock` | `uint256` | The next epoch block number |
-| `delta` | `uint256` | the current value for delta (omission failure) |
-
-For each committee member [`validator identifier`](/concepts/validator/#validator-identifier) address, [voting power](/glossary/#voting-power), and [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys) is returned. See [`getCommittee()`](/reference/api/aut/#getcommittee) for the description of `CommitteeMember` object properties.
+| Object | Field | Datatype | Description |
+| --| --| --| --|
+| `committee` | array `[]` | an array of `CommitteeMember` objects | For each committee member in the consensus committee of the epoch [`validator identifier`](/concepts/validator/#validator-identifier) address, [voting power](/glossary/#voting-power), and [consensus key](/concepts/validator/#p2p-node-keys-autonitykeys) is returned. See [`getCommittee()`](/reference/api/aut/#getcommittee) for the description of `CommitteeMember` object properties. |
+| `previousEpochBlock` | | `uint256` | the last block number of the previous epoch |
+| `epochBlock` | | `uint256` | the last block number of the current epoch |
+| `nextEpochBlock` | | `uint256` | the first block number of the following  epoch |
+| `omissionDelta` | | `uint256` | the number of blocks set as the current value for the Omission Accountability [delta](/concepts/ofd/#delta-delta) value |
+| `eip1559` | `struct` | the Autonity network's EIP-1559 transaction fee mechanism configuration |
+| | `min_base_fee` | `uint256` | the minimum gas price for a unit of gas used to compute a transaction on the network, denominated in [ton](/glossary/#ton) |
+| | `base_fee_change_denominator` | `uint256` | the amount the base fee can change between blocks |
+| | `elasticity_multiplier` | `uint256` | multiplier to compute the block gas target |
+| | `gas_limit_bound_divisor` | `uint256` | the divisor that determines the change in the gas limit compared to the parent block’s gas limit |
 
 ### Usage
 
@@ -1132,7 +1500,12 @@ aut protocol epoch-info
   "previous_epoch_block": 4149000,
   "epoch_block": 4150800,
   "next_epoch_block": 4152600,
-  "delta": 5
+  "omission_delta": 5,
+  "eip1559": {
+    "min_base_fee": 500000000,
+    "base_fee_change_denominator": 8,
+    "elasticity_multiplier": 2,
+    "gas_limit_bound_divisor": 1024
 }
 ```
 
@@ -1178,7 +1551,7 @@ aut protocol epoch-period --rpc-endpoint $RPC_URL
 :::
 
 
-## get inflation reserve
+## getInflationReserve
 
 Returns the amount of Newton remaining in the [inflation reserve](/glossary/#inflation-mechanism) at the block height of the call.
 
@@ -1198,7 +1571,7 @@ None.
 ## aut
 
 ``` {.aut}
-aut protocol inflation-reserve
+aut protocol inflation-reserve [OPTIONS]
 ```
 
 :::
@@ -1248,7 +1621,40 @@ aut protocol last-epoch-block [OPTIONS]
 aut protocol last-epoch-block -r $RPC_URL
 12981684
 ```
+:::
 
+
+## getLastEpochTime
+
+Returns the timestamp of the last epoch's end block height.
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `lastEpochTime` | `uint256` | the block's timestamp in [Unix time](/glossary/#unix-time) format |
+
+### Usage
+
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol last-epoch-time [OPTIONS]
+```
+
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol last-epoch-time -r $RPC_URL
+1753547220
+```
 :::
 
 
@@ -1284,7 +1690,7 @@ aut protocol max-committee-size [OPTIONS]
 
 ``` {.aut}
 aut protocol max-committee-size --rpc-endpoint $RPC_URL
-50
+100
 ```
 
 :::
@@ -1292,7 +1698,7 @@ aut protocol max-committee-size --rpc-endpoint $RPC_URL
 
 ## getMaxScheduleDuration
 
-Returns the max allowed duration of any schedule or contract from the protocol configuration.
+Returns the max allowed duration of the protocol schedules from the protocol configuration.
 
 ### Parameters
 
@@ -1322,7 +1728,7 @@ aut protocol max-schedule-duration [OPTIONS]
 
 ``` {.aut}
 aut protocol max-schedule-duration
-126230400
+94608000
 ```
 
 :::
@@ -1360,7 +1766,7 @@ aut protocol minimum-base-fee [OPTIONS]
 
 ``` {.aut}
 aut protocol minimum-base-fee --rpc-endpoint $RPC_URL
-500000000
+10000000000
 ```
 
 :::
@@ -1517,6 +1923,101 @@ aut protocol proposer -r $RPC_URL 4576868 0
 :::
 
 
+## getSchedule
+
+Returns a schedule by vault address and index identifier.
+   
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_vault` | `address` | address of the vault for the schedule |
+| `_id` | `uint256` | index position of the schedule in the `vaultSchedules` array |
+
+### Response
+
+Returns a `Validator` object consisting of:
+
+| Field | Datatype | Description |
+| --| --| --|
+| `total_amount` | `uint256` | the total amount of Newton that has been locked in the schedule |
+| `unlocked_amount` | `uint256` | the amount of Newton that has been unlocked in the schedule |
+| `start` | `uint256` | the start time of the schedule in [Unix time](/glossary/#unix-time) format |
+| `total_duration` | `uint256` | the duration of the schedule in seconds |
+| `last_unlock_time` | `uint256` | the timestamp that Newton was last unlocked from the schedule in [Unix time](/glossary/#unix-time) format |
+
+::: {.callout-note title="Unlocking is epoch end" collapse="false"}
+Unlocking takes place end of epoch. The `last_unlock_time` corresponds to the timestamp of the last epoch's block height, therefore. See [`getLastEpochTime()`](/reference/api/aut/#getlastepochtime).
+:::
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol schedule [OPTIONS] VAULT-ADDRESS INDEX
+```
+
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol schedule -r $RPC_URL 0x28656C47fc327C385e9D017d631A042a3ebA15A5  0
+{
+  "total_amount": 75000000000000000000000,
+  "unlocked_amount": 25692382618622195751439,
+  "start": 1732898815,
+  "total_duration": 60444000,
+  "last_unlock_time": 1753276188
+}
+```
+
+:::
+
+
+## getTotalSchedules
+
+Returns the total number of schedules at a vault address.
+  
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_vault` | `address` | address of the vault |
+
+### Response
+
+Returns the total number of schedules at the vault address as an integer value.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol total-schedules [OPTIONS] VAULT-ADDRESS
+```
+
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol total-schedules -r $RPC_URL0x28656C47fc327C385e9D017d631A042a3ebA15A5
+1
+```
+:::
+
+
 ## getTreasuryAccount
 
 Returns the address of the Autonity treasury account.
@@ -1628,6 +2129,60 @@ aut protocol unbonding-period -r $RPC_URL
 21600
 ```
 
+:::
+
+
+## getUnbondingRequestByID
+
+Returns the unbonding request for a designated unbonding ID.
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_id` | `uint256` | the unique identifier of the unbonding request |
+
+### Response
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_validatorAddress` | `address` | the address of the validator being unbonded from |
+| `_recipient` | `address` | the stake delegator address |
+| `_caller` | `address` | the message sender address, indicates if the stake delegation is self-bonded or not |
+| `_selfDelegation` | `bool` | if the unbonding is for self-bonded or delegated stake |
+| `_amount` | `uint256` | the amount of NTN or LNTN being unbonded |
+| `headUnbondingID` | `uint256` | the unique identifier of the unbonding request |
+   
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+aut protocol unbonding-request [OPTIONS] ID
+```
+:::
+
+
+### Example
+
+::: {.panel-tabset}
+## aut
+
+``` {.aut}
+% aut protocol unbonding-request 0
+{
+  "delegator": "0x0000000000000000000000000000000000000000",
+  "delegatee": "0x0000000000000000000000000000000000000000",
+  "amount": 0,
+  "unbonding_share": 0,
+  "request_block": 0,
+  "unlocked": false,
+  "released": false,
+  "self_delegation": false
+}
+```
 :::
 
 
@@ -1907,7 +2462,7 @@ Returns a boolean flag specifying if stake for an unbonding request has been rel
 
 ### Response
 
-Returns `true` if unbonding is released and `false` otherwise.
+Returns $true$ if unbonding is released and $false$ otherwise.
 
 ### Usage
 
@@ -1915,7 +2470,7 @@ Returns `true` if unbonding is released and `false` otherwise.
 ## aut
 
 ``` {.aut}
-aut contract call [OPTIONS] isUnbondingReleased [PARAMETERS]
+aut protocol is-unbonding-released [OPTIONS] UNBONDING_ID
 ```
 
 :::
@@ -1926,8 +2481,8 @@ aut contract call [OPTIONS] isUnbondingReleased [PARAMETERS]
 ## aut
 
 ``` {.aut}
-aut contract call --abi ../scripts/abi/v1.0.2-alpha/Autonity.abi  --address 0xBd770416a3345F91E4B34576cb804a576fa48EB1  isUnbondingReleased 2
-true
+aut protocol is-unbonding-released 129
+0
 ```
 
 :::
@@ -2423,17 +2978,17 @@ The amount of Newton released may be less than the unbonded amount if the valida
 | Field | Datatype | Description |
 | --| --| --|
 | `_validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address |
-| `amount` | `uint256` | the amount of stake to be unbonded from the validator. Depending on the `msg.Sender` address the amount is for: (a) Newton stake token if the `msg.Sender` is the validator `treasury` and the unbond request is for [self-bonded](/glossary/#self-bonded) stake, or (b) Liquid Newton and the unbond request is for [delegated](/glossary/#delegated) stake |
+| `_amount` | `uint256` | the amount of stake to be unbonded from the validator. Depending on the `msg.Sender` address the amount is for: (a) Newton stake token if the `msg.Sender` is the validator `treasury` and the unbond request is for [self-bonded](/glossary/#self-bonded) stake, or (b) Liquid Newton and the unbond request is for [delegated](/glossary/#delegated) stake |
 
 ### Response
 
-No response object is returned on successful execution of the method call.
+Returns the `id` of the unbonding request from memory.
 
 The pending voting power change is tracked in memory until applied.
 
 ### Event
 
-On a successful call the function emits a `NewUnbondingRequest` event, logging: `validator` address, `delegator` address, `selfBonded` (boolean), `amount` unbonded.
+On a successful call the function emits a `NewUnbondingRequest` event, logging: `_validatorAddress`, `_recipient`, `_caller`, `selfDelegation`, `_amount`, `headUnbondingID`.
 
 ### Usage
 
@@ -2455,6 +3010,70 @@ aut validator unbond --validator 0xA9F070101236476fe077F4A058C0C22E81b8A6C9  1 |
 (consider using 'KEYFILEPWD' env var).
 Enter passphrase (or CTRL-d to exit): 
 0x3ac340e33f5ddfdab04ffe85ce4b564986b2f1a877720cb79bc9d31c11c8f318
+```
+:::
+
+
+## unbondFrom
+
+Conceptually identical to the [`unbond()`](/reference/api/aut/#unbond) function but for delegated staking workflows where a Newton [stakeholder](/glossary/#stakeholder) has authorized the method caller to unbond Liquid Newton tokens on its behalf up to an approved amount. The amounts of successful `unbondFrom()` calls are then deducted from that unbonding allowance.
+
+
+Conceptually identical to the [`bond()`](/reference/api/aut/#bond) function but for delegated staking workflows where a Newton [stakeholder](/glossary/#stakeholder) has authorized the method caller to bond Newton tokens on its behalf up to an approved amount. 
+
+
+The `unbondFrom()` function creates an unbonding request with the passed in `account` as the delegator address. The `msg.sender` caller must have an unbonding-allowance (LNTN) from the `account`. The amounts of successful `unbondFrom()` calls are then deducted from that unbonding allowance.
+
+The `unbondFrom` method differs from `unbond()` by:
+
+- Additional constraint checks to `unbond()`:
+
+  - the calling `account` address is not the validator's `treasury` account. If the constraint check fails the transaction will revert with the error "cannot bond PAS using allowance".
+  - the calling `account` address is approved to unbond by the Newton token `owner`. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+  - the calling `account` address has a remaining `unbonding allowance >= amount` being un bonded in the request. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+
+- Additional parameters for the 3<sup>rd</sup> party caller _account_.
+
+::: {.callout-tip title="Delegated staking" collapse="false"}
+Autonity implements a delegated staking model based on the ERC-20 approve, allowance and transfer from model.
+
+Newton implements the ERC-20 token interface and holders can approve a 3<sup>rd</sup> party account to transfer Newton on their behalf up to an approved allowance.
+
+Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allowing Newton holders to delegate staking to a 3<sup>rd</sup> party `caller` account.
+:::
+
+### Parameters
+
+| Field | Datatype | Description |
+| --| --| --|
+| `_account`  | `address` | address of the delegator (_not_ the approved 3<sup>rd</sup> party caller address) |
+| `_validator`  | `address` | the [validator identifier](/concepts/validator/#validator-identifier) address to unbond stake from |
+| `_amount` | `uint256` | the amount of Liquid Newton (or NTN if self delegated) to unbond |
+
+
+### Response
+
+Per the [`unbond()`](/reference/api/aut/#unbond) function.
+
+### Event
+
+Per the [`unbond()`](/reference/api/aut/#unbond) function.
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut validator unbond-from [OPTIONS] ACCOUNT AMOUNT
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+TO DO
 ```
 :::
 
@@ -2490,7 +3109,8 @@ The updated validator enode can be retrieved from state by calling the [`getVali
 
 ### Event
 
-None.
+On a successful call the function emits a `EnodeUpdate` event, logging: `_val.nodeAddress`, `_val.enode`, `_enode`.
+
 
 ### Usage
 
