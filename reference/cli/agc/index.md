@@ -65,7 +65,7 @@ USAGE:
    autonity [options] [command] [command options] [arguments...]
    
 VERSION:
-   1.0.2-alpha
+   1.1.0-f7c38429-20250730
    
 COMMANDS:
    account                            Manage accounts
@@ -193,7 +193,6 @@ NETWORKING OPTIONS:
   --oraclekeyhex value                oracle account key as hex (for testing)
   --consensus.port value              Network listening port for consensus channel (default: 20203)
   --consensus.nat value               NAT port mapping mechanism for consensus channel (any|none|upnp|pmp|extip:<IP>) (default: "any")
-  --nogossip                          disable consensus message gossip
   
 MINER OPTIONS:
   --mine                              Enable mining. Will bypass the chain sync check.
@@ -201,7 +200,6 @@ MINER OPTIONS:
   --miner.notify value                Comma separated HTTP URL list to notify of new work packages
   --miner.notify.full                 Notify with pending block headers instead of work packages
   --miner.gasprice value              Minimum gas price for mining a transaction (default: 500000000)
-  --miner.gaslimit value              Target gas ceiling for mined blocks (default: 20000000)
   --miner.extradata value             Block extra data set by the miner (default = client version)
   --miner.recommit value              Time interval to recreate the block being mined (default: 3s)
   --miner.noverify                    Disable remote sealing verification
