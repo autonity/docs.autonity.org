@@ -89,19 +89,19 @@ Autonity assigns the same value to Chain and Network identifiers `networkId` and
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivizes validators at genesis when transaction volumes are low | Set to `10000000000` (10 [gigaton](/glossary/#gigaton))| See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
+| `minBaseFee` | The minimum gas price for computing a transaction on an Autonity network after genesis. A high minimum gas price setting incentivizes validators at genesis when transaction volumes are low | Set to `10000000000` (10 [gigaton](/glossary/#gigaton)) | See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
 | `epochPeriod` | The period of time for which a consensus committee is elected, defined as a number of blocks. The `epochPeriod` must be shorter than the `unbondingPeriod` and must be greater than the [OFD](/concepts/ofd/) `[Delta](/concepts/ofd/#delta-delta)+[lookbackWindow](/concepts/ofd/#lookback-window)-1`. | Set to `1800` | See [`setEpochPeriod()`](/reference/api/aut/op-prot/#setepochperiod) |
-| `unbondingPeriod` | The period of time bonded stake must wait before Newton can be redeemed after unbonding, defined as a number of blocks. The unbonding period can be any integer number `> 0`, but must be longer than the `epochPeriod`. | See [`config.autonity.unbondingPeriod`](/reference/genesis/#configautonity-object)  | See [`setUnbondingPeriod()`](/reference/api/aut/op-prot/#setunbondingperiod) |
+| `unbondingPeriod` | The period of time bonded stake must wait before Newton can be redeemed after unbonding, defined as a number of blocks. The unbonding period can be any integer number `> 0`, but must be longer than the `epochPeriod`. | Set to `21600` | See [`setUnbondingPeriod()`](/reference/api/aut/op-prot/#setunbondingperiod) |
 | `blockPeriod` | The minimum time interval between two consecutive blocks, measured in seconds. Also known as 'block time' or 'block interval'. | Set to `1` | None |
-| `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Set to `30`, the number of genesis validators. Increased post-genesis to `100` | See [`setCommitteeSize()`](/reference/api/aut/op-prot/#setcommitteesize) |
-| governance `operator` account | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. | EOA account address | See [`setOperatorAccount()`](/reference/api/aut/op-prot/#setoperatoraccount) |
-| `treasury` account | The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. | EOA account address | See [`setTreasuryAccount()`](/reference/api/aut/op-prot/#settreasuryaccount) |
-| `withheldRewardsPool` account | The address of the Autonity Withheld Rewards account, the pool to which withheld Newton inflation rewards are sent for holding | EOA account address. Set by default to the Autonity `treasury` account at genesis unless specified | See [`setWithheldRewardsPool()`](/reference/api/aut/op-prot/#setwithheldrewardspool) |
-| `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Set to `10000000000000000` (1%)  | See [`setTreasuryFee()`](/reference/api/aut/op-prot/#settreasuryfee) |
+| `maxCommitteeSize` | The maximum number of validators that can be selected as members of a consensus committee | Set to `27`, the number of genesis validators. Increased post-genesis. | See [`setCommitteeSize()`](/reference/api/aut/op-prot/#setcommitteesize) |
+| governance `operator` account | Address of the Autonity Protocol governance account. The governance account has the authority to mint Newton and change protocol parameters including specification of a new governance `operator` account address. A scenario for this would be migrating to a DAO form of governance. | Multisig account address | See [`setOperatorAccount()`](/reference/api/aut/op-prot/#setoperatoraccount) |
+| `treasury` account | The Autonity Protocol’s treasury account for receiving treasury fees used for Autonity community funds. | Multisig account address | See [`setTreasuryAccount()`](/reference/api/aut/op-prot/#settreasuryaccount) |
+| `withheldRewardsPool` account | The address of the Autonity Withheld Rewards account, the pool to which withheld Newton inflation rewards are sent for holding | Multisig account address. Set by default to the Autonity `treasury` account at genesis unless specified | See [`setWithheldRewardsPool()`](/reference/api/aut/op-prot/#setwithheldrewardspool) |
+| `treasuryFee` | The percentage fee of staking rewards that is deducted by the protocol for Autonity community funds. The fee is sent to the Autonity Treasury account at epoch end on reward distribution. Specified as an integer value representing up to 18 decimal places of precision. | Set to `50000000000000000` (5%)  | See [`setTreasuryFee()`](/reference/api/aut/op-prot/#settreasuryfee) |
 | `delegationRate` | The percentage fee of staking rewards that is deducted by validators as a commission from delegated stake. The fee is sent to the validator's [`treasury`](/concepts/validator/#treasury-account) account at epoch end on reward distribution. The rate can be specified to the precision of 1 basis point. Specified as an integer value representing up to 3 decimal places of precision. | Set to `1000` (10%) | See [`config.autonity.delegationRate`](/reference/genesis/#configautonity-object)  | None (Individual validators can reset their rate after registration. See [`changeCommissionRate()`](/reference/api/aut/#changecommissionrate)) |
 | `withholdingThreshold` | The inactivity threshold at which committee member staking and Newton inflation rewards are withheld and sent to the Withheld Rewards Pool account by the Omission Fault Detection protocol | Set to `0` (0%, no tolerance) | See [`setWithholdingThreshold()`](/reference/api/aut/op-prot/#setwithholdingthreshold) |
-| `proposerRewardRate` | The percentage of epoch staking rewards allocated for proposer rewarding by the Omission Fault Detection protocol  | Set to `1000` (10%) | See [`setProposerRewardRate()`](/reference/api/aut/op-prot/#setproposerrewardrate) |
-| `oracleRewardRate` | The percentage of epoch staking rewards deducted for oracles as a reward for correct price reporting by the Oracle Accountability Fault Detection protocol | Set to `1000` (10%) | See [`setOracleRewardRate()`](/reference/api/aut/op-prot/#setoraclerewardrate) |
+| `proposerRewardRate` | The percentage of epoch staking rewards allocated for proposer rewarding by the Omission Fault Detection protocol  | Set to `500` (5%) | See [`setProposerRewardRate()`](/reference/api/aut/op-prot/#setproposerrewardrate) |
+| `oracleRewardRate` | The percentage of epoch staking rewards deducted for oracles as a reward for correct price reporting by the Oracle Accountability Fault Detection protocol | Set to `500` (5%) | See [`setOracleRewardRate()`](/reference/api/aut/op-prot/#setoraclerewardrate) |
 | `initialInflationReserve` | the amount of Newton held in reserve for Newton inflation rewards | Set to `40 Million` (40% of the total supply of 100 Million Newton) | None |
 | `gasLimit` | The maximum amount of gas expenditure allowed for a block, placing a ceiling on transaction computations possible within a block. The value is specified as the number of gas units allowed in a block. The gas limit determines the amount of gas allowed to compute the genesis block; for subsequent blocks the gas limit is algorithmically adjusted by protocol and is a desired gas limit. The runtime block gas limit is a normal distribution around this target. | Value is set to: `30000000` (30M) |  See [`setGasLimit()`](/reference/api/aut/op-prot/#setgaslimit) |
 | `gasLimitBoundDivisor` | The divisor that determines the change in the gas limit compared to the parent block's gas limit. | Set to `1024 ` | See [`setEip1559Params()`](/reference/api/aut/op-prot/#seteip1559params) |
@@ -112,7 +112,7 @@ Autonity assigns the same value to Chain and Network identifiers `networkId` and
 | `tokenBond` | The amount of NTN stake token bonded to validators at network genesis. | Specific to network  genesis | None |
 | `tokenMint` | The amount of NTN stake token minted at network genesis. | Set to `60 Million` (60% of the total supply of 100 Million Newton)  | None |
 | `schedules` | Protocol schedules determine the amount of NTN to deduct from the total minted NTN amount to set the circulating supply (inflation base) to which the inflation rate is applied. | Specific to network genesis | None |
-| `maxScheduleDuration` | The maximum allowed duration of a schedule. See `schedules`. | Set to `94608000` (1095 days) | See [`setMaxScheduleDuration()`](/reference/api/aut/op-prot/#setmaxscheduleduration) |
+| `maxScheduleDuration` | The maximum allowed duration of a schedule. See `schedules`. | Set to 	`126230400` seconds (4+(1/365) years) | See [`setMaxScheduleDuration()`](/reference/api/aut/op-prot/#setmaxscheduleduration) |
 | `validators` | Specify the genesis validator set. | Specific to network genesis | Post-genesis the genesis validators can `pause` and `reactivate` to enter and leave committee selection. New validators can register after genesis. |
 
 ::: {.callout-note title="NTN supply, protocol schedules and Newton inflation" collapse="false"}
@@ -145,15 +145,15 @@ Parameters for the Accountability Contract and the Accountability Fault Detectio
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set by default to `100` (100 blocks) | See [`setInnocenceProofSubmissionWindow()`](/reference/api/aut/op-prot/#setinnocenceproofsubmissionwindow-accountability-contract) |
+| `innocenceProofSubmissionWindow` | The number of blocks forming a window within which an accused offending validator has to submit a proof of innocence on-chain refuting an accusation | Set by default to `120` (120 blocks) | See [`setInnocenceProofSubmissionWindow()`](/reference/api/aut/op-prot/#setinnocenceproofsubmissionwindow-accountability-contract) |
 | `delta` | The delta for the provable fault detector. It is the number of blocks that must elapse before running the fault detector on a certain height (e.g height $x$ gets scanned at block $x+delta$) | Set by default to `10` (10 blocks) | See [`setDelta()`](/reference/api/aut/op-prot/#setdelta-accountability-contract) |
-| `range` | The height range for the provable fault detector. It is used for garbage collection of messages and to establish height boundaries for accusation validity | Set by default to `256` (256 blocks) | See [`setRange()`](/reference/api/aut/op-prot/#setrange-accountability-contract) |
+| `range` | The height range for the provable fault detector. It is used for garbage collection of messages and to establish height boundaries for accusation validity | Set by default to `128` (128 blocks) | See [`setRange()`](/reference/api/aut/op-prot/#setrange-accountability-contract) |
 | `gracePeriod` | The grace period for a validator to defend against an accusation; prevents the possibility of the protocol raising an indefensible accusation in the case of a `range` increase. | Set by default to `0` (blocks) | None; automatically adjusted by protocol |
-| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set by default to `400` (4%) | See [`setBaseSlashingRates()`](/reference/api/aut/op-prot/#setbaseslashingrates-accountability-contract) |
-| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set by default to `600` (6%) | See [`setBaseSlashingRates()`](/reference/api/aut/op-prot/#setbaseslashingrates-accountability-contract) |
-| `baseSlashingRateHigh` | The base slashing rate for a fault of _High_ severity | Set by default to `800` (8%) | See [`setBaseSlashingRates()`](/reference/api/aut/op-prot/#setbaseslashingrates-accountability-contract) |
-| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set by default to `200` (2%) | See [`setFactors()`](/reference/api/aut/op-prot/#setfactors-accountability-contract) |
-| `historyFactor` | The percentage factor applied to the total number of proven faults committed by a validator used as a factor when computing the slashing amount of a penalty | Set by default to `500` (5%) | See [`setFactors()`](/reference/api/aut/op-prot/#setfactors-accountability-contract) |
+| `baseSlashingRateLow` | The base slashing rate for a fault of _Low_ severity | Set by default to `50` (0.5%) | See [`setBaseSlashingRates()`](/reference/api/aut/op-prot/#setbaseslashingrates-accountability-contract) |
+| `baseSlashingRateMid` | The base slashing rate for a fault of _Mid_ severity | Set by default to `100` (1%) | See [`setBaseSlashingRates()`](/reference/api/aut/op-prot/#setbaseslashingrates-accountability-contract) |
+| `baseSlashingRateHigh` | The base slashing rate for a fault of _High_ severity | Set by default to `200` (2%) | See [`setBaseSlashingRates()`](/reference/api/aut/op-prot/#setbaseslashingrates-accountability-contract) |
+| `collusionFactor` | The percentage factor applied to the total number of slashable offences committed during an epoch when computing the slashing amount of a penalty | Set by default to `24` (0.25%) | See [`setFactors()`](/reference/api/aut/op-prot/#setfactors-accountability-contract) |
+| `historyFactor` | The percentage factor applied to the total number of proven faults committed by a validator used as a factor when computing the slashing amount of a penalty | Set by default to `150` (1.5%) | See [`setFactors()`](/reference/api/aut/op-prot/#setfactors-accountability-contract) |
 | `jailFactor` | The number of epochs used as a factor when computing the jail period of an offending validator | Set by default to `48` (48 epochs, i.e. 1 day at a 30 mins epoch) | See [`setFactors()`](/reference/api/aut/op-prot/#setfactors-accountability-contract) |
 | `SLASHING_RATE_SCALE_FACTOR` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `SLASHING_RATE_SCALE_FACTOR` in [Protocol Constants](/reference/protocol/#protocol-constants) | None |
 
@@ -164,14 +164,14 @@ Parameters for the Oracle Contract of the Oracle protocol and Oracle Accountabil
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| Oracle `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "ATN-USD", "NTN-USD", "NTN-ATN"]` | See [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract) |
-| Oracle `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Set by default to `30` (30 blocks) | None |
-| `outlierDetectionThreshold` | Defines the threshold for flagging outliers | Set by default to `10` (10%) | None |
+| Oracle `symbols` | The currency pairs that the oracle component collects data points for. The first listed currency of the pair is the base currency and the second the quote currency | Comma separated list of currency pairs. Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD"]` | See [`setSymbols()`](/reference/api/aut/op-prot/#setsymbols-oracle-contract) |
+| Oracle `votePeriod` | The interval at which the oracle network initiates a new oracle round for submitting and voting on oracle data, measured in blocks | Set by default to `600` (600 blocks) | None |
+| `outlierDetectionThreshold` | Defines the threshold for flagging outliers | Set by default to `3` (3%) | None |
 | `outlierSlashingThreshold` | Defines the threshold for outlier slashing penalties, controlling the sensitivity of the penalty model | Set by default to `225` (15%) | None |
 | `baseSlashingRate` | Defines the base slashing rate for outlier slashing penalties | Set by default to `10` (0.1%) | None |
-| `nonRevealThreshold` | Defines the threshold for missed reveals | Set by default to `3` (oracle voting rounds) | None |
+| `nonRevealThreshold` | Defines the threshold for missed reveals | Set by default to `5` (oracle voting rounds) | None |
 | `revealResetInterval` | The number of oracle voting rounds after which the missed reveal counter is reset | Set by default to `10` | None |
-| `slashingRateCap` | The maximum % slashing rate for oracle accountability slashing penalties | Set by default to `1_000` (10%) | None |
+| `slashingRateCap` | The maximum % slashing rate for oracle accountability slashing penalties | Set by default to `50` (0.5%) | None |
 | `OracleRewardRate` | Set in the Autonity Protocol Contract configuration | See [`config.autonity.oracleRewardRate`](/reference/protocol/#autonity-config) | See [`setOracleRewardRate()`](/reference/api/aut/op-prot/#setoraclerewardrate) |
 
 ### Inflation Controller Config
@@ -183,8 +183,8 @@ Parameters for the Inflation Controller Contract of the Newton inflation mechani
 | `inflationRateInitial` | Initial inflation rate | Set by default to `7.5%` AR | None |
 | `inflationRateTransition` | Transition inflation rate | Set by default to `5.5%` AR | None |
 | `inflationReserveDecayRate` | Constant inflation rate | Set by default to `17.3168186793%` AR | None |
-| `inflationTransitionPeriod` | Transition period | Set by default to `(4+1/365)` years | None |
-| `inflationCurveConvexity` | Convexity parameter | Set by default to `-1.7794797758` | None |
+| `inflationTransitionPeriod` | Transition period | Set by default to `4.002739726027397` (4+1/365 years) | None |
+| `inflationCurveConvexity` | Convexity parameter | Set by default to `2.7648007374` | None |
 | `InitialInflationReserve` | Set in the Autonity Protocol Contract configuration | See [`config.autonity.InitialInflationReserve`](/reference/protocol/#autonity-contract-config) | None |
 
 
@@ -199,7 +199,7 @@ The ASM's Autonomous Currency Unit (ACU) currency basket configuration, an optim
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------| 
 | `symbols` | The [currency pair](/glossary/#currency-pair) symbols used to retrieve prices for the currencies in the basket | Set by default to `["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "USD-USD"]` | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
-| `quantities` | The basket quantity corresponding to each symbol. | Set by default to `[1_744_583, 1_598_986, 1_058_522, 886_091, 175_605_573, 12_318_802, 1_148_285]` | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
+| `quantities` | The basket quantity corresponding to each symbol. | Set by default to `[1_826_272, 1_634_362, 1_023_622, 886_976, 177_065_877, 11_513_754, 1_192_007]` | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
 | `scale` | The scale used to represent the basket `quantities` and ACU value. | Set by default to `7` | See [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) |
 
 #### Stabilization Config
@@ -208,15 +208,22 @@ The ASM's Stabilization mechanism CDP configuration.
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | Set by default to 5%, `50_000_000_000_000_000` | See [`updateBorrowInterestRate()`](/reference/api/aut/op-prot/#updateborrowinterestrate-asm-stabilization-contract) |
-| `announcementWindow` | The length of time in seconds before an update to ASM Stabilization config will take effect. | Set by default to 1 hour, `3600` | See [`updateAnnouncementWindow()`](/reference/api/aut/op-prot/#updateannouncementwindow-asm-stabilization-contract) |
+| `borrowInterestRate` | The annual continuously-compounded interest rate for borrowing. | `0%` while [CDP Opening Restrictions](/concepts/asm/#asm-restrictions) are in force. Set by default to 5%, `50_000_000_000_000_000`, which applies on lifting of the CDP Opening Restrictions | See [`updateBorrowInterestRate()`](/reference/api/aut/op-prot/#updateborrowinterestrate-asm-stabilization-contract) |
+| `announcementWindow` | The length of time in seconds before an update to ASM Stabilization config will take effect. | Set by default to 1 hour, `3600` seconds | See [`updateAnnouncementWindow()`](/reference/api/aut/op-prot/#updateannouncementwindow-asm-stabilization-contract) |
 | `liquidationRatio` | The minimum ACU value of collateral required to maintain 1 ACU value of debt. | Set by default to 1.8, `1_800_000_000_000_000_000` | See [`updateRatios()`](/reference/api/aut/op-prot/#updateratios-asm-stabilization-contract) |
 | `minCollateralizationRatio` | The minimum ACU value of collateral required to borrow 1 ACU value of debt. | Set by default to 2, `2_000_000_000_000_000_000` | See [`updateRatios()`](/reference/api/aut/op-prot/#updateratios-asm-stabilization-contract) |
-| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set by default to a [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000` | See  [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract) |
+| `minDebtRequirement` | The minimum amount of debt required to maintain a CDP. | Set by default to 1 [`megaton`](/concepts/protocol-assets/auton/#unit-measures-of-auton), `1_000_000` (i.e. `10^-12` ATN) | See  [`setMinDebtRequirement()`](/reference/api/aut/op-prot/#setmindebtrequirement-asm-stabilization-contract) |
 | `targetPrice` | The ACU value of 1 unit of debt. | Set by default to the Golden Ratio rounded to 5 dp `1.61804`, `1_618_034_000_000_000_000` | None |
-| `defaultNTNATNPrice` | Default NTN-ATN price for use at genesis (with Oracle decimals precision) | Set by default to 1.0, `1_000_000_000_000_000_000` | See [`setDefaultNTNATNPrice()`](/reference/api/aut/op-prot/#setdefaultntnatnprice-asm-stabilization-contract) |
-| `defaultNTNUSDPrice` | Default NTN-USD price for use at genesis (with Oracle decimals precision) | Set by default to 1.6, `1_600_000_000_000_000_000` | See [`setDefaultNTNUSDPrice()`](/reference/api/aut/op-prot/#setdefaultntnusdprice-asm-stabilization-contract) |
-| `defaultACUUSDPrice` | Optional ACU-USD price for use at genesis | Set by default to NULL, `0` | See [`setDefaultACUUSDPrice()`](/reference/api/aut/op-prot/#setdefaultacuusdprice-asm-stabilization-contract) |
+| `defaultNTNATNPrice` | Default NTN-ATN price for use at genesis (with Oracle decimals precision) | Set by default to `0.6666193` | See [`setDefaultNTNATNPrice()`](/reference/api/aut/op-prot/#setdefaultntnatnprice-asm-stabilization-contract) |
+| `defaultNTNUSDPrice` | Default NTN-USD price for use at genesis (with Oracle decimals precision) | Set by default to `0.9` | See [`setDefaultNTNUSDPrice()`](/reference/api/aut/op-prot/#setdefaultntnusdprice-asm-stabilization-contract) |
+| `defaultACUUSDPrice` | Optional ACU-USD price for use at genesis | Set by default to `0.8344052` | See [`setDefaultACUUSDPrice()`](/reference/api/aut/op-prot/#setdefaultacuusdprice-asm-stabilization-contract) |
+
+::: {.callout-tip title="ASM restrictions" collapse="false"}
+
+See the [ASM](/concepts/asm/) concept and [ASM restrictions](/concepts/asm/#asm-restrictions) for detail on CDP Opening Restrictions and the setting of default prices by Fixed Price Restrictions during network bootstrapping.
+
+:::
+
 
 #### Supply Control Config
 
@@ -244,12 +251,12 @@ Parameters for the Omission Accountability Contract and the Omission Fault Detec
 
 | Parameter | Description | Genesis Configuration | Post Genesis Update Mechanism |
 |-----------|-------------|-----------------------|-------------------------------|
-| `inactivityThreshold` | Defines the threshold for flagging validator inactivity | Set by default to`1000` (10%) | See [`setInactivityThreshold()`](/reference/api/aut/op-prot/#setinactivitythreshold-omission-accountability-contract) |
-| `lookbackWindow` | The number of blocks over which the protocol will look for inactivity | Set by default to `40` (40 blocks) | See [`setLookbackWindow()`](/reference/api/aut/op-prot/#setlookbackwindow-omission-accountability-contract) |
+| `inactivityThreshold` | Defines the threshold for flagging validator inactivity | Set by default to `1500` (15%) | See [`setInactivityThreshold()`](/reference/api/aut/op-prot/#setinactivitythreshold-omission-accountability-contract) |
+| `lookbackWindow` | The number of blocks over which the protocol will look for inactivity | Set by default to `60` (60 blocks) | See [`setLookbackWindow()`](/reference/api/aut/op-prot/#setlookbackwindow-omission-accountability-contract) |
 | `pastPerformanceWeight` | Determines how much weight is given to past performance of the validator in the preceding epoch in the current epoch when computing the aggregated inactivity score | Set by default to `1000` (10%) | See [`setPastPerformanceWeight()`](/reference/api/aut/op-prot/#setpastperformanceweight-omission-accountability-contract) |
 | `initialJailingPeriod` | The initial number of block(s) that a validator will be jailed for | Set by default to `10_000` (10000 blocks) | See [`setInitialJailingPeriod()`](/reference/api/aut/op-prot/#setinitialjailingperiod-omission-accountability-contract) |
-| `initialProbationPeriod` | The initial number of epoch(s) that a validator will be set under probation for | Set by default to  `24` (24 epochs) | See [`setInitialProbationPeriod()`](/reference/api/aut/op-prot/#setinitialprobationperiod-omission-accountability-contract) |
-| `initialSlashingRate` | The initial slashing rate used with the offence count and collusion degree when computing the slashing amount of a penalty | Set by default to `25` (0.25%) | See [`setInitialSlashingRate()`](/reference/api/aut/op-prot/#setinitialslashingrate-omission-accountability-contract) |
+| `initialProbationPeriod` | The initial number of epoch(s) that a validator will be set under probation for | Set by default to  `8` (8 epochs) | See [`setInitialProbationPeriod()`](/reference/api/aut/op-prot/#setinitialprobationperiod-omission-accountability-contract) |
+| `initialSlashingRate` | The initial slashing rate used with the offence count and collusion degree when computing the slashing amount of a penalty | Set by default to `5` (0.05%) | See [`setInitialSlashingRate()`](/reference/api/aut/op-prot/#setinitialslashingrate-omission-accountability-contract) |
 | `delta` | The number of blocks to wait before generating an activity proof | Set by default to `5` (5 blocks) | See [`setDelta()`](/reference/api/aut/op-prot/#setdelta-omission-accountability-contract) |
 | `SCALE_FACTOR` | Used for fixed-point arithmetic during computation of inactivity score |  See `SCALE_FACTOR` in `OmissionAccountability.sol` | None |
 | `SLASHING_RATE_SCALE_FACTOR` | Set as a [Protocol Constant](/reference/protocol/#protocol-constants) | See `SLASHING_RATE_SCALE_FACTOR` in [Protocol Constants](/reference/protocol/#protocol-constants) | None |
