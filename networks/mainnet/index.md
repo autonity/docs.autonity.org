@@ -69,7 +69,7 @@ The network bootnode addresses are:
 
 Mainnet is built using:
 
-- Autonity Go Client (AGC) Release: [ ] ( ). The docker image release is: `ghcr.io/autonity/autonity:latest`
+- Autonity Go Client (AGC) Release: [v1.1.1](https://github.com/autonity/autonity/releases/tag/v1.1.1). The docker image release is: `ghcr.io/autonity/autonity:latest`
 
 - Autonity Oracle Server (AOS) Release: [ ]( ). The docker image release is: `ghcr.io/autonity/autonity-oracle:latest`
 

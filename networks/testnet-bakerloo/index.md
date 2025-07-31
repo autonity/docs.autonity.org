@@ -41,7 +41,7 @@ The network's genesis configuration is:
 | `config.autonity.minBaseFee`       | `10_000_000_000` (10 GWei)        |
 | `config.autonity.operator`         | `0x83e5e0eab996Bb894814fa8F0AC96a0D314f06F3` |
 | `config.autonity.treasury`         | `0xd735174cf1d0D9150cb57750C45B6e8095160f6A` |
-| `config.autonity.validators`       |  See `Validators` in the AGC [`BakerlooChainConfig`](https://github.com/autonity/autonity/blob/release/v1.1.0/params/config.go)) for details.  |
+| `config.autonity.validators`       |  See `Validators` in the AGC [`BakerlooChainConfig`](https://github.com/autonity/autonity/blob/release/v1.1.1/params/config.go)) for details.  |
 | `config.oracle.symbols`       | `['AUD-USD','CAD-USD','EUR-USD','GBP-USD','JPY-USD','SEK-USD']`        |
 | `config.oracle.votePeriod`       | `600` (600  blocks)       |
 
@@ -61,7 +61,7 @@ The network bootnode addresses are:
 
 The current iteration of the Bakerloo network is built using:
 
-- Autonity Go Client (AGC) Release: [ ]( ). The docker image release is: `ghcr.io/autonity/autonity:latest`
+- Autonity Go Client (AGC) Release: [v1.1.1](https://github.com/autonity/autonity/releases/tag/v1.1.1). The docker image release is: `ghcr.io/autonity/autonity:latest`
 
 - Autonity Oracle Server (AOS) Release: [ ]( ). The docker image release is: `ghcr.io/autonity/autonity-oracle-bakerloo:latest`
 
