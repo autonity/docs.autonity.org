@@ -4,6 +4,20 @@ description: >
   How to use a CDP to borrow Auton in the Auton Stabilization Mechanism.
 ---
 
+::: {.callout-caution title="ASM restrictions" collapse="false"}
+
+To function the [Auton Stabilization Mechanism (ASM)](/concepts/asm/) requires FX prices for the [ACU](/concepts/asm/#acu) currency basket and for the [protocol assets](/concepts/protocol-assets/) Newton (NTN) and Auton (ATN). These prices are then used by the ASM for CDP management to compute Newton's collateral price and the Newton collateral requirements for ATN borrowing.
+
+The validator [oracle network](/concepts/oracle-network/) is used to source this price data and submit on-chain per the [oracle protocol](/concepts/oracle-network/#oracle-protocol). 
+
+To facilitate network bootstrapping _before these prices can be sourced by the validator oracle network from public markets_ the ASM can be configured with temporary restrictions on CDP opening and the default prices for NTN, ATN, and the ACU index value used by the ASM for CDP computation. As liquid markets emerge, the restrictions can then be toggled off by governance.
+
+CDP Opening and Fixed Price restrictions are in place for Mainnet launch bootstrapping.
+
+For detail see the [ASM](/concepts/asm/) concept and [ASM restrictions](/concepts/asm/#asm-restrictions).
+
+:::
+
 ## Prerequisites
 
 To open a CDP and borrow ATN you need:
@@ -62,7 +76,7 @@ Query for current collateral price calling the [`collateralPrice()`](/reference/
 aut contract call --abi Stabilization.abi --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
 ```
 
-The current collateral price is returned denominated in `ton`, Autonity’s equivalent of `wei`. For example:
+The current collateral price is returned denominated in [`ton`](/glossary/#ton), Autonity’s equivalent of [`wei`](/glossary/#wei). For example:
 
 ```bash
 9990828200000000000
