@@ -44,7 +44,53 @@ aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getAbsent
 ## aut
 ``` {.aut}
 aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getAbsenteesLastHeight
+```
+```console
 ["0x3597d2D42f8Fbbc82E8b1046048773aD6DDB717E", "0xBBf36374eb23968F25aecAEbb97BF3118f3c2fEC", "0xe877FcB4b26036Baa44d3E037117b9e428B1Aa65"]
+```
+:::
+
+
+## getConfig
+
+Returns the Autonity Network configuration at the block height the call was submitted.
+
+### Parameters
+
+None.
+
+### Response
+
+Returns a `Config` object consisting of:
+
+| Field | Datatype | Description |
+| :--| :--| :--|
+| `inactivityThreshold` | `uint256` | the threshold for flagging validator inactivity |
+| `lookbackWindow` | `uint256` | the number of blocks over which the protocol will look for inactivity |
+| `pastPerformanceWeight` | `uint256` | how much weight is given to past performance of the validator in the preceding epoch in the current epoch when computing the aggregated inactivity score |
+| `initialJailingPeriod` | `uint256` | the initial number of block(s) that a validator will be jailed for |
+| `initialProbationPeriod` | `uint256` | the initial number of epoch(s) that a validator will be set under probation for |
+| `initialSlashingRate` | `uint256` | the initial slashing rate used with the offence count and collusion degree when computing the slashing amount of a penalty |
+| `delta` | `uint256` | the number of blocks to wait before generating an activity proof |
+
+### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getConfig
+```
+:::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getConfig
+```
+```console
+{"inactivityThreshold": 1000, "lookbackWindow": 40, "pastPerformanceWeight": 1000, "initialJailingPeriod": 10000, "initialProbationPeriod": 24, "initialSlashingRate": 25, "delta": 5}
 ```
 :::
 
@@ -78,6 +124,8 @@ aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getDelta
 ## aut
 ``` {.aut}
 aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getDelta
+```
+```console
 5
 ```
 :::
@@ -115,6 +163,8 @@ aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getInacti
 ## aut
 ``` {.aut}
 aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getInactivityScore 0x9C7dAABb5101623340C925CFD6fF74088ff5672e
+```
+```console
 2419
 ```
 :::
@@ -150,6 +200,8 @@ aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getScaleF
 ## aut
 ``` {.aut}
 aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getScaleFactor
+```
+```console
 10000
 ```
 :::
@@ -184,6 +236,8 @@ aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getLookba
 ## aut
 ``` {.aut}
 aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getLookbackWindow
+```
+```console
 40
 ```
 :::
@@ -222,6 +276,8 @@ aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getTotalE
 ## aut
 ``` {.aut}
 aut contract call --address 0x117814AF22Cb83D8Ad6e8489e9477d28265bc105 getTotalEffort
-598671823864170391110623510
+```
+```console
+1076699099422990542039881652
 ```
 :::
