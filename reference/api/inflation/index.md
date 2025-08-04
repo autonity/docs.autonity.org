@@ -40,8 +40,22 @@ Returns a `Params` object with properties of:
 
 ### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The `getParams()` function in the Inflation Controller Contract Interface is not currently supported by `aut`.
-
-You can interact with the contract using the `aut contract` command group. See `aut contract call -h` for how to submit a transaction calling the interface function.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x3BB898B4Bbe24f68A4e9bE46cFE72D1787FD74F4 getParams
+```
 :::
+
+### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x3BB898B4Bbe24f68A4e9bE46cFE72D1787FD74F4 getParams
+```
+```console
+{"inflationRateInitial": 2378234398, "inflationRateTransition": 1744038559, "inflationCurveConvexity": 2765000000000000000, "inflationTransitionPeriod": 126230400000000000000000000, "inflationReserveDecayRate": 5491184677}
+```
+:::
+
