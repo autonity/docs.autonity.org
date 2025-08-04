@@ -331,6 +331,8 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
 ## aut
 ``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f accounts
+```
+```console
 ["0x1f790c60D974F5A8f88558CA90F743a71F009641"]
 ```
 :::
@@ -380,7 +382,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f acuPrice
 ```
 :::
 
@@ -389,7 +391,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f acuPrice
+```
+```console
+830700400000000000
 ```
 :::
 
@@ -439,7 +444,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral price targetPrice mcr
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit collateral collateralPriceACU targetPriceACU mcr
 ```
 :::
 
@@ -449,6 +454,8 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLim
 ## aut
 ``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f borrowLimit 4000000000000000000 9816500000000000000 1000000000000000000 2000000000000000000
+```
+```console
 19633000000000000000
 ```
 :::
@@ -484,7 +491,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f cdps account
 ```
 :::
 
@@ -493,7 +500,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f cdps 0x0c569211136368cBa0443E85Bc7234bDBaB23Ac6
+```
+```console
+{"timestamp": 0, "collateral": 0, "principal": 0, "interest": 0, "lastAggregatedInterestExponent": 0}
 ```
 :::
 
@@ -539,6 +549,8 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collatera
 ## aut
 ``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPrice
+```
+```console
 10019717700000000000
 ```
 :::
@@ -589,7 +601,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPriceACU
 ```
 :::
 
@@ -598,7 +610,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f collateralPriceACU
+```
+```console
+1926127010018870025
 ```
 :::
 
@@ -638,7 +653,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f config
 ```
 :::
 
@@ -647,7 +662,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f config
+```
+```console
+{"borrowInterestRate": 0, "announcementWindow": 3600, "liquidationRatio": 1800000000000000000, "minCollateralizationRatio": 2000000000000000000, "minDebtRequirement": 1000000, "targetPrice": 1618034000000000000, "defaultNTNATNPrice": 1000000000000000000, "defaultNTNUSDPrice": 1600000000000000000, "defaultACUUSDPrice": 0}
 ```
 :::
 
@@ -681,7 +699,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account
 ```
 :::
 
@@ -690,7 +708,9 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmoun
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641
+```
+```console
 300012369185855391
 ```
 :::
@@ -725,7 +745,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount account timestamp
 ```
 :::
 
@@ -734,7 +754,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f debtAmount 0x1f790c60D974F5A8f88558CA90F743a71F009641 1695740525
+```
+```console
+300012369185855391
 ```
 :::
 
@@ -763,7 +786,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getAggregatedInterestExponent
 ```
 :::
 
@@ -772,7 +795,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getAggregatedInterestExponent
+```
+```console
+0
 ```
 :::
 
@@ -800,7 +826,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getAnnouncementWindow
 ```
 :::
 
@@ -809,7 +835,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getAnnouncementWindow
+```
+```console
+3600
 ```
 :::
 
@@ -837,7 +866,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getCurrentRate
 ```
 :::
 
@@ -846,7 +875,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getCurrentRate
+```
+```console
+0
 ```
 :::
 
@@ -863,7 +895,7 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| current rate active timestamp | `uint256` | The timestamp since when the current interest rate is active |
+| current rate active timestamp | `uint256` | The timestamp is returned as a [Unix time](/glossary/#unix-time) value |
 
 #### Event
 
@@ -874,7 +906,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getCurrentRateActiveTimestamp
 ```
 :::
 
@@ -883,7 +915,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getCurrentRateActiveTimestamp
+```
+```console
+1732898815
 ```
 :::
 
@@ -900,8 +935,10 @@ None.
 
 | Field | Datatype | Description |
 | --| --| --|
-| pending announcement window | `uint256` | The pending borrow interest rate value |
+| pending announcement window | `uint256` | The pending announcement window value |
 | pending announcement window active timestamp | `uint256` | The timestamp since when the pending announcement window will be active |
+
+Returns `[0,0]` if no change is pending.
 
 #### Event
 
@@ -912,7 +949,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getPendingAnnouncementWindowInfo
 ```
 :::
 
@@ -921,7 +958,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getPendingAnnouncementWindowInfo
+```
+```console
+[0, 0]
 ```
 :::
 
@@ -941,6 +981,8 @@ None.
 | pending rate | `uint256` | The pending borrow interest rate value |
 | pending rate active timestamp | `uint256` | The timestamp since when the pending interest rate will be active |
 
+Returns `[0,0]` if no change is pending.
+
 #### Event
 
 None.
@@ -950,7 +992,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getPendingInterestRateInfo
 ```
 :::
 
@@ -959,7 +1001,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getPendingInterestRateInfo
+```
+```console
+[0, 0]
 ```
 :::
 
@@ -979,6 +1024,8 @@ None.
 | pending liquidation ratio | `uint256` | The pending liquidation ratio value|
 | pending liquidation n ratio active timestamp | `uint256` | The timestamp since when the pending liquidation ratio will be active |
 
+Returns `[0,0]` if no change is pending.
+
 #### Event
 
 None.
@@ -988,7 +1035,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getPendingLiquidationRatioInfo
 ```
 :::
 
@@ -997,7 +1044,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getPendingLiquidationRatioInfo
+```
+```console
+[0, 0]
 ```
 :::
 
@@ -1017,6 +1067,8 @@ None.
 | pending minimum collateralization ratio | `uint256` | The pending minimum collateralization ratio value |
 | pending minimum collateralization ratio active timestamp | `uint256` | The timestamp since when the pending minimum collateralization ratio will be active |
 
+Returns `[0,0]` if no change is pending.
+
 #### Event
 
 None.
@@ -1026,7 +1078,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getPendingMinCollateralizationRatioInfo
 ```
 :::
 
@@ -1035,7 +1087,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f getPendingMinCollateralizationRatioInfo
+```
+```console
+[0, 0]
 ```
 :::
 
@@ -1074,6 +1129,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue debt rateExponent
 
 ```
 :::
@@ -1083,7 +1139,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestDue 1000000000000000 4246575342465753
+```
+```console
+4255604820463
 ```
 :::
 
@@ -1124,7 +1183,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestExponent interestRate startTimestamp endTimestamp
 ```
 :::
 
@@ -1133,7 +1192,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f interestExponent 50_000_000_000_000_000 1751369511 1754047911
+```
+```console
+4246575342465753
 ```
 :::
 
@@ -1180,6 +1242,8 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquida
 ## aut
 ``` {.aut}
 aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f isLiquidatable 0x1f790c60D974F5A8f88558CA90F743a71F009641
+```
+```console
 false
 ```
 :::
@@ -1211,7 +1275,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f lastUpdated
 ```
 :::
 
@@ -1220,7 +1284,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f lastUpdated
+```
+```console
+{"borrowInterestRateTimestamp": 1732898815, "announcementWindowTimestamp": 1732898815, "liquidationRatioTimestamp": 1732898815, "minCollateralizationRatioTimestamp": 1732898815}
 ```
 :::
 
@@ -1248,7 +1315,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f liquidationRatio
 ```
 :::
 
@@ -1257,7 +1324,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f liquidationRatio
+```
+```console
+1800000000000000000
 ```
 :::
 
@@ -1285,7 +1355,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f maxBorrow collateral
 ```
 :::
 
@@ -1294,7 +1364,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f maxBorrow 1000000000000000
+```
+```console
+555555555555555
 ```
 :::
 
@@ -1322,7 +1395,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minCollateralizationRatio
 ```
 :::
 
@@ -1331,7 +1404,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minCollateralizationRatio
+```
+```console
+2000000000000000000
 ```
 :::
 
@@ -1376,7 +1452,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal price mcr
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral principal collateralPriceACU targetPriceACU mcr
 ```
 :::
 
@@ -1385,8 +1461,10 @@ aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCo
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000000 9672000000000000000 2000000000000000000
-206782464846980976
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f minimumCollateral 1000000000000000 1924758310504897788 1618034000000000000 2000000000000000000
+```
+```console
+1681285376111000
 ```
 :::
 
