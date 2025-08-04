@@ -47,6 +47,8 @@ aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 available
 ## aut
 ``` {.aut}
 aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 availableSupply
+```
+```console
 115792089237316195423570985008687907853269984665640564039457584007913129639935
 ```
 :::
@@ -71,7 +73,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 stabilizer
+aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 getStabilizer
 ```
 :::
 
@@ -80,7 +82,9 @@ aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 stabilize
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 stabilizer
+aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 getStabilizer
+```
+```console
 "0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f"
 ```
 :::
@@ -105,7 +109,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 totalSupply
+aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 getTotalSupply
 ```
 :::
 
@@ -114,7 +118,9 @@ aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 totalSupp
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 --abi SupplyControl.abi totalSupply
+aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 --abi SupplyControl.abi getTotalSupply
+```
+```console
 115792089237316195423570985008687907853269984665640564039457584007913129639935
 ```
 :::
