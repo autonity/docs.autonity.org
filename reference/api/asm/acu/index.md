@@ -38,7 +38,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA getRound
 ```
 :::
 
@@ -47,7 +47,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA getRound
+```
+```console
+33400
 ```
 :::
 
@@ -73,7 +76,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA getScale
 ```
 :::
 
@@ -82,7 +85,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA getScale
+```
+```console
+7
 ```
 :::
 
@@ -106,7 +112,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA getScaleFactor
 ```
 :::
 
@@ -115,7 +121,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA getScaleFactor
+```
+```console
+10000000
 ```
 :::
 
@@ -139,7 +148,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA multiplier
 ```
 :::
 
@@ -148,7 +157,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA multiplier
+```
+```console
+10000000
 ```
 :::
 
@@ -182,7 +194,9 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantitie
 ## aut
 ``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA quantities
-[21300, 18700, 14300, 10400, 1760000, 18000, 141000]
+```
+```console
+[1744583, 1598986, 1058522, 886091, 175605573, 12318802, 1148285]
 ```
 :::
 
@@ -206,7 +220,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA scaledQuantities
 ```
 :::
 
@@ -215,7 +229,10 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-
+autdev contract call --abi abi/ACU.abi --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA scaledQuantities
+```
+```console
+[1744583, 1598986, 1058522, 886091, 175605573, 12318802, 1148285]
 ```
 :::
 
@@ -249,7 +266,7 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
 ## aut
 ``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA symbols
-["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "USD-USD", "SEK-USD"]
+["AUD-USD", "CAD-USD", "EUR-USD", "GBP-USD", "JPY-USD", "SEK-USD", "USD-USD"]
 ```
 :::
 
@@ -285,6 +302,8 @@ aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
 ## aut
 ``` {.aut}
 aut contract call --address 0x8Be503bcdEd90ED42Eff31f56199399B2b0154CA value
-98410
+```
+```console
+8307395
 ```
 :::
