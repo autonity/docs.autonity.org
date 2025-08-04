@@ -50,6 +50,28 @@ None.
 
 On a successful call the function emits an `AuctionedDebt` event, logging: `debtor`, `msg.sender`, `msg.value`, `debtAmount`.
 
+
+#### Usage
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f acuPrice
+```
+:::
+
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x29b2440db4A256B0c1E6d3B4CDcaA68E2440A08f acuPrice
+```
+```console
+830700400000000000
+```
+:::
+
 #### Usage
 
 ::: {.callout-note title="Note" collapse="false"}
@@ -123,10 +145,23 @@ Returns an array of `auction` objects consisting of:
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The Auctioneer Contract Interface is not currently supported by `aut`.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 openAuctions
+```
+:::
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 openAuctions
+```
+```console
+[]
+```
 :::
 
 
@@ -153,10 +188,23 @@ Returns an `auction` object consisting of:
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The Auctioneer Contract Interface is not currently supported by `aut`.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getAuction auction
+```
+:::
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getAuction 1
+```
+```console
+{"id": 0, "amount": 0, "startPrice": 0, "startTimestamp": 0}
+```
 :::
 
 
@@ -179,10 +227,23 @@ Get the maximum amount of NTN that can be returned to a liquidator for a given C
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The Auctioneer Contract Interface is not currently supported by `aut`.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 maxLiquidationReturn debtor liquidatableRound
+```
+:::
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 maxLiquidationReturn 0x0c569211136368cBa0443E85Bc7234bDBaB23Ac6 1278
+```
+```console
+0
+```
 :::
 
 
@@ -204,10 +265,23 @@ Get the minimum amount of NTN that can be paid for an interest auction.
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The Auctioneer Contract Interface is not currently supported by `aut`.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 minInterestPayment id
+```
+:::
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 maxLiquidationReturn 0x0c569211136368cBa0443E85Bc7234bDBaB23Ac6 1
+```
+```console
+
+```
 :::
 
 
@@ -232,10 +306,23 @@ Returns a `config` object consisting of:
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The Auctioneer Contract Interface is not currently supported by `aut`.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getConfig
+```
+:::
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getConfig
+```
+```console
+{"liquidationAuctionDuration": 60, "interestAuctionDuration": 60, "interestAuctionDiscount": 100000000000000000, "interestAuctionThreshold": 1000000000000000000}
+```
 :::
 
 ### getCollateralToken
@@ -254,16 +341,38 @@ None.
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The Auctioneer Contract Interface is not currently supported by `aut`.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getCollateralToken
+```
+:::
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getCollateralToken
+```
+```console
+"0xBd770416a3345F91E4B34576cb804a576fa48EB1"
+```
 :::
 
 
 ### getProceedAddress
 
 Returns the proceed address of the ASM auction.
+
+
+::: {.callout-note title="Proceed address default until set" collapse="false"}
+
+Auction proceeds accumulate in the `Auctioneer` Contract until the proceeds address is set by governance. See [`setProceedAddress()`](/reference/api/aut/op-prot/#setproceedaddress-asm-auctioneer-contract).
+
+The proceed address is the zero address until set.
+
+:::
 
 #### Parameters
 
@@ -277,8 +386,21 @@ None.
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
-The Auctioneer Contract Interface is not currently supported by `aut`.
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getProceedAddress
+```
+:::
 
-You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
+#### Example
+
+::: {.panel-tabset}
+## aut
+``` {.aut}
+aut contract call --address 0x6901F7206A34E441Ac5020b5fB53598A65547A23 getProceedAddress
+```
+```console
+"0x0000000000000000000000000000000000000000"
+```
 :::
