@@ -154,7 +154,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getBenefi
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getBeneficiary 0xd7CB53dfBe18CEc2B84F711daDfDa904d91bC5F8
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getBeneficiary 0xd7CB53dfBe18CEc2B84F711daDfDa904d91bC5F8
 ```
 ```console
 "0x0000000000000000000000000000000000000000"
@@ -192,7 +192,7 @@ Returns a `Config` object consisting of:
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getConfig
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getConfig
 ```
 :::
 
@@ -201,7 +201,7 @@ autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B38
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getConfig
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getConfig
 ```
 ```console
 {"innocenceProofSubmissionWindow": 100, "delta": 10, "range": 256, "baseSlashingRates": {"low": 400, "mid": 600, "high": 800}, "factors": {"collusion": 200, "history": 500, "jail": 48}}
@@ -228,7 +228,7 @@ Returns an `Event` object. For the object fields see [Event structure](/concepts
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getEvent _id
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getEvent _id
 ```
 :::
 
@@ -237,7 +237,7 @@ autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B38
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getEvent 1
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getEvent 1
 ```
 ```console
 {"eventType": 1, "rule": 2, "reporter": "0xa759BDd39eeD0d8CbCAB889D7002c0C99Cc7A9eB", "offender": "0x9564eb7b0D12C50114f2Eaf39ca08a2c15BB5BaE", "rawProof": "0xf8a3010227f89901f8960180830711cca03fdf890f74320297be999ccd845a30c02cffb42241c23e27e744a9a86027b8becc858200000822c50101010101b860b27952202d06f28c709f467ca2705b5ae49803ce8f8199681b6422d64563f2e6268fd22367265e2d2987f4f1a8a672d50c7f678c29cf7ec5282313d8b60e41404fa9eec183f7d3f90d36cfcc104f3678ec20d16bc63d0a3bc99870fb439fb8e3c0c380c080", "id": 1, "block": 463308, "epoch": 257, "reportingBlock": 463472, "messageHash": 46951917275171109801915475652663826606332598748190239073389408433879820473353}
@@ -263,7 +263,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getEventsLength
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getEventsLength
 ```
 :::
 
@@ -272,7 +272,7 @@ autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B38
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getEventsLength
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getEventsLength
 ```
 ```console
 3
@@ -299,7 +299,7 @@ None.
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getGracePeriod
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getGracePeriod
 ```
 :::
 
@@ -308,7 +308,7 @@ autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B38
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getGracePeriod
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getGracePeriod
 ```
 ```console
 0
@@ -341,7 +341,7 @@ For a table of slashing rules and their severity see [rules](/concepts/afd/#rule
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getHistory _validator
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getHistory _validator
 ```
 :::
 
@@ -350,7 +350,7 @@ autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B38
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getHistory 0x027C1592E8F7b9B3d0baC51A2ebf6980a3D04980
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getHistory 0x027C1592E8F7b9B3d0baC51A2ebf6980a3D04980
 ```
 ```console
 1
@@ -392,7 +392,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSlashi
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSlashingHistory 0x027C1592E8F7b9B3d0baC51A2ebf6980a3D04980 257
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getSlashingHistory 0x027C1592E8F7b9B3d0baC51A2ebf6980a3D04980 257
 ```
 ```console
 2
@@ -493,7 +493,7 @@ aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValida
 ::: {.panel-tabset}
 ## aut
 ``` {.aut}
-autdev contract call --abi abi/Accountability.abi --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults 0x027C1592E8F7b9B3d0baC51A2ebf6980a3D04980
+aut contract call --address 0x5a443704dd4B594B382c22a083e2BD3090A6feF3 getValidatorFaults 0x027C1592E8F7b9B3d0baC51A2ebf6980a3D04980
 ```
 ```console
 [{"eventType": 1, "rule": 2, "reporter": "0x163087D2119050BD8A656A1B50eA3343AF710BDb", "offender": "0x027C1592E8F7b9B3d0baC51A2ebf6980a3D04980", "rawProof": "0xf8a8010223f89e01f89b0180830711cca03fdf890f74320297be999ccd845a30c02cffb42241c23e27e744a9a86027b8bed1858a0822820aca02020102010202010101b860913c4eed4680e07517e56ebdae16db1679fd8c70f847e0a9d6d03985d5ea876ec446e06382deff52bf702a3ec2c8ea1b0b789f1cbca48ba30766f21f750d3c63c6b86e3d4be40d229f15913173fedb7fc20c7c88488216b1c8828e1a9e81ba5bc0c380c080", "id": 2, "block": 463308, "epoch": 257, "reportingBlock": 463492, "messageHash": 95749239210802124714124511173996749850922515771860302267718561569751513818632}]
