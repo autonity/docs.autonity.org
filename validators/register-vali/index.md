@@ -8,18 +8,40 @@ description: >
 
 To register a validator you need:
 
-- A [running instance of the Autonity Go Client](/node-operators/) running on your host machine, with [networking](/node-operators/install-aut/#network) configured to allow incoming traffic on the following ports:
+- A [running instance of the Autonity Go Client (AGC)](/node-operators/) running on your host machine.
+- A [running instance of the Autonity Oracle Server (AOS) ](/oracle/) running on your host machine.
+- Validator [networking set up for your AGC](/node-operators/install-aut/#network) to allow incoming traffic on ports:
 
   - TCP, UDP `30303` for node p2p (DEVp2p) communication for transaction gossiping.
   - TCP `20203` for node p2p (DEVp2p) communication for consensus gossiping.
+  - TCP `8546` to make WebSocket RPC connections to the node's connected oracle server.
 
-::: {.callout-note title="Note" collapse="false"}
-The oracle server providing price data to your validator node must be able to establish a WebSocket RPC connection to your node on TCP port `8546`. If you are running your oracle server on a different host to your AGC, then you will need to allow incoming traffic on that TCP port. Make sure to do it in a secure manner (use firewall rules, reverse proxies or other security measures to ensure that only your oracle node can connect to the RPC).
+::: {.callout-important title="Setting networking ports in your enode URL" collapse="false"}
+
+As described in the [System model](/concepts/system-model/networking/) concept, Autonity implements [Separate channels for transaction and consensus gossiping](/concepts/system-model/#separate-channels-for-transaction-and-consensus-gossiping).
+
+By default transaction gossiping is on port `30303` and consensus gossiping is on port `20203`.
+
+If you setup a non-default port configuration for your validator node then this is specified in the [enode URL](/concepts/validator/#validator-enode-url). Autonity simply uses the standard URL scheme to do this. For how to do this and examples see [Specifying transaction and consensus ports in the enode URL](/concepts/system-model/#specifying-transaction-and-consensus-ports-in-the-enode-url) in the [System model](/concepts/system-model/networking/) concept.
+
 :::
 
-- A [running instance of the Autonity Oracle Server](/oracle/) running on your host machine, with a funded oracle server account. This will be configured to provide data price reports to your validator node's WebSocket port.
+- Validator [networking set up for your AOS](/oracle/install-oracle/#network) to allow incoming traffic on ports:
+  
+  - TCP `8546` to make WebSocket RPC connections to the oracle server's connected validator node.
+
+::: {.callout-important title="AGC <--> AOS communication for price reporting" collapse="false"}
+The oracle server is  configured to provide data price reports to your validator node and must be able to establish a WebSocket RPC connection to your node on TCP port `8546`.
+
+If you are running your oracle server on a different host to your AGC, then you will need to allow incoming traffic on that TCP port. Make sure to do it in a secure manner (use firewall rules, reverse proxies or other security measures to ensure that only your oracle node can connect to the RPC).
+:::
+
 - A configured instance of [`aut`](/account-holders/setup-aut/).
-- An [account](/account-holders/create-acct/) that has been [funded](/account-holders/fund-acct/) with auton (to pay for transaction gas costs). Note that this account will become the validator's [`treasury account`](/concepts/validator/#treasury-account) - the account used to manage the validator, that will also receive the validator's share of staking rewards.
+
+- Seed [funding](/account-holders/fund-acct/) of Auton:
+
+  - for your validator node's [node address (`validator identifier`)](/concepts/validator/#validator-identifier) and your [oracle server address (`oracle identifier`)](/concepts/oracle-network/#oracle-identifier). This is to seed fund submitting price reports ([gas cost for price reports is refunded](/concepts/oafd/#price-report)) and accountability transactions ([AFD](/concepts/afd/) [accusations](/concepts/afd/#accusations).
+  - for your validator node's [`treasury account`](/concepts/validator/#treasury-account). This is the [account](/account-holders/create-acct/) used to manage the validator and is to pay for transaction gas costs. The `treasury` is the account that will also receive the validator's share of staking, inflation, and slashing rewards.
 
 ::: {.callout-note title="Note" collapse="false"}
 See the [Validator](/concepts/validator/) section for an explanation of the validator, a description of the [validator lifecycle](/concepts/validator/#validator-lifecycle), and a description of the [post-genesis registration](/concepts/validator/#post-genesis-registration) process.
