@@ -65,7 +65,7 @@ USAGE:
    autonity [options] [command] [command options] [arguments...]
    
 VERSION:
-   1.1.0-f7c38429-20250730
+   1.1.1-b8bee667-20250731
    
 COMMANDS:
    account                            Manage accounts
