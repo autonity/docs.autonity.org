@@ -136,7 +136,7 @@ The following should be installed in order to build the Autonity Go Client:
 2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
 
     ```bash
-    git checkout tags/v1.0.2-alpha -b v1.0.2-alpha
+    git checkout tags/v1.1.1 -b v1.1.1
     ```
 
 3. Build autonity:
@@ -206,35 +206,25 @@ sudo systemctl restart docker
 ```
 :::
 
-1. Pull the Autonity Go Client image from the Github Container Registry.
-
-   If you are deploying to the Piccadilly Testnet:
+1. Pull the Autonity Go Client image from the Github Container Registry:
    
     ```bash
-    docker pull ghcr.io/autonity/autonity:latest
+    docker pull ghcr.io/autonity/autonity:v1.1.1
     ```
 
-   (where `latest` can be replaced with a specific version, i.e. `v1.0.2-alpha`)
+   <!-- (where `latest` can be replaced with a specific version, i.e. `v1.1.1`) -->
 
    ::: {.callout-note title="Note" collapse="false"}
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+   
+   You can view the AGC Docker container images in the Autonity GitHub at <https://github.com/autonity/autonity/pkgs/container/autonity>.
    :::
 
 2. Verify the authenticity of the Autonity Docker images against the official [image digests](https://github.com/autonity/autonity/pkgs/container/autonity/versions):
-
-   If you are deploying to the Piccadilly Testnet:
    
     ```bash
     docker images --digests ghcr.io/autonity/autonity
-REPOSITORY                  TAG            DIGEST                                                                    IMAGE ID       CREATED        SIZE
-ghcr.io/autonity/autonity   latest         sha256:6fdbaf8174da61da40a1fb6fe5b3f69e694ccd45ff00a7a25b96049c2fc64fbb   77e50240ec28   3 months ago   57.7MB
-ghcr.io/autonity/autonity   v1.0.2-alpha   sha256:6fdbaf8174da61da40a1fb6fe5b3f69e694ccd45ff00a7a25b96049c2fc64fbb   77e50240ec28   3 months ago   57.7MB
     ```
-
-::: {.callout-note title="Info" collapse="false"}
-You can now [configure and launch Autonity](/node-operators/run-aut/#run-docker).
-:::
-
 
 ## Verify the installation {#verify}
 
@@ -243,13 +233,14 @@ You should now be able to execute the `autonity` command.  Verify your installat
 ```bash
 $ ./autonity version
 ```
-```
+```console
 Autonity
-Version: 1.0.2-alpha
-Git Commit: 8be1825ca7409a1bfd4d361356b2437839d4c383
+Version: 1.1.1
+Git Commit: b8bee667dcdea6e47dde0361c41d044b360a102e
+Git Commit Date: 20250731
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.22.9
+Go Version: go1.24.0
 Operating System: linux
 GOPATH=
 GOROOT=
@@ -258,15 +249,14 @@ GOROOT=
 If using Docker, the setup of the image can be verified with:
 
 ```bash
-$ docker run --rm ghcr.io/autonity/autonity:latest version
+$ docker run --rm ghcr.io/autonity/autonity:v1.1.1 version
 ```
-
-```
+```console
 Autonity
-Version: 1.0.2-alpha
+Version: 1.1.1
 Architecture: amd64
 Protocol Versions: [66]
-Go Version: go1.21.7
+Go Version: go1.24.5
 Operating System: linux
 GOPATH=
 GOROOT=/usr/local/go
@@ -279,7 +269,7 @@ The output above will vary depending on the version of the Autonity Go Client yo
 ## Next steps {#next}
 
 ::: {.callout-note title="Info" collapse="false"}
-You can now [configure and launch Autonity](/node-operators/run-aut/#run-binary).
+You can now [configure and launch Autonity](/node-operators/run-aut/).
 :::
 
 ------------------------------------------------
