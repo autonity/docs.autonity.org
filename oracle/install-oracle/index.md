@@ -99,18 +99,27 @@ The following should be installed in order to build the Autonity Oracle Server:
     git clone git@github.com:autonity/autonity-oracle.git
     ```
 
-2. Enter the `autonity-oracle` directory and build autonity oracle server.     ```
+2. Enter the `autonity-oracle` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
+
+    ```bash
+    git checkout tags/v0.2.4 -b v0.2.4
+    ```
+3. Build autonity oracle server:
+
+    ```bash
+    make autoracle
+    ```
     
     This will build the executable (`./build/bin/autoracle`) and create a subdirectory containing data source plugins packaged in the release (`./build/bin/plugins/`).
 
 
     <!-- Adjust the `make` command according to the testnet you are connecting to. -->
 
-    If connecting to Piccadilly Testnet, run:
+    If connecting to Bakerloo Testnet, run:
     
     ```bash
     cd autonity-oracle
-    make autoracle
+    make autoracle-bakerloo
     ```
     
 3. (Optional) Add data source plugins. Navigate to the `plugins` sub-directory of your working directory and add sub-directories for additional plugins you are installing. See [Installing data source plugins](/oracle/install-oracle/#install-plugin).
@@ -161,36 +170,41 @@ sudo systemctl restart docker
     mkdir autonity-oracle && cd autonity-oracle
     ```
    
-2. Pull the Autonity Oracle Server image from the GitHub Container Registry.
+2. Pull the Autonity Oracle Server image from the GitHub Container Registry:
    
-   If you are deploying to the Piccadilly Testnet:
+      
+    ```bash
+    docker pull ghcr.io/autonity/autonity-oracle:v0.2.4
+    ```
+   
+   If you are deploying to the Bakerloo Testnet:
    
     ```bash
-    docker pull ghcr.io/autonity/autonity-oracle:latest
+    docker pull ghcr.io/autonity/autonity-oracle-bakerloo:v0.2.4
     ```
 
-   (where `latest` can be replaced with another version)
+   <!-- (where `latest` can be replaced with another version) -->
 
    ::: {.callout-note title="Note" collapse="false"}
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+   
+   You can view the AOS Docker container images in the Autonity GitHub at <https://github.com/orgs/autonity/packages/container/package/autonity-oracle> and <https://github.com/orgs/autonity/packages/container/package/autonity-oracle-bakerloo>.
+   
    :::
 
 3. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
 
+    ```bash
+    docker images --digests ghcr.io/autonity/autonity-oracle
+    ```
 
-   If you are deploying to the Piccadilly Testnet:
+   If you are deploying to the Bakerloo Testnet:
    
     ```bash
-    docker images --digests ghcr.io/autonity/autonity-oracle:latest
-    REPOSITORY                         TAG       DIGEST    IMAGE ID       CREATED        SIZE
-ghcr.io/autonity/autonity-oracle   latest    <none>    7cf33ad2a942   3 months ago   163MB
+    docker images --digests ghcr.io/autonity/autonity-oracle-bakerloo
     ```
 
 4. Data source plugins. Note that the data source plugins are included as part of the Docker image at the directory path `/usr/local/bin/plugins`.
-
-::: {.callout-note title="Info" collapse="false"}
-You can now [configure and launch oracle server](/oracle/run-oracle/#run-docker).
-:::
 
 
 ## Verify the installation {#verify}
@@ -200,17 +214,18 @@ You should now be able to execute the `autoracle` command.  Verify your installa
 ```bash
 $ ./build/bin/autoracle version
 ```
-```
-v0.2.3
+```console
+version
+v0.2.4
 ```
 
-If using Docker, the setup of the Piccadilly Testnet image can be verified with:
+If using Docker, the setup of the Bakerloo Testnet image can be verified with:
 
 ```bash
-docker run --rm ghcr.io/autonity/autonity-oracle:latest version 
+docker run --rm ghcr.io/autonity/autonity-oracle-bakerloo:v0.2.4 version 
 ```
-```
-v0.2.3
+```console
+v0.2.4
 ```
 
 ::: {.callout-note title="Note" collapse="false"}
@@ -246,7 +261,7 @@ For how to do this, see [Developing data plugins](/concepts/oracle-server/#devel
 ## Next steps {#next}
 
 ::: {.callout-note title="Info" collapse="false"}
-You can now [configure and launch the oracle server](/oracle/run-oracle/#run-binary).
+You can now [configure and launch the oracle server](/oracle/run-oracle/).
 :::
 
 
