@@ -844,12 +844,12 @@ On a successful call the function emits a `ConfigUpdateUint` event, logging: con
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
 
-``` {.aut}
-TO DO
-```
+`setGasLimit()` is not currently supported by `aut`.
+
+See `aut contract tx -h` for how to submit a transaction calling the interface function.
+
 :::
 
 
@@ -1916,12 +1916,10 @@ On a successful call the function emits a `ConfigUpdateUint` event, logging: con
 
 #### Usage
 
-::: {.panel-tabset}
-## aut
+::: {.callout-note title="Note" collapse="false"}
+The Oracle Contract Interface is not currently supported by `aut`.
 
-``` {.aut}
-TO DO
-```
+You can interact with the contract using the `aut contract` command group. See `aut contract tx -h` for how to submit a transaction calling the interface function.
 :::
 
 

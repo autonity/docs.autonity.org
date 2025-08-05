@@ -324,14 +324,6 @@ aut validator approve-bonding [OPTIONS] CALLER AMOUNT
 ```
 :::
 
-### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-TO DO
-```
-:::
 
 
 ## atnTotalRedistributed
@@ -552,15 +544,6 @@ aut validator bond-from [OPTIONS] ACCOUNT AMOUNT
 ```
 :::
 
-### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-TO DO
-```
-:::
-
 
 ## bondingAllowance
 
@@ -596,17 +579,7 @@ Autonity mirrors this ERC-20 mechanism to create a delegated staking model, allo
 ## aut
 
 ``` {.aut}
-TO DO
-```
-:::
-
-
-### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-TO DO
+aut validator bonding-allowance [OPTIONS] OWNER
 ```
 :::
 
@@ -3065,15 +3038,6 @@ Per the [`unbond()`](/reference/api/aut/#unbond) function.
 ## aut
 ``` {.aut}
 aut validator unbond-from [OPTIONS] ACCOUNT AMOUNT
-```
-:::
-
-### Example
-
-::: {.panel-tabset}
-## aut
-``` {.aut}
-TO DO
 ```
 :::
 
