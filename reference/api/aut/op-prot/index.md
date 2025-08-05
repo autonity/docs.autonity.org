@@ -844,12 +844,12 @@ On a successful call the function emits a `ConfigUpdateUint` event, logging: con
 
 #### Usage
 
-::: {.callout-note title="Note" collapse="false"}
+::: {.panel-tabset}
+## aut
 
-`setGasLimit()` is not currently supported by `aut`.
-
-See `aut contract tx -h` for how to submit a transaction calling the interface function.
-
+``` {.aut}
+aut governance set-gas-limit [OPTIONS] GAS_LIMIT
+```
 :::
 
 
