@@ -50,6 +50,8 @@ Gossiping separation improves network scalability and robustness as consensus is
 
 Autonity implements [Tendermint BFT consensus](/concepts/consensus/pos/) as an independent consensus protocol running alongside the ethereum wire protocol. Logically, this can be considered as a separate Autonity Consensus Network (ACN) layer. By default, the consensus protocol is configured to use port `20203` and assumes the IP to be the same as the Ethereum wire protocol IP. If a validator wishes to use a different IP and/or port combination for the consensus network, they can specify this information in the enode URL. Consensus message routing is optimised by consensus network clustering. When committee size exceeds a _clustering threshold_, network participants are grouped into deterministic clusters to optimize network propagation of gossiped consensus messages. Clustering threshold is set as an Autonity Contract [protocol parameter](/reference/protocol/#autonity-config).
 
+### Specifying transaction and consensus ports in the enode URL
+
 The standard Ethereum [enode URL](https://ethereum.org/en/developers/docs/networking-layer/network-addresses#enode) is composed of:
 
 - protocol (or scheme): the enode URL scheme `enode://`
