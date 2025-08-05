@@ -1,16 +1,17 @@
 ---
 title: "Bakerloo Testnet"
 description: >
- The _stable_ public Testnet running the stable version of the Autonity protocol
+ Public Autonity Testnet running the stable version of the Autonity protocol
 draft: false
 ---
 
 Bakerloo is a general purpose public Testnet providing a stable testing environment for those developing a project on top of Autonity.
 
-Bakerloo is for participants interested in:
+Bakerloo provides a reliable test network for community developers, node operators, and infrastructure providers to:
 
-- Operating node infrastructure.
-- Developing and deploying dApp use cases.
+- test their tooling, software and operational practices
+- work in a safe sandbox environment to build, test, and debug before deployment to mainnet without transaction cost
+- innovate new protocols, ideas, and projects.
 
 ## Bakerloo Testnet details
 
@@ -41,7 +42,7 @@ The network's genesis configuration is:
 | `config.autonity.minBaseFee`       | `10_000_000_000` (10 GWei)        |
 | `config.autonity.operator`         | `0x83e5e0eab996Bb894814fa8F0AC96a0D314f06F3` |
 | `config.autonity.treasury`         | `0xd735174cf1d0D9150cb57750C45B6e8095160f6A` |
-| `config.autonity.validators`       |  See `Validators` in the AGC [`BakerlooChainConfig`](https://github.com/autonity/autonity/blob/release/v1.1.1/params/config.go)) for details.  |
+| `config.autonity.validators`       |  See `Validators` in the AGC [`Bakerloo Config`](https://github.com/autonity/autonity/blob/release/v1.1.1/params/bakerloo_config.go#L163) for details.  |
 | `config.oracle.symbols`       | `['AUD-USD','CAD-USD','EUR-USD','GBP-USD','JPY-USD','SEK-USD']`        |
 | `config.oracle.votePeriod`       | `600` (600  blocks)       |
 
@@ -57,13 +58,13 @@ The network bootnode addresses are:
 | `enode://b6e18b34019e70d32bfd43bcf66b71a127117f3402c29f857337b9dd3ccc45c4a9d441d211ca2a201bd46d003cfbf84a2b0721cf9b939ae6abd66dfe698700fc@35.235.121.67:30303` | us-west2 |
 
 
-## Release TO DO
+## Release
 
 The current iteration of the Bakerloo network is built using:
 
-- Autonity Go Client (AGC) Release: [v1.1.1](https://github.com/autonity/autonity/releases/tag/v1.1.1). The docker image release is: `ghcr.io/autonity/autonity:latest`
+- Autonity Go Client (AGC) Release: [v1.1.1](https://github.com/autonity/autonity/releases/tag/v1.1.1). The docker image release is: `ghcr.io/autonity/autonity:v1.1.1`.
 
-- Autonity Oracle Server (AOS) Release: [ ]( ). The docker image release is: `ghcr.io/autonity/autonity-oracle-bakerloo:latest`
+- Autonity Oracle Server (AOS) Release: [v0.2.4](https://github.com/autonity/autonity-oracle/releases/tag/v0.2.4). The docker image release is: `ghcr.io/autonity/autonity-oracle-bakerloo:v0.2.4`.
 
 ## Faucet
 

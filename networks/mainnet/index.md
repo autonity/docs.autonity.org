@@ -17,7 +17,7 @@ Mainnet is for participants interested in:
 
 ## Mainnet details
 
-::: {.callout-tip title="Delegated staking" collapse="false"}
+::: {.callout-tip title="Mainnet is on the way!" collapse="false"}
 
 Watch this space, coming soon! 🚀
 

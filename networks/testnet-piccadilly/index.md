@@ -1,14 +1,22 @@
 ---
 title: "Piccadilly Testnet"
 description: >
-  The _bleeding-edge_ public Testnet running the latest deployable version of the Autonity protocol
+  The _legacy_ public Testnet that hosted the Autonity Piccadilly Tiber Challenge
 ---
 
-Piccadilly is a public Testnet running the latest deployable version of the Autonity protocol. It is the testing environment used in the pre-MainNet [Piccadilly Tiber Challenge](https://autonity.org/tiber). 
+::: {.callout-caution title="Legacy - Bakerloo is Autonity's current public testnet" collapse="false"}
 
-Piccadilly is for participants interested in:
+[Bakerloo Testnet](/networks/testnet-bakerloo) is the current Autonity Testnet.
 
-- Taking part in the [Piccadilly Tiber Challenge](https://autonity.org/tiber) and helping to develop the Autonity project.
+Piccadilly Testnet is deprecated and will be decommissioned.
+
+:::
+
+Piccadilly was a special purpose public testnet running the pre-mainnet deployable version of the Autonity protocol. It was the testing environment used for the pre-mainnet [Piccadilly Tiber Challenge](https://autonity.org/news/2024-09-12-tiber-update). 
+
+Piccadilly was for participants interested in:
+
+- Taking part in the [Piccadilly Tiber Challenge](https://autonity.org/news/2024-09-12-tiber-update) and helping to develop the Autonity project.
 - Helping find bugs in Autonity software.
 - Operating node infrastructure.
 - Operating as a validator.
