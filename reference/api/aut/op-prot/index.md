@@ -2473,12 +2473,12 @@ Returns `true` if there is a new voting round and new symbol prices are availabl
 
 On success the function emits:
 
-- a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.timestamp`, and vote period duration `votePeriod`.
-- a `NoRevealPenalty` event for each non reveal penalty, logging validator oracle address `_voter`, `round`, `nonRevealCount`.
-- a `CommitRevealMissed` event for each missed commit reveal, logging validator oracle address `_address`, `round`, `nonRevealCount`.
-- a `Penalized` event for each price outlier penalty, logging validator oracle address `voter`, `_slashingAmount`, `_symbol`, `_priceMedian`, `price`.
-- a `TotalOracleRewards` event for the total oracle ATN and NTN rewards distributed in the reward period (i.e. for the voting round), logging `_totalNTN`, `_totalATN`.
-- a `PriceUpdated` event for the oracle median price aggregation, logging `_price`, `round`, `_symbol`, boolean (`true`|`false`) if the symbol was updated or not, `block.timestamp`.
+- a `NewRound` event for the new oracle voting period, logging: round number `round`, `block.timestamp`, and vote period duration `votePeriod`
+- a `NoRevealPenalty` event for each non reveal penalty, logging validator oracle address `_voter`, `round`, `nonRevealCount`
+- a `CommitRevealMissed` event for each missed commit reveal, logging validator oracle address `_address`, `round`, `nonRevealCount`
+- a `Penalized` event for each price outlier penalty, logging validator oracle address `voter`, `_slashingAmount`, `_symbol`, `_priceMedian`, `price`
+- a `TotalOracleRewards` event for the total oracle ATN and NTN rewards distributed in the reward period (i.e. for the voting round), logging `_totalNTN`, `_totalATN`
+- a `PriceUpdated` event for the oracle median price aggregation, logging `_price`, `round`, `_symbol`, boolean (`true`|`false`) if the symbol was updated or not, `block.timestamp`
 
 
 ### handleEvent (Accountability Contract)
