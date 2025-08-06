@@ -2139,9 +2139,9 @@ The configuration change will take effect at the block height logged in the func
 
 Constraint checks are applied:
 
-- `lrOverridden`: there is not a pending new `liquidationRatio` update.
-- `mcrOverridden`: there is not a pending new `minCollateralizationRatio` update.
-- `InvalidParameter`: the ratios are valid. The `newLiquidationRatio`must be `<` the `newMinCollateralizationRatio` and `>= 1`.
+- `lrOverridden`: there is not a pending new `liquidationRatio` update
+- `mcrOverridden`: there is not a pending new `minCollateralizationRatio` update
+- `InvalidParameter`: the ratios are valid. The `newLiquidationRatio`must be `<` the `newMinCollateralizationRatio` and `>= 1`
 
 #### Parameters
    
