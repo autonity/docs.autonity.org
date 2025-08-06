@@ -2104,7 +2104,7 @@ The configuration change will take effect at the block height logged in the func
 Constraint checks are applied:
 
 - the new `window` value is not equal to `0`
-- `AnnouncementWindowPending`: there is not a pending announcement `window` update.
+- `AnnouncementWindowPending`: there is not a pending announcement `window` update
             
 #### Parameters
    
