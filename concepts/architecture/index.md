@@ -349,7 +349,7 @@ Function calls to govern (i.e. manage) the auctioneer configuration are restrict
 
 All functions are documented in the Reference [Autonity Interfaces](/reference/api/): public API's under [Auctioneer Contract Interface](/reference/api/asm/auctioneer/), governance under [Governance and Protocol-Only Reference](/reference/api/aut/op-prot/).
 
-#### debt auctions
+#### Debt auctions
 The Autonity Auctioneer Contract implements logic for an auction bidder to:
 
 - Query for open auctions and return information about a specific auction.
@@ -358,7 +358,7 @@ The Autonity Auctioneer Contract implements logic for an auction bidder to:
 
 To learn more about the concept see [Auton Stabilization Mechanism (ASM)](/concepts/asm/).
 
-#### interest auction
+#### Interest auctions
 The Autonity Auctioneer Contract implements logic for an auction bidder to:
 
 - Query for open auctions and return information about a specific auction.
