@@ -52,7 +52,7 @@ ASM roles, core concepts, and the lifecycle of a CDP from opening to closure.
 
 ### Stabilization roles
 
-There are five roles in the ASM:
+There are four roles in the ASM:
 
 - *Borrower (CDP owner)*: a user taking out a CDP to borrow Auton, deposing collateral in return. There is no limit on the number of open CDP's a _borrower_ can own at any one time. Borrower's must have an [account](/glossary/#account) on the Autonity network.
 
@@ -198,14 +198,14 @@ ASM parameter settings:
 
 - Stabilization:
   - _borrow interest rate_ = `50_000_000_000_000_000` (`0.05e18`), the annual continuously-compounded interest rate for borrowing.
-  - _announcement window_ = `` (), the length of time in seconds before an update to ASM Stabilization config will take effect.
+  - _announcement window_ = `3600` (1 hour), the length of time in seconds before an update to ASM Stabilization config will take effect.
   - _liquidation ratio_ = `1_800_000_000_000_000_000` (`1.8e18`): the minimum ACU value of collateral required to maintain 1 ACU value of debt.
   - _min collateralization ratio_ = `2_000_000_000_000_000_000` (`2.0e18`): the minimum ACU value of collateral required to borrow 1 ACU value of debt.
   - _min debt requirement_ = `1_000_000` ([_megaton_](/concepts/protocol-assets/auton/#unit-measures-of-auton)) : the minimum amount of debt required to maintain a CDP.
   - _target price_ = `1_618_034_000_000_000_000` (`1.6180340e18`): the ACU value of 1 unit of debt.
-  - _default NTN ATN price_ = `` (), default NTN-ATN price for use at genesis.
-  - _default NTN USD price_ = `` (), default NTN-USD price for use at genesis.
-  - _default ACU USD Price_ `` (), optional default ACU-USD price for use at genesis.
+  - _default NTN ATN price_ = `666_619_300_000_000_000` (`0.6666193`), default NTN-ATN price for use at genesis.
+  - _default NTN USD price_ = `900_000_000_000_000_000` (`0.9`), default NTN-USD price for use at genesis.
+  - _default ACU USD Price_ `834_405_200_000_000_000` (`0.8344052`), optional default ACU-USD price for use at genesis.
 
 
 ::: {.callout-note title="A note on target price and ATN price" collapse="false"}
@@ -219,10 +219,10 @@ For example if at today’s exchange rates the $\text{ACU index value}$ is $079 
 :::
 
 - Auctioneer:
-  - _liquidation auction duration_ = `` ( blocks), the number of blocks for a liquidation auction to move from the liquidation rate to the bankruptcy rate.
-  - _interest auction duration_ = `` ( blocks), the number of blocks for an interest auction to move from the discount rate to the floor price.
-  - _interest auction discount_ = `` ( %), the fraction above market price that an interest auction starts at.
-  - _interest auction threshold_ = `` ATN, the minimum amount of ATN paid in interest to trigger an interest auction.
+  - _liquidation auction duration_ = `60` (blocks), the number of blocks for a liquidation auction to move from the liquidation rate to the bankruptcy rate.
+  - _interest auction duration_ = `60` (blocks), the number of blocks for an interest auction to move from the discount rate to the floor price.
+  - _interest auction discount_ = `0.1` (10%), the fraction above market price that an interest auction starts at.
+  - _interest auction threshold_ = `1` ATN, the minimum amount of ATN paid in interest to trigger an interest auction.
 
 ::: {.callout-note title="Auction price and rate terminology" collapse="false"}
 
