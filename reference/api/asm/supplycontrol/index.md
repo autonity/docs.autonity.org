@@ -92,7 +92,7 @@ aut contract call --address 0x47c5e40890bcE4a473A49D7501808b9633F29782 getStabil
 
 ## getTotalSupply
 
-Returns the total supply of Auton. I.e. the total amount of ATN minted to the Supply Control contract at genesis.
+Returns the total supply of Auton, i.e. the total amount of ATN minted to the Supply Control contract at genesis.
 
 ### Parameters
 
