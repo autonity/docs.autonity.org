@@ -1615,9 +1615,9 @@ Sets the `range` protocol parameter of the Accountability protocol's configurati
 
 Constraint checks are applied:
 
-- the `gracePeriod == 0`, the height range change is already in progress.
-- the new `range` modulo `4 == 0`, the height range must be a multiple of 4.
-- the new `range` is greater than `newDelta`, the height range needs to be greater than `delta`.
+- the `gracePeriod == 0`, the height range change is already in progress
+- the new `range` modulo `4 == 0`, the height range must be a multiple of 4
+- the new `range` is greater than `newDelta`, the height range needs to be greater than `delta`
 
 #### Parameters
    
