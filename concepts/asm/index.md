@@ -253,7 +253,7 @@ ASM then functions to maintain Auton-to-ACU value, '_mean reverting_' to this va
 
 ACU value is kept current by protocol recomputing the value at the end of each oracle voting round when price data for all the basket currencies is available. See the Protocol Only Reference functions [`modifyBasket()`](/reference/api/aut/op-prot/#modifybasket-acu-contract) [`update()`](/reference/api/aut/op-prot/#update-acu-contract) for more detail.
 
-#### auction
+#### Auction
 
 Auctions introduce market incentives that bring NTN and ATN in and out of open circulation on the network. There are two types of auction: *debt* and *interest*. In *interest auctions* NTN is bid for CDP ATN loan interest, bringing ATN out of the ASM into open circulation on the network and moving NTN into the ASM. In *debt auctions* ATN debt is repaid in return for NTN collateral in liquidatable CDPs. CDP liquidation results in moving ATN into the ASM and burning it as the ATN borrowing debt is repaid, and moving NTN out of the ASM and returning it into open circulation on the network.
 
