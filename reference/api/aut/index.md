@@ -3001,9 +3001,9 @@ The `unbondFrom` method differs from `unbond()` by:
 
 - Additional constraint checks to `unbond()`:
 
-  - the calling `account` address is not the validator's `treasury` account. If the constraint check fails the transaction will revert with the error "cannot bond PAS using allowance".
-  - the calling `account` address is approved to unbond by the Newton token `owner`. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
-  - the calling `account` address has a remaining `unbonding allowance >= amount` being un bonded in the request. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+  - the calling `account` address is not the validator's `treasury` account. If the constraint check fails the transaction will revert with the error "cannot bond PAS using allowance"
+  - the calling `account` address is approved to unbond by the Newton token `owner`. If the constraint check fails the transaction will revert with the error "amount exceeded allowance")
+  - the calling `account` address has a remaining `unbonding allowance >= amount` being un bonded in the request. If the constraint check fails the transaction will revert with the error "amount exceeded allowance")
 
 - Additional parameters for the 3<sup>rd</sup> party caller _account_.
 
