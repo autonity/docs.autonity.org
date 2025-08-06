@@ -13,15 +13,6 @@ The use of hardware wallets or other key-management tools may be more secure tha
 For simplicity this guide will assume the use of password-protected keyfiles on testnet. Ensure that your `keystore` file is backed up and stored securely according to your security policy at all times; remember the password phrase you used to create it! If you do not remember the password, you will not be able to decrypt this private key file and may lose any funds associated with this account.
 :::
 
-::: {.callout-tip title="Authentication methods supported by Autonity CLI" collapse="false"}
-See the Autonity CLI GitHub README and [Authentication](https://github.com/autonity/autonity-cli?tab=readme-ov-file#authentication) for the authentication methods currently supported by the command-line interface.
-
-Autonity CLI currently supports signing using encrypted private key file ([Web3 Secret Storage Definition](https://ethereum.org/en/developers/docs/data-structures-and-encoding/web3-secret-storage/)) and the Trezor hardware wallet (See `aut account signtx --help`).
-
-Watch Autonity CLI GitHub [Issues](https://github.com/autonity/autonity-cli/issues) to track status on adding support for additional hardware wallets.
-:::
-
-
 ## Create account using `aut`
 
 The following command will generate a keyfile with a default generated name, in the keystore (which can be specified with the `--keyfile` flag, or by adding a `keyfile = <path>` entry to the [`.autrc` file](/account-holders/setup-aut/#configure)).
