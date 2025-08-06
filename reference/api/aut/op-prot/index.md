@@ -1699,10 +1699,10 @@ No response object is returned on successful execution of the call.
 
 On a successful call the function emits events:
 
-- a `ConfigUpdateInt` event, logging: configuration parameter `name` ("outlierSlashingThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
-- a `ConfigUpdateInt` event, logging: configuration parameter `name` ("outlierDetectionThreshold"), `oldValue`, `newValue`, `appliesAtHeight`.
-- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("baseSlashingRate"), `oldValue`, `newValue`, `appliesAtHeight`.
-- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("slashingRateCap"), `oldValue`, `newValue`, `appliesAtHeight`.
+- a `ConfigUpdateInt` event, logging: configuration parameter `name` ("outlierSlashingThreshold"), `oldValue`, `newValue`, `appliesAtHeight`
+- a `ConfigUpdateInt` event, logging: configuration parameter `name` ("outlierDetectionThreshold"), `oldValue`, `newValue`, `appliesAtHeight`
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("baseSlashingRate"), `oldValue`, `newValue`, `appliesAtHeight`
+- a `ConfigUpdateUint` event, logging: configuration parameter `name` ("slashingRateCap"), `oldValue`, `newValue`, `appliesAtHeight`
 
 #### Usage
 
