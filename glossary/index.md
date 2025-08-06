@@ -114,7 +114,7 @@ Autonity implements Tendermint BFT consensus, an asynchronous consensus protocol
 ## calldata
 Data committed to state by arguments to a smart contract deployed on the blockchain. 'calldata' is accessed by the Solidity `.call()` function. Calldata is non-executable - it is [state](/glossary/#system-state) not [smart contract](/glossary/#smart-contract) [bytecode](/glossary/#bytecode).
 
-## circulating supply
+## circulating supply (NTN)
 The amount of minted NTN that is in circulation. The circulating supply amount changes over time. It begins at the amount minted at genesis minus the amount in protocol schedules (see Reference, Protocol Parameters, [Autonity Config](/reference/protocol/#autonity-config) `tokenMint` and `schedules`). It increases over time as minted NTN is released from the protocol schedules and NTN is minted by the Newton [inflation mechanism](/glossary/#inflation-mechanism) and emitted into circulation over time as [inflation rewards](/glossary/#inflation-rewards) awarded to [participating](/glossary/#participation-rate) NTN.
 
 See [total supply](/glossary/#total-supply).
