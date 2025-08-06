@@ -503,9 +503,9 @@ The `bondFrom` method differs from `bond()` by:
 
 - Additional constraint checks to `bond()`:
 
-  - the calling `account` address is not the validator's `treasury` account. If the constraint check fails the transaction will revert with the error "cannot bond PAS using allowance".
-  - the calling `account` address is approved to bond by the Newton token `owner`. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
-  - the calling `account` address has a remaining `allowance >= amount` being bonded in the request. If the constraint check fails the transaction will revert with the error "amount exceeded allowance").
+  - the calling `account` address is not the validator's `treasury` account. If the constraint check fails the transaction will revert with the error "cannot bond PAS using allowance"
+  - the calling `account` address is approved to bond by the Newton token `owner`. If the constraint check fails the transaction will revert with the error "amount exceeded allowance")
+  - the calling `account` address has a remaining `allowance >= amount` being bonded in the request. If the constraint check fails the transaction will revert with the error "amount exceeded allowance")
 
 - Additional parameter for the 3<sup>rd</sup> party caller _account_.
 
