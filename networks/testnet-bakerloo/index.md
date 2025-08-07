@@ -42,7 +42,7 @@ The network's genesis configuration is:
 | `config.autonity.minBaseFee`       | `10_000_000_000` (10 GWei)        |
 | `config.autonity.operator`         | `0x83e5e0eab996Bb894814fa8F0AC96a0D314f06F3` |
 | `config.autonity.treasury`         | `0xd735174cf1d0D9150cb57750C45B6e8095160f6A` |
-| `config.autonity.validators`       |  See `Validators` in the AGC [`Bakerloo Config`](https://github.com/autonity/autonity/blob/release/v1.1.1/params/bakerloo_config.go#L163) for details.  |
+| `config.autonity.validators`       |  See `BakerlooValidators` in the AGC [`Bakerloo Config`](https://github.com/autonity/autonity/blob/release/v1.1.1/params/bakerloo_config.go#L163) for details.  |
 | `config.oracle.symbols`       | `['AUD-USD','CAD-USD','EUR-USD','GBP-USD','JPY-USD','SEK-USD']`        |
 | `config.oracle.votePeriod`       | `600` (600  blocks)       |
 

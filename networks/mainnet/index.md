@@ -51,7 +51,7 @@ The network's genesis configuration is:
 | `config.autonity.minBaseFee`       | `10_000_000_000` (10 GWei)    |
 | `config.autonity.operator`         | `0x83e5e0eab996Bb894814fa8F0AC96a0D314f06F3` |
 | `config.autonity.treasury`         | `0xd735174cf1d0D9150cb57750C45B6e8095160f6A` |
-| `config.autonity.validators`       |  See `Validators` in the AGC [`MainnetChainConfig`](https://github.com/autonity/autonity/blob/release/v1.1.1/params/config.go)) for details.  |
+| `config.autonity.validators`       |  See `MainnetValidators` in the AGC [`Mainnet Config`](https://github.com/autonity/autonity/blob/release/v1.1.2/params/mainnet_config.go#L158)) for details.  |
 | `config.oracle.symbols`            | `['AUD-USD','CAD-USD','EUR-USD','GBP-USD','JPY-USD','SEK-USD']`        |
 | `config.oracle.votePeriod`         | `600` (600  blocks)          |
 
@@ -71,9 +71,9 @@ The network bootnode addresses are:
 
 Mainnet is built using:
 
-- Autonity Go Client (AGC) Release: [v1.1.1](https://github.com/autonity/autonity/releases/tag/v1.1.1). The docker image release is: `ghcr.io/autonity/autonity:v1.1.1`.
+- Autonity Go Client (AGC) Release: [v1.1.2](https://github.com/autonity/autonity/releases/tag/v1.1.2). The docker image release is: [`ghcr.io/autonity/autonity:v1.1.2`](https://github.com/autonity/autonity/pkgs/container/autonity/480778709?tag=v1.1.2).
 
-- Autonity Oracle Server (AOS) Release: [v0.2.4](https://github.com/autonity/autonity-oracle/releases/tag/v0.2.4). The docker image release is: `ghcr.io/autonity/autonity-oracle:v0.2.4`.
+- Autonity Oracle Server (AOS) Release: [v0.2.5](https://github.com/autonity/autonity-oracle/releases/tag/v0.2.5). The docker image release is: [`ghcr.io/autonity/autonity-oracle:v0.2.5`](https://github.com/orgs/autonity/packages/container/autonity-oracle/480802171?tag=v0.2.5).
 
 ## ATN funding
 
@@ -81,10 +81,10 @@ Mainnet is built using:
 
 DAX is a Uniswap V2 clone AMM. Bridge USDC to Autonity from Polygon Mainnet using the VIA Labs bridge and trade in the DAX to purchase ATN.
 
-<!--
-To bridge see [Use the Bridge](/networks/testnet-mainnet/bridge.md)
+<!-- 
+To bridge see [Use the Bridge](/networks/mainnet/bridge.md)
 
-To trade see [Use the DAX](networks/testnet-mainnet/dax.md)
+To trade see [Use the DAX](/networks/mainnet/dax.md)
 -->
 
 ## Public endpoints

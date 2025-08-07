@@ -102,8 +102,13 @@ The following should be installed in order to build the Autonity Oracle Server:
 2. Enter the `autonity-oracle` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
 
     ```bash
-    git checkout tags/v0.2.4 -b v0.2.4
+    git checkout tags/v0.2.5 -b v0.2.5
     ```
+    
+::: {.callout-caution title="Connecting to Bakerloo Testnet?" collapse="false"}
+If you are deploying to the Bakerloo Testnet modify the command to use the [release version](/networks/testnet-bakerloo/#release) on Bakerloo.
+:::
+
 3. Build autonity oracle server:
 
     ```bash
@@ -115,12 +120,13 @@ The following should be installed in order to build the Autonity Oracle Server:
 
     <!-- Adjust the `make` command according to the testnet you are connecting to. -->
 
-    If connecting to Bakerloo Testnet, run:
+::: {.callout-caution title="Connecting to Bakerloo Testnet?" collapse="false"}
+If you are deploying to the Bakerloo Testnet modify the command to build for Bakerloo:
     
-    ```bash
-    cd autonity-oracle
-    make autoracle-bakerloo
-    ```
+```bash
+make autoracle-bakerloo
+ ```
+:::
     
 3. (Optional) Add data source plugins. Navigate to the `plugins` sub-directory of your working directory and add sub-directories for additional plugins you are installing. See [Installing data source plugins](/oracle/install-oracle/#install-plugin).
 
@@ -174,23 +180,20 @@ sudo systemctl restart docker
    
       
     ```bash
-    docker pull ghcr.io/autonity/autonity-oracle:v0.2.4
+    docker pull ghcr.io/autonity/autonity-oracle:v0.2.5
     ```
-   
-   If you are deploying to the Bakerloo Testnet:
-   
-    ```bash
-    docker pull ghcr.io/autonity/autonity-oracle-bakerloo:v0.2.4
-    ```
+
+::: {.callout-caution title="Connecting to Bakerloo Testnet?" collapse="false"}
+If you are deploying to the Bakerloo Testnet modify the docker pull command to use the [release version](/networks/testnet-bakerloo/#release) on Bakerloo.
+:::
 
    <!-- (where `latest` can be replaced with another version) -->
 
-   ::: {.callout-note title="Note" collapse="false"}
-   For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+::: {.callout-note title="Note" collapse="false"}
+For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
    
-   You can view the AOS Docker container images in the Autonity GitHub at <https://github.com/orgs/autonity/packages/container/package/autonity-oracle> and <https://github.com/orgs/autonity/packages/container/package/autonity-oracle-bakerloo>.
-   
-   :::
+You can view the AOS Docker container images in the Autonity GitHub at <https://github.com/orgs/autonity/packages/container/package/autonity-oracle> and <https://github.com/orgs/autonity/packages/container/package/autonity-oracle-bakerloo>.
+:::
 
 3. Verify the authenticity of the Autonity Oracle Server Docker images against the official [image digests](https://github.com/autonity/autonity-oracle/pkgs/container/autonity-oracle/versions):
 
@@ -216,10 +219,22 @@ $ ./build/bin/autoracle version
 ```
 ```console
 version
-v0.2.4
+v0.2.5
 ```
 
-If using Docker, the setup of the Bakerloo Testnet image can be verified with:
+If using Docker:
+
+```bash
+docker run --rm ghcr.io/autonity/autonity-oracle:v0.2.5 version
+```
+```console
+v0.2.5
+```
+
+::: {.callout-caution title="Connecting to Bakerloo Testnet?" collapse="false"}
+If you are deploying to the Bakerloo Testnet modify the docker pull command to use the docker image and [release version](/networks/testnet-bakerloo/#release) on Bakerloo.
+
+The setup of the Bakerloo Testnet image can be verified with:
 
 ```bash
 docker run --rm ghcr.io/autonity/autonity-oracle-bakerloo:v0.2.4 version 
@@ -227,6 +242,7 @@ docker run --rm ghcr.io/autonity/autonity-oracle-bakerloo:v0.2.4 version
 ```console
 v0.2.4
 ```
+:::
 
 ::: {.callout-note title="Note" collapse="false"}
 The output above will vary depending on the version of the Autonity Oracle Server you have installed.  Confirm that the "Version" field is consistent with the version you expect.

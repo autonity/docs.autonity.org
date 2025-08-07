@@ -136,7 +136,7 @@ The following should be installed in order to build the Autonity Go Client:
 2. Enter the `autonity` directory and ensure you are building from the correct release. This can be done by checking out the Release Tag in a branch:
 
     ```bash
-    git checkout tags/v1.1.1 -b v1.1.1
+    git checkout tags/v1.1.2 -b v1.1.2
     ```
 
 3. Build autonity:
@@ -209,10 +209,10 @@ sudo systemctl restart docker
 1. Pull the Autonity Go Client image from the Github Container Registry:
    
     ```bash
-    docker pull ghcr.io/autonity/autonity:v1.1.1
+    docker pull ghcr.io/autonity/autonity:v1.1.2
     ```
 
-   <!-- (where `latest` can be replaced with a specific version, i.e. `v1.1.1`) -->
+   <!-- (where `latest` can be replaced with a specific version, i.e. `v1.1.2`) -->
 
    ::: {.callout-note title="Note" collapse="false"}
    For more information on using and pulling Docker images from GHCR, see GitHub docs [Working with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
@@ -235,9 +235,9 @@ $ ./autonity version
 ```
 ```console
 Autonity
-Version: 1.1.1
-Git Commit: b8bee667dcdea6e47dde0361c41d044b360a102e
-Git Commit Date: 20250731
+Version: 1.1.2
+Git Commit: 03bcaa30ef200739a4345042c731fe66974a485d
+Git Commit Date: 20250807
 Architecture: amd64
 Protocol Versions: [66]
 Go Version: go1.24.0
@@ -249,11 +249,11 @@ GOROOT=
 If using Docker, the setup of the image can be verified with:
 
 ```bash
-$ docker run --rm ghcr.io/autonity/autonity:v1.1.1 version
+$ docker run --rm ghcr.io/autonity/autonity:v1.1.2 version
 ```
 ```console
 Autonity
-Version: 1.1.1
+Version: 1.1.2
 Architecture: amd64
 Protocol Versions: [66]
 Go Version: go1.24.5
