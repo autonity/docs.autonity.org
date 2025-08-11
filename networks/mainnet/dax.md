@@ -3,7 +3,7 @@ title: "Use the DAX"
 description: >
   Recipes for how to interact with the Decentralized Auton Exchange (DAX)
 hide_summary: false
-draft: true
+draft: false
 ---
 
 ## Synopsis
@@ -50,6 +50,74 @@ Alternatively, you can manually generate the ABI yourself using tooling. For exa
 - Ethereum REMIX IDE. This is online at https://remix.ethereum.org/. See the docs for how to [compile the ABI from Solidity ](https://remix-ide.readthedocs.io/en/latest/compile.html).
 - Solidity Compiler `solc`. See the docs to [install ](https://docs.soliditylang.org/en/latest/installing-solidity.html) and how to use the [compiler ](https://docs.soliditylang.org/en/latest/using-the-compiler.html#).
 
+## WIP TESTING ON BAKERLOO HERE START
+
+### FUNCTION TO USE & Uniswap V2 DOCS LINKS
+
+- when function name has ETH you can swap for native token
+- to swap USDC for ATN: swapExactTokenForEth
+- converse: swapExactEthForToken
+- remove the ones for add liquidity / create pair
+- i.e. keep this simple and minimal
+
+https://docs.uniswap.org/contracts/v2/reference/smart-contracts/factory
+
+https://docs.uniswap.org/contracts/v2/reference/smart-contracts/router-02
+
+### ABI DOWNLOADED BUT NEED TO EDIT
+
+- you've edited the factory but need to do the router json to abi conversion to. Also on the IWETH if you use that.
+
+### BAKERLOO DEPLOYMENT ADDRESSES:
+
+
+https://github.com/autonity/mainnet-and-bakerloo-runbook/blob/master/bakerloo-config/account-addresses.csv
+
+
+- Factory deployed at: 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944
+- WATN deployed at: 0x7152e69E173D631ee7B8df89b98fd25decb7263D
+- Router deployed at: 0x13a3a74463218D123596386D3E36bd1aC13DCFE2
+- USDCx deployed at: 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E
+
+### AUT COMMANDS BEING USED
+
+Note using aut not autdev is fine for this test.
+
+jay@Jays-MacBook-Pro autcli % aut contract call --abi IUniswapV2Factory.abi --address 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944 allPairs 0
+
+- returns the address at index 0 i.e. WATN-USDCx - i.e. "0xe5bC134ae83DD0885eEe6942BB52337d55A3cAb2"
+
+jay@Jays-MacBook-Pro autcli % aut contract call --abi IUniswapV2Factory.abi --address 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944 getPair 0x7152e69E173D631ee7B8df89b98fd25decb7263D 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E
+
+- returns the address by using the token contract addresses - which is ofc that at index 0 i.e. WATN-USDCx - i.e. "0xe5bC134ae83DD0885eEe6942BB52337d55A3cAb2"
+
+Approve by Alice on USDCx contract to Router for 1 USDCx for the swap:
+```console
+aut token approve --token 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 1 | aut tx sign - | aut tx send -
+(consider using 'KEYFILEPWD' env var).
+Enter passphrase (or CTRL-d to exit):
+0x34defcacea7943306a597c82221d6f6ca17d1da5f1ee84c3d52a751b0d479b72
+```
+
+Alice then traded 0.5 ATN for USDCx and sent the USDCx to the test account for Dave `0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5`:  
+
+
+```bash
+aut contract tx --abi IUniswapV2Router02.abi \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
+--value 0.5 \
+swapExactETHForTokens \
+400000 \
+'["0x7152e69E173D631ee7B8df89b98fd25decb7263D","0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E"]' \
+0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5 \
+1754911643 \
+| aut tx sign - \
+| aut tx send -
+```
+
+
+
+## WIP TESTING ON BAKERLOO HERE END
 
 ## Get setup to trade on the DAX
 
@@ -69,51 +137,57 @@ To check if additional pairs have been created, you can query using the Uniswap 
 To see if there is a pair on the DAX for 2 specific token contracts use the `aut contract call` command to call `getPair` where:
 
 - `--abi`: is the path to the `IUniswapV2Factory.abi` ABI file
-- `--address `: is the DAX Factory contract address `0x218F76e357594C82Cc29A88B90dd67b180827c88`
+- `--address `: is the DAX Factory contract address `0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944`
 - `<TOKENA>` and `<TOKENB>`: are the contract addresses for the requested tokens (order is insignificant)
+  - `<TOKENA>`: is the WATN contract address `TO ADD`
+  - `<TOKENB>`: is the USDC contract address `TO ADD`
 
 
 ```bash
 aut contract call --abi IUniswapV2Factory.abi \
---address 0x218F76e357594C82Cc29A88B90dd67b180827c88 getPair <TOKENA> <TOKENB>
+--address 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944 getPair <TOKENA> <TOKENB>
 ```
 
 For example, passing in the `WATN` and `USDC` contract addresses returns the contract address for the `WATN-USDC` pair:
 
 ```bash
-aut contract call --abi ../build/IUniswapV2Factory.abi \
---address 0x218F76e357594C82Cc29A88B90dd67b180827c88 getPair 0xcE17e51cE4F0417A1aB31a3c5d6831ff3BbFa1d2 0xBd770416a3345F91E4B34576cb804a576fa48EB1
-"0x0dbf397D768815500894a003d8e9630062f5F9a8"
+aut contract call --abi ../abi/IUniswapV2Factory.abi \
+--address 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944 getPair 0x7152e69E173D631ee7B8df89b98fd25decb7263D 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E
+```
+```console
+"0xe5bC134ae83DD0885eEe6942BB52337d55A3cAb2"
 ```
 
+::: {.callout-tip title="Discovering pairs if you don't know the token contract addresses" collapse="true"}
 To discover new pairs where you don't know the token contract addresses, use `allPairs` to pass in an index number to return the first, second pair created etc.
-
-::: {.callout-note title="Info" collapse="false"}
-To return the total number of pairs created, you can call `allPairsLength`. It will return an integer reflecting the number of pairs created.  AS of now it will return `1`, i.e. the `NTN-WATN` pair. 
-:::
 
 Use the `aut contract call` command to call `allPairs` where:
 
 - `--abi`: is the path to the `IUniswapV2Factory.abi` ABI file
-- `--address `: is the Factory contract address `0x218F76e357594C82Cc29A88B90dd67b180827c88`
+- `--address `: is the Factory contract address `0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944`
 - `<INDEX>`: is an integer index number for the pair beginning at `0`. Pass in `0` to return the first pair created, `1` for the second, etc. 
 
 
 ```bash
 aut contract call --abi IUniswapV2Factory.abi \
---address 0x218F76e357594C82Cc29A88B90dd67b180827c88 allPairs <INDEX>
+--address 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944 allPairs <INDEX>
 ```
 For example, passing in the index `0` returns the contract address for the first pair created, the `NTN-WATN` pair:
 
 ```bash
 aut contract call --abi ../build/IUniswapV2Factory.abi \
---address 0x218F76e357594C82Cc29A88B90dd67b180827c88 allPairs 0
-"0x0dbf397D768815500894a003d8e9630062f5F9a8"
+--address 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944 allPairs 0
 ```
+```console
+"0xe5bC134ae83DD0885eEe6942BB52337d55A3cAb2"
+```
+
+To return the total number of pairs created, you can call `allPairsLength`. It will return an integer reflecting the number of pairs created.  `1`, i.e. the `WATN-USDC` pair. 
+:::
 
 ## Getting a quote for trading
 
-::: {.callout-note title="Note" collapse="false"}
+::: {.callout-tip title="Note" collapse="false"}
 See the Uniswap docs advanced topic [Pricing](https://docs.uniswap.org/contracts/v2/concepts/advanced-topics/pricing) for an explanation of Uniswap V2 pricing and the risks of front running.
 :::
 
@@ -132,45 +206,45 @@ See docs [Router02 ](https://docs.uniswap.org/contracts/v2/reference/smart-contr
 Use the `aut contract call` command to call `getAmountsIn` and `getAmountsOut` where:
 
 - `--abi`: is the path to the `IUniswapV2Router02` ABI file
-- `--address `: is the Router02 contract address `0x374B9eacA19203ACE83EF549C16890f545A1237b`
+- `--address `: is the Router02 contract address `0x13a3a74463218D123596386D3E36bd1aC13DCFE2`
 - `<amountIn>` or `<amountOut>`: is the input / output asset amount to be traded, passed in using `10^18` denomination
 - an array of token address pairs `<TOKENA>` and `<TOKENB>` to specify the contract addresses for the requested tokens (order is insignificant)
 
 ```bash
 aut contract call --abi IUniswapV2Router02.abi \
---address 0x374B9eacA19203ACE83EF549C16890f545A1237b getAmountsIn <amountIn> '["<TOKENA>", "<TOKENB>"]'
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 getAmountsIn <amountIn> '["<TOKENA>", "<TOKENB>"]'
 ```
 
 ```bash
 aut contract call --abi IUniswapV2Router02.abi \
---address 0x374B9eacA19203ACE83EF549C16890f545A1237b getAmountsOut <amountOut> '["<TOKENA>", "<TOKENB>"]'
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 getAmountsOut <amountOut> '["<TOKENA>", "<TOKENB>"]'
 ```
 
 
 ### Exact input quote example (`getAmoutsOut`)
-To calculate how much output token you receive for an input of `0.1` ATN, pass as `amountOut` `0.01` ATN in `10^18` denomination (`100000000000000000`) and the token contract addresses for the `NTN-WATN` pair:
+To calculate how much output token you receive for an input of `0.1` ATN, pass as `amountOut` `0.1` ATN in `10^18` denomination (`100000000000000000`) and the token contract addresses for the `WATN-USDC` pair:
 
 
 ```bash
-aut contract call --abi ../build/IUniswapV2Router02.abi \
---address 0x374B9eacA19203ACE83EF549C16890f545A1237b getAmountsOut 100000000000000000 '["0xcE17e51cE4F0417A1aB31a3c5d6831ff3BbFa1d2", "0xBd770416a3345F91E4B34576cb804a576fa48EB1"]'
+aut contract call --abi IUniswapV2Router02.abi \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 getAmountsOut 100000000000000000 '["0x7152e69E173D631ee7B8df89b98fd25decb7263D", "0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E"]'
 ```
 
 Returns something like:
 
 ```bash
-[100000000000000000, 4992488733097631]
+[100000000000000000, 127615]
 ```
 
-I.e. `0.004992488733097631` NTN output is the amount received for `0.1` ATN input.
+I.e. `0.000000000000127615` USDC output is the amount received for `0.1` ATN input.
 
 ### Exact output quote example (`getAmoutsIn`)
 
-To calculate how much input ATN to provide for an output of `0.005` NTN, pass as `amountIn` `0.005` NTN in `10^18` denomination (`5000000000000000`) and the token contract addresses for the `NTN-WATN` pair:
+To calculate how much input ATN to provide for an output of `0.005` USDC, pass as `amountIn` `0.005` USDC in `10^18` denomination (`5000000000000000`) and the token contract addresses for the `WATN-USDC` pair:
 
 ```bash
-aut contract call --abi ../build/IUniswapV2Router02.abi \
---address 0x374B9eacA19203ACE83EF549C16890f545A1237b getAmountsIn 5000000000000000 '["0xcE17e51cE4F0417A1aB31a3c5d6831ff3BbFa1d2", "0xBd770416a3345F91E4B34576cb804a576fa48EB1"]'
+aut contract call --abi IUniswapV2Router02.abi \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 getAmountsIn 5000000000000000 '["0x7152e69E173D631ee7B8df89b98fd25decb7263D", "0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E"]'
 ```
 
 Returns something like:
@@ -179,7 +253,7 @@ Returns something like:
 [100300902708205406, 5000000000000000]
 ```
 
-I.e. `0.100300902708205406` WATN input is the amount to provide for `0.005` NTN output.
+I.e. `0.100300902708205406` ATN input is the amount to provide for `0.005` USDC output.
 
 
 ## Executing a swap
@@ -195,12 +269,41 @@ If swapping a token for ATN, then you will need to approve the UniswapV2 Router 
  
 #### 1. Verify your token balances
 
-(Optional.) Verify you have the necessary NTN balance for the desired swap.
+(Optional.) Verify you have the necessary ATN and USDC balances for the desired swap.
 
-For the USDC contract simply call your account balance:
+For ATN simply call your account balance:
+
+```bash
+aut account info
+```
+
+Or if you already have WATN, call the WATN contract to call your account balance:
+
 
 ```bash
  aut contract call [OPTIONS] METHOD [PARAMETERS]...
+```
+
+Example for WATN using `aut contract call`:
+
+```bash
+aut contract call --abi WATN.abi --address 0x7152e69E173D631ee7B8df89b98fd25decb7263D balanceOf <MY_ADDRESS>
+```
+
+Example for WATN using `aut tokcn balance-of`:
+
+```bash
+aut token balance-of --token 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E <MY_AD
+DRESS>
+```
+
+For the USDC contract simply call your account balance:
+
+Example for USDC:
+
+```bash
+aut token balance-of --token 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E 0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa
+1000.000000
 ```
 
 The amount approved in Step 2 must be `<=` to your USDC balances, otherwise the approval transaction will revert.
@@ -211,20 +314,20 @@ Approve the Router Contract as a `spender` of USDC tokens. Call the USDC ERC-20 
 
 Use the `aut token approve` command where:
 
-- `--token `: is `<ERC-20_CONTRACT_ADDRESS> ` of the `NTN` contract address 
+- `--token `: is `<ERC-20_CONTRACT_ADDRESS> ` of the `USDC` contract address 
 - `<SPENDER>` is the Router02 Contract address, listed in [Exchange resource links above](/getting-started/exchange-dax.html#exchange-resource-links)
-- `<AMOUNT>` is the amount of NTN that you are allowing the contract to spend on your behalf. 
+- `<AMOUNT>` is the amount of USDC that you are allowing the contract to spend on your behalf. 
 
-For WATN:
+For ERC-20 calls use the `aut token` command group:
 
 ```bash
 aut token approve --token <ERC-20_CONTRACT_ADDRESS> <SPENDER> <AMOUNT>
 ```
 
-In this example, approval is given for `1` USDC:
+In this example, , approval is given for `1` USDC:
 
 ```bash
-aut token approve --token 0xBd770416a3345F91E4B34576cb804a576fa48EB1  0x374B9eacA19203ACE83EF549C16890f545A1237b 1 | aut tx sign - | aut tx send -
+aut token approve --token 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 1 | aut tx sign - | aut tx send -
 ```
 
 ### Step 2: swap between USDC and ATN
@@ -237,19 +340,32 @@ You can, of course, trade using generic Uniswap functions for trading ERC-20 tok
 
 You can make swap trades using the Uniswap `UniswapV2Router02` smart contract's swap functions - see docs [`swapExactETHForTokens` ](https://docs.uniswap.org/contracts/v2/reference/smart-contracts/router-02#swapexactethfortokens) and [`swapTokensForExactETH` ](https://docs.uniswap.org/contracts/v2/reference/smart-contracts/router-02#swaptokensforexacteth). You can use the ABI for the Router02 interface `IUniswapV2Router02` to do this.
 
-As example, let's swap an exact amount of USDC for ATN.  Use the `aut contract tx` command to call `swapExactETHForTokens ` where:
+::: {.callout-warning title="USDC decimals is 6 not 18!" collapse="false"}
+The uniswap swap in and out amounts are specified in exponent format. For an ERC-20 with a decimals setting of 18, then this would be 10^18. USDC uses 6 decimals so is 10^6.
+
+Note that for the WATN and USDC contracts it is:
+
+| Token | Decimals | Exponent | Example |
+|:-- |:-- |:-- |:-- |
+| WATN | 18 | 10^18 | 1 WATN = `1 * 10^18` = `1000000000000000000` in base units |
+| USDC | 6 | 10^6 | 1 USDC = `1 * 10^6` = `1000000` in base units |
+
+:::
+#### ATN to USDC using `swapExactETHForTokens`
+
+Swap an exact amount of ATN for USDC.  Use the `aut contract tx` command to call `swapExactETHForTokens` where:
 
 - `--abi`: is the path to the `IUniswapV2Router02` ABI file
 - `--address `: is the Router02 contract address
 - `--value`: is the amount of ATN to swap, passed in using `10^18` denomination
 - `<amountOutMin>`: is the minimum amount of output tokens to receive from the swap, passed in using `10^18` denomination. This sets a floor limit beneath which the swap will not take place and the transaction will revert
-- `<path>`: is an array of addresses for the token pairs to swap - The USDC and WATN contract addresses, `'["<USDC_CONTRACT_ADDRESS>","<WATN_CONTRACT_ADDRESS>"]'`
-- `<to>`: is the address of the swapped tokens. I.e. let's assume you want them sent to your registered participant account address
+- `<path>`: is an array of addresses for the token pairs to swap - The WATN and USDC contract addresses, `'["<WATN_CONTRACT_ADDRESS>","<USDC_CONTRACT_ADDRESS>"]'`
+- `<to>`: is the address of the swapped tokens. I.e. let's assume you want them sent to your account address
 - `<deadline>`: the time point by which the trade must be executed, after which the transaction will revert. The timestamp is provided as a [Unix time](/glossary/#unix-time) value
 
 ```bash
 aut contract tx --abi IUniswapV2Router02.abi \
---address 0x374B9eacA19203ACE83EF549C16890f545A1237b --value \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 --value \
 swapExactETHForTokens \
 <amountOutMin> \
 <path> \
@@ -259,22 +375,66 @@ swapExactETHForTokens \
 | aut tx send -
 ```
 
-For example, for a trade on the `WATN-USDC` pair, passing in an amount of `12` USDC to swap for at minimum `9` ATN, the swap output token transferred to (registered participant) account `0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5`:
+For example, for a trade on the `WATN-USDC` pair, passing in an amount of `0.5` ATN to swap for at minimum `0.4` USDC, the swap output token transferred to account `0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5`:
 
 
 ```bash
-aut contract tx --abi ../build/IUniswapV2Router02.abi \
---address 0x374B9eacA19203ACE83EF549C16890f545A1237b \
---value 12.0 \
+aut contract tx --abi IUniswapV2Router02.abi \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
+--value 0.5 \
 swapExactETHForTokens \
-9 \
-'["0xcE17e51cE4F0417A1aB31a3c5d6831ff3BbFa1d2","0xBd770416a3345F91E4B34576cb804a576fa48EB1"]' \
+400000 \
+'["0x7152e69E173D631ee7B8df89b98fd25decb7263D","0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E"]' \
 0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5 \
-1700139337 \
+1754911643 \
 | aut tx sign - \
 | aut tx send -
 ```
 
+
+
+#### USDC to ATN using `swapExactTokensForEth`
+
+Swap an exact amount of USDC for ATN.  Use the `aut contract tx` command to call `swapExactTokensForEth` where:
+
+- `--abi`: is the path to the `IUniswapV2Router02` ABI file
+- `--address `: is the Router02 contract address
+- `<amountIn>`: is the amount of USDC to swap, passed in using `10^18` denomination
+- `<amountOutMin>`: is the minimum amount of output tokens to receive from the swap, passed in using `10^18` denomination. This sets a floor limit beneath which the swap will not take place and the transaction will revert
+- `<path>`: is an array of addresses for the token pairs to swap - The USDC and WATN contract addresses, `'["<USDC_CONTRACT_ADDRESS>","<WATN_CONTRACT_ADDRESS>"]'`
+- `<to>`: is the address of the swapped tokens. I.e. let's assume you want them sent to your account address
+- `<deadline>`: the time point by which the trade must be executed, after which the transaction will revert. The timestamp is provided as a [Unix time](/glossary/#unix-time) value
+
+```bash
+aut contract tx --abi IUniswapV2Router02.abi \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
+swapExactTokensForETH \
+<amountIn> \
+<amountOutMin> \
+<path> \
+<to> \
+<deadline> \
+| aut tx sign \
+| aut tx send -
+```
+
+For example, for a trade on the `WATN-USDC` pair, passing in an amount of `1` USDC to swap for at minimum `0.5` ATN, the swap output token transferred to account `0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa`:
+
+
+```bash
+aut contract tx --abi IUniswapV2Router02.abi \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
+swapExactTokensForETH \
+1000000 \
+500000000000000000 \
+'["0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E","0x7152e69E173D631ee7B8df89b98fd25decb7263D"]' \
+0xF47FDD88C8f6F80239E177386cC5AE3d6BCdEeEa \
+1754911643 \
+| aut tx sign - \
+| aut tx send -
+```
+
+## DELETE FROM HERE ON
 
 ## Add or remove liquidity to and from the NTN-WATN pool
 
@@ -298,7 +458,7 @@ As example, let's add an amount of ATN liquidity to the NTN-WATN pool with ATN. 
 
 ```bash
 aut contract tx --abi ../build/IUniswapV2Router02.abi \
---address 0x374B9eacA19203ACE83EF549C16890f545A1237b \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
 --value \
 addLiquidityETH \
 <token> \
@@ -316,10 +476,10 @@ For example, to add `10` WATN liquidity to the `NTN-WATN` pair, passing in an am
 
 ```bash
 aut contract tx --abi ../build/IUniswapV2Router02.abi \
---address 0x374B9eacA19203ACE83EF549C16890f545A1237b \
+--address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
 --value 12.0 \
 addLiquidityETH \
-0xBd770416a3345F91E4B34576cb804a576fa48EB1 \
+0x7152e69E173D631ee7B8df89b98fd25decb7263D \
 1000000000000000000 \
 0 \
 0 \

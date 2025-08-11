@@ -3,7 +3,7 @@ title: "Bridge USDC to Mainnet"
 description: >
   Recipes for how to bridge USDC from Polygon Mainnet to your account on Autonity Mainnet!
 hide_summary: false
-draft: true
+draft: false
 ---
 
 ## Synopsis
@@ -15,7 +15,7 @@ This page details:
 ## Resource links
 
 - Mainnet USDC Bridge Frontend UI URL:
-  - [https://usdc-frontend-autonity.vercel.app/ ](https://usdc-frontend-autonity.vercel.app/)
+  - [`TO ADD`]( TO ADD)
 - USDC Bridge Contract addresses:
   - On Autonity Mainnet: [`TO ADD`]( TO ADD)
   - On Polygon Mainnet: [`TO ADD`]( TO ADD)
@@ -27,8 +27,9 @@ If you want to find out more about what USDC from Polygon is, here are some reso
   - Circle [Introducing Bridged USDC Standard](https://www.circle.com/blog/bridged-usdc-standard)
   - Polygon [Bridged USDC Standard Contracts Are Live on Polygon zkEVM](https://polygon.technology/blog/bridged-usdc-standard-contracts-are-live-on-polygon-zkevm)
   - Polygon [Native USDC now available on Polygon PoS](https://www.circle.com/blog/native-usdc-now-available-on-polygon-pos)
+<!--
 - About Polygon Amoy Testnet [Introducing the Amoy Testnet for Polygon PoS](https://polygon.technology/blog/introducing-the-amoy-testnet-for-polygon-pos)
-
+-->
 :::
 
 ## Get setup 
@@ -44,7 +45,7 @@ To setup your chosen wallet you will need to:
 
 ## Bridge USDC from Polygon to Autonity
 
-Simply navigate to the USDC Bridge Frontend UI URL [https://usdc-frontend-autonity.vercel.app/ ](https://usdc-frontend-autonity.vercel.app/). Connect your wallet and execute the bridge transfer on the UI.
+Simply navigate to the USDC Bridge Frontend UI URL (see [Resource links](/networks/mainnet/bridge.html#resource-links)). Connect your wallet and execute the bridge transfer on the UI.
 
 Note that there will be 2 transactions - 1 to approve a spending cap on the USDC token contract, 1 to execute the bridge transfer over to Autonity.
 
@@ -53,4 +54,4 @@ To view your USDC token balance on Autonity, simply navigate to the [https://aut
 
 ### Trading with your USDC on Autonity
 
-To trade on-chain in the DAX simply use your bridged USDC to trade in an on-chain ATN market. For how to do this see the guide [Use the DAX](networks/mainnet/dax.md).
+To trade on-chain in the DAX simply use your bridged USDC to trade in an on-chain ATN market. For how to do this see the guide [Use the DAX](/networks/mainnet/dax.md).

@@ -81,11 +81,18 @@ Mainnet is built using:
 
 DAX is a Uniswap V2 clone AMM. Bridge USDC to Autonity from Polygon Mainnet using the VIA Labs bridge and trade in the DAX to purchase ATN.
 
-<!-- 
+<!-- -->
+::: {.callout-tip title="Mainnet is on the way!" collapse="false"}
+Watch this space, coming soon! 🚀
+
+Mainnet launch is 12th August!
+
+:::
+
 To bridge see [Use the Bridge](/networks/mainnet/bridge.md)
 
 To trade see [Use the DAX](/networks/mainnet/dax.md)
--->
+<!-- -->
 
 ## Public endpoints
 
