@@ -50,74 +50,6 @@ Alternatively, you can manually generate the ABI yourself using tooling. For exa
 - Ethereum REMIX IDE. This is online at https://remix.ethereum.org/. See the docs for how to [compile the ABI from Solidity ](https://remix-ide.readthedocs.io/en/latest/compile.html).
 - Solidity Compiler `solc`. See the docs to [install ](https://docs.soliditylang.org/en/latest/installing-solidity.html) and how to use the [compiler ](https://docs.soliditylang.org/en/latest/using-the-compiler.html#).
 
-## WIP TESTING ON BAKERLOO HERE START
-
-### FUNCTION TO USE & Uniswap V2 DOCS LINKS
-
-- when function name has ETH you can swap for native token
-- to swap USDC for ATN: swapExactTokenForEth
-- converse: swapExactEthForToken
-- remove the ones for add liquidity / create pair
-- i.e. keep this simple and minimal
-
-https://docs.uniswap.org/contracts/v2/reference/smart-contracts/factory
-
-https://docs.uniswap.org/contracts/v2/reference/smart-contracts/router-02
-
-### ABI DOWNLOADED BUT NEED TO EDIT
-
-- you've edited the factory but need to do the router json to abi conversion to. Also on the IWETH if you use that.
-
-### BAKERLOO DEPLOYMENT ADDRESSES:
-
-
-https://github.com/autonity/mainnet-and-bakerloo-runbook/blob/master/bakerloo-config/account-addresses.csv
-
-
-- Factory deployed at: 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944
-- WATN deployed at: 0x7152e69E173D631ee7B8df89b98fd25decb7263D
-- Router deployed at: 0x13a3a74463218D123596386D3E36bd1aC13DCFE2
-- USDCx deployed at: 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E
-
-### AUT COMMANDS BEING USED
-
-Note using aut not autdev is fine for this test.
-
-jay@Jays-MacBook-Pro autcli % aut contract call --abi IUniswapV2Factory.abi --address 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944 allPairs 0
-
-- returns the address at index 0 i.e. WATN-USDCx - i.e. "0xe5bC134ae83DD0885eEe6942BB52337d55A3cAb2"
-
-jay@Jays-MacBook-Pro autcli % aut contract call --abi IUniswapV2Factory.abi --address 0x9709D1709bDE7C59716FE74D3EEad0b1f12D3944 getPair 0x7152e69E173D631ee7B8df89b98fd25decb7263D 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E
-
-- returns the address by using the token contract addresses - which is ofc that at index 0 i.e. WATN-USDCx - i.e. "0xe5bC134ae83DD0885eEe6942BB52337d55A3cAb2"
-
-Approve by Alice on USDCx contract to Router for 1 USDCx for the swap:
-```console
-aut token approve --token 0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 1 | aut tx sign - | aut tx send -
-(consider using 'KEYFILEPWD' env var).
-Enter passphrase (or CTRL-d to exit):
-0x34defcacea7943306a597c82221d6f6ca17d1da5f1ee84c3d52a751b0d479b72
-```
-
-Alice then traded 0.5 ATN for USDCx and sent the USDCx to the test account for Dave `0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5`:  
-
-
-```bash
-aut contract tx --abi IUniswapV2Router02.abi \
---address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
---value 0.5 \
-swapExactETHForTokens \
-400000 \
-'["0x7152e69E173D631ee7B8df89b98fd25decb7263D","0x90488152F52e1aDc63CaA2CDb6Ad84F3AEC1df3E"]' \
-0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5 \
-1754911643 \
-| aut tx sign - \
-| aut tx send -
-```
-
-
-
-## WIP TESTING ON BAKERLOO HERE END
 
 ## Get setup to trade on the DAX
 
@@ -392,7 +324,6 @@ swapExactETHForTokens \
 ```
 
 
-
 #### USDC to ATN using `swapExactTokensForEth`
 
 Swap an exact amount of USDC for ATN.  Use the `aut contract tx` command to call `swapExactTokensForEth` where:
@@ -433,59 +364,3 @@ swapExactTokensForETH \
 | aut tx sign - \
 | aut tx send -
 ```
-
-## DELETE FROM HERE ON
-
-## Add or remove liquidity to and from the NTN-WATN pool
-
-You can add or remove liquidity from the NTN-WATN-USDC pool using the Uniswap `UniswapV2Router02` smart contract's liquidity functions - see docs [`addLiquidityETH` ](https://docs.uniswap.org/contracts/v2/reference/smart-contracts/router-02#addliquidityeth) and [`removeLiquidityETH` ](https://docs.uniswap.org/contracts/v2/reference/smart-contracts/router-02#removeliquidityeth). You can use the ABI for the Router02 interface `IUniswapV2Router02 ` to do this.
-
-For providing liquidity, you will receive liquidity tokens in the NTN-WATN pool contract "Decentralized Auton Exchange (DAX)".
-
-As example, let's add an amount of ATN liquidity to the NTN-WATN pool with ATN. Use the `aut contract tx` command to call `addLiquidityEth` where:
-
-- `--abi`: is the path to the `IUniswapV2Router02` ABI file
-- `--address `: is the Router02 contract address
-
-- `--value`: is the amount of ATN to add as liquidity if the NTN-WATN price is `<= amountTokenDesired/msg.value` (WATN depreciates).
-- `<token>`: is the contract address of the NTN token
-- `<amountTokenDesired>`: is the amount of NTN token to add as liquidity if the WATN/NTN token price is `<= msg.value/amountTokenDesired` (token depreciates).
-- `<amountTokenMin>`: is an amount that bounds the extent to which the WATN/NTN token price can go up before the transaction reverts. Must be `<= amountTokenDesired`.
-- `<amountETHMin>`: is an amount that bounds the extent to which the token/WATN price can go up before the transaction reverts. Must be `<= msg.value`. Passed in using `10^18` denomination.
-- `<to>`: is the recipient address of the liquidity tokens. I.e. let's assume you want them sent to your registered participant account address
-- `<deadline>`: the time point by which the liquidity deposit transaction must be executed, after which the transaction will revert. The timestamp is provided as a [Unix time](/glossary/#unix-time) value
-
-
-```bash
-aut contract tx --abi ../build/IUniswapV2Router02.abi \
---address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
---value \
-addLiquidityETH \
-<token> \
-<amountTokenDesired> \
-<amountTokenMin> \
-<amountETHMin> \
-<to> \
-<deadline> \
-| aut tx sign - \
-| aut tx send -
-```
-
-For example, to add `10` WATN liquidity to the `NTN-WATN` pair, passing in an amount of `10` WATN to add liquidity for `1` NTN (the pair has a ratio of 10 ATN to 1 NTN). The `amountTokenDesired` is set to `1`, the liquidity tokens received are transferred to (registered participant) account `0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5`:
-
-
-```bash
-aut contract tx --abi ../build/IUniswapV2Router02.abi \
---address 0x13a3a74463218D123596386D3E36bd1aC13DCFE2 \
---value 12.0 \
-addLiquidityETH \
-0x7152e69E173D631ee7B8df89b98fd25decb7263D \
-1000000000000000000 \
-0 \
-0 \
-0xF6e02381184E13Cbe0222eEDe0D12B61E2DF8bE5 \
-1700139337 \
-| aut tx sign - \
-| aut tx send -
-```
-On success, the recipient address will appear as a token holder address for the `DAX` liquidity tokens. You can view your token holdings on the Block Explorer by navigating to inspect the recipient account address and viewing the "Tokens" tab, or navigating to the "DAX" token contract address and viewing the "Token Holders" tab.
