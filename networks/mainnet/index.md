@@ -17,13 +17,6 @@ Mainnet is for participants interested in:
 
 ## Mainnet details
 
-::: {.callout-tip title="Mainnet is on the way!" collapse="false"}
-
-Watch this space, coming soon! 🚀
-
-:::
-
-
 |**Field**|**Input**|
 |------|----------|
 |Network Name|`Autonity (Nile) Mainnet`|
