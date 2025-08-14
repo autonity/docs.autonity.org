@@ -33,7 +33,11 @@ Piccadilly was for participants interested in:
 |Symbol|`ATN`|
 |Block Explorer URL (optional)|`https://piccadilly.autonity.org/`|
 
-(The above information can be used to connect an existing client such as [MetaMask](https://metamask.zendesk.com/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC))
+::: {.callout-tip title="Adding Autonity as a custom network to your wallet" collapse="false"}
+
+The above information can be used to add Autonity as a custom network to to an existing client such as [MetaMask](https://support.metamask.io/configure/networks/how-to-add-a-custom-network-rpc/)).
+
+:::
 
 ## Genesis configuration
 
