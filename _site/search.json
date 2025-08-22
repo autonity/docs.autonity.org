@@ -97,6 +97,7 @@
     "text": "When a trade is submitted to the clearing system, an MAE Check is done on each margin account that makes up the trade.\nIt is possible that a margin account on one side of the trade fails, whilst a margin account on the otherside passes. Under normal circumstances this would result in an uncleared trade, and so the trade not settling. However, this results in a detrimental trading experience to the margin account that passed the MAE Check.\nIntroducing the concept of a fallback mechanism helps alleviate such situations by enabling the trading protocol to step in and take over the trade obligations of the margin account that failed the MAE Check. Assuming the margin account of the trading protocol passes the MAE Check, then the trade can successfully settle.\nHowever, this does imply that the trading protocol now has an open position in a product that it may not wish to keep. Handling of such positions is up to the discretion of the trading protocol.\nThe fallback mechanism is enabled by the trading protocol on a per trade basis by setting the fallbackOnFailure boolean flag to true when submitting trades:\nfunction execute(IClearing.Trade calldata trade, bool fallbackOnFailure) external override onlyRole(TRADE_SUBMITTER_ROLE)\n\n\n\n\n\nflowchart TD\n    A[Trade Submitted] --&gt; B{MAE Check on all Margin Accounts}\n    B -- All Pass --&gt; C[Trade settled]\n    B -- One or More Fail --&gt; D{Fallback enabled?}\n    D -- No --&gt; E[Trade failed]\n    D -- Yes --&gt; F{Trading Protocol MAE Check}\n    F -- Fail --&gt; E\n    F -- Pass --&gt; G[Trading Protocol margin account replaces margin account of failed MAE check account]\n    G --&gt; C",
     "crumbs": [
       "Autonity Futures Protocol",
+      "Trading Protocols",
       "Fallback mechanism"
     ]
   },
@@ -322,249 +323,62 @@
     ]
   },
   {
-    "objectID": "afp/index.html",
-    "href": "afp/index.html",
-    "title": "AFP Documentation",
+    "objectID": "fees.html",
+    "href": "fees.html",
+    "title": "Fees",
     "section": "",
-    "text": "Welcome to the Autonomous Futures Protocol (AFP) documentation site. Explore the documentation to learn more about the protocol’s features and how to use it."
+    "text": "For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee.\nTypically, when trading protocols and clearing houses are tightly integrated, traders pay a single, undifferentiated “trading fee.” This approach, however, obscures the distinct and important roles that trading protocols and clearing houses play in the trade lifecycle.\nWith the AFP, trade execution and clearing are decoupled, so trading and clearing fees are treated as separate concerns and charged independently. This separation gives Product Builders the flexibility to redistribute fees as they wish. For example, clearing fees could be used to incentivize trading protocols to list their products and bootstrap liquidity by redirecting a portion of the Clearing Fees as rebates. If such incentives are unnecessary, Clearing Fees can instead be accumulated on the Product Builder’s Margin Account.\nAt the same time, trading protocols have complete flexibility in how they implement trading fees. Whether through maker rebates, volume-based tiers, or any other fee structure, the AFP empowers venues to design and adapt their own fee regimes to best serve their markets and participants.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Fees"
+    ]
   },
   {
-    "objectID": "margining.html",
-    "href": "margining.html",
-    "title": "Margining",
+    "objectID": "clearing-fees.html",
+    "href": "clearing-fees.html",
+    "title": "Clearing fees",
     "section": "",
-    "text": "IMR is a product parameter and is expressed as a percentage under 100% (eg 0.30). For a product Ψ. Initial Margin (IM) relates to a trade j and is a monetary amount in the product Ψ’s Price Quotation units. It is defined conditionally on the type of position change:\n\nif the position increases: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j])\nif the position reverses: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j] + Q[j-1])",
+    "text": "For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee. This section documents the Clearing Fee component.",
     "crumbs": [
       "Autonity Futures Protocol",
-      "Clearing System",
-      "Margining"
+      "Fees",
+      "Clearing fees"
     ]
   },
   {
-    "objectID": "margining.html#initial-margin-requirement-imr",
-    "href": "margining.html#initial-margin-requirement-imr",
-    "title": "Margining",
+    "objectID": "clearing-fees.html#clearing-fee",
+    "href": "clearing-fees.html#clearing-fee",
+    "title": "Clearing fees",
+    "section": "Clearing Fee",
+    "text": "Clearing Fee\nClearing fees are quoted as a percentage of the trade’s notional value, referred to as the Clearing Fee Rate (“CFR”)\nCF[i] = p * abs(q) * POINT_VALUE * CFR\nwhere p is the trade’s Trade Price and q is the (signed) quantity of the trade’s i-th fill. CFR is a global system parameter CLEARING_FEE_RATE, that is common to all products in the AFP.\nsum(CF[1],...,CF[n]) is added to the Capital of the Clearing System’s Treasury Account.\nThe Clearing System’s Treasury Account is defined by the Clearing System parameter TREASURY_ADDRESS (funds in the Clearing System’s Treasury Account will subsequently be used to buy-and-burn NTN).",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Fees",
+      "Clearing fees"
+    ]
+  },
+  {
+    "objectID": "intents.html",
+    "href": "intents.html",
+    "title": "Intents",
     "section": "",
-    "text": "IMR is a product parameter and is expressed as a percentage under 100% (eg 0.30). For a product Ψ. Initial Margin (IM) relates to a trade j and is a monetary amount in the product Ψ’s Price Quotation units. It is defined conditionally on the type of position change:\n\nif the position increases: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j])\nif the position reverses: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j] + Q[j-1])",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Clearing System",
-      "Margining"
-    ]
-  },
-  {
-    "objectID": "margining.html#maintenance-margin-requirement-mmr",
-    "href": "margining.html#maintenance-margin-requirement-mmr",
-    "title": "Margining",
-    "section": "Maintenance Margin Requirement (MMR)",
-    "text": "Maintenance Margin Requirement (MMR)\nMMR is a product parameter and is expressed as a percentage under 100% (eg 0.20). Maintenance Margin relates to a position and is a monetary amount in the product’s Price Quotation units and is defined as: MM[Ψ][j] = MMR * abs(B[j])\nMaintenance Margin Used (MMU) is defined for the n products in which the margin account holder has a non-zero position: MMU[k] = sum(MM[1][k],.., MM[n][k]) where k is an index over all trades and n products in a Margin Account.\nMaintenance Margin Available (MMA) is then defined as: MMA[k] = max(MAE - MMU[k], 0). This is the amount of collateral that can be used to fund new trades.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Clearing System",
-      "Margining"
-    ]
-  },
-  {
-    "objectID": "margining.html#initial-margin-check",
-    "href": "margining.html#initial-margin-check",
-    "title": "Margining",
-    "section": "Initial Margin Check",
-    "text": "Initial Margin Check\nIf a trade increases an account’s position size, it must be the case that IM &lt;= MMA in order for the trade to settle. If IM &gt; MMA, the trade will fail. For trades that decrease position size, the check for IM is ignored.\nIf a trade reverses an account’s position, then the checks are split into the two following operations:\n\nFirst, the account’s position is decreased to zero, where the IM check is ignored. And the MAE, MMU, MMA (whichever is stored on chain) for the account is updated.\nSecond, the account’s position is increased, at which point the IM check is applied.\n\nIn the case of multiple position changes as part of a single trade, the IM check is performed as follows:\n\nAll reversing trades are broken down into a decreasing trade and an increasing trade\nThe account’s MMU is decreased by the amount freed up by the decreasing trade:\nMMU' = MMU - sum(MMR[j] * (abs(B[j]) - abs(B'[j])))\nWhere:\n   - `B'[j]` is the cost basis after the trade for product `Ψ[j]`. \n   - `B[j]` is the cost basis before the trade for product `Ψ[j]`. \n   - `MMR[j]` is the MMR for the product `Ψ[j]`.\nNote that here MMU' is not strictly equal to the MMU after the trade, as it does not take into account the new Maintenance Margin for the increasing trades. It is only an intermediate value used to perform the IM check.\nThe IM check is performed on the increasing trades:\nsum(IM[Ψ][j]) &lt;= MAE' - MMU'\nWhere MAE' is the MAE after the trade. If this check fails, the trade is reverted.\nIf MU &gt;= 100% (equivalently, MMA = 0), the account enters LIQUIDATABLE state and any non-zero product position in the account may get liquidated in whole or part by the clearing system’s liquidation auction mechanism.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Clearing System",
-      "Margining"
-    ]
-  },
-  {
-    "objectID": "oracles.html",
-    "href": "oracles.html",
-    "title": "Oracles",
-    "section": "",
-    "text": "How to Integrate an Oracle\nOracle Interface\n\nAutonity exposes a uniform oracle interface that third parties can seamlessly integrate with. It is up to the product builder to define which oracle to source the underlying data from for a particular product. This allows Autonity to be oracle agnostic.\nHowever, initial reference implementations will be of the optimistic oracle type. This strategy works because the initial suite of products that will be released will be Dated Futures, which require a single final settlement price to be submitted to settle the product at expiry.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Oracles"
-    ]
-  },
-  {
-    "objectID": "oracles.html#sub-sections",
-    "href": "oracles.html#sub-sections",
-    "title": "Oracles",
-    "section": "",
-    "text": "How to Integrate an Oracle\nOracle Interface\n\nAutonity exposes a uniform oracle interface that third parties can seamlessly integrate with. It is up to the product builder to define which oracle to source the underlying data from for a particular product. This allows Autonity to be oracle agnostic.\nHowever, initial reference implementations will be of the optimistic oracle type. This strategy works because the initial suite of products that will be released will be Dated Futures, which require a single final settlement price to be submitted to settle the product at expiry.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Oracles"
-    ]
-  },
-  {
-    "objectID": "oracle-interface.html",
-    "href": "oracle-interface.html",
-    "title": "Oracle Interface",
-    "section": "",
-    "text": "Oracles are a crucial component of the AFP as they are responsible for supplying the Final Settlement Value which is used to calculate the Final Settlement Price that Dated Futures products settle against. The AFP does not prescribe a specific oracle implementation to be used, as the oracle selection is up to the Product Builder. However, all Oracles must conform to the Oracle Interface expected by the clearing system.\nFor specific details on the interface that must be implemented, see the reference documentation here",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Oracles",
-      "Oracle Interface"
-    ]
-  },
-  {
-    "objectID": "product-lifecycle.html",
-    "href": "product-lifecycle.html",
-    "title": "Product Lifecycle",
-    "section": "",
-    "text": "The product lifecycle in the AFP is defined by a series of state transitions:\nstateDiagram\n    [*] --&gt; PENDING : Submit Product Spec and pass Validity Checks\n    PENDING --&gt; LIVE : Start Time is reached\n    LIVE --&gt; TRADEOUT : Earliest FSP Resolution Time is reached\n    TRADEOUT --&gt; FINAL_SETTLEMENT : Minimum Tradeout Interval passes AND FSP=X provided by oracle\n    TRADEOUT --&gt; EXPIRED : Open Interest == 0\n    FINAL_SETTLEMENT --&gt; EXPIRED : Open Interest == 0\nThe state of a product can always be queried by:",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Products",
-      "Product Lifecycle"
-    ]
-  },
-  {
-    "objectID": "product-lifecycle.html#pending",
-    "href": "product-lifecycle.html#pending",
-    "title": "Product Lifecycle",
-    "section": "PENDING",
-    "text": "PENDING\n\nProduct Validity checks\nWhen a Product Builder submits a product specification to the AFP, a number of validity checks are first done before it is accepted by the AFP as a valid product:\n\nCheck that the Price Quotation and the Collateral Asset are the same.\nCheck the Product ID is globally unique.\nCheck that IMR &gt;= MMR.\nCheck that Earliest FSP Resolution Time &gt; Start Time.\nCheck that Start Time &gt; Current Timestamp.\nCheck that Maximum Tradeout Interval &gt; Minimum Tradeout Interval.\nCheck that entered Field value data types match EVM Data Type.\nEnforce any version-specific constraints.\n\nIf the above all pass, the product is entered into the Product Registry. ## LIVE\nOnce startTime of a product in the Product Registry is reached, it transitions to LIVE state. At this point, trades can be submitted to the clearing system in that product.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Products",
-      "Product Lifecycle"
-    ]
-  },
-  {
-    "objectID": "product-lifecycle.html#tradeout",
-    "href": "product-lifecycle.html#tradeout",
-    "title": "Product Lifecycle",
-    "section": "TRADEOUT",
-    "text": "TRADEOUT\nOnce the Earliest FSP Resolution Time is reached, the product enters TRADEOUT state during which time no new positions can be opened, and existing ones can only be decreased. The purpose of this period is to allow market participants to gracefully exit their positions before they are forcibly closeout, which would incur a penalty.\nDuring the tradeout period, liquidations may still occur, and successful liquidation bids on products in the tradeout period will result in the bidders margin account holding the position.\nDuring this period, Final Settlement Price resolution can also occur, which will anchor the mark price of the product to the FSP. In the case that an FSP is not known after the tradeoutInterval, then the product will remain in TRADEOUT until its Open Interest goes to zero, at which point it will transition to an EXPIRED state.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Products",
-      "Product Lifecycle"
-    ]
-  },
-  {
-    "objectID": "product-lifecycle.html#final_settlement",
-    "href": "product-lifecycle.html#final_settlement",
-    "title": "Product Lifecycle",
-    "section": "FINAL_SETTLEMENT",
-    "text": "FINAL_SETTLEMENT\nIf the FSP is known, the product transitions to FINAL_SETTLEMENT state when the tradeoutInterval passes. At this point, the Final Settlement Process may occur. Once the Open Interest goes to zero, meaning that no margin account has an outstanding position in the product, it can transition to an EXPIRED state.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Products",
-      "Product Lifecycle"
-    ]
-  },
-  {
-    "objectID": "product-lifecycle.html#expired",
-    "href": "product-lifecycle.html#expired",
-    "title": "Product Lifecycle",
-    "section": "EXPIRED",
-    "text": "EXPIRED\nIf a product is in EXPIRED state then it has no open positions remaining and no new trades can be opened.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Products",
-      "Product Lifecycle"
-    ]
-  },
-  {
-    "objectID": "liquidation-agent.html",
-    "href": "liquidation-agent.html",
-    "title": "Liquidation Agent",
-    "section": "",
-    "text": "When a Margin Account fails to have sufficient Maintenance Margin Available to meet its Maintenance Margin Requirements, it may be liquidated through a liquidation auction.\nInitiation a Liquidation Auction is an incentivized activity.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Liquidation Agent"
-    ]
-  },
-  {
-    "objectID": "closeout-agent.html",
-    "href": "closeout-agent.html",
-    "title": "Closeout Agent",
-    "section": "",
-    "text": "Any on-chain actor with an associated margin account can initiate the Final Settlement Process for a Product, once the product is in the FINAL_SETTLEMENT state. Such an on-chain actor is termed a “Closeout Agent”.\nA Closeout Agent initiates the Final Settlement Process by calling the\nClearing System’s initiateFinalSettlement(..) method with _Closeout\nData_. Closeout Data consists of an array of addresses denoting a set of MAs that (1) each have a non-zero position in the product and (2) collectively offset each other (i.e., the sum of their position sizes is 0).\nWhen a Closeout Agent calls initiateFinalSettlement(..), the Clearing System performs the Final Settlement Process Checks:\n\nFor each account in Closeout Data, fetch the account’s position quantity Q:\n\n\nif Q == 0, the checks fail and the processes is aborted.\nif Q =! 0, then increment checksum = checksum + Q.\n\n\nIf checksum == 0, proceed to the Final Settlement Closeout; if it does not, the checks fail and the process is aborted.\n\nFinal Settlement Closeout executes as follows:\n\nIf the FSP does not exist, call finalizeFsp and execute the Final Settlement Price Resolution per the process above. If that process fails, abort Final Settlement Closeout. If that process succeeds, continue.\nFor each account a in Closeout Data:\nConstruct a trade done at the FSP with a on the buy (sell) side and Treasury Account on the sell (buy) side if a’s position is short (long);\nApply trade settlement to a:\nRPnL = FSP * Q * POINT_VALUE - B\nC[t] = C[t-1] + RPnL\nQ[t] = Q[t-1] + -Q (i.e., Q[t] = 0)\nApply trade settlement to Treasury Account:\nUpdate Cost Basis B per conditional definition assuming a trade quantity of Q at price FSP.\nCalculate RPnL per conditional definition\nC[t] = C[t-1] + RPnL\nQ[t] = Q[t-1] + Q\nApply the Closeout Fee:\nC[t] = C[t-1] - CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q) on account a\nC[t] = C[t-1] + CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q) on Treasury Account\nApply the Closeout Agent Reward:\nC[t] = C[t-1] - CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q) on Treasury Account\nC[t] = C[t-1] + CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q) on Closeout Agent’s account\n\nThe product will transition from FINAL_SETTLEMENT state to EXPIRED state if the open interest in the product is zero; otherwise, the product remains in FINAL_SETTLEMENT state.\ninitiateFinalSettlement(..) can be called multiple times whilst the open interest is non-zero.\nNotes:\n\nCLOSEOUT_FEE_RATE &gt;= CLOSEOUT_REWARD_RATE\nCLOSEOUT_REWARD_RATE will be set at a level that’s a multiple of anticipated venue trading fees (perhaps 30bps) to incentivize users to close their positions before the conclusion of the Tradeout Interval.\nBecause checksum == 0, Treasury Account’s position in the product (typically 0) will be the same after the Final Settlement Process as it was right before the process commenced. But Treasury Account’s Capital will increase by:\n\n(CLOSEOUT_FEE_RATE - CLOSEOUT_REWARD_RATE) * POINT_VALUE * FSP * OPEN_INTEREST * 2",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Closeout Agent"
-    ]
-  },
-  {
-    "objectID": "clearing-system.html",
-    "href": "clearing-system.html",
-    "title": "Clearing System",
-    "section": "",
-    "text": "The decentralized clearing system of the AFP is core to the current functioning of the futures markets that are built on top of it.\nExisting derivates markets (both in TradFi and DeFi) couple trade execution and clearing into one venue. In TradFi, monopolistic tendencies concentrate market activity into a single trading venue for a particular instrument, whilst in DeFi competition for market share in derivates with the same underlying results in a fragmented market structure.\nFor example, Binance, Bybit (CEXs), Hyperliquid and DYDX (DEXs) have all created BTCUSDT futures contracts, all built on the same underlying market: spot BTC-USDT. Yet, each venue that creates a futures contract on BTC-USDT allows for only their own product to be traded on their own venue, leading to fragmented liquidity even though the underlying is the same. This is not a decentralized market architecture.\nContrast this to true decentralized markets such as spot Bitcoin. Bitcoin can be bought on any CEX and if desired can then be moved to a wallet and sold on a DEX, providing traders with an abundance of liquidity options to trade it. The AFP introduces the same level of true decentralisation in the derivatives markets with its clearing system.\nDecentralized clearing decouples trade execution from clearing, allowing for trades to be executed at one venue but cleared at another. This subtle yet crucial architectural difference results in a significantly altered and more efficient market design, allowing:\n\nA rich choice of trading modalities to trade the same product\nTraders access to a global pool of open interest in a product\nCross-venue cross-margining",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Clearing System"
-    ]
-  },
-  {
-    "objectID": "mark-price.html",
-    "href": "mark-price.html",
-    "title": "Mark Price determination",
-    "section": "",
-    "text": "The mark price is used as the price at which the PnL of positions is calculated, and so feeds into the Margin Account Equity checks, which in turn determine whether a trade can be completed by a margin account, or if it can be liquidated.\nThe mark price is determined by the average price of all trades originating from all trading protocols that have submitted trades to the clearing system in a sliding 30 second window.\nIf a trade is executed at time t, the Mark Price for a product at time t is defined as:\nMP[t] = sum(p[j] * abs(q[j])) / sum(abs(q[j]))\nfor every trade j such that j’s timestamp is within [t, t-30 seconds]. If there is no trade at time t, MP[t] = MP[t-1].",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Clearing System",
-      "Mark Price determination"
-    ]
-  },
-  {
-    "objectID": "trading.html",
-    "href": "trading.html",
-    "title": "Trading",
-    "section": "",
-    "text": "Trade Execution and Clearing\nCross-Venue Cross-Margining\nIntents",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Trading"
-    ]
-  },
-  {
-    "objectID": "trading.html#sub-sections",
-    "href": "trading.html#sub-sections",
-    "title": "Trading",
-    "section": "",
-    "text": "Trade Execution and Clearing\nCross-Venue Cross-Margining\nIntents",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Trading"
-    ]
-  },
-  {
-    "objectID": "how-to-create-a-product.html",
-    "href": "how-to-create-a-product.html",
-    "title": "How to Create a Product",
-    "section": "",
-    "text": "Product creation is permissionless on the AFP, so any address on Autonity can become a Product Builder.\n\nPrerequisites\nBefore you can create a product on the Autonity Futures Protocol (AFP), ensure you have:\n\nA Margin Account contract exists in the collateral of your product. For your product to be easily tradeable you will want to ensure that the Margin Contract for the collateral asset that you wish to use for your product has been deployed. This can be done by calling:\nfunction initializeMarginAccount(address collateralAsset) public returns (IMarginAccount)\non the MarginAccountRegistry.sol contract. This ensures that traders can easily deposit collateral and start trading without requiring them to do the Margin Account contract deployment themselves.\nA Margin Account in the collateral asset of the product you will create as this is where clearing fees will be credited to. For more information on creating a Margin Account, see How to create and fund a margin account on the AFP\nRead through the documentation as understanding how products work in the AFP is crucial to creating a successful one in the first place!\n\n\n\nImportant notes\n\n\nSteps to Create a Product\n\nDecide on a timeseries that your product will trade. Ensure there is a reliable, undisputable source of truth for the timeseries that oracles will be able to use to report a final settlement value.\nConstruct the Product Specification\n\nPrepare a valid Product struct with all required fields. There is no one-size-fits-all set of parameters that can be specified as each product is unique.\nImportant: the same builder cannot create two products with the same symbol!\n\nRegister the Product\n\nCall the register function on ProductRegistry.sol, passing your constructed Product struct as calldata.\nThis can either be done through the SDK , or direct calls on-chain to the contract.\nEnsure your product is in a PENDING state, which indicates it has passed the on-chain validity checks. This can be done by the view function:\n\n\n\nSoliditySDK\n\n\n    function state(bytes32 productId) external view returns (ProductState)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nEnsure your product is listed on at least one trading protocol. This will ensure that traders have a clear way to trade your product. Listing your product on a trading protocol is up to the discretion of the trading protocols themselves.\nOnce the startTime of your product is reached, its state will go LIVE and become tradeable. A portion of the Clearing Fees will be credited to your Margin Account, so the more volume that is traded through your product, the more clearing fees will be accrued.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "How to Create a Product"
-    ]
-  },
-  {
-    "objectID": "layer1/index.html",
-    "href": "layer1/index.html",
-    "title": "Layer 1",
-    "section": "",
-    "text": "Please see docs.autonity.org for the most recent Layer 1 documentation."
-  },
-  {
-    "objectID": "trade-execution-and-clearing.html",
-    "href": "trade-execution-and-clearing.html",
-    "title": "Trade Execution and Clearing",
-    "section": "",
-    "text": "The separation of trade execution and clearing in the Autonity Futures Protocol (AFP) introduces a fundamentally new market structure for derivatives. Traditionally, each trading protocol maintains its own siloed order book and liquidity pool for a given product, limiting traders to the open interest and counterparties available within that specific venue. In contrast, the AFP architecture allows traders to access the global pool of open interest for a product—regardless of which trading venue they’re using.\nThis is made possible by treating products as core primitives of the underlying clearing layer, rather than as constructs defined and managed by individual trading protocols. As a result, open interest in a product is aggregated and maintained at the clearing level, decoupled from any single execution venue. Multiple trading venues can list and trade the same product while contributing to—and drawing from—a shared clearing infrastructure. This not only increases available liquidity for traders but also fosters competition among trading venues, which can differentiate on user experience, fee models, or market access without fragmenting liquidity.\nIn effect, the AFP enables a unified, venue-agnostic marketplace for each product, transforming derivatives markets from isolated silos into an interoperable ecosystem.",
+    "text": "Intents are cryptographically signed off-chain expressions of what a user wishes to achieve. In the AFP, Intent Accounts submit intents to trading protocols, which are then submitted as components of a trade on-chain to be cleared.",
     "crumbs": [
       "Autonity Futures Protocol",
       "Trading",
-      "Trade Execution and Clearing"
+      "Intents"
+    ]
+  },
+  {
+    "objectID": "intents.html#intent-structure",
+    "href": "intents.html#intent-structure",
+    "title": "Intents",
+    "section": "Intent Structure",
+    "text": "Intent Structure\nAll trading protocols must implement interfaces to accept intents as inputs.\nstruct Intent {\n    address marginAccountID;\n    address intentAccountID;\n    bytes32 hash;\n    IntentData data;\n    bytes signature;\n}\n\nmarginAccountID - the margin account ID which has a funded margin account on the associated collateral asset\nintentAccountID - the intent account ID which has signed the intent (must be approved by the margin account)\nhash - the hash of the intent data\ndata - the intent data containing the details of the intended trade\nsignature - the signature of the intent, signed by the intent account ID\n\n    struct IntentData {\n        uint256 nonce;\n        address tradingProtocolID;\n        bytes32 productID;\n        uint256 limitPrice;\n        uint256 quantity;\n        uint256 maxTradingFeeRate;\n        uint256 goodUntil;\n        Side side;\n    }\n\nnonce - the unique nonce of the intent, used to prevent replay attacks\ntradingProtocolID - the trading protocol ID that is executing the intent (must match the msg.sender)\nproductID - the product ID of the product being traded\nlimitPrice - the limit price for the trade\nquantity - the maximum quantity to be traded\nmaxTradingFeeRate - the maximum trading fee rate that the account is willing to pay to the trading protocol\ngoodUntil - the time after which this intent expires\nside* - the side of the trade (BID or ASK)",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading",
+      "Intents"
     ]
   },
   {
@@ -640,60 +454,250 @@
     ]
   },
   {
-    "objectID": "intents.html",
-    "href": "intents.html",
-    "title": "Intents",
+    "objectID": "trade-execution-and-clearing.html",
+    "href": "trade-execution-and-clearing.html",
+    "title": "Trade Execution and Clearing",
     "section": "",
-    "text": "Intents are cryptographically signed off-chain expressions of what a user wishes to achieve. In the AFP, Intent Accounts submit intents to trading protocols, which are then submitted as components of a trade on-chain to be cleared.",
+    "text": "The separation of trade execution and clearing in the Autonity Futures Protocol (AFP) introduces a fundamentally new market structure for derivatives. Traditionally, each trading protocol maintains its own siloed order book and liquidity pool for a given product, limiting traders to the open interest and counterparties available within that specific venue. In contrast, the AFP architecture allows traders to access the global pool of open interest for a product—regardless of which trading venue they’re using.\nThis is made possible by treating products as core primitives of the underlying clearing layer, rather than as constructs defined and managed by individual trading protocols. As a result, open interest in a product is aggregated and maintained at the clearing level, decoupled from any single execution venue. Multiple trading venues can list and trade the same product while contributing to—and drawing from—a shared clearing infrastructure. This not only increases available liquidity for traders but also fosters competition among trading venues, which can differentiate on user experience, fee models, or market access without fragmenting liquidity.\nIn effect, the AFP enables a unified, venue-agnostic marketplace for each product, transforming derivatives markets from isolated silos into an interoperable ecosystem.",
     "crumbs": [
       "Autonity Futures Protocol",
-      "Intents"
+      "Trading",
+      "Trade Execution and Clearing"
     ]
   },
   {
-    "objectID": "intents.html#intent-structure",
-    "href": "intents.html#intent-structure",
-    "title": "Intents",
-    "section": "Intent Structure",
-    "text": "Intent Structure\nAll trading protocols must implement interfaces to accept intents as inputs.\nstruct Intent {\n    address marginAccountID;\n    address intentAccountID;\n    bytes32 hash;\n    IntentData data;\n    bytes signature;\n}\n\nmarginAccountID - the margin account ID which has a funded margin account on the associated collateral asset\nintentAccountID - the intent account ID which has signed the intent (must be approved by the margin account)\nhash - the hash of the intent data\ndata - the intent data containing the details of the intended trade\nsignature - the signature of the intent, signed by the intent account ID\n\n    struct IntentData {\n        uint256 nonce;\n        address tradingProtocolID;\n        bytes32 productID;\n        uint256 limitPrice;\n        uint256 quantity;\n        uint256 maxTradingFeeRate;\n        uint256 goodUntil;\n        Side side;\n    }\n\nnonce - the unique nonce of the intent, used to prevent replay attacks\ntradingProtocolID - the trading protocol ID that is executing the intent (must match the msg.sender)\nproductID - the product ID of the product being traded\nlimitPrice - the limit price for the trade\nquantity - the maximum quantity to be traded\nmaxTradingFeeRate - the maximum trading fee rate that the account is willing to pay to the trading protocol\ngoodUntil - the time after which this intent expires\nside* - the side of the trade (BID or ASK)",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Intents"
-    ]
-  },
-  {
-    "objectID": "clearing-fees.html",
-    "href": "clearing-fees.html",
-    "title": "Clearing fees",
+    "objectID": "layer1/index.html",
+    "href": "layer1/index.html",
+    "title": "Layer 1",
     "section": "",
-    "text": "For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee. This section documents the Clearing Fee component.",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Fees",
-      "Clearing fees"
-    ]
+    "text": "Please see docs.autonity.org for the most recent Layer 1 documentation."
   },
   {
-    "objectID": "clearing-fees.html#clearing-fee",
-    "href": "clearing-fees.html#clearing-fee",
-    "title": "Clearing fees",
-    "section": "Clearing Fee",
-    "text": "Clearing Fee\nClearing fees are quoted as a percentage of the trade’s notional value, referred to as the Clearing Fee Rate (“CFR”)\nCF[i] = p * abs(q) * POINT_VALUE * CFR\nwhere p is the trade’s Trade Price and q is the (signed) quantity of the trade’s i-th fill. CFR is a global system parameter CLEARING_FEE_RATE, that is common to all products in the AFP.\nsum(CF[1],...,CF[n]) is added to the Capital of the Clearing System’s Treasury Account.\nThe Clearing System’s Treasury Account is defined by the Clearing System parameter TREASURY_ADDRESS (funds in the Clearing System’s Treasury Account will subsequently be used to buy-and-burn NTN).",
-    "crumbs": [
-      "Autonity Futures Protocol",
-      "Fees",
-      "Clearing fees"
-    ]
-  },
-  {
-    "objectID": "fees.html",
-    "href": "fees.html",
-    "title": "Fees",
+    "objectID": "afp copy/index.html",
+    "href": "afp copy/index.html",
+    "title": "AFP Documentation",
     "section": "",
-    "text": "For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee.\nTypically, when trading protocols and clearing houses are tightly integrated, traders pay a single, undifferentiated “trading fee.” This approach, however, obscures the distinct and important roles that trading protocols and clearing houses play in the trade lifecycle.\nWith the AFP, trade execution and clearing are decoupled, so trading and clearing fees are treated as separate concerns and charged independently. This separation gives Product Builders the flexibility to redistribute fees as they wish. For example, clearing fees could be used to incentivize trading protocols to list their products and bootstrap liquidity by redirecting a portion of the Clearing Fees as rebates. If such incentives are unnecessary, Clearing Fees can instead be accumulated on the Product Builder’s Margin Account.\nAt the same time, trading protocols have complete flexibility in how they implement trading fees. Whether through maker rebates, volume-based tiers, or any other fee structure, the AFP empowers venues to design and adapt their own fee regimes to best serve their markets and participants.",
+    "text": "Welcome to the Autonomous Futures Protocol (AFP) documentation site. Explore the documentation to learn more about the protocol’s features and how to use it."
+  },
+  {
+    "objectID": "closeout-agent.html",
+    "href": "closeout-agent.html",
+    "title": "Closeout Agent",
+    "section": "",
+    "text": "Any on-chain actor with an associated margin account can initiate the Final Settlement Process for a Product, once the product is in the FINAL_SETTLEMENT state. Such an on-chain actor is termed a “Closeout Agent”.\nA Closeout Agent initiates the Final Settlement Process by calling the\nClearing System’s initiateFinalSettlement(..) method with _Closeout\nData_. Closeout Data consists of an array of addresses denoting a set of MAs that (1) each have a non-zero position in the product and (2) collectively offset each other (i.e., the sum of their position sizes is 0).\nWhen a Closeout Agent calls initiateFinalSettlement(..), the Clearing System performs the Final Settlement Process Checks:\n\nFor each account in Closeout Data, fetch the account’s position quantity Q:\n\n\nif Q == 0, the checks fail and the processes is aborted.\nif Q =! 0, then increment checksum = checksum + Q.\n\n\nIf checksum == 0, proceed to the Final Settlement Closeout; if it does not, the checks fail and the process is aborted.\n\nFinal Settlement Closeout executes as follows:\n\nIf the FSP does not exist, call finalizeFsp and execute the Final Settlement Price Resolution per the process above. If that process fails, abort Final Settlement Closeout. If that process succeeds, continue.\nFor each account a in Closeout Data:\nConstruct a trade done at the FSP with a on the buy (sell) side and Treasury Account on the sell (buy) side if a’s position is short (long);\nApply trade settlement to a:\nRPnL = FSP * Q * POINT_VALUE - B\nC[t] = C[t-1] + RPnL\nQ[t] = Q[t-1] + -Q (i.e., Q[t] = 0)\nApply trade settlement to Treasury Account:\nUpdate Cost Basis B per conditional definition assuming a trade quantity of Q at price FSP.\nCalculate RPnL per conditional definition\nC[t] = C[t-1] + RPnL\nQ[t] = Q[t-1] + Q\nApply the Closeout Fee:\nC[t] = C[t-1] - CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q) on account a\nC[t] = C[t-1] + CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q) on Treasury Account\nApply the Closeout Agent Reward:\nC[t] = C[t-1] - CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q) on Treasury Account\nC[t] = C[t-1] + CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q) on Closeout Agent’s account\n\nThe product will transition from FINAL_SETTLEMENT state to EXPIRED state if the open interest in the product is zero; otherwise, the product remains in FINAL_SETTLEMENT state.\ninitiateFinalSettlement(..) can be called multiple times whilst the open interest is non-zero.\nNotes:\n\nCLOSEOUT_FEE_RATE &gt;= CLOSEOUT_REWARD_RATE\nCLOSEOUT_REWARD_RATE will be set at a level that’s a multiple of anticipated venue trading fees (perhaps 30bps) to incentivize users to close their positions before the conclusion of the Tradeout Interval.\nBecause checksum == 0, Treasury Account’s position in the product (typically 0) will be the same after the Final Settlement Process as it was right before the process commenced. But Treasury Account’s Capital will increase by:\n\n(CLOSEOUT_FEE_RATE - CLOSEOUT_REWARD_RATE) * POINT_VALUE * FSP * OPEN_INTEREST * 2",
     "crumbs": [
       "Autonity Futures Protocol",
-      "Fees"
+      "Closeout Agent"
+    ]
+  },
+  {
+    "objectID": "clearing-system.html",
+    "href": "clearing-system.html",
+    "title": "Clearing System",
+    "section": "",
+    "text": "The decentralized clearing system of the AFP is core to the current functioning of the futures markets that are built on top of it.\nExisting derivates markets (both in TradFi and DeFi) couple trade execution and clearing into one venue. In TradFi, monopolistic tendencies concentrate market activity into a single trading venue for a particular instrument, whilst in DeFi competition for market share in derivates with the same underlying results in a fragmented market structure.\nFor example, Binance, Bybit (CEXs), Hyperliquid and DYDX (DEXs) have all created BTCUSDT futures contracts, all built on the same underlying market: spot BTC-USDT. Yet, each venue that creates a futures contract on BTC-USDT allows for only their own product to be traded on their own venue, leading to fragmented liquidity even though the underlying is the same. This is not a decentralized market architecture.\nContrast this to true decentralized markets such as spot Bitcoin. Bitcoin can be bought on any CEX and if desired can then be moved to a wallet and sold on a DEX, providing traders with an abundance of liquidity options to trade it. The AFP introduces the same level of true decentralisation in the derivatives markets with its clearing system.\nDecentralized clearing decouples trade execution from clearing, allowing for trades to be executed at one venue but cleared at another. This subtle yet crucial architectural difference results in a significantly altered and more efficient market design, allowing:\n\nA rich choice of trading modalities to trade the same product\nTraders access to a global pool of open interest in a product\nCross-venue cross-margining",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System"
+    ]
+  },
+  {
+    "objectID": "mark-price.html",
+    "href": "mark-price.html",
+    "title": "Mark Price determination",
+    "section": "",
+    "text": "The mark price is used as the price at which the PnL of positions is calculated, and so feeds into the Margin Account Equity checks, which in turn determine whether a trade can be completed by a margin account, or if it can be liquidated.\nThe mark price is determined by the average price of all trades originating from all trading protocols that have submitted trades to the clearing system in a sliding 30 second window.\nIf a trade is executed at time t, the Mark Price for a product at time t is defined as:\nMP[t] = sum(p[j] * abs(q[j])) / sum(abs(q[j]))\nfor every trade j such that j’s timestamp is within [t, t-30 seconds]. If there is no trade at time t, MP[t] = MP[t-1].",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Mark Price determination"
+    ]
+  },
+  {
+    "objectID": "trading.html",
+    "href": "trading.html",
+    "title": "Trading",
+    "section": "",
+    "text": "Trade Execution and Clearing\nCross-Venue Cross-Margining\nIntents",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading"
+    ]
+  },
+  {
+    "objectID": "trading.html#sub-sections",
+    "href": "trading.html#sub-sections",
+    "title": "Trading",
+    "section": "",
+    "text": "Trade Execution and Clearing\nCross-Venue Cross-Margining\nIntents",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading"
+    ]
+  },
+  {
+    "objectID": "how-to-create-a-product.html",
+    "href": "how-to-create-a-product.html",
+    "title": "How to Create a Product",
+    "section": "",
+    "text": "Product creation is permissionless on the AFP, so any address on Autonity can become a Product Builder.\n\nPrerequisites\nBefore you can create a product on the Autonity Futures Protocol (AFP), ensure you have:\n\nA Margin Account contract exists in the collateral of your product. For your product to be easily tradeable you will want to ensure that the Margin Contract for the collateral asset that you wish to use for your product has been deployed. This can be done by calling:\nfunction initializeMarginAccount(address collateralAsset) public returns (IMarginAccount)\non the MarginAccountRegistry.sol contract. This ensures that traders can easily deposit collateral and start trading without requiring them to do the Margin Account contract deployment themselves.\nA Margin Account in the collateral asset of the product you will create as this is where clearing fees will be credited to. For more information on creating a Margin Account, see How to create and fund a margin account on the AFP\nRead through the documentation as understanding how products work in the AFP is crucial to creating a successful one in the first place!\n\n\n\nImportant notes\n\n\nSteps to Create a Product\n\nDecide on a timeseries that your product will trade. Ensure there is a reliable, undisputable source of truth for the timeseries that oracles will be able to use to report a final settlement value.\nConstruct the Product Specification\n\nPrepare a valid Product struct with all required fields. There is no one-size-fits-all set of parameters that can be specified as each product is unique.\nImportant: the same builder cannot create two products with the same symbol!\n\nRegister the Product\n\nCall the register function on ProductRegistry.sol, passing your constructed Product struct as calldata.\nThis can either be done through the SDK , or direct calls on-chain to the contract.\nEnsure your product is in a PENDING state, which indicates it has passed the on-chain validity checks. This can be done by the view function:\n\n\n\nSoliditySDK\n\n\n    function state(bytes32 productId) external view returns (ProductState)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nEnsure your product is listed on at least one trading protocol. This will ensure that traders have a clear way to trade your product. Listing your product on a trading protocol is up to the discretion of the trading protocols themselves.\nOnce the startTime of your product is reached, its state will go LIVE and become tradeable. A portion of the Clearing Fees will be credited to your Margin Account, so the more volume that is traded through your product, the more clearing fees will be accrued.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "How to Create a Product"
+    ]
+  },
+  {
+    "objectID": "liquidation-agent.html",
+    "href": "liquidation-agent.html",
+    "title": "Liquidation Agent",
+    "section": "",
+    "text": "When a Margin Account fails to have sufficient Maintenance Margin Available to meet its Maintenance Margin Requirements, it may be liquidated through a liquidation auction.\nInitiation a Liquidation Auction is an incentivized activity.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Liquidation Agent"
+    ]
+  },
+  {
+    "objectID": "product-lifecycle.html",
+    "href": "product-lifecycle.html",
+    "title": "Product Lifecycle",
+    "section": "",
+    "text": "The product lifecycle in the AFP is defined by a series of state transitions:\nstateDiagram\n    [*] --&gt; PENDING : Submit Product Spec and pass Validity Checks\n    PENDING --&gt; LIVE : Start Time is reached\n    LIVE --&gt; TRADEOUT : Earliest FSP Resolution Time is reached\n    TRADEOUT --&gt; FINAL_SETTLEMENT : Minimum Tradeout Interval passes AND FSP=X provided by oracle\n    TRADEOUT --&gt; EXPIRED : Open Interest == 0\n    FINAL_SETTLEMENT --&gt; EXPIRED : Open Interest == 0\nThe state of a product can always be queried by:",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "product-lifecycle.html#pending",
+    "href": "product-lifecycle.html#pending",
+    "title": "Product Lifecycle",
+    "section": "PENDING",
+    "text": "PENDING\n\nProduct Validity checks\nWhen a Product Builder submits a product specification to the AFP, a number of validity checks are first done before it is accepted by the AFP as a valid product:\n\nCheck that the Price Quotation and the Collateral Asset are the same.\nCheck the Product ID is globally unique.\nCheck that IMR &gt;= MMR.\nCheck that Earliest FSP Resolution Time &gt; Start Time.\nCheck that Start Time &gt; Current Timestamp.\nCheck that Maximum Tradeout Interval &gt; Minimum Tradeout Interval.\nCheck that entered Field value data types match EVM Data Type.\nEnforce any version-specific constraints.\n\nIf the above all pass, the product is entered into the Product Registry. ## LIVE\nOnce startTime of a product in the Product Registry is reached, it transitions to LIVE state. At this point, trades can be submitted to the clearing system in that product.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "product-lifecycle.html#tradeout",
+    "href": "product-lifecycle.html#tradeout",
+    "title": "Product Lifecycle",
+    "section": "TRADEOUT",
+    "text": "TRADEOUT\nOnce the Earliest FSP Resolution Time is reached, the product enters TRADEOUT state during which time no new positions can be opened, and existing ones can only be decreased. The purpose of this period is to allow market participants to gracefully exit their positions before they are forcibly closeout, which would incur a penalty.\nDuring the tradeout period, liquidations may still occur, and successful liquidation bids on products in the tradeout period will result in the bidders margin account holding the position.\nDuring this period, Final Settlement Price resolution can also occur, which will anchor the mark price of the product to the FSP. In the case that an FSP is not known after the tradeoutInterval, then the product will remain in TRADEOUT until its Open Interest goes to zero, at which point it will transition to an EXPIRED state.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "product-lifecycle.html#final_settlement",
+    "href": "product-lifecycle.html#final_settlement",
+    "title": "Product Lifecycle",
+    "section": "FINAL_SETTLEMENT",
+    "text": "FINAL_SETTLEMENT\nIf the FSP is known, the product transitions to FINAL_SETTLEMENT state when the tradeoutInterval passes. At this point, the Final Settlement Process may occur. Once the Open Interest goes to zero, meaning that no margin account has an outstanding position in the product, it can transition to an EXPIRED state.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "product-lifecycle.html#expired",
+    "href": "product-lifecycle.html#expired",
+    "title": "Product Lifecycle",
+    "section": "EXPIRED",
+    "text": "EXPIRED\nIf a product is in EXPIRED state then it has no open positions remaining and no new trades can be opened.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "oracle-interface.html",
+    "href": "oracle-interface.html",
+    "title": "Oracle Interface",
+    "section": "",
+    "text": "Oracles are a crucial component of the AFP as they are responsible for supplying the Final Settlement Value which is used to calculate the Final Settlement Price that Dated Futures products settle against. The AFP does not prescribe a specific oracle implementation to be used, as the oracle selection is up to the Product Builder. However, all Oracles must conform to the Oracle Interface expected by the clearing system.\nFor specific details on the interface that must be implemented, see the reference documentation here",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles",
+      "Oracle Interface"
+    ]
+  },
+  {
+    "objectID": "oracles.html",
+    "href": "oracles.html",
+    "title": "Oracles",
+    "section": "",
+    "text": "How to Integrate an Oracle\nOracle Interface\n\nAutonity exposes a uniform oracle interface that third parties can seamlessly integrate with. It is up to the product builder to define which oracle to source the underlying data from for a particular product. This allows Autonity to be oracle agnostic.\nHowever, initial reference implementations will be of the optimistic oracle type. This strategy works because the initial suite of products that will be released will be Dated Futures, which require a single final settlement price to be submitted to settle the product at expiry.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles"
+    ]
+  },
+  {
+    "objectID": "oracles.html#sub-sections",
+    "href": "oracles.html#sub-sections",
+    "title": "Oracles",
+    "section": "",
+    "text": "How to Integrate an Oracle\nOracle Interface\n\nAutonity exposes a uniform oracle interface that third parties can seamlessly integrate with. It is up to the product builder to define which oracle to source the underlying data from for a particular product. This allows Autonity to be oracle agnostic.\nHowever, initial reference implementations will be of the optimistic oracle type. This strategy works because the initial suite of products that will be released will be Dated Futures, which require a single final settlement price to be submitted to settle the product at expiry.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles"
+    ]
+  },
+  {
+    "objectID": "margining.html",
+    "href": "margining.html",
+    "title": "Margining",
+    "section": "",
+    "text": "IMR is a product parameter and is expressed as a percentage under 100% (eg 0.30). For a product Ψ. Initial Margin (IM) relates to a trade j and is a monetary amount in the product Ψ’s Price Quotation units. It is defined conditionally on the type of position change:\n\nif the position increases: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j])\nif the position reverses: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j] + Q[j-1])",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margining"
+    ]
+  },
+  {
+    "objectID": "margining.html#initial-margin-requirement-imr",
+    "href": "margining.html#initial-margin-requirement-imr",
+    "title": "Margining",
+    "section": "",
+    "text": "IMR is a product parameter and is expressed as a percentage under 100% (eg 0.30). For a product Ψ. Initial Margin (IM) relates to a trade j and is a monetary amount in the product Ψ’s Price Quotation units. It is defined conditionally on the type of position change:\n\nif the position increases: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j])\nif the position reverses: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j] + Q[j-1])",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margining"
+    ]
+  },
+  {
+    "objectID": "margining.html#maintenance-margin-requirement-mmr",
+    "href": "margining.html#maintenance-margin-requirement-mmr",
+    "title": "Margining",
+    "section": "Maintenance Margin Requirement (MMR)",
+    "text": "Maintenance Margin Requirement (MMR)\nMMR is a product parameter and is expressed as a percentage under 100% (eg 0.20). Maintenance Margin relates to a position and is a monetary amount in the product’s Price Quotation units and is defined as: MM[Ψ][j] = MMR * abs(B[j])\nMaintenance Margin Used (MMU) is defined for the n products in which the margin account holder has a non-zero position: MMU[k] = sum(MM[1][k],.., MM[n][k]) where k is an index over all trades and n products in a Margin Account.\nMaintenance Margin Available (MMA) is then defined as: MMA[k] = max(MAE - MMU[k], 0). This is the amount of collateral that can be used to fund new trades.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margining"
+    ]
+  },
+  {
+    "objectID": "margining.html#initial-margin-check",
+    "href": "margining.html#initial-margin-check",
+    "title": "Margining",
+    "section": "Initial Margin Check",
+    "text": "Initial Margin Check\nIf a trade increases an account’s position size, it must be the case that IM &lt;= MMA in order for the trade to settle. If IM &gt; MMA, the trade will fail. For trades that decrease position size, the check for IM is ignored.\nIf a trade reverses an account’s position, then the checks are split into the two following operations:\n\nFirst, the account’s position is decreased to zero, where the IM check is ignored. And the MAE, MMU, MMA (whichever is stored on chain) for the account is updated.\nSecond, the account’s position is increased, at which point the IM check is applied.\n\nIn the case of multiple position changes as part of a single trade, the IM check is performed as follows:\n\nAll reversing trades are broken down into a decreasing trade and an increasing trade\nThe account’s MMU is decreased by the amount freed up by the decreasing trade:\nMMU' = MMU - sum(MMR[j] * (abs(B[j]) - abs(B'[j])))\nWhere:\n   - `B'[j]` is the cost basis after the trade for product `Ψ[j]`. \n   - `B[j]` is the cost basis before the trade for product `Ψ[j]`. \n   - `MMR[j]` is the MMR for the product `Ψ[j]`.\nNote that here MMU' is not strictly equal to the MMU after the trade, as it does not take into account the new Maintenance Margin for the increasing trades. It is only an intermediate value used to perform the IM check.\nThe IM check is performed on the increasing trades:\nsum(IM[Ψ][j]) &lt;= MAE' - MMU'\nWhere MAE' is the MAE after the trade. If this check fails, the trade is reverted.\nIf MU &gt;= 100% (equivalently, MMA = 0), the account enters LIQUIDATABLE state and any non-zero product position in the account may get liquidated in whole or part by the clearing system’s liquidation auction mechanism.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margining"
     ]
   },
   {
@@ -1032,6 +1036,7 @@
     "text": "Cross-margining in derivatives trading is not a new concept—many existing protocols already allow traders to share collateral across positions. However, in these systems, cross-margining is typically confined within a single trading venue, as both execution and clearing are tightly coupled within the same protocol.\nThe Autonity Futures Protocol (AFP) introduces a novel architecture that decouples trade execution from clearing. This separation enables a new and more powerful form of collateral efficiency: cross-venue cross-margining. Traders can now share collateral not just across positions, but across entirely separate trading venues.\nIn practical terms, this means that a position opened on Trading Protocol A can generate unrealised profits that are immediately usable as margin to support a new position on Trading Protocol B. This is possible because margin accounts (MAs) are native to the shared clearing layer, rather than being embedded within individual trading venues—removing the historical barrier to cross-venue margining.",
     "crumbs": [
       "Autonity Futures Protocol",
+      "Trading",
       "Cross-Venue Cross-Margining"
     ]
   },
@@ -1043,6 +1048,7 @@
     "text": "The AFP is Oracle agnostic, meaning that as long as a Final Settlement Value (FSV) exists after the earliestFSPSubmissionTime on an oracle, the clearing system will fetch it and use it to closeout any outstanding positions via the Final Settlement Process.",
     "crumbs": [
       "Autonity Futures Protocol",
+      "Oracles",
       "How to Integrate an Oracle"
     ]
   },
@@ -1054,6 +1060,7 @@
     "text": "Conforming to the AFP\nAny oracle implementation must implement the AFP Oracle interface. :\nfunction resolve(bytes32 productId, bytes memory oracleCalldata) external view returns (int);\nWhere productId is used to resolve the correct FSV (as a single oracle may be providing the FSV to several products simultaneously), and oracleCalldata is used to pass any additional required logic to the oracle (such as referencing a particular element of a timeseries).",
     "crumbs": [
       "Autonity Futures Protocol",
+      "Oracles",
       "How to Integrate an Oracle"
     ]
   },
@@ -1065,6 +1072,7 @@
     "text": "Implementation with a product\nIt is up to a Product Builder to assign a particular oracle as the FSV resolver. Hence the Product Builder should ensure that the oracle is aware of its responsibilities, and the form in which the FSV is expected to be supplied. Such details can be found in the Product Specification:\n    struct OracleSpecification {\n        address oracleAddress;\n        uint8 fsvDecimals;\n        int fspAlpha;\n        int fspBeta;\n        bytes fsvCalldata;\n    }",
     "crumbs": [
       "Autonity Futures Protocol",
+      "Oracles",
       "How to Integrate an Oracle"
     ]
   },
@@ -1100,6 +1108,7 @@
     "text": "The AFP exposes a novel suite of products that previously could not be traded so offering a variety of trade execution protocols that act as entry points to these markets is crucial.",
     "crumbs": [
       "Autonity Futures Protocol",
+      "Trading Protocols",
       "How to integrate a trading protocol"
     ]
   },
@@ -1111,6 +1120,7 @@
     "text": "Prerequisites\nBefore you can implement a trading protocol, ensure you have:\n\nA margin account for each of the collateral assets your listed products require. For example, if the products you intend to list on your protocol use USDC and ATN as collateral assets, you must have Margin Accounts in those assets.\nAn interface to accept intents. The AFP uses an intent centric architecture and allows for a gasless trading experience for the end user. Your trading protocol must take Intents as input.\nAn output that conforms to the expected trade object. The AFP expects trades to be represented in a specific way before they can be cleared.",
     "crumbs": [
       "Autonity Futures Protocol",
+      "Trading Protocols",
       "How to integrate a trading protocol"
     ]
   },
@@ -1122,6 +1132,7 @@
     "text": "Integrating your Trading Protocol\n\nDeploy a TradingProtocol.sol instance that will be used to send trades to the clearing system. The address that is used to deploy the contract will automatically be granted DEFAULT_ADMIN_ROLE rights.\n\n\nSoliditySDK\n\n\n    function example() external view returns (ProductState)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nUsing the address with the admin rights, authorise an Autonity address on your newly deployed TradingProtocol.sol contract to submit trades (this address will then gain the TRADE_SUBMITTER role). This prevents any unauthorised addresses from submitting trades to the clearing system through your trading protocol contract:\n\n\nSoliditySDK\n\n\n    function addTradeSubmitter(address submitter) external override onlyRole(DEFAULT_ADMIN_ROLE)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nImplement logic to determine when your trading protocol will enable fallBackOnFailure. If fallBackOnFailure is set to true then collateral in the margin account of the DEFAULT_ADMIN_ROLE is used as the counterparty in a trade where one side may fail its MAE Check.\nConfigure your trading protocol to submit trades from the address with the TRADE_SUBMITTER role.\n\n\nSoliditySDK\n\n\nfunction execute(IClearing.Trade calldata trade, bool fallbackOnFailure) external override onlyRole(TRADE_SUBMITTER_ROLE)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nTrading fees will be credited to the margin account of the DEFAULT_ADMIN_ROLE from where they can be withdrawn.\nYour trading protocol is now ready to accept trades!",
     "crumbs": [
       "Autonity Futures Protocol",
+      "Trading Protocols",
       "How to integrate a trading protocol"
     ]
   },
@@ -1171,12 +1182,5 @@
       "Trading Protocols",
       "Trading Protocols"
     ]
-  },
-  {
-    "objectID": "afp copy/index.html",
-    "href": "afp copy/index.html",
-    "title": "AFP Documentation",
-    "section": "",
-    "text": "Welcome to the Autonomous Futures Protocol (AFP) documentation site. Explore the documentation to learn more about the protocol’s features and how to use it."
   }
 ]

@@ -443,9 +443,9 @@ ul.task-list li input[type="checkbox"] {
 </main> <!-- /main -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Don't show on glossary, about-afp, or the homepage
+  // Don't show on homepage (index.qmd) or glossary/about-afp pages
   const path = window.location.pathname || '/';
-  if (/^(\/$|.*\/index\.html$)/.test(path)) return; // homepage
+  if (path === '/' || /\/index\.html$/.test(path)) return;
   if (/(glossary|about-afp)\.(qmd|html)$/.test(path)) return;
   // Create the glossary search box
   const searchBox = document.createElement('div');
