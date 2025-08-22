@@ -1186,5 +1186,1175 @@
     "title": "AFP Documentation",
     "section": "",
     "text": "Welcome to the Autonomous Futures Protocol (AFP) documentation site. Explore the documentation to learn more about the protocol’s features and how to use it."
+  },
+  {
+    "objectID": "afp/onchain-agents.html",
+    "href": "afp/onchain-agents.html",
+    "title": "On-chain Agents",
+    "section": "",
+    "text": "Final Settlement Price Agent\nCloseout Agent\nLiquidation Agent",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "On-chain Agents"
+    ]
+  },
+  {
+    "objectID": "afp/final-settlement-process.html",
+    "href": "afp/final-settlement-process.html",
+    "title": "Final Settlement Process",
+    "section": "",
+    "text": "Also known as closeout process.\nAny margin account can initiate the Final Settlement Process for a product once the product is in the FINAL_SETTLEMENT state (such a margin account is termed a “Closeout Agent”).\nA Closeout Agent initiates the Final Settlement Process by calling:\non the FinalSettlementFacet.sol contract. The array of addresses (margin accounts) must:",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Final Settlement Process"
+    ]
+  },
+  {
+    "objectID": "afp/final-settlement-process.html#final-settlement-process-checks",
+    "href": "afp/final-settlement-process.html#final-settlement-process-checks",
+    "title": "Final Settlement Process",
+    "section": "Final Settlement Process Checks",
+    "text": "Final Settlement Process Checks\nWhen a Closeout Agent calls initiateFinalSettlement(..), the Clearing System performs the Final Settlement Process Checks:\n\nFor each margin account in accounts, fetch the account’s position quantity Q:\n\nif Q == 0, the checks fail and the processes is aborted.\nif Q =! 0, then increment checksum = checksum + Q.\n\nIf checksum == 0, proceed to the Final Settlement Closeout; if it does not, the checks fail and the process is aborted.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Final Settlement Process"
+    ]
+  },
+  {
+    "objectID": "afp/final-settlement-process.html#final-settlement-closeout",
+    "href": "afp/final-settlement-process.html#final-settlement-closeout",
+    "title": "Final Settlement Process",
+    "section": "Final Settlement Closeout",
+    "text": "Final Settlement Closeout\n\nIf the FSP does not exist, call finalizeFsp() and execute the Final Settlement Price Resolution. If that process fails, abort Final Settlement Closeout. If that process succeeds, continue.\nFor each account a in Closeout Data:\n\nConstruct a trade done at the FSP with a on the buy (sell) side and Treasury Account on the sell (buy) side if a’s position is short (long);\nApply trade settlement to a:\n\nRPnL = FSP * Q * POINT_VALUE - B\nC[t] = C[t-1] + RPnL\nQ[t] = Q[t-1] + -Q (i.e., Q[t] = 0)\n\nApply trade settlement to Treasury Account:\n\nUpdate Cost Basis B per conditional definition assuming a trade quantity of Q at price FSP.\nCalculate RPnL per conditional definition\nC[t] = C[t-1] + RPnL\nQ[t] = Q[t-1] + Q\n\nApply the Closeout Fee:\n\nC[t] = C[t-1] - CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q) on account a\nC[t] = C[t-1] + CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q) on Treasury Account\n\nApply the Closeout Agent Reward:\n\nC[t] = C[t-1] - CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q) on Treasury Account\nC[t] = C[t-1] + CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q) on Closeout Agent’s account\n\n\n\nThe product will transition from FINAL_SETTLEMENT state to EXPIRED state if the open interest in the product is zero; otherwise, the product remains in FINAL_SETTLEMENT state. initiateFinalSettlement(..) can be called multiple times whilst the open interest is non-zero.\nNotes:\n\nCLOSEOUT_FEE_RATE &gt;= CLOSEOUT_REWARD_RATE\nCLOSEOUT_REWARD_RATE is set at a level that’s a multiple of anticipated venue trading fees to incentivize users to close their positions before the conclusion of the Tradeout period.\nAs checksum == 0, the Treasury Account’s position in the product (typically 0) will be the same after the Final Settlement Process as it was right before the process commenced. But Treasury Account’s Capital will increase by:\n(CLOSEOUT_FEE_RATE - CLOSEOUT_REWARD_RATE) * POINT_VALUE * FSP * OPEN_INTEREST * 2",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Final Settlement Process"
+    ]
+  },
+  {
+    "objectID": "afp/final-settlement-price-agent.html",
+    "href": "afp/final-settlement-price-agent.html",
+    "title": "Final Settlement Price Agent",
+    "section": "",
+    "text": "Once the Earliest FSV Submission Time is reached, anyone can call the finalizeFsp() function on the FinalSettlementFacet.sol contract. If the call is successful, the FSP will become the Mark Price for the product.\nThere is no endogenous protocol incentive for an account to initiate Final Settlement Price Resolution by calling finalizeFsp. However, because Mark Price is set to FSP, one half of the Open Interest has an incentive to effect the (probable) Mark Price change early, so Final Settlement Price Resolution will likely occur shortly after the FSV is known to the Oracle. Moreover, the Final Settlement Process cannot begin until the FSP is resolved, and the Final Settlement Process does contain an endogenous protocol incentive for its initiation.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "On-chain Agents",
+      "Final Settlement Price Agent"
+    ]
+  },
+  {
+    "objectID": "afp/bankruptcy.html",
+    "href": "afp/bankruptcy.html",
+    "title": "Bankruptcy",
+    "section": "",
+    "text": "A Margin Account is bankrupt when its Margin Account Equity (MAE) &lt; 0. While the Maintenance Margin Requirement (MMR) and the liquidation auction mechanism exist to prevent bankruptcy, they cannot guarantee full risk mitigation — especially in fast-moving or illiquid markets. Thus, the (AFP) defines how bankruptcies are resolved when they do occur.\nThe AFP does not impose a protocol-endogenous Default Fund - a shared pool that absorbs losses from bankrupt accounts – as this approach has two key shortcomings:\nHowever, third-party insurance layers can still be built on top of the AFP if market demand exists for such products.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Bankruptcy"
+    ]
+  },
+  {
+    "objectID": "afp/bankruptcy.html#auto-deleveraging",
+    "href": "afp/bankruptcy.html#auto-deleveraging",
+    "title": "Bankruptcy",
+    "section": "Auto-deleveraging",
+    "text": "Auto-deleveraging\nInstead of socializing losses across all traders, as is the case with a Default Fund, the AFP uses an auto-deleveraging mechanism as a first resort, not a last resort. Losses from bankrupt accounts are absorbed directly by other margin accounts with opposing positions in the affected products.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Bankruptcy"
+    ]
+  },
+  {
+    "objectID": "afp/bankruptcy.html#which-accounts-absorb-the-losses",
+    "href": "afp/bankruptcy.html#which-accounts-absorb-the-losses",
+    "title": "Bankruptcy",
+    "section": "Which accounts absorb the losses?",
+    "text": "Which accounts absorb the losses?\nLosses related to auto-deleveraging are not socialized across the entire protocol. Instead:\n\nOnly margin accounts with opposing positions in the same products as the bankrupt account are eligible to absorb the loss.\nMargin accounts with positions in unrelated products are never impacted.\n\nThese constraints are critical to supporting permissionless market creation, as they isolate risk within products and prevent contagion across the entire system.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Bankruptcy"
+    ]
+  },
+  {
+    "objectID": "afp/fallback-mechanism.html",
+    "href": "afp/fallback-mechanism.html",
+    "title": "Fallback mechanism",
+    "section": "",
+    "text": "When a trade is submitted to the clearing system, an MAE Check is done on each margin account that makes up the trade.\nIt is possible that a margin account on one side of the trade fails, whilst a margin account on the otherside passes. Under normal circumstances this would result in an uncleared trade, and so the trade not settling. However, this results in a detrimental trading experience to the margin account that passed the MAE Check.\nIntroducing the concept of a fallback mechanism helps alleviate such situations by enabling the trading protocol to step in and take over the trade obligations of the margin account that failed the MAE Check. Assuming the margin account of the trading protocol passes the MAE Check, then the trade can successfully settle.\nHowever, this does imply that the trading protocol now has an open position in a product that it may not wish to keep. Handling of such positions is up to the discretion of the trading protocol.\nThe fallback mechanism is enabled by the trading protocol on a per trade basis by setting the fallbackOnFailure boolean flag to true when submitting trades:\nfunction execute(IClearing.Trade calldata trade, bool fallbackOnFailure) external override onlyRole(TRADE_SUBMITTER_ROLE)\n\n\n\n\n\nflowchart TD\n    A[Trade Submitted] --&gt; B{MAE Check on all Margin Accounts}\n    B -- All Pass --&gt; C[Trade settled]\n    B -- One or More Fail --&gt; D{Fallback enabled?}\n    D -- No --&gt; E[Trade failed]\n    D -- Yes --&gt; F{Trading Protocol MAE Check}\n    F -- Fail --&gt; E\n    F -- Pass --&gt; G[Trading Protocol margin account replaces margin account of failed MAE check account]\n    G --&gt; C",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols",
+      "Fallback mechanism"
+    ]
+  },
+  {
+    "objectID": "afp/product-specification.html",
+    "href": "afp/product-specification.html",
+    "title": "Product Types and Specification",
+    "section": "",
+    "text": "The AFP introduces a new suite of derivatives products that are not limited to spot underlyings. This means that products can be created on any verifiable timeseries, opening up the possibility for a completely new suite of financial products. Examples of such products are near infinite, as if a timeseries can be reliable reported, then a product can be created for it on the AFP. However, product creation is only the beginning as it is in then in the best interest of the Product Builder to create deep liquidity in their products, as they share in the clearing volume of deployed products.\nIn the current version of the AFP, all products are Dated Futures, meaning they have an expiry time and a final settlement price that the product will clear at once the Minimum Tradeout Interval elapses. This implies that the only value that is required to be reported on-chain by an oracle, is the final settlement price.\nSubsequent versions of the AFP will allow for additional types of products to be created such as perpetuals, and more.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Types and Specification"
+    ]
+  },
+  {
+    "objectID": "afp/product-specification.html#product-types",
+    "href": "afp/product-specification.html#product-types",
+    "title": "Product Types and Specification",
+    "section": "",
+    "text": "The AFP introduces a new suite of derivatives products that are not limited to spot underlyings. This means that products can be created on any verifiable timeseries, opening up the possibility for a completely new suite of financial products. Examples of such products are near infinite, as if a timeseries can be reliable reported, then a product can be created for it on the AFP. However, product creation is only the beginning as it is in then in the best interest of the Product Builder to create deep liquidity in their products, as they share in the clearing volume of deployed products.\nIn the current version of the AFP, all products are Dated Futures, meaning they have an expiry time and a final settlement price that the product will clear at once the Minimum Tradeout Interval elapses. This implies that the only value that is required to be reported on-chain by an oracle, is the final settlement price.\nSubsequent versions of the AFP will allow for additional types of products to be created such as perpetuals, and more.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Types and Specification"
+    ]
+  },
+  {
+    "objectID": "afp/product-specification.html#product-specification-for-dated-futures",
+    "href": "afp/product-specification.html#product-specification-for-dated-futures",
+    "title": "Product Types and Specification",
+    "section": "Product Specification for Dated Futures",
+    "text": "Product Specification for Dated Futures\nA Product Builder must pay careful attention to how a new product is specified, as once a product is registered in the AFP, its specification is immutable.\nTo submit a product registration to the AFP the following function on the ProductRegistry.sol contract must be called:\nfunction register(Product calldata product) external\nWhere the structure of the specification for a product that needs to be submitted is:\n\nProduct Structure\n   struct Product {\n        ProductMetadata metadata;\n        OracleSpecification oracleSpec;\n        string priceQuotation;\n        address collateralAsset;\n        uint startTime;\n        uint earliestFSPSubmissionTime;\n        uint unitValue;\n        uint16 initialMarginRequirement;\n        uint16 maintenanceMarginRequirement;\n        uint64 offerPriceBuffer;\n        uint64 auctionBounty;\n        uint32 tradeoutInterval;\n        uint8 tickSize;\n        string extendedMetadata;\n    }\n\nmetadata - the metadata associated with the product\noracleSpec - the oracle specification for the product\npriceQuotation - the symbol of the price quotation\ncollateralAsset - the address of the ERC20 collateral asset\nstartTime - the start time of the product when it transitions to a LIVE state\nearliestFSPSubmissionTime - the earliest time to submit the final settlement price\nunitValue - the point value of the product which defines\ninitialMarginRequirement - the initial margin requirement for the product\nmaintenanceMarginRequirement - the maintenance margin requirement for the product\nofferPriceBuffer - the buffer for the offer price\nauctionBounty - the bounty for a liquidation auction initiator\ntradeoutInterval - the interval for tradeout\ntickSize - the maximum precision of the price quotation\nextendedMetadata - CID of product extended metadata using the IPLD dag-json codec\n\n\n\nProductMetadata Structure\n    struct ProductMetadata {\n        address builder;\n        string symbol;\n        string description;\n    }\n\nbuilder - the address of the product creator\nsymbol - the symbol for this product\ndescription - the description of the product\n\n\n\nOracleSpecification Structure\n    struct OracleSpecification {\n        address oracleAddress;\n        uint8 fsvDecimals;\n        int fspAlpha;\n        int fspBeta;\n        bytes fsvCalldata;\n    }\n\noracleAddress - the address of the oracle contract\nfsvDecimals - the precision of the price quotation from oracleAddress.resolve\nfspAlpha - the alpha value for the oracle, used in price calculations fsp = alpha * oraclePrice + beta\nfspBeta - the beta value for the oracle, used in price calculations fsp = alpha * oraclePrice + beta\nfsvCalldata - the calldata to be used for final settlement price (FSP) calculation",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Types and Specification"
+    ]
+  },
+  {
+    "objectID": "afp/product-specification.html#example-product-specification",
+    "href": "afp/product-specification.html#example-product-specification",
+    "title": "Product Types and Specification",
+    "section": "Example Product Specification",
+    "text": "Example Product Specification\nThe example specification below relates to a US Initial Jobless Claims product.\n{\n  \"metadata\": {\n    \"builder\": \"0x4081e70aeb2dC6A8ECeBe067225a09dE1AfFCa3b\",\n    \"symbol\": \"CLAIMS27W25\",\n    \"description\": \"US Initial Jobless Claims\"\n  },\n  \"oracleSpec\": {\n    \"oracleAddress\": \"0xF3FA1f6fe52604EFf85B438B01B8b984AA200651\",\n    \"precision\": 0,\n    \"alpha\": \"1000000000000000\",\n    \"beta\": \"0\",\n    \"fspCalldata\": \"0x\"\n  },\n  \"priceQuotation\": \"USDCx\",\n  \"collateralAsset\": \"0xB855D5e83363A4494e09f0Bb3152A70d3f161940\",\n  \"startTime\": \"1751633100\",\n  \"earliestFSPSubmissionTime\": \"1752151500\",\n  \"unitValue\": \"1000000\",\n  \"initialMarginRequirement\": 1500,\n  \"maintenanceMarginRequirement\": 1000,\n  \"offerPriceBuffer\": \"150\",\n  \"auctionBounty\": \"50\",\n  \"tradeoutInterval\": 3600,\n  \"tickSize\": 1,\n  \"extendedMetadata\": \"bafyreicyvc7lwzr4u26zz4tlfcjaq4rt72c3hhltxulh4fz3xaaozohg4m\",\n  \"collateralAssetDecimals\": 6,\n}",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Types and Specification"
+    ]
+  },
+  {
+    "objectID": "afp/architecture.html",
+    "href": "afp/architecture.html",
+    "title": "Overall Architecture",
+    "section": "",
+    "text": "The AFP can be broken down into distinct components with subsequent sections of the documentation going into more detail on each.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "About the AFP",
+      "Overall Architecture"
+    ]
+  },
+  {
+    "objectID": "afp/architecture.html#product-builder",
+    "href": "afp/architecture.html#product-builder",
+    "title": "Overall Architecture",
+    "section": "Product Builder",
+    "text": "Product Builder\nThe Product Builder is responsible for defining a Product Specification that it will then submit to the Clearing System. For that Product Specification to be successfully submitted, automatic verification and validation checks must pass before it can go live. It is important to note that any address on Autonity can define and submit a Product Specification with the entire process being permissionless.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "About the AFP",
+      "Overall Architecture"
+    ]
+  },
+  {
+    "objectID": "afp/architecture.html#trading-protocols",
+    "href": "afp/architecture.html#trading-protocols",
+    "title": "Overall Architecture",
+    "section": "Trading Protocols",
+    "text": "Trading Protocols\nOnce a Product has been created, and it goes live, it is up to the discretion of Trading Protocols to list an individual product and create an active market in it. Hence Trading Protocols are a crucial component of the overall architecture and for the success of a product.\nTrading Protocols are third-party protocols that integrate with the clearing system where a product has been created by a Product Builder. The clearing system does not enforce any particular trading modality, meaning that the same product could be traded on a Central Limit Order Book (e.g. Binance, Bybit, OKX), an Automatic Market Maker (e.g. Uniswap), a Frequent Batch Auction (e.g. CoW Swap), a Request-for-quote protocol (e.g. Airswap), or any other type of trading protocol the community wishes to deploy.\nTrading Protocol integration with the clearing system is also a permissionless process meaning that any trading protocol that wishes to make a market in a product can do so. The clearing system simply expects trades to be submitted in a standard form that it can interpret.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "About the AFP",
+      "Overall Architecture"
+    ]
+  },
+  {
+    "objectID": "afp/architecture.html#margin-accounts",
+    "href": "afp/architecture.html#margin-accounts",
+    "title": "Overall Architecture",
+    "section": "Margin Accounts",
+    "text": "Margin Accounts\nOnce a product has been created, and has been listed by a Trading Protocol, traders can start taking positions in it. However, seeing as the AFP is a futures protocol, a margin account funded with collateral is first required to open any positions a trader wants to take on. Such Margin Accounts are native to the clearing system which allows them to be used across any trading protocol, allowing cross-margining not just between products in the same trading protocol (as is the current state of futures in TradFi and DeFi) but across all trading protocols. This means that the profits of a position opened in a CLOB trading protocol, could be used to fund another position a trader wants to open on an AMM in another product.\nAfter a trader has funded a Margin Account, they are ready to start trading.\nThe AFP uses intents to express a trader’s intention to place an order – meaning that if a trader wishes to go long Product A, they sign an intent and submit it to their desired trading protocol. When the order is filled and a trade occurs, the Trading Protocol sends this on-chain to the clearing system. The clearing system then performs verification checks on the submitted trade structure and ensures that the trade can clear.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "About the AFP",
+      "Overall Architecture"
+    ]
+  },
+  {
+    "objectID": "afp/architecture.html#oracles",
+    "href": "afp/architecture.html#oracles",
+    "title": "Overall Architecture",
+    "section": "Oracles",
+    "text": "Oracles\nAll products initially created in the AFP are Dated Futures, meaning a final Final Settlement Price is required to settle each product. This value is resolved by an Oracle. The AFP (similar to the Trading Protocol integrations) does not enforce a particular oracle architecture, it just requires that any third-party oracle adheres to the required oracle interface to allow for the Final Settlement Price to be determined. It is up to the Product Builder’s discretion as to which oracle they define in the Product Specification.\nThe above architecture outlines the core components that enable the AFP to function as the first protocol with:\n\nDecentralized clearing\nCross-venue cross-margining\nFutures products on any timeseries",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "About the AFP",
+      "Overall Architecture"
+    ]
+  },
+  {
+    "objectID": "afp/product-builders.html",
+    "href": "afp/product-builders.html",
+    "title": "Product Builders",
+    "section": "",
+    "text": "Product creation is permissionless in the AFP, meaning any address can deploy a product. Such an address is termed a Product Builder. Whilst this permissionless product creation gives everyone the opportunity to develop a successful, highly traded product, careful consideration must be given as to how individual Products are specified.\nBuilders can create products by submitting a Product Specification to the Product Registry. Upon successful registration of a new product an event is emitted with the builder ID, and the newly registered product id.\nevent ProductRegistered(address indexed builder, bytes32 productId)\nThe Product Registry keeps track of globally unique Product IDs. The Product ID is a derived value from the Product Specification. It is equal to the hash of the concatenated builder and symbol, and must be globally unique, which means that the same builder cannot create two products with the same symbol.\nID[Ψ] = keccak256(builder, symbol)",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Builders"
+    ]
+  },
+  {
+    "objectID": "afp/faq.html",
+    "href": "afp/faq.html",
+    "title": "FAQ",
+    "section": "",
+    "text": "Coming soon."
+  },
+  {
+    "objectID": "afp/getting-started.html",
+    "href": "afp/getting-started.html",
+    "title": "Getting Started",
+    "section": "",
+    "text": "There are three prerequisites needed to start trading products on the AFP:\n\nAn EVM compatible wallet (e.g., Rabby, MetaMask, WalletConnect, Coinbase Wallet) with the Autonity Piccadilly network added to it.\n\nIf you don’t have an EVM compatible wallet, you can easily set one up by downloading a browser-based wallet extension such as MetaMask.\nAfter downloading a wallet extension for your browser, follow the instructions to create a new wallet.\nYour wallet has a secret recovery phrase – anyone with access to your seed phrase can access your funds. Do not share your private key with anyone. Best practice is to record your seed phrase and store it in a safe physical location.\nTo add the Autonity network to your wallet, visit chainlist.org where you can connect your wallet and add the network automatically. Alternatively, you can manually add it by entering the details found here.\n\nCollateral\n\nThere is no strict definition on what collateral a product can use but most will use USDC.\nAdd the address of USDC on Autonity to your wallet so you can view your balance: 0x2777023E33B88CE622B15eCfA4ADa3cb5a9C545f\n\nAuton (ATN)\n\nATN is used for paying gas fees on the Autonity network. When you make a transaction (e.g. to deposit your collateral) you will have to pay gas for that transaction to be included in the blockchain. Note that trading products on AutEx is gas-less.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "afp/getting-started.html#what-do-i-need-to-start-trading-through-the-browser",
+    "href": "afp/getting-started.html#what-do-i-need-to-start-trading-through-the-browser",
+    "title": "Getting Started",
+    "section": "",
+    "text": "There are three prerequisites needed to start trading products on the AFP:\n\nAn EVM compatible wallet (e.g., Rabby, MetaMask, WalletConnect, Coinbase Wallet) with the Autonity Piccadilly network added to it.\n\nIf you don’t have an EVM compatible wallet, you can easily set one up by downloading a browser-based wallet extension such as MetaMask.\nAfter downloading a wallet extension for your browser, follow the instructions to create a new wallet.\nYour wallet has a secret recovery phrase – anyone with access to your seed phrase can access your funds. Do not share your private key with anyone. Best practice is to record your seed phrase and store it in a safe physical location.\nTo add the Autonity network to your wallet, visit chainlist.org where you can connect your wallet and add the network automatically. Alternatively, you can manually add it by entering the details found here.\n\nCollateral\n\nThere is no strict definition on what collateral a product can use but most will use USDC.\nAdd the address of USDC on Autonity to your wallet so you can view your balance: 0x2777023E33B88CE622B15eCfA4ADa3cb5a9C545f\n\nAuton (ATN)\n\nATN is used for paying gas fees on the Autonity network. When you make a transaction (e.g. to deposit your collateral) you will have to pay gas for that transaction to be included in the blockchain. Note that trading products on AutEx is gas-less.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "afp/getting-started.html#how-to-get-atn-and-usdc-on-autonity",
+    "href": "afp/getting-started.html#how-to-get-atn-and-usdc-on-autonity",
+    "title": "Getting Started",
+    "section": "How to get ATN and USDC on Autonity",
+    "text": "How to get ATN and USDC on Autonity\n\nYou will need USDC on another blockchain (e.g. Polygon, Avalanche, Base, Optimism, Ethereum – see the full list here) that you will then be able to bridge over to Autonity. To purchase USDC on one of these blockchains you can deposit funds to a centralised exchange and purchase it there with fiat before moving it to your EVM wallet.\nOnce you have USDC on another blockchain you can bridge your USDC over to Autonity via the bridge. Once you have successfully bridged your USDC, you will receive a small amount of ATN which you can use to make transactions with on Autonity.\nUse some of your USDC to purchase a minimal amount of additional ATN to ensure you don’t run out of gas on Autonity and strand your collateral. This can be done on a DEX such as ATN DAX.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "afp/getting-started.html#how-to-create-and-fund-a-margin-account-on-the-afp",
+    "href": "afp/getting-started.html#how-to-create-and-fund-a-margin-account-on-the-afp",
+    "title": "Getting Started",
+    "section": "How to create and fund a margin account on the AFP",
+    "text": "How to create and fund a margin account on the AFP\nAs highlighted in the Overall Architecture, interaction with the AFP is not limited to a single front-end and collateral can be deposited by various methods (e.g. SDK, direct on-chain calls). However, for the ease of onboarding, the front-end of the first exchange built on the AFP, the AutEx, will be used to deposit collateral to a margin account.\n\nVisit https://proto-afp.pages.dev and connect your EVM compatible wallet by clicking the “Connect Wallet” button.\n\nSelect the wallet you have previously configured. A pop-up will appear in your wallet extension asking to connect. Click “Connect”.\nYou will then be prompted to sign a gas-less message to prove ownership of the connected wallet.\n\nDeposit to the AFP by clicking the “Deposit” button next to your connected wallet address on AutEx.\n\nThe first deposit from a new address will create a new margin account automatically in the AFP. When depositing again, collateral will be credited to the previously created margin account.\nEnter the amount of USDC you would like to deposit to start trading and click “Deposit”.\nConfirm the transaction in your wallet extension.\n\nYou are now ready to start trading.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "afp/getting-started.html#how-to-start-trading-products-on-the-afp",
+    "href": "afp/getting-started.html#how-to-start-trading-products-on-the-afp",
+    "title": "Getting Started",
+    "section": "How to start trading products on the AFP",
+    "text": "How to start trading products on the AFP\nOnce you have collateral in your on-chain Margin Account (when you make your first deposit a Margin Account is automatically created for you), you can start trading.\n\nNavigate to https://proto-afp.pages.dev/trade and select the product you would like to trade in the product drop down selector.\nFill out the order form by entering the quantity you wish to trade and the price at which you want your order to be filled. Ensure your “Available Margin” is greater than the Initial Margin (IM) Required to place your desired order. You can go long (BUY) if you expect the price to go up or short (SELL) if you expect the price to go down.\nWhen submitting an order on AutEx you are required to sign it with your wallet. This is gas-less as it is providing cryptographic proof that you want your order to be filled with the parameters you have defined – not actually making an on-chain transaction.\nOnce your order has been submitted, it can be viewed in the “Open Orders” tab until it is filled.\nOnce it is filled you can track the PnL of your position under the “Positions” tab, and in the “Order History” you can see details related to your order execution, including the on-chain transaction that was sent to the clearing system on Autonity.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Getting Started"
+    ]
+  },
+  {
+    "objectID": "afp/glossary.html",
+    "href": "afp/glossary.html",
+    "title": "Glossary",
+    "section": "",
+    "text": "Admin Address: An Autonity address with admin privileges on a Margin Account.\n\n\nCapital (C): Sum of deposits less withdrawals, plus Realized PnL.\n\n\nClearing: The process of validating, settling, and guaranteeing trades after execution.\n\n\nCollateral Asset: An ERC-20 tokens used to make trades in AFP products.\n\n\nCost Basis (B): The running total used to track the effective cost of holding a position over time.\n\n\nDated Futures: Derivative contracts that settle at a specific future timestamp using a reference price from an oracle.\n\n\nDecentralized Clearing: Permissionless clearing system introduced by Autonity.\n\n\nFinal Settlement Price (FSP): Value used to settle all positions in a Dated Futures product after the TRADEOUT interval.\n\n\nFinal Settlement Process: The process that closes out all open positions in a product once it reaches the FINAL_SETTLEMENT state. interval.\n\n\nFinal Settlement Value (FSV): Value returned from the oracle, transformed to the Final Settlement Price.\n\n\nInitial Margin Required (IMR): Minimum collateral to open a position, defined as a product parameter.\n\n\nIntents: An off-chain expression of a user’s intent to trade, which can be submitted to the clearing system for execution.\n\n\nIntent Account: Address that can submit intents using a Margin Account but lacks admin rights.\n\n\nMaintenance Margin Available (MMA): Collateral available in a Margin Account for new positions.\n\n\nMargin Account: Holds the Collateral Asset of an Autonity address.\n\n\nMargin Account Equity (MAE): Capital plus unrealized PnL on open positions.\n\n\nMargin Account Registry: The contract that manages the creation and lookup of margin accounts for different collateral assets.\n\n\nProduct Builder: An address that creates and registers new product specifications on the AFP.\n\n\nProduct ID: a derived value from the Product Specification. It is equal to the hash of the concatenated builder and symbol (keccak256(builder, symbol)), and must be globally unique, which means that the same builder cannot create two products with the same symbol.\n\n\nProduct Registry: The contract that manages the registration and lookup of products on the AFP.\n\n\nTradeout Interval: The period during which only reducing trades can be submitted for clearing, before final settlement if FSP is available.\n\n\nTrading Protocol: A protocol that operates a trading venue of any type of trading modality (CLOB, AMM, FBA, etc.).",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "afp/product-tokenomics.html",
+    "href": "afp/product-tokenomics.html",
+    "title": "Product Tokenomics",
+    "section": "",
+    "text": "Coming soon.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Tokenomics"
+    ]
+  },
+  {
+    "objectID": "afp/for-developers.html",
+    "href": "afp/for-developers.html",
+    "title": "For Developers",
+    "section": "",
+    "text": "Details on how to use the AFP SDK for interacting with the protocol, submitting trades, and managing margin accounts."
+  },
+  {
+    "objectID": "afp/for-developers.html#afp-sdk-reference",
+    "href": "afp/for-developers.html#afp-sdk-reference",
+    "title": "For Developers",
+    "section": "",
+    "text": "Details on how to use the AFP SDK for interacting with the protocol, submitting trades, and managing margin accounts."
+  },
+  {
+    "objectID": "afp/for-developers.html#afp-smart-contract-reference",
+    "href": "afp/for-developers.html#afp-smart-contract-reference",
+    "title": "For Developers",
+    "section": "AFP Smart Contract Reference",
+    "text": "AFP Smart Contract Reference\n\nDocumentation for the core smart contracts: Clearing, Product Registry, Margin Account, Oracle Provider, Trading Protocol, and more."
+  },
+  {
+    "objectID": "afp/margining.html",
+    "href": "afp/margining.html",
+    "title": "Margining",
+    "section": "",
+    "text": "IMR is a product parameter and is expressed as a percentage under 100% (eg 0.30). For a product Ψ. Initial Margin (IM) relates to a trade j and is a monetary amount in the product Ψ’s Price Quotation units. It is defined conditionally on the type of position change:\n\nif the position increases: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j])\nif the position reverses: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j] + Q[j-1])",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margining"
+    ]
+  },
+  {
+    "objectID": "afp/margining.html#initial-margin-requirement-imr",
+    "href": "afp/margining.html#initial-margin-requirement-imr",
+    "title": "Margining",
+    "section": "",
+    "text": "IMR is a product parameter and is expressed as a percentage under 100% (eg 0.30). For a product Ψ. Initial Margin (IM) relates to a trade j and is a monetary amount in the product Ψ’s Price Quotation units. It is defined conditionally on the type of position change:\n\nif the position increases: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j])\nif the position reverses: IM[Ψ][j] = IMR * POINT_VALUE * p[j] * abs(q[j] + Q[j-1])",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margining"
+    ]
+  },
+  {
+    "objectID": "afp/margining.html#maintenance-margin-requirement-mmr",
+    "href": "afp/margining.html#maintenance-margin-requirement-mmr",
+    "title": "Margining",
+    "section": "Maintenance Margin Requirement (MMR)",
+    "text": "Maintenance Margin Requirement (MMR)\nMMR is a product parameter and is expressed as a percentage under 100% (eg 0.20). Maintenance Margin relates to a position and is a monetary amount in the product’s Price Quotation units and is defined as: MM[Ψ][j] = MMR * abs(B[j])\nMaintenance Margin Used (MMU) is defined for the n products in which the margin account holder has a non-zero position: MMU[k] = sum(MM[1][k],.., MM[n][k]) where k is an index over all trades and n products in a Margin Account.\nMaintenance Margin Available (MMA) is then defined as: MMA[k] = max(MAE - MMU[k], 0). This is the amount of collateral that can be used to fund new trades.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margining"
+    ]
+  },
+  {
+    "objectID": "afp/margining.html#initial-margin-check",
+    "href": "afp/margining.html#initial-margin-check",
+    "title": "Margining",
+    "section": "Initial Margin Check",
+    "text": "Initial Margin Check\nIf a trade increases an account’s position size, it must be the case that IM &lt;= MMA in order for the trade to settle. If IM &gt; MMA, the trade will fail. For trades that decrease position size, the check for IM is ignored.\nIf a trade reverses an account’s position, then the checks are split into the two following operations:\n\nFirst, the account’s position is decreased to zero, where the IM check is ignored. And the MAE, MMU, MMA (whichever is stored on chain) for the account is updated.\nSecond, the account’s position is increased, at which point the IM check is applied.\n\nIn the case of multiple position changes as part of a single trade, the IM check is performed as follows:\n\nAll reversing trades are broken down into a decreasing trade and an increasing trade\nThe account’s MMU is decreased by the amount freed up by the decreasing trade:\nMMU' = MMU - sum(MMR[j] * (abs(B[j]) - abs(B'[j])))\nWhere:\n   - `B'[j]` is the cost basis after the trade for product `Ψ[j]`. \n   - `B[j]` is the cost basis before the trade for product `Ψ[j]`. \n   - `MMR[j]` is the MMR for the product `Ψ[j]`.\nNote that here MMU' is not strictly equal to the MMU after the trade, as it does not take into account the new Maintenance Margin for the increasing trades. It is only an intermediate value used to perform the IM check.\nThe IM check is performed on the increasing trades:\nsum(IM[Ψ][j]) &lt;= MAE' - MMU'\nWhere MAE' is the MAE after the trade. If this check fails, the trade is reverted.\nIf MU &gt;= 100% (equivalently, MMA = 0), the account enters LIQUIDATABLE state and any non-zero product position in the account may get liquidated in whole or part by the clearing system’s liquidation auction mechanism.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margining"
+    ]
+  },
+  {
+    "objectID": "afp/oracles.html",
+    "href": "afp/oracles.html",
+    "title": "Oracles",
+    "section": "",
+    "text": "How to Integrate an Oracle\nOracle Interface\n\nAutonity exposes a uniform oracle interface that third parties can seamlessly integrate with. It is up to the product builder to define which oracle to source the underlying data from for a particular product. This allows Autonity to be oracle agnostic.\nHowever, initial reference implementations will be of the optimistic oracle type. This strategy works because the initial suite of products that will be released will be Dated Futures, which require a single final settlement price to be submitted to settle the product at expiry.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles"
+    ]
+  },
+  {
+    "objectID": "afp/oracles.html#sub-sections",
+    "href": "afp/oracles.html#sub-sections",
+    "title": "Oracles",
+    "section": "",
+    "text": "How to Integrate an Oracle\nOracle Interface\n\nAutonity exposes a uniform oracle interface that third parties can seamlessly integrate with. It is up to the product builder to define which oracle to source the underlying data from for a particular product. This allows Autonity to be oracle agnostic.\nHowever, initial reference implementations will be of the optimistic oracle type. This strategy works because the initial suite of products that will be released will be Dated Futures, which require a single final settlement price to be submitted to settle the product at expiry.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles"
+    ]
+  },
+  {
+    "objectID": "afp/oracle-interface.html",
+    "href": "afp/oracle-interface.html",
+    "title": "Oracle Interface",
+    "section": "",
+    "text": "Oracles are a crucial component of the AFP as they are responsible for supplying the Final Settlement Value which is used to calculate the Final Settlement Price that Dated Futures products settle against. The AFP does not prescribe a specific oracle implementation to be used, as the oracle selection is up to the Product Builder. However, all Oracles must conform to the Oracle Interface expected by the clearing system.\nFor specific details on the interface that must be implemented, see the reference documentation here",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles",
+      "Oracle Interface"
+    ]
+  },
+  {
+    "objectID": "afp/product-lifecycle.html",
+    "href": "afp/product-lifecycle.html",
+    "title": "Product Lifecycle",
+    "section": "",
+    "text": "The product lifecycle in the AFP is defined by a series of state transitions:\nstateDiagram\n    [*] --&gt; PENDING : Submit Product Spec and pass Validity Checks\n    PENDING --&gt; LIVE : Start Time is reached\n    LIVE --&gt; TRADEOUT : Earliest FSP Resolution Time is reached\n    TRADEOUT --&gt; FINAL_SETTLEMENT : Minimum Tradeout Interval passes AND FSP=X provided by oracle\n    TRADEOUT --&gt; EXPIRED : Open Interest == 0\n    FINAL_SETTLEMENT --&gt; EXPIRED : Open Interest == 0\nThe state of a product can always be queried by:",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "afp/product-lifecycle.html#pending",
+    "href": "afp/product-lifecycle.html#pending",
+    "title": "Product Lifecycle",
+    "section": "PENDING",
+    "text": "PENDING\n\nProduct Validity checks\nWhen a Product Builder submits a product specification to the AFP, a number of validity checks are first done before it is accepted by the AFP as a valid product:\n\nCheck that the Price Quotation and the Collateral Asset are the same.\nCheck the Product ID is globally unique.\nCheck that IMR &gt;= MMR.\nCheck that Earliest FSP Resolution Time &gt; Start Time.\nCheck that Start Time &gt; Current Timestamp.\nCheck that Maximum Tradeout Interval &gt; Minimum Tradeout Interval.\nCheck that entered Field value data types match EVM Data Type.\nEnforce any version-specific constraints.\n\nIf the above all pass, the product is entered into the Product Registry. ## LIVE\nOnce startTime of a product in the Product Registry is reached, it transitions to LIVE state. At this point, trades can be submitted to the clearing system in that product.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "afp/product-lifecycle.html#tradeout",
+    "href": "afp/product-lifecycle.html#tradeout",
+    "title": "Product Lifecycle",
+    "section": "TRADEOUT",
+    "text": "TRADEOUT\nOnce the Earliest FSP Resolution Time is reached, the product enters TRADEOUT state during which time no new positions can be opened, and existing ones can only be decreased. The purpose of this period is to allow market participants to gracefully exit their positions before they are forcibly closeout, which would incur a penalty.\nDuring the tradeout period, liquidations may still occur, and successful liquidation bids on products in the tradeout period will result in the bidders margin account holding the position.\nDuring this period, Final Settlement Price resolution can also occur, which will anchor the mark price of the product to the FSP. In the case that an FSP is not known after the tradeoutInterval, then the product will remain in TRADEOUT until its Open Interest goes to zero, at which point it will transition to an EXPIRED state.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "afp/product-lifecycle.html#final_settlement",
+    "href": "afp/product-lifecycle.html#final_settlement",
+    "title": "Product Lifecycle",
+    "section": "FINAL_SETTLEMENT",
+    "text": "FINAL_SETTLEMENT\nIf the FSP is known, the product transitions to FINAL_SETTLEMENT state when the tradeoutInterval passes. At this point, the Final Settlement Process may occur. Once the Open Interest goes to zero, meaning that no margin account has an outstanding position in the product, it can transition to an EXPIRED state.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "afp/product-lifecycle.html#expired",
+    "href": "afp/product-lifecycle.html#expired",
+    "title": "Product Lifecycle",
+    "section": "EXPIRED",
+    "text": "EXPIRED\nIf a product is in EXPIRED state then it has no open positions remaining and no new trades can be opened.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "Product Lifecycle"
+    ]
+  },
+  {
+    "objectID": "afp/how-to-create-a-product.html",
+    "href": "afp/how-to-create-a-product.html",
+    "title": "How to Create a Product",
+    "section": "",
+    "text": "Product creation is permissionless on the AFP, so any address on Autonity can become a Product Builder.\n\nPrerequisites\nBefore you can create a product on the Autonity Futures Protocol (AFP), ensure you have:\n\nA Margin Account contract exists in the collateral of your product. For your product to be easily tradeable you will want to ensure that the Margin Contract for the collateral asset that you wish to use for your product has been deployed. This can be done by calling:\nfunction initializeMarginAccount(address collateralAsset) public returns (IMarginAccount)\non the MarginAccountRegistry.sol contract. This ensures that traders can easily deposit collateral and start trading without requiring them to do the Margin Account contract deployment themselves.\nA Margin Account in the collateral asset of the product you will create as this is where clearing fees will be credited to. For more information on creating a Margin Account, see How to create and fund a margin account on the AFP\nRead through the documentation as understanding how products work in the AFP is crucial to creating a successful one in the first place!\n\n\n\nImportant notes\n\n\nSteps to Create a Product\n\nDecide on a timeseries that your product will trade. Ensure there is a reliable, undisputable source of truth for the timeseries that oracles will be able to use to report a final settlement value.\nConstruct the Product Specification\n\nPrepare a valid Product struct with all required fields. There is no one-size-fits-all set of parameters that can be specified as each product is unique.\nImportant: the same builder cannot create two products with the same symbol!\n\nRegister the Product\n\nCall the register function on ProductRegistry.sol, passing your constructed Product struct as calldata.\nThis can either be done through the SDK , or direct calls on-chain to the contract.\nEnsure your product is in a PENDING state, which indicates it has passed the on-chain validity checks. This can be done by the view function:\n\n\n\nSoliditySDK\n\n\n    function state(bytes32 productId) external view returns (ProductState)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nEnsure your product is listed on at least one trading protocol. This will ensure that traders have a clear way to trade your product. Listing your product on a trading protocol is up to the discretion of the trading protocols themselves.\nOnce the startTime of your product is reached, its state will go LIVE and become tradeable. A portion of the Clearing Fees will be credited to your Margin Account, so the more volume that is traded through your product, the more clearing fees will be accrued.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products",
+      "How to Create a Product"
+    ]
+  },
+  {
+    "objectID": "afp/trading.html",
+    "href": "afp/trading.html",
+    "title": "Trading",
+    "section": "",
+    "text": "Trade Execution and Clearing\nCross-Venue Cross-Margining\nIntents",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading"
+    ]
+  },
+  {
+    "objectID": "afp/trading.html#sub-sections",
+    "href": "afp/trading.html#sub-sections",
+    "title": "Trading",
+    "section": "",
+    "text": "Trade Execution and Clearing\nCross-Venue Cross-Margining\nIntents",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading"
+    ]
+  },
+  {
+    "objectID": "afp/mark-price.html",
+    "href": "afp/mark-price.html",
+    "title": "Mark Price determination",
+    "section": "",
+    "text": "The mark price is used as the price at which the PnL of positions is calculated, and so feeds into the Margin Account Equity checks, which in turn determine whether a trade can be completed by a margin account, or if it can be liquidated.\nThe mark price is determined by the average price of all trades originating from all trading protocols that have submitted trades to the clearing system in a sliding 30 second window.\nIf a trade is executed at time t, the Mark Price for a product at time t is defined as:\nMP[t] = sum(p[j] * abs(q[j])) / sum(abs(q[j]))\nfor every trade j such that j’s timestamp is within [t, t-30 seconds]. If there is no trade at time t, MP[t] = MP[t-1].",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Mark Price determination"
+    ]
+  },
+  {
+    "objectID": "afp/clearing-system.html",
+    "href": "afp/clearing-system.html",
+    "title": "Clearing System",
+    "section": "",
+    "text": "The decentralized clearing system of the AFP is core to the current functioning of the futures markets that are built on top of it.\nExisting derivates markets (both in TradFi and DeFi) couple trade execution and clearing into one venue. In TradFi, monopolistic tendencies concentrate market activity into a single trading venue for a particular instrument, whilst in DeFi competition for market share in derivates with the same underlying results in a fragmented market structure.\nFor example, Binance, Bybit (CEXs), Hyperliquid and DYDX (DEXs) have all created BTCUSDT futures contracts, all built on the same underlying market: spot BTC-USDT. Yet, each venue that creates a futures contract on BTC-USDT allows for only their own product to be traded on their own venue, leading to fragmented liquidity even though the underlying is the same. This is not a decentralized market architecture.\nContrast this to true decentralized markets such as spot Bitcoin. Bitcoin can be bought on any CEX and if desired can then be moved to a wallet and sold on a DEX, providing traders with an abundance of liquidity options to trade it. The AFP introduces the same level of true decentralisation in the derivatives markets with its clearing system.\nDecentralized clearing decouples trade execution from clearing, allowing for trades to be executed at one venue but cleared at another. This subtle yet crucial architectural difference results in a significantly altered and more efficient market design, allowing:\n\nA rich choice of trading modalities to trade the same product\nTraders access to a global pool of open interest in a product\nCross-venue cross-margining",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System"
+    ]
+  },
+  {
+    "objectID": "afp/closeout-agent.html",
+    "href": "afp/closeout-agent.html",
+    "title": "Closeout Agent",
+    "section": "",
+    "text": "Any on-chain actor with an associated margin account can initiate the Final Settlement Process for a Product, once the product is in the FINAL_SETTLEMENT state. Such an on-chain actor is termed a “Closeout Agent”.\nA Closeout Agent initiates the Final Settlement Process by calling the\nClearing System’s initiateFinalSettlement(..) method with _Closeout\nData_. Closeout Data consists of an array of addresses denoting a set of MAs that (1) each have a non-zero position in the product and (2) collectively offset each other (i.e., the sum of their position sizes is 0).\nWhen a Closeout Agent calls initiateFinalSettlement(..), the Clearing System performs the Final Settlement Process Checks:\n\nFor each account in Closeout Data, fetch the account’s position quantity Q:\n\n\nif Q == 0, the checks fail and the processes is aborted.\nif Q =! 0, then increment checksum = checksum + Q.\n\n\nIf checksum == 0, proceed to the Final Settlement Closeout; if it does not, the checks fail and the process is aborted.\n\nFinal Settlement Closeout executes as follows:\n\nIf the FSP does not exist, call finalizeFsp and execute the Final Settlement Price Resolution per the process above. If that process fails, abort Final Settlement Closeout. If that process succeeds, continue.\nFor each account a in Closeout Data:\nConstruct a trade done at the FSP with a on the buy (sell) side and Treasury Account on the sell (buy) side if a’s position is short (long);\nApply trade settlement to a:\nRPnL = FSP * Q * POINT_VALUE - B\nC[t] = C[t-1] + RPnL\nQ[t] = Q[t-1] + -Q (i.e., Q[t] = 0)\nApply trade settlement to Treasury Account:\nUpdate Cost Basis B per conditional definition assuming a trade quantity of Q at price FSP.\nCalculate RPnL per conditional definition\nC[t] = C[t-1] + RPnL\nQ[t] = Q[t-1] + Q\nApply the Closeout Fee:\nC[t] = C[t-1] - CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q) on account a\nC[t] = C[t-1] + CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q) on Treasury Account\nApply the Closeout Agent Reward:\nC[t] = C[t-1] - CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q) on Treasury Account\nC[t] = C[t-1] + CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q) on Closeout Agent’s account\n\nThe product will transition from FINAL_SETTLEMENT state to EXPIRED state if the open interest in the product is zero; otherwise, the product remains in FINAL_SETTLEMENT state.\ninitiateFinalSettlement(..) can be called multiple times whilst the open interest is non-zero.\nNotes:\n\nCLOSEOUT_FEE_RATE &gt;= CLOSEOUT_REWARD_RATE\nCLOSEOUT_REWARD_RATE will be set at a level that’s a multiple of anticipated venue trading fees (perhaps 30bps) to incentivize users to close their positions before the conclusion of the Tradeout Interval.\nBecause checksum == 0, Treasury Account’s position in the product (typically 0) will be the same after the Final Settlement Process as it was right before the process commenced. But Treasury Account’s Capital will increase by:\n\n(CLOSEOUT_FEE_RATE - CLOSEOUT_REWARD_RATE) * POINT_VALUE * FSP * OPEN_INTEREST * 2",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "On-chain Agents",
+      "Closeout Agent"
+    ]
+  },
+  {
+    "objectID": "afp/liquidation-agent.html",
+    "href": "afp/liquidation-agent.html",
+    "title": "Liquidation Agent",
+    "section": "",
+    "text": "When a Margin Account fails to have sufficient Maintenance Margin Available to meet its Maintenance Margin Requirements, it may be liquidated through a liquidation auction.\nInitiation a Liquidation Auction is an incentivized activity.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "On-chain Agents",
+      "Liquidation Agent"
+    ]
+  },
+  {
+    "objectID": "afp/trade-execution-and-clearing.html",
+    "href": "afp/trade-execution-and-clearing.html",
+    "title": "Trade Execution and Clearing",
+    "section": "",
+    "text": "The separation of trade execution and clearing in the Autonity Futures Protocol (AFP) introduces a fundamentally new market structure for derivatives. Traditionally, each trading protocol maintains its own siloed order book and liquidity pool for a given product, limiting traders to the open interest and counterparties available within that specific venue. In contrast, the AFP architecture allows traders to access the global pool of open interest for a product—regardless of which trading venue they’re using.\nThis is made possible by treating products as core primitives of the underlying clearing layer, rather than as constructs defined and managed by individual trading protocols. As a result, open interest in a product is aggregated and maintained at the clearing level, decoupled from any single execution venue. Multiple trading venues can list and trade the same product while contributing to—and drawing from—a shared clearing infrastructure. This not only increases available liquidity for traders but also fosters competition among trading venues, which can differentiate on user experience, fee models, or market access without fragmenting liquidity.\nIn effect, the AFP enables a unified, venue-agnostic marketplace for each product, transforming derivatives markets from isolated silos into an interoperable ecosystem.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading",
+      "Trade Execution and Clearing"
+    ]
+  },
+  {
+    "objectID": "afp/margin-intent-accounts.html",
+    "href": "afp/margin-intent-accounts.html",
+    "title": "Margin & Intent Accounts",
+    "section": "",
+    "text": "MAs are at the core of the AFP and are internal to the clearing system. They house the collateral that is required to open and maintain positions in products that a user trades.\nAny address on Autonity (termed the Admin Address) can create a Margin Account by depositing any ERC-20 collateral into the clearing system. If a Margin Account does not exist for an Admin Address – Collateral Asset pair, a new one is created automatically. If one already exists, it is funded with the deposited collateral.\nCollateral in a Margin Account is used to fund positions when trading products. By default, the Admin Address is also the designated Intent Account, allowing the admin address to trade the funds that it deposited and have administrative privileges over the Margin Account, such as:\n\nDepositing/withdrawing funds\nAdding/removing Intent Accounts",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margin & Intent Accounts"
+    ]
+  },
+  {
+    "objectID": "afp/margin-intent-accounts.html#margin-accounts-mas",
+    "href": "afp/margin-intent-accounts.html#margin-accounts-mas",
+    "title": "Margin & Intent Accounts",
+    "section": "",
+    "text": "MAs are at the core of the AFP and are internal to the clearing system. They house the collateral that is required to open and maintain positions in products that a user trades.\nAny address on Autonity (termed the Admin Address) can create a Margin Account by depositing any ERC-20 collateral into the clearing system. If a Margin Account does not exist for an Admin Address – Collateral Asset pair, a new one is created automatically. If one already exists, it is funded with the deposited collateral.\nCollateral in a Margin Account is used to fund positions when trading products. By default, the Admin Address is also the designated Intent Account, allowing the admin address to trade the funds that it deposited and have administrative privileges over the Margin Account, such as:\n\nDepositing/withdrawing funds\nAdding/removing Intent Accounts",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margin & Intent Accounts"
+    ]
+  },
+  {
+    "objectID": "afp/margin-intent-accounts.html#margin-account-architecture",
+    "href": "afp/margin-intent-accounts.html#margin-account-architecture",
+    "title": "Margin & Intent Accounts",
+    "section": "Margin Account Architecture",
+    "text": "Margin Account Architecture\nThe on-chain implementation of the Margin Account architecture is as follows:\nThere is one MarginAccount.sol contract per collateral asset which holds all the collateral deposited by Admin Addresses for that specific collateral asset. Individual MAs are then tracked within the Margin Account contract.\nSuch MarginAccount.sol contracts are created by:\nfunction initializeMarginAccount(address collateralAsset) public returns (IMarginAccount)\non the MarginAccountRegistry.sol contract. Anyone can call the above function but it is in the Product Builder’s interest to ensure that the collateral asset that they have specified for their product is ready for trading.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margin & Intent Accounts"
+    ]
+  },
+  {
+    "objectID": "afp/margin-intent-accounts.html#intent-accounts-ias",
+    "href": "afp/margin-intent-accounts.html#intent-accounts-ias",
+    "title": "Margin & Intent Accounts",
+    "section": "Intent Accounts (IAs)",
+    "text": "Intent Accounts (IAs)\nIntent Accounts (IAs) are Autonity addresses that can create intents (and so submit orders) that use the collateral in a Margin Account to trade products, but they do not have administrative privileges over those MAs (see Intents for more detail).",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margin & Intent Accounts"
+    ]
+  },
+  {
+    "objectID": "afp/margin-intent-accounts.html#analogy-to-a-hedge-fund",
+    "href": "afp/margin-intent-accounts.html#analogy-to-a-hedge-fund",
+    "title": "Margin & Intent Accounts",
+    "section": "Analogy to a hedge fund",
+    "text": "Analogy to a hedge fund\nThe setup described above can draw similarities to how a hedge fund may be structured - where the Admin Address may be considered to be the managing partner of the fund, and is able to raise capital, withdraw, hire/fire traders. Whereas IAs are the traders themselves who use the pool of capital of the fund to trade.\nIn fact, this can be further extended due to there being no limitation on the Admin Address to be an EOA. If a smart contract is implemented instead that further breaks down potential roles, an architecture like below can be created:",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margin & Intent Accounts"
+    ]
+  },
+  {
+    "objectID": "afp/margin-intent-accounts.html#margin-account-equity-mae-check",
+    "href": "afp/margin-intent-accounts.html#margin-account-equity-mae-check",
+    "title": "Margin & Intent Accounts",
+    "section": "Margin Account Equity (MAE) Check",
+    "text": "Margin Account Equity (MAE) Check\nMAs serve the crucial purpose of housing collateral that is required to trade. As such, it is required to define a process by which the equity available in a Margin Account can be determined to:\n\nSee if the Margin Account is liquidatable.\nEnsure there is sufficient Initial Margin to satisfy the Initial Margin Requirements of a trade that is submitted for clearing.\n\nMargin Account Equity is Capital plus Unrealized PnL:\nMAE = C + UPnL\nAn MAE Check can be run on a Margin Account for any trade. That trade can be for a single product or for multiple products simultaneously. The MAE Check is defined as the following:\n\nIf a Margin Account does not exist for the collateral asset defined in the Product Specification, the check fails.\nRecalculate MAE on the basis that each product is settled at the price and quantity defined in the trade.\nIf the MAE is less than zero, the account is bankrupt and the check fails.\nIf position sizes are increasing or reversing perform the Initial Margin Check. If the check fails, the process fails.\nOtherwise, the check succeeds.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Margin & Intent Accounts"
+    ]
+  },
+  {
+    "objectID": "afp/intents.html",
+    "href": "afp/intents.html",
+    "title": "Intents",
+    "section": "",
+    "text": "Intents are cryptographically signed off-chain expressions of what a user wishes to achieve. In the AFP, Intent Accounts submit intents to trading protocols, which are then submitted as components of a trade on-chain to be cleared.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading",
+      "Intents"
+    ]
+  },
+  {
+    "objectID": "afp/intents.html#intent-structure",
+    "href": "afp/intents.html#intent-structure",
+    "title": "Intents",
+    "section": "Intent Structure",
+    "text": "Intent Structure\nAll trading protocols must implement interfaces to accept intents as inputs.\nstruct Intent {\n    address marginAccountID;\n    address intentAccountID;\n    bytes32 hash;\n    IntentData data;\n    bytes signature;\n}\n\nmarginAccountID - the margin account ID which has a funded margin account on the associated collateral asset\nintentAccountID - the intent account ID which has signed the intent (must be approved by the margin account)\nhash - the hash of the intent data\ndata - the intent data containing the details of the intended trade\nsignature - the signature of the intent, signed by the intent account ID\n\n    struct IntentData {\n        uint256 nonce;\n        address tradingProtocolID;\n        bytes32 productID;\n        uint256 limitPrice;\n        uint256 quantity;\n        uint256 maxTradingFeeRate;\n        uint256 goodUntil;\n        Side side;\n    }\n\nnonce - the unique nonce of the intent, used to prevent replay attacks\ntradingProtocolID - the trading protocol ID that is executing the intent (must match the msg.sender)\nproductID - the product ID of the product being traded\nlimitPrice - the limit price for the trade\nquantity - the maximum quantity to be traded\nmaxTradingFeeRate - the maximum trading fee rate that the account is willing to pay to the trading protocol\ngoodUntil - the time after which this intent expires\nside* - the side of the trade (BID or ASK)",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading",
+      "Intents"
+    ]
+  },
+  {
+    "objectID": "afp/clearing-fees.html",
+    "href": "afp/clearing-fees.html",
+    "title": "Clearing fees",
+    "section": "",
+    "text": "For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee. This section documents the Clearing Fee component.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Fees",
+      "Clearing fees"
+    ]
+  },
+  {
+    "objectID": "afp/clearing-fees.html#clearing-fee",
+    "href": "afp/clearing-fees.html#clearing-fee",
+    "title": "Clearing fees",
+    "section": "Clearing Fee",
+    "text": "Clearing Fee\nClearing fees are quoted as a percentage of the trade’s notional value, referred to as the Clearing Fee Rate (“CFR”)\nCF[i] = p * abs(q) * POINT_VALUE * CFR\nwhere p is the trade’s Trade Price and q is the (signed) quantity of the trade’s i-th fill. CFR is a global system parameter CLEARING_FEE_RATE, that is common to all products in the AFP.\nsum(CF[1],...,CF[n]) is added to the Capital of the Clearing System’s Treasury Account.\nThe Clearing System’s Treasury Account is defined by the Clearing System parameter TREASURY_ADDRESS (funds in the Clearing System’s Treasury Account will subsequently be used to buy-and-burn NTN).",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Fees",
+      "Clearing fees"
+    ]
+  },
+  {
+    "objectID": "afp/fees.html",
+    "href": "afp/fees.html",
+    "title": "Fees",
+    "section": "",
+    "text": "For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee.\nTypically, when trading protocols and clearing houses are tightly integrated, traders pay a single, undifferentiated “trading fee.” This approach, however, obscures the distinct and important roles that trading protocols and clearing houses play in the trade lifecycle.\nWith the AFP, trade execution and clearing are decoupled, so trading and clearing fees are treated as separate concerns and charged independently. This separation gives Product Builders the flexibility to redistribute fees as they wish. For example, clearing fees could be used to incentivize trading protocols to list their products and bootstrap liquidity by redirecting a portion of the Clearing Fees as rebates. If such incentives are unnecessary, Clearing Fees can instead be accumulated on the Product Builder’s Margin Account.\nAt the same time, trading protocols have complete flexibility in how they implement trading fees. Whether through maker rebates, volume-based tiers, or any other fee structure, the AFP empowers venues to design and adapt their own fee regimes to best serve their markets and participants.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Fees"
+    ]
+  },
+  {
+    "objectID": "afp/trading-protocols.html",
+    "href": "afp/trading-protocols.html",
+    "title": "Trading Protocols",
+    "section": "",
+    "text": "How to Integrate a Trading Protocol\nThe Roles of Trading Protocols\nFallback Mechanism",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols"
+    ]
+  },
+  {
+    "objectID": "afp/trading-protocols.html#sub-sections",
+    "href": "afp/trading-protocols.html#sub-sections",
+    "title": "Trading Protocols",
+    "section": "",
+    "text": "How to Integrate a Trading Protocol\nThe Roles of Trading Protocols\nFallback Mechanism",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols"
+    ]
+  },
+  {
+    "objectID": "afp/final-settlement-price.html",
+    "href": "afp/final-settlement-price.html",
+    "title": "Final Settlement Value and Price",
+    "section": "",
+    "text": "Oracles are a crucial component of the AFP as they are responsible for supplying the Final Settlement Price that the Dated Futures products will settle against. The AFP does not prescribe a specific oracle implementation to be used, as the selection of this is up to the Product Builder, but all Oracles must conform to the Oracle Interface expected by the clearing system.\nResolving a product’s Final Settlement Price (“FSP”) is the primary input into expiring a dated futures product. FSP Resolution happens in two sequential steps:",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Final Settlement Value and Price"
+    ]
+  },
+  {
+    "objectID": "afp/final-settlement-price.html#final-settlement-price-resolution",
+    "href": "afp/final-settlement-price.html#final-settlement-price-resolution",
+    "title": "Final Settlement Value and Price",
+    "section": "Final Settlement Price Resolution",
+    "text": "Final Settlement Price Resolution\nThe FSV can be fetched at any point after Earliest FSP Resolution Time has been reached. Any account can initiate Final Settlement Price Resolution by calling the clearing system’s finalizeFsp method:\n\nSoliditySDK\n\n\n function finalizeFsp(bytes32 productID) external override returns (uint) \n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\nIf this method is called before Earliest FSP Resolution Time, the process fails. If finalizeFsp() is called on or after Earliest FSP Resolution Time, the clearing system requests the FSV from the Oracle. The clearing system makes the request by calling the Oracle’s resolve method with Oracle FSV Call Data. Both FSV Call Data and the address of the Oracle are specified by the Product Builder at product registration time. If the clearing system’s request to the oracle fails, the process fails. finalizeFsp() can be called repeatedly at any point until the request succeeds.\nIf the request returns a FSV, the second step in Final Settlement Price Resolution is executed. The FSV is used by the clearing system to compute the FSP using a linear transformation:\nFSP = FSV * alpha + beta\n, where alpha and beta are product parameters specified by the product Builder at product registration time. When Oracle FSP Precision is &gt; Tick Size, it is important to note that truncation is applied to the FSP. Therefore, the least significant FSP digit might differ from what would be expected from the same transformation that rounded to Tick Size using floating point numbers.\nAn FSP check is performed such that if the calculated FSP &lt; 0, the resolution process fails. If FSP &gt;= 0, the product’s Mark Price is set to the FSP and the FSP is stored in the clearing system’s state for use in the Final Settlement Process. Neither the Mark Price nor FSP (now identical values) can be subsequently modified.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Final Settlement Value and Price"
+    ]
+  },
+  {
+    "objectID": "afp/final-settlement-price.html#fsp-resolution-incentives",
+    "href": "afp/final-settlement-price.html#fsp-resolution-incentives",
+    "title": "Final Settlement Value and Price",
+    "section": "FSP Resolution incentives",
+    "text": "FSP Resolution incentives\nThere is no endogenous protocol incentive for an account to initiate Final Settlement Price Resolution by calling finalizeFsp(). However, because Mark Price is set to FSP, one half of the Open Interest has an incentive to effect the (probable) Mark Price change early, so it is likely to be the case that Final Settlement Price Resolution occurs shortly after the FSV is known to the Oracle. At any rate, the Final Settlement Process cannot begin until the FSP is resolved, and the Final Settlement Process does contain an endogenous protocol incentive for its initiation.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Final Settlement Value and Price"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html",
+    "href": "afp/afp-smart-contract-reference.html",
+    "title": "AFP Smart Contract Reference",
+    "section": "",
+    "text": "This interface defines the functions and events related to the auction and liquidation process in the clearing system. It is implemented by the Auctioneer facet of the ClearingDiamond contract, and hence all functionality is callable through the ClearingDiamond contract.\n\n\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x393746A87CF3458EeA2b47BF035496429AbFBD66\n\n\n\n\n\n\n\nrequestLiquidation\nbidAuction\nterminateAuctions\nisLiquidatable\nisLiquidating\ncanTerminateAuctions\nauctionConfig\nauctionData\nmaeCheckOnBid\nvalidateAuctions\nmaxMaeOffered\n\n\n\n\nProtocol set configuration options for liquidation auctions\nstruct AuctionConfig {\n  uint64 restorationBuffer;\n  uint256 liquidationDuration;\n}\n\n\n\nstruct BidData {\n  bytes32 productID;\n  uint256 price;\n  uint256 quantity;\n  enum Side side;\n}\n\n\n\nstruct AuctionData {\n  uint256 startBlock;\n  uint256 maeAtInitiation;\n  uint256 mmuAtInitiation;\n  int256 maeNow;\n  uint256 mmuNow;\n}\n\n\n\nEmitted when a liquidation auction is requested for a liquidatable margin account\nevent LiquidationStarted(address marginAccountID, address collateralToken)\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateralToken\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\nEmitted when a liquidation auction is successfully bid on\nevent Auctioned(address liquidatingMarginAccountID, address liquidatorMarginAccountID, bytes32 productId, int256 quantity, uint256 price)\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nliquidatingMarginAccountID\naddress\nThe address of the account being liquidated\n\n\nliquidatorMarginAccountID\naddress\nThe address of the liquidator placing the bid\n\n\nproductId\nbytes32\nThe product ID of the position being liquidated\n\n\nquantity\nint256\nThe quantity of the position being bid on\n\n\nprice\nuint256\nThe price at which the bid was placed\n\n\n\n\n\n\n\nEmitted when a liquidation auction is terminated\nevent LiquidationTerminated(address marginAccountID, address collateralToken)\nThis event is emitted when the liquidation auction is successfully terminated, either by the liquidator or by the margin account itself once above the restoration buffer.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateralToken\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\nRequest a liquidation auction for a margin account that has a MMA = 0. The requestor will be rewarded with the associated auction bounty for initiating the liquidation\nfunction requestLiquidation(address marginAccountID, address collateralToken) external\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account to be liquidated\n\n\ncollateralToken\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\nBid on an ongoing liquidation auction for a liquidatable margin account\nfunction bidAuction(address marginAccountID, address collateralToken, struct IAuctioneer.BidData[] bids) external\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateralToken\naddress\nThe address of the collateral token used in the liquidation\n\n\nbids\nstruct IAuctioneer.BidData[]\nList of bids (see BidData)\n\n\n\n\n\n\n\nTerminate an ongoing liquidation auction for a liquidatable margin account. The call is reverted if the liquidation cannot be terminated successfully.\nfunction terminateAuctions(address marginAccountID, address collateral) external\nThis function can be called by the liquidator or by the margin account itself once above the restoration buffer.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateral\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\nfunction isLiquidatable(address marginAccountID, address collateralToken) external view returns (bool)\n\n\n\nfunction isLiquidating(address marginAccountID, address collateralToken) external view returns (bool)\n\n\n\nCheck if a liquidation auction can be terminated for a given account and collateral token\nfunction canTerminateAuctions(address marginAccountID, address collateral) external view returns (bool)\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateral\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nbool\nA boolean indicating whether the liquidation auction can be terminated\n\n\n\n\n\n\n\nfunction auctionConfig() external view returns (struct IAuctioneer.AuctionConfig)\n\n\n\nfunction auctionData(address marginAccountID, address collateral) external view returns (struct IAuctioneer.AuctionData)\n\n\n\nPerforms necessary checks on mae for the liquidator and the liquidating account\nfunction maeCheckOnBid(address liquidatorMarginAccountID, address liquidatingMarginAccountID, address collateral, struct IAuctioneer.BidData[] bids) external view returns (bool maeCheckFailed, bool maeOverMmuRateExceeded)\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nliquidatorMarginAccountID\naddress\nMargin Account ID of the liquidator\n\n\nliquidatingMarginAccountID\naddress\nMargin Account ID of the liquidating account\n\n\ncollateral\naddress\nAddress of the collateral token\n\n\nbids\nstruct IAuctioneer.BidData[]\nList of bids\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmaeCheckFailed\nbool\nTrue if mae check is failed on the liquidator account, false otherwise\n\n\nmaeOverMmuRateExceeded\nbool\nTrue if the rate of mae over mmu is not exceeded over the maximum allowed rate, false otherwise\n\n\n\n\n\n\n\nfunction validateAuctions(address marginAccountID, address collateralToken, struct IAuctioneer.BidData[] bids) external view returns (bool)\n\n\n\nfunction maxMaeOffered(address marginAccountID, address collateral, uint256 mmuDecreased) external view returns (uint256)",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#iauctioneer",
+    "href": "afp/afp-smart-contract-reference.html#iauctioneer",
+    "title": "AFP Smart Contract Reference",
+    "section": "",
+    "text": "This interface defines the functions and events related to the auction and liquidation process in the clearing system. It is implemented by the Auctioneer facet of the ClearingDiamond contract, and hence all functionality is callable through the ClearingDiamond contract.\n\n\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x393746A87CF3458EeA2b47BF035496429AbFBD66\n\n\n\n\n\n\n\nrequestLiquidation\nbidAuction\nterminateAuctions\nisLiquidatable\nisLiquidating\ncanTerminateAuctions\nauctionConfig\nauctionData\nmaeCheckOnBid\nvalidateAuctions\nmaxMaeOffered\n\n\n\n\nProtocol set configuration options for liquidation auctions\nstruct AuctionConfig {\n  uint64 restorationBuffer;\n  uint256 liquidationDuration;\n}\n\n\n\nstruct BidData {\n  bytes32 productID;\n  uint256 price;\n  uint256 quantity;\n  enum Side side;\n}\n\n\n\nstruct AuctionData {\n  uint256 startBlock;\n  uint256 maeAtInitiation;\n  uint256 mmuAtInitiation;\n  int256 maeNow;\n  uint256 mmuNow;\n}\n\n\n\nEmitted when a liquidation auction is requested for a liquidatable margin account\nevent LiquidationStarted(address marginAccountID, address collateralToken)\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateralToken\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\nEmitted when a liquidation auction is successfully bid on\nevent Auctioned(address liquidatingMarginAccountID, address liquidatorMarginAccountID, bytes32 productId, int256 quantity, uint256 price)\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nliquidatingMarginAccountID\naddress\nThe address of the account being liquidated\n\n\nliquidatorMarginAccountID\naddress\nThe address of the liquidator placing the bid\n\n\nproductId\nbytes32\nThe product ID of the position being liquidated\n\n\nquantity\nint256\nThe quantity of the position being bid on\n\n\nprice\nuint256\nThe price at which the bid was placed\n\n\n\n\n\n\n\nEmitted when a liquidation auction is terminated\nevent LiquidationTerminated(address marginAccountID, address collateralToken)\nThis event is emitted when the liquidation auction is successfully terminated, either by the liquidator or by the margin account itself once above the restoration buffer.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateralToken\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\nRequest a liquidation auction for a margin account that has a MMA = 0. The requestor will be rewarded with the associated auction bounty for initiating the liquidation\nfunction requestLiquidation(address marginAccountID, address collateralToken) external\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account to be liquidated\n\n\ncollateralToken\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\nBid on an ongoing liquidation auction for a liquidatable margin account\nfunction bidAuction(address marginAccountID, address collateralToken, struct IAuctioneer.BidData[] bids) external\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateralToken\naddress\nThe address of the collateral token used in the liquidation\n\n\nbids\nstruct IAuctioneer.BidData[]\nList of bids (see BidData)\n\n\n\n\n\n\n\nTerminate an ongoing liquidation auction for a liquidatable margin account. The call is reverted if the liquidation cannot be terminated successfully.\nfunction terminateAuctions(address marginAccountID, address collateral) external\nThis function can be called by the liquidator or by the margin account itself once above the restoration buffer.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateral\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\nfunction isLiquidatable(address marginAccountID, address collateralToken) external view returns (bool)\n\n\n\nfunction isLiquidating(address marginAccountID, address collateralToken) external view returns (bool)\n\n\n\nCheck if a liquidation auction can be terminated for a given account and collateral token\nfunction canTerminateAuctions(address marginAccountID, address collateral) external view returns (bool)\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the account being liquidated\n\n\ncollateral\naddress\nThe address of the collateral token used in the liquidation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nbool\nA boolean indicating whether the liquidation auction can be terminated\n\n\n\n\n\n\n\nfunction auctionConfig() external view returns (struct IAuctioneer.AuctionConfig)\n\n\n\nfunction auctionData(address marginAccountID, address collateral) external view returns (struct IAuctioneer.AuctionData)\n\n\n\nPerforms necessary checks on mae for the liquidator and the liquidating account\nfunction maeCheckOnBid(address liquidatorMarginAccountID, address liquidatingMarginAccountID, address collateral, struct IAuctioneer.BidData[] bids) external view returns (bool maeCheckFailed, bool maeOverMmuRateExceeded)\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nliquidatorMarginAccountID\naddress\nMargin Account ID of the liquidator\n\n\nliquidatingMarginAccountID\naddress\nMargin Account ID of the liquidating account\n\n\ncollateral\naddress\nAddress of the collateral token\n\n\nbids\nstruct IAuctioneer.BidData[]\nList of bids\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmaeCheckFailed\nbool\nTrue if mae check is failed on the liquidator account, false otherwise\n\n\nmaeOverMmuRateExceeded\nbool\nTrue if the rate of mae over mmu is not exceeded over the maximum allowed rate, false otherwise\n\n\n\n\n\n\n\nfunction validateAuctions(address marginAccountID, address collateralToken, struct IAuctioneer.BidData[] bids) external view returns (bool)\n\n\n\nfunction maxMaeOffered(address marginAccountID, address collateral, uint256 mmuDecreased) external view returns (uint256)",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#side",
+    "href": "afp/afp-smart-contract-reference.html#side",
+    "title": "AFP Smart Contract Reference",
+    "section": "Side",
+    "text": "Side\nenum Side {\n  BID,\n  ASK\n}",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#iclearing",
+    "href": "afp/afp-smart-contract-reference.html#iclearing",
+    "title": "AFP Smart Contract Reference",
+    "section": "IClearing",
+    "text": "IClearing\nThis interface defines the functions and data structures related to the clearing process in the trading system. The primary point of interaction with these clearing functions should be from Trading Protocols\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x393746A87CF3458EeA2b47BF035496429AbFBD66\n\n\n\n\n\nFunctions\n\nexecute\nsetConfig\nfinalizeInitialization\nestimateFees\nclearingFeeRate\nMAX_TRADING_FEE_RATE\ngetProductRegistry\ngetMarginAccountRegistry\ngetTreasury\nconfig\n\n\n\nIntentData\nRepresents the data required for an intent\n\nnonce - the unique nonce of the intent, used to prevent replay attacks\ntradingProtocolID - the trading protocol ID that is executing the intent (must match the msg.sender)\nproductID - the product ID of the product being traded\nlimitPrice - the limit price for the trade\nquantity - the maximum quantity to be traded\nmaxTradingFeeRate - the maximum trading fee rate that the account is willing to pay to the trading protocol\ngoodUntil - the time after which this intent expires\nside* - the side of the trade (BID or ASK)\n\nstruct IntentData {\n  uint256 nonce;\n  address tradingProtocolID;\n  bytes32 productID;\n  uint256 limitPrice;\n  uint256 quantity;\n  uint256 maxTradingFeeRate;\n  uint256 goodUntil;\n  enum Side side;\n}\n\n\nIntent\nRepresents an intent to trade, which is signed by the margin account owner - marginAccountID - the margin account ID which has a funded margin account on the associated collateral asset - intentAccountID - the intent account ID which has signed the intent (must be approved by the margin account) - hash - the hash of the intent data - data - the intent data containing the details of the intended trade - signature - the signature of the intent, signed by the intent account ID\nstruct Intent {\n  address marginAccountID;\n  address intentAccountID;\n  bytes32 hash;\n  struct IClearing.IntentData data;\n  bytes signature;\n}\n\n\nTrade\nRepresents a trade to be executed in the clearing system - productID - the product ID of the product being traded - protocolID - the trading protocol ID that is executing the trade (must match the msg.sender) - tradeID - an ID identifying the trade - price - the trade price - timestamp - the timestamp of the trade - accounts - the margin account IDs of the accounts involved in the trade - quantities - the quantities traded for each associated margin account - feeRates - the fee rates charged for each associated margin account - intents - the intent associated with the trade (must be signed by the appropriate margin accounts and in the same order as accounts)\nstruct Trade {\n  bytes32 productID;\n  address protocolID;\n  uint256 tradeID;\n  uint256 price;\n  uint256 timestamp;\n  address[] accounts;\n  uint256[] quantities;\n  int256[] feeRates;\n  struct IClearing.Intent[] intents;\n}\n\n\nClearingConfig\nThe configuration options for the clearing contract - clearingFeeRate - the clearing fee rate charged by the clearing contract, with precision 10^6\nstruct ClearingConfig {\n  uint32 clearingFeeRate;\n}\n\n\nConfig\nThe protocol-level configuration options for the clearing contract - auctionConfig - the auctioneer config - clearingConfig - the clearing contract config\nstruct Config {\n  struct IAuctioneer.AuctionConfig auctionConfig;\n  struct IClearing.ClearingConfig clearingConfig;\n}\n\n\nTradeExecuted\nEmitted when a trade is executed\nevent TradeExecuted(bytes32 productID, address protocolID, address marginAccount, uint256 price, uint256 quantity)\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nproductID\nbytes32\nthe product ID of the executed trade\n\n\nprotocolID\naddress\nthe trading protocol ID that executed the trade\n\n\nmarginAccount\naddress\nthe margin account contract address used for the product\n\n\nprice\nuint256\nthe price at which the trade was executed\n\n\nquantity\nuint256\nthe quantity of the trade executed (sum of all quantities on each side of the trade)\n\n\n\n\n\n\nexecute\nperforms trade validation checks and executes a trade\nfunction execute(struct IClearing.Trade trade, bool fallbackOnFailure) external\nthis function can only be called by the trading protocol listed in the trade object\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrade\nstruct IClearing.Trade\nthe trade to be executed\n\n\nfallbackOnFailure\nbool\nif true, the trading protocol’s margin account will be substituted for any margin account in the trade that fails the MAE check\n\n\n\n\n\n\nsetConfig\nsets the clearing config\nfunction setConfig(struct IClearing.Config config) external\nthis function can only be called by the contract owner\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nconfig\nstruct IClearing.Config\nthe clearing config to be set\n\n\n\n\n\n\nfinalizeInitialization\nfinalizes initialization of the clearing contract\nfunction finalizeInitialization(address marginAccountRegistry) external\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountRegistry\naddress\nthe address of the margin account registry\n\n\n\n\n\n\nestimateFees\nreturns the estimated fees for a given trade\nfunction estimateFees(bytes32 productID, uint256 price, uint256 quantity, int256 tradingFeeRate) external view returns (uint256, int256)\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nproductID\nbytes32\nthe product ID\n\n\nprice\nuint256\nthe price of the trade\n\n\nquantity\nuint256\nthe quantity of the trade\n\n\ntradingFeeRate\nint256\nthe trading fee rate charged by the trading protocol\n\n\n\n\n\nReturn Values\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nfees the clearing fee charged by the clearing protocol and trading fee charged by the trading protocol\n\n\n[1]\nint256\n\n\n\n\n\n\n\nclearingFeeRate\nreturns the clearing fee rate with precision 10^6\nfunction clearingFeeRate() external view returns (uint256)\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe clearing fee rate\n\n\n\n\n\n\nMAX_TRADING_FEE_RATE\nreturns the maximum trading fee rate with precision 10^6\nfunction MAX_TRADING_FEE_RATE() external pure returns (uint256)\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe maximum trading fee rate\n\n\n\n\n\n\ngetProductRegistry\nreturns the product registry address\nfunction getProductRegistry() external view returns (contract IProductRegistry)\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\ncontract IProductRegistry\nthe product registry address\n\n\n\n\n\n\ngetMarginAccountRegistry\nreturns the margin account registry address\nfunction getMarginAccountRegistry() external view returns (contract IMarginAccountRegistry)\n\nReturn Values\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\ncontract IMarginAccountRegistry\nthe margin account registry address\n\n\n\n\n\n\ngetTreasury\nreturns the treasury address\nfunction getTreasury() external view returns (address)\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\naddress\nthe treasury address\n\n\n\n\n\n\nconfig\nreturns the clearing config\nfunction config() external view returns (struct IClearing.Config)\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nstruct IClearing.Config\nthe clearing config",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#iclearingdiamond",
+    "href": "afp/afp-smart-contract-reference.html#iclearingdiamond",
+    "title": "AFP Smart Contract Reference",
+    "section": "IClearingDiamond",
+    "text": "IClearingDiamond\nThis interface represents the complete functionality of the ClearingDiamond contract. It includes inheritance from multiple facets that handle different aspects of the clearing process.\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x393746A87CF3458EeA2b47BF035496429AbFBD66\n\n\n\n\n\nFunctions\n\nInherited (IValuation)\n\nvaluation\nvaluationAfterTrade\n\n\n\nInherited (ITrackInterest)\n\nopenInterest\n\n\n\nInherited (IFinalSettlement)\n\ninitiateFinalSettlement\nfinalizeFsp\nCLOSEOUT_FEE_RATE\nCLOSEOUT_REWARD_RATE\ngetFsp\n\n\n\nInherited (IAuctioneer)\n\nrequestLiquidation\nbidAuction\nterminateAuctions\nisLiquidatable\nisLiquidating\ncanTerminateAuctions\nauctionConfig\nauctionData\nmaeCheckOnBid\nvalidateAuctions\nmaxMaeOffered\n\n\n\nInherited (IClearing)\n\nexecute\nsetConfig\nfinalizeInitialization\nestimateFees\nclearingFeeRate\nMAX_TRADING_FEE_RATE\ngetProductRegistry\ngetMarginAccountRegistry\ngetTreasury\nconfig",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#ifinalsettlement",
+    "href": "afp/afp-smart-contract-reference.html#ifinalsettlement",
+    "title": "AFP Smart Contract Reference",
+    "section": "IFinalSettlement",
+    "text": "IFinalSettlement\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x393746A87CF3458EeA2b47BF035496429AbFBD66\n\n\n\n\n\nFunctions\n\ninitiateFinalSettlement\nfinalizeFsp\nCLOSEOUT_FEE_RATE\nCLOSEOUT_REWARD_RATE\ngetFsp\n\n\n\ninitiateFinalSettlement\ninitiates a final settlement process on a product\nfunction initiateFinalSettlement(bytes32 productID, address[] accounts) external\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nproductID\nbytes32\nthe product to be settled\n\n\naccounts\naddress[]\nthe accounts to be settled, the positions must be offsetting\n\n\n\n\n\n\nfinalizeFsp\nfinalizes the final settlement price on a product if it earliest FSP time has passed\nfunction finalizeFsp(bytes32 productID) external returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductID\nbytes32\nthe product to be finalized\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe final settlement price (FSP) of the product\n\n\n\n\n\n\nCLOSEOUT_FEE_RATE\nreturns the constant protocol fee rate that closed positions will be charged\nfunction CLOSEOUT_FEE_RATE() external pure returns (uint256)\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe protocol closeout fee rate with 10^6 precision\n\n\n\n\n\n\nCLOSEOUT_REWARD_RATE\nreturns the constant protocol reward rate that closers will be credited\nfunction CLOSEOUT_REWARD_RATE() external pure returns (uint256)\n\nReturn Values\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe protocol closeout reward rate with 10^6 precision\n\n\n\n\n\n\ngetFsp\nreturns the final settlement price (FSP) for a given product ID\nfunction getFsp(bytes32 productId) external view returns (uint256 fsp, bool finalized)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product ID to get the FSP for\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\nfsp\nuint256\nthe final settlement price\n\n\nfinalized\nbool\nwhether the FSP has been finalized",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#imarginaccount",
+    "href": "afp/afp-smart-contract-reference.html#imarginaccount",
+    "title": "AFP Smart Contract Reference",
+    "section": "IMarginAccount",
+    "text": "IMarginAccount\n\nFunctions\n\nsettle\ncollectFee\ndisperseFees\nbatchSettle\ndeposit\nwithdraw\nauthorize\nrevokeAuthorization\ncollateralAsset\nauthorized\ncapital\nmae\nmmu\nmma\npnl\nwithdrawable\npositions\npositionData\nmaeCheck\nbatchMaeCheck\nmaeAndMmuAfterBatchTrade\n\n\n\nPositionData\nthe data associated with a specific position in the margin account - positionId - the product ID of the product for which the position is held - quantity - the total quantity of the position held - costBasis - the cost basis of the position, representing the average weighted price at which the position was acquired - maintenanceMargin - the amount of margin reserved by this position - pnl - the unrealized profit and loss of the position, calculated using the difference between the current market price and the cost basis\nstruct PositionData {\n  bytes32 positionId;\n  int256 quantity;\n  int256 costBasis;\n  uint256 maintenanceMargin;\n  int256 pnl;\n}\n\n\nSettlement\nData associated with a single trade to settle - positionId - the ID of the product in which the trade will settle - quantity - quantity to be traded - price - price at which the trade will settle\nstruct Settlement {\n  bytes32 positionId;\n  int256 quantity;\n  uint256 price;\n}\n\n\nPositionUpdated\nemitted when a position is created/updated\nevent PositionUpdated(address marginAccountID, bytes32 positionId, int256 totalQuantity, int256 costBasis)\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\npositionId\nbytes32\nThe position id\n\n\ntotalQuantity\nint256\nThe total quantity of the position after the update\n\n\ncostBasis\nint256\nThe cost basis of the position after the update\n\n\n\n\n\n\nFeeCollected\nemitted when a fee is collected from a margin account\nevent FeeCollected(address marginAccountID, int256 capitalAmount)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\ncapitalAmount\nint256\nThe amount of capital collected\n\n\n\n\n\n\nFeeDispersed\nemitted when fees are dispersed to recipients\nevent FeeDispersed(address recipient, uint256 capitalAmount)\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nrecipient\naddress\nThe addresses of the recipients\n\n\ncapitalAmount\nuint256\nThe amounts of capital dispersed to each recipient\n\n\n\n\n\n\nsettle\nsettles a trade for a given position\nfunction settle(address marginAccountID, address intentAccount, struct IMarginAccount.Settlement settlement) external returns (bool)\nThis function can only be called by the clearing house\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\nintentAccount\naddress\nThe address of the intent account\n\n\nsettlement\nstruct IMarginAccount.Settlement\nThe trade to settle (see Settlement)\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nbool\nbool True if the trade was settled successfully\n\n\n\n\n\n\ncollectFee\ncollects a fee from the margin account\nfunction collectFee(address marginAccount, int256 capitalAmount) external\nThis function can only be called by the clearing house Collected fees need to equal dispersed fees for a transaction not to revert\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccount\naddress\nThe address of the margin account\n\n\ncapitalAmount\nint256\nThe amount of capital to collect\n\n\n\n\n\n\ndisperseFees\ndisperses fees to the recipients\nfunction disperseFees(address[] recipients, uint256[] capitalAmounts) external\nThis function can only be called by the clearing house The total amount of fees dispersed must equal the total amount of fees collected\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nrecipients\naddress[]\nThe addresses of the recipients\n\n\ncapitalAmounts\nuint256[]\nThe amounts of capital to disperse to each recipient\n\n\n\n\n\n\nbatchSettle\nSettles trades for given list of settlements.\nfunction batchSettle(address marginAccountID, struct IMarginAccount.Settlement[] settlements) external returns (bool)\nThis function can only be called by the clearing house\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\nsettlements\nstruct IMarginAccount.Settlement[]\nList of trades to be settled\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nbool\nbool True if the trade was settled successfully\n\n\n\n\n\n\ndeposit\ndeposits collateral into the margin account\nfunction deposit(uint256 amount) external\nthe collateral asset must be approved for transfer\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\namount\nuint256\nThe amount of collateral to deposit\n\n\n\n\n\n\nwithdraw\nwithdraws collateral from the margin account\nfunction withdraw(uint256 amount) external\nthe user must have sufficient collateral in their margin account\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\namount\nuint256\nThe amount of collateral to withdraw\n\n\n\n\n\n\nauthorize\nauthorizes an intent account to act on behalf of the margin account\nfunction authorize(address intentAccount) external\nthis function can only be called by the margin account owner\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nintentAccount\naddress\nThe address of the intent account to authorize\n\n\n\n\n\n\nrevokeAuthorization\nRevokes authorization of an intent account to act on behalf of the margin account\nfunction revokeAuthorization(address intentAccount) external\nthis function can only be called by the margin account owner\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nintentAccount\naddress\nThe address of the intent account\n\n\n\n\n\n\ncollateralAsset\nreturns the address of the ERC20 collateral asset for the margin account contract\nfunction collateralAsset() external view returns (address)\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\naddress\nThe address of the ERC20 collateral asset\n\n\n\n\n\n\nauthorized\nreturns the address of the clearing house contract\nfunction authorized(address marginAccountID, address intentAccount) external view returns (bool)\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nbool\nthe address of the clearing house\n\n\n\n\n\n\ncapital\nreturns the amount of capital in the margin account\nfunction capital(address marginAccountID) external view returns (int256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nint256\nthe amount of capital in the margin account\n\n\n\n\n\n\nmae\nreturns the amount of collateral in the margin account\nfunction mae(address marginAccountID) external view returns (int256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nint256\nthe amount of collateral in the margin account\n\n\n\n\n\n\nmmu\nreturns the maintenance margin used in the margin account\nfunction mmu(address marginAccountID) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe maintenance margin used\n\n\n\n\n\n\nmma\nreturns the maintenance margin available in the margin account\nfunction mma(address marginAccountID) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe maintenance margin available\n\n\n\n\n\n\npnl\nreturns the unrealized profit and loss of the margin account\nfunction pnl(address marginAccountID) external view returns (int256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nint256\nthe unrealized profit and loss\n\n\n\n\n\n\nwithdrawable\nreturns the amount of collateral that can be withdrawn from the margin account\nfunction withdrawable(address marginAccountID) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe amount of collateral that can be withdrawn\n\n\n\n\n\n\npositions\nreturns the ids of all positions held by the margin account\nfunction positions(address marginAccountID) external view returns (bytes32[])\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nbytes32[]\nan array of position ids\n\n\n\n\n\n\npositionData\nreturns the position data for a given position id\nfunction positionData(address marginAccountID, bytes32 positionId) external view returns (struct IMarginAccount.PositionData)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\npositionId\nbytes32\nThe position id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nstruct IMarginAccount.PositionData\nthe position data\n\n\n\n\n\n\nmaeCheck\nchecks if the margin account has enough equity to settle a trade\nfunction maeCheck(address marginAccountID, struct IMarginAccount.Settlement settlement, uint256 markPriceIfSettled) external view returns (bool checkPassed, int256 maeAfter, uint256 mmuAfter)\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\nsettlement\nstruct IMarginAccount.Settlement\nThe trade to settle\n\n\nmarkPriceIfSettled\nuint256\nThe mark price if the trade is settled\n\n\n\n\n\nReturn Values\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ncheckPassed\nbool\nTrue if the margin account has enough equity to settle the trade\n\n\nmaeAfter\nint256\nMAE of the account if the trade is settled\n\n\nmmuAfter\nuint256\nMMU of the account if the trade is settled\n\n\n\n\n\n\nbatchMaeCheck\nChecks if the margin account has enough equity to settle a list of trades. The position ids in the list settlements must be distinct to get proper result.\nfunction batchMaeCheck(address marginAccountID, struct IMarginAccount.Settlement[] settlements, uint256[] markPriceIfSettled) external view returns (bool checkPassed, int256 maeAfter, uint256 mmuAfter)\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\nsettlements\nstruct IMarginAccount.Settlement[]\nList of trades to be settled\n\n\nmarkPriceIfSettled\nuint256[]\nMark prices if the trades are settled successfully\n\n\n\n\n\nReturn Values\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ncheckPassed\nbool\nTrue if the margin account has enough equity to settle the trades\n\n\nmaeAfter\nint256\nMAE of the account if the trades are settled\n\n\nmmuAfter\nuint256\nMMU of the account if the trades are settled\n\n\n\n\n\n\nmaeAndMmuAfterBatchTrade\nCalculates the MAE and the MMU after settling a list of trades. The position ids in the list settlements must be distinct to get proper result.\nfunction maeAndMmuAfterBatchTrade(address marginAccountID, struct IMarginAccount.Settlement[] settlements, uint256[] markPriceIfSettled) external view returns (int256 mae, uint256 mmu)\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountID\naddress\nThe address of the margin account\n\n\nsettlements\nstruct IMarginAccount.Settlement[]\nList of trades to be settled\n\n\nmarkPriceIfSettled\nuint256[]\nMark prices if the trades are settled successfully\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\nmae\nint256\nMAE if the trades are settled\n\n\nmmu\nuint256\nMMU if the trades are settled",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#imarginaccountregistry",
+    "href": "afp/afp-smart-contract-reference.html#imarginaccountregistry",
+    "title": "AFP Smart Contract Reference",
+    "section": "IMarginAccountRegistry",
+    "text": "IMarginAccountRegistry\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x216a1fa7c98d7f7304bC4D7d0F856d063f2ecBA5\n\n\n\n\n\nFunctions\n\ngetMarginAccount\ninitializeMarginAccount\n\n\n\nMarginAccountCreated\nevent MarginAccountCreated(address collateralAsset, address marginAccount)\n\n\ngetMarginAccount\nreturns the margin account contract for a given collateral asset\nfunction getMarginAccount(address collateralAsset) external view returns (contract IMarginAccount)\nthis function should revert if the margin account does not exist\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\ncollateralAsset\naddress\nthe collateral asset\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\ncontract IMarginAccount\nthe margin account contract\n\n\n\n\n\n\ninitializeMarginAccount\ndeploys and initializes a margin account contract for the given asset\nfunction initializeMarginAccount(address collateralAsset) external returns (contract IMarginAccount)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\ncollateralAsset\naddress\nthe collateral asset\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\ncontract IMarginAccount\nthe margin account contract",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#ioracleprovider",
+    "href": "afp/afp-smart-contract-reference.html#ioracleprovider",
+    "title": "AFP Smart Contract Reference",
+    "section": "IOracleProvider",
+    "text": "IOracleProvider\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0xF3FA1f6fe52604EFf85B438B01B8b984AA200651\n\n\n\n\n\nFunctions\n\nresolve\n\n\n\nresolve\nreturns the final settlement price of a given product\nfunction resolve(bytes32 productId, bytes oracleCalldata) external view returns (int256)\nthis function should revert if the product has not reached final settlement\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id from the ProductRegistry\n\n\noracleCalldata\nbytes\nadditional data required by the oracle to resolve the price\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nint256\nthe final settlement price of the product",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#productstate",
+    "href": "afp/afp-smart-contract-reference.html#productstate",
+    "title": "AFP Smart Contract Reference",
+    "section": "ProductState",
+    "text": "ProductState\nenum ProductState {\n  NOT_EXIST,\n  PENDING,\n  LIVE,\n  TRADEOUT,\n  FINAL_SETTLEMENT,\n  EXPIRED\n}",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#iproductregistry",
+    "href": "afp/afp-smart-contract-reference.html#iproductregistry",
+    "title": "AFP Smart Contract Reference",
+    "section": "IProductRegistry",
+    "text": "IProductRegistry\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x05A7f949caE3235f239313339a7f9661F8C7415d\n\n\n\n\n\nFunctions\n\nproducts\nstate\ncollateralAsset\npointValue\nearliestFSPSubmissionTime\nimr\nmmr\ntickSize\nid\nofferPriceBuffer\nauctionBounty\noracleSpecification\nregister\n\n\n\nProductMetadata\nthe metadata associated with a product - builder - the address of the product creator - symbol - the symbol for this product - description - the description of the product\nstruct ProductMetadata {\n  address builder;\n  string symbol;\n  string description;\n}\n\n\nOracleSpecification\nthe oracle specification for a product - oracleAddress - the address of the oracle contract - fsvDecimals - the precision of the price quotation from oracleAddress.resolve - fspAlpha - the alpha value for the oracle, used in price calculations fsp = alpha * oraclePrice + beta - fspBeta - the beta value for the oracle, used in price calculations fsp = alpha * oraclePrice + beta - fsvCalldata - the calldata to be used for final settlement price (FSP) calculation\nthe oracleAddress must implement the IOracleProvider interface\nstruct OracleSpecification {\n  address oracleAddress;\n  uint8 fsvDecimals;\n  int256 fspAlpha;\n  int256 fspBeta;\n  bytes fsvCalldata;\n}\n\n\nProduct\nthe product struct that contains all the information about a product registered with the clearing system - metadata - the metadata associated with the product - oracleSpec - the oracle specification for the product - priceQuotation - the symbol of the price quotation - collateralAsset - the address of the ERC20 collateral asset - startTime - the start time of the product - earliestFSPSubmissionTime - the earliest time to submit the final settlement price - unitValue - the point value of the product - initialMarginRequirement - the initial margin requirement for the product - maintenanceMarginRequirement - the maintenance margin requirement for the product - offerPriceBuffer - the buffer for the offer price - auctionBounty - the bounty for the auctioneer - tradeoutInterval - the interval for tradeout - tickSize - the maximum precision of the price quotation - extendedMetadata - CID of product extended metadata using the IPLD dag-json codec\nstruct Product {\n  struct IProductRegistry.ProductMetadata metadata;\n  struct IProductRegistry.OracleSpecification oracleSpec;\n  string priceQuotation;\n  address collateralAsset;\n  uint256 startTime;\n  uint256 earliestFSPSubmissionTime;\n  uint256 unitValue;\n  uint16 initialMarginRequirement;\n  uint16 maintenanceMarginRequirement;\n  uint64 offerPriceBuffer;\n  uint64 auctionBounty;\n  uint32 tradeoutInterval;\n  uint8 tickSize;\n  string extendedMetadata;\n}\n\n\nProductRegistered\nEvent emitted when a new product is registered\nevent ProductRegistered(address builder, bytes32 productId)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nbuilder\naddress\nthe address of the product builder\n\n\nproductId\nbytes32\nthe product ID of the registered product\n\n\n\n\n\n\nproducts\nreturns the product struct for a given product ID\nfunction products(bytes32 productId) external view returns (struct IProductRegistry.Product)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nstruct IProductRegistry.Product\nthe product struct\n\n\n\n\n\n\nstate\nreturns the product state for a given product ID\nfunction state(bytes32 productId) external view returns (enum ProductState)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nenum ProductState\nthe product state (NOT_EXIST, PENDING, LIVE, TRADEOUT, FINAL_SETTLEMENT, EXPIRED)\n\n\n\n\n\n\ncollateralAsset\nthe address of the ERC20 collateral asset\nfunction collateralAsset(bytes32 productId) external view returns (address)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\naddress\nthe product state\n\n\n\n\n\n\npointValue\nthe point value of the product\nfunction pointValue(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe point value of the product\n\n\n\n\n\n\nearliestFSPSubmissionTime\nthe earliest time to submit FSP\nfunction earliestFSPSubmissionTime(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe earliest time to submit FSP\n\n\n\n\n\n\nimr\nthe initial margin requirement for the product\nfunction imr(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe initial margin requirement\n\n\n\n\n\n\nmmr\nmmr the maintenance margin requirement for the product\nfunction mmr(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe maintenance margin requirement\n\n\n\n\n\n\ntickSize\ntickSize the maximum precision of the price quotation\nfunction tickSize(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe number of decimal places in the price quotation\n\n\n\n\n\n\nid\nreturns the product ID for a given product\nfunction id(struct IProductRegistry.Product product) external pure returns (bytes32)\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nproduct\nstruct IProductRegistry.Product\nthe product to be registered\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nbytes32\nthe product ID\n\n\n\n\n\n\nofferPriceBuffer\nreturns the offer price buffer for a given product\nfunction offerPriceBuffer(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe offer price buffer for the product\n\n\n\n\n\n\nauctionBounty\nreturns the auction bounty\nfunction auctionBounty(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe auction bounty for the product\n\n\n\n\n\n\noracleSpecification\nreturns the oracle specification for a given product\nfunction oracleSpecification(bytes32 productId) external view returns (struct IProductRegistry.OracleSpecification)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product id\n\n\n\n\n\nReturn Values\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nstruct IProductRegistry.OracleSpecification\nthe OracleSpecification for the product\n\n\n\n\n\n\nregister\nregister a new product\nfunction register(struct IProductRegistry.Product product) external\nthis function can only be called by the product builder and must pass the product validity checks\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nproduct\nstruct IProductRegistry.Product\nthe product to be registered",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#itrackinterest",
+    "href": "afp/afp-smart-contract-reference.html#itrackinterest",
+    "title": "AFP Smart Contract Reference",
+    "section": "ITrackInterest",
+    "text": "ITrackInterest\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x393746A87CF3458EeA2b47BF035496429AbFBD66\n\n\n\n\n\nFunctions\n\nopenInterest\n\n\n\nopenInterest\nreturns the current open interest on the product\nfunction openInterest(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe open interest of the product",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#itradingprotocol",
+    "href": "afp/afp-smart-contract-reference.html#itradingprotocol",
+    "title": "AFP Smart Contract Reference",
+    "section": "ITradingProtocol",
+    "text": "ITradingProtocol\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x504b1d5B2364F85002889B741ae7D434B0ac0C77\n\n\n\n\n\nFunctions\n\nexecute\nexecuteSequence\naddTradeSubmitter\nremoveTradeSubmitter\ndeposit\nwithdraw\n\n\n\nexecute\nexecute a trade with the clearing protocol\nfunction execute(struct IClearing.Trade trade, bool fallbackOnFailure) external\nthis function is restricted to valid trade submitters\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrade\nstruct IClearing.Trade\nthe trade to execute\n\n\nfallbackOnFailure\nbool\nif true, the trading protocol’s margin account will be substituted if MAE checks fail\n\n\n\n\n\n\nexecuteSequence\nexecutes a sequence of trades with the clearing protocol\nfunction executeSequence(struct IClearing.Trade[] trades, bool fallbackOnFailure) external\nthis function is restricted to valid trade submitters\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrades\nstruct IClearing.Trade[]\nthe array of trades to execute\n\n\nfallbackOnFailure\nbool\nif true, the trading protocol’s margin account will be substituted for any margin account in the trade that fails the MAE check\n\n\n\n\n\n\naddTradeSubmitter\nadds a whitelisted trade submitter\nfunction addTradeSubmitter(address submitter) external\nthis function is restricted to the owner of the trading protocol\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nsubmitter\naddress\nthe address of the trade submitter\n\n\n\n\n\n\nremoveTradeSubmitter\nremoves a whitelisted trade submitter\nfunction removeTradeSubmitter(address submitter) external\nthis function is restricted to the owner of the trading protocol\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nsubmitter\naddress\nthe address of the trade submitter\n\n\n\n\n\n\ndeposit\ndeposit’s in the margin account\nfunction deposit(address marginAccountContract, uint256 amount) external\nthis function is restricted to the owner of the trading protocol\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountContract\naddress\nthe address of the margin account contract\n\n\namount\nuint256\nthe amount to deposit\n\n\n\n\n\n\nwithdraw\nwithdraws from the margin account\nfunction withdraw(address marginAccountContract, uint256 amount) external\nthis function is restricted to the owner of the trading protocol\n\nParameters\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmarginAccountContract\naddress\nthe address of the margin account contract\n\n\namount\nuint256\nthe amount to withdraw",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#ivaluation",
+    "href": "afp/afp-smart-contract-reference.html#ivaluation",
+    "title": "AFP Smart Contract Reference",
+    "section": "IValuation",
+    "text": "IValuation\n\nDeployed Addresses\n\n\n\nChain ID\nAddress\n\n\n\n\n65100004\n0x393746A87CF3458EeA2b47BF035496429AbFBD66\n\n\n\n\n\nFunctions\n\nvaluation\nvaluationAfterTrade\n\n\n\nvaluation\nreturns a product’s current mark price\nfunction valuation(bytes32 productId) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe mark price of the product\n\n\n\n\n\n\nvaluationAfterTrade\nreturns what a product’s mark price will be after a trade\nfunction valuationAfterTrade(bytes32 productId, uint256 price, uint256 quantity) external view returns (uint256)\n\nParameters\n\n\n\nName\nType\nDescription\n\n\n\n\nproductId\nbytes32\nthe product\n\n\nprice\nuint256\nthe price of the trade\n\n\nquantity\nuint256\nthe quantity of the trade\n\n\n\n\n\nReturn Values\n\n\n\nName\nType\nDescription\n\n\n\n\n[0]\nuint256\nthe mark price of the product after the trade",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/afp-smart-contract-reference.html#sorttester",
+    "href": "afp/afp-smart-contract-reference.html#sorttester",
+    "title": "AFP Smart Contract Reference",
+    "section": "SortTester",
+    "text": "SortTester\n\nFunctions\n\nsortData\nsortSomeStructByUint\nsortSomeStructByInt\nsortSomeStructByAddress\nsortSomeStructByBytes32\nrearrange\n\n\n\nsortData\nfunction sortData(struct Sort.Data[] data) public pure returns (struct Sort.Data[])\n\n\nSomeStruct\nstruct SomeStruct {\n  uint256 uintField;\n  int256 intField;\n  address addressField;\n  bytes32 bytesField;\n}\n\n\nsortSomeStructByUint\nfunction sortSomeStructByUint(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])\n\n\nsortSomeStructByInt\nfunction sortSomeStructByInt(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])\n\n\nsortSomeStructByAddress\nfunction sortSomeStructByAddress(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])\n\n\nsortSomeStructByBytes32\nfunction sortSomeStructByBytes32(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])\n\n\nrearrange\nfunction rearrange(struct SortTester.SomeStruct[] array, uint256[] sortedIndexes) internal pure returns (struct SortTester.SomeStruct[] res)",
+    "crumbs": [
+      "For Developers",
+      "AFP Smart Contract Reference"
+    ]
+  },
+  {
+    "objectID": "afp/liquidation.html",
+    "href": "afp/liquidation.html",
+    "title": "Liquidation",
+    "section": "",
+    "text": "Efficient liquidation of undercollateralised MAs is a crucial component of a derivatives clearing system to ensure solvency of the overall market.\nThe AFP introduces a Dutch Auction style liquidation mechanism, where during the liquidation auction an increasing proportion of the Margin Account Equity (MAE) of the liquidating account is offered to the liquidator.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Liquidation"
+    ]
+  },
+  {
+    "objectID": "afp/liquidation.html#liquidation-auction-request-process",
+    "href": "afp/liquidation.html#liquidation-auction-request-process",
+    "title": "Liquidation",
+    "section": "Liquidation Auction Request Process",
+    "text": "Liquidation Auction Request Process\nA liquidation auction is initiated via a liquidation auction request, which is an open function that can be called by any Intent Account (an Intent Account in this instance is termed a Liquidation Agent):\nfunction requestLiquidation(address account, bytes32 positionId) external\n\nIf MMA &gt; 0 for the specified Margin Account, then the process fails.\nIf IS_LIQUIDATING is already TRUE or the Margin Account does not have any positions, the process fails.\nCreate a new Liquidation Auction object for the Margin Account and set IS_LIQUIDATING to TRUE.\nRecord in the Liquidation Auction object the:\n\nStart block\nMAE at the block of the auction start\nMMU at the block of the auction start\n\nThe liquidator receives AUCTION_BOUNTY * MM[Ψ] units of the Collateral Asset, which is subtracted from the Margin Account’s capital C, where Ψ is the Product.\nThe auction request process succeeds.\n\n\n\n\n\n\nflowchart TD\n    A[\"Start: A liquidation agent calls requestLiquidation(account, position Id)\"] --&gt; B{Is MMA &gt; 0 for account?}\n    B -- Yes --&gt; B1[Fail process]\n    B -- No --&gt; C{Is IS_LIQUIDATING already TRUE?}\n    C -- Yes --&gt; C1[Fail process]\n    C -- No --&gt; F[Create and populate Liquidation Auction object]\n    F --&gt; G[Send AUCTION_BOUNTY times MM to liquidator]",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Liquidation"
+    ]
+  },
+  {
+    "objectID": "afp/liquidation.html#liquidation-auction-bid-process",
+    "href": "afp/liquidation.html#liquidation-auction-bid-process",
+    "title": "Liquidation",
+    "section": "Liquidation Auction Bid Process",
+    "text": "Liquidation Auction Bid Process\nOnce a liquidation auction has begun, auction bids can be processed. When the liquidatable account’s position is long, the account is the sell-side of the auction and the auction’s bidders are the buy-side of the auction. When the liquidatable account’s position is short, the account is the buy-side of the auction and the auction’s bidders are the sell-side of the auction. Liquidators will provide a full list of prices and quantities for positions they are willing to take over from the liquidatable account. A liquidation bid request includes:\nfunction bidAuction(address marginAccountID, address collateralToken, BidData[] calldata bids) external notSelf(marginAccountID)\nSee  for more details.\nProcess:\n\nPerform a Liquidation Auction Bid Validation Check on the Liquidation Auction Bid. If it fails, the process fails.\nRun an MAE Check on the liquidator’s Margin Account for the corresponding Collateral Asset and the specified products and prices. In case of failure, the bid is rejected.\nSettle the Liquidation Trade for the liquidator:\n\nRecalculate the Cost Basis.\nRecalculate the Position Size.\nRecalculate Realized PnL (RPnL) after the Cost Basis and Position Size.\n\nExecute the Liquidation Auction Termination Routine.\n\n\n\n\n\n\nflowchart TD\n    H[Liquidator submits Bid with Price, Quantity, and Product ID parameters]\n    H --&gt; I1[Run Bid Validation]\n    I1 -- Yes --&gt; I2{Does Bid validation pass?}\n    I2 -- No --&gt; I2F[Fail process]\n    I2 -- Yes --&gt; I3{Does the bidder have sufficient MAE to execute the bid?}\n    I3 -- No --&gt; I3F[Fail process]\n    I3 -- Yes --&gt; I4[Bid is successful]\n    I4 --&gt; L[Execute Liquidation Auction Termination Routine]",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Liquidation"
+    ]
+  },
+  {
+    "objectID": "afp/liquidation.html#liquidation-auction-bid-validation",
+    "href": "afp/liquidation.html#liquidation-auction-bid-validation",
+    "title": "Liquidation",
+    "section": "Liquidation Auction Bid Validation",
+    "text": "Liquidation Auction Bid Validation\n\nCheck that the productIDs that are being bid on are unique, otherwise the process fails.\nCheck that the liquidatable account has sufficient position quantities in each of the specified product ID’s: abs(Q[Ψ[i]]) &gt;= abs(q[i]) where Ψ[i] is the i-th product ID in the list of product IDs in BidData, q[i] is the quantity of the i-th product in the proposed trade, and Q(Ψ[i]) is the liquidating account’s current position quantity. If this check fails, the process fails. These products must use the specified collateralToken.\nCheck that each of the product ID’s specified are in LIVE or TRADEOUT state, otherwise process fails.\nCheck that the quantities specified are reducing the liquidatable account’s position size in the given product: (Q[Ψ[i]] + q[i]) / Q[Ψ[i]] &lt; 1 if this check fails, the process fails.\nCheck that the liquidatable account’s MAE is not decreased by more than the current Liquidation Auction MAE Offer (dMAE): MAE - MAE' &lt;= dMAE where MAE is the liquidatable account’s MAE before bid execution, and MAE' is the liquidatable account’s MAE after bid execution. If this check fails, the process fails.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Liquidation"
+    ]
+  },
+  {
+    "objectID": "afp/liquidation.html#liquidation-auction-termination-routine",
+    "href": "afp/liquidation.html#liquidation-auction-termination-routine",
+    "title": "Liquidation",
+    "section": "Liquidation Auction Termination Routine",
+    "text": "Liquidation Auction Termination Routine\n\nCheck that the liquidating Margin Account being checked is TRUE for IS_LIQUIDATING, otherwise abort.\nIf MMA &lt;= RESTORATION_BUFFER * MAE, then abort.\nClear up state related to the Liquidation Auction.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Liquidation"
+    ]
+  },
+  {
+    "objectID": "afp/liquidation.html#liquidation-auction-mae-offer",
+    "href": "afp/liquidation.html#liquidation-auction-mae-offer",
+    "title": "Liquidation",
+    "section": "Liquidation Auction MAE Offer",
+    "text": "Liquidation Auction MAE Offer\nOver the course of a liquidation, an increasing proportion of the MAE of the liquidating account is offered to the liquidator. The MAE offer is proportional to the amount of MMU that is reduced by the liquidator, however, it is capped at the MAE of the liquidating account at the time of the bid.\ndMAE = min((MAE(t_0) / MMU(t_0)) * (t / τ) * dMMU, MAE(t))\nwhere:\n\ndMMU is the amount of MMU that is reduced by the liquidator. dMMU = MMU - MMU' where MMU' is the liquidating account’s MMU after bid execution, and MMU is the liquidating account’s MMU before bid execution.\nt_0 is the start block of the liquidation auction.\nτ is the liquidation auction duration (in blocks).\nt is the current block at liquidation bid submission.\nMMU(t_0) is the liquidating account’s MMU at the start of the liquidation auction.\nMMU(t) is the liquidating account’s MMU at the time of the bid.\nMAE(t_0) is the liquidating account’s MAE at the start of the liquidation auction.\nMAE(t) is the liquidating account’s MAE at the block of the bid.\n\nSince dMMU is dependent on the specific quantities q[i] and products Ψ[i] of the Liquidation Auction Bid, the MAE offer is a function of these variables. So, the MAE offer can be written as:\ndMAE(t, q[i], Ψ[i]) = min((MAE(t_0) / MMU(t_0)) * (t / tau) * dMMU(q[i], Ψ[i]), MAE(t))",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Clearing System",
+      "Liquidation"
+    ]
+  },
+  {
+    "objectID": "afp/products.html",
+    "href": "afp/products.html",
+    "title": "Products",
+    "section": "",
+    "text": "How to Create a Product\nProduct Specification\nProduct Builders\nProduct Lifecycle\nProduct Tokenomics",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Products"
+    ]
+  },
+  {
+    "objectID": "afp/about-afp.html",
+    "href": "afp/about-afp.html",
+    "title": "About the AFP",
+    "section": "",
+    "text": "The Autonity Futures Protocol encompasses the full suite of core primitives on Autonity related to the decentralized clearing and creation of products on any timeseries.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "About the AFP"
+    ]
+  },
+  {
+    "objectID": "afp/cross-venue-cross-margining.html",
+    "href": "afp/cross-venue-cross-margining.html",
+    "title": "Cross-Venue Cross-Margining",
+    "section": "",
+    "text": "Cross-margining in derivatives trading is not a new concept—many existing protocols already allow traders to share collateral across positions. However, in these systems, cross-margining is typically confined within a single trading venue, as both execution and clearing are tightly coupled within the same protocol.\nThe Autonity Futures Protocol (AFP) introduces a novel architecture that decouples trade execution from clearing. This separation enables a new and more powerful form of collateral efficiency: cross-venue cross-margining. Traders can now share collateral not just across positions, but across entirely separate trading venues.\nIn practical terms, this means that a position opened on Trading Protocol A can generate unrealised profits that are immediately usable as margin to support a new position on Trading Protocol B. This is possible because margin accounts (MAs) are native to the shared clearing layer, rather than being embedded within individual trading venues—removing the historical barrier to cross-venue margining.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading",
+      "Cross-Venue Cross-Margining"
+    ]
+  },
+  {
+    "objectID": "afp/how-to-integrate-an-oracle.html",
+    "href": "afp/how-to-integrate-an-oracle.html",
+    "title": "How to Integrate an Oracle",
+    "section": "",
+    "text": "The AFP is Oracle agnostic, meaning that as long as a Final Settlement Value (FSV) exists after the earliestFSPSubmissionTime on an oracle, the clearing system will fetch it and use it to closeout any outstanding positions via the Final Settlement Process.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles",
+      "How to Integrate an Oracle"
+    ]
+  },
+  {
+    "objectID": "afp/how-to-integrate-an-oracle.html#conforming-to-the-afp",
+    "href": "afp/how-to-integrate-an-oracle.html#conforming-to-the-afp",
+    "title": "How to Integrate an Oracle",
+    "section": "Conforming to the AFP",
+    "text": "Conforming to the AFP\nAny oracle implementation must implement the AFP Oracle interface. :\nfunction resolve(bytes32 productId, bytes memory oracleCalldata) external view returns (int);\nWhere productId is used to resolve the correct FSV (as a single oracle may be providing the FSV to several products simultaneously), and oracleCalldata is used to pass any additional required logic to the oracle (such as referencing a particular element of a timeseries).",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles",
+      "How to Integrate an Oracle"
+    ]
+  },
+  {
+    "objectID": "afp/how-to-integrate-an-oracle.html#implementation-with-a-product",
+    "href": "afp/how-to-integrate-an-oracle.html#implementation-with-a-product",
+    "title": "How to Integrate an Oracle",
+    "section": "Implementation with a product",
+    "text": "Implementation with a product\nIt is up to a Product Builder to assign a particular oracle as the FSV resolver. Hence the Product Builder should ensure that the oracle is aware of its responsibilities, and the form in which the FSV is expected to be supplied. Such details can be found in the Product Specification:\n    struct OracleSpecification {\n        address oracleAddress;\n        uint8 fsvDecimals;\n        int fspAlpha;\n        int fspBeta;\n        bytes fsvCalldata;\n    }",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Oracles",
+      "How to Integrate an Oracle"
+    ]
+  },
+  {
+    "objectID": "afp/trading-fees.html",
+    "href": "afp/trading-fees.html",
+    "title": "Trading fees",
+    "section": "",
+    "text": "For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee. This section documents the Trading Fee component.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Fees",
+      "Trading fees"
+    ]
+  },
+  {
+    "objectID": "afp/trading-fees.html#trading-fee",
+    "href": "afp/trading-fees.html#trading-fee",
+    "title": "Trading fees",
+    "section": "Trading Fee",
+    "text": "Trading Fee\nTrading fees are charged by the trading protocol and are transferred to the trading protocol’s margin account. In order to prevent excessive trading fee deductions by Trading Protocols, intent accounts set a Maximum Trading Fee Rate that a trading protocol can impose.\nIt is up to the individual trading protocols’ discretion what sort of trading fee regime they follow. For example they may choose to provide a trading fee rebate to maker orders, paid for by taker counterparties in the trade.\nTrading fees are quoted as a percentage of the trade’s notional, referred to as Trading Fee Rate (“TFR”)\nTF[i] = p * abs(q) * POINT_VALUE * TFR[i]\nwhere p is the trade’s Trade Price and q is the (signed) quantity of the trade’s i-th fill. The TFR assigned to a fill can be negative (e.g., to express a maker order’s rebate) but sum(TF[1],...,TF[n]) &gt;= 0 where n is the number of fills in the Trade object, because the net value for a trade’s fees comes solely from the capital of the MAs involved in the trade.\nsum(TF[1],...,TF[n]) is added to the Margin Account of the Trading Protocol that submitted the trade.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Fees",
+      "Trading fees"
+    ]
+  },
+  {
+    "objectID": "afp/how-to-integrate-a-trading-protocol.html",
+    "href": "afp/how-to-integrate-a-trading-protocol.html",
+    "title": "How to integrate a trading protocol",
+    "section": "",
+    "text": "The AFP exposes a novel suite of products that previously could not be traded so offering a variety of trade execution protocols that act as entry points to these markets is crucial.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols",
+      "How to integrate a trading protocol"
+    ]
+  },
+  {
+    "objectID": "afp/how-to-integrate-a-trading-protocol.html#prerequisites",
+    "href": "afp/how-to-integrate-a-trading-protocol.html#prerequisites",
+    "title": "How to integrate a trading protocol",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nBefore you can implement a trading protocol, ensure you have:\n\nA margin account for each of the collateral assets your listed products require. For example, if the products you intend to list on your protocol use USDC and ATN as collateral assets, you must have Margin Accounts in those assets.\nAn interface to accept intents. The AFP uses an intent centric architecture and allows for a gasless trading experience for the end user. Your trading protocol must take Intents as input.\nAn output that conforms to the expected trade object. The AFP expects trades to be represented in a specific way before they can be cleared.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols",
+      "How to integrate a trading protocol"
+    ]
+  },
+  {
+    "objectID": "afp/how-to-integrate-a-trading-protocol.html#integrating-your-trading-protocol",
+    "href": "afp/how-to-integrate-a-trading-protocol.html#integrating-your-trading-protocol",
+    "title": "How to integrate a trading protocol",
+    "section": "Integrating your Trading Protocol",
+    "text": "Integrating your Trading Protocol\n\nDeploy a TradingProtocol.sol instance that will be used to send trades to the clearing system. The address that is used to deploy the contract will automatically be granted DEFAULT_ADMIN_ROLE rights.\n\n\nSoliditySDK\n\n\n    function example() external view returns (ProductState)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nUsing the address with the admin rights, authorise an Autonity address on your newly deployed TradingProtocol.sol contract to submit trades (this address will then gain the TRADE_SUBMITTER role). This prevents any unauthorised addresses from submitting trades to the clearing system through your trading protocol contract:\n\n\nSoliditySDK\n\n\n    function addTradeSubmitter(address submitter) external override onlyRole(DEFAULT_ADMIN_ROLE)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nImplement logic to determine when your trading protocol will enable fallBackOnFailure. If fallBackOnFailure is set to true then collateral in the margin account of the DEFAULT_ADMIN_ROLE is used as the counterparty in a trade where one side may fail its MAE Check.\nConfigure your trading protocol to submit trades from the address with the TRADE_SUBMITTER role.\n\n\nSoliditySDK\n\n\nfunction execute(IClearing.Trade calldata trade, bool fallbackOnFailure) external override onlyRole(TRADE_SUBMITTER_ROLE)\n\n\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n\n\n\nTrading fees will be credited to the margin account of the DEFAULT_ADMIN_ROLE from where they can be withdrawn.\nYour trading protocol is now ready to accept trades!",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols",
+      "How to integrate a trading protocol"
+    ]
+  },
+  {
+    "objectID": "afp/afp-sdk-reference.html",
+    "href": "afp/afp-sdk-reference.html",
+    "title": "AFP SDK Reference",
+    "section": "",
+    "text": "Coming soon.",
+    "crumbs": [
+      "For Developers",
+      "AFP SDK Reference"
+    ]
+  },
+  {
+    "objectID": "afp/the-roles-of-trading-protocols.html",
+    "href": "afp/the-roles-of-trading-protocols.html",
+    "title": "Trading Protocols",
+    "section": "",
+    "text": "Trading Protocols operate trading venues where Products created in the clearing system can be traded. These protocols can be of any type of trading modality, as long as they conform to the Trading Protocol interface expected by the clearing system, and submit trades to be cleared in the expected format.\nTrading Protocols can choose which products they wish to list, as the listing process is up to their discretion. This means that not all Products may be available on each trading venue but due to MAs being enshrined in the clearing system, traders can easily navigate between Trading Protocols to trade the products they wish, on trading venues of their choosing.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols",
+      "Trading Protocols"
+    ]
+  },
+  {
+    "objectID": "afp/the-roles-of-trading-protocols.html#trading-protocol-revenue",
+    "href": "afp/the-roles-of-trading-protocols.html#trading-protocol-revenue",
+    "title": "Trading Protocols",
+    "section": "Trading Protocol Revenue",
+    "text": "Trading Protocol Revenue\nTrading Protocol’s can charge users trading fees to generate revenue. On integrating with the AFP, TP’s maintain the flexibility to implement any trading fee regime they desire.",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols",
+      "Trading Protocols"
+    ]
+  },
+  {
+    "objectID": "afp/the-roles-of-trading-protocols.html#autex",
+    "href": "afp/the-roles-of-trading-protocols.html#autex",
+    "title": "Trading Protocols",
+    "section": "AutEx",
+    "text": "AutEx\nThe Autonity Exchange (AutEx) is the first trading protocol to be integrated with the AFP. It serves as a reference implementation for other Trading Protocols to examine, and to serve as a guideline as to how a trading protocol can be implemented.\nThe AutEx is a non-custodial Central Limit Order Book (CLOB) that integrates some clearing system interfaces for ease of user onboarding (e.g. depositing/withdrawing from margin accounts). It is non-custodial becuase collateral fully remains in the users’ margin accounts, with no need to send any collateral to an omnibus accoutn as is the case with CEXs.\nAs mentioned above, trading protocols can implement any trading modality but the CLOB is the one that most users are familiar with which is why it was used in the AutEx reference implementation. Orders are entered into the orderbook by Intent Accounts submitting signed intents. These intents will sit in the order book until a fill occurs - at which point a trade is submitted on-chain to the clearing system via the AutEx’s Trading Protocol contract (a deployment of TradingProtocol.sol).",
+    "crumbs": [
+      "Autonity Futures Protocol",
+      "Trading Protocols",
+      "Trading Protocols"
+    ]
   }
 ]

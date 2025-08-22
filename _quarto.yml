@@ -22,58 +22,58 @@ website:
       - section: "Autonity Futures Protocol"
         contents:
           - text: About the AFP
-            file: about-afp.qmd
+            file: afp/about-afp.qmd
             contents:
               - text: Overall Architecture
-                file: architecture.qmd
-          - getting-started.qmd
-          - file: clearing-system.qmd
+                file: afp/architecture.qmd
+          - afp/getting-started.qmd
+          - file: afp/clearing-system.qmd
             contents:
-                - file: margin-intent-accounts.qmd
-                - file: liquidation.qmd
-                - file: bankruptcy.qmd
-                - file: margining.qmd
-                - file: mark-price.qmd
-                - file: final-settlement-price.qmd    
-                - file: final-settlement-process.qmd    
-          - file: fees.qmd
+                - file: afp/margin-intent-accounts.qmd
+                - file: afp/liquidation.qmd
+                - file: afp/bankruptcy.qmd
+                - file: afp/margining.qmd
+                - file: afp/mark-price.qmd
+                - file: afp/final-settlement-price.qmd    
+                - file: afp/final-settlement-process.qmd    
+          - file: afp/fees.qmd
             contents:
-                - file: trading-fees.qmd
-                - file: clearing-fees.qmd
-          - file: products.qmd
+                - file: afp/trading-fees.qmd
+                - file: afp/clearing-fees.qmd
+          - file: afp/products.qmd
             contents:
-                - file: how-to-create-a-product.qmd
-                - file: product-specification.qmd
-                - file: product-builders.qmd
-                - file: product-lifecycle.qmd
-                - file: product-tokenomics.qmd
-          - file: trading-protocols.qmd
+                - file: afp/how-to-create-a-product.qmd
+                - file: afp/product-specification.qmd
+                - file: afp/product-builders.qmd
+                - file: afp/product-lifecycle.qmd
+                - file: afp/product-tokenomics.qmd
+          - file: afp/trading-protocols.qmd
             contents:
-                - file: how-to-integrate-a-trading-protocol.qmd
-                - file: the-roles-of-trading-protocols.qmd
-                - file: fallback-mechanism.qmd
-          - file: trading.qmd
+                - file: afp/how-to-integrate-a-trading-protocol.qmd
+                - file: afp/the-roles-of-trading-protocols.qmd
+                - file: afp/fallback-mechanism.qmd
+          - file: afp/trading.qmd
             contents:
-                - file: trade-execution-and-clearing.qmd
-                - file: cross-venue-cross-margining.qmd 
-                - file: intents.qmd
-          - file: oracles.qmd
+                - file: afp/trade-execution-and-clearing.qmd
+                - file: afp/cross-venue-cross-margining.qmd 
+                - file: afp/intents.qmd
+          - file: afp/oracles.qmd
             contents:
-                - file: how-to-integrate-an-oracle.qmd
-                - file: oracle-interface.qmd 
-          - file: on-chain-agents.qmd
+                - file: afp/how-to-integrate-an-oracle.qmd
+                - file: afp/oracle-interface.qmd 
+          - file: afp/onchain-agents.qmd
             contents:
-                - file: final-settlement-price-agent.qmd
-                - file: closeout-agent.qmd    
-                - file: liquidation-agent.qmd    
+                - file: afp/final-settlement-price-agent.qmd
+                - file: afp/closeout-agent.qmd    
+                - file: afp/liquidation-agent.qmd    
       - text: Glossary
-        file: glossary.qmd
+        file: afp/glossary.qmd
       - section: "For Developers"
         contents:
           - text: AFP SDK Reference
-            file: afp-sdk-reference.qmd
+            file: afp/afp-sdk-reference.qmd
           - text: AFP Smart Contract Reference
-            file: afp-smart-contract-reference.qmd
+            file: afp/afp-smart-contract-reference.qmd
   page-footer:
     left: "© 2025 AFP Project"
     right: "Built with Quarto"

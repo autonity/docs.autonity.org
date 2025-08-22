@@ -1,0 +1,4767 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>AFP Smart Contract Reference – Autonity Documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../afp/afp-sdk-reference.html" rel="prev">
+<link href=".././_assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6d387f3d261fc6729db37a303af96789.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4a1b5ff6e11ca1ad6b8637e0ba3fe55d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../_assets/css/styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../_assets/images/logo-autonity.svg" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Autonity Documentation</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/clearmatics/proto-afp">
+            Source Code
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../afp/afp-sdk-reference.html">For Developers</a></li><li class="breadcrumb-item"><a href="../afp/afp-smart-contract-reference.html">AFP Smart Contract Reference</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Autonity Futures Protocol</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../afp/about-afp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the AFP</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overall Architecture</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/getting-started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../afp/clearing-system.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clearing System</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/margin-intent-accounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Margin &amp; Intent Accounts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/liquidation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liquidation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/bankruptcy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bankruptcy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/margining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Margining</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/mark-price.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mark Price determination</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/final-settlement-price.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Settlement Value and Price</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/final-settlement-process.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Settlement Process</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../afp/fees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fees</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/trading-fees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trading fees</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/clearing-fees.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Clearing fees</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../afp/products.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Products</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/how-to-create-a-product.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Create a Product</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/product-specification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Product Types and Specification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/product-builders.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Product Builders</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/product-lifecycle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Product Lifecycle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/product-tokenomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Product Tokenomics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../afp/trading-protocols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trading Protocols</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/how-to-integrate-a-trading-protocol.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to integrate a trading protocol</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/the-roles-of-trading-protocols.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trading Protocols</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/fallback-mechanism.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fallback mechanism</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../afp/trading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trading</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/trade-execution-and-clearing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trade Execution and Clearing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/cross-venue-cross-margining.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Venue Cross-Margining</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/intents.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intents</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../afp/oracles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oracles</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/how-to-integrate-an-oracle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to Integrate an Oracle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/oracle-interface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oracle Interface</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../afp/onchain-agents.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">On-chain Agents</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/final-settlement-price-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Settlement Price Agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/closeout-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Closeout Agent</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/liquidation-agent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liquidation Agent</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">For Developers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/afp-sdk-reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">AFP SDK Reference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../afp/afp-smart-contract-reference.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">AFP Smart Contract Reference</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#iauctioneer" id="toc-iauctioneer" class="nav-link active" data-scroll-target="#iauctioneer">IAuctioneer</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses" id="toc-deployed-addresses" class="nav-link" data-scroll-target="#deployed-addresses">Deployed Addresses</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a></li>
+  <li><a href="#auctionconfig" id="toc-auctionconfig" class="nav-link" data-scroll-target="#auctionconfig">AuctionConfig</a></li>
+  <li><a href="#biddata" id="toc-biddata" class="nav-link" data-scroll-target="#biddata">BidData</a></li>
+  <li><a href="#auctiondata" id="toc-auctiondata" class="nav-link" data-scroll-target="#auctiondata">AuctionData</a></li>
+  <li><a href="#liquidationstarted" id="toc-liquidationstarted" class="nav-link" data-scroll-target="#liquidationstarted">LiquidationStarted</a></li>
+  <li><a href="#auctioned" id="toc-auctioned" class="nav-link" data-scroll-target="#auctioned">Auctioned</a></li>
+  <li><a href="#liquidationterminated" id="toc-liquidationterminated" class="nav-link" data-scroll-target="#liquidationterminated">LiquidationTerminated</a></li>
+  <li><a href="#requestliquidation" id="toc-requestliquidation" class="nav-link" data-scroll-target="#requestliquidation">requestLiquidation</a></li>
+  <li><a href="#bidauction" id="toc-bidauction" class="nav-link" data-scroll-target="#bidauction">bidAuction</a></li>
+  <li><a href="#terminateauctions" id="toc-terminateauctions" class="nav-link" data-scroll-target="#terminateauctions">terminateAuctions</a></li>
+  <li><a href="#isliquidatable" id="toc-isliquidatable" class="nav-link" data-scroll-target="#isliquidatable">isLiquidatable</a></li>
+  <li><a href="#isliquidating" id="toc-isliquidating" class="nav-link" data-scroll-target="#isliquidating">isLiquidating</a></li>
+  <li><a href="#canterminateauctions" id="toc-canterminateauctions" class="nav-link" data-scroll-target="#canterminateauctions">canTerminateAuctions</a></li>
+  <li><a href="#auctionconfig-1" id="toc-auctionconfig-1" class="nav-link" data-scroll-target="#auctionconfig-1">auctionConfig</a></li>
+  <li><a href="#auctiondata-1" id="toc-auctiondata-1" class="nav-link" data-scroll-target="#auctiondata-1">auctionData</a></li>
+  <li><a href="#maecheckonbid" id="toc-maecheckonbid" class="nav-link" data-scroll-target="#maecheckonbid">maeCheckOnBid</a></li>
+  <li><a href="#validateauctions" id="toc-validateauctions" class="nav-link" data-scroll-target="#validateauctions">validateAuctions</a></li>
+  <li><a href="#maxmaeoffered" id="toc-maxmaeoffered" class="nav-link" data-scroll-target="#maxmaeoffered">maxMaeOffered</a></li>
+  </ul></li>
+  <li><a href="#side" id="toc-side" class="nav-link" data-scroll-target="#side">Side</a></li>
+  <li><a href="#iclearing" id="toc-iclearing" class="nav-link" data-scroll-target="#iclearing">IClearing</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-1" id="toc-deployed-addresses-1" class="nav-link" data-scroll-target="#deployed-addresses-1">Deployed Addresses</a></li>
+  <li><a href="#functions-1" id="toc-functions-1" class="nav-link" data-scroll-target="#functions-1">Functions</a></li>
+  <li><a href="#intentdata" id="toc-intentdata" class="nav-link" data-scroll-target="#intentdata">IntentData</a></li>
+  <li><a href="#intent" id="toc-intent" class="nav-link" data-scroll-target="#intent">Intent</a></li>
+  <li><a href="#trade" id="toc-trade" class="nav-link" data-scroll-target="#trade">Trade</a></li>
+  <li><a href="#clearingconfig" id="toc-clearingconfig" class="nav-link" data-scroll-target="#clearingconfig">ClearingConfig</a></li>
+  <li><a href="#config" id="toc-config" class="nav-link" data-scroll-target="#config">Config</a></li>
+  <li><a href="#tradeexecuted" id="toc-tradeexecuted" class="nav-link" data-scroll-target="#tradeexecuted">TradeExecuted</a></li>
+  <li><a href="#execute" id="toc-execute" class="nav-link" data-scroll-target="#execute">execute</a></li>
+  <li><a href="#setconfig" id="toc-setconfig" class="nav-link" data-scroll-target="#setconfig">setConfig</a></li>
+  <li><a href="#finalizeinitialization" id="toc-finalizeinitialization" class="nav-link" data-scroll-target="#finalizeinitialization">finalizeInitialization</a></li>
+  <li><a href="#estimatefees" id="toc-estimatefees" class="nav-link" data-scroll-target="#estimatefees">estimateFees</a></li>
+  <li><a href="#clearingfeerate" id="toc-clearingfeerate" class="nav-link" data-scroll-target="#clearingfeerate">clearingFeeRate</a></li>
+  <li><a href="#max_trading_fee_rate" id="toc-max_trading_fee_rate" class="nav-link" data-scroll-target="#max_trading_fee_rate">MAX_TRADING_FEE_RATE</a></li>
+  <li><a href="#getproductregistry" id="toc-getproductregistry" class="nav-link" data-scroll-target="#getproductregistry">getProductRegistry</a></li>
+  <li><a href="#getmarginaccountregistry" id="toc-getmarginaccountregistry" class="nav-link" data-scroll-target="#getmarginaccountregistry">getMarginAccountRegistry</a></li>
+  <li><a href="#gettreasury" id="toc-gettreasury" class="nav-link" data-scroll-target="#gettreasury">getTreasury</a></li>
+  <li><a href="#config-1" id="toc-config-1" class="nav-link" data-scroll-target="#config-1">config</a></li>
+  </ul></li>
+  <li><a href="#iclearingdiamond" id="toc-iclearingdiamond" class="nav-link" data-scroll-target="#iclearingdiamond">IClearingDiamond</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-2" id="toc-deployed-addresses-2" class="nav-link" data-scroll-target="#deployed-addresses-2">Deployed Addresses</a></li>
+  <li><a href="#functions-2" id="toc-functions-2" class="nav-link" data-scroll-target="#functions-2">Functions</a></li>
+  </ul></li>
+  <li><a href="#ifinalsettlement" id="toc-ifinalsettlement" class="nav-link" data-scroll-target="#ifinalsettlement">IFinalSettlement</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-3" id="toc-deployed-addresses-3" class="nav-link" data-scroll-target="#deployed-addresses-3">Deployed Addresses</a></li>
+  <li><a href="#functions-3" id="toc-functions-3" class="nav-link" data-scroll-target="#functions-3">Functions</a></li>
+  <li><a href="#initiatefinalsettlement" id="toc-initiatefinalsettlement" class="nav-link" data-scroll-target="#initiatefinalsettlement">initiateFinalSettlement</a></li>
+  <li><a href="#finalizefsp" id="toc-finalizefsp" class="nav-link" data-scroll-target="#finalizefsp">finalizeFsp</a></li>
+  <li><a href="#closeout_fee_rate" id="toc-closeout_fee_rate" class="nav-link" data-scroll-target="#closeout_fee_rate">CLOSEOUT_FEE_RATE</a></li>
+  <li><a href="#closeout_reward_rate" id="toc-closeout_reward_rate" class="nav-link" data-scroll-target="#closeout_reward_rate">CLOSEOUT_REWARD_RATE</a></li>
+  <li><a href="#getfsp" id="toc-getfsp" class="nav-link" data-scroll-target="#getfsp">getFsp</a></li>
+  </ul></li>
+  <li><a href="#imarginaccount" id="toc-imarginaccount" class="nav-link" data-scroll-target="#imarginaccount">IMarginAccount</a>
+  <ul class="collapse">
+  <li><a href="#functions-4" id="toc-functions-4" class="nav-link" data-scroll-target="#functions-4">Functions</a></li>
+  <li><a href="#positiondata" id="toc-positiondata" class="nav-link" data-scroll-target="#positiondata">PositionData</a></li>
+  <li><a href="#settlement" id="toc-settlement" class="nav-link" data-scroll-target="#settlement">Settlement</a></li>
+  <li><a href="#positionupdated" id="toc-positionupdated" class="nav-link" data-scroll-target="#positionupdated">PositionUpdated</a></li>
+  <li><a href="#feecollected" id="toc-feecollected" class="nav-link" data-scroll-target="#feecollected">FeeCollected</a></li>
+  <li><a href="#feedispersed" id="toc-feedispersed" class="nav-link" data-scroll-target="#feedispersed">FeeDispersed</a></li>
+  <li><a href="#settle" id="toc-settle" class="nav-link" data-scroll-target="#settle">settle</a></li>
+  <li><a href="#collectfee" id="toc-collectfee" class="nav-link" data-scroll-target="#collectfee">collectFee</a></li>
+  <li><a href="#dispersefees" id="toc-dispersefees" class="nav-link" data-scroll-target="#dispersefees">disperseFees</a></li>
+  <li><a href="#batchsettle" id="toc-batchsettle" class="nav-link" data-scroll-target="#batchsettle">batchSettle</a></li>
+  <li><a href="#deposit" id="toc-deposit" class="nav-link" data-scroll-target="#deposit">deposit</a></li>
+  <li><a href="#withdraw" id="toc-withdraw" class="nav-link" data-scroll-target="#withdraw">withdraw</a></li>
+  <li><a href="#authorize" id="toc-authorize" class="nav-link" data-scroll-target="#authorize">authorize</a></li>
+  <li><a href="#revokeauthorization" id="toc-revokeauthorization" class="nav-link" data-scroll-target="#revokeauthorization">revokeAuthorization</a></li>
+  <li><a href="#collateralasset" id="toc-collateralasset" class="nav-link" data-scroll-target="#collateralasset">collateralAsset</a></li>
+  <li><a href="#authorized" id="toc-authorized" class="nav-link" data-scroll-target="#authorized">authorized</a></li>
+  <li><a href="#capital" id="toc-capital" class="nav-link" data-scroll-target="#capital">capital</a></li>
+  <li><a href="#mae" id="toc-mae" class="nav-link" data-scroll-target="#mae">mae</a></li>
+  <li><a href="#mmu" id="toc-mmu" class="nav-link" data-scroll-target="#mmu">mmu</a></li>
+  <li><a href="#mma" id="toc-mma" class="nav-link" data-scroll-target="#mma">mma</a></li>
+  <li><a href="#pnl" id="toc-pnl" class="nav-link" data-scroll-target="#pnl">pnl</a></li>
+  <li><a href="#withdrawable" id="toc-withdrawable" class="nav-link" data-scroll-target="#withdrawable">withdrawable</a></li>
+  <li><a href="#positions" id="toc-positions" class="nav-link" data-scroll-target="#positions">positions</a></li>
+  <li><a href="#positiondata-1" id="toc-positiondata-1" class="nav-link" data-scroll-target="#positiondata-1">positionData</a></li>
+  <li><a href="#maecheck" id="toc-maecheck" class="nav-link" data-scroll-target="#maecheck">maeCheck</a></li>
+  <li><a href="#batchmaecheck" id="toc-batchmaecheck" class="nav-link" data-scroll-target="#batchmaecheck">batchMaeCheck</a></li>
+  <li><a href="#maeandmmuafterbatchtrade" id="toc-maeandmmuafterbatchtrade" class="nav-link" data-scroll-target="#maeandmmuafterbatchtrade">maeAndMmuAfterBatchTrade</a></li>
+  </ul></li>
+  <li><a href="#imarginaccountregistry" id="toc-imarginaccountregistry" class="nav-link" data-scroll-target="#imarginaccountregistry">IMarginAccountRegistry</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-4" id="toc-deployed-addresses-4" class="nav-link" data-scroll-target="#deployed-addresses-4">Deployed Addresses</a></li>
+  <li><a href="#functions-5" id="toc-functions-5" class="nav-link" data-scroll-target="#functions-5">Functions</a></li>
+  <li><a href="#marginaccountcreated" id="toc-marginaccountcreated" class="nav-link" data-scroll-target="#marginaccountcreated">MarginAccountCreated</a></li>
+  <li><a href="#getmarginaccount" id="toc-getmarginaccount" class="nav-link" data-scroll-target="#getmarginaccount">getMarginAccount</a></li>
+  <li><a href="#initializemarginaccount" id="toc-initializemarginaccount" class="nav-link" data-scroll-target="#initializemarginaccount">initializeMarginAccount</a></li>
+  </ul></li>
+  <li><a href="#ioracleprovider" id="toc-ioracleprovider" class="nav-link" data-scroll-target="#ioracleprovider">IOracleProvider</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-5" id="toc-deployed-addresses-5" class="nav-link" data-scroll-target="#deployed-addresses-5">Deployed Addresses</a></li>
+  <li><a href="#functions-6" id="toc-functions-6" class="nav-link" data-scroll-target="#functions-6">Functions</a></li>
+  <li><a href="#resolve" id="toc-resolve" class="nav-link" data-scroll-target="#resolve">resolve</a></li>
+  </ul></li>
+  <li><a href="#productstate" id="toc-productstate" class="nav-link" data-scroll-target="#productstate">ProductState</a></li>
+  <li><a href="#iproductregistry" id="toc-iproductregistry" class="nav-link" data-scroll-target="#iproductregistry">IProductRegistry</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-6" id="toc-deployed-addresses-6" class="nav-link" data-scroll-target="#deployed-addresses-6">Deployed Addresses</a></li>
+  <li><a href="#functions-7" id="toc-functions-7" class="nav-link" data-scroll-target="#functions-7">Functions</a></li>
+  <li><a href="#productmetadata" id="toc-productmetadata" class="nav-link" data-scroll-target="#productmetadata">ProductMetadata</a></li>
+  <li><a href="#oraclespecification" id="toc-oraclespecification" class="nav-link" data-scroll-target="#oraclespecification">OracleSpecification</a></li>
+  <li><a href="#product" id="toc-product" class="nav-link" data-scroll-target="#product">Product</a></li>
+  <li><a href="#productregistered" id="toc-productregistered" class="nav-link" data-scroll-target="#productregistered">ProductRegistered</a></li>
+  <li><a href="#products" id="toc-products" class="nav-link" data-scroll-target="#products">products</a></li>
+  <li><a href="#state" id="toc-state" class="nav-link" data-scroll-target="#state">state</a></li>
+  <li><a href="#collateralasset-1" id="toc-collateralasset-1" class="nav-link" data-scroll-target="#collateralasset-1">collateralAsset</a></li>
+  <li><a href="#pointvalue" id="toc-pointvalue" class="nav-link" data-scroll-target="#pointvalue">pointValue</a></li>
+  <li><a href="#earliestfspsubmissiontime" id="toc-earliestfspsubmissiontime" class="nav-link" data-scroll-target="#earliestfspsubmissiontime">earliestFSPSubmissionTime</a></li>
+  <li><a href="#imr" id="toc-imr" class="nav-link" data-scroll-target="#imr">imr</a></li>
+  <li><a href="#mmr" id="toc-mmr" class="nav-link" data-scroll-target="#mmr">mmr</a></li>
+  <li><a href="#ticksize" id="toc-ticksize" class="nav-link" data-scroll-target="#ticksize">tickSize</a></li>
+  <li><a href="#id" id="toc-id" class="nav-link" data-scroll-target="#id">id</a></li>
+  <li><a href="#offerpricebuffer" id="toc-offerpricebuffer" class="nav-link" data-scroll-target="#offerpricebuffer">offerPriceBuffer</a></li>
+  <li><a href="#auctionbounty" id="toc-auctionbounty" class="nav-link" data-scroll-target="#auctionbounty">auctionBounty</a></li>
+  <li><a href="#oraclespecification-1" id="toc-oraclespecification-1" class="nav-link" data-scroll-target="#oraclespecification-1">oracleSpecification</a></li>
+  <li><a href="#register" id="toc-register" class="nav-link" data-scroll-target="#register">register</a></li>
+  </ul></li>
+  <li><a href="#itrackinterest" id="toc-itrackinterest" class="nav-link" data-scroll-target="#itrackinterest">ITrackInterest</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-7" id="toc-deployed-addresses-7" class="nav-link" data-scroll-target="#deployed-addresses-7">Deployed Addresses</a></li>
+  <li><a href="#functions-8" id="toc-functions-8" class="nav-link" data-scroll-target="#functions-8">Functions</a></li>
+  <li><a href="#openinterest" id="toc-openinterest" class="nav-link" data-scroll-target="#openinterest">openInterest</a></li>
+  </ul></li>
+  <li><a href="#itradingprotocol" id="toc-itradingprotocol" class="nav-link" data-scroll-target="#itradingprotocol">ITradingProtocol</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-8" id="toc-deployed-addresses-8" class="nav-link" data-scroll-target="#deployed-addresses-8">Deployed Addresses</a></li>
+  <li><a href="#functions-9" id="toc-functions-9" class="nav-link" data-scroll-target="#functions-9">Functions</a></li>
+  <li><a href="#execute-1" id="toc-execute-1" class="nav-link" data-scroll-target="#execute-1">execute</a></li>
+  <li><a href="#executesequence" id="toc-executesequence" class="nav-link" data-scroll-target="#executesequence">executeSequence</a></li>
+  <li><a href="#addtradesubmitter" id="toc-addtradesubmitter" class="nav-link" data-scroll-target="#addtradesubmitter">addTradeSubmitter</a></li>
+  <li><a href="#removetradesubmitter" id="toc-removetradesubmitter" class="nav-link" data-scroll-target="#removetradesubmitter">removeTradeSubmitter</a></li>
+  <li><a href="#deposit-1" id="toc-deposit-1" class="nav-link" data-scroll-target="#deposit-1">deposit</a></li>
+  <li><a href="#withdraw-1" id="toc-withdraw-1" class="nav-link" data-scroll-target="#withdraw-1">withdraw</a></li>
+  </ul></li>
+  <li><a href="#ivaluation" id="toc-ivaluation" class="nav-link" data-scroll-target="#ivaluation">IValuation</a>
+  <ul class="collapse">
+  <li><a href="#deployed-addresses-9" id="toc-deployed-addresses-9" class="nav-link" data-scroll-target="#deployed-addresses-9">Deployed Addresses</a></li>
+  <li><a href="#functions-10" id="toc-functions-10" class="nav-link" data-scroll-target="#functions-10">Functions</a></li>
+  <li><a href="#valuation" id="toc-valuation" class="nav-link" data-scroll-target="#valuation">valuation</a></li>
+  <li><a href="#valuationaftertrade" id="toc-valuationaftertrade" class="nav-link" data-scroll-target="#valuationaftertrade">valuationAfterTrade</a></li>
+  </ul></li>
+  <li><a href="#sorttester" id="toc-sorttester" class="nav-link" data-scroll-target="#sorttester">SortTester</a>
+  <ul class="collapse">
+  <li><a href="#functions-11" id="toc-functions-11" class="nav-link" data-scroll-target="#functions-11">Functions</a></li>
+  <li><a href="#sortdata" id="toc-sortdata" class="nav-link" data-scroll-target="#sortdata">sortData</a></li>
+  <li><a href="#somestruct" id="toc-somestruct" class="nav-link" data-scroll-target="#somestruct">SomeStruct</a></li>
+  <li><a href="#sortsomestructbyuint" id="toc-sortsomestructbyuint" class="nav-link" data-scroll-target="#sortsomestructbyuint">sortSomeStructByUint</a></li>
+  <li><a href="#sortsomestructbyint" id="toc-sortsomestructbyint" class="nav-link" data-scroll-target="#sortsomestructbyint">sortSomeStructByInt</a></li>
+  <li><a href="#sortsomestructbyaddress" id="toc-sortsomestructbyaddress" class="nav-link" data-scroll-target="#sortsomestructbyaddress">sortSomeStructByAddress</a></li>
+  <li><a href="#sortsomestructbybytes32" id="toc-sortsomestructbybytes32" class="nav-link" data-scroll-target="#sortsomestructbybytes32">sortSomeStructByBytes32</a></li>
+  <li><a href="#rearrange" id="toc-rearrange" class="nav-link" data-scroll-target="#rearrange">rearrange</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../afp/afp-sdk-reference.html">For Developers</a></li><li class="breadcrumb-item"><a href="../afp/afp-smart-contract-reference.html">AFP Smart Contract Reference</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">AFP Smart Contract Reference</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="iauctioneer" class="level2">
+<h2 class="anchored" data-anchor-id="iauctioneer">IAuctioneer</h2>
+<p>This interface defines the functions and events related to the auction and liquidation process in the clearing system. It is implemented by the Auctioneer facet of the ClearingDiamond contract, and hence all functionality is callable through the ClearingDiamond contract.</p>
+<section id="deployed-addresses" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x393746A87CF3458EeA2b47BF035496429AbFBD66</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions" class="level3">
+<h3 class="anchored" data-anchor-id="functions">Functions</h3>
+<ul>
+<li><a href="#requestliquidation">requestLiquidation</a></li>
+<li><a href="#bidauction">bidAuction</a></li>
+<li><a href="#terminateauctions">terminateAuctions</a></li>
+<li><a href="#isliquidatable">isLiquidatable</a></li>
+<li><a href="#isliquidating">isLiquidating</a></li>
+<li><a href="#canterminateauctions">canTerminateAuctions</a></li>
+<li><a href="#auctionconfig">auctionConfig</a></li>
+<li><a href="#auctiondata">auctionData</a></li>
+<li><a href="#maecheckonbid">maeCheckOnBid</a></li>
+<li><a href="#validateauctions">validateAuctions</a></li>
+<li><a href="#maxmaeoffered">maxMaeOffered</a></li>
+</ul>
+</section>
+<section id="auctionconfig" class="level3">
+<h3 class="anchored" data-anchor-id="auctionconfig">AuctionConfig</h3>
+<p>Protocol set configuration options for liquidation auctions</p>
+<pre class="solidity"><code>struct AuctionConfig {
+  uint64 restorationBuffer;
+  uint256 liquidationDuration;
+}</code></pre>
+</section>
+<section id="biddata" class="level3">
+<h3 class="anchored" data-anchor-id="biddata">BidData</h3>
+<pre class="solidity"><code>struct BidData {
+  bytes32 productID;
+  uint256 price;
+  uint256 quantity;
+  enum Side side;
+}</code></pre>
+</section>
+<section id="auctiondata" class="level3">
+<h3 class="anchored" data-anchor-id="auctiondata">AuctionData</h3>
+<pre class="solidity"><code>struct AuctionData {
+  uint256 startBlock;
+  uint256 maeAtInitiation;
+  uint256 mmuAtInitiation;
+  int256 maeNow;
+  uint256 mmuNow;
+}</code></pre>
+</section>
+<section id="liquidationstarted" class="level3">
+<h3 class="anchored" data-anchor-id="liquidationstarted">LiquidationStarted</h3>
+<p>Emitted when a liquidation auction is requested for a liquidatable margin account</p>
+<pre class="solidity"><code>event LiquidationStarted(address marginAccountID, address collateralToken)</code></pre>
+<section id="parameters" class="level4">
+<h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the account being liquidated</td>
+</tr>
+<tr class="even">
+<td>collateralToken</td>
+<td>address</td>
+<td>The address of the collateral token used in the liquidation</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="auctioned" class="level3">
+<h3 class="anchored" data-anchor-id="auctioned">Auctioned</h3>
+<p>Emitted when a liquidation auction is successfully bid on</p>
+<pre class="solidity"><code>event Auctioned(address liquidatingMarginAccountID, address liquidatorMarginAccountID, bytes32 productId, int256 quantity, uint256 price)</code></pre>
+<section id="parameters-1" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-1">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>liquidatingMarginAccountID</td>
+<td>address</td>
+<td>The address of the account being liquidated</td>
+</tr>
+<tr class="even">
+<td>liquidatorMarginAccountID</td>
+<td>address</td>
+<td>The address of the liquidator placing the bid</td>
+</tr>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>The product ID of the position being liquidated</td>
+</tr>
+<tr class="even">
+<td>quantity</td>
+<td>int256</td>
+<td>The quantity of the position being bid on</td>
+</tr>
+<tr class="odd">
+<td>price</td>
+<td>uint256</td>
+<td>The price at which the bid was placed</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="liquidationterminated" class="level3">
+<h3 class="anchored" data-anchor-id="liquidationterminated">LiquidationTerminated</h3>
+<p>Emitted when a liquidation auction is terminated</p>
+<pre class="solidity"><code>event LiquidationTerminated(address marginAccountID, address collateralToken)</code></pre>
+<p><em>This event is emitted when the liquidation auction is successfully terminated, either by the liquidator or by the margin account itself once above the restoration buffer.</em></p>
+<section id="parameters-2" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-2">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the account being liquidated</td>
+</tr>
+<tr class="even">
+<td>collateralToken</td>
+<td>address</td>
+<td>The address of the collateral token used in the liquidation</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="requestliquidation" class="level3">
+<h3 class="anchored" data-anchor-id="requestliquidation">requestLiquidation</h3>
+<p>Request a liquidation auction for a margin account that has a MMA = 0. The requestor will be rewarded with the associated auction bounty for initiating the liquidation</p>
+<pre class="solidity"><code>function requestLiquidation(address marginAccountID, address collateralToken) external</code></pre>
+<section id="parameters-3" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-3">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the account to be liquidated</td>
+</tr>
+<tr class="even">
+<td>collateralToken</td>
+<td>address</td>
+<td>The address of the collateral token used in the liquidation</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="bidauction" class="level3">
+<h3 class="anchored" data-anchor-id="bidauction">bidAuction</h3>
+<p>Bid on an ongoing liquidation auction for a liquidatable margin account</p>
+<pre class="solidity"><code>function bidAuction(address marginAccountID, address collateralToken, struct IAuctioneer.BidData[] bids) external</code></pre>
+<section id="parameters-4" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-4">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the account being liquidated</td>
+</tr>
+<tr class="even">
+<td>collateralToken</td>
+<td>address</td>
+<td>The address of the collateral token used in the liquidation</td>
+</tr>
+<tr class="odd">
+<td>bids</td>
+<td>struct IAuctioneer.BidData[]</td>
+<td>List of bids (see <code>BidData</code>)</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="terminateauctions" class="level3">
+<h3 class="anchored" data-anchor-id="terminateauctions">terminateAuctions</h3>
+<p>Terminate an ongoing liquidation auction for a liquidatable margin account. The call is reverted if the liquidation cannot be terminated successfully.</p>
+<pre class="solidity"><code>function terminateAuctions(address marginAccountID, address collateral) external</code></pre>
+<p><em>This function can be called by the liquidator or by the margin account itself once above the restoration buffer.</em></p>
+<section id="parameters-5" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-5">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the account being liquidated</td>
+</tr>
+<tr class="even">
+<td>collateral</td>
+<td>address</td>
+<td>The address of the collateral token used in the liquidation</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="isliquidatable" class="level3">
+<h3 class="anchored" data-anchor-id="isliquidatable">isLiquidatable</h3>
+<pre class="solidity"><code>function isLiquidatable(address marginAccountID, address collateralToken) external view returns (bool)</code></pre>
+</section>
+<section id="isliquidating" class="level3">
+<h3 class="anchored" data-anchor-id="isliquidating">isLiquidating</h3>
+<pre class="solidity"><code>function isLiquidating(address marginAccountID, address collateralToken) external view returns (bool)</code></pre>
+</section>
+<section id="canterminateauctions" class="level3">
+<h3 class="anchored" data-anchor-id="canterminateauctions">canTerminateAuctions</h3>
+<p>Check if a liquidation auction can be terminated for a given account and collateral token</p>
+<pre class="solidity"><code>function canTerminateAuctions(address marginAccountID, address collateral) external view returns (bool)</code></pre>
+<section id="parameters-6" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-6">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the account being liquidated</td>
+</tr>
+<tr class="even">
+<td>collateral</td>
+<td>address</td>
+<td>The address of the collateral token used in the liquidation</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values" class="level4">
+<h4 class="anchored" data-anchor-id="return-values">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>bool</td>
+<td>A boolean indicating whether the liquidation auction can be terminated</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="auctionconfig-1" class="level3">
+<h3 class="anchored" data-anchor-id="auctionconfig-1">auctionConfig</h3>
+<pre class="solidity"><code>function auctionConfig() external view returns (struct IAuctioneer.AuctionConfig)</code></pre>
+</section>
+<section id="auctiondata-1" class="level3">
+<h3 class="anchored" data-anchor-id="auctiondata-1">auctionData</h3>
+<pre class="solidity"><code>function auctionData(address marginAccountID, address collateral) external view returns (struct IAuctioneer.AuctionData)</code></pre>
+</section>
+<section id="maecheckonbid" class="level3">
+<h3 class="anchored" data-anchor-id="maecheckonbid">maeCheckOnBid</h3>
+<p>Performs necessary checks on mae for the liquidator and the liquidating account</p>
+<pre class="solidity"><code>function maeCheckOnBid(address liquidatorMarginAccountID, address liquidatingMarginAccountID, address collateral, struct IAuctioneer.BidData[] bids) external view returns (bool maeCheckFailed, bool maeOverMmuRateExceeded)</code></pre>
+<section id="parameters-7" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-7">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>liquidatorMarginAccountID</td>
+<td>address</td>
+<td>Margin Account ID of the liquidator</td>
+</tr>
+<tr class="even">
+<td>liquidatingMarginAccountID</td>
+<td>address</td>
+<td>Margin Account ID of the liquidating account</td>
+</tr>
+<tr class="odd">
+<td>collateral</td>
+<td>address</td>
+<td>Address of the collateral token</td>
+</tr>
+<tr class="even">
+<td>bids</td>
+<td>struct IAuctioneer.BidData[]</td>
+<td>List of bids</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-1" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-1">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>maeCheckFailed</td>
+<td>bool</td>
+<td>True if mae check is failed on the liquidator account, false otherwise</td>
+</tr>
+<tr class="even">
+<td>maeOverMmuRateExceeded</td>
+<td>bool</td>
+<td>True if the rate of mae over mmu is not exceeded over the maximum allowed rate, false otherwise</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="validateauctions" class="level3">
+<h3 class="anchored" data-anchor-id="validateauctions">validateAuctions</h3>
+<pre class="solidity"><code>function validateAuctions(address marginAccountID, address collateralToken, struct IAuctioneer.BidData[] bids) external view returns (bool)</code></pre>
+</section>
+<section id="maxmaeoffered" class="level3">
+<h3 class="anchored" data-anchor-id="maxmaeoffered">maxMaeOffered</h3>
+<pre class="solidity"><code>function maxMaeOffered(address marginAccountID, address collateral, uint256 mmuDecreased) external view returns (uint256)</code></pre>
+</section>
+</section>
+<section id="side" class="level2">
+<h2 class="anchored" data-anchor-id="side">Side</h2>
+<pre class="solidity"><code>enum Side {
+  BID,
+  ASK
+}</code></pre>
+</section>
+<section id="iclearing" class="level2">
+<h2 class="anchored" data-anchor-id="iclearing">IClearing</h2>
+<p>This interface defines the functions and data structures related to the clearing process in the trading system. The primary point of interaction with these clearing functions should be from Trading Protocols</p>
+<section id="deployed-addresses-1" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-1">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x393746A87CF3458EeA2b47BF035496429AbFBD66</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-1" class="level3">
+<h3 class="anchored" data-anchor-id="functions-1">Functions</h3>
+<ul>
+<li><a href="#execute">execute</a></li>
+<li><a href="#setconfig">setConfig</a></li>
+<li><a href="#finalizeinitialization">finalizeInitialization</a></li>
+<li><a href="#estimatefees">estimateFees</a></li>
+<li><a href="#clearingfeerate">clearingFeeRate</a></li>
+<li><a href="#max_trading_fee_rate">MAX_TRADING_FEE_RATE</a></li>
+<li><a href="#getproductregistry">getProductRegistry</a></li>
+<li><a href="#getmarginaccountregistry">getMarginAccountRegistry</a></li>
+<li><a href="#gettreasury">getTreasury</a></li>
+<li><a href="#config">config</a></li>
+</ul>
+</section>
+<section id="intentdata" class="level3">
+<h3 class="anchored" data-anchor-id="intentdata">IntentData</h3>
+<p>Represents the data required for an intent</p>
+<ul>
+<li><strong>nonce</strong> - the unique nonce of the intent, used to prevent replay attacks</li>
+<li><strong>tradingProtocolID</strong> - the trading protocol ID that is executing the intent (must match the msg.sender)</li>
+<li><strong>productID</strong> - the product ID of the product being traded</li>
+<li><strong>limitPrice</strong> - the limit price for the trade</li>
+<li><strong>quantity</strong> - the maximum quantity to be traded</li>
+<li><strong>maxTradingFeeRate</strong> - the maximum trading fee rate that the account is willing to pay to the trading protocol</li>
+<li><strong>goodUntil</strong> - the time after which this intent expires</li>
+<li><strong>side</strong>* - the side of the trade (BID or ASK)</li>
+</ul>
+<pre class="solidity"><code>struct IntentData {
+  uint256 nonce;
+  address tradingProtocolID;
+  bytes32 productID;
+  uint256 limitPrice;
+  uint256 quantity;
+  uint256 maxTradingFeeRate;
+  uint256 goodUntil;
+  enum Side side;
+}</code></pre>
+</section>
+<section id="intent" class="level3">
+<h3 class="anchored" data-anchor-id="intent">Intent</h3>
+<p>Represents an intent to trade, which is signed by the margin account owner - <strong>marginAccountID</strong> - the margin account ID which has a funded margin account on the associated collateral asset - <strong>intentAccountID</strong> - the intent account ID which has signed the intent (must be approved by the margin account) - <strong>hash</strong> - the hash of the intent data - <strong>data</strong> - the intent data containing the details of the intended trade - <strong>signature</strong> - the signature of the intent, signed by the intent account ID</p>
+<pre class="solidity"><code>struct Intent {
+  address marginAccountID;
+  address intentAccountID;
+  bytes32 hash;
+  struct IClearing.IntentData data;
+  bytes signature;
+}</code></pre>
+</section>
+<section id="trade" class="level3">
+<h3 class="anchored" data-anchor-id="trade">Trade</h3>
+<p>Represents a trade to be executed in the clearing system - <strong>productID</strong> - the product ID of the product being traded - <strong>protocolID</strong> - the trading protocol ID that is executing the trade (must match the msg.sender) - <strong>tradeID</strong> - an ID identifying the trade - <strong>price</strong> - the trade price - <strong>timestamp</strong> - the timestamp of the trade - <strong>accounts</strong> - the margin account IDs of the accounts involved in the trade - <strong>quantities</strong> - the quantities traded for each associated margin account - <strong>feeRates</strong> - the fee rates charged for each associated margin account - <strong>intents</strong> - the intent associated with the trade (must be signed by the appropriate margin accounts and in the same order as <code>accounts</code>)</p>
+<pre class="solidity"><code>struct Trade {
+  bytes32 productID;
+  address protocolID;
+  uint256 tradeID;
+  uint256 price;
+  uint256 timestamp;
+  address[] accounts;
+  uint256[] quantities;
+  int256[] feeRates;
+  struct IClearing.Intent[] intents;
+}</code></pre>
+</section>
+<section id="clearingconfig" class="level3">
+<h3 class="anchored" data-anchor-id="clearingconfig">ClearingConfig</h3>
+<p>The configuration options for the clearing contract - <strong>clearingFeeRate</strong> - the clearing fee rate charged by the clearing contract, with precision 10^6</p>
+<pre class="solidity"><code>struct ClearingConfig {
+  uint32 clearingFeeRate;
+}</code></pre>
+</section>
+<section id="config" class="level3">
+<h3 class="anchored" data-anchor-id="config">Config</h3>
+<p>The protocol-level configuration options for the clearing contract - <strong>auctionConfig</strong> - the auctioneer config - <strong>clearingConfig</strong> - the clearing contract config</p>
+<pre class="solidity"><code>struct Config {
+  struct IAuctioneer.AuctionConfig auctionConfig;
+  struct IClearing.ClearingConfig clearingConfig;
+}</code></pre>
+</section>
+<section id="tradeexecuted" class="level3">
+<h3 class="anchored" data-anchor-id="tradeexecuted">TradeExecuted</h3>
+<p>Emitted when a trade is executed</p>
+<pre class="solidity"><code>event TradeExecuted(bytes32 productID, address protocolID, address marginAccount, uint256 price, uint256 quantity)</code></pre>
+<section id="parameters-8" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-8">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productID</td>
+<td>bytes32</td>
+<td>the product ID of the executed trade</td>
+</tr>
+<tr class="even">
+<td>protocolID</td>
+<td>address</td>
+<td>the trading protocol ID that executed the trade</td>
+</tr>
+<tr class="odd">
+<td>marginAccount</td>
+<td>address</td>
+<td>the margin account contract address used for the product</td>
+</tr>
+<tr class="even">
+<td>price</td>
+<td>uint256</td>
+<td>the price at which the trade was executed</td>
+</tr>
+<tr class="odd">
+<td>quantity</td>
+<td>uint256</td>
+<td>the quantity of the trade executed (sum of all quantities on each side of the trade)</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="execute" class="level3">
+<h3 class="anchored" data-anchor-id="execute">execute</h3>
+<p>performs trade validation checks and executes a trade</p>
+<pre class="solidity"><code>function execute(struct IClearing.Trade trade, bool fallbackOnFailure) external</code></pre>
+<p><em>this function can only be called by the trading protocol listed in the trade object</em></p>
+<section id="parameters-9" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-9">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>trade</td>
+<td>struct IClearing.Trade</td>
+<td>the trade to be executed</td>
+</tr>
+<tr class="even">
+<td>fallbackOnFailure</td>
+<td>bool</td>
+<td>if true, the trading protocol’s margin account will be substituted for any margin account in the trade that fails the MAE check</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="setconfig" class="level3">
+<h3 class="anchored" data-anchor-id="setconfig">setConfig</h3>
+<p>sets the clearing config</p>
+<pre class="solidity"><code>function setConfig(struct IClearing.Config config) external</code></pre>
+<p><em>this function can only be called by the contract owner</em></p>
+<section id="parameters-10" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-10">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>config</td>
+<td>struct IClearing.Config</td>
+<td>the clearing config to be set</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="finalizeinitialization" class="level3">
+<h3 class="anchored" data-anchor-id="finalizeinitialization">finalizeInitialization</h3>
+<p>finalizes initialization of the clearing contract</p>
+<pre class="solidity"><code>function finalizeInitialization(address marginAccountRegistry) external</code></pre>
+<section id="parameters-11" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-11">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountRegistry</td>
+<td>address</td>
+<td>the address of the margin account registry</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="estimatefees" class="level3">
+<h3 class="anchored" data-anchor-id="estimatefees">estimateFees</h3>
+<p>returns the estimated fees for a given trade</p>
+<pre class="solidity"><code>function estimateFees(bytes32 productID, uint256 price, uint256 quantity, int256 tradingFeeRate) external view returns (uint256, int256)</code></pre>
+<section id="parameters-12" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-12">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productID</td>
+<td>bytes32</td>
+<td>the product ID</td>
+</tr>
+<tr class="even">
+<td>price</td>
+<td>uint256</td>
+<td>the price of the trade</td>
+</tr>
+<tr class="odd">
+<td>quantity</td>
+<td>uint256</td>
+<td>the quantity of the trade</td>
+</tr>
+<tr class="even">
+<td>tradingFeeRate</td>
+<td>int256</td>
+<td>the trading fee rate charged by the trading protocol</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-2" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-2">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>fees the clearing fee charged by the clearing protocol and trading fee charged by the trading protocol</td>
+</tr>
+<tr class="even">
+<td>[1]</td>
+<td>int256</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="clearingfeerate" class="level3">
+<h3 class="anchored" data-anchor-id="clearingfeerate">clearingFeeRate</h3>
+<p>returns the clearing fee rate with precision 10^6</p>
+<pre class="solidity"><code>function clearingFeeRate() external view returns (uint256)</code></pre>
+<section id="return-values-3" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-3">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the clearing fee rate</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="max_trading_fee_rate" class="level3">
+<h3 class="anchored" data-anchor-id="max_trading_fee_rate">MAX_TRADING_FEE_RATE</h3>
+<p>returns the maximum trading fee rate with precision 10^6</p>
+<pre class="solidity"><code>function MAX_TRADING_FEE_RATE() external pure returns (uint256)</code></pre>
+<section id="return-values-4" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-4">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the maximum trading fee rate</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="getproductregistry" class="level3">
+<h3 class="anchored" data-anchor-id="getproductregistry">getProductRegistry</h3>
+<p>returns the product registry address</p>
+<pre class="solidity"><code>function getProductRegistry() external view returns (contract IProductRegistry)</code></pre>
+<section id="return-values-5" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-5">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>contract IProductRegistry</td>
+<td>the product registry address</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="getmarginaccountregistry" class="level3">
+<h3 class="anchored" data-anchor-id="getmarginaccountregistry">getMarginAccountRegistry</h3>
+<p>returns the margin account registry address</p>
+<pre class="solidity"><code>function getMarginAccountRegistry() external view returns (contract IMarginAccountRegistry)</code></pre>
+<section id="return-values-6" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-6">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>contract IMarginAccountRegistry</td>
+<td>the margin account registry address</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="gettreasury" class="level3">
+<h3 class="anchored" data-anchor-id="gettreasury">getTreasury</h3>
+<p>returns the treasury address</p>
+<pre class="solidity"><code>function getTreasury() external view returns (address)</code></pre>
+<section id="return-values-7" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-7">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>address</td>
+<td>the treasury address</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="config-1" class="level3">
+<h3 class="anchored" data-anchor-id="config-1">config</h3>
+<p>returns the clearing config</p>
+<pre class="solidity"><code>function config() external view returns (struct IClearing.Config)</code></pre>
+<section id="return-values-8" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-8">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>struct IClearing.Config</td>
+<td>the clearing config</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="iclearingdiamond" class="level2">
+<h2 class="anchored" data-anchor-id="iclearingdiamond">IClearingDiamond</h2>
+<p>This interface represents the complete functionality of the ClearingDiamond contract. It includes inheritance from multiple facets that handle different aspects of the clearing process.</p>
+<section id="deployed-addresses-2" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-2">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x393746A87CF3458EeA2b47BF035496429AbFBD66</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-2" class="level3">
+<h3 class="anchored" data-anchor-id="functions-2">Functions</h3>
+<section id="inherited-ivaluation" class="level4">
+<h4 class="anchored" data-anchor-id="inherited-ivaluation">Inherited (IValuation)</h4>
+<ul>
+<li><a href="#valuation">valuation</a></li>
+<li><a href="#valuationaftertrade">valuationAfterTrade</a></li>
+</ul>
+</section>
+<section id="inherited-itrackinterest" class="level4">
+<h4 class="anchored" data-anchor-id="inherited-itrackinterest">Inherited (ITrackInterest)</h4>
+<ul>
+<li><a href="#openinterest">openInterest</a></li>
+</ul>
+</section>
+<section id="inherited-ifinalsettlement" class="level4">
+<h4 class="anchored" data-anchor-id="inherited-ifinalsettlement">Inherited (IFinalSettlement)</h4>
+<ul>
+<li><a href="#initiatefinalsettlement">initiateFinalSettlement</a></li>
+<li><a href="#finalizefsp">finalizeFsp</a></li>
+<li><a href="#closeout_fee_rate">CLOSEOUT_FEE_RATE</a></li>
+<li><a href="#closeout_reward_rate">CLOSEOUT_REWARD_RATE</a></li>
+<li><a href="#getfsp">getFsp</a></li>
+</ul>
+</section>
+<section id="inherited-iauctioneer" class="level4">
+<h4 class="anchored" data-anchor-id="inherited-iauctioneer">Inherited (IAuctioneer)</h4>
+<ul>
+<li><a href="#requestliquidation">requestLiquidation</a></li>
+<li><a href="#bidauction">bidAuction</a></li>
+<li><a href="#terminateauctions">terminateAuctions</a></li>
+<li><a href="#isliquidatable">isLiquidatable</a></li>
+<li><a href="#isliquidating">isLiquidating</a></li>
+<li><a href="#canterminateauctions">canTerminateAuctions</a></li>
+<li><a href="#auctionconfig">auctionConfig</a></li>
+<li><a href="#auctiondata">auctionData</a></li>
+<li><a href="#maecheckonbid">maeCheckOnBid</a></li>
+<li><a href="#validateauctions">validateAuctions</a></li>
+<li><a href="#maxmaeoffered">maxMaeOffered</a></li>
+</ul>
+</section>
+<section id="inherited-iclearing" class="level4">
+<h4 class="anchored" data-anchor-id="inherited-iclearing">Inherited (IClearing)</h4>
+<ul>
+<li><a href="#execute">execute</a></li>
+<li><a href="#setconfig">setConfig</a></li>
+<li><a href="#finalizeinitialization">finalizeInitialization</a></li>
+<li><a href="#estimatefees">estimateFees</a></li>
+<li><a href="#clearingfeerate">clearingFeeRate</a></li>
+<li><a href="#max_trading_fee_rate">MAX_TRADING_FEE_RATE</a></li>
+<li><a href="#getproductregistry">getProductRegistry</a></li>
+<li><a href="#getmarginaccountregistry">getMarginAccountRegistry</a></li>
+<li><a href="#gettreasury">getTreasury</a></li>
+<li><a href="#config">config</a></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="ifinalsettlement" class="level2">
+<h2 class="anchored" data-anchor-id="ifinalsettlement">IFinalSettlement</h2>
+<section id="deployed-addresses-3" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-3">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x393746A87CF3458EeA2b47BF035496429AbFBD66</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-3" class="level3">
+<h3 class="anchored" data-anchor-id="functions-3">Functions</h3>
+<ul>
+<li><a href="#initiatefinalsettlement">initiateFinalSettlement</a></li>
+<li><a href="#finalizefsp">finalizeFsp</a></li>
+<li><a href="#closeout_fee_rate">CLOSEOUT_FEE_RATE</a></li>
+<li><a href="#closeout_reward_rate">CLOSEOUT_REWARD_RATE</a></li>
+<li><a href="#getfsp">getFsp</a></li>
+</ul>
+</section>
+<section id="initiatefinalsettlement" class="level3">
+<h3 class="anchored" data-anchor-id="initiatefinalsettlement">initiateFinalSettlement</h3>
+<p>initiates a final settlement process on a product</p>
+<pre class="solidity"><code>function initiateFinalSettlement(bytes32 productID, address[] accounts) external</code></pre>
+<section id="parameters-13" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-13">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productID</td>
+<td>bytes32</td>
+<td>the product to be settled</td>
+</tr>
+<tr class="even">
+<td>accounts</td>
+<td>address[]</td>
+<td>the accounts to be settled, the positions must be offsetting</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="finalizefsp" class="level3">
+<h3 class="anchored" data-anchor-id="finalizefsp">finalizeFsp</h3>
+<p>finalizes the final settlement price on a product if it earliest FSP time has passed</p>
+<pre class="solidity"><code>function finalizeFsp(bytes32 productID) external returns (uint256)</code></pre>
+<section id="parameters-14" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-14">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productID</td>
+<td>bytes32</td>
+<td>the product to be finalized</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-9" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-9">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the final settlement price (FSP) of the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="closeout_fee_rate" class="level3">
+<h3 class="anchored" data-anchor-id="closeout_fee_rate">CLOSEOUT_FEE_RATE</h3>
+<p>returns the constant protocol fee rate that closed positions will be charged</p>
+<pre class="solidity"><code>function CLOSEOUT_FEE_RATE() external pure returns (uint256)</code></pre>
+<section id="return-values-10" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-10">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the protocol closeout fee rate with 10^6 precision</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="closeout_reward_rate" class="level3">
+<h3 class="anchored" data-anchor-id="closeout_reward_rate">CLOSEOUT_REWARD_RATE</h3>
+<p>returns the constant protocol reward rate that closers will be credited</p>
+<pre class="solidity"><code>function CLOSEOUT_REWARD_RATE() external pure returns (uint256)</code></pre>
+<section id="return-values-11" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-11">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the protocol closeout reward rate with 10^6 precision</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="getfsp" class="level3">
+<h3 class="anchored" data-anchor-id="getfsp">getFsp</h3>
+<p>returns the final settlement price (FSP) for a given product ID</p>
+<pre class="solidity"><code>function getFsp(bytes32 productId) external view returns (uint256 fsp, bool finalized)</code></pre>
+<section id="parameters-15" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-15">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product ID to get the FSP for</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-12" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-12">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fsp</td>
+<td>uint256</td>
+<td>the final settlement price</td>
+</tr>
+<tr class="even">
+<td>finalized</td>
+<td>bool</td>
+<td>whether the FSP has been finalized</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="imarginaccount" class="level2">
+<h2 class="anchored" data-anchor-id="imarginaccount">IMarginAccount</h2>
+<section id="functions-4" class="level3">
+<h3 class="anchored" data-anchor-id="functions-4">Functions</h3>
+<ul>
+<li><a href="#settle">settle</a></li>
+<li><a href="#collectfee">collectFee</a></li>
+<li><a href="#dispersefees">disperseFees</a></li>
+<li><a href="#batchsettle">batchSettle</a></li>
+<li><a href="#deposit">deposit</a></li>
+<li><a href="#withdraw">withdraw</a></li>
+<li><a href="#authorize">authorize</a></li>
+<li><a href="#revokeauthorization">revokeAuthorization</a></li>
+<li><a href="#collateralasset">collateralAsset</a></li>
+<li><a href="#authorized">authorized</a></li>
+<li><a href="#capital">capital</a></li>
+<li><a href="#mae">mae</a></li>
+<li><a href="#mmu">mmu</a></li>
+<li><a href="#mma">mma</a></li>
+<li><a href="#pnl">pnl</a></li>
+<li><a href="#withdrawable">withdrawable</a></li>
+<li><a href="#positions">positions</a></li>
+<li><a href="#positiondata">positionData</a></li>
+<li><a href="#maecheck">maeCheck</a></li>
+<li><a href="#batchmaecheck">batchMaeCheck</a></li>
+<li><a href="#maeandmmuafterbatchtrade">maeAndMmuAfterBatchTrade</a></li>
+</ul>
+</section>
+<section id="positiondata" class="level3">
+<h3 class="anchored" data-anchor-id="positiondata">PositionData</h3>
+<p>the data associated with a specific position in the margin account - <strong>positionId</strong> - the product ID of the product for which the position is held - <strong>quantity</strong> - the total quantity of the position held - <strong>costBasis</strong> - the cost basis of the position, representing the average weighted price at which the position was acquired - <strong>maintenanceMargin</strong> - the amount of margin reserved by this position - <strong>pnl</strong> - the unrealized profit and loss of the position, calculated using the difference between the current market price and the cost basis</p>
+<pre class="solidity"><code>struct PositionData {
+  bytes32 positionId;
+  int256 quantity;
+  int256 costBasis;
+  uint256 maintenanceMargin;
+  int256 pnl;
+}</code></pre>
+</section>
+<section id="settlement" class="level3">
+<h3 class="anchored" data-anchor-id="settlement">Settlement</h3>
+<p>Data associated with a single trade to settle - <strong>positionId</strong> - the ID of the product in which the trade will settle - <strong>quantity</strong> - quantity to be traded - <strong>price</strong> - price at which the trade will settle</p>
+<pre class="solidity"><code>struct Settlement {
+  bytes32 positionId;
+  int256 quantity;
+  uint256 price;
+}</code></pre>
+</section>
+<section id="positionupdated" class="level3">
+<h3 class="anchored" data-anchor-id="positionupdated">PositionUpdated</h3>
+<p>emitted when a position is created/updated</p>
+<pre class="solidity"><code>event PositionUpdated(address marginAccountID, bytes32 positionId, int256 totalQuantity, int256 costBasis)</code></pre>
+<section id="parameters-16" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-16">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>positionId</td>
+<td>bytes32</td>
+<td>The position id</td>
+</tr>
+<tr class="odd">
+<td>totalQuantity</td>
+<td>int256</td>
+<td>The total quantity of the position after the update</td>
+</tr>
+<tr class="even">
+<td>costBasis</td>
+<td>int256</td>
+<td>The cost basis of the position after the update</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="feecollected" class="level3">
+<h3 class="anchored" data-anchor-id="feecollected">FeeCollected</h3>
+<p>emitted when a fee is collected from a margin account</p>
+<pre class="solidity"><code>event FeeCollected(address marginAccountID, int256 capitalAmount)</code></pre>
+<section id="parameters-17" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-17">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>capitalAmount</td>
+<td>int256</td>
+<td>The amount of capital collected</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="feedispersed" class="level3">
+<h3 class="anchored" data-anchor-id="feedispersed">FeeDispersed</h3>
+<p>emitted when fees are dispersed to recipients</p>
+<pre class="solidity"><code>event FeeDispersed(address recipient, uint256 capitalAmount)</code></pre>
+<section id="parameters-18" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-18">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>recipient</td>
+<td>address</td>
+<td>The addresses of the recipients</td>
+</tr>
+<tr class="even">
+<td>capitalAmount</td>
+<td>uint256</td>
+<td>The amounts of capital dispersed to each recipient</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="settle" class="level3">
+<h3 class="anchored" data-anchor-id="settle">settle</h3>
+<p>settles a trade for a given position</p>
+<pre class="solidity"><code>function settle(address marginAccountID, address intentAccount, struct IMarginAccount.Settlement settlement) external returns (bool)</code></pre>
+<p><em>This function can only be called by the clearing house</em></p>
+<section id="parameters-19" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-19">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>intentAccount</td>
+<td>address</td>
+<td>The address of the intent account</td>
+</tr>
+<tr class="odd">
+<td>settlement</td>
+<td>struct IMarginAccount.Settlement</td>
+<td>The trade to settle (see <code>Settlement</code>)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-13" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-13">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>bool</td>
+<td>bool True if the trade was settled successfully</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="collectfee" class="level3">
+<h3 class="anchored" data-anchor-id="collectfee">collectFee</h3>
+<p>collects a fee from the margin account</p>
+<pre class="solidity"><code>function collectFee(address marginAccount, int256 capitalAmount) external</code></pre>
+<p><em>This function can only be called by the clearing house Collected fees need to equal dispersed fees for a transaction not to revert</em></p>
+<section id="parameters-20" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-20">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccount</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>capitalAmount</td>
+<td>int256</td>
+<td>The amount of capital to collect</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="dispersefees" class="level3">
+<h3 class="anchored" data-anchor-id="dispersefees">disperseFees</h3>
+<p>disperses fees to the recipients</p>
+<pre class="solidity"><code>function disperseFees(address[] recipients, uint256[] capitalAmounts) external</code></pre>
+<p><em>This function can only be called by the clearing house The total amount of fees dispersed must equal the total amount of fees collected</em></p>
+<section id="parameters-21" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-21">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>recipients</td>
+<td>address[]</td>
+<td>The addresses of the recipients</td>
+</tr>
+<tr class="even">
+<td>capitalAmounts</td>
+<td>uint256[]</td>
+<td>The amounts of capital to disperse to each recipient</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="batchsettle" class="level3">
+<h3 class="anchored" data-anchor-id="batchsettle">batchSettle</h3>
+<p>Settles trades for given list of settlements.</p>
+<pre class="solidity"><code>function batchSettle(address marginAccountID, struct IMarginAccount.Settlement[] settlements) external returns (bool)</code></pre>
+<p><em>This function can only be called by the clearing house</em></p>
+<section id="parameters-22" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-22">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>settlements</td>
+<td>struct IMarginAccount.Settlement[]</td>
+<td>List of trades to be settled</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-14" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-14">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>bool</td>
+<td>bool True if the trade was settled successfully</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="deposit" class="level3">
+<h3 class="anchored" data-anchor-id="deposit">deposit</h3>
+<p>deposits collateral into the margin account</p>
+<pre class="solidity"><code>function deposit(uint256 amount) external</code></pre>
+<p><em>the collateral asset must be approved for transfer</em></p>
+<section id="parameters-23" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-23">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>amount</td>
+<td>uint256</td>
+<td>The amount of collateral to deposit</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="withdraw" class="level3">
+<h3 class="anchored" data-anchor-id="withdraw">withdraw</h3>
+<p>withdraws collateral from the margin account</p>
+<pre class="solidity"><code>function withdraw(uint256 amount) external</code></pre>
+<p><em>the user must have sufficient collateral in their margin account</em></p>
+<section id="parameters-24" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-24">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>amount</td>
+<td>uint256</td>
+<td>The amount of collateral to withdraw</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="authorize" class="level3">
+<h3 class="anchored" data-anchor-id="authorize">authorize</h3>
+<p>authorizes an intent account to act on behalf of the margin account</p>
+<pre class="solidity"><code>function authorize(address intentAccount) external</code></pre>
+<p><em>this function can only be called by the margin account owner</em></p>
+<section id="parameters-25" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-25">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>intentAccount</td>
+<td>address</td>
+<td>The address of the intent account to authorize</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="revokeauthorization" class="level3">
+<h3 class="anchored" data-anchor-id="revokeauthorization">revokeAuthorization</h3>
+<p>Revokes authorization of an intent account to act on behalf of the margin account</p>
+<pre class="solidity"><code>function revokeAuthorization(address intentAccount) external</code></pre>
+<p><em>this function can only be called by the margin account owner</em></p>
+<section id="parameters-26" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-26">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>intentAccount</td>
+<td>address</td>
+<td>The address of the intent account</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="collateralasset" class="level3">
+<h3 class="anchored" data-anchor-id="collateralasset">collateralAsset</h3>
+<p>returns the address of the ERC20 collateral asset for the margin account contract</p>
+<pre class="solidity"><code>function collateralAsset() external view returns (address)</code></pre>
+<section id="return-values-15" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-15">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>address</td>
+<td>The address of the ERC20 collateral asset</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="authorized" class="level3">
+<h3 class="anchored" data-anchor-id="authorized">authorized</h3>
+<p>returns the address of the clearing house contract</p>
+<pre class="solidity"><code>function authorized(address marginAccountID, address intentAccount) external view returns (bool)</code></pre>
+<section id="return-values-16" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-16">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>bool</td>
+<td>the address of the clearing house</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="capital" class="level3">
+<h3 class="anchored" data-anchor-id="capital">capital</h3>
+<p>returns the amount of capital in the margin account</p>
+<pre class="solidity"><code>function capital(address marginAccountID) external view returns (int256)</code></pre>
+<section id="parameters-27" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-27">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-17" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-17">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>int256</td>
+<td>the amount of capital in the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="mae" class="level3">
+<h3 class="anchored" data-anchor-id="mae">mae</h3>
+<p>returns the amount of collateral in the margin account</p>
+<pre class="solidity"><code>function mae(address marginAccountID) external view returns (int256)</code></pre>
+<section id="parameters-28" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-28">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-18" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-18">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>int256</td>
+<td>the amount of collateral in the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="mmu" class="level3">
+<h3 class="anchored" data-anchor-id="mmu">mmu</h3>
+<p>returns the maintenance margin used in the margin account</p>
+<pre class="solidity"><code>function mmu(address marginAccountID) external view returns (uint256)</code></pre>
+<section id="parameters-29" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-29">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-19" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-19">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the maintenance margin used</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="mma" class="level3">
+<h3 class="anchored" data-anchor-id="mma">mma</h3>
+<p>returns the maintenance margin available in the margin account</p>
+<pre class="solidity"><code>function mma(address marginAccountID) external view returns (uint256)</code></pre>
+<section id="parameters-30" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-30">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-20" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-20">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the maintenance margin available</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="pnl" class="level3">
+<h3 class="anchored" data-anchor-id="pnl">pnl</h3>
+<p>returns the unrealized profit and loss of the margin account</p>
+<pre class="solidity"><code>function pnl(address marginAccountID) external view returns (int256)</code></pre>
+<section id="parameters-31" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-31">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-21" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-21">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>int256</td>
+<td>the unrealized profit and loss</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="withdrawable" class="level3">
+<h3 class="anchored" data-anchor-id="withdrawable">withdrawable</h3>
+<p>returns the amount of collateral that can be withdrawn from the margin account</p>
+<pre class="solidity"><code>function withdrawable(address marginAccountID) external view returns (uint256)</code></pre>
+<section id="parameters-32" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-32">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-22" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-22">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the amount of collateral that can be withdrawn</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="positions" class="level3">
+<h3 class="anchored" data-anchor-id="positions">positions</h3>
+<p>returns the ids of all positions held by the margin account</p>
+<pre class="solidity"><code>function positions(address marginAccountID) external view returns (bytes32[])</code></pre>
+<section id="parameters-33" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-33">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-23" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-23">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>bytes32[]</td>
+<td>an array of position ids</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="positiondata-1" class="level3">
+<h3 class="anchored" data-anchor-id="positiondata-1">positionData</h3>
+<p>returns the position data for a given position id</p>
+<pre class="solidity"><code>function positionData(address marginAccountID, bytes32 positionId) external view returns (struct IMarginAccount.PositionData)</code></pre>
+<section id="parameters-34" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-34">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>positionId</td>
+<td>bytes32</td>
+<td>The position id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-24" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-24">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>struct IMarginAccount.PositionData</td>
+<td>the position data</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="maecheck" class="level3">
+<h3 class="anchored" data-anchor-id="maecheck">maeCheck</h3>
+<p>checks if the margin account has enough equity to settle a trade</p>
+<pre class="solidity"><code>function maeCheck(address marginAccountID, struct IMarginAccount.Settlement settlement, uint256 markPriceIfSettled) external view returns (bool checkPassed, int256 maeAfter, uint256 mmuAfter)</code></pre>
+<section id="parameters-35" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-35">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>settlement</td>
+<td>struct IMarginAccount.Settlement</td>
+<td>The trade to settle</td>
+</tr>
+<tr class="odd">
+<td>markPriceIfSettled</td>
+<td>uint256</td>
+<td>The mark price if the trade is settled</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-25" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-25">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>checkPassed</td>
+<td>bool</td>
+<td>True if the margin account has enough equity to settle the trade</td>
+</tr>
+<tr class="even">
+<td>maeAfter</td>
+<td>int256</td>
+<td>MAE of the account if the trade is settled</td>
+</tr>
+<tr class="odd">
+<td>mmuAfter</td>
+<td>uint256</td>
+<td>MMU of the account if the trade is settled</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="batchmaecheck" class="level3">
+<h3 class="anchored" data-anchor-id="batchmaecheck">batchMaeCheck</h3>
+<p>Checks if the margin account has enough equity to settle a list of trades. The position ids in the list <code>settlements</code> must be distinct to get proper result.</p>
+<pre class="solidity"><code>function batchMaeCheck(address marginAccountID, struct IMarginAccount.Settlement[] settlements, uint256[] markPriceIfSettled) external view returns (bool checkPassed, int256 maeAfter, uint256 mmuAfter)</code></pre>
+<section id="parameters-36" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-36">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>settlements</td>
+<td>struct IMarginAccount.Settlement[]</td>
+<td>List of trades to be settled</td>
+</tr>
+<tr class="odd">
+<td>markPriceIfSettled</td>
+<td>uint256[]</td>
+<td>Mark prices if the trades are settled successfully</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-26" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-26">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>checkPassed</td>
+<td>bool</td>
+<td>True if the margin account has enough equity to settle the trades</td>
+</tr>
+<tr class="even">
+<td>maeAfter</td>
+<td>int256</td>
+<td>MAE of the account if the trades are settled</td>
+</tr>
+<tr class="odd">
+<td>mmuAfter</td>
+<td>uint256</td>
+<td>MMU of the account if the trades are settled</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="maeandmmuafterbatchtrade" class="level3">
+<h3 class="anchored" data-anchor-id="maeandmmuafterbatchtrade">maeAndMmuAfterBatchTrade</h3>
+<p>Calculates the MAE and the MMU after settling a list of trades. The position ids in the list <code>settlements</code> must be distinct to get proper result.</p>
+<pre class="solidity"><code>function maeAndMmuAfterBatchTrade(address marginAccountID, struct IMarginAccount.Settlement[] settlements, uint256[] markPriceIfSettled) external view returns (int256 mae, uint256 mmu)</code></pre>
+<section id="parameters-37" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-37">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountID</td>
+<td>address</td>
+<td>The address of the margin account</td>
+</tr>
+<tr class="even">
+<td>settlements</td>
+<td>struct IMarginAccount.Settlement[]</td>
+<td>List of trades to be settled</td>
+</tr>
+<tr class="odd">
+<td>markPriceIfSettled</td>
+<td>uint256[]</td>
+<td>Mark prices if the trades are settled successfully</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-27" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-27">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mae</td>
+<td>int256</td>
+<td>MAE if the trades are settled</td>
+</tr>
+<tr class="even">
+<td>mmu</td>
+<td>uint256</td>
+<td>MMU if the trades are settled</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="imarginaccountregistry" class="level2">
+<h2 class="anchored" data-anchor-id="imarginaccountregistry">IMarginAccountRegistry</h2>
+<section id="deployed-addresses-4" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-4">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x216a1fa7c98d7f7304bC4D7d0F856d063f2ecBA5</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-5" class="level3">
+<h3 class="anchored" data-anchor-id="functions-5">Functions</h3>
+<ul>
+<li><a href="#getmarginaccount">getMarginAccount</a></li>
+<li><a href="#initializemarginaccount">initializeMarginAccount</a></li>
+</ul>
+</section>
+<section id="marginaccountcreated" class="level3">
+<h3 class="anchored" data-anchor-id="marginaccountcreated">MarginAccountCreated</h3>
+<pre class="solidity"><code>event MarginAccountCreated(address collateralAsset, address marginAccount)</code></pre>
+</section>
+<section id="getmarginaccount" class="level3">
+<h3 class="anchored" data-anchor-id="getmarginaccount">getMarginAccount</h3>
+<p>returns the margin account contract for a given collateral asset</p>
+<pre class="solidity"><code>function getMarginAccount(address collateralAsset) external view returns (contract IMarginAccount)</code></pre>
+<p><em>this function should revert if the margin account does not exist</em></p>
+<section id="parameters-38" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-38">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>collateralAsset</td>
+<td>address</td>
+<td>the collateral asset</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-28" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-28">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>contract IMarginAccount</td>
+<td>the margin account contract</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="initializemarginaccount" class="level3">
+<h3 class="anchored" data-anchor-id="initializemarginaccount">initializeMarginAccount</h3>
+<p>deploys and initializes a margin account contract for the given asset</p>
+<pre class="solidity"><code>function initializeMarginAccount(address collateralAsset) external returns (contract IMarginAccount)</code></pre>
+<section id="parameters-39" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-39">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>collateralAsset</td>
+<td>address</td>
+<td>the collateral asset</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-29" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-29">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>contract IMarginAccount</td>
+<td>the margin account contract</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="ioracleprovider" class="level2">
+<h2 class="anchored" data-anchor-id="ioracleprovider">IOracleProvider</h2>
+<section id="deployed-addresses-5" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-5">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0xF3FA1f6fe52604EFf85B438B01B8b984AA200651</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-6" class="level3">
+<h3 class="anchored" data-anchor-id="functions-6">Functions</h3>
+<ul>
+<li><a href="#resolve">resolve</a></li>
+</ul>
+</section>
+<section id="resolve" class="level3">
+<h3 class="anchored" data-anchor-id="resolve">resolve</h3>
+<p>returns the final settlement price of a given product</p>
+<pre class="solidity"><code>function resolve(bytes32 productId, bytes oracleCalldata) external view returns (int256)</code></pre>
+<p><em>this function should revert if the product has not reached final settlement</em></p>
+<section id="parameters-40" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-40">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id from the ProductRegistry</td>
+</tr>
+<tr class="even">
+<td>oracleCalldata</td>
+<td>bytes</td>
+<td>additional data required by the oracle to resolve the price</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-30" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-30">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>int256</td>
+<td>the final settlement price of the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="productstate" class="level2">
+<h2 class="anchored" data-anchor-id="productstate">ProductState</h2>
+<pre class="solidity"><code>enum ProductState {
+  NOT_EXIST,
+  PENDING,
+  LIVE,
+  TRADEOUT,
+  FINAL_SETTLEMENT,
+  EXPIRED
+}</code></pre>
+</section>
+<section id="iproductregistry" class="level2">
+<h2 class="anchored" data-anchor-id="iproductregistry">IProductRegistry</h2>
+<section id="deployed-addresses-6" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-6">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x05A7f949caE3235f239313339a7f9661F8C7415d</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-7" class="level3">
+<h3 class="anchored" data-anchor-id="functions-7">Functions</h3>
+<ul>
+<li><a href="#products">products</a></li>
+<li><a href="#state">state</a></li>
+<li><a href="#collateralasset">collateralAsset</a></li>
+<li><a href="#pointvalue">pointValue</a></li>
+<li><a href="#earliestfspsubmissiontime">earliestFSPSubmissionTime</a></li>
+<li><a href="#imr">imr</a></li>
+<li><a href="#mmr">mmr</a></li>
+<li><a href="#ticksize">tickSize</a></li>
+<li><a href="#id">id</a></li>
+<li><a href="#offerpricebuffer">offerPriceBuffer</a></li>
+<li><a href="#auctionbounty">auctionBounty</a></li>
+<li><a href="#oraclespecification">oracleSpecification</a></li>
+<li><a href="#register">register</a></li>
+</ul>
+</section>
+<section id="productmetadata" class="level3">
+<h3 class="anchored" data-anchor-id="productmetadata">ProductMetadata</h3>
+<p>the metadata associated with a product - <strong>builder</strong> - the address of the product creator - <strong>symbol</strong> - the symbol for this product - <strong>description</strong> - the description of the product</p>
+<pre class="solidity"><code>struct ProductMetadata {
+  address builder;
+  string symbol;
+  string description;
+}</code></pre>
+</section>
+<section id="oraclespecification" class="level3">
+<h3 class="anchored" data-anchor-id="oraclespecification">OracleSpecification</h3>
+<p>the oracle specification for a product - <strong>oracleAddress</strong> - the address of the oracle contract - <strong>fsvDecimals</strong> - the precision of the price quotation from oracleAddress.resolve - <strong>fspAlpha</strong> - the alpha value for the oracle, used in price calculations fsp = alpha * oraclePrice + beta - <strong>fspBeta</strong> - the beta value for the oracle, used in price calculations fsp = alpha * oraclePrice + beta - <strong>fsvCalldata</strong> - the calldata to be used for final settlement price (FSP) calculation</p>
+<p><em>the oracleAddress must implement the IOracleProvider interface</em></p>
+<pre class="solidity"><code>struct OracleSpecification {
+  address oracleAddress;
+  uint8 fsvDecimals;
+  int256 fspAlpha;
+  int256 fspBeta;
+  bytes fsvCalldata;
+}</code></pre>
+</section>
+<section id="product" class="level3">
+<h3 class="anchored" data-anchor-id="product">Product</h3>
+<p>the product struct that contains all the information about a product registered with the clearing system - <strong>metadata</strong> - the metadata associated with the product - <strong>oracleSpec</strong> - the oracle specification for the product - <strong>priceQuotation</strong> - the symbol of the price quotation - <strong>collateralAsset</strong> - the address of the ERC20 collateral asset - <strong>startTime</strong> - the start time of the product - <strong>earliestFSPSubmissionTime</strong> - the earliest time to submit the final settlement price - <strong>unitValue</strong> - the point value of the product - <strong>initialMarginRequirement</strong> - the initial margin requirement for the product - <strong>maintenanceMarginRequirement</strong> - the maintenance margin requirement for the product - <strong>offerPriceBuffer</strong> - the buffer for the offer price - <strong>auctionBounty</strong> - the bounty for the auctioneer - <strong>tradeoutInterval</strong> - the interval for tradeout - <strong>tickSize</strong> - the maximum precision of the price quotation - <strong>extendedMetadata</strong> - CID of product extended metadata using the IPLD dag-json codec</p>
+<pre class="solidity"><code>struct Product {
+  struct IProductRegistry.ProductMetadata metadata;
+  struct IProductRegistry.OracleSpecification oracleSpec;
+  string priceQuotation;
+  address collateralAsset;
+  uint256 startTime;
+  uint256 earliestFSPSubmissionTime;
+  uint256 unitValue;
+  uint16 initialMarginRequirement;
+  uint16 maintenanceMarginRequirement;
+  uint64 offerPriceBuffer;
+  uint64 auctionBounty;
+  uint32 tradeoutInterval;
+  uint8 tickSize;
+  string extendedMetadata;
+}</code></pre>
+</section>
+<section id="productregistered" class="level3">
+<h3 class="anchored" data-anchor-id="productregistered">ProductRegistered</h3>
+<p>Event emitted when a new product is registered</p>
+<pre class="solidity"><code>event ProductRegistered(address builder, bytes32 productId)</code></pre>
+<section id="parameters-41" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-41">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>builder</td>
+<td>address</td>
+<td>the address of the product builder</td>
+</tr>
+<tr class="even">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product ID of the registered product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="products" class="level3">
+<h3 class="anchored" data-anchor-id="products">products</h3>
+<p>returns the product struct for a given product ID</p>
+<pre class="solidity"><code>function products(bytes32 productId) external view returns (struct IProductRegistry.Product)</code></pre>
+<section id="parameters-42" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-42">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-31" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-31">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>struct IProductRegistry.Product</td>
+<td>the product struct</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="state" class="level3">
+<h3 class="anchored" data-anchor-id="state">state</h3>
+<p>returns the product state for a given product ID</p>
+<pre class="solidity"><code>function state(bytes32 productId) external view returns (enum ProductState)</code></pre>
+<section id="parameters-43" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-43">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-32" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-32">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>enum ProductState</td>
+<td>the product state (NOT_EXIST, PENDING, LIVE, TRADEOUT, FINAL_SETTLEMENT, EXPIRED)</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="collateralasset-1" class="level3">
+<h3 class="anchored" data-anchor-id="collateralasset-1">collateralAsset</h3>
+<p>the address of the ERC20 collateral asset</p>
+<pre class="solidity"><code>function collateralAsset(bytes32 productId) external view returns (address)</code></pre>
+<section id="parameters-44" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-44">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-33" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-33">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>address</td>
+<td>the product state</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="pointvalue" class="level3">
+<h3 class="anchored" data-anchor-id="pointvalue">pointValue</h3>
+<p>the point value of the product</p>
+<pre class="solidity"><code>function pointValue(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-45" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-45">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-34" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-34">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the point value of the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="earliestfspsubmissiontime" class="level3">
+<h3 class="anchored" data-anchor-id="earliestfspsubmissiontime">earliestFSPSubmissionTime</h3>
+<p>the earliest time to submit FSP</p>
+<pre class="solidity"><code>function earliestFSPSubmissionTime(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-46" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-46">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-35" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-35">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the earliest time to submit FSP</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="imr" class="level3">
+<h3 class="anchored" data-anchor-id="imr">imr</h3>
+<p>the initial margin requirement for the product</p>
+<pre class="solidity"><code>function imr(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-47" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-47">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-36" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-36">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the initial margin requirement</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="mmr" class="level3">
+<h3 class="anchored" data-anchor-id="mmr">mmr</h3>
+<p>mmr the maintenance margin requirement for the product</p>
+<pre class="solidity"><code>function mmr(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-48" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-48">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-37" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-37">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the maintenance margin requirement</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ticksize" class="level3">
+<h3 class="anchored" data-anchor-id="ticksize">tickSize</h3>
+<p>tickSize the maximum precision of the price quotation</p>
+<pre class="solidity"><code>function tickSize(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-49" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-49">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-38" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-38">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the number of decimal places in the price quotation</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id" class="level3">
+<h3 class="anchored" data-anchor-id="id">id</h3>
+<p>returns the product ID for a given product</p>
+<pre class="solidity"><code>function id(struct IProductRegistry.Product product) external pure returns (bytes32)</code></pre>
+<section id="parameters-50" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-50">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>product</td>
+<td>struct IProductRegistry.Product</td>
+<td>the product to be registered</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-39" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-39">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>bytes32</td>
+<td>the product ID</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="offerpricebuffer" class="level3">
+<h3 class="anchored" data-anchor-id="offerpricebuffer">offerPriceBuffer</h3>
+<p>returns the offer price buffer for a given product</p>
+<pre class="solidity"><code>function offerPriceBuffer(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-51" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-51">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-40" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-40">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the offer price buffer for the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="auctionbounty" class="level3">
+<h3 class="anchored" data-anchor-id="auctionbounty">auctionBounty</h3>
+<p>returns the auction bounty</p>
+<pre class="solidity"><code>function auctionBounty(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-52" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-52">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-41" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-41">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the auction bounty for the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="oraclespecification-1" class="level3">
+<h3 class="anchored" data-anchor-id="oraclespecification-1">oracleSpecification</h3>
+<p>returns the oracle specification for a given product</p>
+<pre class="solidity"><code>function oracleSpecification(bytes32 productId) external view returns (struct IProductRegistry.OracleSpecification)</code></pre>
+<section id="parameters-53" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-53">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product id</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-42" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-42">Return Values</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>struct IProductRegistry.OracleSpecification</td>
+<td>the OracleSpecification for the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="register" class="level3">
+<h3 class="anchored" data-anchor-id="register">register</h3>
+<p>register a new product</p>
+<pre class="solidity"><code>function register(struct IProductRegistry.Product product) external</code></pre>
+<p><em>this function can only be called by the product builder and must pass the product validity checks</em></p>
+<section id="parameters-54" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-54">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>product</td>
+<td>struct IProductRegistry.Product</td>
+<td>the product to be registered</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="itrackinterest" class="level2">
+<h2 class="anchored" data-anchor-id="itrackinterest">ITrackInterest</h2>
+<section id="deployed-addresses-7" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-7">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x393746A87CF3458EeA2b47BF035496429AbFBD66</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-8" class="level3">
+<h3 class="anchored" data-anchor-id="functions-8">Functions</h3>
+<ul>
+<li><a href="#openinterest">openInterest</a></li>
+</ul>
+</section>
+<section id="openinterest" class="level3">
+<h3 class="anchored" data-anchor-id="openinterest">openInterest</h3>
+<p>returns the current open interest on the product</p>
+<pre class="solidity"><code>function openInterest(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-55" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-55">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-43" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-43">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the open interest of the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="itradingprotocol" class="level2">
+<h2 class="anchored" data-anchor-id="itradingprotocol">ITradingProtocol</h2>
+<section id="deployed-addresses-8" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-8">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x504b1d5B2364F85002889B741ae7D434B0ac0C77</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-9" class="level3">
+<h3 class="anchored" data-anchor-id="functions-9">Functions</h3>
+<ul>
+<li><a href="#execute">execute</a></li>
+<li><a href="#executesequence">executeSequence</a></li>
+<li><a href="#addtradesubmitter">addTradeSubmitter</a></li>
+<li><a href="#removetradesubmitter">removeTradeSubmitter</a></li>
+<li><a href="#deposit">deposit</a></li>
+<li><a href="#withdraw">withdraw</a></li>
+</ul>
+</section>
+<section id="execute-1" class="level3">
+<h3 class="anchored" data-anchor-id="execute-1">execute</h3>
+<p>execute a trade with the clearing protocol</p>
+<pre class="solidity"><code>function execute(struct IClearing.Trade trade, bool fallbackOnFailure) external</code></pre>
+<p><em>this function is restricted to valid trade submitters</em></p>
+<section id="parameters-56" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-56">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>trade</td>
+<td>struct IClearing.Trade</td>
+<td>the trade to execute</td>
+</tr>
+<tr class="even">
+<td>fallbackOnFailure</td>
+<td>bool</td>
+<td>if true, the trading protocol’s margin account will be substituted if MAE checks fail</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="executesequence" class="level3">
+<h3 class="anchored" data-anchor-id="executesequence">executeSequence</h3>
+<p>executes a sequence of trades with the clearing protocol</p>
+<pre class="solidity"><code>function executeSequence(struct IClearing.Trade[] trades, bool fallbackOnFailure) external</code></pre>
+<p><em>this function is restricted to valid trade submitters</em></p>
+<section id="parameters-57" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-57">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>trades</td>
+<td>struct IClearing.Trade[]</td>
+<td>the array of trades to execute</td>
+</tr>
+<tr class="even">
+<td>fallbackOnFailure</td>
+<td>bool</td>
+<td>if true, the trading protocol’s margin account will be substituted for any margin account in the trade that fails the MAE check</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="addtradesubmitter" class="level3">
+<h3 class="anchored" data-anchor-id="addtradesubmitter">addTradeSubmitter</h3>
+<p>adds a whitelisted trade submitter</p>
+<pre class="solidity"><code>function addTradeSubmitter(address submitter) external</code></pre>
+<p><em>this function is restricted to the owner of the trading protocol</em></p>
+<section id="parameters-58" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-58">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>submitter</td>
+<td>address</td>
+<td>the address of the trade submitter</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="removetradesubmitter" class="level3">
+<h3 class="anchored" data-anchor-id="removetradesubmitter">removeTradeSubmitter</h3>
+<p>removes a whitelisted trade submitter</p>
+<pre class="solidity"><code>function removeTradeSubmitter(address submitter) external</code></pre>
+<p><em>this function is restricted to the owner of the trading protocol</em></p>
+<section id="parameters-59" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-59">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>submitter</td>
+<td>address</td>
+<td>the address of the trade submitter</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="deposit-1" class="level3">
+<h3 class="anchored" data-anchor-id="deposit-1">deposit</h3>
+<p>deposit’s in the margin account</p>
+<pre class="solidity"><code>function deposit(address marginAccountContract, uint256 amount) external</code></pre>
+<p><em>this function is restricted to the owner of the trading protocol</em></p>
+<section id="parameters-60" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-60">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountContract</td>
+<td>address</td>
+<td>the address of the margin account contract</td>
+</tr>
+<tr class="even">
+<td>amount</td>
+<td>uint256</td>
+<td>the amount to deposit</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="withdraw-1" class="level3">
+<h3 class="anchored" data-anchor-id="withdraw-1">withdraw</h3>
+<p>withdraws from the margin account</p>
+<pre class="solidity"><code>function withdraw(address marginAccountContract, uint256 amount) external</code></pre>
+<p><em>this function is restricted to the owner of the trading protocol</em></p>
+<section id="parameters-61" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-61">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>marginAccountContract</td>
+<td>address</td>
+<td>the address of the margin account contract</td>
+</tr>
+<tr class="even">
+<td>amount</td>
+<td>uint256</td>
+<td>the amount to withdraw</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="ivaluation" class="level2">
+<h2 class="anchored" data-anchor-id="ivaluation">IValuation</h2>
+<section id="deployed-addresses-9" class="level3">
+<h3 class="anchored" data-anchor-id="deployed-addresses-9">Deployed Addresses</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chain ID</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>65100004</td>
+<td>0x393746A87CF3458EeA2b47BF035496429AbFBD66</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions-10" class="level3">
+<h3 class="anchored" data-anchor-id="functions-10">Functions</h3>
+<ul>
+<li><a href="#valuation">valuation</a></li>
+<li><a href="#valuationaftertrade">valuationAfterTrade</a></li>
+</ul>
+</section>
+<section id="valuation" class="level3">
+<h3 class="anchored" data-anchor-id="valuation">valuation</h3>
+<p>returns a product’s current mark price</p>
+<pre class="solidity"><code>function valuation(bytes32 productId) external view returns (uint256)</code></pre>
+<section id="parameters-62" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-62">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-44" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-44">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the mark price of the product</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="valuationaftertrade" class="level3">
+<h3 class="anchored" data-anchor-id="valuationaftertrade">valuationAfterTrade</h3>
+<p>returns what a product’s mark price will be after a trade</p>
+<pre class="solidity"><code>function valuationAfterTrade(bytes32 productId, uint256 price, uint256 quantity) external view returns (uint256)</code></pre>
+<section id="parameters-63" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-63">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>productId</td>
+<td>bytes32</td>
+<td>the product</td>
+</tr>
+<tr class="even">
+<td>price</td>
+<td>uint256</td>
+<td>the price of the trade</td>
+</tr>
+<tr class="odd">
+<td>quantity</td>
+<td>uint256</td>
+<td>the quantity of the trade</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="return-values-45" class="level4">
+<h4 class="anchored" data-anchor-id="return-values-45">Return Values</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>[0]</td>
+<td>uint256</td>
+<td>the mark price of the product after the trade</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="sorttester" class="level2">
+<h2 class="anchored" data-anchor-id="sorttester">SortTester</h2>
+<section id="functions-11" class="level3">
+<h3 class="anchored" data-anchor-id="functions-11">Functions</h3>
+<ul>
+<li><a href="#sortdata">sortData</a></li>
+<li><a href="#sortsomestructbyuint">sortSomeStructByUint</a></li>
+<li><a href="#sortsomestructbyint">sortSomeStructByInt</a></li>
+<li><a href="#sortsomestructbyaddress">sortSomeStructByAddress</a></li>
+<li><a href="#sortsomestructbybytes32">sortSomeStructByBytes32</a></li>
+<li><a href="#rearrange">rearrange</a></li>
+</ul>
+</section>
+<section id="sortdata" class="level3">
+<h3 class="anchored" data-anchor-id="sortdata">sortData</h3>
+<pre class="solidity"><code>function sortData(struct Sort.Data[] data) public pure returns (struct Sort.Data[])</code></pre>
+</section>
+<section id="somestruct" class="level3">
+<h3 class="anchored" data-anchor-id="somestruct">SomeStruct</h3>
+<pre class="solidity"><code>struct SomeStruct {
+  uint256 uintField;
+  int256 intField;
+  address addressField;
+  bytes32 bytesField;
+}</code></pre>
+</section>
+<section id="sortsomestructbyuint" class="level3">
+<h3 class="anchored" data-anchor-id="sortsomestructbyuint">sortSomeStructByUint</h3>
+<pre class="solidity"><code>function sortSomeStructByUint(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])</code></pre>
+</section>
+<section id="sortsomestructbyint" class="level3">
+<h3 class="anchored" data-anchor-id="sortsomestructbyint">sortSomeStructByInt</h3>
+<pre class="solidity"><code>function sortSomeStructByInt(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])</code></pre>
+</section>
+<section id="sortsomestructbyaddress" class="level3">
+<h3 class="anchored" data-anchor-id="sortsomestructbyaddress">sortSomeStructByAddress</h3>
+<pre class="solidity"><code>function sortSomeStructByAddress(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])</code></pre>
+</section>
+<section id="sortsomestructbybytes32" class="level3">
+<h3 class="anchored" data-anchor-id="sortsomestructbybytes32">sortSomeStructByBytes32</h3>
+<pre class="solidity"><code>function sortSomeStructByBytes32(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])</code></pre>
+</section>
+<section id="rearrange" class="level3">
+<h3 class="anchored" data-anchor-id="rearrange">rearrange</h3>
+<pre class="solidity"><code>function rearrange(struct SortTester.SomeStruct[] array, uint256[] sortedIndexes) internal pure returns (struct SortTester.SomeStruct[] res)</code></pre>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Don't show on glossary or about-afp page
+  if (window.location.pathname.match(/(glossary|about-afp)\.(qmd|html)$/)) return;
+  // Create the glossary search box
+  const searchBox = document.createElement('div');
+  searchBox.id = 'glossary-search-container';
+  searchBox.style = 'margin: 1.2rem 0 0 0; max-width: 340px; position: relative;';
+  searchBox.innerHTML = `
+    <div style="position:relative;">
+      <input id="glossary-search-input" type="text" placeholder="Search glossary..." style="width:100%;padding:0.65em 2.2em 0.65em 1em;font-size:1em;border-radius:0.5em;border:1px solid #ccc;">
+      <span id="glossary-search-clear" style="display:none;position:absolute;right:0.8em;top:50%;transform:translateY(-50%);font-size:1.2em;cursor:pointer;color:#888;user-select:none;">&times;</span>
+    </div>
+    <div id="glossary-search-results" style="background:#fff;border:1px solid #eee;border-radius:0.5em;margin-top:0.5em;max-height:220px;overflow:auto;display:none;"></div>
+  `;
+  // Try to find the Quarto TOC sidebar
+  const tocSidebar = document.querySelector('.quarto-sidebar-toc, .toc-sidebar, nav#TOC, .sidebar-toc, .page-sidebar, .quarto-toc-sidebar, .quarto-toc, .toc-right, .page-toc, .quarto-toc-pane, .quarto-toc-right, .quarto-toc-container, .quarto-toc, #TOC');
+  if (tocSidebar) {
+    tocSidebar.appendChild(searchBox);
+  } else {
+    // Try to find the main content column to insert beside it
+    const mainCol = document.querySelector('.page-columns, .content, main');
+    if (mainCol && mainCol.parentNode) {
+      // Create a faux TOC container styled like the real one
+      const fauxToc = document.createElement('aside');
+      fauxToc.className = 'quarto-toc-pane faux-toc-pane';
+      fauxToc.style = 'position:absolute;top:90px;right:32px;width:340px;z-index:999;';
+      fauxToc.appendChild(searchBox);
+      mainCol.parentNode.insertBefore(fauxToc, mainCol.nextSibling);
+    }
+  }
+  // Glossary search logic
+  async function fetchGlossaryTerms() {
+    try {
+      const resp = await fetch('glossary.qmd'.replace('.qmd', '.html'));
+      const html = await resp.text();
+      const match = html.match(/<ul id=\"glossary-list\">([\s\S]*?)<\/ul>/);
+      if (match) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = match[0];
+        return Array.from(tempDiv.querySelectorAll('li')).map(li => li.innerHTML);
+      }
+    } catch (e) { /* ignore */ }
+    return [];
+  }
+  const input = searchBox.querySelector('#glossary-search-input');
+  const results = searchBox.querySelector('#glossary-search-results');
+  const clearBtn = searchBox.querySelector('#glossary-search-clear');
+  input?.addEventListener('input', async function() {
+    const query = this.value.trim().toLowerCase();
+    clearBtn.style.display = this.value ? 'block' : 'none';
+    if (!query) { results.style.display = 'none'; results.innerHTML = ''; return; }
+    const terms = await fetchGlossaryTerms();
+    const filtered = terms.filter(t => t.toLowerCase().includes(query));
+    if (filtered.length === 0) {
+      results.innerHTML = '<div style="padding:0.75em;color:#888;">No results found.</div>';
+    } else {
+      results.innerHTML = filtered.map(t => `<div style='padding:0.75em 1em;border-bottom:1px solid #f0f0f0;'>${t}</div>`).join('');
+    }
+    results.style.display = 'block';
+  });
+  clearBtn?.addEventListener('click', function() {
+    input.value = '';
+    clearBtn.style.display = 'none';
+    results.style.display = 'none';
+    results.innerHTML = '';
+    input.focus();
+  });
+});
+</script>
+<!-- Add this to your CSS for faux-toc-pane if needed:
+.faux-toc-pane {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 0.5em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1em 0.5em;
+}
+-->
+<style>
+  /* Top tabs bar styling */
+  .top-tabs { display:flex; gap:1rem; align-items:flex-end; padding:0 0; margin:0.5rem 0 0.25rem; }
+  .top-tab { color: var(--bs-secondary-color, #6a737b); background: rgba(255,255,255,0.06); border-radius: .375rem; padding: .4rem .75rem; text-decoration: none; transition: color .15s ease, background .15s ease; }
+  .top-tab:hover { color: #6a274b; text-decoration: none; }
+  .top-tab.is-active { color: #a23b72; background: transparent; position: relative; }
+  .top-tab.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 3px; background: #a23b72; border-radius: 2px; }
+  /* Container that holds the tabs and a bottom border like in the screenshot */
+  .top-tabs-wrap { border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: .5rem; position: relative; z-index: 1015; background: var(--quarto-body-bg, #0f0f10); }
+  .top-tabs-container { max-width: 1320px; margin: 0 auto; padding: 0 1rem; }
+  @media (min-width: 1400px){ .top-tabs-container { max-width: 1440px; } }
+
+  /* Navbar brand alignment (logo + title inline) */
+  #quarto-header .navbar-brand { display: flex; align-items: center; gap: .5rem; }
+  #quarto-header .navbar-brand img { height: 24px; width: auto; }
+  #quarto-header .navbar-brand, #quarto-header .navbar .navbar-title { line-height: 1; }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    const header = document.getElementById('quarto-header');
+    if(!header) return;
+    // Create wrapper and tabs
+    const wrap = document.createElement('div');
+    wrap.className = 'top-tabs-wrap';
+    const container = document.createElement('div');
+    container.className = 'top-tabs-container';
+    const bar = document.createElement('div');
+    bar.className = 'top-tabs';
+
+    const mk = (text, href, isActive) => {
+      const a = document.createElement('a');
+      a.className = 'top-tab' + (isActive ? ' is-active' : '');
+      a.href = href;
+      a.textContent = text;
+      return a;
+    };
+
+    // Determine offset for current page depth (Quarto sets this meta on each page)
+    const offset = (document.querySelector('meta[name="quarto:offset"]')?.getAttribute('content')) || '';
+    // Build links relative to current page so they work on GitHub Pages subpaths
+    const hrefLayer1 = offset + 'layer1/';
+    const hrefAfp = offset + 'afp/';
+
+    // Active tab detection relative to site root
+    const relPath = (window.location.pathname || '/');
+    const isLayer1 = /(^|\/)layer1(\/|$)/.test(relPath);
+    const isAfp = /(^|\/)afp(\/|$)/.test(relPath);
+    const active = isLayer1 ? 'layer1' : (isAfp ? 'afp' : 'home');
+
+    bar.appendChild(mk('Layer 1', hrefLayer1, active === 'layer1'));
+    bar.appendChild(mk('AFP', hrefAfp, active === 'afp'));
+    container.appendChild(bar);
+    wrap.appendChild(container);
+    // Insert AFTER the header so it sits above the sidebar and below the brand bar
+    header.insertAdjacentElement('afterend', wrap);
+  });
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../afp/afp-sdk-reference.html" class="pagination-link" aria-label="AFP SDK Reference">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">AFP SDK Reference</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2025 AFP Project</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
