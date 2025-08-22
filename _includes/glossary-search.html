@@ -1,9 +1,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Don't show on homepage (index.qmd) or glossary/about-afp pages
-  const path = window.location.pathname || '/';
-  if (path === '/' || /\/index\.html$/.test(path)) return;
-  if (/(glossary|about-afp)\.(qmd|html)$/.test(path)) return;
+  // Don't show on glossary or about-afp page
+  if (window.location.pathname.match(/(glossary|about-afp)\.(qmd|html)$/)) return;
   // Create the glossary search box
   const searchBox = document.createElement('div');
   searchBox.id = 'glossary-search-container';

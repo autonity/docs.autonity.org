@@ -1,0 +1,41 @@
+---
+title: "Glossary"
+---
+
+<input type="text" id="glossary-search" placeholder="Search glossary..." style="width:100%;padding:0.75em 1em;margin-bottom:1.5em;font-size:1.1em;border-radius:0.5em;border:1px solid #ccc;">
+
+<ul id="glossary-list">
+  <li><strong>Admin Address:</strong> An Autonity address with admin privileges on a Margin Account.</li>
+  <li><strong>Capital (`C`):</strong> Sum of deposits less withdrawals, plus Realized PnL.</li>
+  <li><strong>Clearing:</strong> The process of validating, settling, and guaranteeing trades after execution.</li>
+  <li><strong>Collateral Asset:</strong> An ERC-20 tokens used to make trades in AFP products.</li>
+  <li><strong>Cost Basis (`B`):</strong> The running total used to track the effective cost of holding a position over time. </li>
+  <li><strong>Dated Futures:</strong> Derivative contracts that settle at a specific future timestamp using a reference price from an oracle.</li>
+  <li><strong>Decentralized Clearing:</strong> Permissionless clearing system introduced by Autonity.</li>
+  <li><strong>Final Settlement Price (FSP):</strong> Value used to settle all positions in a Dated Futures product after the `TRADEOUT` interval.</li>
+  <li><strong>Final Settlement Process:</strong> The process that closes out all open positions in a product once it reaches the FINAL_SETTLEMENT state. interval.</li>
+  <li><strong>Final Settlement Value (FSV):</strong> Value returned from the oracle, transformed to the Final Settlement Price.</li>
+  <li><strong>Initial Margin Required (IMR):</strong> Minimum collateral to open a position, defined as a product parameter.</li>
+  <li><strong>Intents:</strong> An off-chain expression of a user’s intent to trade, which can be submitted to the clearing system for execution.</li>
+  <li><strong>Intent Account:</strong> Address that can submit intents using a Margin Account but lacks admin rights.</li>
+  <li><strong>Maintenance Margin Available (MMA):</strong> Collateral available in a Margin Account for new positions.</li>
+  <li><strong>Margin Account:</strong> Holds the Collateral Asset of an Autonity address.</li>
+  <li><strong>Margin Account Equity (MAE):</strong> Capital plus unrealized PnL on open positions.</li>
+  <li><strong>Margin Account Registry:</strong> The contract that manages the creation and lookup of margin accounts for different collateral assets.</li>
+  <li><strong>Product Builder:</strong> An address that creates and registers new product specifications on the AFP.</li>
+  <li><strong>Product ID:</strong> a derived value from the Product Specification. It is equal to the hash of the concatenated builder and symbol (`keccak256(builder, symbol)`), and must be globally unique, which means that the same builder cannot create two products with the same symbol.</li>
+  <li><strong>Product Registry:</strong> The contract that manages the registration and lookup of products on the AFP.</li>
+  <li><strong>Tradeout Interval:</strong> The period during which only reducing trades can be submitted for clearing, before final settlement if FSP is available.</li>
+  <li><strong>Trading Protocol:</strong> A protocol that operates a trading venue of any type of trading modality (CLOB, AMM, FBA, etc.).</li>
+</ul>
+
+<script>
+document.getElementById('glossary-search').addEventListener('input', function() {
+  const query = this.value.toLowerCase();
+  const items = document.querySelectorAll('#glossary-list li');
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = text.includes(query) ? '' : 'none';
+  });
+});
+</script>
