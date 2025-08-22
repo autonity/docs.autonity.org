@@ -1,7 +1,771 @@
 ---
-title: "AFP SDK Reference"
+title: "AFP Python SDK Reference"
 ---
-#
-Coming soon.
 
+## afp
 
+Autonomous Futures System Python SDK.
+
+**Classes:**
+
+- [**Admin**](#afp.Admin) – API for AutEx administration, restricted to AutEx admins.
+- [**Builder**](#afp.Builder) – API for building and submitting new products.
+- [**Clearing**](#afp.Clearing) – API for managing margin accounts.
+- [**Liquidation**](#afp.Liquidation) – API for participating in liquidation auctions.
+- [**Trading**](#afp.Trading) – API for trading in the AutEx exchange.
+
+### afp.Admin
+
+Bases: <code>[ExchangeAPI](#afp.api.base.ExchangeAPI)</code>
+
+API for AutEx administration, restricted to AutEx admins.
+
+Authenticates with the exchange on creation.
+
+**Parameters:**
+
+- **private_key** (<code>[str](#str)</code>) – The private key of the exchange adminstrator account.
+
+**Raises:**
+
+- <code>[AuthenticationError](#afp.exceptions.AuthenticationError)</code> – If the exchange rejects the login attempt.
+
+**Functions:**
+
+- [**approve_product**](#afp.Admin.approve_product) – Approves a product for trading on the exchange.
+- [**delist_product**](#afp.Admin.delist_product) – Delists a product from the exchange.
+
+#### afp.Admin.approve_product
+
+```python
+approve_product(product_id)
+```
+
+Approves a product for trading on the exchange.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) –
+
+**Raises:**
+
+- <code>[AuthorizationError](#afp.exceptions.AuthorizationError)</code> – If the configured account is not an exchange administrator.
+
+#### afp.Admin.delist_product
+
+```python
+delist_product(product_id)
+```
+
+Delists a product from the exchange.
+
+New order submissions of this product will be rejected.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) –
+
+**Raises:**
+
+- <code>[AuthorizationError](#afp.exceptions.AuthorizationError)</code> – If the configured account is not an exchange administrator.
+
+### afp.Builder
+
+Bases: <code>[ClearingSystemAPI](#afp.api.base.ClearingSystemAPI)</code>
+
+API for building and submitting new products.
+
+**Parameters:**
+
+- **private_key** (<code>[str](#str)</code>) – The private key of the blockchain account that submits the product.
+- **autonity_rpc_url** (<code>[str](#str)</code>) – The URL of a JSON-RPC provider for Autonity. (HTTPS only.)
+
+**Functions:**
+
+- [**create_product**](#afp.Builder.create_product) – Creates a product specification with the given product data.
+- [**product_state**](#afp.Builder.product_state) – Returns the current state of a product.
+- [**register_product**](#afp.Builder.register_product) – Submits a product specification to the clearing system.
+
+#### afp.Builder.create_product
+
+```python
+create_product(*, symbol, description, oracle_address, fsv_decimals, fsp_alpha, fsp_beta, fsv_calldata, start_time, earliest_fsp_submission_time, collateral_asset, tick_size, unit_value, initial_margin_requirement, maintenance_margin_requirement, offer_price_buffer, auction_bounty, tradeout_interval, extended_metadata)
+```
+
+Creates a product specification with the given product data.
+
+The builder account's address is derived from the private key; the price
+quotation symbol is retrieved from the collateral asset.
+
+**Parameters:**
+
+- **symbol** (<code>[str](#str)</code>) –
+- **description** (<code>[str](#str)</code>) –
+- **oracle_address** (<code>[str](#str)</code>) –
+- **fsv_decimals** (<code>[int](#int)</code>) –
+- **fsp_alpha** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **fsp_beta** (<code>[int](#int)</code>) –
+- **fsv_calldata** (<code>[str](#str)</code>) –
+- **start_time** (<code>[datetime](#datetime.datetime)</code>) –
+- **earliest_fsp_submission_time** (<code>[datetime](#datetime.datetime)</code>) –
+- **collateral_asset** (<code>[str](#str)</code>) –
+- **tick_size** (<code>[int](#int)</code>) –
+- **unit_value** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **initial_margin_requirement** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **maintenance_margin_requirement** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **offer_price_buffer** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **auction_bounty** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **tradeout_interval** (<code>[int](#int)</code>) –
+- **extended_metadata** (<code>[str](#str)</code>) –
+
+**Returns:**
+
+- <code>[ProductSpecification](#afp.schemas.ProductSpecification)</code> –
+
+#### afp.Builder.product_state
+
+```python
+product_state(product_id)
+```
+
+Returns the current state of a product.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) – The ID of the product.
+
+**Returns:**
+
+- <code>[str](#str)</code> –
+
+#### afp.Builder.register_product
+
+```python
+register_product(product)
+```
+
+Submits a product specification to the clearing system.
+
+**Parameters:**
+
+- **product** (<code>[ProductSpecification](#afp.schemas.ProductSpecification)</code>) –
+
+**Returns:**
+
+- <code>[str](#str)</code> – The hash of the transaction.
+
+### afp.Clearing
+
+Bases: <code>[ClearingSystemAPI](#afp.api.base.ClearingSystemAPI)</code>
+
+API for managing margin accounts.
+
+**Parameters:**
+
+- **private_key** (<code>[str](#str)</code>) – The private key of the blockchain account that manages the margin account.
+- **autonity_rpc_url** (<code>[str](#str)</code>) – The URL of a JSON-RPC provider for Autonity. (HTTPS only.)
+
+**Functions:**
+
+- [**authorize**](#afp.Clearing.authorize) – Authorizes a blockchain account to submit intents to the clearing system
+- [**capital**](#afp.Clearing.capital) – Returns the amount of collateral tokens in the margin account associated
+- [**collateral_asset**](#afp.Clearing.collateral_asset) – Returns the collateral asset of a product.
+- [**deposit_into_margin_account**](#afp.Clearing.deposit_into_margin_account) – Deposits the specified amount of collateral tokens into the margin account
+- [**initiate_final_settlement**](#afp.Clearing.initiate_final_settlement) – Initiate final settlement (closeout) process for the specified accounts.
+- [**maintenance_margin_available**](#afp.Clearing.maintenance_margin_available) – Returns the maintenance margin available in the margin account associated
+- [**maintenance_margin_used**](#afp.Clearing.maintenance_margin_used) – Returns the maintenance margin used in the margin account associated with
+- [**margin_account_equity**](#afp.Clearing.margin_account_equity) – Returns the margin account equity in the margin account associated with the
+- [**position**](#afp.Clearing.position) – Returns the parameters of a position in the margin account associated with
+- [**positions**](#afp.Clearing.positions) – Returns all positions in the margin account associated with the collateral
+- [**product_state**](#afp.Clearing.product_state) – Returns the current state of a product.
+- [**profit_and_loss**](#afp.Clearing.profit_and_loss) – Returns the profit and loss in the margin account associated with the
+- [**withdraw_from_margin_account**](#afp.Clearing.withdraw_from_margin_account) – Withdraws the specified amount of collateral tokens from the margin account
+- [**withdrawable_amount**](#afp.Clearing.withdrawable_amount) – Returns the amount of collateral tokens withdrawable from the margin account
+
+#### afp.Clearing.authorize
+
+```python
+authorize(collateral_asset, intent_account_id)
+```
+
+Authorizes a blockchain account to submit intents to the clearing system
+using the margin account associated with the collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+- **intent_account_id** (<code>[str](#str)</code>) – The address of the intent account.
+
+**Returns:**
+
+- <code>[str](#str)</code> – The hash of the transaction.
+
+#### afp.Clearing.capital
+
+```python
+capital(collateral_asset)
+```
+
+Returns the amount of collateral tokens in the margin account associated
+with the collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+
+**Returns:**
+
+- <code>[Decimal](#decimal.Decimal)</code> –
+
+#### afp.Clearing.collateral_asset
+
+```python
+collateral_asset(product_id)
+```
+
+Returns the collateral asset of a product.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) – The ID of the product.
+
+**Returns:**
+
+- <code>[str](#str)</code> –
+
+#### afp.Clearing.deposit_into_margin_account
+
+```python
+deposit_into_margin_account(collateral_asset, amount)
+```
+
+Deposits the specified amount of collateral tokens into the margin account
+associated with the collateral asset.
+
+First approves the token transfer with the collateral token, then executes the
+transfer.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+- **amount** (<code>[Decimal](#decimal.Decimal)</code>) – The amount of collateral tokens to deposit.
+
+**Returns:**
+
+- <code>[str](#str)</code> – The hash of the approval transaction.
+- <code>[str](#str)</code> – The hash of the deposit transaction.
+
+#### afp.Clearing.initiate_final_settlement
+
+```python
+initiate_final_settlement(product_id, accounts)
+```
+
+Initiate final settlement (closeout) process for the specified accounts.
+
+The product must be in Final Settlement state. The accounts must hold non-zero
+positions in the product that offset each other (i.e. the sum of their position
+sizes is 0.)
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) – The ID of the product.
+- **accounts** (<code>list of str</code>) – List of margin account IDs to initiate settlement for.
+
+**Returns:**
+
+- <code>[str](#str)</code> – The hash of the transaction.
+
+#### afp.Clearing.maintenance_margin_available
+
+```python
+maintenance_margin_available(collateral_asset)
+```
+
+Returns the maintenance margin available in the margin account associated
+with the collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+
+**Returns:**
+
+- <code>[Decimal](#decimal.Decimal)</code> –
+
+#### afp.Clearing.maintenance_margin_used
+
+```python
+maintenance_margin_used(collateral_asset)
+```
+
+Returns the maintenance margin used in the margin account associated with
+the collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+
+**Returns:**
+
+- <code>[Decimal](#decimal.Decimal)</code> –
+
+#### afp.Clearing.margin_account_equity
+
+```python
+margin_account_equity(collateral_asset)
+```
+
+Returns the margin account equity in the margin account associated with the
+collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+
+**Returns:**
+
+- <code>[Decimal](#decimal.Decimal)</code> –
+
+#### afp.Clearing.position
+
+```python
+position(collateral_asset, position_id)
+```
+
+Returns the parameters of a position in the margin account associated with
+the collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+- **position_id** (<code>[str](#str)</code>) – The ID of the position.
+
+**Returns:**
+
+- <code>[Position](#afp.schemas.Position)</code> –
+
+#### afp.Clearing.positions
+
+```python
+positions(collateral_asset)
+```
+
+Returns all positions in the margin account associated with the collateral
+asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+
+**Returns:**
+
+- <code>list of afp.schemas.Position</code> –
+
+#### afp.Clearing.product_state
+
+```python
+product_state(product_id)
+```
+
+Returns the current state of a product.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) – The ID of the product.
+
+**Returns:**
+
+- <code>[str](#str)</code> –
+
+#### afp.Clearing.profit_and_loss
+
+```python
+profit_and_loss(collateral_asset)
+```
+
+Returns the profit and loss in the margin account associated with the
+collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+
+**Returns:**
+
+- <code>[Decimal](#decimal.Decimal)</code> –
+
+#### afp.Clearing.withdraw_from_margin_account
+
+```python
+withdraw_from_margin_account(collateral_asset, amount)
+```
+
+Withdraws the specified amount of collateral tokens from the margin account
+associated with the collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+- **amount** (<code>[Decimal](#decimal.Decimal)</code>) – The amount of collateral tokens to withdraw.
+
+**Returns:**
+
+- <code>[str](#str)</code> – The hash of the transaction.
+
+#### afp.Clearing.withdrawable_amount
+
+```python
+withdrawable_amount(collateral_asset)
+```
+
+Returns the amount of collateral tokens withdrawable from the margin account
+associated with the collateral asset.
+
+**Parameters:**
+
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token.
+
+**Returns:**
+
+- <code>[Decimal](#decimal.Decimal)</code> –
+
+### afp.Liquidation
+
+Bases: <code>[ClearingSystemAPI](#afp.api.base.ClearingSystemAPI)</code>
+
+API for participating in liquidation auctions.
+
+**Parameters:**
+
+- **private_key** (<code>[str](#str)</code>) – The private key of the blockchain account that participates in a liquidation
+  auction.
+- **autonity_rpc_url** (<code>[str](#str)</code>) – The URL of a JSON-RPC provider for Autonity. (HTTPS only.)
+
+**Functions:**
+
+- [**auction_data**](#afp.Liquidation.auction_data) – Returns information on a liquidation auction.
+- [**create_bid**](#afp.Liquidation.create_bid) – Create a bid to be submitted to a liquidation auction.
+- [**request_liquidation**](#afp.Liquidation.request_liquidation) – Request a liquidation auction to be started.
+- [**submit_bids**](#afp.Liquidation.submit_bids) – Submit bids to a liquidation auction.
+
+#### afp.Liquidation.auction_data
+
+```python
+auction_data(margin_account_id, collateral_asset)
+```
+
+Returns information on a liquidation auction.
+
+**Parameters:**
+
+- **margin_account_id** (<code>[str](#str)</code>) – The ID of the margin account to be liquidated.
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token that the margin account is trading with.
+
+**Returns:**
+
+- <code>[str](#str)</code> – The hash of the transaction.
+
+#### afp.Liquidation.create_bid
+
+```python
+create_bid(product_id, price, quantity, side)
+```
+
+Create a bid to be submitted to a liquidation auction.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) –
+- **price** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **quantity** (<code>[int](#int)</code>) –
+- **side** (<code>[str](#str)</code>) –
+
+**Returns:**
+
+- <code>[Bid](#afp.schemas.Bid)</code> –
+
+#### afp.Liquidation.request_liquidation
+
+```python
+request_liquidation(margin_account_id, collateral_asset)
+```
+
+Request a liquidation auction to be started.
+
+**Parameters:**
+
+- **margin_account_id** (<code>[str](#str)</code>) – The ID of the margin account to be liquidated.
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token that the margin account is trading with.
+
+**Returns:**
+
+- <code>[str](#str)</code> – The hash of the transaction.
+
+#### afp.Liquidation.submit_bids
+
+```python
+submit_bids(margin_account_id, collateral_asset, bids)
+```
+
+Submit bids to a liquidation auction.
+
+**Parameters:**
+
+- **margin_account_id** (<code>[str](#str)</code>) – The ID of the margin account that is being liquidated.
+- **collateral_asset** (<code>[str](#str)</code>) – The address of the collateral token that the margin account is trading with.
+- **bids** (<code>[Iterable](#typing.Iterable)\[[Bid](#afp.schemas.Bid)\]</code>) –
+
+**Returns:**
+
+- <code>[str](#str)</code> – The hash of the transaction.
+
+### afp.Trading
+
+Bases: <code>[ExchangeAPI](#afp.api.base.ExchangeAPI)</code>
+
+API for trading in the AutEx exchange.
+
+Authenticates with the exchange on creation.
+
+**Parameters:**
+
+- **private_key** (<code>[str](#str)</code>) – The private key of the account that submits intents to the exchange.
+
+**Raises:**
+
+- <code>[AuthenticationError](#afp.exceptions.AuthenticationError)</code> – If the exchange rejects the login attempt.
+
+**Functions:**
+
+- [**create_intent**](#afp.Trading.create_intent) – Creates an intent with the given intent data, generates its hash and signs it
+- [**iter_market_depth**](#afp.Trading.iter_market_depth) – Subscribes to updates of the depth of market for the given product.
+- [**iter_order_fills**](#afp.Trading.iter_order_fills) – Subscribes to the authenticated account's new order fills that match the
+- [**market_depth**](#afp.Trading.market_depth) – Retrieves the depth of market for the given product.
+- [**open_orders**](#afp.Trading.open_orders) – Retrieves all open and partially filled limit orders that have been submitted
+- [**order**](#afp.Trading.order) – Retrieves an order by its ID from the orders that have been submitted by the
+- [**order_fills**](#afp.Trading.order_fills) – Retrieves the authenticated account's order fills that match the given
+- [**product**](#afp.Trading.product) – Retrieves a product for trading by its ID.
+- [**products**](#afp.Trading.products) – Retrieves the products approved for trading on the exchange.
+- [**submit_cancel_order**](#afp.Trading.submit_cancel_order) – Sends a cancellation order to the exchange.
+- [**submit_limit_order**](#afp.Trading.submit_limit_order) – Sends an intent expressing a limit order to the exchange.
+
+#### afp.Trading.create_intent
+
+```python
+create_intent(*, product, side, limit_price, quantity, max_trading_fee_rate, good_until_time, margin_account_id=None)
+```
+
+Creates an intent with the given intent data, generates its hash and signs it
+with the configured account's private key.
+
+The intent account's address is derived from the private key. The intent account
+is assumed to be the same as the margin account if the margin account ID is not
+specified.
+
+**Parameters:**
+
+- **product** (<code>[ExchangeProduct](#afp.schemas.ExchangeProduct)</code>) –
+- **side** (<code>[str](#str)</code>) –
+- **limit_price** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **quantity** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **max_trading_fee_rate** (<code>[Decimal](#decimal.Decimal)</code>) –
+- **good_until_time** (<code>[datetime](#datetime.datetime.datetime)</code>) –
+- **margin_account_id** (<code>[str](#str)</code>) –
+
+**Returns:**
+
+- <code>[Intent](#afp.schemas.Intent)</code> –
+
+#### afp.Trading.iter_market_depth
+
+```python
+iter_market_depth(product_id)
+```
+
+Subscribes to updates of the depth of market for the given product.
+
+Returns a generator that yields the updated market depth data as it is published
+by the exhange.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) –
+
+**Yields:**
+
+- <code>[MarketDepthData](#afp.schemas.MarketDepthData)</code> –
+
+**Raises:**
+
+- <code>[NotFoundError](#afp.exceptions.NotFoundError)</code> – If no such product exists.
+
+#### afp.Trading.iter_order_fills
+
+```python
+iter_order_fills(*, product_id=None, margin_account_id=None, intent_hash=None)
+```
+
+Subscribes to the authenticated account's new order fills that match the
+given parameters.
+
+Returns a generator that yields new order fills as they are published by the
+exchange. A new order fill gets publised as soon as there is a match in the
+order book, before the trade is submitted to clearing.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) –
+- **margin_account_id** (<code>[str](#str)</code>) –
+- **intent_hash** (<code>[str](#str)</code>) –
+
+**Yields:**
+
+- <code>[OrderFill](#afp.schemas.OrderFill)</code> –
+
+#### afp.Trading.market_depth
+
+```python
+market_depth(product_id)
+```
+
+Retrieves the depth of market for the given product.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) –
+
+**Returns:**
+
+- <code>[MarketDepthData](#afp.schemas.MarketDepthData)</code> –
+
+**Raises:**
+
+- <code>[NotFoundError](#afp.exceptions.NotFoundError)</code> – If no such product exists.
+
+#### afp.Trading.open_orders
+
+```python
+open_orders()
+```
+
+Retrieves all open and partially filled limit orders that have been submitted
+by the authenticated account.
+
+**Returns:**
+
+- <code>list of afp.schemas.Order</code> –
+
+#### afp.Trading.order
+
+```python
+order(order_id)
+```
+
+Retrieves an order by its ID from the orders that have been submitted by the
+authenticated account.
+
+**Parameters:**
+
+- **order_id** (<code>[str](#str)</code>) –
+
+**Returns:**
+
+- <code>[Order](#afp.schemas.Order)</code> –
+
+**Raises:**
+
+- <code>[NotFoundError](#afp.exceptions.NotFoundError)</code> – If no such order exists.
+
+#### afp.Trading.order_fills
+
+```python
+order_fills(*, product_id=None, margin_account_id=None, intent_hash=None, start=None, end=None)
+```
+
+Retrieves the authenticated account's order fills that match the given
+parameters.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) –
+- **margin_account_id** (<code>[str](#str)</code>) –
+- **intent_hash** (<code>[str](#str)</code>) –
+- **start** (<code>[datetime](#datetime.datetime.datetime)</code>) –
+- **end** (<code>[datetime](#datetime.datetime.datetime)</code>) –
+
+**Returns:**
+
+- <code>list of afp.schemas.OrderFill</code> –
+
+#### afp.Trading.product
+
+```python
+product(product_id)
+```
+
+Retrieves a product for trading by its ID.
+
+**Parameters:**
+
+- **product_id** (<code>[str](#str)</code>) –
+
+**Returns:**
+
+- <code>[ExchangeProduct](#afp.schemas.ExchangeProduct)</code> –
+
+**Raises:**
+
+- <code>[NotFoundError](#afp.exceptions.NotFoundError)</code> – If no such product exists.
+
+#### afp.Trading.products
+
+```python
+products()
+```
+
+Retrieves the products approved for trading on the exchange.
+
+**Returns:**
+
+- <code>list of afp.schemas.ExchangeProduct</code> –
+
+#### afp.Trading.submit_cancel_order
+
+```python
+submit_cancel_order(intent_hash)
+```
+
+Sends a cancellation order to the exchange.
+
+**Parameters:**
+
+- **intent_hash** (<code>[str](#str)</code>) –
+
+**Returns:**
+
+- <code>[Order](#afp.schemas.Order)</code> –
+
+**Raises:**
+
+- <code>[ValidationError](#afp.exceptions.ValidationError)</code> – If the exchange rejects the cancellation.
+
+#### afp.Trading.submit_limit_order
+
+```python
+submit_limit_order(intent)
+```
+
+Sends an intent expressing a limit order to the exchange.
+
+**Parameters:**
+
+- **intent** (<code>[Intent](#afp.schemas.Intent)</code>) –
+
+**Returns:**
+
+- <code>[Order](#afp.schemas.Order)</code> –
+
+**Raises:**
+
+- <code>[ValidationError](#afp.exceptions.ValidationError)</code> – If the exchange rejects the intent.
