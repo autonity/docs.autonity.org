@@ -26,8 +26,10 @@ website:
             contents:
               - text: Overall Architecture
                 file: afp/architecture.qmd
-          - afp/getting-started.qmd
-          - file: afp/clearing-system.qmd
+          - text: Getting Started
+            file: afp/getting-started.qmd
+          - text: Clearing System
+            file: afp/clearing-system.qmd
             contents:
                 - file: afp/margin-intent-accounts.qmd
                 - file: afp/liquidation.qmd

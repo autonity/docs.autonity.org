@@ -255,11 +255,20 @@ document.addEventListener('DOMContentLoaded', function() {
       return a;
     };
 
-    const path = window.location.pathname || '/';
-    const active = path.startsWith('/layer1') ? 'layer1' : (path.startsWith('/afp') ? 'afp' : 'home');
+    // Determine offset for current page depth (Quarto sets this meta on each page)
+    const offset = (document.querySelector('meta[name="quarto:offset"]')?.getAttribute('content')) || '';
+    // Build links relative to current page so they work on GitHub Pages subpaths
+    const hrefLayer1 = offset + 'layer1/';
+    const hrefAfp = offset + 'afp/';
 
-    bar.appendChild(mk('Layer 1', '/layer1/', active === 'layer1'));
-    bar.appendChild(mk('AFP', '/afp/', active === 'afp'));
+    // Active tab detection relative to site root
+    const relPath = (window.location.pathname || '/');
+    const isLayer1 = /(^|\/)layer1(\/|$)/.test(relPath);
+    const isAfp = /(^|\/)afp(\/|$)/.test(relPath);
+    const active = isLayer1 ? 'layer1' : (isAfp ? 'afp' : 'home');
+
+    bar.appendChild(mk('Layer 1', hrefLayer1, active === 'layer1'));
+    bar.appendChild(mk('AFP', hrefAfp, active === 'afp'));
     container.appendChild(bar);
     wrap.appendChild(container);
     // Insert AFTER the header so it sits above the sidebar and below the brand bar
