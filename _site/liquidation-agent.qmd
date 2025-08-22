@@ -1,7 +1,0 @@
----
-title: "Liquidation Agent"
----
-#
-When a Margin Account fails to have sufficient Maintenance Margin Available to meet its Maintenance Margin Requirements, it may be liquidated through a liquidation auction.
-
-Initiation a Liquidation Auction is an incentivized activity.

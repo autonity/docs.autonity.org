@@ -1,8 +1,0 @@
----
-title: "Final Settlement Price Agent"
----
-#
-Once the `Earliest FSV Submission Time` is reached, anyone can call the `finalizeFsp()` function on the `FinalSettlementFacet.sol` contract. If the call is successful, the FSP will become the Mark Price for the product.
-
-There is no endogenous protocol incentive for an account to initiate Final Settlement Price Resolution by calling `finalizeFsp`. However, because Mark Price is set to FSP, one half of the Open Interest has an incentive to effect the (probable) Mark Price change early, so Final Settlement Price Resolution will likely occur shortly after the FSV is known to the Oracle. Moreover, the Final Settlement Process cannot begin until the FSP is resolved, and the Final Settlement Process _does_ contain an endogenous protocol incentive for its initiation.
-
