@@ -1,0 +1,21 @@
+---
+title: "Trading Protocols"
+---
+
+Trading Protocols operate trading venues where Products created in the clearing system can be traded. These protocols can be of _any_ type of trading modality, as long as they conform to the Trading Protocol interface expected by the clearing system, and submit trades to be cleared in the expected format.
+
+Trading Protocols can choose which products they wish to list, as the listing process is up to their discretion. This means that not all Products may be available on each trading venue but due to MAs being enshrined in the clearing system, traders can easily navigate between Trading Protocols to trade the products they wish, on trading venues of their choosing.
+
+## Trading Protocol Revenue
+Trading Protocol's can charge users trading fees to generate revenue. On integrating with the AFP, TP's maintain the flexibility to implement any trading fee regime they desire.
+
+
+
+## AutEx
+The Autonity Exchange (AutEx) is the first trading protocol to be integrated with the AFP. It serves as a reference implementation for other Trading Protocols to examine, and to serve as a guideline as to how a trading protocol can be implemented.
+
+The AutEx is a non-custodial Central Limit Order Book (CLOB) that integrates some clearing system interfaces for ease of user onboarding (e.g. depositing/withdrawing from margin accounts). It is non-custodial becuase collateral fully remains in the users' margin accounts, with no need to send any collateral to an omnibus accoutn as is the case with CEXs.
+
+As mentioned above, trading protocols can implement any trading modality but the CLOB is the one that most users are familiar with which is why it was used in the AutEx reference implementation. Orders are entered into the orderbook by Intent Accounts submitting signed intents. These intents will sit in the order book until a fill occurs - at which point a trade is submitted on-chain to the clearing system via the AutEx's Trading Protocol contract (a deployment of `TradingProtocol.sol`).
+
+

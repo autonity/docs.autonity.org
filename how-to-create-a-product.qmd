@@ -1,0 +1,51 @@
+---
+title: "How to Create a Product"
+---
+
+Product creation is permissionless on the AFP, so any address on Autonity can become a Product Builder.
+
+### Prerequisites
+
+Before you can create a product on the Autonity Futures Protocol (AFP), ensure you have:
+
+- **A Margin Account contract exists in the collateral of your product.** For your product to be easily tradeable you will want to ensure that the Margin Contract for the collateral asset that you wish to use for your product has been deployed. This can be done by calling:
+  
+    `function initializeMarginAccount(address collateralAsset) public returns (IMarginAccount)`
+    
+    on the `MarginAccountRegistry.sol` contract. This ensures that traders can easily deposit collateral and start trading without requiring them to do the Margin Account contract deployment themselves.
+- **A Margin Account in the collateral asset of the product you will create** as this is where clearing fees will be credited to. For more information on creating a Margin Account, see [How to create and fund a margin account on the AFP](/getting-started.qmd#how-to-create-and-fund-a-margin-account-on-the-afp)
+- **Read through the documentation** as understanding how products work in the AFP is crucial to creating a successful one in the first place!
+
+
+### Important notes
+
+
+### Steps to Create a Product
+
+1. **Decide on a timeseries** that your product will trade. Ensure there is a reliable, undisputable source of truth for the timeseries that oracles will be able to use to report a final settlement value.
+   
+2. **Construct the Product Specification**
+   - Prepare a valid [`Product`](/product-specification.qmd#product-specification-for-dated-futures) struct with all required fields. There is no one-size-fits-all set of parameters that can be specified as each product is unique.
+   - **Important:** the same builder cannot create two products with the same symbol!
+
+3. **Register the Product**
+   - Call the `register` function on ProductRegistry.sol, passing your constructed `Product` struct as calldata.
+   - This can either be done through the SDK <add reference to SDK on product registration>, or direct calls on-chain to the contract.
+   - Ensure your product is in a `PENDING` state, which indicates it has passed the on-chain validity checks. This can be done by the view function:
+
+:::: {.panel-tabset}
+## Solidity
+```javascript
+    function state(bytes32 productId) external view returns (ProductState)
+```
+## SDK
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+```
+:::
+
+4. **Ensure your product is listed on at least one trading protocol**. This will ensure that traders have a clear way to trade your product. Listing your product on a trading protocol is up to the discretion of the trading protocols themselves. 
+   
+5. Once the `startTime` of your product is reached, its state will go `LIVE` and become tradeable. A portion of the Clearing Fees will be credited to your Margin Account, so the more volume that is traded through your product, the more clearing fees will be accrued.
+

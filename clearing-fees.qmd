@@ -1,0 +1,17 @@
+---
+title: "Clearing fees"
+---
+
+For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee. This section documents the Clearing Fee component.
+
+## Clearing Fee
+
+Clearing fees are quoted as a percentage of the trade's notional value, referred to as the Clearing Fee Rate ("CFR")
+
+`CF[i] = p * abs(q) * POINT_VALUE * CFR`
+
+where `p` is the trade’s Trade Price and `q` is the (signed) quantity of the trade’s `i`-th fill. CFR is a global system parameter `CLEARING_FEE_RATE`, that is common to all products in the AFP.
+
+`sum(CF[1],...,CF[n])` is added to the Capital of the Clearing System's Treasury Account.
+
+The Clearing System's Treasury Account is defined by the Clearing System parameter `TREASURY_ADDRESS` (funds in the Clearing System's Treasury Account will subsequently be used to buy-and-burn NTN).

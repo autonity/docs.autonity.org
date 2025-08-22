@@ -1,124 +1,98 @@
 project:
   type: website
-  output-dir: docs/
-  preview:
-    port: 3000
-    browser: false
-execute:
-  freeze: auto
-  echo: true
-  warning: false
+  output-dir: _site
+
 website:
   title: "Autonity Documentation"
-  favicon: "_assets/favicon.svg"
-  google-analytics: ""
-  search:
-    location: navbar
-    type: overlay
-  sidebar: 
-   contents:
-    - index.md
-    - "overview/index.md"
-    - section: "Concepts"
-      contents:
-      - "concepts/architecture/index.md"
-      - "concepts/system-model/index.md"
-      - auto: "concepts/consensus"
-      - "concepts/client/index.md"
-      - "concepts/oracle-network/index.md"
-      - "concepts/oracle-server/index.md"
-      - "concepts/validator/index.md"
-      - "concepts/staking/index.md"
-      - "concepts/afd/index.md"
-      - "concepts/ofd/index.md"
-      - "concepts/oafd/index.md"
-      - "concepts/asm/index.md"
-      - auto: concepts/protocol-assets
-    - section: "Networks"
-      contents:
-      - "networks/mainnet/index.md"
-      - "networks/testnet-bakerloo/index.md"
-      - "networks/testnet-piccadilly/index.md"
-    - section: "Accounts"
-      contents:
-      - "account-holders/setup-aut/index.md"
-      - "account-holders/create-acct/index.md"
-      - "account-holders/fund-acct/index.md"
-      - "account-holders/submit-trans-aut/index.md"
-    - section: "Running a Node"
-      contents:
-      - "node-operators/install-aut/index.md"
-      - "node-operators/run-aut/index.md"
-      - "node-operators/connect/index.md"
-      - "node-operators/setup-node-monitoring/index.md"
-      - "node-operators/migrate-aut/index.md"
-    - section: "Running an Oracle Server"
-      contents:
-      - "oracle/install-oracle/index.md"
-      - "oracle/run-oracle/index.md"
-    - section: "Running a Validator"
-      contents:
-      - "validators/register-vali/index.md"
-      - "validators/pause-vali/index.md"
-      - "validators/change-commission-rate/index.md"
-      - "validators/migrate-vali/index.md"
-    - section: "Staking"
-      contents:
-      - "delegators/bond-stake/index.md"
-      - "delegators/claim-rewards/index.md"
-      - "delegators/transfer-lntn/index.md"
-    - section: "Borrowing by CDP in the ASM"
-      contents: 
-      - "cdp/open-cdp/index.md"
-      - "cdp/liquidate-cdp/index.md"
-    - section: "Development"
-      contents:
-      - "developer/submit-trans-gov-acct/index.md"
-      - "developer/deploy-brownie/index.md"
-      - "developer/custom-networks/index.md"
-    - section: "Reference"
-      contents:
-      - auto: reference/cli
-      - auto: reference/api  
-      - "reference/codebase/index.md"
-      - "reference/genesis/index.md"
-      - "reference/protocol/index.md"
-    - "glossary/index.md"
-    - "issues/index.md"
-   style: docked
-   collapse-level: 2
-  navbar:  
+  repo-url: https://github.com/clearmatics/proto-afp
+  page-navigation: true
+  favicon: ./_assets/favicon.svg
+  navbar:
     background: dark
     logo: "_assets/images/logo-autonity.svg"
-  page-footer:
-    left:
+    tools:
       - icon: github
-        href: https://github.com/autonity/
-      - icon: twitter
-        href: https://twitter.com/autonity_
-      - icon: discord
-        href: https://discord.com/invite/autonity
-      - icon: youtube
-        href: https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ
-filters:
-  - _filters/macro-substitution.lua
-  - _filters/page-info.lua
-  - _filters/card-substitution.lua
+        menu:
+          - text: Source Code
+            href:  https://github.com/clearmatics/proto-afp
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Autonity Futures Protocol"
+        contents:
+          - text: About the AFP
+            file: about-afp.qmd
+            contents:
+              - text: Overall Architecture
+                file: architecture.qmd
+          - getting-started.qmd
+          - file: clearing-system.qmd
+            contents:
+                - file: margin-intent-accounts.qmd
+                - file: liquidation.qmd
+                - file: bankruptcy.qmd
+                - file: margining.qmd
+                - file: mark-price.qmd
+                - file: final-settlement-price.qmd    
+                - file: final-settlement-process.qmd    
+          - file: fees.qmd
+            contents:
+                - file: trading-fees.qmd
+                - file: clearing-fees.qmd
+          - file: products.qmd
+            contents:
+                - file: how-to-create-a-product.qmd
+                - file: product-specification.qmd
+                - file: product-builders.qmd
+                - file: product-lifecycle.qmd
+                - file: product-tokenomics.qmd
+          - file: trading-protocols.qmd
+            contents:
+                - file: how-to-integrate-a-trading-protocol.qmd
+                - file: the-roles-of-trading-protocols.qmd
+                - file: fallback-mechanism.qmd
+          - file: trading.qmd
+            contents:
+                - file: trade-execution-and-clearing.qmd
+                - file: cross-venue-cross-margining.qmd 
+                - file: intents.qmd
+          - file: oracles.qmd
+            contents:
+                - file: how-to-integrate-an-oracle.qmd
+                - file: oracle-interface.qmd 
+          - file: on-chain-agents.qmd
+            contents:
+                - file: final-settlement-price-agent.qmd
+                - file: closeout-agent.qmd    
+                - file: liquidation-agent.qmd    
+      - text: Glossary
+        file: glossary.qmd
+      - section: "For Developers"
+        contents:
+          - text: AFP SDK Reference
+            file: afp-sdk-reference.qmd
+          - text: AFP Smart Contract Reference
+            file: afp-smart-contract-reference.qmd
+  page-footer:
+    left: "© 2025 AFP Project"
+    right: "Built with Quarto"
+
 format:
   html:
-    link-external-icon: true
-    link-external-newwindow: true
-    fontcolor: "#333333"
-    smooth-scroll: true
     theme:
       light: [cosmo, _theme/theme.scss]
+    css:
+      - _assets/css/styles.css
     code-copy: true
     code-overflow: wrap
-    css: _assets/css/styles.css
     toc: true
-    include-in-header:
-      - text: |
-          <link rel="preconnect" href="https://plausible.io">
-          <script defer data-domain="docs.autonity.org" src="https://plausible.io/js/plausible.js"></script>
-          <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
-    template: _templates/autonity-base.html
+    toc-location: right
+    toc-title: "On this page"
+    toc-depth: 3
+    toc-float: true
+    smooth-scroll: true
+    highlight-style: pygments
+    include-after-body:
+      - _includes/glossary-search.html
+      - _includes/top-tabs.html

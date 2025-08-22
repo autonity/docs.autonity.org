@@ -1,0 +1,26 @@
+---
+title: "Bankruptcy"
+---
+
+A Margin Account is bankrupt when its Margin Account Equity (MAE) < 0. While the Maintenance Margin Requirement (MMR) and the liquidation auction mechanism exist to prevent bankruptcy, they cannot guarantee full risk mitigation — especially in fast-moving or illiquid markets. Thus, the (AFP) defines how bankruptcies are resolved when they do occur.
+
+The AFP does not impose a protocol-endogenous Default Fund - a shared pool that absorbs losses from bankrupt accounts – as this approach has two key shortcomings:
+
+- Insufficient Guarantees: There is no assurance the default fund will always be sufficiently capitalized.
+- Economic Inefficiency: A one-size-fits-all insurance model imposes costs on users who may not value the coverage, which results in higher fees to the end-user.
+
+However, third-party insurance layers can still be built on top of the AFP if market demand exists for such products.
+
+## Auto-deleveraging 
+
+Instead of socializing losses across all traders, as is the case with a Default Fund, the AFP uses an auto-deleveraging mechanism as a first resort, not a last resort. Losses from bankrupt accounts are absorbed directly by other margin accounts with opposing positions in the affected products. 
+
+## Which accounts absorb the losses?
+
+Losses related to auto-deleveraging are not socialized across the entire protocol. Instead:
+
+- Only margin accounts with opposing positions in the same products as the bankrupt account are eligible to absorb the loss.
+- Margin accounts with positions in unrelated products are never impacted.
+
+These constraints are critical to supporting permissionless market creation, as they isolate risk within products and prevent contagion across the entire system.
+

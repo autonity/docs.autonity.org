@@ -1,0 +1,63 @@
+---
+title: "How to integrate a trading protocol"
+---
+
+The AFP exposes a novel suite of products that previously could not be traded so offering a variety of trade execution protocols that act as entry points to these markets is crucial.
+
+## Prerequisites
+Before you can implement a trading protocol, ensure you have:
+
+- **A margin account for each of the collateral assets your listed products require.** For example, if the products you intend to list on your protocol use USDC and ATN as collateral assets, you must have Margin Accounts in those assets.
+- **An interface to accept intents.** The AFP uses an intent centric architecture and allows for a gasless trading experience for the end user. Your trading protocol must take [Intents](/intents.qmd) as input.
+- **An output that conforms to the expected trade object.** The AFP expects trades to be represented in a specific way before they can be cleared.
+
+## Integrating your Trading Protocol
+
+1. Deploy a `TradingProtocol.sol` instance that will be used to send trades to the clearing system. The address that is used to deploy the contract will automatically be granted `DEFAULT_ADMIN_ROLE` rights.
+
+:::: {.panel-tabset}
+## Solidity
+```javascript
+    function example() external view returns (ProductState)
+```
+## SDK
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+```
+:::
+
+
+2. Using the address with the admin rights, authorise an Autonity address on your newly deployed `TradingProtocol.sol` contract to submit trades (this address will then gain the `TRADE_SUBMITTER` role). This prevents any unauthorised addresses from submitting trades to the clearing system through your trading protocol contract:
+    
+:::: {.panel-tabset}
+## Solidity
+```javascript
+    function addTradeSubmitter(address submitter) external override onlyRole(DEFAULT_ADMIN_ROLE)
+```
+## SDK
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+```
+:::
+
+3. Implement logic to determine when your trading protocol will enable `fallBackOnFailure`. If `fallBackOnFailure` is set to true then collateral in the margin account of the `DEFAULT_ADMIN_ROLE` is used as the counterparty in a trade where one side may fail its MAE Check.
+
+4. Configure your trading protocol to submit trades from the address with the `TRADE_SUBMITTER` role.
+
+:::: {.panel-tabset}
+## Solidity
+```javascript
+function execute(IClearing.Trade calldata trade, bool fallbackOnFailure) external override onlyRole(TRADE_SUBMITTER_ROLE)
+```
+## SDK
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+```
+:::
+
+5. Trading fees will be credited to the margin account of the `DEFAULT_ADMIN_ROLE` from where they can be withdrawn.
+6. Your trading protocol is now ready to accept trades!
+

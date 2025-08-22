@@ -1,0 +1,84 @@
+---
+title: "Final Settlement Process"
+---
+
+_Also known as closeout process._
+
+Any margin account can initiate the Final Settlement Process for a
+product once the product is in the `FINAL_SETTLEMENT` state (such a margin account is termed a "Closeout Agent").
+
+A Closeout Agent initiates the Final Settlement Process by calling: 
+
+:::: {.panel-tabset}
+## Solidity
+```javascript
+function initiateFinalSettlement(bytes32 productID, address[] calldata accounts) external override
+```
+## SDK
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+```
+:::
+
+
+on the `FinalSettlementFacet.sol` contract. The array of addresses (margin accounts) must:
+
+1. Each have a non-zero position in the product.
+2. Collectively offset each other (i.e. the sum of their position sizes is 0).
+
+## Final Settlement Process Checks
+
+When a Closeout Agent calls `initiateFinalSettlement(..)`, the
+Clearing System performs the _Final Settlement Process Checks_:
+
+1. For each margin account in `accounts`, fetch the account's position
+   quantity `Q`:
+   - if `Q == 0`, the checks fail and the processes is aborted. 
+   - if `Q =! 0`, then increment `checksum = checksum + Q`.
+2. If `checksum == 0`, proceed to the Final Settlement Closeout; if it
+	does not, the checks fail and the process is aborted.
+
+## Final Settlement Closeout
+
+- If the FSP does not exist, call `finalizeFsp()` and execute the Final Settlement Price Resolution. If that process fails, abort Final Settlement Closeout. If that process succeeds, continue.
+- For each account `a` in Closeout Data:
+  - Construct a trade done at the `FSP` with `a` on the buy (sell) side
+	and Treasury Account on the sell (buy) side if `a`'s position is
+	short (long);
+  - Apply trade settlement to `a`:
+	  - `RPnL = FSP * Q * POINT_VALUE - B`
+	  - `C[t] = C[t-1] + RPnL`
+	  - `Q[t] = Q[t-1] + -Q` (i.e., `Q[t] = 0`)
+  - Apply trade settlement to Treasury Account:
+      - Update Cost Basis `B` per conditional definition assuming a
+        trade quantity of `Q` at price `FSP`.
+	  - Calculate `RPnL` per conditional definition
+	  - `C[t] = C[t-1] + RPnL`
+	  - `Q[t] = Q[t-1] + Q`
+  - Apply the Closeout Fee: 
+	- `C[t] = C[t-1] - CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q)` on account `a`
+	- `C[t] = C[t-1] + CLOSEOUT_FEE_RATE * POINT_VALUE * FSP * abs(Q)` on Treasury Account
+  - Apply the Closeout Agent Reward:
+	- `C[t] = C[t-1] - CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q)` on Treasury Account
+	- `C[t] = C[t-1] + CLOSEOUT_REWARD_RATE * POINT_VALUE * FSP * abs(Q)` on Closeout Agent's account
+
+The product will transition from `FINAL_SETTLEMENT` state
+to `EXPIRED` state if the open interest in the product is zero; 
+otherwise, the product remains in `FINAL_SETTLEMENT` state. 
+`initiateFinalSettlement(..)` can be called multiple times whilst
+the open interest is non-zero.
+
+Notes:
+
+- `CLOSEOUT_FEE_RATE` >= `CLOSEOUT_REWARD_RATE`
+- `CLOSEOUT_REWARD_RATE` is set at a level that's a multiple of
+  anticipated venue trading fees to incentivize users 
+  to close their positions before the conclusion of the Tradeout period.
+- As `checksum == 0`, the Treasury Account's position in the product
+  (typically 0) will be the same _after_ the Final Settlement Process
+  as it was right _before_ the process commenced. But Treasury
+  Account's Capital will increase by:
+  ```
+  (CLOSEOUT_FEE_RATE - CLOSEOUT_REWARD_RATE) * POINT_VALUE * FSP * OPEN_INTEREST * 2
+  ```

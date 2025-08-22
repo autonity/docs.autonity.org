@@ -1,0 +1,1935 @@
+---
+title: "AFP Smart Contract Reference"
+---
+
+## IAuctioneer
+
+This interface defines the functions and events related to the auction and liquidation process in the
+clearing system. It is implemented by the Auctioneer facet of the ClearingDiamond contract, and hence all functionality
+is callable through the ClearingDiamond contract.
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x393746A87CF3458EeA2b47BF035496429AbFBD66 |
+
+### Functions
+* [requestLiquidation](#requestliquidation)
+* [bidAuction](#bidauction)
+* [terminateAuctions](#terminateauctions)
+* [isLiquidatable](#isliquidatable)
+* [isLiquidating](#isliquidating)
+* [canTerminateAuctions](#canterminateauctions)
+* [auctionConfig](#auctionconfig)
+* [auctionData](#auctiondata)
+* [maeCheckOnBid](#maecheckonbid)
+* [validateAuctions](#validateauctions)
+* [maxMaeOffered](#maxmaeoffered)
+
+### AuctionConfig
+
+Protocol set configuration options for liquidation auctions
+
+```solidity
+struct AuctionConfig {
+  uint64 restorationBuffer;
+  uint256 liquidationDuration;
+}
+```
+
+### BidData
+
+```solidity
+struct BidData {
+  bytes32 productID;
+  uint256 price;
+  uint256 quantity;
+  enum Side side;
+}
+```
+
+### AuctionData
+
+```solidity
+struct AuctionData {
+  uint256 startBlock;
+  uint256 maeAtInitiation;
+  uint256 mmuAtInitiation;
+  int256 maeNow;
+  uint256 mmuNow;
+}
+```
+
+### LiquidationStarted
+
+Emitted when a liquidation auction is requested for a liquidatable margin account
+
+  ```solidity
+  event LiquidationStarted(address marginAccountID, address collateralToken)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the account being liquidated |
+| collateralToken | address | The address of the collateral token used in the liquidation |
+
+### Auctioned
+
+Emitted when a liquidation auction is successfully bid on
+
+  ```solidity
+  event Auctioned(address liquidatingMarginAccountID, address liquidatorMarginAccountID, bytes32 productId, int256 quantity, uint256 price)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| liquidatingMarginAccountID | address | The address of the account being liquidated |
+| liquidatorMarginAccountID | address | The address of the liquidator placing the bid |
+| productId | bytes32 | The product ID of the position being liquidated |
+| quantity | int256 | The quantity of the position being bid on |
+| price | uint256 | The price at which the bid was placed |
+
+### LiquidationTerminated
+
+Emitted when a liquidation auction is terminated
+
+  ```solidity
+  event LiquidationTerminated(address marginAccountID, address collateralToken)
+  ```
+
+  _This event is emitted when the liquidation auction is successfully terminated, either by the liquidator
+or by the margin account itself once above the restoration buffer._
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the account being liquidated |
+| collateralToken | address | The address of the collateral token used in the liquidation |
+
+### requestLiquidation
+
+Request a liquidation auction for a margin account that has a MMA = 0. The requestor will be rewarded with
+the associated auction bounty for initiating the liquidation
+
+  ```solidity
+  function requestLiquidation(address marginAccountID, address collateralToken) external
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the account to be liquidated |
+| collateralToken | address | The address of the collateral token used in the liquidation |
+
+### bidAuction
+
+Bid on an ongoing liquidation auction for a liquidatable margin account
+
+  ```solidity
+  function bidAuction(address marginAccountID, address collateralToken, struct IAuctioneer.BidData[] bids) external
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the account being liquidated |
+| collateralToken | address | The address of the collateral token used in the liquidation |
+| bids | struct IAuctioneer.BidData[] | List of bids (see `BidData`) |
+
+### terminateAuctions
+
+Terminate an ongoing liquidation auction for a liquidatable margin account. The call is reverted if the liquidation
+cannot be terminated successfully.
+
+  ```solidity
+  function terminateAuctions(address marginAccountID, address collateral) external
+  ```
+
+  _This function can be called by the liquidator or by the margin account itself once above the restoration buffer._
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the account being liquidated |
+| collateral | address | The address of the collateral token used in the liquidation |
+
+### isLiquidatable
+
+  ```solidity
+  function isLiquidatable(address marginAccountID, address collateralToken) external view returns (bool)
+  ```
+
+### isLiquidating
+
+  ```solidity
+  function isLiquidating(address marginAccountID, address collateralToken) external view returns (bool)
+  ```
+
+### canTerminateAuctions
+
+Check if a liquidation auction can be terminated for a given account and collateral token
+
+  ```solidity
+  function canTerminateAuctions(address marginAccountID, address collateral) external view returns (bool)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the account being liquidated |
+| collateral | address | The address of the collateral token used in the liquidation |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | bool | A boolean indicating whether the liquidation auction can be terminated |
+
+### auctionConfig
+
+  ```solidity
+  function auctionConfig() external view returns (struct IAuctioneer.AuctionConfig)
+  ```
+
+### auctionData
+
+  ```solidity
+  function auctionData(address marginAccountID, address collateral) external view returns (struct IAuctioneer.AuctionData)
+  ```
+
+### maeCheckOnBid
+
+Performs necessary checks on mae for the liquidator and the liquidating account
+
+  ```solidity
+  function maeCheckOnBid(address liquidatorMarginAccountID, address liquidatingMarginAccountID, address collateral, struct IAuctioneer.BidData[] bids) external view returns (bool maeCheckFailed, bool maeOverMmuRateExceeded)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| liquidatorMarginAccountID | address | Margin Account ID of the liquidator |
+| liquidatingMarginAccountID | address | Margin Account ID of the liquidating account |
+| collateral | address | Address of the collateral token |
+| bids | struct IAuctioneer.BidData[] | List of bids |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| maeCheckFailed | bool | True if mae check is failed on the liquidator account, false otherwise |
+| maeOverMmuRateExceeded | bool | True if the rate of mae over mmu is not exceeded over the maximum allowed rate, false otherwise |
+
+### validateAuctions
+
+  ```solidity
+  function validateAuctions(address marginAccountID, address collateralToken, struct IAuctioneer.BidData[] bids) external view returns (bool)
+  ```
+
+### maxMaeOffered
+
+  ```solidity
+  function maxMaeOffered(address marginAccountID, address collateral, uint256 mmuDecreased) external view returns (uint256)
+  ```
+
+## Side
+
+```solidity
+enum Side {
+  BID,
+  ASK
+}
+```
+
+## IClearing
+
+This interface defines the functions and data structures related to the clearing process in the trading
+system. The primary point of interaction with these clearing functions should be from Trading Protocols
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x393746A87CF3458EeA2b47BF035496429AbFBD66 |
+
+### Functions
+* [execute](#execute)
+* [setConfig](#setconfig)
+* [finalizeInitialization](#finalizeinitialization)
+* [estimateFees](#estimatefees)
+* [clearingFeeRate](#clearingfeerate)
+* [MAX_TRADING_FEE_RATE](#max_trading_fee_rate)
+* [getProductRegistry](#getproductregistry)
+* [getMarginAccountRegistry](#getmarginaccountregistry)
+* [getTreasury](#gettreasury)
+* [config](#config)
+
+### IntentData
+
+Represents the data required for an intent
+
+- **nonce** - the unique nonce of the intent, used to prevent replay attacks
+- **tradingProtocolID** - the trading protocol ID that is executing the intent (must match the msg.sender)
+- **productID** - the product ID of the product being traded
+- **limitPrice** - the limit price for the trade
+- **quantity** - the maximum quantity to be traded
+- **maxTradingFeeRate** - the maximum trading fee rate that the account is willing to pay to the trading protocol
+- **goodUntil** - the time after which this intent expires
+- **side*** - the side of the trade (BID or ASK)
+
+```solidity
+struct IntentData {
+  uint256 nonce;
+  address tradingProtocolID;
+  bytes32 productID;
+  uint256 limitPrice;
+  uint256 quantity;
+  uint256 maxTradingFeeRate;
+  uint256 goodUntil;
+  enum Side side;
+}
+```
+
+### Intent
+
+Represents an intent to trade, which is signed by the margin account owner
+- **marginAccountID** - the margin account ID which has a funded margin account on the associated collateral asset
+- **intentAccountID** - the intent account ID which has signed the intent (must be approved by the margin account)
+- **hash** - the hash of the intent data
+- **data** - the intent data containing the details of the intended trade
+- **signature** - the signature of the intent, signed by the intent account ID
+
+```solidity
+struct Intent {
+  address marginAccountID;
+  address intentAccountID;
+  bytes32 hash;
+  struct IClearing.IntentData data;
+  bytes signature;
+}
+```
+
+### Trade
+
+Represents a trade to be executed in the clearing system
+- **productID** - the product ID of the product being traded
+- **protocolID** - the trading protocol ID that is executing the trade (must match the msg.sender)
+- **tradeID** - an ID identifying the trade
+- **price** - the trade price
+- **timestamp** - the timestamp of the trade
+- **accounts** - the margin account IDs of the accounts involved in the trade
+- **quantities** - the quantities traded for each associated margin account
+- **feeRates** - the fee rates charged for each associated margin account
+- **intents** - the intent associated with the trade (must be signed by the appropriate margin accounts and in the same order as `accounts`)
+
+```solidity
+struct Trade {
+  bytes32 productID;
+  address protocolID;
+  uint256 tradeID;
+  uint256 price;
+  uint256 timestamp;
+  address[] accounts;
+  uint256[] quantities;
+  int256[] feeRates;
+  struct IClearing.Intent[] intents;
+}
+```
+
+### ClearingConfig
+
+The configuration options for the clearing contract
+- **clearingFeeRate** - the clearing fee rate charged by the clearing contract, with precision 10^6
+
+```solidity
+struct ClearingConfig {
+  uint32 clearingFeeRate;
+}
+```
+
+### Config
+
+The protocol-level configuration options for the clearing contract
+- **auctionConfig** - the auctioneer config
+- **clearingConfig** - the clearing contract config
+
+```solidity
+struct Config {
+  struct IAuctioneer.AuctionConfig auctionConfig;
+  struct IClearing.ClearingConfig clearingConfig;
+}
+```
+
+### TradeExecuted
+
+Emitted when a trade is executed
+
+  ```solidity
+  event TradeExecuted(bytes32 productID, address protocolID, address marginAccount, uint256 price, uint256 quantity)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productID | bytes32 | the product ID of the executed trade |
+| protocolID | address | the trading protocol ID that executed the trade |
+| marginAccount | address | the margin account contract address used for the product |
+| price | uint256 | the price at which the trade was executed |
+| quantity | uint256 | the quantity of the trade executed (sum of all quantities on each side of the trade) |
+
+### execute
+
+performs trade validation checks and executes a trade
+
+  ```solidity
+  function execute(struct IClearing.Trade trade, bool fallbackOnFailure) external
+  ```
+
+  _this function can only be called by the trading protocol listed in the trade object_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| trade | struct IClearing.Trade | the trade to be executed |
+| fallbackOnFailure | bool | if true, the trading protocol's margin account will be substituted for any margin account in the trade that fails the MAE check |
+
+### setConfig
+
+sets the clearing config
+
+  ```solidity
+  function setConfig(struct IClearing.Config config) external
+  ```
+
+  _this function can only be called by the contract owner_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| config | struct IClearing.Config | the clearing config to be set |
+
+### finalizeInitialization
+
+finalizes initialization of the clearing contract
+
+  ```solidity
+  function finalizeInitialization(address marginAccountRegistry) external
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountRegistry | address | the address of the margin account registry |
+
+### estimateFees
+
+returns the estimated fees for a given trade
+
+  ```solidity
+  function estimateFees(bytes32 productID, uint256 price, uint256 quantity, int256 tradingFeeRate) external view returns (uint256, int256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productID | bytes32 | the product ID |
+| price | uint256 | the price of the trade |
+| quantity | uint256 | the quantity of the trade |
+| tradingFeeRate | int256 | the trading fee rate charged by the trading protocol |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | fees the clearing fee charged by the clearing protocol and trading fee charged by the trading protocol |
+| [1] | int256 |  |
+
+### clearingFeeRate
+
+returns the clearing fee rate with precision 10^6
+
+  ```solidity
+  function clearingFeeRate() external view returns (uint256)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the clearing fee rate |
+
+### MAX_TRADING_FEE_RATE
+
+returns the maximum trading fee rate with precision 10^6
+
+  ```solidity
+  function MAX_TRADING_FEE_RATE() external pure returns (uint256)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the maximum trading fee rate |
+
+### getProductRegistry
+
+returns the product registry address
+
+  ```solidity
+  function getProductRegistry() external view returns (contract IProductRegistry)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | contract IProductRegistry | the product registry address |
+
+### getMarginAccountRegistry
+
+returns the margin account registry address
+
+  ```solidity
+  function getMarginAccountRegistry() external view returns (contract IMarginAccountRegistry)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | contract IMarginAccountRegistry | the margin account registry address |
+
+### getTreasury
+
+returns the treasury address
+
+  ```solidity
+  function getTreasury() external view returns (address)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | address | the treasury address |
+
+### config
+
+returns the clearing config
+
+  ```solidity
+  function config() external view returns (struct IClearing.Config)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | struct IClearing.Config | the clearing config |
+
+## IClearingDiamond
+
+This interface represents the complete functionality of the ClearingDiamond contract. It includes
+inheritance from multiple facets that handle different aspects of the clearing process.
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x393746A87CF3458EeA2b47BF035496429AbFBD66 |
+
+### Functions
+#### Inherited (IValuation)
+* [valuation](#valuation)
+* [valuationAfterTrade](#valuationaftertrade)
+  
+#### Inherited (ITrackInterest)
+* [openInterest](#openinterest)
+
+#### Inherited (IFinalSettlement)
+* [initiateFinalSettlement](#initiatefinalsettlement)
+* [finalizeFsp](#finalizefsp)
+* [CLOSEOUT_FEE_RATE](#closeout_fee_rate)
+* [CLOSEOUT_REWARD_RATE](#closeout_reward_rate)
+* [getFsp](#getfsp)
+  
+#### Inherited (IAuctioneer)
+* [requestLiquidation](#requestliquidation)
+* [bidAuction](#bidauction)
+* [terminateAuctions](#terminateauctions)
+* [isLiquidatable](#isliquidatable)
+* [isLiquidating](#isliquidating)
+* [canTerminateAuctions](#canterminateauctions)
+* [auctionConfig](#auctionconfig)
+* [auctionData](#auctiondata)
+* [maeCheckOnBid](#maecheckonbid)
+* [validateAuctions](#validateauctions)
+* [maxMaeOffered](#maxmaeoffered)
+  
+#### Inherited (IClearing)
+* [execute](#execute)
+* [setConfig](#setconfig)
+* [finalizeInitialization](#finalizeinitialization)
+* [estimateFees](#estimatefees)
+* [clearingFeeRate](#clearingfeerate)
+* [MAX_TRADING_FEE_RATE](#max_trading_fee_rate)
+* [getProductRegistry](#getproductregistry)
+* [getMarginAccountRegistry](#getmarginaccountregistry)
+* [getTreasury](#gettreasury)
+* [config](#config)
+
+## IFinalSettlement
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x393746A87CF3458EeA2b47BF035496429AbFBD66 |
+
+### Functions
+* [initiateFinalSettlement](#initiatefinalsettlement)
+* [finalizeFsp](#finalizefsp)
+* [CLOSEOUT_FEE_RATE](#closeout_fee_rate)
+* [CLOSEOUT_REWARD_RATE](#closeout_reward_rate)
+* [getFsp](#getfsp)
+
+### initiateFinalSettlement
+
+initiates a final settlement process on a product
+
+  ```solidity
+  function initiateFinalSettlement(bytes32 productID, address[] accounts) external
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productID | bytes32 | the product to be settled |
+| accounts | address[] | the accounts to be settled, the positions must be offsetting |
+
+### finalizeFsp
+
+finalizes the final settlement price on a product if it earliest FSP time has passed
+
+  ```solidity
+  function finalizeFsp(bytes32 productID) external returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productID | bytes32 | the product to be finalized |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the final settlement price (FSP) of the product |
+
+### CLOSEOUT_FEE_RATE
+
+returns the constant protocol fee rate that closed positions will be charged
+
+  ```solidity
+  function CLOSEOUT_FEE_RATE() external pure returns (uint256)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the protocol closeout fee rate with 10^6 precision |
+
+### CLOSEOUT_REWARD_RATE
+
+returns the constant protocol reward rate that closers will be credited
+
+  ```solidity
+  function CLOSEOUT_REWARD_RATE() external pure returns (uint256)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the protocol closeout reward rate with 10^6 precision |
+
+### getFsp
+
+returns the final settlement price (FSP) for a given product ID
+
+  ```solidity
+  function getFsp(bytes32 productId) external view returns (uint256 fsp, bool finalized)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product ID to get the FSP for |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| fsp | uint256 | the final settlement price |
+| finalized | bool | whether the FSP has been finalized |
+
+## IMarginAccount
+
+### Functions
+* [settle](#settle)
+* [collectFee](#collectfee)
+* [disperseFees](#dispersefees)
+* [batchSettle](#batchsettle)
+* [deposit](#deposit)
+* [withdraw](#withdraw)
+* [authorize](#authorize)
+* [revokeAuthorization](#revokeauthorization)
+* [collateralAsset](#collateralasset)
+* [authorized](#authorized)
+* [capital](#capital)
+* [mae](#mae)
+* [mmu](#mmu)
+* [mma](#mma)
+* [pnl](#pnl)
+* [withdrawable](#withdrawable)
+* [positions](#positions)
+* [positionData](#positiondata)
+* [maeCheck](#maecheck)
+* [batchMaeCheck](#batchmaecheck)
+* [maeAndMmuAfterBatchTrade](#maeandmmuafterbatchtrade)
+
+### PositionData
+
+the data associated with a specific position in the margin account
+- **positionId** - the product ID of the product for which the position is held
+- **quantity** - the total quantity of the position held
+- **costBasis** - the cost basis of the position, representing the average weighted price at which the position was
+acquired
+- **maintenanceMargin** - the amount of margin reserved by this position
+- **pnl** - the unrealized profit and loss of the position, calculated using the difference between the current
+market price and the cost basis
+
+```solidity
+struct PositionData {
+  bytes32 positionId;
+  int256 quantity;
+  int256 costBasis;
+  uint256 maintenanceMargin;
+  int256 pnl;
+}
+```
+
+### Settlement
+
+Data associated with a single trade to settle
+- **positionId** - the ID of the product in which the trade will settle
+- **quantity** - quantity to be traded
+- **price** - price at which the trade will settle
+
+```solidity
+struct Settlement {
+  bytes32 positionId;
+  int256 quantity;
+  uint256 price;
+}
+```
+
+### PositionUpdated
+
+emitted when a position is created/updated
+
+  ```solidity
+  event PositionUpdated(address marginAccountID, bytes32 positionId, int256 totalQuantity, int256 costBasis)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+| positionId | bytes32 | The position id |
+| totalQuantity | int256 | The total quantity of the position after the update |
+| costBasis | int256 | The cost basis of the position after the update |
+
+### FeeCollected
+
+emitted when a fee is collected from a margin account
+
+  ```solidity
+  event FeeCollected(address marginAccountID, int256 capitalAmount)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+| capitalAmount | int256 | The amount of capital collected |
+
+### FeeDispersed
+
+emitted when fees are dispersed to recipients
+
+  ```solidity
+  event FeeDispersed(address recipient, uint256 capitalAmount)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| recipient | address | The addresses of the recipients |
+| capitalAmount | uint256 | The amounts of capital dispersed to each recipient |
+
+### settle
+
+settles a trade for a given position
+
+  ```solidity
+  function settle(address marginAccountID, address intentAccount, struct IMarginAccount.Settlement settlement) external returns (bool)
+  ```
+
+  _This function can only be called by the clearing house_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+| intentAccount | address | The address of the intent account |
+| settlement | struct IMarginAccount.Settlement | The trade to settle (see `Settlement`) |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | bool | bool True if the trade was settled successfully |
+
+### collectFee
+
+collects a fee from the margin account
+
+  ```solidity
+  function collectFee(address marginAccount, int256 capitalAmount) external
+  ```
+
+  _This function can only be called by the clearing house
+Collected fees need to equal dispersed fees for a transaction not to revert_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccount | address | The address of the margin account |
+| capitalAmount | int256 | The amount of capital to collect |
+
+### disperseFees
+
+disperses fees to the recipients
+
+  ```solidity
+  function disperseFees(address[] recipients, uint256[] capitalAmounts) external
+  ```
+
+  _This function can only be called by the clearing house
+The total amount of fees dispersed must equal the total amount of fees collected_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| recipients | address[] | The addresses of the recipients |
+| capitalAmounts | uint256[] | The amounts of capital to disperse to each recipient |
+
+### batchSettle
+
+Settles trades for given list of settlements.
+
+  ```solidity
+  function batchSettle(address marginAccountID, struct IMarginAccount.Settlement[] settlements) external returns (bool)
+  ```
+
+  _This function can only be called by the clearing house_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+| settlements | struct IMarginAccount.Settlement[] | List of trades to be settled |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | bool | bool True if the trade was settled successfully |
+
+### deposit
+
+deposits collateral into the margin account
+
+  ```solidity
+  function deposit(uint256 amount) external
+  ```
+
+  _the collateral asset must be approved for transfer_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| amount | uint256 | The amount of collateral to deposit |
+
+### withdraw
+
+withdraws collateral from the margin account
+
+  ```solidity
+  function withdraw(uint256 amount) external
+  ```
+
+  _the user must have sufficient collateral in their margin account_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| amount | uint256 | The amount of collateral to withdraw |
+
+### authorize
+
+authorizes an intent account to act on behalf of the margin account
+
+  ```solidity
+  function authorize(address intentAccount) external
+  ```
+
+  _this function can only be called by the margin account owner_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| intentAccount | address | The address of the intent account to authorize |
+
+### revokeAuthorization
+
+Revokes authorization of an intent account to act on behalf of the margin account
+
+  ```solidity
+  function revokeAuthorization(address intentAccount) external
+  ```
+
+  _this function can only be called by the margin account owner_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| intentAccount | address | The address of the intent account |
+
+### collateralAsset
+
+returns the address of the ERC20 collateral asset for the margin account contract
+
+  ```solidity
+  function collateralAsset() external view returns (address)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | address | The address of the ERC20 collateral asset |
+
+### authorized
+
+returns the address of the clearing house contract
+
+  ```solidity
+  function authorized(address marginAccountID, address intentAccount) external view returns (bool)
+  ```
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | bool | the address of the clearing house |
+
+### capital
+
+returns the amount of capital in the margin account
+
+  ```solidity
+  function capital(address marginAccountID) external view returns (int256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | int256 | the amount of capital in the margin account |
+
+### mae
+
+returns the amount of collateral in the margin account
+
+  ```solidity
+  function mae(address marginAccountID) external view returns (int256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | int256 | the amount of collateral in the margin account |
+
+### mmu
+
+returns the maintenance margin used in the margin account
+
+  ```solidity
+  function mmu(address marginAccountID) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the maintenance margin used |
+
+### mma
+
+returns the maintenance margin available in the margin account
+
+  ```solidity
+  function mma(address marginAccountID) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the maintenance margin available |
+
+### pnl
+
+returns the unrealized profit and loss of the margin account
+
+  ```solidity
+  function pnl(address marginAccountID) external view returns (int256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | int256 | the unrealized profit and loss |
+
+### withdrawable
+
+returns the amount of collateral that can be withdrawn from the margin account
+
+  ```solidity
+  function withdrawable(address marginAccountID) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the amount of collateral that can be withdrawn |
+
+### positions
+
+returns the ids of all positions held by the margin account
+
+  ```solidity
+  function positions(address marginAccountID) external view returns (bytes32[])
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | bytes32[] | an array of position ids |
+
+### positionData
+
+returns the position data for a given position id
+
+  ```solidity
+  function positionData(address marginAccountID, bytes32 positionId) external view returns (struct IMarginAccount.PositionData)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+| positionId | bytes32 | The position id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | struct IMarginAccount.PositionData | the position data |
+
+### maeCheck
+
+checks if the margin account has enough equity to settle a trade
+
+  ```solidity
+  function maeCheck(address marginAccountID, struct IMarginAccount.Settlement settlement, uint256 markPriceIfSettled) external view returns (bool checkPassed, int256 maeAfter, uint256 mmuAfter)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+| settlement | struct IMarginAccount.Settlement | The trade to settle |
+| markPriceIfSettled | uint256 | The mark price if the trade is settled |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| checkPassed | bool | True if the margin account has enough equity to settle the trade |
+| maeAfter | int256 | MAE of the account if the trade is settled |
+| mmuAfter | uint256 | MMU of the account if the trade is settled |
+
+### batchMaeCheck
+
+Checks if the margin account has enough equity to settle a list of trades.
+The position ids in the list `settlements` must be distinct to get proper result.
+
+  ```solidity
+  function batchMaeCheck(address marginAccountID, struct IMarginAccount.Settlement[] settlements, uint256[] markPriceIfSettled) external view returns (bool checkPassed, int256 maeAfter, uint256 mmuAfter)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+| settlements | struct IMarginAccount.Settlement[] | List of trades to be settled |
+| markPriceIfSettled | uint256[] | Mark prices if the trades are settled successfully |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| checkPassed | bool | True if the margin account has enough equity to settle the trades |
+| maeAfter | int256 | MAE of the account if the trades are settled |
+| mmuAfter | uint256 | MMU of the account if the trades are settled |
+
+### maeAndMmuAfterBatchTrade
+
+Calculates the MAE and the MMU after settling a list of trades.
+The position ids in the list `settlements` must be distinct to get proper result.
+
+  ```solidity
+  function maeAndMmuAfterBatchTrade(address marginAccountID, struct IMarginAccount.Settlement[] settlements, uint256[] markPriceIfSettled) external view returns (int256 mae, uint256 mmu)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountID | address | The address of the margin account |
+| settlements | struct IMarginAccount.Settlement[] | List of trades to be settled |
+| markPriceIfSettled | uint256[] | Mark prices if the trades are settled successfully |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| mae | int256 | MAE if the trades are settled |
+| mmu | uint256 | MMU if the trades are settled |
+
+## IMarginAccountRegistry
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x216a1fa7c98d7f7304bC4D7d0F856d063f2ecBA5 |
+
+### Functions
+* [getMarginAccount](#getmarginaccount)
+* [initializeMarginAccount](#initializemarginaccount)
+
+### MarginAccountCreated
+
+  ```solidity
+  event MarginAccountCreated(address collateralAsset, address marginAccount)
+  ```
+
+### getMarginAccount
+
+returns the margin account contract for a given collateral asset
+
+  ```solidity
+  function getMarginAccount(address collateralAsset) external view returns (contract IMarginAccount)
+  ```
+
+  _this function should revert if the margin account does not exist_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| collateralAsset | address | the collateral asset |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | contract IMarginAccount | the margin account contract |
+
+### initializeMarginAccount
+
+deploys and initializes a margin account contract for the given asset
+
+  ```solidity
+  function initializeMarginAccount(address collateralAsset) external returns (contract IMarginAccount)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| collateralAsset | address | the collateral asset |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | contract IMarginAccount | the margin account contract |
+
+## IOracleProvider
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0xF3FA1f6fe52604EFf85B438B01B8b984AA200651 |
+
+### Functions
+* [resolve](#resolve)
+
+### resolve
+
+returns the final settlement price of a given product
+
+  ```solidity
+  function resolve(bytes32 productId, bytes oracleCalldata) external view returns (int256)
+  ```
+
+  _this function should revert if the product has not reached final settlement_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id from the ProductRegistry |
+| oracleCalldata | bytes | additional data required by the oracle to resolve the price |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | int256 | the final settlement price of the product |
+
+## ProductState
+
+```solidity
+enum ProductState {
+  NOT_EXIST,
+  PENDING,
+  LIVE,
+  TRADEOUT,
+  FINAL_SETTLEMENT,
+  EXPIRED
+}
+```
+
+## IProductRegistry
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x05A7f949caE3235f239313339a7f9661F8C7415d |
+
+### Functions
+* [products](#products)
+* [state](#state)
+* [collateralAsset](#collateralasset)
+* [pointValue](#pointvalue)
+* [earliestFSPSubmissionTime](#earliestfspsubmissiontime)
+* [imr](#imr)
+* [mmr](#mmr)
+* [tickSize](#ticksize)
+* [id](#id)
+* [offerPriceBuffer](#offerpricebuffer)
+* [auctionBounty](#auctionbounty)
+* [oracleSpecification](#oraclespecification)
+* [register](#register)
+
+### ProductMetadata
+
+the metadata associated with a product
+- **builder** - the address of the product creator
+- **symbol** - the symbol for this product
+- **description** - the description of the product
+
+```solidity
+struct ProductMetadata {
+  address builder;
+  string symbol;
+  string description;
+}
+```
+
+### OracleSpecification
+
+the oracle specification for a product
+- **oracleAddress** - the address of the oracle contract
+- **fsvDecimals** - the precision of the price quotation from oracleAddress.resolve
+- **fspAlpha** - the alpha value for the oracle, used in price calculations fsp = alpha * oraclePrice + beta
+- **fspBeta** - the beta value for the oracle, used in price calculations fsp = alpha * oraclePrice + beta
+- **fsvCalldata** - the calldata to be used for final settlement price (FSP) calculation
+
+  _the oracleAddress must implement the IOracleProvider interface_
+
+```solidity
+struct OracleSpecification {
+  address oracleAddress;
+  uint8 fsvDecimals;
+  int256 fspAlpha;
+  int256 fspBeta;
+  bytes fsvCalldata;
+}
+```
+
+### Product
+
+the product struct that contains all the information about a product registered with the clearing system
+- **metadata** - the metadata associated with the product
+- **oracleSpec** - the oracle specification for the product
+- **priceQuotation** - the symbol of the price quotation
+- **collateralAsset** - the address of the ERC20 collateral asset
+- **startTime** - the start time of the product
+- **earliestFSPSubmissionTime** - the earliest time to submit the final settlement price
+- **unitValue** - the point value of the product
+- **initialMarginRequirement** - the initial margin requirement for the product
+- **maintenanceMarginRequirement** - the maintenance margin requirement for the product
+- **offerPriceBuffer** - the buffer for the offer price
+- **auctionBounty** - the bounty for the auctioneer
+- **tradeoutInterval** - the interval for tradeout
+- **tickSize** - the maximum precision of the price quotation
+- **extendedMetadata** - CID of product extended metadata using the IPLD dag-json codec
+
+```solidity
+struct Product {
+  struct IProductRegistry.ProductMetadata metadata;
+  struct IProductRegistry.OracleSpecification oracleSpec;
+  string priceQuotation;
+  address collateralAsset;
+  uint256 startTime;
+  uint256 earliestFSPSubmissionTime;
+  uint256 unitValue;
+  uint16 initialMarginRequirement;
+  uint16 maintenanceMarginRequirement;
+  uint64 offerPriceBuffer;
+  uint64 auctionBounty;
+  uint32 tradeoutInterval;
+  uint8 tickSize;
+  string extendedMetadata;
+}
+```
+
+### ProductRegistered
+
+Event emitted when a new product is registered
+
+  ```solidity
+  event ProductRegistered(address builder, bytes32 productId)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| builder | address | the address of the product builder |
+| productId | bytes32 | the product ID of the registered product |
+
+### products
+
+returns the product struct for a given product ID
+
+  ```solidity
+  function products(bytes32 productId) external view returns (struct IProductRegistry.Product)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | struct IProductRegistry.Product | the product struct |
+
+### state
+
+returns the product state for a given product ID
+
+  ```solidity
+  function state(bytes32 productId) external view returns (enum ProductState)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | enum ProductState | the product state (NOT_EXIST, PENDING, LIVE, TRADEOUT, FINAL_SETTLEMENT, EXPIRED) |
+
+### collateralAsset
+
+the address of the ERC20 collateral asset
+
+  ```solidity
+  function collateralAsset(bytes32 productId) external view returns (address)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | address | the product state |
+
+### pointValue
+
+the point value of the product
+
+  ```solidity
+  function pointValue(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the point value of the product |
+
+### earliestFSPSubmissionTime
+
+the earliest time to submit FSP
+
+  ```solidity
+  function earliestFSPSubmissionTime(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the earliest time to submit FSP |
+
+### imr
+
+the initial margin requirement for the product
+
+  ```solidity
+  function imr(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the initial margin requirement |
+
+### mmr
+
+mmr the maintenance margin requirement for the product
+
+  ```solidity
+  function mmr(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the maintenance margin requirement |
+
+### tickSize
+
+tickSize the maximum precision of the price quotation
+
+  ```solidity
+  function tickSize(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the number of decimal places in the price quotation |
+
+### id
+
+returns the product ID for a given product
+
+  ```solidity
+  function id(struct IProductRegistry.Product product) external pure returns (bytes32)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| product | struct IProductRegistry.Product | the product to be registered |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | bytes32 | the product ID |
+
+### offerPriceBuffer
+
+returns the offer price buffer for a given product
+
+  ```solidity
+  function offerPriceBuffer(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the offer price buffer for the product |
+
+### auctionBounty
+
+returns the auction bounty
+
+  ```solidity
+  function auctionBounty(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the auction bounty for the product |
+
+### oracleSpecification
+
+returns the oracle specification for a given product
+
+  ```solidity
+  function oracleSpecification(bytes32 productId) external view returns (struct IProductRegistry.OracleSpecification)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product id |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | struct IProductRegistry.OracleSpecification | the OracleSpecification for the product |
+
+### register
+
+register a new product
+
+  ```solidity
+  function register(struct IProductRegistry.Product product) external
+  ```
+
+  _this function can only be called by the product builder and must pass the product validity checks_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| product | struct IProductRegistry.Product | the product to be registered |
+
+## ITrackInterest
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x393746A87CF3458EeA2b47BF035496429AbFBD66 |
+
+### Functions
+* [openInterest](#openinterest)
+
+### openInterest
+
+returns the current open interest on the product
+
+  ```solidity
+  function openInterest(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the open interest of the product |
+
+## ITradingProtocol
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x504b1d5B2364F85002889B741ae7D434B0ac0C77 |
+
+### Functions
+* [execute](#execute)
+* [executeSequence](#executesequence)
+* [addTradeSubmitter](#addtradesubmitter)
+* [removeTradeSubmitter](#removetradesubmitter)
+* [deposit](#deposit)
+* [withdraw](#withdraw)
+
+### execute
+
+execute a trade with the clearing protocol
+
+  ```solidity
+  function execute(struct IClearing.Trade trade, bool fallbackOnFailure) external
+  ```
+
+  _this function is restricted to valid trade submitters_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| trade | struct IClearing.Trade | the trade to execute |
+| fallbackOnFailure | bool | if true, the trading protocol's margin account will be substituted if MAE checks fail |
+
+### executeSequence
+
+executes a sequence of trades with the clearing protocol
+
+  ```solidity
+  function executeSequence(struct IClearing.Trade[] trades, bool fallbackOnFailure) external
+  ```
+
+  _this function is restricted to valid trade submitters_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| trades | struct IClearing.Trade[] | the array of trades to execute |
+| fallbackOnFailure | bool | if true, the trading protocol's margin account will be substituted for any margin account in the trade that fails the MAE check |
+
+### addTradeSubmitter
+
+adds a whitelisted trade submitter
+
+  ```solidity
+  function addTradeSubmitter(address submitter) external
+  ```
+
+  _this function is restricted to the owner of the trading protocol_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| submitter | address | the address of the trade submitter |
+
+### removeTradeSubmitter
+
+removes a whitelisted trade submitter
+
+  ```solidity
+  function removeTradeSubmitter(address submitter) external
+  ```
+
+  _this function is restricted to the owner of the trading protocol_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| submitter | address | the address of the trade submitter |
+
+### deposit
+
+deposit's in the margin account
+
+  ```solidity
+  function deposit(address marginAccountContract, uint256 amount) external
+  ```
+
+  _this function is restricted to the owner of the trading protocol_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountContract | address | the address of the margin account contract |
+| amount | uint256 | the amount to deposit |
+
+### withdraw
+
+withdraws from the margin account
+
+  ```solidity
+  function withdraw(address marginAccountContract, uint256 amount) external
+  ```
+
+  _this function is restricted to the owner of the trading protocol_
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| marginAccountContract | address | the address of the margin account contract |
+| amount | uint256 | the amount to withdraw |
+
+## IValuation
+
+### Deployed Addresses
+| Chain ID | Address |
+| -------- | ------- |
+|65100004| 0x393746A87CF3458EeA2b47BF035496429AbFBD66 |
+
+### Functions
+* [valuation](#valuation)
+* [valuationAfterTrade](#valuationaftertrade)
+
+### valuation
+
+returns a product's current mark price
+
+  ```solidity
+  function valuation(bytes32 productId) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the mark price of the product |
+
+### valuationAfterTrade
+
+returns what a product's mark price will be after a trade
+
+  ```solidity
+  function valuationAfterTrade(bytes32 productId, uint256 price, uint256 quantity) external view returns (uint256)
+  ```
+
+#### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | bytes32 | the product |
+| price | uint256 | the price of the trade |
+| quantity | uint256 | the quantity of the trade |
+
+#### Return Values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| [0] | uint256 | the mark price of the product after the trade |
+
+## SortTester
+
+### Functions
+* [sortData](#sortdata)
+* [sortSomeStructByUint](#sortsomestructbyuint)
+* [sortSomeStructByInt](#sortsomestructbyint)
+* [sortSomeStructByAddress](#sortsomestructbyaddress)
+* [sortSomeStructByBytes32](#sortsomestructbybytes32)
+* [rearrange](#rearrange)
+
+### sortData
+
+  ```solidity
+  function sortData(struct Sort.Data[] data) public pure returns (struct Sort.Data[])
+  ```
+
+### SomeStruct
+
+```solidity
+struct SomeStruct {
+  uint256 uintField;
+  int256 intField;
+  address addressField;
+  bytes32 bytesField;
+}
+```
+
+### sortSomeStructByUint
+
+  ```solidity
+  function sortSomeStructByUint(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])
+  ```
+
+### sortSomeStructByInt
+
+  ```solidity
+  function sortSomeStructByInt(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])
+  ```
+
+### sortSomeStructByAddress
+
+  ```solidity
+  function sortSomeStructByAddress(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])
+  ```
+
+### sortSomeStructByBytes32
+
+  ```solidity
+  function sortSomeStructByBytes32(struct SortTester.SomeStruct[] array) public pure returns (struct SortTester.SomeStruct[])
+  ```
+
+### rearrange
+
+  ```solidity
+  function rearrange(struct SortTester.SomeStruct[] array, uint256[] sortedIndexes) internal pure returns (struct SortTester.SomeStruct[] res)
+  ```
+

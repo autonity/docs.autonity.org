@@ -1,0 +1,23 @@
+<style>
+  .section-switcher{display:flex;gap:.5rem;margin:1rem 0 1.25rem 0}
+  .section-switcher .btn{padding:.4rem .75rem;font-size:.9rem}
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    try {
+      const container = document.querySelector('#quarto-sidebar') || document.querySelector('.sidebar') || document.querySelector('nav[role="doc-toc"]');
+      if(!container) return;
+      // find a good insertion point near the top
+      const target = container.querySelector('.sidebar-menu-container') || container.querySelector('.sidebar-navigation') || container;
+      const wrap = document.createElement('div');
+      wrap.className = 'section-switcher';
+      wrap.innerHTML = `
+        <a class="btn btn-secondary" href="/layer1/">Layer 1</a>
+        <a class="btn btn-secondary" href="/afp/">AFP</a>
+      `;
+      target.prepend(wrap);
+    } catch (e) {
+      console.warn('section-switcher injection failed', e);
+    }
+  });
+</script>

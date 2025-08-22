@@ -1,0 +1,10 @@
+---
+title: "Trade Execution and Clearing"
+---
+
+The separation of trade execution and clearing in the Autonity Futures Protocol (AFP) introduces a fundamentally new market structure for derivatives. Traditionally, each trading protocol maintains its own siloed order book and liquidity pool for a given product, limiting traders to the open interest and counterparties available within that specific venue. In contrast, the AFP architecture allows traders to access the global pool of open interest for a product—regardless of which trading venue they’re using.
+
+This is made possible by treating products as core primitives of the underlying clearing layer, rather than as constructs defined and managed by individual trading protocols. As a result, open interest in a product is aggregated and maintained at the clearing level, decoupled from any single execution venue. Multiple trading venues can list and trade the same product while contributing to—and drawing from—a shared clearing infrastructure. This not only increases available liquidity for traders but also fosters competition among trading venues, which can differentiate on user experience, fee models, or market access without fragmenting liquidity.
+
+In effect, the AFP enables a unified, venue-agnostic marketplace for each product, transforming derivatives markets from isolated silos into an interoperable ecosystem.
+

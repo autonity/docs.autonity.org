@@ -1,0 +1,102 @@
+---
+title: "Liquidation"
+---
+
+Efficient liquidation of undercollateralised MAs is a crucial component of a derivatives clearing system to ensure solvency of the overall market.
+
+The AFP introduces a Dutch Auction style liquidation mechanism, where during the liquidation auction an increasing proportion of the Margin Account Equity (MAE) of the liquidating account is offered to the liquidator.
+
+## Liquidation Auction Request Process
+
+A liquidation auction is initiated via a liquidation auction request, which is an open function that can be called by any Intent Account (an Intent Account in this instance is termed a _Liquidation Agent_):
+
+`function requestLiquidation(address account, bytes32 positionId) external`
+
+1. If `MMA > 0` for the specified Margin Account, then the process fails.
+2. If `IS_LIQUIDATING` is already `TRUE` or the Margin Account does not have any positions, the process fails.
+3. Create a new Liquidation Auction object for the Margin Account and set `IS_LIQUIDATING` to `TRUE`.
+4. Record in the Liquidation Auction object the:
+   - Start block
+   - MAE at the block of the auction start
+   - MMU at the block of the auction start
+5. The liquidator receives `AUCTION_BOUNTY * MM[Ψ]` units of the Collateral Asset, which is subtracted from the Margin Account’s capital `C`, where `Ψ` is the Product.
+6. The auction request process succeeds.
+
+```{mermaid}
+flowchart TD
+    A["Start: A liquidation agent calls requestLiquidation(account, position Id)"] --> B{Is MMA > 0 for account?}
+    B -- Yes --> B1[Fail process]
+    B -- No --> C{Is IS_LIQUIDATING already TRUE?}
+    C -- Yes --> C1[Fail process]
+    C -- No --> F[Create and populate Liquidation Auction object]
+    F --> G[Send AUCTION_BOUNTY times MM to liquidator]
+```
+
+## Liquidation Auction Bid Process
+
+Once a liquidation auction has begun, auction bids can be processed. When the liquidatable account’s position is long, the account is the sell-side of the auction and the auction's bidders are the buy-side of the auction. When the liquidatable account’s position is short, the account is the buy-side of the auction and the auction's bidders are the sell-side of the auction. Liquidators will provide a full list of prices and quantities for positions they are willing to take over from the liquidatable account. A liquidation bid request includes:
+
+`function bidAuction(address marginAccountID, address collateralToken, BidData[] calldata bids) external notSelf(marginAccountID)`
+
+See <reference to natspec documentation of the function> for more details.
+
+Process:
+
+1. Perform a [Liquidation Auction Bid Validation Check](#liquidation-auction-bid-validation) on the Liquidation Auction Bid. If it fails, the process fails.
+2. Run an [MAE Check](/margin-intent-accounts.qmd#margin-account-equity-mae-check) on the liquidator’s Margin Account for the corresponding Collateral Asset and the specified products and prices. In case of failure, the bid is rejected.
+3. Settle the Liquidation Trade for the liquidator:
+    1. Recalculate the Cost Basis.
+    2. Recalculate the Position Size.
+    3. Recalculate Realized PnL (RPnL) after the Cost Basis and Position Size.
+4. Execute the Liquidation Auction Termination Routine.
+
+```{mermaid}
+flowchart TD
+    H[Liquidator submits Bid with Price, Quantity, and Product ID parameters]
+    H --> I1[Run Bid Validation]
+    I1 -- Yes --> I2{Does Bid validation pass?}
+    I2 -- No --> I2F[Fail process]
+    I2 -- Yes --> I3{Does the bidder have sufficient MAE to execute the bid?}
+    I3 -- No --> I3F[Fail process]
+    I3 -- Yes --> I4[Bid is successful]
+    I4 --> L[Execute Liquidation Auction Termination Routine]
+```
+
+## Liquidation Auction Bid Validation
+
+1. Check that the productIDs that are being bid on are unique, otherwise the process fails.
+2. Check that the liquidatable account has sufficient position quantities in each of the specified product ID's: `abs(Q[Ψ[i]]) >= abs(q[i])` where `Ψ[i]` is the `i`-th product ID in the list of product IDs in BidData, `q[i]` is the quantity of the `i`-th product in the proposed trade, and `Q(Ψ[i])` is the liquidating account's current position quantity. If this check fails, the process fails. These products must use the specified `collateralToken`.
+3. Check that each of the product ID's specified are in `LIVE` or `TRADEOUT` state, otherwise process fails.
+4. Check that the quantities specified are reducing the liquidatable account's position size in the given product: `(Q[Ψ[i]] + q[i]) / Q[Ψ[i]] < 1` if this check fails, the process fails.
+5. Check that the liquidatable account's MAE is not decreased by more than the current [Liquidation Auction MAE Offer](#liquidation-auction-mae-offer) `(dMAE): MAE - MAE' <= dMAE` where `MAE` is the liquidatable account's MAE before bid execution, and `MAE'` is the liquidatable account's MAE after bid execution. If this check fails, the process fails.
+
+## Liquidation Auction Termination Routine
+
+1. Check that the liquidating Margin Account being checked is `TRUE` for `IS_LIQUIDATING`, otherwise abort.
+2. If `MMA <= RESTORATION_BUFFER * MAE`, then abort.
+3. Clear up state related to the Liquidation Auction.
+
+## Liquidation Auction MAE Offer
+
+Over the course of a liquidation, an increasing proportion of the MAE of the liquidating account is offered to the liquidator. The MAE offer is proportional to the amount of MMU that is reduced by the liquidator, however, it is capped at the MAE of the liquidating account at the time of the bid.
+
+```
+dMAE = min((MAE(t_0) / MMU(t_0)) * (t / τ) * dMMU, MAE(t))
+```
+
+where:
+
+- `dMMU` is the amount of MMU that is reduced by the liquidator. `dMMU = MMU - MMU'` where `MMU'` is the liquidating account's MMU after bid execution, and `MMU` is the liquidating account's MMU before bid execution.
+- `t_0` is the start block of the liquidation auction.
+- `τ` is the liquidation auction duration (in blocks).
+- `t` is the current block at liquidation bid submission.
+- `MMU(t_0)` is the liquidating account's MMU at the start of the liquidation auction.
+- `MMU(t)` is the liquidating account's MMU at the time of the bid.
+- `MAE(t_0)` is the liquidating account's MAE at the start of the liquidation auction.
+- `MAE(t)` is the liquidating account's MAE at the block of the bid.
+
+Since `dMMU` is dependent on the specific quantities `q[i]` and products `Ψ[i]` of the Liquidation Auction Bid, the MAE offer is a function of these variables. So, the MAE offer can be written as:
+
+```
+dMAE(t, q[i], Ψ[i]) = min((MAE(t_0) / MMU(t_0)) * (t / tau) * dMMU(q[i], Ψ[i]), MAE(t))
+```

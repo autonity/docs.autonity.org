@@ -1,0 +1,29 @@
+---
+title: "Fallback mechanism"
+---
+#
+When a trade is submitted to the clearing system, an MAE Check is done on each margin account that makes up the trade. 
+
+It is possible that a margin account on one side of the trade fails, whilst a margin account on the otherside passes. Under normal circumstances this would result in an uncleared trade, and so the trade not settling. However, this results in a detrimental trading experience to the margin account that passed the MAE Check. 
+
+Introducing the concept of a fallback mechanism helps alleviate such situations by enabling the trading protocol to step in and take over the trade obligations of the margin account that failed the MAE Check. Assuming the margin account of the trading protocol passes the MAE Check, then the trade can successfully settle.
+
+However, this does imply that the trading protocol now has an open position in a product that it may not wish to keep. Handling of such positions is up to the discretion of the trading protocol.
+
+The fallback mechanism is enabled by the trading protocol on a per trade basis by setting the `fallbackOnFailure` boolean flag to true when submitting trades:
+
+`function execute(IClearing.Trade calldata trade, bool fallbackOnFailure) external override onlyRole(TRADE_SUBMITTER_ROLE)`
+
+```{mermaid}
+flowchart TD
+    A[Trade Submitted] --> B{MAE Check on all Margin Accounts}
+    B -- All Pass --> C[Trade settled]
+    B -- One or More Fail --> D{Fallback enabled?}
+    D -- No --> E[Trade failed]
+    D -- Yes --> F{Trading Protocol MAE Check}
+    F -- Fail --> E
+    F -- Pass --> G[Trading Protocol margin account replaces margin account of failed MAE check account]
+    G --> C
+```
+
+

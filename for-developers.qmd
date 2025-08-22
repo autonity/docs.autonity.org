@@ -1,0 +1,9 @@
+---
+title: "For Developers"
+---
+
+## AFP SDK Reference
+- Details on how to use the AFP SDK for interacting with the protocol, submitting trades, and managing margin accounts.
+
+## AFP Smart Contract Reference
+- Documentation for the core smart contracts: Clearing, Product Registry, Margin Account, Oracle Provider, Trading Protocol, and more.

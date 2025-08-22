@@ -1,0 +1,70 @@
+---
+title: "Product Lifecycle"
+---
+
+The product lifecycle in the AFP is defined by a series of state transitions:
+
+1. When a Product Builder submits a Product Specification to the Product Registry and it passes the Product Validity Checks it goes to `PENDING` state.
+2. When the `Start Time` of the product is reached, the product goes to `LIVE` state allowing trades to be cleared.
+3. Once the `Earliest FSP Resolution Time` is reached, the product enters `TRADEOUT` state during which time only reducing trades can be submitted for clearing.
+4. Once the `Tradeout Interval` passes, and an FSP exists on the oracle, the product enters `FINAL_SETTLEMENT` state. If an FSP does not exist on the oracle after the `Minimum Tradeout Interval` passes, the product remains in `TRADEOUT` state until its open interest goes to zero.
+5. If the product has reached `FINAL_SETTLEMENT` state, the Final Settlement Process may occur.
+6. Once the open interest on the product goes to zero (and the `Minimum Tradeout Interval` has passed if the product is still in `TRADEOUT` state), the product transitions to `EXPIRED` state.
+
+```{mermaid}
+stateDiagram
+    [*] --> PENDING : Submit Product Spec and pass Validity Checks
+    PENDING --> LIVE : Start Time is reached
+    LIVE --> TRADEOUT : Earliest FSP Resolution Time is reached
+    TRADEOUT --> FINAL_SETTLEMENT : Minimum Tradeout Interval passes AND FSP=X provided by oracle
+    TRADEOUT --> EXPIRED : Open Interest == 0
+    FINAL_SETTLEMENT --> EXPIRED : Open Interest == 0
+```
+
+The state of a product can always be queried by:
+
+:::: {.panel-tabset}
+## Solidity
+```javascript
+    function state(bytes32 productId) external view returns (ProductState)
+```
+## SDK
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+```
+:::
+
+## `PENDING`
+#### Product Validity checks
+When a Product Builder submits a product specification to the AFP, a number of validity checks are first done before it is accepted by the AFP as a valid product:
+
+   - Check that the Price Quotation and the Collateral Asset are the same.
+   - Check the `Product ID` is globally unique.
+   - Check that `IMR >= MMR`.
+   - Check that `Earliest FSP Resolution Time > Start Time`.
+   - Check that `Start Time > Current Timestamp`.
+   - Check that `Maximum Tradeout Interval > Minimum Tradeout Interval`.
+   - Check that entered `Field` value data types match EVM Data Type.
+   - Enforce any version-specific constraints.
+
+If the above all pass, the product is entered into the Product Registry.
+## `LIVE`
+
+Once `startTime` of a product in the Product Registry is reached, it transitions to `LIVE` state. At this point, trades can be submitted to the clearing system in that product.
+
+## `TRADEOUT`
+
+Once the `Earliest FSP Resolution Time` is reached, the product enters `TRADEOUT` state during which time no new positions can be opened, and existing ones can only be decreased. The purpose of this period is to allow market participants to gracefully exit their positions before they are forcibly closeout, which would incur a penalty.
+
+During the tradeout period, liquidations may still occur, and successful liquidation bids on products in the tradeout period will result in the bidders margin account holding the position.
+
+During this period, Final Settlement Price resolution can also occur, which will anchor the mark price of the product to the FSP. In the case that an FSP is not known after the `tradeoutInterval`, then the product will remain in `TRADEOUT` until its Open Interest goes to zero, at which point it will transition to an `EXPIRED` state.
+
+## `FINAL_SETTLEMENT`
+
+If the FSP is known, the product transitions to `FINAL_SETTLEMENT` state when the `tradeoutInterval` passes. At this point, the [Final Settlement Process](./final-settlement-process.qmd) may occur. Once the Open Interest goes to zero, meaning that no margin account has an outstanding position in the product, it can transition to an `EXPIRED` state.
+
+## `EXPIRED`
+
+If a product is in `EXPIRED` state then it has no open positions remaining and no new trades can be opened.

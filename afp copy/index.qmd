@@ -1,0 +1,6 @@
+---
+title: "AFP Documentation"
+format: html
+---
+#
+Welcome to the Autonomous Futures Protocol (AFP) documentation site. Explore the documentation to learn more about the protocol's features and how to use it.

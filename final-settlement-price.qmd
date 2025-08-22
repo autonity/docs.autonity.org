@@ -1,0 +1,42 @@
+---
+title: "Final Settlement Value and Price"
+---
+
+Oracles are a crucial component of the AFP as they are responsible for supplying the Final Settlement Price that the Dated Futures products will settle against. The AFP does not prescribe a specific oracle implementation to be used, as the selection of this is up to the Product Builder, but all Oracles must conform to the Oracle Interface expected by the clearing system.
+
+Resolving a product's Final Settlement Price ("FSP") is the primary input into expiring a dated futures product. FSP Resolution happens in two sequential steps:
+
+1. Fetch the Final Settlement Value ("FSV") from the Oracle;
+2. Transform the FSV into the FSP.
+
+## Final Settlement Price Resolution
+
+The FSV can be fetched at any point after `Earliest FSP Resolution Time` has been reached. Any account can initiate Final Settlement Price Resolution by calling the clearing system's `finalizeFsp` method:
+
+:::: {.panel-tabset}
+## Solidity
+```javascript
+ function finalizeFsp(bytes32 productID) external override returns (uint) 
+```
+## SDK
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+```
+:::
+
+If this method is called before `Earliest FSP Resolution Time`, the process fails. If `finalizeFsp()` is called on or after `Earliest FSP Resolution Time`, the clearing system requests the FSV from the Oracle. The clearing system makes the request by calling the Oracle's `resolve` method with Oracle FSV Call Data. Both FSV Call Data and the address of the Oracle are specified by the Product Builder at product registration time. If the clearing system's request to the oracle fails, the process fails. `finalizeFsp()` can be called repeatedly at any point until the request succeeds.
+
+If the request returns a FSV, the second step in Final Settlement Price Resolution is executed. The FSV is used by the clearing system to compute the FSP using a linear transformation:
+
+```
+FSP = FSV * alpha + beta
+```
+
+, where `alpha` and `beta` are product parameters specified by the product Builder at product registration time. When Oracle FSP Precision is > `Tick Size`, it is important to note that truncation is applied to the FSP. Therefore, the least significant FSP digit might differ from what would be expected from the same transformation that rounded to `Tick Size` using floating point numbers.
+
+An FSP check is performed such that if the calculated `FSP < 0`, the resolution process fails. If `FSP >= 0`, the product's Mark Price is set to the FSP and the FSP is stored in the clearing system's state for use in the Final Settlement Process. Neither the Mark Price nor FSP (now identical values) can be subsequently modified.
+
+## FSP Resolution incentives
+
+There is no endogenous protocol incentive for an account to initiate Final Settlement Price Resolution by calling `finalizeFsp()`. However, because Mark Price is set to FSP, one half of the Open Interest has an incentive to effect the (probable) Mark Price change early, so it is likely to be the case that Final Settlement Price Resolution occurs shortly after the FSV is known to the Oracle. At any rate, the Final Settlement Process cannot begin until the FSP is resolved, and the Final Settlement Process _does_ contain an endogenous protocol incentive for its initiation.

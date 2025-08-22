@@ -1,0 +1,50 @@
+---
+title: "Getting Started"
+---
+
+## What do I need to start trading through the browser?
+
+There are three prerequisites needed to start trading products on the AFP:
+
+1. **An EVM compatible wallet** (e.g., Rabby, MetaMask, WalletConnect, Coinbase Wallet) with the Autonity Piccadilly network added to it.
+    - If you don’t have an EVM compatible wallet, you can easily set one up by downloading a browser-based wallet extension such as [MetaMask](https://metamask.io/download).
+    - After downloading a wallet extension for your browser, follow the instructions to create a new wallet.
+    - Your wallet has a secret recovery phrase – anyone with access to your seed phrase can access your funds. **Do not share your private key with anyone.** Best practice is to record your seed phrase and store it in a safe physical location.
+    - To add the Autonity network to your wallet, visit [chainlist.org](https://chainlist.org/?testnets=true&search=piccadilly) where you can connect your wallet and add the network automatically. Alternatively, you can manually add it by entering the details found [here](https://chainlist.org/?testnets=true&search=piccadilly).
+2. **Collateral**
+    - There is no strict definition on what collateral a product can use but most will use USDC.
+    - Add the address of USDC on Autonity to your wallet so you can view your balance: `0x2777023E33B88CE622B15eCfA4ADa3cb5a9C545f`
+3. **Auton (ATN)**
+    - ATN is used for paying gas fees on the Autonity network. When you make a transaction (e.g. to deposit your collateral) you will have to pay gas for that transaction to be included in the blockchain. Note that trading products on AutEx is gas-less.
+
+
+## How to get ATN and USDC on Autonity
+
+1. You will need USDC on another blockchain (e.g. Polygon, Avalanche, Base, Optimism, Ethereum – see the full list [here](https://chainlist.org/?search=usdc)) that you will then be able to bridge over to Autonity. To purchase USDC on one of these blockchains you can deposit funds to a centralised exchange and purchase it there with fiat before moving it to your EVM wallet.
+2. Once you have USDC on another blockchain you can bridge your USDC over to Autonity via the bridge. Once you have successfully bridged your USDC, you will receive a small amount of ATN which you can use to make transactions with on Autonity.
+3. Use some of your USDC to purchase a minimal amount of additional ATN to ensure you don’t run out of gas on Autonity and strand your collateral. This can be done on a DEX such as ATN DAX.
+
+
+## How to create and fund a margin account on the AFP
+
+As highlighted in the [Overall Architecture](architecture.qmd), interaction with the AFP is not limited to a single front-end and collateral can be deposited by various methods (e.g. SDK, direct on-chain calls). However, for the ease of onboarding, the front-end of the first exchange built on the AFP, the AutEx, will be used to deposit collateral to a margin account.
+
+1. Visit [https://proto-afp.pages.dev](https://proto-afp.pages.dev) and connect your EVM compatible wallet by clicking the “Connect Wallet” button.
+    - Select the wallet you have previously configured. A pop-up will appear in your wallet extension asking to connect. Click “Connect”.
+    - You will then be prompted to sign a gas-less message to prove ownership of the connected wallet.
+2. Deposit to the AFP by clicking the “Deposit” button next to your connected wallet address on AutEx.
+    - The first deposit from a new address will create a new margin account automatically in the AFP. When depositing again, collateral will be credited to the previously created margin account.
+    - Enter the amount of USDC you would like to deposit to start trading and click “Deposit”.
+    - Confirm the transaction in your wallet extension.
+3. You are now ready to start trading.
+
+
+## How to start trading products on the AFP
+
+Once you have collateral in your on-chain Margin Account (when you make your first deposit a Margin Account is automatically created for you), you can start trading.
+
+1. Navigate to [https://proto-afp.pages.dev/trade](https://proto-afp.pages.dev/trade) and select the product you would like to trade in the product drop down selector.
+2. Fill out the order form by entering the quantity you wish to trade and the price at which you want your order to be filled. Ensure your “Available Margin” is greater than the Initial Margin (IM) Required to place your desired order. You can go long (BUY) if you expect the price to go up or short (SELL) if you expect the price to go down.
+3. When submitting an order on AutEx you are required to sign it with your wallet. This is gas-less as it is providing cryptographic proof that you want your order to be filled with the parameters you have defined – not actually making an on-chain transaction.
+4. Once your order has been submitted, it can be viewed in the “Open Orders” tab until it is filled.
+5. Once it is filled you can track the PnL of your position under the “Positions” tab, and in the “Order History” you can see details related to your order execution, including the on-chain transaction that was sent to the clearing system on Autonity.

@@ -1,0 +1,26 @@
+---
+title: "How to Integrate an Oracle"
+---
+
+The AFP is Oracle agnostic, meaning that as long as a Final Settlement Value (FSV) exists after the `earliestFSPSubmissionTime` on an oracle, the clearing system will fetch it and use it to closeout any outstanding positions via the Final Settlement Process.
+
+## Conforming to the AFP
+
+Any oracle implementation must implement the AFP Oracle interface. :
+
+`function resolve(bytes32 productId, bytes memory oracleCalldata) external view returns (int);`
+
+Where `productId` is used to resolve the correct FSV (as a single oracle may be providing the FSV to several products simultaneously), and `oracleCalldata` is used to pass any additional required logic to the oracle (such as referencing a particular element of a timeseries).
+
+## Implementation with a product
+It is up to a Product Builder to assign a particular oracle as the FSV resolver. Hence the Product Builder should ensure that the oracle is aware of its responsibilities, and the form in which the FSV is expected to be supplied. Such details can be found in the Product Specification:
+
+```
+    struct OracleSpecification {
+        address oracleAddress;
+        uint8 fsvDecimals;
+        int fspAlpha;
+        int fspBeta;
+        bytes fsvCalldata;
+    }
+```

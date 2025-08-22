@@ -1,0 +1,17 @@
+---
+title: "Welcome"
+page-layout: full
+sidebar: false
+search: true
+toc: false
+---
+
+Choose where to go:
+
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+
+  <a class="btn btn-secondary" href="/layer1/">Layer 1</a>
+  <a class="btn btn-secondary" href="/afp/">AFP Documentation</a>
+  
+</div>
+

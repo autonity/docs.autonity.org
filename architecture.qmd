@@ -1,0 +1,37 @@
+---
+title: "Overall Architecture"
+---
+
+The AFP can be broken down into distinct components with subsequent sections of the documentation going into more detail on each.
+
+![](images/overall_architecture.png)
+
+## Product Builder
+The Product Builder is responsible for defining a Product Specification that it will then submit to the Clearing System. For that Product Specification to be successfully submitted, automatic verification and validation checks must pass before it can go live. It is important to note that any address on Autonity can define and submit a Product Specification with the entire process being permissionless. 
+
+## Trading Protocols
+
+Once a Product has been created, and it goes live, it is up to the discretion of Trading Protocols to list an individual product and create an active market in it. Hence Trading Protocols are a crucial component of the overall architecture and for the success of a product. 
+
+Trading Protocols are third-party protocols that integrate with the clearing system where a product has been created by a Product Builder. The clearing system does not enforce any particular trading modality, meaning that the same product could be traded on a Central Limit Order Book (e.g. Binance, Bybit, OKX), an Automatic Market Maker (e.g. Uniswap), a Frequent Batch Auction (e.g. CoW Swap), a Request-for-quote protocol (e.g. Airswap), or any other type of trading protocol the community wishes to deploy. 
+
+Trading Protocol integration with the clearing system is also a permissionless process meaning that any trading protocol that wishes to make a market in a product can do so. The clearing system simply expects trades to be submitted in a standard form that it can interpret.
+
+## Margin Accounts
+Once a product has been created, and has been listed by a Trading Protocol, traders can start taking positions in it. However, seeing as the AFP is a futures protocol, a margin account funded with collateral is first required to open any positions a trader wants to take on. Such Margin Accounts are native to the clearing system which allows them to be used across any trading protocol, allowing cross-margining not just between products in the same trading protocol (as is the current state of futures in TradFi and DeFi) but across all trading protocols. This means that the profits of a position opened in a CLOB trading protocol, could be used to fund another position a trader wants to open on an AMM in another product.
+
+After a trader has funded a Margin Account, they are ready to start trading. 
+
+The AFP uses intents to express a trader’s intention to place an order – meaning that if a trader wishes to go long Product A, they sign an intent and submit it to their desired trading protocol. When the order is filled and a trade occurs, the Trading Protocol sends this on-chain to the clearing system.
+The clearing system then performs verification checks on the submitted trade structure and ensures that the trade can clear.
+
+## Oracles
+All products initially created in the AFP are Dated Futures, meaning a final Final Settlement Price is required to settle each product. This value is resolved by an Oracle. The AFP (similar to the Trading Protocol integrations) does not enforce a particular oracle architecture, it just requires that any third-party oracle adheres to the required oracle interface to allow for the Final Settlement Price to be determined. It is up to the Product Builder’s discretion as to which oracle they define in the Product Specification.
+
+The above architecture outlines the core components that enable the AFP to function as the first protocol with:
+
+- **Decentralized clearing**
+- **Cross-venue cross-margining**
+- **Futures products on any timeseries**
+
+

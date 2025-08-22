@@ -1,0 +1,48 @@
+<style>
+  /* Top tabs bar styling */
+  .top-tabs { display:flex; gap:1rem; align-items:flex-end; padding:0 0; margin:0.5rem 0 0.25rem; }
+  .top-tab { color: var(--bs-secondary-color, #6a737b); background: rgba(255,255,255,0.06); border-radius: .375rem; padding: .4rem .75rem; text-decoration: none; transition: color .15s ease, background .15s ease; }
+  .top-tab:hover { color: #6a274b; text-decoration: none; }
+  .top-tab.is-active { color: #a23b72; background: transparent; position: relative; }
+  .top-tab.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 3px; background: #a23b72; border-radius: 2px; }
+  /* Container that holds the tabs and a bottom border like in the screenshot */
+  .top-tabs-wrap { border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: .5rem; position: relative; z-index: 1015; background: var(--quarto-body-bg, #0f0f10); }
+  .top-tabs-container { max-width: 1320px; margin: 0 auto; padding: 0 1rem; }
+  @media (min-width: 1400px){ .top-tabs-container { max-width: 1440px; } }
+
+  /* Navbar brand alignment (logo + title inline) */
+  #quarto-header .navbar-brand { display: flex; align-items: center; gap: .5rem; }
+  #quarto-header .navbar-brand img { height: 24px; width: auto; }
+  #quarto-header .navbar-brand, #quarto-header .navbar .navbar-title { line-height: 1; }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    const header = document.getElementById('quarto-header');
+    if(!header) return;
+    // Create wrapper and tabs
+    const wrap = document.createElement('div');
+    wrap.className = 'top-tabs-wrap';
+    const container = document.createElement('div');
+    container.className = 'top-tabs-container';
+    const bar = document.createElement('div');
+    bar.className = 'top-tabs';
+
+    const mk = (text, href, isActive) => {
+      const a = document.createElement('a');
+      a.className = 'top-tab' + (isActive ? ' is-active' : '');
+      a.href = href;
+      a.textContent = text;
+      return a;
+    };
+
+    const path = window.location.pathname || '/';
+    const active = path.startsWith('/layer1') ? 'layer1' : (path.startsWith('/afp') ? 'afp' : 'home');
+
+    bar.appendChild(mk('Layer 1', '/layer1/', active === 'layer1'));
+    bar.appendChild(mk('AFP', '/afp/', active === 'afp'));
+    container.appendChild(bar);
+    wrap.appendChild(container);
+    // Insert AFTER the header so it sits above the sidebar and below the brand bar
+    header.insertAdjacentElement('afterend', wrap);
+  });
+</script>

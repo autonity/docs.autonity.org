@@ -1,0 +1,17 @@
+---
+title: "Clearing System"
+---
+#
+The decentralized clearing system of the AFP is core to the current functioning of the futures markets that are built on top of it.
+
+Existing derivates markets (both in TradFi and DeFi) couple trade execution and clearing into one venue. In TradFi, monopolistic tendencies concentrate market activity into a single trading venue for a particular instrument, whilst in DeFi competition for market share in derivates with the same underlying results in a fragmented market structure.
+
+For example, Binance, Bybit (CEXs), Hyperliquid and DYDX (DEXs) have all created BTCUSDT futures contracts, all built on the same underlying market: spot BTC-USDT. Yet, each venue that creates a futures contract on BTC-USDT allows for only their _own_ product to be traded on their _own_ venue, leading to fragmented liquidity even though the underlying is the same. This is not a decentralized market architecture.
+
+Contrast this to true decentralized markets such as spot Bitcoin. Bitcoin can be bought on any CEX and if desired can then be moved to a wallet and sold on a DEX, providing traders with an abundance of liquidity options to trade it. The AFP introduces the same level of true decentralisation in the derivatives markets with its clearing system.
+
+Decentralized clearing decouples trade execution from clearing, allowing for trades to be executed at one venue but cleared at another. This subtle yet crucial architectural difference results in a significantly altered and more efficient market design, allowing:
+
+- A rich choice of trading modalities to trade the same product
+- Traders access to a global pool of open interest in a product
+- Cross-venue cross-margining

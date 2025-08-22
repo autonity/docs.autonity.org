@@ -1,0 +1,11 @@
+{% set nav = page.nav() %}
+<div class="nav-buttons-wrapper" style="display: flex; justify-content: space-between; margin-top: 2em;">
+  {% if nav.prev %}
+    <a class="btn btn-secondary" href="{{ nav.prev.url }}">&larr; Previous: {{ nav.prev.title }}</a>
+  {% else %}
+    <span></span>
+  {% endif %}
+  {% if nav.next %}
+    <a class="btn btn-primary" href="{{ nav.next.url }}">Next: {{ nav.next.title }} &rarr;</a>
+  {% endif %}
+</div>

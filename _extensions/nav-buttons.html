@@ -1,0 +1,23 @@
+{{/*
+nav-buttons.html
+A Quarto shortcode to render Next/Previous navigation buttons at the bottom of each page.
+*/}}
+
+{% set nav = page.nav() %}
+<style>
+.nav-buttons-wrapper a.btn {
+  font-size: 4rem;
+  padding: 1rem 2.5rem;
+  border-radius: 0.5rem;
+}
+</style>
+<div class="nav-buttons-wrapper" style="display: flex; justify-content: space-between; margin-top: 2em;">
+  {% if nav.prev %}
+    <a class="btn btn-secondary" href="{{ nav.prev.url }}">&larr; Previous: {{ nav.prev.title }}</a>
+  {% else %}
+    <span></span>
+  {% endif %}
+  {% if nav.next %}
+    <a class="btn btn-primary" href="{{ nav.next.url }}">Next: {{ nav.next.title }} &rarr;</a>
+  {% endif %}
+</div>

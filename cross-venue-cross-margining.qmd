@@ -1,0 +1,11 @@
+---
+title: "Cross-Venue Cross-Margining"
+---
+#
+Cross-margining in derivatives trading is not a new concept—many existing protocols already allow traders to share collateral across positions. However, in these systems, cross-margining is typically confined within a single trading venue, as both execution and clearing are tightly coupled within the same protocol.
+
+The Autonity Futures Protocol (AFP) introduces a novel architecture that decouples trade execution from clearing. This separation enables a new and more powerful form of collateral efficiency: cross-venue cross-margining. Traders can now share collateral not just across positions, but across entirely separate trading venues.
+
+In practical terms, this means that a position opened on Trading Protocol A can generate unrealised profits that are immediately usable as margin to support a new position on Trading Protocol B. This is possible because margin accounts (MAs) are native to the shared clearing layer, rather than being embedded within individual trading venues—removing the historical barrier to cross-venue margining.
+
+

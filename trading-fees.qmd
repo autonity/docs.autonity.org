@@ -1,0 +1,21 @@
+---
+title: "Trading fees"
+---
+
+For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee. This section documents the Trading Fee component.
+
+## Trading Fee
+
+Trading fees are charged by the trading protocol and are transferred to the trading protocol’s margin account. In order to prevent excessive trading fee deductions by Trading Protocols, intent accounts set a `Maximum Trading Fee Rate` that a trading protocol can impose.
+
+It is up to the individual trading protocols’ discretion what sort of trading fee regime they follow. For example they may choose to provide a trading fee rebate to maker orders, paid for by taker counterparties in the trade.
+
+Trading fees are quoted as a percentage of the trade's notional, referred to as Trading Fee Rate ("TFR")
+
+`TF[i] = p * abs(q) * POINT_VALUE * TFR[i]`
+
+where `p` is the trade’s Trade Price and `q` is the (signed) quantity of the trade’s `i`-th fill. The TFR assigned to a fill can be negative (e.g., to express a maker order's rebate) but `sum(TF[1],...,TF[n]) >= 0` where `n` is the number of fills in the Trade object, because the net value for a trade's fees comes solely from the capital of the MAs involved in the trade.
+
+`sum(TF[1],...,TF[n])` is added to the Margin Account of the Trading Protocol that submitted the trade.
+
+

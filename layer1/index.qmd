@@ -1,0 +1,11 @@
+---
+title: "Layer 1"
+page-layout: full
+sidebar: false
+search: true
+toc: false
+---
+
+Please see [docs.autonity.org](https://docs.autonity.org) for the most recent Layer 1 documentation.
+
+

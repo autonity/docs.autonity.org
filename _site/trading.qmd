@@ -1,0 +1,11 @@
+---
+title: "Trading"
+---
+
+## Sub-sections
+
+- [Trade Execution and Clearing](trade-execution-and-clearing.qmd)
+- [Cross-Venue Cross-Margining](cross-venue-cross-margining.qmd)
+- [Intents](intents.qmd)
+
+

@@ -1,0 +1,12 @@
+---
+title: "Fees"
+---
+#
+For every settled trade, the MAs making up the trade are charged a Fee, which comprises two parts: Trading Fee and Clearing Fee.
+
+Typically, when trading protocols and clearing houses are tightly integrated, traders pay a single, undifferentiated "trading fee." This approach, however, obscures the distinct and important roles that trading protocols and clearing houses play in the trade lifecycle.
+
+With the AFP, trade execution and clearing are decoupled, so trading and clearing fees are treated as separate concerns and charged independently. This separation gives Product Builders the flexibility to redistribute fees as they wish. For example, clearing fees could be used to incentivize trading protocols to list their products and bootstrap liquidity by redirecting a portion of the Clearing Fees as rebates. If such incentives are unnecessary, Clearing Fees can instead be accumulated on the Product Builder’s Margin Account.
+
+At the same time, trading protocols have complete flexibility in how they implement trading fees. Whether through maker rebates, volume-based tiers, or any other fee structure, the AFP empowers venues to design and adapt their own fee regimes to best serve their markets and participants.
+

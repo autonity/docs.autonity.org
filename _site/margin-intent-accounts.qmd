@@ -1,0 +1,58 @@
+---
+title: "Margin & Intent Accounts"
+---
+
+## Margin Accounts (MAs) 
+MAs are at the core of the AFP and are internal to the clearing system. They house the collateral that is required to open and maintain positions in products that a user trades.
+
+Any address on Autonity (termed the _Admin Address)_ can create a Margin Account by depositing any ERC-20 collateral into the clearing system. If a Margin Account does not exist for an _Admin Address – Collateral Asset_ pair, a new one is created automatically. If one already exists, it is funded with the deposited collateral. 
+
+Collateral in a Margin Account is used to fund positions when trading products. By default, the Admin Address is also the designated Intent Account, allowing the admin address to trade the funds that it deposited and have administrative privileges over the Margin Account, such as:
+
+- Depositing/withdrawing funds
+- Adding/removing Intent Accounts
+
+## Margin Account Architecture
+The on-chain implementation of the Margin Account architecture is as follows:
+
+There is one [MarginAccount.sol](https://github.com/clearmatics/proto-afp/blob/master/clearing/contracts/MarginAccount.sol) contract per collateral asset which holds *all* the collateral deposited by Admin Addresses for that specific collateral asset. Individual MAs are then tracked within the Margin Account contract.
+
+Such [MarginAccount.sol](https://github.com/clearmatics/proto-afp/blob/master/clearing/contracts/MarginAccount.sol) contracts are created by:
+
+`function initializeMarginAccount(address collateralAsset) public returns (IMarginAccount)`
+
+on the [MarginAccountRegistry.sol](https://github.com/clearmatics/proto-afp/blob/master/clearing/contracts/MarginAccountRegistry.sol) contract. Anyone can call the above function but it is in the Product Builder's interest to ensure that the collateral asset that they have specified for their product is ready for trading. 
+
+## Intent Accounts (IAs)
+Intent Accounts (IAs) are Autonity addresses that can create intents (and so submit orders) that use the collateral in a Margin Account to trade products, but they do not have administrative privileges over those MAs (see [Intents](intents.qmd) for more detail).
+
+## Analogy to a hedge fund
+
+The setup described above can draw similarities to how a hedge fund may be structured - where the Admin Address may be considered to be the managing partner of the fund, and is able to raise capital, withdraw, hire/fire traders. Whereas IAs are the traders themselves who use the pool of capital of the fund to trade. 
+
+In fact, this can be further extended due to there being no limitation on the Admin Address to be an EOA. If a smart contract is implemented instead that further breaks down potential roles, an architecture like below can be created:
+
+![](images/hedge_fund_analogy.png)
+
+## Margin Account Equity (MAE) Check
+
+MAs serve the crucial purpose of housing collateral that is required to trade. As such, it is required to define a process by which the equity available in a Margin Account can be determined to:
+
+- See if the Margin Account is liquidatable.
+- Ensure there is sufficient Initial Margin to satisfy the Initial Margin Requirements of a trade that is submitted for clearing.
+
+**Margin Account Equity** is **Capital** plus **Unrealized PnL**:
+
+`MAE = C + UPnL`
+
+An MAE Check can be run on a Margin Account for any trade. That trade can be for a single product or for multiple products simultaneously. The MAE Check is defined as the following:
+
+1. If a Margin Account does not exist for the collateral asset defined in the Product Specification, the check fails.
+
+2. Recalculate MAE on the basis that each product is settled at the price and quantity defined in the trade.
+
+3. If the MAE is less than zero, the account is bankrupt and the check fails.
+
+4. If position sizes are increasing or reversing perform the Initial Margin Check. If the check fails, the process fails.
+
+5. Otherwise, the check succeeds.

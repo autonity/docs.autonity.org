@@ -1,0 +1,7 @@
+---
+title: "Oracle Interface"
+---
+#
+Oracles are a crucial component of the AFP as they are responsible for supplying the Final Settlement Value which is used to calculate the Final Settlement Price that Dated Futures products settle against. The AFP does not prescribe a specific oracle implementation to be used, as the oracle selection is up to the Product Builder. However, all Oracles must conform to the Oracle Interface expected by the clearing system. 
+
+For specific details on the interface that must be implemented, see the reference documentation [here](./afp-smart-contract-reference.qmd#ioracleprovider)

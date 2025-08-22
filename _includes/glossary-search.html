@@ -1,0 +1,81 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Don't show on homepage (index.qmd) or glossary/about-afp pages
+  const path = window.location.pathname || '/';
+  if (path === '/' || /\/index\.html$/.test(path)) return;
+  if (/(glossary|about-afp)\.(qmd|html)$/.test(path)) return;
+  // Create the glossary search box
+  const searchBox = document.createElement('div');
+  searchBox.id = 'glossary-search-container';
+  searchBox.style = 'margin: 1.2rem 0 0 0; max-width: 340px; position: relative;';
+  searchBox.innerHTML = `
+    <div style="position:relative;">
+      <input id="glossary-search-input" type="text" placeholder="Search glossary..." style="width:100%;padding:0.65em 2.2em 0.65em 1em;font-size:1em;border-radius:0.5em;border:1px solid #ccc;">
+      <span id="glossary-search-clear" style="display:none;position:absolute;right:0.8em;top:50%;transform:translateY(-50%);font-size:1.2em;cursor:pointer;color:#888;user-select:none;">&times;</span>
+    </div>
+    <div id="glossary-search-results" style="background:#fff;border:1px solid #eee;border-radius:0.5em;margin-top:0.5em;max-height:220px;overflow:auto;display:none;"></div>
+  `;
+  // Try to find the Quarto TOC sidebar
+  const tocSidebar = document.querySelector('.quarto-sidebar-toc, .toc-sidebar, nav#TOC, .sidebar-toc, .page-sidebar, .quarto-toc-sidebar, .quarto-toc, .toc-right, .page-toc, .quarto-toc-pane, .quarto-toc-right, .quarto-toc-container, .quarto-toc, #TOC');
+  if (tocSidebar) {
+    tocSidebar.appendChild(searchBox);
+  } else {
+    // Try to find the main content column to insert beside it
+    const mainCol = document.querySelector('.page-columns, .content, main');
+    if (mainCol && mainCol.parentNode) {
+      // Create a faux TOC container styled like the real one
+      const fauxToc = document.createElement('aside');
+      fauxToc.className = 'quarto-toc-pane faux-toc-pane';
+      fauxToc.style = 'position:absolute;top:90px;right:32px;width:340px;z-index:999;';
+      fauxToc.appendChild(searchBox);
+      mainCol.parentNode.insertBefore(fauxToc, mainCol.nextSibling);
+    }
+  }
+  // Glossary search logic
+  async function fetchGlossaryTerms() {
+    try {
+      const resp = await fetch('glossary.qmd'.replace('.qmd', '.html'));
+      const html = await resp.text();
+      const match = html.match(/<ul id=\"glossary-list\">([\s\S]*?)<\/ul>/);
+      if (match) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = match[0];
+        return Array.from(tempDiv.querySelectorAll('li')).map(li => li.innerHTML);
+      }
+    } catch (e) { /* ignore */ }
+    return [];
+  }
+  const input = searchBox.querySelector('#glossary-search-input');
+  const results = searchBox.querySelector('#glossary-search-results');
+  const clearBtn = searchBox.querySelector('#glossary-search-clear');
+  input?.addEventListener('input', async function() {
+    const query = this.value.trim().toLowerCase();
+    clearBtn.style.display = this.value ? 'block' : 'none';
+    if (!query) { results.style.display = 'none'; results.innerHTML = ''; return; }
+    const terms = await fetchGlossaryTerms();
+    const filtered = terms.filter(t => t.toLowerCase().includes(query));
+    if (filtered.length === 0) {
+      results.innerHTML = '<div style="padding:0.75em;color:#888;">No results found.</div>';
+    } else {
+      results.innerHTML = filtered.map(t => `<div style='padding:0.75em 1em;border-bottom:1px solid #f0f0f0;'>${t}</div>`).join('');
+    }
+    results.style.display = 'block';
+  });
+  clearBtn?.addEventListener('click', function() {
+    input.value = '';
+    clearBtn.style.display = 'none';
+    results.style.display = 'none';
+    results.innerHTML = '';
+    input.focus();
+  });
+});
+</script>
+<!-- Add this to your CSS for faux-toc-pane if needed:
+.faux-toc-pane {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 0.5em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1em 0.5em;
+}
+-->
