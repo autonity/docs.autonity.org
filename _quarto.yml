@@ -72,10 +72,12 @@ website:
         file: afp/glossary.qmd
       - section: "For Developers"
         contents:
-          - text: AFP SDK Reference
+          - text: AFP Python SDK Reference
             file: afp/afp-sdk-reference.qmd
           - text: AFP Smart Contract Reference
             file: afp/afp-smart-contract-reference.qmd
+          - text: AFP Smart Contract Python Bindings Reference
+            file: afp/afp-sdk-bindings-reference.md
   page-footer:
     left: "© 2025 AFP Project"
     right: "Built with Quarto"
