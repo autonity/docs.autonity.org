@@ -131,11 +131,11 @@ You are now ready to run telegraf in your working directory.
 
 To configure Autonity for exporting metrics set [command line options](/reference/cli/#command-line-options) when starting the node for:
 
-- the Autonity testnet being connected to: `--piccadilly` or `--bakerloo`.
+- the Autonity Bakerloo Testnet if connecting to Testnet not Mainnet: `--bakerloo`.
 - enabling metrics collection and reporting: `--metrics`.
 - enabling the pprof HTTP server: `--pprof`.
 
-The [Piccadilly Testnet](https://docs.autonity.org/networks/testnet-piccadilly/) is connected to in the example configuration here. For a minimal command line start configuration see the how to [Run Autonity](/node-operators/run-aut/).
+The [Bakerloo Testnet](https://docs.autonity.org/networks/testnet-bakerloo/) is connected to in the example configuration here. Omit the `--bakerloo` option when connecting to Mainnet. For a minimal command line start configuration see the how to [Run Autonity](/node-operators/run-aut/).
 
 Autonity will serve an http feed that provides metrics at `http://localhost:6060/debug/metrics/prometheus`, which you can view in a browser. Notice this is the input specified in `telegraf.conf` above. If you are using Docker, make sure you run the container as host, as shown below:
 
@@ -148,7 +148,7 @@ docker run \
 --rm \
 ghcr.io/autonity/autonity/autonity:latest \
     --datadir ./autonity-chaindata  \
-    --piccadilly \
+    --bakerloo \
     --http  \
     --http.api aut,eth,net,txpool,web3,admin  \
     --ws  \

@@ -16,9 +16,9 @@ pipx install eth-brownie
 
 Add the testnet you would like to deploy the contract to, given an `RPC_URL` from <https://chainlist.org/?testnets=true&search=autonity>:
 ```bash
-brownie networks add Ethereum piccadilly host=$RPC_URL chainid=65100003
+brownie networks add Ethereum bakerloo host=$RPC_URL chainid=65100003
 ```
-Here we have used the [Piccadilly testnet](/networks/testnet-piccadilly/) as an example.  See [here](/networks/) for other possible networks.
+Here we have used the [Bakerloo Testnet](/networks/testnet-bakerloo/) as an example.
 
 Install the OpenZeppelin package, which contains a base ERC20 token implementation:
 ```bash
@@ -99,7 +99,7 @@ brownie accounts generate deployer
 
 Run the deploy script on the testnet:
 ```bash
-brownie run --network piccadilly deploy main <OWNER>
+brownie run --network bakerloo deploy main <OWNER>
 ```
 
 Take note of the address of the deployed contract.  This can be used with the `--token` option of the `aut token` commands in order to interact with the deployed token.

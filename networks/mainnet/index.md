@@ -9,7 +9,7 @@ Autonity Mainnet is the live Autonity blockchain network for transactions and de
 
 Mainnet is for participants interested in:
 
-- The Autonity Futures Protocol
+- The [Autonity Futures Protocol](https://afp.autonity.org/)
 - Decentralized application (dApp) use cases
 - Providing live validator and public RPC endpoint node infrastructure
 - The Autonity community!
@@ -27,7 +27,7 @@ Mainnet is for participants interested in:
 
 ::: {.callout-tip title="Adding Autonity as a custom network to your wallet" collapse="false"}
 
-The above information can be used to add Autonity as a custom network to to an existing client such as [MetaMask](https://support.metamask.io/configure/networks/how-to-add-a-custom-network-rpc/)).
+The above information can be used to add Autonity as a custom network to to an existing client such as [MetaMask](https://support.metamask.io/configure/networks/how-to-add-a-custom-network-rpc/).
 
 :::
 

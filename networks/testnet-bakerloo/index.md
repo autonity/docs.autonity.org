@@ -1,17 +1,18 @@
 ---
 title: "Bakerloo Testnet"
 description: >
- Public Autonity Testnet running the stable version of the Autonity protocol
+ Public Autonity Testnet for test and development
 draft: false
 ---
 
-Bakerloo is a general purpose public Testnet providing a stable testing environment for those developing a project on top of Autonity.
+Bakerloo is a general purpose public testnet that simulates the mainnet protocol configuration.
 
-Bakerloo provides a reliable test network for community developers, node operators, and infrastructure providers to:
+Testnet provides a stable environment for community developers, node operators, and infrastructure providers to:
 
-- test their tooling, software and operational practices
+- test protocol upgrades before rollout to Mainnet
+- test tooling, software and operational practices
 - work in a safe sandbox environment to build, test, and debug before deployment to mainnet without transaction cost
-- innovate new protocols, ideas, and projects.
+- innovate and develop new protocols, ideas, and projects for Autonity.
 
 ## Bakerloo Testnet details
 
@@ -25,7 +26,7 @@ Bakerloo provides a reliable test network for community developers, node operato
 
 ::: {.callout-tip title="Adding Autonity as a custom network to your wallet" collapse="false"}
 
-The above information can be used to add Autonity as a custom network to to an existing client such as [MetaMask](https://support.metamask.io/configure/networks/how-to-add-a-custom-network-rpc/)).
+The above information can be used to add Autonity as a custom network to to an existing client such as [MetaMask](https://support.metamask.io/configure/networks/how-to-add-a-custom-network-rpc/).
 
 :::
 
