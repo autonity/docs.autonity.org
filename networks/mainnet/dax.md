@@ -24,7 +24,7 @@ This page details:
 
 ### DAX Uniswap Contract Addresses
 
-Decentralized Auton Exchange (DAX) Contract Addresses deployed on the Autonity Network Piccadilly:
+Decentralized Auton Exchange (DAX) Contract Addresses deployed on the Autonity Network Bakerloo:
 
 | Contract | Address |
 | :-- | :--: |
@@ -55,14 +55,14 @@ Alternatively, you can manually generate the ABI yourself using tooling. For exa
 
 You will need to setup your tooling to submit transactions to the DAX from your [account](/account-holders/create-acct/).
 
-This guide assumes you will use the `aut` command line tool (see [Setup Autonity CLI](/account-holders/setup-aut/)) and the `aut contract` command group. To use `aut contract` for this you will need to get the ABI for the DAX Uniswap contract functions. See [Exchange resource links](/networks/testnet-piccadilly/dax.html#exchange-resource-links) for how to get (or generate) the [Uniswap Contract ABI](/getting-started/exchange-dax.html#uniswap-contract-abi).
+This guide assumes you will use the `aut` command line tool (see [Setup Autonity CLI](/account-holders/setup-aut/)) and the `aut contract` command group. To use `aut contract` for this you will need to get the ABI for the DAX Uniswap contract functions. See [Exchange resource links](/networks/testnet-bakerloo/dax.html#exchange-resource-links) for how to get (or generate) the [Uniswap Contract ABI](/getting-started/exchange-dax.html#uniswap-contract-abi).
 
 Alternatively, develop your own custom scripting for interacting with the DAX Uniswap contracts! For example, using: `web3.py` ([docs ](https://web3py.readthedocs.io/en/stable/), [GitHub ](https://github.com/ethereum/web3.py)) or use the [uniswap-python library ](https://uniswap-python.com/index.html) [command line interface ](https://uniswap-python.com/cli.html).
 
 
 ## Getting DAX pair information
 
-There is currently one pair created on the DAX for an ATN-USDC liquidity pool, the `WATN-USDC` token pair. The contract address for this pair is listed in the [Exchange resource links above](/networks/testnet-piccadilly/dax.html#exchange-resource-links).
+There is currently one pair created on the DAX for an ATN-USDC liquidity pool, the `WATN-USDC` token pair. The contract address for this pair is listed in the [Exchange resource links above](/networks/testnet-bakerloo/dax.html#exchange-resource-links).
 
 To check if additional pairs have been created, you can query using the Uniswap `Factory` smart contract's `getPair`, `allPairs`, and `allPairsLength` functions, see docs [Factory ](https://docs.uniswap.org/contracts/v2/reference/smart-contracts/factory). You can use the ABI for the Factory interface `IUniswapV2Factory` to do this.
 
