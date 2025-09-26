@@ -18,7 +18,7 @@ Autonity supports all Geth command-line options with the following _exceptions_:
 | `attach` and `console` | The Geth JavaScript console is deprecated in favour of Autonity CLI |
 | `makecache` and `makedag`| The commands are removed. They are specific to ethash Proof of Work consensus and not required by Autonity's Tendermint consensus |
 | ETHEREUM OPTIONS: ||
-| `piccadilly` and `bakerloo` | Options for connecting to the Autonity test networks 'Piccadilly' and `Bakerloo` are added (Options for connecting to the Ethereum test networks are removed) |
+| `bakerloo` | An option for connecting to the Autonity test network 'Bakerloo' is added (Options for connecting to the Ethereum test networks are removed) |
 | `genOwnershipProof` | An option to generate an enode proof required for validator registration is added |
 | `genAutonityKeys` | Autonity implements separate channels for transaction and consensus gossiping and so has two keys at the P2P layer. An option to generate an Autonity keys file containing the transaction and consensus gossiping private keys is added |
 | NETWORKING OPTIONS: ||
@@ -108,11 +108,10 @@ ETHEREUM OPTIONS:
   --keystore value                    Directory for the keystore (default = inside the datadir)
   --usb                               Enable monitoring and management of USB hardware wallets
   --pcscdpath value                   Path to the smartcard daemon (pcscd) socket file (default: "/run/pcscd/pcscd.comm")
-  --networkid value                   Explicitly set network id (integer)(For testnets: use --piccadilly instead) (default: 65000000)
+  --networkid value                   Explicitly set network id (integer)(For testnets: use --bakerloo instead) (default: 65000000)
   --syncmode value                    Blockchain sync mode ("snap", "full" or "light") (default: snap)
   --exitwhensynced                    Exits after block synchronisation completes
   --gcmode value                      Blockchain garbage collection mode ("full", "archive") (default: "full")
-  --piccadilly                        Piccadilly network: pre-configured Autonity test network
   --bakerloo                          Bakerloo network: pre-configured Autonity test network
   --txlookuplimit value               Number of recent blocks to maintain transactions index for (default = about one year, 0 = entire chain) (default: 2350000)
   --ethstats value                    Reporting URL of a ethstats service (nodename:secret@host:port)

@@ -249,9 +249,9 @@ A basic set of data adaptor plugins for sourcing this data is provided out the b
 
 - Built by the `make` process when building from source. Run the make command appropriate for the Testnet you are connecting to as described in [Build from source code](/oracle/install-oracle/#install-source). You can view the built plugins in the directory `./build/bin/plugins`.
 
-- Included pre-built as part of the pre-built executable.  You can view the built plugins in the directory `/plugins`. The executable is built for Piccadilly Testnet only.
+- Included pre-built as part of the pre-built executable.  You can view the built plugins in the directory `/plugins`. The executable is built for Mainnet only.
 
-- Included pre-built as part of oracle server Docker image and the pre-built executable. Install the Docker image for the Testnet you are connecting to as described in [Installing the Docker image](/oracle/install-oracle/#install-docker). The built plugins are included in the Docker container at the path `/usr/local/bin/plugins`.
+- Included pre-built as part of oracle server Docker image and the pre-built executable. Install the Docker image for the network you are connecting to as described in [Installing the Docker image](/oracle/install-oracle/#install-docker). The built plugins are included in the Docker container at the path `/usr/local/bin/plugins`.
 
 ::: {.callout-note title="Note" collapse="false"}
 <!--The Simulator plugin for simulated ATN and NTN price data is built when building from source for Bakerloo Testnet. -->You can build the Simulator plugin independently by running the command `make simulator`. This will build the `simulator_plugin` in the `/plugins` directory. A local testnet could be a scenario for setting up and using a simulator.

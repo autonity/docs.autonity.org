@@ -12,7 +12,7 @@ To connect your node to a custom Autonity network, you will need the network's:
   See [Local Autonity Network configuration](/reference/genesis/#local-autonity-network-configuration) in the [Genesis](/reference/genesis/) reference for how to create these files.
 
 ::: {.callout-note title="Note" collapse="false"}
-Note that the client provides command-line flag options for connecting to public Autonity testnets: `--bakerloo` and `--piccadilly`. The node will not run if you specify both genesis and bootnodes for a custom network **and** a testnet flag. The client will create a genesis block for the custom network's genesis configuration and the node's local store will then have an incompatible genesis with the testnet.
+Note that the client provides a [command-line option](/reference/cli/agc/#command-line-options) for connecting to the Autonity Bakerloo Testnet `--bakerloo`. The node will not run if you specify both genesis and bootnodes for a custom network **and** a testnet flag. The client will create a genesis block for the custom network's genesis configuration and the node's local store will then have an incompatible genesis with the testnet.
 :::
 
 1. Install Autonity in a working directory and create an `autonity-chaindata` sub-directory as described in [Running a node, Install Autonity](/node-operators/install-aut/).
@@ -29,7 +29,7 @@ cp ./<PATH>/static-nodes.json ./autonity-chaindata/
 cp ./<PATH>/genesis.json ./
 ```
 
-4. Run the node as described in [Running a node, Run Autonity](/node-operators/run-aut/), replacing the network specifier flag (e.g. `--piccadilly`) with the options:
+4. Run the node as described in [Running a node, Run Autonity](/node-operators/run-aut/), specifying your custom network by the options:
 	- `--genesis`: to provide the genesis file.
 	- `--networkid`: to provide the network identifier. This is typically the same value as the `chainId` file in the genesis configuration file, but may be different.
 

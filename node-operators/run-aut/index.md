@@ -8,6 +8,17 @@ description: >
 - Ensure that the host machine meets the [minimum requirements](/node-operators/install-aut/#requirements)
 :::
 
+
+## Running the Autonity Go Client
+
+When initialised Autonity Go Client will connect to the specified Autonity network, find peer nodes, and begin to sync. AGC's default setting is to connect to Mainnet.
+
+If connecting to the [Bakerloo Testnet](/networks/testnet-bakerloo/), then the `--bakerloo` command-line option is specified when running the node. The Mainnet and Bakerloo genesis configuration are specified along with bootnodes in the AGC configuration and do not need to be specified.
+
+If connecting to a custom network genesis configuration and bootnode addresses will need to be specified. For how to do this see the Development guide page [Setting up custom networks](https://docs.autonity.org/developer/custom-networks/).
+
+This guide exemplifies connecting to Bakerloo. If connecting to Mainnet simply remove the `--bakerloo` flag.
+
 ## Run Autonity (binary or source code install) {#run-binary}
 
 - Ensure that the Autonity Go Client has been installed from a [pre-compiled binary](/node-operators/install-aut#install-binary) or from [source code](/node-operators/install-aut#install-source)
