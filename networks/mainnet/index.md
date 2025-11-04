@@ -72,11 +72,17 @@ Mainnet is built using:
 
 - Autonity Oracle Server (AOS) Release: [v0.2.6](https://github.com/autonity/autonity-oracle/releases/tag/v0.2.6). The docker image release is: [`ghcr.io/autonity/autonity-oracle:v0.2.6`](https://github.com/orgs/autonity/packages/container/autonity-oracle/483926882?tag=v0.2.6).
 
-## ATN funding
+## Bridge and ATN funding
 
+There is a third-party operated Bridge available at [https://autonity.protousd.com/](https://autonity.protousd.com/) to transfer USDC from many popular networks to Autonity Mainnet. 
+
+When doing so, an additional small amount of ATN 0.01 is provided for free to the recipient account, to support the account holder with covering gas fees for follow on transactions.
+
+<!--
 [Auton (ATN)](/concepts/protocol-assets/auton) is available on-chain from the Decentralized Auton Exchange (DAX) ATN-USDC market.
 
 DAX is a Uniswap V2 clone AMM. Bridge USDC to Autonity from Polygon Mainnet using the VIA Labs bridge and trade in the DAX to purchase ATN.
+-->
 
 <!-- 
 To bridge see [Use the Bridge](/networks/mainnet/bridge.md)
