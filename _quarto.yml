@@ -4,6 +4,10 @@ project:
   preview:
     port: 3000
     browser: false
+  post-render:
+    - scripts/feature-filter.py
+metadata-files:
+  - _features.yml
 execute:
   freeze: auto
   echo: true
@@ -100,6 +104,8 @@ website:
       - icon: youtube
         href: https://www.youtube.com/channel/UCBMTGESIYJzXy-MfojATRqQ
 filters:
+  - _filters/contract-footer.lua
+  - _filters/method-meta-data.lua
   - _filters/macro-substitution.lua
   - _filters/page-info.lua
   - _filters/card-substitution.lua
@@ -113,7 +119,9 @@ format:
       light: [cosmo, _theme/theme.scss]
     code-copy: true
     code-overflow: wrap
-    css: _assets/css/styles.css
+    css:
+      - _assets/css/styles.css
+      - _assets/css/docgen.css
     toc: true
     include-in-header:
       - text: |

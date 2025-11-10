@@ -1,95 +1,105 @@
 /*-- scss:fonts --*/
 @font-face {
-    font-family: 'Berkeley Mono';
-    src: url('_theme/fonts/berkeley/BerkeleyMono-Regular.woff2') format('woff2'),
-        url('_theme/fonts/berkeley/BerkeleyMono-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
+  font-family: "Berkeley Mono";
+  src: url("_theme/fonts/berkeley/BerkeleyMono-Regular.woff2") format("woff2"),
+    url("_theme/fonts/berkeley/BerkeleyMono-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
 }
 
 @font-face {
-    font-family: 'Berkeley Mono';
-    src: url('_theme/fonts/berkeley/BerkeleyMono-Bold.woff2') format('woff2'),
-        url('_theme/fonts/berkeley/BerkeleyMono-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: block;
+  font-family: "Berkeley Mono";
+  src: url("_theme/fonts/berkeley/BerkeleyMono-Bold.woff2") format("woff2"),
+    url("_theme/fonts/berkeley/BerkeleyMono-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: block;
 }
 
 @font-face {
-    font-family: 'Berkeley Mono';
-    src: url('_theme/fonts/berkeley/BerkeleyMono-Italic.woff2') format('woff2'),
-        url('_theme/fonts/berkeley/BerkeleyMono-Italic.woff') format('woff');
-    font-weight: normal;
-    font-style: italic;
-    font-display: block;
+  font-family: "Berkeley Mono";
+  src: url("_theme/fonts/berkeley/BerkeleyMono-Italic.woff2") format("woff2"),
+    url("_theme/fonts/berkeley/BerkeleyMono-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: block;
 }
 
 @font-face {
-    font-family: 'Noto Sans';
-    src: url('_theme/fonts/noto/NotoSans-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: block;
+  font-family: "Noto Sans";
+  src: url("_theme/fonts/noto/NotoSans-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: block;
 }
 
 @font-face {
-    font-family: 'Noto Sans';
-    src: url('_theme/fonts/noto/NotoSans-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
+  font-family: "Noto Sans";
+  src: url("_theme/fonts/noto/NotoSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
 }
 
 @font-face {
-    font-family: 'Noto Sans';
-    src: url('_theme/fonts/noto/NotoSans-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
-    font-display: block;
+  font-family: "Noto Sans";
+  src: url("_theme/fonts/noto/NotoSans-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+  font-display: block;
 }
 
 /*-- scss:defaults --*/
-$font-family-sans-serif: 'Noto Sans' sans-serif;
+$font-family-sans-serif: "Noto Sans" sans-serif;
 $link-color: #a23b72;
 $link-color-hover: #6a274b;
 $text-muted: #6a737b;
-$font-family-monospace: 'Berkeley Mono', monospace;
+$font-family-monospace: "Berkeley Mono", monospace;
 $font-size-root: 0.95rem;
+$docgen-table-color: #b6babc;
 
-
+:root {
+  --secondary-border: var(--border-thickness) solid var(--bs-body-color);
+  --primary-border: var(--border-thickness) solid var(--bs-body-color);
+  --primary-docgen-border: var(--border-thickness) solid #b6babc;
+  --secondary-docgen-border: var(--border-thickness) solid #7f8081;
+  --border-thickness: 1.53px;
+  --green: #528f18;
+  --blue: #5656e9;
+  --purple: #906ce3;
+  --tertiary-color: #9d9d9d;
+}
 /*-- scss:rules --*/
 body {
-    font-family: proxima nova,sans-serif;
+  font-family: proxima nova, sans-serif;
 }
 
 a {
-    color: $link-color;
-    text-decoration: none;
-    background-color: transparent;
+  color: $link-color;
+  text-decoration: none;
+  background-color: transparent;
 }
 
-
 a:hover {
-    color: $link-color-hover;
-    text-decoration: none;
+  color: $link-color-hover;
+  text-decoration: none;
 }
 
 div.sidebar-item-container .active,
-div.sidebar-item-container .show>.nav-link,
-div.sidebar-item-container .sidebar-link>code {
-    color: $link-color;
+div.sidebar-item-container .show > .nav-link,
+div.sidebar-item-container .sidebar-link > code {
+  color: $link-color;
 }
 
 code {
-    color: inherit;
-    padding: 0.2em 0.4em;
-    margin: 0;
-    font-size: 85%;
-    word-break: normal;
-    background-color: rgba(0, 0, 0, 5%);
-    border-radius: 0.25rem;
+  color: inherit;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  word-break: normal;
+  background-color: rgba(0, 0, 0, 5%);
+  border-radius: 0.25rem;
 }
 
 h1,
@@ -97,36 +107,30 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: 'Berkeley Mono', monospace;
+  font-family: "Berkeley Mono", monospace;
 }
 
 .navbar-dark {
-    background-color: #000000;
+  background-color: #000000;
 }
 
 .navbar-dark .navbar-brand {
-    color: #ffffff;
+  color: #ffffff;
 }
 
-.navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
-    color: #ffffff;
+.navbar-dark .navbar-brand:hover,
+.navbar-dark .navbar-brand:focus {
+  color: #ffffff;
 }
 
 .notice {
-    font-family: 'London Underground';
+  font-family: "London Underground";
 }
 
 .sidebar-item {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .sidebar-item-container {
-    margin-bottom: 0.5em;
-}
-
-/**
-* Handle footer content, prevent wrapping
-*/
-.footer-list {
-    white-space: nowrap;
+  margin-bottom: 0.5em;
 }

@@ -4,33 +4,31 @@
 #
 #    pip-compile
 #
-black==24.8.0
+black==25.1.0
     # via -r requirements.in
-build==1.2.2
+build==1.2.2.post1
     # via pip-tools
-click==8.1.7
+click==8.1.8
     # via
     #   black
     #   pip-tools
-cytoolz==0.12.3
+cytoolz==1.0.1
     # via eth-utils
-eth-hash[pycryptodome]==0.7.0
+eth-hash[pycryptodome]==0.7.1
     # via
     #   -r requirements.in
     #   eth-utils
-eth-typing==5.0.0
+eth-typing==5.1.0
     # via eth-utils
-eth-utils==5.0.0
+eth-utils==5.2.0
     # via -r requirements.in
-hexbytes==1.2.1
-    # via eth-utils
-mypy==1.11.2
+mypy==1.15.0
     # via -r requirements.in
 mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
-packaging==24.1
+packaging==24.2
     # via
     #   black
     #   build
@@ -40,19 +38,19 @@ pip-tools==7.4.1
     # via -r requirements.in
 platformdirs==4.3.6
     # via black
-pycryptodome==3.20.0
+pycryptodome==3.21.0
     # via eth-hash
-pyproject-hooks==1.1.0
+pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-ruff==0.6.5
+ruff==0.9.6
     # via -r requirements.in
 schema==0.7.7
     # via -r requirements.in
 toml==0.10.2
     # via -r requirements.in
-toolz==0.12.1
+toolz==1.0.0
     # via cytoolz
 types-toml==0.10.8.20240310
     # via -r requirements.in
@@ -60,9 +58,9 @@ typing-extensions==4.12.2
     # via
     #   eth-typing
     #   mypy
-watchdog==5.0.2
+watchdog==6.0.0
     # via -r requirements.in
-wheel==0.44.0
+wheel==0.45.1
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
