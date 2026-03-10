@@ -411,5 +411,3 @@ For transaction gossiping between nodes the Ethereum wire protocol is used for P
 For consensus gossiping a separate consensus protocol runs alongside the ethwire protocol for the execution of Autonity's BFT Tendermint Consensus algorithm. This channel is used by committee members to broadcast consensus messages during Tendermint consensus rounds (propose, prevote and precommit). Validator messages sent during consensus rounds are cryptographically signed (sealed). A subset of these signatures are saved in the [block header](/concepts/system-model/#block-header) as cryptographic proof of the validator quorum that agreed on the block: the *proposer seal*, seal of the committee member proposing the block, and the *quorum certificate*, a single aggregated BLS signature of the committee members that voted and agreed on the block.
 
 To learn more about the separation of transaction and consensus gossiping traffic, see [System model, Networking](/concepts/system-model/#networking).
-
-For how bootnode provision works, see the How to [Run Autonity](/node-operators/run-aut/).
