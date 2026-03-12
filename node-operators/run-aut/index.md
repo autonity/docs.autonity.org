@@ -13,9 +13,9 @@ description: >
 
 When initialised Autonity Go Client will connect to the specified Autonity network, find peer nodes, and begin to sync. AGC's default setting is to connect to Mainnet.
 
-If connecting to the [Bakerloo Testnet](/networks/testnet-bakerloo/), then the `--bakerloo` command-line option is specified when running the node. The Mainnet and Bakerloo genesis configuration are specified along with bootnodes in the AGC configuration and do not need to be specified.
+If connecting to a public Autonity network, the genesis configuration is loaded automatically. However, bootnode addresses must be specified explicitly for peer discovery. For configuration details, see the Development guide page [Setting up custom networks](https://docs.autonity.org/developer/custom-networks/) and **How to identify and configure bootnodes for a custom network**.
 
-If connecting to a custom network genesis configuration and bootnode addresses will need to be specified. For how to do this see the Development guide page [Setting up custom networks](https://docs.autonity.org/developer/custom-networks/).
+If connecting to a custom network genesis configuration and bootnode addresses must be specified. For how to do this see the Development guide page [Setting up custom networks](https://docs.autonity.org/developer/custom-networks/).
 
 This guide exemplifies connecting to Bakerloo. If connecting to Mainnet simply remove the `--bakerloo` flag.
 
@@ -33,7 +33,9 @@ To connect to a network and sync, get the genesis and bootnode files if needed, 
     mkdir autonity-chaindata
     ```
 
-3. Start autonity:
+3. Specify bootnodes - see guide page [Setting up custom networks](/developer/custom-networks/) and **How to identify and configure bootnodes for a custom network**.
+
+4. Start autonity:
 
     ``` bash
     autonity \
@@ -82,7 +84,9 @@ Autonity will download the blockchain in "snap" syncmode by default.  Once fully
 	```bash
     mkdir autonity-chaindata
     ```
-3. Start the node. Set the Docker configuration and the arguments for connecting Autonity to a network.
+3. Specify bootnodes - see guide page [Setting up custom networks](/developer/custom-networks/) and **How to identify and configure bootnodes for a custom network**.
+
+4. Start the node. Set the Docker configuration and the arguments for connecting Autonity to a network.
 
    ```bash
    docker run \

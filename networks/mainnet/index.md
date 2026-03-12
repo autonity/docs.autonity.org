@@ -53,16 +53,9 @@ The network's genesis configuration is:
 | `config.oracle.votePeriod`         | `600` (600  blocks)          |
 
 
-## Bootnodes
+## Node discovery
 
-The network bootnode addresses are:
-
-| enode | region |
-| :-- | :--      |
-| `enode://bba73a4252e64fa23e11bcfc9c0c03e912fc8c17374a637bbc9cb42351a22624f463b0e774a0ab06141690d4499f686e2446fc96cb76fd7c842a191bce047f8a@34.147.142.153:30303` | europe-west2 |
-| `enode://87dd0697db1a6a434cdc1813b45396a8aa2003ca65a9cbb7d8fc82e5fb608b561af012a91aef827979ffa973ddb0df7c7dc43e0778729cd067d91554b1138413@35.200.148.179:30303` | asia-south1b|
-| `enode://d295a022386c51f52b7630586304eac18fc2a299276fcea31771ec0c20bf967e772d90467f18d6b7fe3e7dfbcfd896db2192a3e9556eecbfdae43eab6c097ee0@34.102.61.248:30303` | us-west2 |
-
+Bootnode addresses must be specified explicitly for peer node discovery when joining and syncing with the network. For configuration details, see the Development guide page [Setting up custom networks](/developer/custom-networks/) and **How to identify and configure bootnodes for a custom network**.
 
 ## Release
 
